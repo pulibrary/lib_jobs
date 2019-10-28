@@ -1,4 +1,4 @@
-# ILS Job
+# ILS Jobs
 
 ## Connects to 
   * SFX
@@ -15,6 +15,6 @@
   * Download records from OCLC
   
 ## Output 
-  * Tableu.princeton.edu
-  * google drive
+  * tableau.princeton.edu
+  * Google Drive
   * FTP files
