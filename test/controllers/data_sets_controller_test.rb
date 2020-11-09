@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'test_helper'
 
 class DataSetsControllerTest < ActionDispatch::IntegrationTest
@@ -17,7 +18,7 @@ class DataSetsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create data_set" do
     assert_difference('DataSet.count') do
-      post data_sets_url, params: { data_set: {  } }
+      post data_sets_url, params: { data_set: {} }
     end
 
     assert_redirected_to data_set_url(DataSet.last)
@@ -34,7 +35,7 @@ class DataSetsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update data_set" do
-    patch data_set_url(@data_set), params: { data_set: {  } }
+    patch data_set_url(@data_set), params: { data_set: {} }
     assert_redirected_to data_set_url(@data_set)
   end
 
