@@ -4,9 +4,9 @@ lock "~> 3.12.1"
 
 set :application, "lib-jobs"
 set :repo_url, "git@github.com:pulibrary/lib_jobs.git"
-set :branch, ENV["BRANCH"] || "master"
+set :branch, ENV["BRANCH"] || "main"
 
-# Default branch is :master
+# Default branch is :main
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
 # Default deploy_to directory is /var/www/my_app_name
