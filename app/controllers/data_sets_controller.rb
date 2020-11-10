@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class DataSetsController < ApplicationController
   before_action :set_data_set, only: [:show, :edit, :update, :destroy]
 
@@ -9,8 +10,7 @@ class DataSetsController < ApplicationController
 
   # GET /data_sets/1
   # GET /data_sets/1.json
-  def show
-  end
+  def show; end
 
   # GET /data_sets/new
   def new
@@ -18,8 +18,7 @@ class DataSetsController < ApplicationController
   end
 
   # GET /data_sets/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /data_sets
   # POST /data_sets.json
@@ -62,13 +61,14 @@ class DataSetsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_data_set
-      @data_set = DataSet.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def data_set_params
-      params.fetch(:data_set, {})
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_data_set
+    @data_set = DataSet.find(params[:id])
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def data_set_params
+    params.fetch(:data_set, {})
+  end
 end

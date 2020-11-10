@@ -1,10 +1,10 @@
+# frozen_string_literal: true
 # config valid for current version and patch releases of Capistrano
 lock "~> 3.12.1"
 
 set :application, "lib-jobs"
 set :repo_url, "git@github.com:pulibrary/lib_jobs.git"
 set :branch, ENV["BRANCH"] || "master"
-
 
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
