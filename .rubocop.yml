@@ -9,3 +9,7 @@ AllCops:
 Layout/LineLength:
   Enabled: true
   Max: 200
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
