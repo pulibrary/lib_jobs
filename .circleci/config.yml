@@ -1,0 +1,102 @@
+---
+version: 2.1
+executors:
+  lib-jobs-executor:
+    docker:
+      - image: circleci/ruby:2.6.5-node-browsers
+        environment:
+          BUNDLER_VERSION: 2.0.1
+          BUNDLE_JOBS: 3
+          BUNDLE_RETRY: 3
+          BUNDLE_PATH: vendor/bundle
+          RAILS_ENV: test
+    working_directory: ~/project
+
+commands:
+  setup-bundler:
+    description: "Install correct version of bundler and load from cache or bundle install"
+    steps:
+      - run: sudo apt-get update
+      - run: sudo apt-get install cifs-utils unixodbc unixodbc-dev freetds-dev freetds-bin tdsodbc
+      - run:
+          name: Configure Bundler
+          command: |
+            echo 'export BUNDLER_VERSION=$(cat Gemfile.lock | tail -1 | tr -d " ")' >> $BASH_ENV
+            source $BASH_ENV
+            gem install bundler
+
+      # Which version of bundler?
+      - run:
+          name: Which bundler?
+          command: bundle -v
+
+      # Restore bundle cache
+      - restore_cache:
+          keys:
+            - lib-jobs-bundle-v3-{{ checksum "Gemfile.lock" }}
+            - lib-jobs-bundle-v3-
+
+      - run:
+          name: Bundle Install
+          command: bundle check || bundle install
+
+      # Store bundle cache
+      - save_cache:
+          key: lib-jobs-bundle-v3-{{ checksum "Gemfile.lock" }}
+          paths:
+            - vendor/bundle
+
+jobs:
+  build:
+    executor: lib-jobs-executor
+    steps:
+      - attach_workspace:
+          at: '~/project'
+      - checkout
+      - setup-bundler
+      - persist_to_workspace:
+          root: '~/project'
+          paths: '*'
+
+  test:
+    executor: lib-jobs-executor
+    steps:
+      - attach_workspace:
+          at: '~/project'
+      - setup-bundler
+
+      - run:
+          name: Database setup
+          command: |
+            bin/rails db:create
+            bin/rails db:migrate
+
+      # Run rspec with percy
+      - run:
+          name: Run rspec
+          command: |
+            bundle list
+            bundle exec rspec
+
+      - persist_to_workspace:
+          root: '~/project'
+          paths: '*'
+
+  rubocop:
+    executor: lib-jobs-executor
+    steps:
+      - attach_workspace:
+          at: '~/project'
+      - setup-bundler
+      - run: bundle exec rubocop
+
+workflows:
+  build_accept:
+    jobs:
+      - build
+      - rubocop:
+         requires:
+          - build
+      - test:
+         requires:
+          - build
