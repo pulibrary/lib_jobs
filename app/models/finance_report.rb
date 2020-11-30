@@ -12,10 +12,9 @@ class FinanceReport
 
   def report(employee_id:)
     results = finance_adapter.execute_staff_query(employee_id: employee_id)
-    return {} if results.blank?
+    return default_data if results.blank?
 
     db_data = results.first
-    return {} unless db_data['Active']
 
     reformat_data(db_data: db_data)
   end
@@ -41,5 +40,12 @@ class FinanceReport
     ['Active', 'Alphabetical', 'idBuilding', 'idDepartment', 'idPosition', 'idPosition Notes', 'idStaff2Positions', 'idUnit', 'Business_Unit', 'CLS_Staff', 'Code_Position', 'CreationDate',
      'Departmental', 'DirectoryOnly', 'EmplClass', 'EndDate', 'FTE', 'ID_Building', 'Inactive', 'JobCode', 'LocationCode', 'Nbr_Home', 'Note', 'PS_Position_No', 'PULA', 'PayGrade',
      'PositionFTE', 'Posted', 'PostedComments', 'Rank', 'Sal Plan', 'SecondaryPosition', 'Supervisor of PULA Staff', 'Supervisor of Staff', 'Supervisor of Students', 'TerminationDate']
+  end
+
+  def default_data
+    { 'idStaff' => nil, 'PUID' => nil, 'Email' => nil, 'StartDate' => nil, 'NetID' => nil, 'LibraryTitle' => nil, 'Office' => nil, 'Phone' => nil,
+      'StaffSort' => nil, 'UnitSort' => nil, 'DeptSort' => nil, 'Title' => nil, 'LongTitle' => nil, 'Department' => nil, 'Division' => nil, 'Section' => nil,
+      'Unit' => nil, 'Building' => nil, 'DivSect' => nil, "Name" => nil, 'lastName' => nil, 'firstName' => nil, 'middleName' => nil, 'nickName' => nil,
+      'FireWarden' => false, 'BackupFireWarden' => false, 'FireWardenNotes' => nil }
   end
 end

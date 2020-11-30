@@ -55,8 +55,16 @@ RSpec.describe StaffDirectoryGenerator, type: :model do
     before do
       expect(finance_report).to receive(:report).with(employee_id: '999999999').and_return(finance_report1)
       expect(finance_report).to receive(:report).with(employee_id: '999999998').and_return(finance_report2)
-      expect(finance_report).to receive(:report).with(employee_id: '999999997').and_return(finance_report3)
+      expect(finance_report).to receive(:report).with(employee_id: '999999997').and_return("idStaff" => nil, "PUID" => nil, "NetID" => nil, "Phone" => nil, "Name" => nil, "lastName" => nil,
+                                                                                           "firstName" => nil, "middleName" => nil, "nickName" => nil, "Title" => nil, "LibraryTitle" => nil,
+                                                                                           "LongTitle" => nil, "Email" => nil, "Section" => nil, "Division" => nil, "Department" => nil,
+                                                                                           "StartDate" => nil, "StaffSort" => nil, "UnitSort" => nil,
+                                                                                           "DeptSort" => nil, "Unit" => nil, "DivSect" => nil, "FireWarden" => false, "BackupFireWarden" => false,
+                                                                                           "FireWardenNotes" => nil, "Office" => nil, "Building" => nil)
     end
+
+    let(:report_line3) { ',"999999997","testiii",,"Test, III","Test","III",,"III",,"Library Office Assistant III","Library Office Assistant III","testiii@princeton.edu",,,,,,,,,,0,0,,,' }
+
     # rubocop:enable RSpec/MessageSpies
     it "generates the staff list csv" do
       expect(generator.report).to eq("#{report_header}\n#{report_line1}\n#{report_line2}\n#{report_line3}\n")
