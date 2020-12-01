@@ -3,7 +3,7 @@ version: 2.1
 executors:
   lib-jobs-executor:
     docker:
-      - image: circleci/ruby:2.6.5-node-browsers
+      - image: circleci/ruby:2.6.6-node-browsers
         environment:
           BUNDLER_VERSION: 2.0.1
           BUNDLE_JOBS: 3
