@@ -39,13 +39,15 @@ RSpec.describe FinanceReport, type: :model do
     end
   end
 
-  context "an inactive employee" do
-    before do
-      db_results.first["Active"] = false
-    end
+  context "a missing employee" do
+    let(:finance_adapter) { instance_double(FinanceReportTinyTdsAdapter, execute_staff_query: []) }
 
     it "returns an empty hash" do
-      expect(generator.report(employee_id: employee_id)).to eq({})
+      expect(generator.report(employee_id: employee_id)).to eq({ "idStaff" => nil, "PUID" => nil, "NetID" => nil, "Phone" => nil, "Name" => nil, "lastName" => nil, "firstName" => nil,
+                                                                 "middleName" => nil, "nickName" => nil, "Title" => nil, "LibraryTitle" => nil, "LongTitle" => nil, "Email" => nil,
+                                                                 "Section" => nil, "Division" => nil, "Department" => nil, "StartDate" => nil, "StaffSort" => nil, "UnitSort" => nil,
+                                                                 "DeptSort" => nil, "Unit" => nil, "DivSect" => nil, "FireWarden" => false, "BackupFireWarden" => false,
+                                                                 "FireWardenNotes" => nil, "Office" => nil, "Building" => nil })
     end
   end
 end

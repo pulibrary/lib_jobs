@@ -34,7 +34,7 @@ class StaffDirectoryGenerator
     people = []
     hr_report.each do |person|
       finance_data = finance_report.report(employee_id: person["EID"])
-      people << create_person_hash(finance_person: finance_data, netid: person["Net ID"])
+      people << create_person_hash(finance_person: finance_data, hr_person: person)
     end
     generate_csv(people)
   end
@@ -58,9 +58,8 @@ class StaffDirectoryGenerator
     report_data
   end
 
-  def create_person_hash(finance_person:, netid:)
-    person = finance_person
-    person["NetID"] = netid
+  def create_person_hash(finance_person:, hr_person:)
+    person = fill_in_with_hr(finance_person: finance_person, hr_person: hr_person)
     person["nickName"] ||= finance_person["firstName"]
     person["Name"] = "#{person['lastName']}, #{person['nickName']}"
     person["LongTitle"] = finance_person["LibraryTitle"]
@@ -68,6 +67,17 @@ class StaffDirectoryGenerator
     person["FireWarden"] = person["FireWarden"] && 1 || 0
     person["BackupFireWarden"] = person["BackupFireWarden"] && 1 || 0
     person.each { |key, value| person[key] = value.to_s }
+    person
+  end
+
+  def fill_in_with_hr(finance_person:, hr_person:)
+    person = finance_person
+    person["NetID"] = hr_person["Net ID"]
+    person["PUID"] ||= hr_person["EID"]
+    person['lastName'] ||= hr_person["Last Name"]
+    person['firstName'] ||= hr_person["First Name"]
+    person['Email'] ||= "#{hr_person['Net ID']}@princeton.edu"
+    person["LibraryTitle"] ||= hr_person["Title"]
     person
   end
 
