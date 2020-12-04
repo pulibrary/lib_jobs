@@ -10,11 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_27_172734) do
+ActiveRecord::Schema.define(version: 2020_12_04_151642) do
 
   create_table "data_sets", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "report_time"
+    t.string "data"
+    t.string "data_file"
+    t.string "category"
+    t.index ["category"], name: "index_data_sets_on_category"
   end
 
 end

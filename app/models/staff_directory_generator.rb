@@ -1,12 +1,17 @@
 # frozen_string_literal: true
 
 class StaffDirectoryGenerator
-  def self.report_filename
-    File.join(Rails.configuration.staff_directory['report_directory'], Rails.configuration.staff_directory['report_name'])
+  def self.category
+    "StaffDirectory"
+  end
+
+  def self.report_filename(date: Time.zone.today)
+    date_str = date.strftime('%Y%m%d')
+    File.join(Rails.configuration.staff_directory['report_directory'], "#{Rails.configuration.staff_directory['report_name']}_#{date_str}.csv")
   end
 
   def self.yesterday_filename
-    "#{report_filename}_#{Date.yesterday.strftime('%Y%m%d')}"
+    report_filename(date: Time.zone.yesterday)
   end
 
   attr_reader :finance_report, :hr_report
@@ -17,13 +22,7 @@ class StaffDirectoryGenerator
 
   def today
     report_filename = self.class.report_filename
-    yesterday_filename = self.class.yesterday_filename
-
-    need_to_generate = !File.exist?(yesterday_filename)
-    report_exists = File.exist?(report_filename)
-    File.rename(report_filename, yesterday_filename) if report_exists && need_to_generate
-
-    if need_to_generate || !report_exists
+    if !File.exist?(report_filename)
       create_report(report_filename)
     else
       read_report(report_filename)
@@ -47,6 +46,7 @@ class StaffDirectoryGenerator
       report_data = report
       file.write(report_data)
     end
+    DataSet.create(report_time: DateTime.now.midnight, data: nil, data_file: report_filename, category: self.class.category)
     report_data
   end
 
