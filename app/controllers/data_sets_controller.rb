@@ -5,7 +5,7 @@ class DataSetsController < ApplicationController
   # GET /data_sets
   # GET /data_sets.json
   def index
-    @data_sets = DataSet.all
+    @data_sets = filter_data_sets
   end
 
   # GET /data_sets/1
@@ -70,5 +70,18 @@ class DataSetsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def data_set_params
     params.fetch(:data_set, {})
+  end
+
+  def index_params
+    params.permit(:category, :report_date, :report_time)
+  end
+
+  def filter_data_sets
+    category = index_params[:category]
+
+    data_sets = DataSet.all
+    data_sets = data_sets.where(category: category) if category.present?
+    data_sets = DataSet.filter_by_date(report_date: index_params[:report_date], query_context: data_sets)
+    DataSet.filter_by_time(report_time: index_params[:report_time], query_context: data_sets)
   end
 end

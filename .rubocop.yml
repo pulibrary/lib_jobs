@@ -13,3 +13,6 @@ Layout/LineLength:
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
+
+RSpec/ExampleLength:
+  Max: 10

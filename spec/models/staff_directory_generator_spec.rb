@@ -72,31 +72,28 @@ RSpec.describe StaffDirectoryGenerator, type: :model do
   end
 
   describe "#today" do
-    let(:yesterday) { Date.yesterday.strftime("%Y%m%d") }
-    let(:report_filename) { Rails.root.join('tmp').join('staff-directory-test.csv') }
-    let(:yesterday_filename) { "#{report_filename}_#{yesterday}" }
+    let(:report_filename) { described_class.report_filename }
 
     before do
-      File.open(report_filename, "w") do |file|
-        file.write("#{report_header}\n#{report_line1}\n#{report_line2}\n#{report_line3}\n#{report_line4}\n")
-      end
       allow(finance_report).to receive(:report).with(employee_id: '999999999').and_return(finance_report1)
       allow(finance_report).to receive(:report).with(employee_id: '999999998').and_return(finance_report2)
       allow(finance_report).to receive(:report).with(employee_id: '999999997').and_return(finance_report3)
     end
     after do
       File.delete(report_filename) if File.exist?(report_filename)
-      File.delete(yesterday_filename) if File.exist?(yesterday_filename)
     end
     it "generates the report" do
-      expect(generator.today).to eq("#{report_header}\n#{report_line1}\n#{report_line2}\n#{report_line3}\n")
+      expect { expect(generator.today).to eq("#{report_header}\n#{report_line1}\n#{report_line2}\n#{report_line3}\n") }.to change(DataSet, :count).by(1)
     end
 
     context "already exists on disk" do
       before do
-        File.open(yesterday_filename, "w") do |file|
-          file.write("#{report_header}\n#{report_line1}\n#{report_line2}\n")
+        File.open(report_filename, "w") do |file|
+          file.write("#{report_header}\n#{report_line1}\n#{report_line2}\n#{report_line3}\n#{report_line4}\n")
         end
+        expect(finance_report).not_to have_received(:report).with(employee_id: '999999999')
+        expect(finance_report).not_to have_received(:report).with(employee_id: '999999998')
+        expect(finance_report).not_to have_received(:report).with(employee_id: '999999997')
       end
       it "serves up the report from disk" do
         expect(generator.today).to eq("#{report_header}\n#{report_line1}\n#{report_line2}\n#{report_line3}\n#{report_line4}\n")

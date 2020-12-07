@@ -18,6 +18,17 @@ RSpec.describe StaffDirectoryDifference, type: :model do
   let(:difference) { described_class.new(new_report: new_report, old_report: old_report) }
 
   it "differs the reports to tell who was deleted" do
-    expect(difference.ids).to eq(['testiii'])
+    expect { expect(difference.ids).to eq(['testiii']) }.to change(DataSet, :count).by(2)
+  end
+
+  context "the difference was already run" do
+    before do
+      DataSet.create(report_time: DateTime.now.midnight, data: "abc123,def456", data_file: nil, category: "StaffDirectoryRemoved")
+      DataSet.create(report_time: DateTime.now.midnight, data: "zzz999,yyy888", data_file: nil, category: "StaffDirectoryAdded")
+    end
+
+    it "reads the report from the datasets to tell who was deleted" do
+      expect { expect(difference.ids).to eq(['abc123', 'def456']) }.to change(DataSet, :count).by(0)
+    end
   end
 end
