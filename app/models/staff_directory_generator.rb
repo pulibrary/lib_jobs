@@ -83,9 +83,11 @@ class StaffDirectoryGenerator
   def fill_in_with_ldap(person)
     ldap_data = Ldap.find_by_netid(person["NetID"])
     person['Email'] = ldap_data[:email]
-    address = ldap_data[:address].split(' ')
-    person['Office'] = address.first
-    person['Building'] = address.last
+    if ldap_data[:address]
+      address = ldap_data[:address].split(' ')
+      person['Office'] = address.first
+      person['Building'] = address.last
+    end
     person['Phone'] = ldap_data[:telephone]
     person['LibraryTitle'] = ldap_data[:title]
     person
@@ -103,9 +105,7 @@ class StaffDirectoryGenerator
     end
     CSV.generate(write_converters: [quote_col2], quote_char: "") do |csv|
       csv << people.first.keys
-      people.each do |person|
-        csv << person.values
-      end
+      people.each { |person| csv << person.values }
     end
   end
 
