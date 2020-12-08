@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
 class StaffDirectoryGenerator
-  def self.category
-    "StaffDirectory"
-  end
+  CATEGORY = "StaffDirectory"
 
   def self.report_filename(date: Time.zone.today)
     date_str = date.strftime('%Y%m%d')
@@ -46,7 +44,7 @@ class StaffDirectoryGenerator
       report_data = report
       file.write(report_data)
     end
-    DataSet.create(report_time: DateTime.now.midnight, data: nil, data_file: report_filename, category: self.class.category)
+    DataSet.create(report_time: DateTime.now.midnight, data: nil, data_file: report_filename, category: CATEGORY)
     report_data
   end
 
@@ -60,6 +58,7 @@ class StaffDirectoryGenerator
 
   def create_person_hash(finance_person:, hr_person:)
     person = fill_in_with_hr(finance_person: finance_person, hr_person: hr_person)
+    person = fill_in_with_ldap(person)
     person["nickName"] ||= finance_person["firstName"]
     person["Name"] = "#{person['lastName']}, #{person['nickName']}"
     person["LongTitle"] = finance_person["LibraryTitle"]
@@ -78,6 +77,16 @@ class StaffDirectoryGenerator
     person['firstName'] ||= hr_person["First Name"]
     person['Email'] ||= "#{hr_person['Net ID']}@princeton.edu"
     person["LibraryTitle"] ||= hr_person["Title"]
+    person
+  end
+
+  def fill_in_with_ldap(person)
+    ldap_data = Ldap.find_by_netid(person["NetID"])
+    person['Email'] = ldap_data[:email]
+    address = ldap_data[:address].split(' ')
+    person['Office'] = address.first
+    person['Building'] = address.last
+    person['Phone'] = ldap_data[:telephone]
     person
   end
 
