@@ -127,18 +127,32 @@ class AbsoluteId
       @root_element ||= document_tree.root
     end
 
+    def build_element(element_name:, type_attribute:, value:)
+      new_element = document_tree.create_element(element_name)
+      new_element['type'] = type_attribute
+
+      if value.respond_to?(:each)
+        children = value.map { |child_value| build_element(element_name: element_name, type_attribute: type_attribute, value: child_value) }
+        node_set = Nokogiri::XML::NodeSet.new(document_tree, children)
+        new_element.children = node_set
+      else
+        new_element.content = value
+      end
+
+      new_element
+    end
+
     def build_document
       @document_tree = build_document_tree
 
       @model.attributes.each_pair do |key, value|
-        raise NotImplementedError if value.respond_to?(:enum)
-
         element_name = key.to_s.underscore
-        new_element = root_element.document.create_element(element_name)
-
-        type_attribute = value.class.to_s.underscore
-        new_element['type'] = type_attribute
-        new_element.content = value
+        type_attribute = if value.is_a?(TrueClass) || value.is_a?(FalseClass)
+                           'boolean'
+                         else
+                           value.class.to_s.underscore
+                         end
+        new_element = build_element(element_name: element_name, type_attribute: type_attribute, value: value)
 
         root_element.add_child(new_element)
       end

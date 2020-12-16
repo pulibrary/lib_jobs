@@ -69,14 +69,17 @@ RSpec.describe "AbsoluteIds", type: :request do
 
         expect(children[1].name).to eq("digits")
         expect(children[1]['type']).to eq("array")
-        expect(children[1].content).to eq("[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]")
+
+        digits_elements = children[1].elements
+        expect(digits_elements.length).to eq(14)
+        expect(digits_elements.map(&:content)).to eq(["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"])
 
         expect(children[2].name).to eq("integer")
         expect(children[2]['type']).to eq("integer")
         expect(children[2].content).to eq("0")
 
         expect(children[3].name).to eq("valid")
-        expect(children[3]['type']).to eq("true_class")
+        expect(children[3]['type']).to eq("boolean")
         expect(children[3].content).to eq("true")
 
         expect(children[4].name).to eq("value")
