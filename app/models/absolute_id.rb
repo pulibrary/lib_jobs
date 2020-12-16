@@ -102,8 +102,75 @@ class AbsoluteId
     }
   end
 
-  def as_json(**_opts)
+  def as_json(**_args)
     attributes
+  end
+
+  class NokogiriSerializer
+    def initialize(model, _options = {})
+      @model = model
+    end
+
+    def model_element_name
+      "<#{@model.model_name.to_s.underscore} />"
+    end
+
+    def build_document_tree
+      Nokogiri::XML(model_element_name)
+    end
+
+    def document_tree
+      @document_tree ||= build_document_tree
+    end
+
+    def root_element
+      @root_element ||= document_tree.root
+    end
+
+    def build_document
+      @document_tree = build_document_tree
+
+      @model.attributes.each_pair do |key, value|
+        raise NotImplementedError if value.respond_to?(:enum)
+
+        element_name = key.to_s.underscore
+        new_element = root_element.document.create_element(element_name)
+
+        type_attribute = value.class.to_s.underscore
+        new_element['type'] = type_attribute
+        new_element.content = value
+
+        root_element.add_child(new_element)
+      end
+
+      document_tree
+    end
+
+    def document
+      @document ||= build_document
+    end
+
+    def serialize
+      document.to_xml
+    end
+  end
+
+  def self.xml_serializer
+    NokogiriSerializer
+  end
+
+  def xml_serializer
+    self.class.xml_serializer
+  end
+
+  # def as_xml(**_args)
+  #   self.class.xml_transformer.document
+  # end
+  #
+  # @see ActiveModel::Serializers::Xml
+  def to_xml(options = {}, &block)
+    # binding.pry
+    xml_serializer.new(self, options).serialize(&block)
   end
 
   def self.cache(barcode)

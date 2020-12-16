@@ -14,12 +14,14 @@ class AbsoluteIdsController < ApplicationController
 
   # GET /absolute-ids/:value
   # GET /absolute-ids/:value.json
+  # GET /absolute-ids/:value.xml
   def show
     @absolute_id ||= model.find(value)
 
     respond_to do |format|
       format.html { render html: @absolute_id }
       format.json { render json: @absolute_id }
+      format.xml { render xml: @absolute_id }
     end
   end
 
