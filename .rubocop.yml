@@ -16,3 +16,5 @@ Metrics/BlockLength:
 
 RSpec/ExampleLength:
   Max: 10
+  Exclude:
+    - 'spec/requests/absolute_id_request_spec.rb'
