@@ -24,7 +24,7 @@ RSpec.describe "AbsoluteIds", type: :request do
     context "when requesting a JSON representation" do
       let(:headers) do
         {
-          "ACCEPT" => "application/json"
+          "Accept" => "application/json"
         }
       end
 
@@ -48,7 +48,7 @@ RSpec.describe "AbsoluteIds", type: :request do
     context "when requesting a XML representation" do
       let(:headers) do
         {
-          "ACCEPT" => "application/xml"
+          "Accept" => "application/xml"
         }
       end
 
@@ -121,7 +121,7 @@ RSpec.describe "AbsoluteIds", type: :request do
     context "when requesting a JSON representation" do
       let(:headers) do
         {
-          "ACCEPT" => "application/json"
+          "Accept" => "application/json"
         }
       end
 
@@ -165,34 +165,120 @@ RSpec.describe "AbsoluteIds", type: :request do
     context "when requesting a JSON representation" do
       let(:headers) do
         {
-          "ACCEPT" => "application/json"
+          "Accept" => "application/json"
         }
       end
 
-      it "renders all the absolute identifiers" do
-        expect(AbsoluteId.all).to be_empty
+      context "when the client passes an invalid JSON Web Token" do
+        let(:user) do
+          User.create(email: 'user@localhost')
+        end
 
-        post "/absolute-ids/", headers: headers
+        let(:headers) do
+          {
+            "Accept" => "application/json",
+            "Authorization" => "Bearer invalid"
+          }
+        end
 
-        expect(response).to redirect_to(absolute_id_path(value: AbsoluteId.last.value, format: :json))
-        follow_redirect!
+        let(:params) do
+          {
+            user: { id: user.id }
+          }
+        end
 
-        expect(response.content_type).to eq("application/json")
-        expect(response.body).not_to be_empty
-        json_response = JSON.parse(response.body)
-        expect(json_response).to be_a(Hash)
-        expect(json_response).to include("value" => "00000000000000")
+        before do
+          user
+        end
 
-        post "/absolute-ids/", headers: headers
+        after do
+          user.destroy
+        end
+        it "denies the request" do
+          post "/absolute-ids/", headers: headers, params: params
 
-        expect(response).to redirect_to(absolute_id_path(value: AbsoluteId.last.value, format: :json))
-        follow_redirect!
+          expect(response.forbidden?).to be true
+        end
+      end
 
-        expect(response.content_type).to eq("application/json")
-        expect(response.body).not_to be_empty
-        json_response = JSON.parse(response.body)
-        expect(json_response).to be_a(Hash)
-        expect(json_response).to include("value" => "00000000000019")
+      context "when the client does not pass a user ID" do
+        let(:user) do
+          User.create(email: 'user@localhost')
+        end
+
+        let(:headers) do
+          {
+            "Accept" => "application/json",
+            "Authorization" => "Bearer #{user.token}"
+          }
+        end
+
+        before do
+          user
+        end
+
+        after do
+          user.destroy
+        end
+
+        it "denies the request" do
+          post "/absolute-ids/", headers: headers
+
+          expect(response.forbidden?).to be true
+        end
+      end
+
+      context "when the client is authenticated" do
+        let(:user) do
+          User.create(email: 'user@localhost')
+        end
+
+        let(:headers) do
+          {
+            "Accept" => "application/json",
+            "Authorization" => "Bearer #{user.token}"
+          }
+        end
+
+        let(:params) do
+          {
+            user: { id: user.id }
+          }
+        end
+
+        before do
+          user
+        end
+
+        after do
+          user.destroy
+        end
+
+        it "renders all the absolute identifiers" do
+          expect(AbsoluteId.all).to be_empty
+
+          post "/absolute-ids/", headers: headers, params: params
+
+          expect(response).to redirect_to(absolute_id_path(value: AbsoluteId.last.value, format: :json))
+          follow_redirect!
+
+          expect(response.content_type).to eq("application/json")
+          expect(response.body).not_to be_empty
+          json_response = JSON.parse(response.body)
+          expect(json_response).to be_a(Hash)
+          expect(json_response).to include("value" => "00000000000000")
+
+          post "/absolute-ids/", headers: headers, params: params
+
+          expect(response).to redirect_to(absolute_id_path(value: AbsoluteId.last.value, format: :json))
+          follow_redirect!
+
+          expect(response.content_type).to eq("application/json")
+          expect(response.body).not_to be_empty
+          json_response = JSON.parse(response.body)
+          expect(json_response).to be_a(Hash)
+          expect(json_response).to include("value" => "00000000000019")
+        end
       end
     end
   end
