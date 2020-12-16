@@ -44,6 +44,46 @@ RSpec.describe "AbsoluteIds", type: :request do
         expect(json_response).to include("value" => "00000000000000")
       end
     end
+
+    context "when requesting a XML representation" do
+      let(:headers) do
+        {
+          "ACCEPT" => "application/xml"
+        }
+      end
+
+      it "renders an existing absolute identifier" do
+        get "/absolute-ids/#{absolute_id.value}", headers: headers
+
+        expect(response.content_type).to eq("application/xml")
+        expect(response.body).not_to be_empty
+
+        xml_document = Nokogiri::XML(response.body)
+        expect(xml_document.root.name).to eq("absolute_id")
+        children = xml_document.root.elements
+        expect(children.length).to eq(5)
+
+        expect(children[0].name).to eq("check_digit")
+        expect(children[0]['type']).to eq("integer")
+        expect(children[0].content).to eq("0")
+
+        expect(children[1].name).to eq("digits")
+        expect(children[1]['type']).to eq("array")
+        expect(children[1].content).to eq("[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]")
+
+        expect(children[2].name).to eq("integer")
+        expect(children[2]['type']).to eq("integer")
+        expect(children[2].content).to eq("0")
+
+        expect(children[3].name).to eq("valid")
+        expect(children[3]['type']).to eq("true_class")
+        expect(children[3].content).to eq("true")
+
+        expect(children[4].name).to eq("value")
+        expect(children[4]['type']).to eq("string")
+        expect(children[4].content).to eq("00000000000000")
+      end
+    end
   end
 
   describe "GET /absolute-ids/" do
