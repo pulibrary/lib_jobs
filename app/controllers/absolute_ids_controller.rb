@@ -12,8 +12,8 @@ class AbsoluteIdsController < ApplicationController
     end
   end
 
-  # GET /absolute-ids/:id
-  # GET /absolute-ids/:id.json
+  # GET /absolute-ids/:value
+  # GET /absolute-ids/:value.json
   def show
     @absolute_id ||= model.find(value)
 
@@ -28,10 +28,22 @@ class AbsoluteIdsController < ApplicationController
   def create
     @absolute_id = model.build
 
-    if @absolute_id.save
-      redirect_to @absolute_id
-    else
-      redirect_to :index
+    respond_to do |format|
+      format.html do
+        if @absolute_id.save
+          redirect_to @absolute_id
+        else
+          redirect_to :index
+        end
+      end
+
+      format.json do
+        if @absolute_id.save
+          head :found, location: absolute_id_path(value: @absolute_id.value, format: :json)
+        else
+          head :found, location: absolute_ids_path(format: :json)
+        end
+      end
     end
   end
 

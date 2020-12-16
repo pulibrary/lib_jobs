@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class AbsoluteId
+  extend ActiveModel::Naming
+
   class Barcode
     attr_reader :value
 
@@ -108,6 +110,10 @@ class AbsoluteId
     @cache[barcode.value] = barcode
   end
 
+  def self.cached?(barcode)
+    @cache.key?(barcode.value)
+  end
+
   def self.delete(barcode)
     @cache.delete(barcode.value)
   end
@@ -120,8 +126,16 @@ class AbsoluteId
     self.class.cache(self)
   end
 
+  def persisted?
+    self.class.cached?(self)
+  end
+
   def delete
     self.class.delete(self)
+  end
+
+  def to_model
+    self
   end
 
   def self.all
