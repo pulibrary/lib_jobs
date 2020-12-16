@@ -1,43 +1,13 @@
 # frozen_string_literal: true
 
 class AbsoluteIdsController < ApplicationController
-  def current_user_params
-    # params.require(:user).permit(:id, :token)
-    params[:user]
-  end
-
-  def current_user_id
-    current_user_params[:id]
-  end
-
-  def token_header
-    value = request.headers['Authorization']
-    return if value.nil?
-
-    value.gsub(/\s*?Bearer\s*/i, '')
-  end
-
-  def current_user_token
-    token_header || current_user_params[:token]
-  end
-
-  def find_user
-    User.find_by(id: current_user_id, token: current_user_token)
-  end
-
-  def current_user
-    return if current_user_params.nil?
-
-    @current_user ||= find_user
-  end
-
   # GET /absolute-ids
   # GET /absolute-ids.json
   def index
     @absolute_ids ||= model.all
 
     respond_to do |format|
-      format.html { render html: @absolute_ids }
+      format.html { render :index }
       format.json { render json: @absolute_ids }
     end
   end
@@ -49,7 +19,6 @@ class AbsoluteIdsController < ApplicationController
     @absolute_id ||= model.find(value)
 
     respond_to do |format|
-      format.html { render html: @absolute_id }
       format.json { render json: @absolute_id }
       format.xml { render xml: @absolute_id }
     end
@@ -63,11 +32,8 @@ class AbsoluteIdsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        if @absolute_id.save
-          redirect_to @absolute_id
-        else
-          redirect_to :index
-        end
+        flash[:absolute_ids] = "Failed to generate a new absolute ID. Please contact the administrator." unless @absolute_id.save
+        redirect_to :index
       end
 
       format.json do
@@ -104,5 +70,34 @@ class AbsoluteIdsController < ApplicationController
 
   def value
     params[:value]
+  end
+
+  def current_user_params
+    params[:user]
+  end
+
+  def current_user_id
+    current_user_params[:id]
+  end
+
+  def token_header
+    value = request.headers['Authorization']
+    return if value.nil?
+
+    value.gsub(/\s*?Bearer\s*/i, '')
+  end
+
+  def current_user_token
+    token_header || current_user_params[:token]
+  end
+
+  def find_user
+    User.find_by(id: current_user_id, token: current_user_token)
+  end
+
+  def current_user
+    return super if !super.nil? || current_user_params.nil?
+
+    @current_user ||= find_user
   end
 end

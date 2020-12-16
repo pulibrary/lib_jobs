@@ -1,0 +1,29 @@
+<h1>Absolute Identifiers (AbIDs)</h1>
+
+<table>
+  <thead>
+    <tr>
+      <td>Barcode</td><td>Check Digit</td><td></td>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% if @absolute_ids.empty? %>
+      <tr>
+        <td>No absolute IDs have been generated yet.</td>
+        <td></td>
+        <td></td>
+      </tr>
+    <% else %>
+      <% @absolute_ids.each do |absolute_id| %>
+        <tr>
+          <td><%= absolute_id.value %></td>
+          <td><%= absolute_id.check_digit %></td>
+          <td></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+
+<button href="#">Generate a new Absolute ID</button>

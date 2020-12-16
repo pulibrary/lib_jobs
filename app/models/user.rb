@@ -13,13 +13,25 @@ class User < ApplicationRecord
     end
   end
 
-  def self.ecdsa_key
-    OpenSSL::PKey::EC.read(foo)
+  def self.institutional_email_domain
+    "princeton.edu"
   end
 
-  def self.ecdsa_public
-    OpenSSL::PKey::EC.new(ecdsa_key)
+  def self.from_omniauth(access_token)
+    net_id = access_token.uid
+
+    email = if net_id.include?("@")
+              net_id
+            else
+              "#{net_id}@#{institutional_email_domain}"
+            end
+
+    User.where(email: email).first_or_create
   end
+
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :omniauthable, omniauth_providers: [:cas]
 
   def self.hmac_secret
     'secret'
@@ -30,7 +42,6 @@ class User < ApplicationRecord
   end
 
   def decoded_token
-    # JWT.decode(token, self.class.ecdsa_public, true, { algorithm: 'ES256' })
     JWT.decode(token, self.class.hmac_secret, true, { algorithm: 'HS256' })
   rescue JWT::DecodeError => decode_error
     Rails.logger.warn("Failed to decode the JSON Web Token for the user #{email}: #{decode_error}")
