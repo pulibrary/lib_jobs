@@ -254,7 +254,7 @@ RSpec.describe "AbsoluteIds", type: :request do
           user.destroy
         end
 
-        it "renders all the absolute identifiers" do
+        it "generates, saves, and redirects to a new absolute ID" do
           expect(AbsoluteId.all).to be_empty
 
           post "/absolute-ids/", headers: headers, params: params
