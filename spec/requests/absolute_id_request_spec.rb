@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe "AbsoluteIds", type: :request do
-  describe "/absolute-ids/:value" do
+  describe "GET /absolute-ids/:value" do
     let(:absolute_id) do
       AbsoluteId.create
     end
@@ -46,7 +46,7 @@ RSpec.describe "AbsoluteIds", type: :request do
     end
   end
 
-  describe "/absolute-ids/" do
+  describe "GET /absolute-ids/" do
     let(:absolute_id1) do
       AbsoluteId.create
     end
@@ -105,6 +105,51 @@ RSpec.describe "AbsoluteIds", type: :request do
         expect(json_response.last).to include("integer" => 19)
         expect(json_response.last).to include("valid" => true)
         expect(json_response.last).to include("value" => "00000000000019")
+      end
+    end
+  end
+
+  describe "POST /absolute-ids/" do
+    after do
+      AbsoluteId.all.each(&:delete)
+    end
+
+    xit "renders all the absolute identifiers" do
+      post "/absolute-ids/"
+      # Pending
+    end
+
+    context "when requesting a JSON representation" do
+      let(:headers) do
+        {
+          "ACCEPT" => "application/json"
+        }
+      end
+
+      it "renders all the absolute identifiers" do
+        expect(AbsoluteId.all).to be_empty
+
+        post "/absolute-ids/", headers: headers
+
+        expect(response).to redirect_to(absolute_id_path(value: AbsoluteId.last.value, format: :json))
+        follow_redirect!
+
+        expect(response.content_type).to eq("application/json")
+        expect(response.body).not_to be_empty
+        json_response = JSON.parse(response.body)
+        expect(json_response).to be_a(Hash)
+        expect(json_response).to include("value" => "00000000000000")
+
+        post "/absolute-ids/", headers: headers
+
+        expect(response).to redirect_to(absolute_id_path(value: AbsoluteId.last.value, format: :json))
+        follow_redirect!
+
+        expect(response.content_type).to eq("application/json")
+        expect(response.body).not_to be_empty
+        json_response = JSON.parse(response.body)
+        expect(json_response).to be_a(Hash)
+        expect(json_response).to include("value" => "00000000000019")
       end
     end
   end

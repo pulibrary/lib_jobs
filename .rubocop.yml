@@ -14,6 +14,10 @@ Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
 
+Metrics/MethodLength:
+  Exclude:
+    - 'app/controllers/absolute_ids_controller.rb'
+
 RSpec/ExampleLength:
   Max: 10
   Exclude:
