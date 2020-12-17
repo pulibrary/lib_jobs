@@ -80,4 +80,3 @@ gem "omniauth", "~> 1.9"
 gem 'omniauth-cas'
 gem 'pg'
 gem 'webpacker'
-
