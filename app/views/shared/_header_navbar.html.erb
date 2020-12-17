@@ -1,0 +1,11 @@
+<header class="lux">
+  <library-header app-name="<%= application_name %>" app-url="<%= root_path %>" theme="dark" max-width="inherit">
+    <menu-bar type="main-menu" :menu-items="[
+      {name: 'Data Sets', component: 'Data Sets', href: '/'},
+      {name: 'Absolute IDs', component: 'Feedback', href: '/absolute-ids'},
+      {name: 'Your Account', component: 'Account', href: '/', children: [
+        {name: 'Logout', component: 'Logout', href: '/account/'}
+      ]}
+    ]"></menu-bar>
+  </library-header>
+</header>

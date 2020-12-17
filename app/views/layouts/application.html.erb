@@ -1,18 +1,28 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>ILS Job Management</title>
+    <title><%= application_name %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_pack_tag 'application' %>
   </head>
 
   <body>
-    <%= render partial: 'layouts/current_user' %>
-    <%= yield %>
+    <section>
+      <noscript><%= render 'shared/header_navbar_noscript' %></noscript>
+      <%= render partial: 'shared/header_navbar' %>
+      <%= render partial: 'layouts/current_user' %>
+    </section>
+    <main>
+      <%= yield %>
+    </main>
+    <section>
+      <noscript><%= render partial: 'shared/footer_noscript' %></noscript>
+      <%= render partial: 'shared/footer' %>
+    <section>
   </body>
+  <%= javascript_pack_tag 'application' %>
 </html>
