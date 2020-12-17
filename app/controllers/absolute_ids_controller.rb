@@ -6,7 +6,7 @@ class AbsoluteIdsController < ApplicationController
   # GET /absolute-ids
   # GET /absolute-ids.json
   def index
-    @absolute_ids ||= model.all
+    @absolute_ids ||= AbsoluteId.all
 
     respond_to do |format|
       format.html { render :index }
@@ -18,7 +18,7 @@ class AbsoluteIdsController < ApplicationController
   # GET /absolute-ids/:value.json
   # GET /absolute-ids/:value.xml
   def show
-    @absolute_id ||= model.find(value)
+    @absolute_id ||= AbsoluteId.find_by(value: value)
 
     respond_to do |format|
       format.json { render json: @absolute_id }
@@ -29,8 +29,8 @@ class AbsoluteIdsController < ApplicationController
   # POST /absolute-ids
   # POST /absolute-ids.json
   def create
-    authorize! :create, model
-    @absolute_id = model.build
+    authorize! :create, AbsoluteId
+    @absolute_id = AbsoluteId.generate
 
     respond_to do |format|
       format.html do
@@ -39,10 +39,12 @@ class AbsoluteIdsController < ApplicationController
       end
 
       format.json do
-        if @absolute_id.save
-          head :found, location: absolute_id_path(value: @absolute_id.value, format: :json)
-        else
+        if @absolute_id.nil?
           head :found, location: absolute_ids_path(format: :json)
+          # head :found, location: absolute_id_path(value: @absolute_id.value, format: :json)
+        else
+          head :found, location: absolute_id_path(value: @absolute_id.value, format: :json)
+          # head :found, location: absolute_ids_path(format: :json)
         end
       end
     end
@@ -69,10 +71,6 @@ class AbsoluteIdsController < ApplicationController
   end
 
   private
-
-  def model
-    AbsoluteId
-  end
 
   def value
     params[:value]

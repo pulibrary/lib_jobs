@@ -13,19 +13,26 @@ Layout/LineLength:
 Metrics/AbcSize:
   Exclude:
     - 'app/controllers/absolute_ids_controller.rb'
+    - 'app/models/absolute_id.rb'
 
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
 
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - 'app/models/absolute_id.rb'
+
 Metrics/MethodLength:
   Exclude:
     - 'app/controllers/application_controller.rb'
     - 'app/controllers/absolute_ids_controller.rb'
+    - 'app/models/absolute_id.rb'
 
 Metrics/PerceivedComplexity:
   Exclude:
     - 'app/controllers/absolute_ids_controller.rb'
+    - 'app/models/absolute_id.rb'
 
 RSpec/ExampleLength:
   Max: 10

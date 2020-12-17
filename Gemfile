@@ -75,6 +75,7 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'cancancan'
 gem "devise", ">= 4.6.0"
+gem 'foreman'
 gem 'jwt'
 gem "omniauth", "~> 1.9"
 gem 'omniauth-cas'
