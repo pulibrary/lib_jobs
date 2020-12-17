@@ -1,29 +1,31 @@
-<h1>Absolute Identifiers (AbIDs)</h1>
+<section class"absolute-id-index">
+  <h1>Absolute Identifiers (AbIDs)</h1>
 
-<table>
-  <thead>
-    <tr>
-      <td>Barcode</td><td>Check Digit</td><td></td>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% if @absolute_ids.empty? %>
-      <tr>
-        <td>No absolute IDs have been generated yet.</td>
-        <td></td>
-        <td></td>
-      </tr>
-    <% else %>
-      <% @absolute_ids.each do |absolute_id| %>
-        <tr>
-          <td><%= absolute_id.value %></td>
-          <td><%= absolute_id.check_digit %></td>
-          <td></td>
+  <% if @absolute_ids.length > 0 %>
+    <table class="absolute-id-table">
+      <thead>
+        <tr class="absolute-id-table__head">
+          <td>Barcode</td><td>Check Digit</td><td></td>
         </tr>
-      <% end %>
-    <% end %>
-  </tbody>
-</table>
+      </thead>
 
-<button href="#">Generate a new Absolute ID</button>
+      <tbody>
+        <% @absolute_ids.each do |absolute_id| %>
+          <tr class="absolute-id-table__row">
+            <td><%= absolute_id.value %></td>
+            <td><%= absolute_id.check_digit %></td>
+            <td></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+
+  <div class="absolute-id-index-status">
+    <%= index_status %>
+  </div>
+
+  <% if current_user %>
+    <button href="#">Generate a new Absolute ID</button>
+  <% end %>
+</section>

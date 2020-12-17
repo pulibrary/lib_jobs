@@ -20,6 +20,7 @@ Metrics/BlockLength:
 
 Metrics/MethodLength:
   Exclude:
+    - 'app/controllers/application_controller.rb'
     - 'app/controllers/absolute_ids_controller.rb'
 
 Metrics/PerceivedComplexity:

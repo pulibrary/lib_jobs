@@ -5,7 +5,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
@@ -14,7 +14,6 @@
     <section>
       <noscript><%= render 'shared/header_navbar_noscript' %></noscript>
       <%= render partial: 'shared/header_navbar' %>
-      <%= render partial: 'layouts/current_user' %>
     </section>
     <main>
       <%= yield %>
