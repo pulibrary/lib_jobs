@@ -33,5 +33,3 @@ for (var i = 0; i < elements.length; i++) {
     el: elements[i]
   })
 }
-
-console.log('Hello World from Webpacker')

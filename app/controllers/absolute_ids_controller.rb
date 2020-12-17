@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class AbsoluteIdsController < ApplicationController
+  helper_method :index_status
+
   # GET /absolute-ids
   # GET /absolute-ids.json
   def index
@@ -60,6 +62,10 @@ class AbsoluteIdsController < ApplicationController
 
       format.json { head :forbidden }
     end
+  end
+
+  def index_status
+    "No absolute IDs have been generated yet." if @absolute_ids.empty?
   end
 
   private
