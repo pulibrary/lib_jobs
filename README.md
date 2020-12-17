@@ -26,6 +26,10 @@
 
 ```bash
 bundle install
+bundle exec foreman start
+```
+
+```bash
 bundle exec rails server
 # And please invoke this in another terminal:
 bundle exec webpack-dev-server
