@@ -18,4 +18,20 @@
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 
+import Vue from 'vue/dist/vue.esm'
+import Vuex from "vuex"
+import system from 'lux-design-system'
+import "lux-design-system/dist/system/system.css"
+import "lux-design-system/dist/system/tokens/tokens.scss"
+
+Vue.use(system)
+var elements = document.getElementsByClassName("lux")
+for (var i = 0; i < elements.length; i++) {
+  console.log(elements[i]);
+
+  new Vue({
+    el: elements[i]
+  })
+}
+
 console.log('Hello World from Webpacker')
