@@ -27,8 +27,10 @@
 ```bash
 bundle install
 bundle exec foreman start
+bundle exec rails db:seed
 ```
 
+Alternatively, in place of `bundle exec foreman start`, one may invoke the following for running the Rails server and Webpack separately:
 ```bash
 bundle exec rails server
 # And please invoke this in another terminal:

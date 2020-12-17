@@ -5,11 +5,11 @@ require 'rails_helper'
 RSpec.describe "AbsoluteIds", type: :request do
   describe "GET /absolute-ids/:value" do
     let(:absolute_id) do
-      AbsoluteId.create
+      AbsoluteId.generate
     end
 
     before do
-      allow(AbsoluteId).to receive(:find).and_return(absolute_id)
+      absolute_id
     end
 
     after do
@@ -38,10 +38,10 @@ RSpec.describe "AbsoluteIds", type: :request do
         expect(json_response).to be_an(Hash)
 
         expect(json_response).to include("check_digit" => 0)
-        expect(json_response).to include("digits" => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+        expect(json_response).to include("digits" => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
         expect(json_response).to include("integer" => 0)
         expect(json_response).to include("valid" => true)
-        expect(json_response).to include("value" => "00000000000000")
+        expect(json_response).to include("value" => "A00000000000000")
       end
     end
 
@@ -61,41 +61,49 @@ RSpec.describe "AbsoluteIds", type: :request do
         xml_document = Nokogiri::XML(response.body)
         expect(xml_document.root.name).to eq("absolute_id")
         children = xml_document.root.elements
-        expect(children.length).to eq(5)
+        expect(children.length).to eq(7)
 
         expect(children[0].name).to eq("check_digit")
         expect(children[0]['type']).to eq("integer")
         expect(children[0].content).to eq("0")
 
-        expect(children[1].name).to eq("digits")
-        expect(children[1]['type']).to eq("array")
+        expect(children[1].name).to eq("created_at")
+        expect(children[1]['type']).to eq("time")
+        expect(children[1].content).not_to be_empty
 
-        digits_elements = children[1].elements
-        expect(digits_elements.length).to eq(14)
-        expect(digits_elements.map(&:content)).to eq(["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"])
+        expect(children[2].name).to eq("digits")
+        expect(children[2]['type']).to eq("array")
 
-        expect(children[2].name).to eq("integer")
-        expect(children[2]['type']).to eq("integer")
-        expect(children[2].content).to eq("0")
+        digits_elements = children[2].elements
+        expect(digits_elements.length).to eq(13)
+        expect(digits_elements.map(&:content)).to eq(["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"])
 
-        expect(children[3].name).to eq("valid")
-        expect(children[3]['type']).to eq("boolean")
-        expect(children[3].content).to eq("true")
+        expect(children[3].name).to eq("integer")
+        expect(children[3]['type']).to eq("integer")
+        expect(children[3].content).to eq("0")
 
-        expect(children[4].name).to eq("value")
-        expect(children[4]['type']).to eq("string")
-        expect(children[4].content).to eq("00000000000000")
+        expect(children[4].name).to eq("updated_at")
+        expect(children[4]['type']).to eq("time")
+        expect(children[4].content).not_to be_empty
+
+        expect(children[5].name).to eq("valid")
+        expect(children[5]['type']).to eq("boolean")
+        expect(children[5].content).to eq("true")
+
+        expect(children[6].name).to eq("value")
+        expect(children[6]['type']).to eq("string")
+        expect(children[6].content).to eq("A00000000000000")
       end
     end
   end
 
   describe "GET /absolute-ids/" do
     let(:absolute_id1) do
-      AbsoluteId.create
+      AbsoluteId.generate
     end
 
     let(:absolute_id2) do
-      AbsoluteId.create
+      AbsoluteId.generate
     end
 
     let(:absolute_ids) do
@@ -106,7 +114,7 @@ RSpec.describe "AbsoluteIds", type: :request do
     end
 
     before do
-      allow(AbsoluteId).to receive(:all).and_return(absolute_ids)
+      absolute_ids
     end
 
     after do
@@ -137,17 +145,17 @@ RSpec.describe "AbsoluteIds", type: :request do
 
         expect(json_response.first).to be_a(Hash)
         expect(json_response.first).to include("check_digit" => 0)
-        expect(json_response.first).to include("digits" => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
+        expect(json_response.first).to include("digits" => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
         expect(json_response.first).to include("integer" => 0)
         expect(json_response.first).to include("valid" => true)
-        expect(json_response.first).to include("value" => "00000000000000")
+        expect(json_response.first).to include("value" => "A00000000000000")
 
         expect(json_response.last).to be_a(Hash)
         expect(json_response.last).to include("check_digit" => 9)
-        expect(json_response.last).to include("digits" => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 9])
-        expect(json_response.last).to include("integer" => 19)
+        expect(json_response.last).to include("digits" => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1])
+        expect(json_response.last).to include("integer" => 1)
         expect(json_response.last).to include("valid" => true)
-        expect(json_response.last).to include("value" => "00000000000019")
+        expect(json_response.last).to include("value" => "A00000000000019")
       end
     end
   end
@@ -194,6 +202,7 @@ RSpec.describe "AbsoluteIds", type: :request do
         after do
           user.destroy
         end
+
         it "denies the request" do
           post "/absolute-ids/", headers: headers, params: params
 
@@ -266,8 +275,7 @@ RSpec.describe "AbsoluteIds", type: :request do
           expect(response.body).not_to be_empty
           json_response = JSON.parse(response.body)
           expect(json_response).to be_a(Hash)
-          expect(json_response).to include("value" => "00000000000000")
-
+          expect(json_response).to include("value" => "A00000000000000")
           post "/absolute-ids/", headers: headers, params: params
 
           expect(response).to redirect_to(absolute_id_path(value: AbsoluteId.last.value, format: :json))
@@ -277,7 +285,7 @@ RSpec.describe "AbsoluteIds", type: :request do
           expect(response.body).not_to be_empty
           json_response = JSON.parse(response.body)
           expect(json_response).to be_a(Hash)
-          expect(json_response).to include("value" => "00000000000019")
+          expect(json_response).to include("value" => "A00000000000019")
         end
       end
     end

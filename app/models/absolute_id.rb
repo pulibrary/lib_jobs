@@ -1,17 +1,14 @@
 # frozen_string_literal: true
-
-class AbsoluteId
-  extend ActiveModel::Naming
-
+class AbsoluteId < ApplicationRecord
   class Barcode
     attr_reader :value
 
     class InvalidBarcodeError < StandardError; end
 
     def initialize(value)
-      @value = value
+      raise InvalidBarcodeError, "Barcode values cannot be nil" if value.nil?
 
-      # raise InvalidBarcodeError.new(value) unless valid?
+      @value = value
     end
 
     def check_digit=(new_check_digit)
@@ -38,6 +35,8 @@ class AbsoluteId
     end
 
     def digits
+      return if elements.empty?
+
       elements.map(&:to_i)
     end
 
@@ -51,10 +50,16 @@ class AbsoluteId
       @check_digit ||= self.class.generate_check_digit(@value)
     end
 
-    def self.generate_check_digit(integer)
-      sum = 0
-      digits = integer.to_s.chars.map(&:to_i)
+    def self.parse_digits(code)
+      parsed = code.scan(/\d/)
+      parsed.map(&:to_i)
+    end
 
+    def self.generate_check_digit(code)
+      sum = 0
+
+      parsed = parse_digits(code)
+      digits = parsed[0, 13]
       digits.each_with_index do |digit, index|
         addend = digit
 
@@ -77,33 +82,12 @@ class AbsoluteId
       built
     end
 
-    private
-
     def elements
-      @value.scan(/\d/)
+      return [] if @value.nil?
+
+      output = @value.scan(/\d/)
+      output[0, 13]
     end
-  end
-
-  delegate :check_digit, :digits, :integer, :to_i, :valid?, :value, to: :@barcode
-
-  @cache = {}
-
-  def initialize(barcode: nil)
-    @barcode = barcode
-  end
-
-  def attributes
-    {
-      check_digit: check_digit,
-      digits: digits,
-      integer: integer,
-      valid: valid?,
-      value: value
-    }
-  end
-
-  def as_json(**_args)
-    attributes
   end
 
   class NokogiriSerializer
@@ -147,7 +131,9 @@ class AbsoluteId
 
       @model.attributes.each_pair do |key, value|
         element_name = key.to_s.underscore
-        type_attribute = if value.is_a?(TrueClass) || value.is_a?(FalseClass)
+        type_attribute = if value.is_a?(ActiveSupport::TimeWithZone)
+                           'time'
+                         elsif value.is_a?(TrueClass) || value.is_a?(FalseClass)
                            'boolean'
                          else
                            value.class.to_s.underscore
@@ -169,6 +155,77 @@ class AbsoluteId
     end
   end
 
+  class BarcodeValidator < ActiveModel::Validator
+    def validate(absolute_id)
+      return if absolute_id.value.nil?
+
+      unless absolute_id.integer.nil?
+        absolute_id.errors.add(:value, "Mismatch between the digit sequence and the ID") if absolute_id.integer != absolute_id.barcode.integer
+      end
+
+      if absolute_id.check_digit.nil?
+
+        unless absolute_id.digits.length != 14
+          absolute_id.errors.add(:value, "Please use an ID with a sequence of 13 digits and a check digit using the Luhn algorithm (please see: https://github.com/topics/luhn-algorithm?l=ruby)")
+        end
+        unless absolute_id.barcode.valid?
+          absolute_id.errors.add(:check_digit, "Please specify a ID with valid check digit using the Luhn algorithm (please see: https://github.com/topics/luhn-algorithm?l=ruby)")
+        end
+
+      elsif absolute_id.digits.length == 14 # check digit exists and value is 14 characters
+
+        unless absolute_id.check_digit == absolute_id.barcode.check_digit
+          absolute_id.errors.add(:check_digit, "Please specify a ID with valid check digit using the Luhn algorithm (please see: https://github.com/topics/luhn-algorithm?l=ruby)")
+        end
+
+      elsif absolute_id.digits.length == 13 # check digit exists and value is 13 characters
+
+        unless absolute_id.check_digit == absolute_id.barcode.check_digit
+          absolute_id.errors.add(:check_digit, "Please specify a ID with valid check digit using the Luhn algorithm (please see: https://github.com/topics/luhn-algorithm?l=ruby)")
+        end
+
+      else
+        absolute_id.errors.add(:value, "Please use an ID with a sequence of 13 digits")
+      end
+    end
+  end
+
+  validates :value, presence: true
+  validates_with BarcodeValidator
+
+  after_validation do
+    if value.present?
+      self.integer = barcode.integer if integer.nil?
+
+      self.check_digit = barcode.check_digit if check_digit.nil?
+
+      parsed_digits = Barcode.parse_digits(value)
+      self.value = "#{value}#{check_digit}" if parsed_digits.length == 13
+    end
+  end
+
+  def barcode
+    Barcode.new(value)
+  end
+  delegate :digits, :elements, to: :barcode
+
+  def attributes
+    {
+      check_digit: check_digit,
+      created_at: created_at,
+      digits: digits,
+      integer: integer,
+      updated_at: updated_at,
+      valid: valid?,
+      value: value
+    }
+  end
+
+  # Not certain why this is happening
+  def as_json(**_args)
+    attributes
+  end
+
   def self.xml_serializer
     NokogiriSerializer
   end
@@ -177,89 +234,47 @@ class AbsoluteId
     self.class.xml_serializer
   end
 
-  # def as_xml(**_args)
-  #   self.class.xml_transformer.document
-  # end
-  #
   # @see ActiveModel::Serializers::Xml
   def to_xml(options = {}, &block)
-    # binding.pry
     xml_serializer.new(self, options).serialize(&block)
   end
 
-  def self.cache(barcode)
-    @cache[barcode.value] = barcode
+  def self.prefix
+    "A"
   end
 
-  def self.cached?(barcode)
-    @cache.key?(barcode.value)
-  end
-
-  def self.delete(barcode)
-    @cache.delete(barcode.value)
-  end
-
-  def self.find(value)
-    @cache[value]
-  end
-
-  def save
-    self.class.cache(self)
-  end
-
-  def persisted?
-    self.class.cached?(self)
-  end
-
-  def delete
-    self.class.delete(self)
-  end
-
-  def to_model
-    self
-  end
-
-  def self.all
-    @cache.values
-  end
-
-  def self.last
-    all.last
-  end
-
-  def self.build_codabar(unencoded)
-    Barcode.new(unencoded)
-  end
-
-  def self.initial_unencoded_number
+  def self.initial_integer
     0
   end
 
-  def self.first_encoded_value
-    format("%013d", initial_unencoded_number)
+  def self.initial_value
+    format("%s%013d", prefix, initial_integer)
   end
 
-  def self.next_encoded_value
+  def self.next_integer
     last_absolute_id = last
+    return if last_absolute_id.nil?
 
-    last_integer = last_absolute_id.value[0..-1]
-    barcode_value = last_integer.to_i + 1
-    format("%013d", barcode_value)
+    # last_integer = last_absolute_id.value[0..-1]
+    # barcode_value = last_integer.to_i + 1
+    last_absolute_id.integer + 1
   end
 
-  def self.build(**_args)
-    encoded_value = if all.empty?
-                      first_encoded_value
-                    else
-                      next_encoded_value
-                    end
+  def self.next_value
+    return if next_integer.nil?
 
-    new_barcode = Barcode.build(encoded_value)
-    new(barcode: new_barcode)
+    format("%s%013d", prefix, next_integer)
   end
 
-  def self.create(**args)
-    new_absolute_id = build(**args)
-    new_absolute_id.save
+  def self.generate
+    if all.empty?
+      new_barcode = Barcode.new(initial_value)
+      new_check_digit = new_barcode.check_digit
+      create(value: initial_value, check_digit: new_check_digit)
+    else
+      new_barcode = Barcode.new(next_value)
+      new_check_digit = new_barcode.check_digit
+      create(value: next_value, check_digit: new_check_digit)
+    end
   end
 end
