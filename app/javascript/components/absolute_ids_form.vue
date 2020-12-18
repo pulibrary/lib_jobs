@@ -1,12 +1,14 @@
 
 <template>
   <form method="post" class="absolute-ids-form" v-on:submit.prevent="submit">
-    <div class="absolute-ids-create-button lux">
-      <button
-data-v-b7851b04
-        class="lux-button solid large lux-button"
-        v-on:click.stop="submit">Generate a new Absolute ID</button>
-    </div>
+    <fieldset>
+      <input-text id="repository_id" name="value" label="Input" :hide-label="true" placeholder="ArchivesSpace Repository ID" helper="ID for the related ArchivesSpace Repository"></input-text>
+      <input-text id="resource_id" name="value" label="Input" :hide-label="true" placeholder="ArchivesSpace Resource ID" helper="ID for the related ArchivesSpace (Finding Aid) Resource"></input-text>
+    </fieldset>
+    <button
+      data-v-b7851b04
+      class="lux-button solid large lux-button"
+      v-on:click.stop="submit">Generate a new Absolute ID</button>
   </form>
 </template>
 

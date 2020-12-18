@@ -2,6 +2,7 @@
 require_relative 'boot'
 
 require 'rails/all'
+require_relative File.join('..', 'lib', 'lib_jobs')
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -10,7 +11,13 @@ Bundler.require(*Rails.groups)
 module IlsApps
   class Application < Rails::Application
     def config_for(*args)
-      OpenStruct.new(super(*args))
+      build = super(*args)
+      OpenStruct.new(build)
+    end
+
+    def archivesspace_config_for(*args)
+      build = config_for(*args)
+      LibJobs::ArchivesSpace::Configuration.new(build.to_h)
     end
 
     # Initialize configuration defaults for originally generated Rails version.
@@ -23,6 +30,7 @@ module IlsApps
     config.staff_directory = config_for(:staff_directory)
 
     config.cas = config_for(:cas)
+    config.archivesspace = archivesspace_config_for(:archivesspace)
     config.x.after_sign_out_url = config.cas.after_sign_out_url
   end
 end

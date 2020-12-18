@@ -27,11 +27,18 @@ class AbsoluteIdsController < ApplicationController
     end
   end
 
+  def absolute_id_params
+    {
+      repository_id: 1,
+      resource_id: 1
+    }
+  end
+
   # POST /absolute-ids
   # POST /absolute-ids.json
   def create
     authorize! :create, AbsoluteId
-    @absolute_id = AbsoluteId.generate
+    @absolute_id = AbsoluteId.generate(**absolute_id_params)
 
     respond_to do |format|
       format.html do

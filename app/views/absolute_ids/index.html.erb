@@ -1,4 +1,9 @@
 <section class="absolute-ids">
+  <% if current_user %>
+    <div class="lux">
+      <absolute-ids-form action="<%= absolute_ids_path %>" token="<%= current_user.token %>"></absolute-ids-form>
+    </div>
+  <% end %>
 
   <% if @absolute_ids.length > 0 %>
     <div class="absolute-ids-table lux">
@@ -20,10 +25,4 @@
       </alert>
     <% end %>
   </div>
-
-  <% if current_user %>
-    <div class="lux">
-      <absolute-ids-form action="<%= absolute_ids_path %>" token="<%= current_user.token %>"></absolute-ids-form>
-    </div>
-  <% end %>
 </section>
