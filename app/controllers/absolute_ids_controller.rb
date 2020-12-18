@@ -2,6 +2,7 @@
 
 class AbsoluteIdsController < ApplicationController
   helper_method :index_status
+  skip_forgery_protection if: :token_header?
 
   # GET /absolute-ids
   # GET /absolute-ids.json
@@ -35,16 +36,14 @@ class AbsoluteIdsController < ApplicationController
     respond_to do |format|
       format.html do
         flash[:absolute_ids] = "Failed to generate a new absolute ID. Please contact the administrator." unless @absolute_id.save
-        redirect_to :index
+        redirect_to absolute_ids_path
       end
 
       format.json do
         if @absolute_id.nil?
           head :found, location: absolute_ids_path(format: :json)
-          # head :found, location: absolute_id_path(value: @absolute_id.value, format: :json)
         else
           head :found, location: absolute_id_path(value: @absolute_id.value, format: :json)
-          # head :found, location: absolute_ids_path(format: :json)
         end
       end
     end
@@ -59,7 +58,7 @@ class AbsoluteIdsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        redirect_to :index
+        redirect_to absolute_ids_path
       end
 
       format.json { head :forbidden }
@@ -89,6 +88,10 @@ class AbsoluteIdsController < ApplicationController
     return if value.nil?
 
     value.gsub(/\s*?Bearer\s*/i, '')
+  end
+
+  def token_header?
+    token_header.present?
   end
 
   def current_user_token
