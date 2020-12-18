@@ -24,12 +24,15 @@ import system from 'lux-design-system'
 import "lux-design-system/dist/system/system.css"
 import "lux-design-system/dist/system/tokens/tokens.scss"
 
+import AbsoluteIdsForm from '../components/absolute_ids_form'
+
 Vue.use(system)
 var elements = document.getElementsByClassName("lux")
 for (var i = 0; i < elements.length; i++) {
-  console.log(elements[i]);
-
   new Vue({
-    el: elements[i]
+    el: elements[i],
+    components: {
+      'absolute-ids-form': AbsoluteIdsForm
+    }
   })
 }
