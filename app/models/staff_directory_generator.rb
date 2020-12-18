@@ -33,7 +33,7 @@ class StaffDirectoryGenerator
       finance_data = finance_report.report(employee_id: person["EID"])
       people << create_person_hash(finance_person: finance_data, hr_person: person)
     end
-    generate_csv(people)
+    generate_csv(people) unless people.empty?
   end
 
   private
@@ -94,6 +94,8 @@ class StaffDirectoryGenerator
   end
 
   def generate_csv(people)
+    return if people.empty?
+
     unquoted = unquoted_columns(people.first.keys)
     quote_col2 = lambda do |field, fieldinfo|
       # fieldinfo has a line- ,header- and index-method

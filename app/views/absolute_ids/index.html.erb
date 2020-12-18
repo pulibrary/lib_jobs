@@ -1,31 +1,31 @@
-<section class"absolute-id-index">
-  <h1>Absolute Identifiers (AbIDs)</h1>
+<section class="absolute-ids">
 
   <% if @absolute_ids.length > 0 %>
-    <table class="absolute-id-table">
-      <thead>
-        <tr class="absolute-id-table__head">
-          <td>Barcode</td><td>Check Digit</td><td></td>
-        </tr>
-      </thead>
-
-      <tbody>
-        <% @absolute_ids.each do |absolute_id| %>
-          <tr class="absolute-id-table__row">
-            <td><%= absolute_id.value %></td>
-            <td><%= absolute_id.check_digit %></td>
-            <td></td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
+    <div class="absolute-ids-table lux">
+      <data-table caption="Absolute Identifiers (AbIDs)"
+                  :columns="[
+                            { 'name': 'value', 'display_name': 'Barcode', 'align': 'center', 'sortable': true },
+                            { 'name': 'created_at', 'display_name': 'Date of Generation', 'datatype': 'date', 'sortable': true },
+                            ]"
+                  :json-data="<%= @absolute_ids.to_json %>" />
+    </div>
+  <% else %>
+    <h1>Absolute Identifiers (AbIDs)</h1>
   <% end %>
 
-  <div class="absolute-id-index-status">
-    <%= index_status %>
+  <div class="absolute-ids-status lux">
+    <% unless index_status.blank? %>
+      <alert status="info" dismissible>
+        <%= index_status %>
+      </alert>
+    <% end %>
   </div>
 
   <% if current_user %>
-    <button href="#">Generate a new Absolute ID</button>
+    <form method="post" class="absolute-ids-form">
+      <div class="absolute-ids-create-button lux">
+        <input-button type="button" variation="solid" size="large">Generate a new Absolute ID</input-button>
+      </div>
+    </form>
   <% end %>
 </section>
