@@ -53,4 +53,90 @@ class User < ApplicationRecord
 
     decoded_token != token
   end
+
+  class FindingAidService
+    @cache = {}
+
+    def self.find_cached(key)
+      @cache[key]
+    end
+
+    def self.cached?(key)
+      @cache.key?(key)
+    end
+
+    # This needs to implemented
+    def self.cache_expired?(path)
+      false
+    end
+
+    def find_repository(repository_id:)
+      path = "repositories/#{repository_id}"
+      return self.class.find_cached(path) if self.class.cached?(path) && self.class.cache_expired?(path)
+
+      repository = authenticated.get(path)
+
+      self.class.cache(path, repository)
+    end
+
+    def find_resource(resource_id:)
+      path = "#{client.config.base_repo}/resources/#{resource_id}"
+      return self.class.find_cached(path) if self.class.cached?(path) && self.class.cache_expired?(path)
+
+      resource = authenticated.get(path)
+
+      self.class.cache(path, resource)
+    end
+
+    def self.client_class
+      ArchivesSpace::Client
+    end
+
+    def configuration
+      Rails.configuration.archivesspace
+    end
+
+    def initialize(**configuration)
+      @configuration = configuration || self.class.default_configuration.merge(configuration)
+    end
+
+    def client
+      @authenticated || @client ||= client_class.new(@configuration)
+    end
+
+    def authenticated?
+      @authenticated.present?
+    end
+
+    def authenticate
+      @authenticated = client.login unless authenticated?
+    end
+
+    def base_repository=(value)
+      @client.config.base_repo = "repositories/#{value}"
+    end
+  end
+
+  # This is in place for testing
+  def archivesspace_username
+    nil
+  end
+
+  # This is in place for testing
+  def archivesspace_password
+    nil
+  end
+
+  def archivesspace_configuration
+    output = {}
+
+    output.merge!(username: archivesspace_username) unless archivesspace_username.blank?
+    output.merge!(password: archivesspace_password) unless archivesspace_password.blank?
+
+    output
+  end
+
+  def finding_aid_service
+    @finding_aid_service ||= FindingAidService.new(**archivesspace_configuration)
+  end
 end
