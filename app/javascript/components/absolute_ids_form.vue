@@ -1,14 +1,15 @@
 
 <template>
   <form method="post" class="absolute-ids-form" v-on:submit.prevent="submit">
-    <fieldset>
-      <input-text id="repository_id" name="value" label="Input" :hide-label="true" placeholder="ArchivesSpace Repository ID" helper="ID for the related ArchivesSpace Repository"></input-text>
-      <input-text id="resource_id" name="value" label="Input" :hide-label="true" placeholder="ArchivesSpace Resource ID" helper="ID for the related ArchivesSpace (Finding Aid) Resource"></input-text>
+    <fieldset class="absolute-ids-form--fields">
+      <input-text id="id_prefix" class="absolute-ids-form--input-field" name="prefix" label="Input" :hide-label="true" placeholder="Barcode Prefix" helper="Barcode Prefix" :value="idPrefix"></input-text>
+      <input-text id="first_code" class="absolute-ids-form--input-field" name="first_code" label="Input" :hide-label="true" placeholder="Starting Barcode" helper="Starting Barcode" :value="firstCode"></input-text>
+      <input-text id="repository_id" class="absolute-ids-form--input-field" name="repository_id" label="Input" :hide-label="true" placeholder="Repository ID" helper="ArchivesSpace Repository ID" :value="repositoryId"></input-text>
+      <input-text id="resource_id" class="absolute-ids-form--input-field" name="resource_id" label="Input" :hide-label="true" placeholder="Resource ID" helper="ArchivesSpace Resource ID" :value="resourceId"></input-text>
     </fieldset>
     <button
       data-v-b7851b04
-      class="lux-button solid large lux-button"
-      v-on:click.stop="submit">Generate a new Absolute ID</button>
+      class="lux-button solid large lux-button absolute-ids-form--submit">Generate</button>
   </form>
 </template>
 
@@ -31,12 +32,40 @@ export default {
     token: {
       type: String,
       default: null
+    },
+    idPrefix: {
+      type: String,
+      default: 'A'
+    },
+    firstCode: {
+      type: String,
+      default: '000000000000'
+    },
+    repositoryId: {
+      type: String,
+      default: null
+    },
+    resourceId: {
+      type: String,
+      default: null
+    }
+  },
+  computed: {
+    formData: function () {
+      return {
+        absolute_id: {
+          resource_id: this.resourceId,
+          repository_id: this.repositoryId,
+          first_code: this.firstCode,
+          id_prefix:  this.idPrefix
+        }
+      };
     }
   },
   methods: {
     submit: async function (event) {
       event.target.disabled = true;
-      const response = await this.postData();
+      const response = await this.postData(this.formData);
 
       event.target.disabled = false;
       if (response.status == 301) {

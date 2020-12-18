@@ -195,11 +195,18 @@ class AbsoluteId < ApplicationRecord
 
   after_validation do
     if value.present?
-      self.integer = barcode.integer if integer.nil?
+      parsed_digits = Barcode.parse_digits(value)
 
+      if prefix.present? && parsed_digits.length >= 13 && value.length <= (13 + prefix.length)
+        truncated = parsed_digits.reverse[0..12]
+        normal = truncated.reverse.map(&:to_s).join
+        self.value = "#{prefix}#{normal}"
+        parsed_digits = Barcode.parse_digits(value)
+      end
+
+      self.integer = barcode.integer if integer.nil?
       self.check_digit = barcode.check_digit if check_digit.nil?
 
-      parsed_digits = Barcode.parse_digits(value)
       self.value = "#{value}#{check_digit}" if parsed_digits.length == 13
     end
   end
@@ -239,42 +246,46 @@ class AbsoluteId < ApplicationRecord
     xml_serializer.new(self, options).serialize(&block)
   end
 
-  def self.prefix
-    "A"
+  def self.default_prefix
+    'A'
   end
 
-  def self.initial_integer
+  def self.default_initial_integer
     0
   end
 
-  def self.initial_value
-    format("%s%013d", prefix, initial_integer)
+  def self.default_initial_value(prefix:)
+    format("%s%013d", prefix, default_initial_integer)
   end
 
-  def self.next_integer
-    last_absolute_id = last
-    return if last_absolute_id.nil?
+  def self.generate(**attributes)
+    # @prefix = attributes[:id_prefix] if attributes.key?(:id_prefix)
+    prefix = if attributes.key?(:id_prefix)
+               attributes[:id_prefix]
+             else
+               default_prefix
+             end
 
-    # last_integer = last_absolute_id.value[0..-1]
-    # barcode_value = last_integer.to_i + 1
-    last_absolute_id.integer + 1
-  end
+    # @initial_value = attributes[:first_code]
+    initial_value = if attributes.key?(:first_code)
+                      attributes[:first_code]
+                    else
+                      default_initial_value(prefix: prefix)
+                    end
 
-  def self.next_value
-    return if next_integer.nil?
-
-    format("%s%013d", prefix, next_integer)
-  end
-
-  def self.generate
-    if all.empty?
+    generated = where(prefix: prefix, initial_value: initial_value)
+    if generated.empty?
       new_barcode = Barcode.new(initial_value)
       new_check_digit = new_barcode.check_digit
-      create(value: initial_value, check_digit: new_check_digit)
+      create(prefix: prefix, value: initial_value, check_digit: new_check_digit, initial_value: initial_value)
     else
+      last_absolute_id = generated.last
+      next_integer = last_absolute_id.integer + 1
+      next_value = format("%s%013d", prefix, next_integer)
+
       new_barcode = Barcode.new(next_value)
       new_check_digit = new_barcode.check_digit
-      create(value: next_value, check_digit: new_check_digit)
+      create(prefix: prefix, value: next_value, check_digit: new_check_digit, initial_value: initial_value)
     end
   end
 end
