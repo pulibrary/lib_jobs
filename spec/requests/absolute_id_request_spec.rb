@@ -8,12 +8,8 @@ RSpec.describe "AbsoluteIds", type: :request do
       AbsoluteId.generate
     end
 
-    before do
-      absolute_id
-    end
-
     after do
-      AbsoluteId.all.each(&:delete)
+      AbsoluteId.all.each(&:destroy)
     end
 
     xit "renders an existing absolute identifier" do
@@ -26,6 +22,10 @@ RSpec.describe "AbsoluteIds", type: :request do
         {
           "Accept" => "application/json"
         }
+      end
+
+      before do
+        absolute_id if AbsoluteId.all.empty?
       end
 
       it "renders an existing absolute identifier" do
@@ -50,6 +50,10 @@ RSpec.describe "AbsoluteIds", type: :request do
         {
           "Accept" => "application/xml"
         }
+      end
+
+      before do
+        absolute_id if AbsoluteId.all.empty?
       end
 
       it "renders an existing absolute identifier" do
@@ -117,10 +121,6 @@ RSpec.describe "AbsoluteIds", type: :request do
       absolute_ids
     end
 
-    after do
-      AbsoluteId.all.each(&:delete)
-    end
-
     xit "renders all the absolute identifiers" do
       get "/absolute-ids/"
       # Pending
@@ -161,10 +161,6 @@ RSpec.describe "AbsoluteIds", type: :request do
   end
 
   describe "POST /absolute-ids/" do
-    after do
-      AbsoluteId.all.each(&:delete)
-    end
-
     xit "renders all the absolute identifiers" do
       post "/absolute-ids/"
       # Pending
@@ -251,7 +247,11 @@ RSpec.describe "AbsoluteIds", type: :request do
 
         let(:params) do
           {
-            user: { id: user.id }
+            user: { id: user.id },
+            absolute_id: {
+              id_prefix: 'A',
+              first_code: '0000000000000'
+            }
           }
         end
 
@@ -261,6 +261,64 @@ RSpec.describe "AbsoluteIds", type: :request do
 
         after do
           user.destroy
+        end
+
+        context "and requests a prefix and starting code" do
+          let(:params) do
+            {
+              user: { id: user.id },
+              absolute_id: {
+                id_prefix: 'B',
+                first_code: '0000000000001'
+              }
+            }
+          end
+          let(:params2) do
+            {
+              user: { id: user.id },
+              absolute_id: {
+                id_prefix: 'C',
+                first_code: '0000000000001'
+              }
+            }
+          end
+
+          it "generates a new Ab. ID with the new prefix and uses the starting code" do
+            expect(AbsoluteId.all).to be_empty
+
+            post "/absolute-ids/", headers: headers, params: params
+
+            expect(response).to redirect_to(absolute_id_path(value: AbsoluteId.last.value, format: :json))
+            follow_redirect!
+
+            expect(response.content_type).to eq("application/json")
+            expect(response.body).not_to be_empty
+            json_response = JSON.parse(response.body)
+            expect(json_response).to be_a(Hash)
+            expect(json_response).to include("value" => "B00000000000019")
+
+            post "/absolute-ids/", headers: headers, params: params
+
+            expect(response).to redirect_to(absolute_id_path(value: AbsoluteId.last.value, format: :json))
+            follow_redirect!
+
+            expect(response.content_type).to eq("application/json")
+            expect(response.body).not_to be_empty
+            json_response = JSON.parse(response.body)
+            expect(json_response).to be_a(Hash)
+            expect(json_response).to include("value" => "B00000000000028")
+
+            post "/absolute-ids/", headers: headers, params: params2
+
+            expect(response).to redirect_to(absolute_id_path(value: AbsoluteId.last.value, format: :json))
+            follow_redirect!
+
+            expect(response.content_type).to eq("application/json")
+            expect(response.body).not_to be_empty
+            json_response = JSON.parse(response.body)
+            expect(json_response).to be_a(Hash)
+            expect(json_response).to include("value" => "C00000000000019")
+          end
         end
 
         it "generates, saves, and redirects to a new absolute ID" do
