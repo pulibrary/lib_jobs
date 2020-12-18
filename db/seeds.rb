@@ -7,5 +7,5 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 
 13.times.each do
-  AbsoluteId.create
+  AbsoluteId.generate
 end

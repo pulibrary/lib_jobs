@@ -1,7 +1,16 @@
 @import "../../../node_modules/lux-design-system/dist/system/system.utils.scss";
 
-.absolute-id-index {
+.absolute-ids {
+  &-status {
+    margin-top: 2.1rem;
+  }
+
+  &-form {
+    margin-top: 2.1rem;
+  }
+
   h1 {
-    font-size: $font-size-xx-large
+    font-size: $font-size-x-large-max;
+    font-family: $font-family-heading;
   }
 }

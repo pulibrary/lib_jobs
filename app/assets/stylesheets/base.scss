@@ -1,15 +1,20 @@
 html {
   height: 100%;
 
-  body {
+  .page {
     height: 100%;
     margin-top: 0;
     margin-left: 0;
     margin-right: 0;
 
-    header {
-      .lux-wrapper[data-v-2f0190c8] {
+    &__header {
+      margin-bottom: 2.1rem;
+
+      .lux-header-content[data-v-47080ee1] {
         max-width: inherit;
+      }
+
+      .lux-wrapper[data-v-2f0190c8] {
         margin: inherit;
         margin-left: 2.1rem;
         margin-right: 2.1rem;
@@ -21,10 +26,13 @@ html {
       }
     }
 
-    main {
-      height: 100%;
+    &__content {
       margin-left: 2.1rem;
       margin-right: 2.1rem;
+    }
+
+    &__footer {
+      margin-top: 2.1rem;
     }
   }
 }
