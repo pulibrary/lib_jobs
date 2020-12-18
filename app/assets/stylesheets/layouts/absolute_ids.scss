@@ -6,6 +6,40 @@
   }
 
   &-form {
+    /*margin-top: 2.1rem;*/
+    display: inline-flex;
+    align-items: center;
+
+    &--fields {
+      border-width: 0;
+
+    }
+
+    &--input-field {
+      margin-top: 1.4rem;
+      margin-left: 0.7rem;
+      margin-right: 0.7rem;
+
+      &.lux-input {
+        display: inline-block;
+
+        &[data-v-4d16608c]:last-child {
+          margin-bottom: 1.4rem;
+        }
+      }
+    }
+
+    &--submit {
+      &.lux-button[data-v-b7851b04] {
+        /*margin-top: 2.1rem;*/
+        margin-top: 4px;
+        height: fit-content;
+      }
+
+    }
+  }
+
+  &-table {
     margin-top: 2.1rem;
   }
 

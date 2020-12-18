@@ -27,13 +27,6 @@ class AbsoluteIdsController < ApplicationController
     end
   end
 
-  def absolute_id_params
-    {
-      repository_id: 1,
-      resource_id: 1
-    }
-  end
-
   # POST /absolute-ids
   # POST /absolute-ids.json
   def create
@@ -113,5 +106,11 @@ class AbsoluteIdsController < ApplicationController
     return super if !super.nil? || current_user_params.nil?
 
     @current_user ||= find_user
+  end
+
+  def absolute_id_params
+    output = params.permit(absolute_id: [:id_prefix, :first_code, :repository_id, :resource_id])
+    parsed = output.to_h.deep_symbolize_keys
+    parsed.fetch(:absolute_id, {})
   end
 end
