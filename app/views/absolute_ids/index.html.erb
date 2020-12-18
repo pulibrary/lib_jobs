@@ -25,5 +25,10 @@
     <div class="lux">
       <absolute-ids-form action="<%= absolute_ids_path %>" token="<%= current_user.token %>"></absolute-ids-form>
     </div>
+    <form method="post" class="absolute-ids-form">
+      <div class="absolute-ids-create-button lux">
+        <input-button type="button" variation="solid" size="large">Generate a new Absolute ID</input-button>
+      </div>
+    </form>
   <% end %>
 </section>
