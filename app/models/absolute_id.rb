@@ -222,6 +222,7 @@ class AbsoluteId < ApplicationRecord
       created_at: created_at,
       digits: digits,
       integer: integer,
+      archivesspace_resource_id: archivesspace_resource_id,
       updated_at: updated_at,
       valid: valid?,
       value: value
