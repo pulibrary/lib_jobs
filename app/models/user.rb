@@ -66,7 +66,7 @@ class User < ApplicationRecord
     end
 
     # This needs to implemented
-    def self.cache_expired?(path)
+    def self.cache_expired?(_path)
       false
     end
 
@@ -130,8 +130,8 @@ class User < ApplicationRecord
   def archivesspace_configuration
     output = {}
 
-    output.merge!(username: archivesspace_username) unless archivesspace_username.blank?
-    output.merge!(password: archivesspace_password) unless archivesspace_password.blank?
+    output[:username] = archivesspace_username if archivesspace_username.present?
+    output[:password] = archivesspace_password if archivesspace_password.present?
 
     output
   end
