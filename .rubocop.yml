@@ -23,6 +23,7 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   Exclude:
     - 'app/models/staff_directory_generator.rb'
+    - 'app/controllers/absolute_ids_controller.rb'
 
 Metrics/CyclomaticComplexity:
   Exclude:
