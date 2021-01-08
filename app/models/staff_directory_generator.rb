@@ -89,7 +89,7 @@ class StaffDirectoryGenerator
       person['Building'] = address.last
     end
     person['Phone'] = ldap_data[:telephone]
-    person['LibraryTitle'] = ldap_data[:title]
+    person['LibraryTitle'] ||= ldap_data[:title]
     person
   end
 

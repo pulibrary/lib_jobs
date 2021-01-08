@@ -38,10 +38,10 @@ RSpec.describe StaffDirectoryGenerator, type: :model do
   # rubocop:disable Layout/LineLength
   let(:report_header)  { '"idStaff","PUID","NetID","Phone","Name","lastName","firstName","middleName","nickName","Title","LibraryTitle","LongTitle","Email","Section","Division","Department","StartDate","StaffSort","UnitSort","DeptSort","Unit","DivSect","FireWarden","BackupFireWarden","FireWardenNotes","Office","Building"' }
 
-  let(:report_line1) { '111,"999999999","testi","111-222-3333","Am, Tester","Am","Test","I","Tester","The Great Assistant","The Great LDAP Assistant","The Great LDAP Assistant","testi@princeton.edu","section from DB","Division from DB","Lib-Research Coll & Presr",04/15/2019 00:00:00,10000,1000,10,,"Division from DB  section from DB",0,0,,"B-1H-1","Firestone"' }
-  let(:report_line2) { '111,"999999998","testii","222-333-4444","Am, Tester","Am","Test","II","Tester","The Great Assistant","The Great LDAP Assistant","The Great LDAP Assistant","testii@princeton.edu","section from DB","Division from DB","Lib-Research Coll & Presr",04/15/2019 00:00:00,10000,1000,10,,"Division from DB  section from DB",0,0,,"B-2H-2","Firestone"' }
-  let(:report_line3) { '111,"999999997","testiii","333-444-5555","Am, Tester","Am","Test","III","Tester","The Great Assistant","The Great LDAP Assistant","The Great LDAP Assistant","testiii@princeton.edu","section from DB","Division from DB","Lib-Research Coll & Presr",04/15/2019 00:00:00,10000,1000,10,,"Division from DB  section from DB",0,0,,"B-18","Firestone"' }
-  let(:report_line4) { '111,"999999997","testiv","111-222-333","Am, Tester","Am","Test","IV","Tester","The Great Assistant","The Great LDAP Assistant","The Great LDAP Assistant","testiv@princeton.edu","section from DB","Division from DB","Lib-Research Coll & Presr",04/15/2019 00:00:00,10000,1000,10,,"Division from DB  section from DB",0,0,,"B-4H-4","Firestone"' }
+  let(:report_line1) { '111,"999999999","testi","111-222-3333","Am, Tester","Am","Test","I","Tester","The Great Assistant","The Great Library Assistant","The Great Library Assistant","testi@princeton.edu","section from DB","Division from DB","Lib-Research Coll & Presr",04/15/2019 00:00:00,10000,1000,10,,"Division from DB  section from DB",0,0,,"B-1H-1","Firestone"' }
+  let(:report_line2) { '111,"999999998","testii","222-333-4444","Am, Tester","Am","Test","II","Tester","The Great Assistant","The Great Library Assistant","The Great Library Assistant","testii@princeton.edu","section from DB","Division from DB","Lib-Research Coll & Presr",04/15/2019 00:00:00,10000,1000,10,,"Division from DB  section from DB",0,0,,"B-2H-2","Firestone"' }
+  let(:report_line3) { '111,"999999997","testiii","333-444-5555","Am, Tester","Am","Test","III","Tester","The Great Assistant","The Great Library Assistant","The Great Library Assistant","testiii@princeton.edu","section from DB","Division from DB","Lib-Research Coll & Presr",04/15/2019 00:00:00,10000,1000,10,,"Division from DB  section from DB",0,0,,"B-18","Firestone"' }
+  let(:report_line4) { '111,"999999997","testiv","111-222-333","Am, Tester","Am","Test","IV","Tester","The Great Assistant","The Great Library Assistant","The Great Library Assistant","testiv@princeton.edu","section from DB","Division from DB","Lib-Research Coll & Presr",04/15/2019 00:00:00,10000,1000,10,,"Division from DB  section from DB",0,0,,"B-4H-4","Firestone"' }
   # rubocop:enable Layout/LineLength
 
   let(:hr_list) do
@@ -70,7 +70,7 @@ RSpec.describe StaffDirectoryGenerator, type: :model do
     end
 
     let(:report_line3) do
-      ',"999999997","testiii","333-444-5555","Test, III","Test","III",,"III",,"The Great LDAP Assistant","The Great LDAP Assistant","testiii@princeton.edu",,,,,,,,,,0,0,,,'
+      ',"999999997","testiii","333-444-5555","Test, III","Test","III",,"III",,"Library Office Assistant III","Library Office Assistant III","testiii@princeton.edu",,,,,,,,,,0,0,,,'
     end
 
     # rubocop:enable RSpec/MessageSpies
