@@ -85,8 +85,8 @@ class StaffDirectoryGenerator
     person['Email'] = ldap_data[:email]
     if ldap_data[:address]
       address = ldap_data[:address].split(' ')
-      person['Office'] = address.first
-      person['Building'] = address.last
+      person['Office'] = address.shift
+      person['Building'] = address.join(' ')
     end
     person['Phone'] = ldap_data[:telephone]
     person['LibraryTitle'] ||= ldap_data[:title]
