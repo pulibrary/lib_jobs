@@ -9,10 +9,13 @@ module LibJobs
       end
 
       def find_child(resource_class:, id:)
-        response = @client.get("/repositories/#{@id}/#{resource_class.to_s.downcase.pluralize}/#{id}")
+        response = @client.get("/repositories/#{@id}/#{resource_class.name.demodulize.pluralize.underscore}/#{id}")
         return nil if response.status == 404
 
-        resource_class.new(**response)
+        parsed = JSON.parse(response.body)
+        response_body_json = parsed.transform_keys(&:to_sym)
+        response_body_json[:id] = id
+        resource_class.new(@client, **response_body_json)
       end
 
       def find_resource(id:)
@@ -25,7 +28,7 @@ module LibJobs
 
       def update_child(child)
         resource_class = child.class
-        response = @client.post("/repositories/#{@id}/#{resource_class.to_s.downcase.pluralize}/#{child.id}", child.to_h)
+        response = @client.post("/repositories/#{@id}/#{resource_class.name.demodulize.pluralize.underscore}/#{child.id}", child.to_h)
         return nil if response.status == 400
 
         find_child(resource_class: child.class, id: child.id)
