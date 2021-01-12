@@ -2,7 +2,7 @@ inherit_from: .rubocop_todo.yml
 
 inherit_gem:
   bixby: bixby_default.yml
-  
+
 AllCops:
   TargetRubyVersion: 2.4
 
@@ -10,9 +10,35 @@ Layout/LineLength:
   Enabled: true
   Max: 200
 
+Metrics/AbcSize:
+  Exclude:
+    - 'app/controllers/absolute_ids_controller.rb'
+    - 'app/models/absolute_id.rb'
+
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
 
+Metrics/ClassLength:
+  Exclude:
+    - 'app/models/staff_directory_generator.rb'
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - 'app/models/absolute_id.rb'
+
+Metrics/MethodLength:
+  Exclude:
+    - 'app/controllers/application_controller.rb'
+    - 'app/controllers/absolute_ids_controller.rb'
+    - 'app/models/absolute_id.rb'
+
+Metrics/PerceivedComplexity:
+  Exclude:
+    - 'app/controllers/absolute_ids_controller.rb'
+    - 'app/models/absolute_id.rb'
+
 RSpec/ExampleLength:
   Max: 10
+  Exclude:
+    - 'spec/requests/absolute_id_request_spec.rb'

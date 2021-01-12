@@ -1,0 +1,29 @@
+<section class="absolute-ids">
+
+  <% if @absolute_ids.length > 0 %>
+    <div class="absolute-ids-table lux">
+      <data-table caption="Absolute Identifiers (AbIDs)"
+                  :columns="[
+                            { 'name': 'value', 'display_name': 'Barcode', 'align': 'center', 'sortable': true },
+                            { 'name': 'created_at', 'display_name': 'Date of Generation', 'datatype': 'date', 'sortable': true },
+                            ]"
+                  :json-data="<%= @absolute_ids.to_json %>" />
+    </div>
+  <% else %>
+    <h1>Absolute Identifiers (AbIDs)</h1>
+  <% end %>
+
+  <div class="absolute-ids-status lux">
+    <% unless index_status.blank? %>
+      <alert status="info" dismissible>
+        <%= index_status %>
+      </alert>
+    <% end %>
+  </div>
+
+  <% if current_user %>
+    <div class="lux">
+      <absolute-ids-form action="<%= absolute_ids_path %>" token="<%= current_user.token %>"></absolute-ids-form>
+    </div>
+  <% end %>
+</section>

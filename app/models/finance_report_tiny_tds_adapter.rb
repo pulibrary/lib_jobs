@@ -2,13 +2,18 @@
 
 class FinanceReportTinyTdsAdapter
   def initialize(dbhost:, dbport:, dbuser:, dbpass:)
-    @client = TinyTds::Client.new username: dbuser, password: dbpass, host: dbhost, port: dbport
+    @dbhost = dbhost
+    @dbport = dbport
+    @dbuser = dbuser
+    @dbpass = dbpass
+  rescue TinyTds::Error => tds_error
+    Rails.logger.error("Failed to connect to the financial report server: #{tds_error}")
   end
 
   # @param query [string]
   # @return array of hashes where the column names are the keys
   def execute(query:)
-    @client.execute(query).to_a
+    client.execute(query).to_a
   end
 
   def execute_staff_query(employee_id:)
@@ -20,5 +25,17 @@ class FinanceReportTinyTdsAdapter
             "join Building on Positions.idBuilding = Building.ID_Building " \
             "where PUID = '#{employee_id}' and EndDate is null"
     execute(query: query)
+  end
+
+  private
+
+  def build_client
+    TinyTds::Client.new(username: @dbuser, password: @dbpass, host: @dbhost, port: @dbport)
+  rescue TinyTds::Error => tds_error
+    Rails.logger.error("Failed to connect to the financial report server: #{tds_error}")
+  end
+
+  def client
+    @client ||= build_client
   end
 end

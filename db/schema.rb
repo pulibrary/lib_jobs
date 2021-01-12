@@ -10,7 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_04_151642) do
+ActiveRecord::Schema.define(version: 2020_12_17_192430) do
+
+  create_table "absolute_ids", force: :cascade do |t|
+    t.string "value"
+    t.integer "integer"
+    t.integer "check_digit"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "data_sets", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -20,6 +28,13 @@ ActiveRecord::Schema.define(version: 2020_12_04_151642) do
     t.string "data_file"
     t.string "category"
     t.index ["category"], name: "index_data_sets_on_category"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "email"
+    t.string "token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

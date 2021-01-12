@@ -45,8 +45,7 @@ gem 'tiny_tds'
 
 group :development, :test do
   gem 'bixby'
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  gem 'pry-byebug'
   gem 'rubocop'
   gem 'rubocop-rails'
 end
@@ -74,4 +73,11 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
+gem 'cancancan'
+gem "devise", ">= 4.6.0"
+gem 'foreman'
+gem 'jwt'
+gem "omniauth", "~> 1.9"
+gem 'omniauth-cas'
 gem 'pg'
+gem 'webpacker'

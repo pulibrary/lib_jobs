@@ -6,4 +6,14 @@ Rails.application.routes.draw do
 
   get '/staff-directory', to: 'staff_directory#index', defaults: { format: 'csv' }
   get '/removed-staff', to: 'staff_directory#removed', defaults: { format: 'text' }
+
+  get '/absolute-ids', to: 'absolute_ids#index'
+  get '/absolute-ids/:value', to: 'absolute_ids#show', as: 'absolute_id'
+  post '/absolute-ids', to: 'absolute_ids#create'
+
+  devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }, skip: [:passwords, :registration]
+  devise_scope :user do
+    get "sign_out", to: "devise/sessions#destroy", as: :destroy_user_session
+    get "users/auth/cas", to: "users/omniauth_authorize#passthru", defaults: { provider: :cas }, as: "new_user_session"
+  end
 end

@@ -1,15 +1,27 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>IlsApps</title>
+    <title><%= application_name %></title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <%= yield %>
+  <body class="page">
+    <section class="page__header">
+      <noscript><%= render 'shared/header_navbar_noscript' %></noscript>
+      <%= render partial: 'shared/header_navbar' %>
+    </section>
+    <main class="page__content">
+      <%= yield %>
+    </main>
+    <section class="page__footer">
+      <noscript><%= render partial: 'shared/footer_noscript' %></noscript>
+      <%= render partial: 'shared/footer' %>
+    <section>
   </body>
+  <%= javascript_pack_tag 'application' %>
 </html>
