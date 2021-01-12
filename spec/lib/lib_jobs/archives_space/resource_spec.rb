@@ -8,7 +8,7 @@ describe LibJobs::ArchivesSpace::Resource do
   let(:top_container) { instance_double(LibJobs::ArchivesSpace::TopContainer) }
   let(:repository) { instance_double(LibJobs::ArchivesSpace::Repository) }
   let(:fixture_file_path) do
-    Rails.root.join('spec', 'fixtures', 'archivesspace_resource.json')
+    Rails.root.join('spec', 'fixtures', 'archives_space_resource.json')
   end
   let(:fixture_json) do
     File.read(fixture_file_path)
