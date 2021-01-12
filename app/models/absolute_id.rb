@@ -113,7 +113,7 @@ class AbsoluteId < ApplicationRecord
 
     def build_element(element_name:, type_attribute:, value:)
       new_element = document_tree.create_element(element_name)
-      new_element['type'] = type_attribute
+      new_element['type'] = type_attribute unless type_attribute.nil?
 
       if value.respond_to?(:each)
         children = value.map { |child_value| build_element(element_name: element_name, type_attribute: type_attribute, value: child_value) }
@@ -131,10 +131,12 @@ class AbsoluteId < ApplicationRecord
 
       @model.attributes.each_pair do |key, value|
         element_name = key.to_s.underscore
-        type_attribute = if value.is_a?(ActiveSupport::TimeWithZone)
-                           'time'
-                         elsif value.is_a?(TrueClass) || value.is_a?(FalseClass)
+        type_attribute = if value.is_a?(TrueClass) || value.is_a?(FalseClass)
                            'boolean'
+                         elsif value.is_a?(NilClass)
+                           nil
+                         elsif value.is_a?(ActiveSupport::TimeWithZone)
+                           'time'
                          else
                            value.class.to_s.underscore
                          end
@@ -218,11 +220,11 @@ class AbsoluteId < ApplicationRecord
 
   def attributes
     {
+      archivesspace_resource_id: archivesspace_resource_id,
       check_digit: check_digit,
       created_at: created_at,
       digits: digits,
       integer: integer,
-      archivesspace_resource_id: archivesspace_resource_id,
       updated_at: updated_at,
       valid: valid?,
       value: value

@@ -65,38 +65,42 @@ RSpec.describe "AbsoluteIds", type: :request do
         xml_document = Nokogiri::XML(response.body)
         expect(xml_document.root.name).to eq("absolute_id")
         children = xml_document.root.elements
-        expect(children.length).to eq(7)
+        expect(children.length).to eq(8)
 
-        expect(children[0].name).to eq("check_digit")
-        expect(children[0]['type']).to eq("integer")
-        expect(children[0].content).to eq("0")
+        expect(children[0].name).to eq("archivesspace_resource_id")
+        expect(children[0]['type']).to be nil
+        expect(children[0].content).to be_empty
 
-        expect(children[1].name).to eq("created_at")
-        expect(children[1]['type']).to eq("time")
-        expect(children[1].content).not_to be_empty
+        expect(children[1].name).to eq("check_digit")
+        expect(children[1]['type']).to eq("integer")
+        expect(children[1].content).to eq("0")
 
-        expect(children[2].name).to eq("digits")
-        expect(children[2]['type']).to eq("array")
+        expect(children[2].name).to eq("created_at")
+        expect(children[2]['type']).to eq("time")
+        expect(children[2].content).not_to be_empty
 
-        digits_elements = children[2].elements
+        expect(children[3].name).to eq("digits")
+        expect(children[3]['type']).to eq("array")
+
+        digits_elements = children[3].elements
         expect(digits_elements.length).to eq(13)
         expect(digits_elements.map(&:content)).to eq(["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"])
 
-        expect(children[3].name).to eq("integer")
-        expect(children[3]['type']).to eq("integer")
-        expect(children[3].content).to eq("0")
+        expect(children[4].name).to eq("integer")
+        expect(children[4]['type']).to eq("integer")
+        expect(children[4].content).to eq("0")
 
-        expect(children[4].name).to eq("updated_at")
-        expect(children[4]['type']).to eq("time")
-        expect(children[4].content).not_to be_empty
+        expect(children[5].name).to eq("updated_at")
+        expect(children[5]['type']).to eq("time")
+        expect(children[5].content).not_to be_empty
 
-        expect(children[5].name).to eq("valid")
-        expect(children[5]['type']).to eq("boolean")
-        expect(children[5].content).to eq("true")
+        expect(children[6].name).to eq("valid")
+        expect(children[6]['type']).to eq("boolean")
+        expect(children[6].content).to eq("true")
 
-        expect(children[6].name).to eq("value")
-        expect(children[6]['type']).to eq("string")
-        expect(children[6].content).to eq("A00000000000000")
+        expect(children[7].name).to eq("value")
+        expect(children[7]['type']).to eq("string")
+        expect(children[7].content).to eq("A00000000000000")
       end
     end
   end
