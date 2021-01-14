@@ -125,7 +125,7 @@ RSpec.describe "AbsoluteIds", type: :request do
       absolute_ids
     end
 
-    xit "renders all the absolute identifiers" do
+    it "renders all the absolute identifiers" do
       get "/absolute-ids/"
       # Pending
     end

@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_07_205415) do
+ActiveRecord::Schema.define(version: 2021_01_13_202151) do
+
+  create_table "absolute_id_locations", force: :cascade do |t|
+    t.string "label"
+    t.string "value"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "absolute_ids", force: :cascade do |t|
     t.string "value"
@@ -23,6 +30,8 @@ ActiveRecord::Schema.define(version: 2021_01_07_205415) do
     t.string "repository_id"
     t.string "resource_id"
     t.string "archivesspace_resource_id"
+    t.integer "location_id"
+    t.index ["location_id"], name: "index_absolute_ids_on_location_id"
   end
 
   create_table "data_sets", force: :cascade do |t|
