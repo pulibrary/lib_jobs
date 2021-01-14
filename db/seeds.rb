@@ -6,6 +6,13 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-13.times.each do
-  AbsoluteId.generate
+AbsoluteId::Location.create_configured
+
+rounds = 13 - AbsoluteId.all.length
+rounds.times.each do
+  locations = AbsoluteId::Location.all
+  index = rand(0..locations.length - 1)
+  random_location = locations[index]
+
+  AbsoluteId.generate(location: random_location)
 end
