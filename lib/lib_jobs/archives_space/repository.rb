@@ -3,9 +3,27 @@
 module LibJobs
   module ArchivesSpace
     class Repository < Object
-      def initialize(client:, id:)
-        @client = client
-        @id = id
+      def initialize(attributes)
+        @client = attributes[:client]
+
+        @uri = attributes[:uri]
+        @repo_code = attributes[:repo_code]
+        @name = attributes[:name]
+
+        @id = attributes[:repo_code]
+      end
+
+      def attributes
+        super.merge({
+          id: @id,
+          uri: @uri,
+          repo_code: @repo_code,
+          name: @name,
+        })
+      end
+
+      def as_json(**_options)
+        attributes
       end
 
       def find_child(resource_class:, id:)

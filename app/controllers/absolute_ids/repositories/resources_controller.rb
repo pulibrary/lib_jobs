@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AbsoluteIds::RepositoriesController < ApplicationController
+class AbsoluteIds::Repositories::ResourcesController < ApplicationController
   skip_forgery_protection if: :token_header?
 
   def current_client
@@ -11,12 +11,33 @@ class AbsoluteIds::RepositoriesController < ApplicationController
     @current_client
   end
 
-  # GET /absolute-ids/repositories.json
+  def repository_id
+    params[:repository_id]
+  end
+
+  def resource_id
+    params[:resource_id]
+  end
+
+  def current_repository
+    @current_client ||= current_client.find_repository(id: repository_id)
+  end
+
+  # GET /absolute-ids/repositories/repository_id/resources.json
   def index
-    @repositories ||= current_client.repositories
+    @resources ||= current_repository.resources
 
     respond_to do |format|
-      format.json { render json: @repositories }
+      format.json { render json: @resources }
+    end
+  end
+
+  # GET /absolute-ids/repositories/:repository_id/resources/:resource_id.json
+  def show
+    @resource ||= current_repository.find_resource(id: resource_id)
+
+    respond_to do |format|
+      format.json { render json: @resource }
     end
   end
 
