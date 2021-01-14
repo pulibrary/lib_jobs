@@ -8,8 +8,12 @@ module LibJobs
         @values = OpenStruct.new(attributes.deep_symbolize_keys)
       end
 
-      def to_h
+      def attributes
         @values.to_h
+      end
+
+      def to_h
+        attributes
       end
 
       def id
