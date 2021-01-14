@@ -1,4 +1,3 @@
-
 <template>
   <form method="post" class="absolute-ids-form" v-on:submit.prevent="submit">
     <fieldset class="absolute-ids-form--fields">
@@ -48,16 +47,18 @@
         :value="repositoryId">
       </input-data-list>
 
-      <input-text
+      <input-data-list
         id="resource_id"
         class="absolute-ids-form--input-field"
         name="resource_id"
-        label="Input"
+        label="Resource"
         :hide-label="true"
-        placeholder="Resource ID"
         helper="ArchivesSpace Resource"
+        placeholder="Please select a repository"
+        :disabled="!repositoryId"
+        :list="resourceOptions"
         :value="resourceId">
-      </input-text>
+      </input-data-list>
     </fieldset>
     <button
       data-v-b7851b04
@@ -117,6 +118,14 @@ export default {
 
       return locations;
     },
+
+    repositories: async function () {
+      const response = await this.getRepositories();
+      const repositories = response.json();
+
+      return repositories;
+    },
+
     formData: function () {
       return {
         absolute_id: {
@@ -132,20 +141,45 @@ export default {
   data: function () {
     return {
       locationOptions: [],
-      repositoryOptions: []
+      repositoryOptions: [],
+      resourceOptions: []
     }
   },
   mounted: async function () {
-    const values = await this.locations;
+    const fetchedLocations = await this.locations;
 
-    this.locationOptions = values.map((location) => {
+    this.locationOptions = fetchedLocations.map((location) => {
       return {
         label: location.label,
         value: location.value
       };
     });
+
+    const fetchedRepositories = await this.repositories;
+    this.repositoryOptions = fetchedRepositories.map((repository) => {
+      return {
+        label: repository.name,
+        value: repository.repo_code
+      };
+    });
   },
   methods: {
+    getRepositories: async function () {
+      const response = await fetch('/absolute-ids/repositories', {
+            method: 'GET',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${this.token}`
+            },
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer'
+      });
+      return response;
+    },
+
     getLocations: async function () {
       const response = await fetch('/absolute-ids/locations', {
             method: 'GET',

@@ -9,7 +9,17 @@ module LibJobs
       end
 
       def base_uri
-        @base_uri ||= URI.build(protocol: protocol, host: host, port: port, path: path)
+        @base_uri ||= URI::Generic.build(scheme: protocol, host: host, port: port, path: path)
+      end
+
+      def attributes
+        {
+          base_uri: base_uri.to_s
+        }
+      end
+
+      def to_h
+        super.merge(attributes)
       end
     end
   end

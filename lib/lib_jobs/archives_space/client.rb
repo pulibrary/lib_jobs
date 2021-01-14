@@ -6,7 +6,7 @@ module LibJobs
         ::ArchivesSpace::Configuration.new(**attributes.to_h)
       end
 
-      def self.parse_config(config_file_path)
+      def self.build_from_file(config_file_path)
         config_file = File.open(config_file_path, 'rb')
         yaml_values = YAML.safe_load(config_file)
 
@@ -14,6 +14,21 @@ module LibJobs
         config = build_config(parsed)
 
         new(config)
+      end
+
+      def self.default_config_file_path
+        Rails.root.join('config', 'archivesspace.yml')
+      end
+
+      def self.build
+        build_from_file(default_config_file_path)
+      end
+
+      def repositories
+        super.map do |repository_json|
+          repository_attributes = repository_json.symbolize_keys.merge(client: self)
+          Repository.new(repository_attributes)
+        end
       end
     end
   end
