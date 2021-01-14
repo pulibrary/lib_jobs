@@ -1,8 +1,41 @@
 # frozen_string_literal: true
 
 class AbsoluteIdsController < ApplicationController
-  helper_method :index_status
+  helper_method :index_status, :next_code, :next_prefix, :next_location
   skip_forgery_protection if: :token_header?
+
+  def next_location_model
+    absolute_ids = AbsoluteId.all
+    return if absolute_ids.empty?
+
+    last_absolute_id = absolute_ids.last
+    last_absolute_id.location
+  end
+
+  def next_location
+    next_location_model.value if next_location_model
+  end
+
+  def next_prefix
+    absolute_ids = if next_location_model
+                     AbsoluteId.where(location_id: next_location_model.id)
+                   else
+                     AbsoluteId.all
+                   end
+    return AbsoluteId.default_prefix if absolute_ids.empty?
+
+    last_absolute_id = AbsoluteId.last
+    last_absolute_id.prefix
+  end
+
+  def next_code
+    absolute_ids = AbsoluteId.where(prefix: next_prefix)
+    return '0000000000000' if absolute_ids.empty?
+
+    last_absolute_id = absolute_ids.last
+    next_integer = last_absolute_id.integer + 1
+    format("%013d", next_integer)
+  end
 
   # GET /absolute-ids
   # GET /absolute-ids.json

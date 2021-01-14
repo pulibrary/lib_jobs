@@ -218,24 +218,14 @@ class AbsoluteId < ApplicationRecord
   end
   delegate :digits, :elements, to: :barcode
 
-  def location
-    return if location_id.nil?
-
-    AbsoluteId::Location.find(location_id)
-  end
-
-  def archivesspace_resource
-    return if archivesspace_resource_id.nil?
-  end
-
   def attributes
     {
+      archivesspace_resource_id: archivesspace_resource_id,
       check_digit: check_digit,
       created_at: created_at,
       digits: digits,
       integer: integer,
       location: location,
-      resource: archivesspace_resource,
       updated_at: updated_at,
       valid: valid?,
       value: value
@@ -273,28 +263,25 @@ class AbsoluteId < ApplicationRecord
   end
 
   def self.generate(**attributes)
+    # @prefix = attributes[:id_prefix] if attributes.key?(:id_prefix)
     prefix = if attributes.key?(:id_prefix)
                attributes[:id_prefix]
              else
                default_prefix
              end
 
+    # @initial_value = attributes[:first_code]
     initial_value = if attributes.key?(:first_code)
                       attributes[:first_code]
                     else
                       default_initial_value(prefix: prefix)
                     end
 
-    location = attributes[:location]
-    location_id = if !location.nil?
-                    location.id
-                  end
-
     generated = where(prefix: prefix, initial_value: initial_value)
     if generated.empty?
       new_barcode = Barcode.new(initial_value)
       new_check_digit = new_barcode.check_digit
-      create(prefix: prefix, value: initial_value, check_digit: new_check_digit, initial_value: initial_value, location_id: location_id)
+      create(prefix: prefix, value: initial_value, check_digit: new_check_digit, initial_value: initial_value)
     else
       last_absolute_id = generated.last
       next_integer = last_absolute_id.integer + 1
@@ -302,7 +289,7 @@ class AbsoluteId < ApplicationRecord
 
       new_barcode = Barcode.new(next_value)
       new_check_digit = new_barcode.check_digit
-      create(prefix: prefix, value: next_value, check_digit: new_check_digit, initial_value: initial_value, location_id: location_id)
+      create(prefix: prefix, value: next_value, check_digit: new_check_digit, initial_value: initial_value)
     end
   end
 end

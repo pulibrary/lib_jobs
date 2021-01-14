@@ -1,16 +1,24 @@
 <section class="absolute-ids">
   <% if current_user %>
     <div class="lux">
-      <absolute-ids-form action="<%= absolute_ids_path %>" token="<%= current_user.token %>"></absolute-ids-form>
+      <absolute-id-form
+        action="<%= absolute_ids_path %>"
+        next-location="<%= next_location %>"
+        next-prefix="<%= next_prefix %>"
+        next-code="<%= next_code %>"
+        token="<%= current_user.token %>">
+      </absolute-ids-form>
     </div>
   <% end %>
 
   <% if @absolute_ids.length > 0 %>
     <div class="absolute-ids-table lux">
-      <data-table caption="Absolute Identifiers (AbIDs)"
+      <absolute-id-table caption="Absolute Identifiers (AbIDs)"
                   :columns="[
-                            { 'name': 'value', 'display_name': 'Barcode', 'align': 'center', 'sortable': true },
-                            { 'name': 'created_at', 'display_name': 'Date of Generation', 'datatype': 'date', 'sortable': true },
+                            { 'name': 'location', 'display_name': 'Location', 'align': 'left', 'sortable': true },
+                            { 'name': 'value', 'display_name': 'Barcode', 'align': 'left', 'sortable': true },
+                            { 'name': 'resource', 'display_name': 'ArchivesSpace Resource', 'align': 'left', 'sortable': false },
+                            { 'name': 'updated_at', 'display_name': 'Last Updated', 'datatype': 'date', 'sortable': true },
                             ]"
                   :json-data="<%= @absolute_ids.to_json %>" />
     </div>
