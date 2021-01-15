@@ -42,9 +42,11 @@
         label="Repository"
         :hide-label="true"
         helper="ArchivesSpace Repository"
-        placeholder="Repository ID"
+        :placeholder="repositoryPlaceholder"
+        :disabled="fetchingRepositories"
         :list="repositoryOptions"
-        :value="repositoryId">
+        :value="repositoryId"
+        @input="changeRepositoryId">
       </input-data-list>
 
       <input-data-list
@@ -54,8 +56,8 @@
         label="Resource"
         :hide-label="true"
         helper="ArchivesSpace Resource"
-        placeholder="Please select a repository"
-        :disabled="!repositoryId || repositoryId.length < 0"
+        :placeholder="resourcePlaceholder"
+        :disabled="resourceOptions.length < 1"
         :list="resourceOptions"
         :value="resourceId">
       </input-data-list>
@@ -126,6 +128,43 @@ export default {
       return repositories;
     },
 
+    repositoryPlaceholder: function () {
+      let value = 'No repositories available';
+
+      if (this.fetchingRepositories) {
+        value = 'Loading...';
+      } else if (this.repositoryOptions.length > 0) {
+        value = 'Select a repository';
+      }
+
+      return value;
+    },
+
+    resources: async function () {
+      if (!this.repositoryId) {
+        return [];
+      }
+
+      const response = await this.getResources();
+      const resources = response.json();
+
+      return resources;
+    },
+
+    resourcePlaceholder: function () {
+      let value = 'No repository selected';
+
+      if (this.fetchingResources) {
+        value = 'Loading...';
+      } else if (this.repositoryId && this.resourceOptions.length < 1) {
+        value = 'No resources available';
+      } else if (this.resourceOptions.length > 1) {
+        value = 'Select a resource';
+      }
+
+      return value;
+    },
+
     formData: function () {
       return {
         absolute_id: {
@@ -142,7 +181,9 @@ export default {
     return {
       locationOptions: [],
       repositoryOptions: [],
-      resourceOptions: []
+      resourceOptions: [],
+      fetchingRepositories: false,
+      fetchingResources: false
     }
   },
   mounted: async function () {
@@ -159,12 +200,55 @@ export default {
     this.repositoryOptions = fetchedRepositories.map((repository) => {
       return {
         label: repository.name,
-        value: repository.repo_code
+        value: repository.id
       };
     });
   },
   methods: {
+    getResources: async function (repositoryId) {
+      this.fetchingResources = true;
+
+      const response = await fetch(`/absolute-ids/repositories/${repositoryId}/resources`, {
+            method: 'GET',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${this.token}`
+            },
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer'
+      });
+
+      this.fetchingResources = false;
+      return response;
+    },
+
+    fetchResources: async function (repositoryId) {
+      if (!repositoryId) {
+        return [];
+      }
+
+      const response = await this.getResources(repositoryId);
+      const resources = response.json();
+
+      return resources;
+    },
+
+    changeRepositoryId: async function (repositoryId) {
+      const fetchedResources = await this.fetchResources(repositoryId);
+      this.resourceOptions = fetchedResources.map((resource) => {
+        return {
+          label: resource.title,
+          value: resource.id
+        };
+      });
+    },
+
     getRepositories: async function () {
+      this.fetchingRepositories = true;
+
       const response = await fetch('/absolute-ids/repositories', {
             method: 'GET',
             mode: 'cors',
@@ -177,6 +261,8 @@ export default {
             redirect: 'follow',
             referrerPolicy: 'no-referrer'
       });
+
+      this.fetchingRepositories = false;
       return response;
     },
 

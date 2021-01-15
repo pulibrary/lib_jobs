@@ -34,6 +34,8 @@ module IlsApps
     config.cas = config_for(:cas)
     config.archivesspace = archivesspace_config_for(:archivesspace)
     config.x.after_sign_out_url = config.cas.after_sign_out_url
+
+    config.cache_store = :memory_store, { size: 64.megabytes }
   end
 end
 

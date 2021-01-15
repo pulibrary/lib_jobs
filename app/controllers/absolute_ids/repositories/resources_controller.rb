@@ -3,28 +3,11 @@
 class AbsoluteIds::Repositories::ResourcesController < ApplicationController
   skip_forgery_protection if: :token_header?
 
-  def current_client
-    return @current_client unless @current_client.nil?
-
-    @current_client = LibJobs::ArchivesSpace::Client.default
-    @current_client.login
-    @current_client
-  end
-
-  def repository_id
-    params[:repository_id]
-  end
-
-  def resource_id
-    params[:resource_id]
-  end
-
-  def current_repository
-    @current_client ||= current_client.find_repository(id: repository_id)
-  end
-
   # GET /absolute-ids/repositories/repository_id/resources.json
   def index
+    #@resources ||= Rails.cache.fetch(index_cache_key, expires_in: cache_expiry) do
+    #  current_repository.resources
+    #end
     @resources ||= current_repository.resources
 
     respond_to do |format|
@@ -34,6 +17,9 @@ class AbsoluteIds::Repositories::ResourcesController < ApplicationController
 
   # GET /absolute-ids/repositories/:repository_id/resources/:resource_id.json
   def show
+    #@resource ||= Rails.cache.fetch(show_cache_key, expires_in: cache_expiry) do
+    #  current_repository.find_resource(id: resource_id)
+    #end
     @resource ||= current_repository.find_resource(id: resource_id)
 
     respond_to do |format|
@@ -42,10 +28,6 @@ class AbsoluteIds::Repositories::ResourcesController < ApplicationController
   end
 
   private
-
-  def value
-    params[:value]
-  end
 
   def current_user_params
     params[:user]
@@ -78,5 +60,25 @@ class AbsoluteIds::Repositories::ResourcesController < ApplicationController
     return super if !super.nil? || current_user_params.nil?
 
     @current_user ||= find_user
+  end
+
+  def repository_id
+    params[:repository_id]
+  end
+
+  def resource_id
+    params[:resource_id]
+  end
+
+  def current_repository
+    @current_client ||= current_client.find_repository(id: repository_id)
+  end
+
+  def index_cache_key
+    "absolute_ids/repositories/#{repository_id}/resources"
+  end
+
+  def show_cache_key
+    "absolute_ids/repositories/#{repository_id}resources/#{resource_id}"
   end
 end

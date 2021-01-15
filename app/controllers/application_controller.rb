@@ -90,4 +90,18 @@ class ApplicationController < ActionController::Base
   def find_user
     User.find_by(id: current_user_id, token: current_user_token)
   end
+
+  private
+
+  def cache_expiry
+    1.hours
+  end
+
+  def current_client
+    return @current_client unless @current_client.nil?
+
+    @current_client = LibJobs::ArchivesSpace::Client.default
+    @current_client.login
+    @current_client
+  end
 end
