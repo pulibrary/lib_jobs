@@ -2,8 +2,14 @@
 module LibJobs
   module ArchivesSpace
     class Resource < Object
-      def self.parse_id(attributes)
+      def self.parse_id_foo(attributes)
         attributes[:ead_id]
+      end
+
+      def self.parse_id(attributes)
+        uri = attributes[:uri]
+        segments = uri.split("/")
+        segments.last
       end
 
       def generate_uri
@@ -18,6 +24,7 @@ module LibJobs
         @id = self.class.parse_id(attributes)
         @uri = generate_uri
         @title = @values.title
+        @ead_id = @values.ead_id
       end
 
       def attributes
