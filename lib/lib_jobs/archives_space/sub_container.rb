@@ -5,6 +5,7 @@ module LibJobs
     class SubContainer < Object
       def top_container
         @top_container_object ||= begin
+                                    binding.pry
                                     top_container_values = @values[:top_container]
                                     return unless top_container_values
 

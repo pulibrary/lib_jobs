@@ -1,10 +1,14 @@
 ---
-protocol: http
-host: localhost
-port: 8089
-path: /
-username: admin
-password: secret
-page_size: 50
-throttle: 0
-verify_ssl: false
+base_uri: <%= ENV["ASPACE_URL"] %>
+
+protocol: <%= ENV["ASPACE_PROTOCOL"] || 'http' %>
+host: <%= ENV["ASPACE_HOST"] || 'localhost' %>
+port: <%= ENV["ASPACE_PORT"] || '8089' %>
+path: <%= ENV["ASPACE_PATH"] || '/' %>
+
+username: <%= ENV["ASPACE_USER"] || 'admin' %>
+password: <%= ENV["ASPACE_PASSWORD"] || 'secret' %>
+
+page_size: <%= ENV["ASPACE_PAGE_SIZE"] || '50' %>
+throttle: <%= ENV["ASPACE_THROTTLE"] || '0' %>
+verify_ssl: <%= ENV["ASPACE_VERIFY_SSL"] && ENV["ASPACE_VERIFY_SSL"].downcase == 'true' || false %>

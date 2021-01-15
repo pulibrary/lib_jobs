@@ -3,7 +3,7 @@ module LibJobs
   module ArchivesSpace
     class Instance < Object
       def sub_container
-        @sub_container ||= SubContainer.new(@repository, @values.sub_container)
+        @sub_container ||= SubContainer.new(@values.sub_container.merge(repository: @repository))
       end
 
       def sub_container=(updated)

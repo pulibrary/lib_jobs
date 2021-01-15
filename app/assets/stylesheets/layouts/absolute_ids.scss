@@ -45,6 +45,13 @@
     .lux-data-table {
       width: 100%;
 
+      .button {
+        &--delete {
+          &.lux-button.solid[data-v-b7851b04] {
+            background-color: $color-red;
+          }
+        }
+      }
     }
   }
 
