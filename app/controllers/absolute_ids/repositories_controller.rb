@@ -6,7 +6,7 @@ class AbsoluteIds::RepositoriesController < ApplicationController
   def current_client
     return @current_client unless @current_client.nil?
 
-    @current_client = LibJobs::ArchivesSpace::Client.build
+    @current_client = LibJobs::ArchivesSpace::Client.default
     @current_client.login
     @current_client
   end

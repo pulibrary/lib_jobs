@@ -3,9 +3,13 @@
 module LibJobs
   module ArchivesSpace
     class Object
-      def initialize(repository, attributes)
-        @repository = repository
-        @values = OpenStruct.new(attributes.deep_symbolize_keys)
+      attr_reader :id
+
+      def initialize(attributes)
+        normalized = attributes.deep_symbolize_keys
+
+        @repository = normalized.fetch(:repository)
+        @values = OpenStruct.new(normalized)
       end
 
       def attributes
@@ -16,8 +20,8 @@ module LibJobs
         attributes
       end
 
-      def id
-        @values[:id]
+      def as_json(**_options)
+        attributes
       end
 
       def update

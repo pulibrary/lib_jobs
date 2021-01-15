@@ -65,7 +65,7 @@
           <input-button variation="solid" size="small">Edit</input-button>
         </td>
         <td>
-          <input-button variation="solid" size="small">Delete</input-button>
+          <input-button class="button--delete" variation="solid" size="small" :disabled="true">Delete</input-button>
         </td>
       </tr>
     </tbody>
