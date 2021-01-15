@@ -55,7 +55,7 @@
         :hide-label="true"
         helper="ArchivesSpace Resource"
         placeholder="Please select a repository"
-        :disabled="!repositoryId"
+        :disabled="!repositoryId || repositoryId.length < 0"
         :list="resourceOptions"
         :value="resourceId">
       </input-data-list>

@@ -1,10 +1,35 @@
-
 # frozen_string_literal: true
 module LibJobs
   module ArchivesSpace
     class Resource < Object
+      def self.parse_id(attributes)
+        attributes[:ead_id]
+      end
+
+      def generate_uri
+        path = @values.uri
+        URI.join(@repository.uri, path)
+      end
+
+      attr_reader :title
+      def initialize(attributes)
+        super(attributes)
+
+        @id = self.class.parse_id(attributes)
+        @uri = generate_uri
+        @title = @values.title
+      end
+
+      def attributes
+        {
+          id: @id,
+          uri: @uri,
+          title: @title
+        }
+      end
+
       def instances
-        @values[:instances].map { |instance_attributes| Instance.new(@repository, instance_attributes) }
+        @values.instances.map { |instance_attributes| Instance.new(instance_attributes.merge(repository: @repository)) }
       end
 
       def instances=(updated)
