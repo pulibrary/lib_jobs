@@ -3,16 +3,11 @@
 class AbsoluteIds::RepositoriesController < ApplicationController
   skip_forgery_protection if: :token_header?
 
-  def current_client
-    return @current_client unless @current_client.nil?
-
-    @current_client = LibJobs::ArchivesSpace::Client.default
-    @current_client.login
-    @current_client
-  end
-
   # GET /absolute-ids/repositories.json
   def index
+    #@repositories ||= Rails.cache.fetch(index_cache_key, expires_in: cache_expiry) do
+    #  current_client.repositories
+    #end
     @repositories ||= current_client.repositories
 
     respond_to do |format|
@@ -57,5 +52,9 @@ class AbsoluteIds::RepositoriesController < ApplicationController
     return super if !super.nil? || current_user_params.nil?
 
     @current_user ||= find_user
+  end
+
+  def index_cache_key
+    "absolute_ids/repositories"
   end
 end

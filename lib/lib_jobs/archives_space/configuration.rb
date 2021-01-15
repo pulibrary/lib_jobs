@@ -16,8 +16,12 @@ module LibJobs
         raise("#{yaml_file_path} was found, but could not be parsed: \n#{e.inspect}")
       end
 
+      def generate_base_uri
+        URI::Generic.build(scheme: protocol, host: host, port: port, path: path)
+      end
+
       def base_uri
-        @base_uri ||= URI::Generic.build(scheme: protocol, host: host, port: port, path: path)
+        @base_uri ||= super || generate_base_uri
       end
 
       def attributes
