@@ -1,9 +1,7 @@
 # frozen_string_literal: true
-# config valid for current version and patch releases of Capistrano
-lock "~> 3.14.1"
 
 set :application, "lib-jobs"
-set :repo_url, "git@github.com:pulibrary/lib_jobs.git"
+set :repo_url, "https://github.com/pulibrary/lib_jobs.git"
 set :branch, ENV["BRANCH"] || "main"
 
 # Default branch is :main
