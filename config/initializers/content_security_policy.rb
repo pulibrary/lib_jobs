@@ -18,11 +18,7 @@
 # end
 
 Rails.application.config.content_security_policy do |policy|
-  if !Rails.env.production?
-    policy.script_src :self, :https, :unsafe_eval
-  else
-    policy.script_src :self, :https
-  end
+  policy.script_src :self, :https, :unsafe_eval
 end
 
 # If you are using UJS then enable automatic nonce generation
