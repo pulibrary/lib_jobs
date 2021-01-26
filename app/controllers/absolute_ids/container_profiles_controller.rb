@@ -1,18 +1,27 @@
 # frozen_string_literal: true
 
-class AbsoluteIds::LocationsController < ApplicationController
+class AbsoluteIds::ContainerProfilesController < ApplicationController
   skip_forgery_protection if: :token_header?
 
-  # GET /absolute-ids/locations.json
+  # GET /absolute-ids/container-profiles.json
   def index
-    #begin
-    #rescue
-    #  @locations = []
-    #end
-    @locations ||= current_client.locations
+    # @locations ||= AbsoluteId::Location.all
+    @container_profiles = [
+      {
+        "name" => "L959GY311",
+        "url" => "DKQ829S",
+        "dimension_units" => "inches",
+        "extent_dimension" => "width",
+        "depth" => "42",
+        "height" => "56",
+        "width" => "93",
+        "id" => "1",
+        "uri" => "http://test"
+      }
+    ]
 
     respond_to do |format|
-      format.json { render json: @locations }
+      format.json { render json: @container_profiles }
     end
   end
 

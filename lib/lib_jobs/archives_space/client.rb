@@ -19,6 +19,38 @@ module LibJobs
         super(client_config)
       end
 
+      def base_uri
+        return if @config.nil?
+
+        @config.base_uri
+      end
+
+      # This needs to be deduplicated
+      def children(resource_class:)
+        query = URI.encode_www_form([["page", "1"], ["page_size", "100000"]])
+        response = get("/#{resource_class.name.demodulize.pluralize.underscore}?#{query}")
+        return [] if response.status.code == "404"
+
+        parsed = JSON.parse(response.body)
+        results = parsed['results']
+        results.map do |child_json|
+          child_json = child_json.transform_keys(&:to_sym)
+          child_json[:client] = self
+          resource_class.new(child_json)
+        end
+      end
+
+      def locations
+        children(resource_class: Location)
+      end
+
+      def container_profiles
+        super.map do |repository_json|
+          repository_attributes = repository_json.symbolize_keys.merge(client: self)
+          ContainerProfile.new(repository_attributes)
+        end
+      end
+
       def repositories
         super.map do |repository_json|
           repository_attributes = repository_json.symbolize_keys.merge(client: self)

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AbsoluteIds::Repositories::ResourcesController < ApplicationController
+class AbsoluteIds::Repositories::ContainersController < ApplicationController
   skip_forgery_protection if: :token_header?
 
   # GET /absolute-ids/repositories/repository_id/resources.json
@@ -10,7 +10,7 @@ class AbsoluteIds::Repositories::ResourcesController < ApplicationController
     #end
 
     begin
-      @resources ||= current_repository.resources
+      @resources ||= current_repository.top_containers
     rescue
       @resources = []
     end
