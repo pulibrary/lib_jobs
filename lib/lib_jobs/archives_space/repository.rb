@@ -53,6 +53,10 @@ module LibJobs
         children(resource_class: Resource)
       end
 
+      def top_containers
+        children(resource_class: TopContainer)
+      end
+
       def find_child(resource_class:, id:)
         response = @client.get("/repositories/#{@id}/#{resource_class.name.demodulize.pluralize.underscore}/#{id}")
         return nil if response.status == 404
@@ -71,7 +75,6 @@ module LibJobs
       end
 
       def find_top_container(id:)
-        binding.pry
         find_child(resource_class: TopContainer, id: id)
       end
 

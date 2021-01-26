@@ -3,12 +3,33 @@
 class AbsoluteIds::RepositoriesController < ApplicationController
   skip_forgery_protection if: :token_header?
 
+  def disabled
+
+@repositories = [
+      {
+        label: 'test1',
+        uri: 'http://localhost:8089/repositories/1',
+        id: 1
+      },
+      {
+        label: 'test2',
+        uri: 'http://localhost:8089/repositories/2',
+        id: 2
+      }
+    ]
+  end
+
   # GET /absolute-ids/repositories.json
   def index
-    #@repositories ||= Rails.cache.fetch(index_cache_key, expires_in: cache_expiry) do
-    #  current_client.repositories
-    #end
-    @repositories ||= current_client.repositories
+    # @repositories ||= Rails.cache.fetch(index_cache_key, expires_in: cache_expiry) do
+    #   current_client.repositories
+    # end
+
+    begin
+      @repositories ||= current_client.repositories
+    rescue
+      @repositories = []
+    end
 
     respond_to do |format|
       format.json { render json: @repositories }

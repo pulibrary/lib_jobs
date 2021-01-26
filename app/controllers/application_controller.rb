@@ -73,5 +73,4 @@ class ApplicationController < ActionController::Base
     @current_client.login
     @current_client
   end
-
 end

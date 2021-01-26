@@ -1,29 +1,8 @@
 <template>
   <form method="post" class="absolute-ids-form" v-on:submit.prevent="submit">
+
     <fieldset class="absolute-ids-form--fields">
-      <input-data-list
-        id="location"
-        class="absolute-ids-form--input-field"
-        name="location"
-        label="Location"
-        :hide-label="true"
-        helper="Location Code"
-        :placeholder="placeholderLocation"
-        :list="locationOptions"
-        :value="nextLocation">
-      </input-data-list>
-
-      <input-text
-        id="next_prefix"
-        class="absolute-ids-form--input-field"
-        name="prefix"
-        label="Input"
-        :hide-label="true"
-        placeholder="Prefix"
-        helper="Prefix"
-        :value="nextPrefix">
-      </input-text>
-
+      <legend>Barcode</legend>
       <input-text
         id="next_code"
         class="absolute-ids-form--input-field"
@@ -34,47 +13,101 @@
         helper="Barcode"
         :value="nextCode">
       </input-text>
+    </fieldset>
 
-      <input-data-list
+    <fieldset class="absolute-ids-form--fields">
+      <legend>ArchivesSpace</legend>
+
+      <absolute-id-data-list
+        id="location_id"
+        class="absolute-ids-form--input-field"
+        name="location_id"
+        label="Location"
+        :hide-label="true"
+        helper="Location"
+        :placeholder="locationPlaceholder"
+        :disabled="fetchingLocations"
+        :list="locationOptions"
+        :value="nextLocation"
+        v-model="nextLocation">
+      </absolute-id-data-list>
+
+      <absolute-id-data-list
+        id="container_profile_id"
+        class="absolute-ids-form--input-field"
+        name="container_profile_id"
+        label="Container Profile"
+        :hide-label="true"
+        helper="Container Profile"
+        :placeholder="containerProfilePlaceholder"
+        :disabled="fetchingContainerProfiles"
+        :list="containerProfileOptions"
+        :value="containerProfileId"
+        v-model="containerProfileId">
+      </absolute-id-data-list>
+
+      <absolute-id-data-list
         id="repository_id"
         class="absolute-ids-form--input-field"
         name="repository_id"
         label="Repository"
         :hide-label="true"
-        helper="ArchivesSpace Repository"
+        helper="Repository"
         :placeholder="repositoryPlaceholder"
         :disabled="fetchingRepositories"
         :list="repositoryOptions"
         :value="repositoryId"
-        @input="changeRepositoryId">
-      </input-data-list>
+        v-model="repositoryId"
+        v-on:change="changeRepositoryId($event)">
+      </absolute-id-data-list>
 
-      <input-data-list
+      <absolute-id-data-list
         id="resource_id"
         class="absolute-ids-form--input-field"
         name="resource_id"
         label="Resource"
         :hide-label="true"
-        helper="ArchivesSpace Resource"
+        helper="Resource"
         :placeholder="resourcePlaceholder"
         :disabled="resourceOptions.length < 1"
         :list="resourceOptions"
-        :value="resourceId">
-      </input-data-list>
+        :value="resourceId"
+        v-model="resourceId">
+      </absolute-id-data-list>
+
+      <absolute-id-data-list
+        id="container_id"
+        class="absolute-ids-form--input-field"
+        name="container_id"
+        label="Container"
+        :hide-label="true"
+        helper="Container"
+        :placeholder="containerPlaceholder"
+        :disabled="containerOptions.length < 1"
+        :list="containerOptions"
+        :value="containerId"
+        v-model="containerId">
+      </absolute-id-data-list>
     </fieldset>
+
     <button
       data-v-b7851b04
-      class="lux-button solid large lux-button absolute-ids-form--submit">Generate</button>
+      class="lux-button solid large lux-button absolute-ids-form--submit"
+      :disabled="!formValid">Generate</button>
   </form>
 </template>
 
 <script>
+import AbsoluteIdDataList from './absolute_id_data_list'
 
 export default {
   name: 'AbsoluteIdsForm',
   status: 'ready',
   release: '1.0.0',
   type: 'Element',
+  components: {
+    "absolute-id-data-list": AbsoluteIdDataList
+  },
   props: {
     action: {
       type: String,
@@ -87,10 +120,6 @@ export default {
     token: {
       type: String,
       default: null
-    },
-    placeholderLocation: {
-      type: String,
-      default: 'Example: cotsen'
     },
     nextLocation: {
       type: String,
@@ -108,10 +137,18 @@ export default {
       type: String,
       default: null
     },
+    containerProfileId: {
+      type: String,
+      default: null
+    },
     resourceId: {
       type: String,
       default: null
-    }
+    },
+    containerId: {
+      type: String,
+      default: null
+    },
   },
   computed: {
     locations: async function () {
@@ -119,6 +156,18 @@ export default {
       const locations = response.json();
 
       return locations;
+    },
+
+    locationPlaceholder: function () {
+      let value = 'No locations available';
+
+      if (this.fetchingRepositories) {
+        value = 'Loading...';
+      } else if (this.repositoryOptions.length > 0) {
+        value = 'Select a location';
+      }
+
+      return value;
     },
 
     repositories: async function () {
@@ -138,6 +187,17 @@ export default {
       }
 
       return value;
+    },
+
+    repositoryUri: async function () {
+      if (!this.repositoryId) {
+        return null;
+      }
+
+      const resolved = await this.repositories;
+
+      const selectedRepository = resolved.find( repo => repo.id === Number.parseInt(this.repositoryId) );
+      return selectedRepository.uri;
     },
 
     resources: async function () {
@@ -165,42 +225,111 @@ export default {
       return value;
     },
 
-    formData: function () {
+    containerProfilePlaceholder: function () {
+      let value = 'No container profiles available';
+
+      if (this.fetchingRepositories) {
+        value = 'Loading...';
+      } else if (this.repositoryOptions.length > 0) {
+        value = 'Select a container profile';
+      }
+
+      return value;
+    },
+
+    containerPlaceholder: function () {
+      let value = 'No repository selected';
+
+      if (this.fetchingContainers) {
+        value = 'Loading...';
+      } else if (this.repositoryId && this.containerOptions.length < 1) {
+        value = 'No containers available';
+      } else if (this.containerOptions.length > 1) {
+        value = 'Select a container';
+      }
+
+      return value;
+    },
+
+    resourceUri: async function () {
+      if (!this.resourceId) {
+        return null;
+      }
+
+      const resolved = await this.resources;
+      const selectedResource = resolved.find( res => res.id === Number.parseInt(this.resourceId) );
+      return selectedResource.uri;
+    },
+
+    containerProfiles: async function () {
+      const response = await this.getContainerProfiles();
+      const models = response.json();
+
+      return models;
+    },
+
+    containers: async function () {
+      const response = await this.getContainers();
+      const models = response.json();
+
+      return models;
+    },
+
+    formData: async function () {
       return {
         absolute_id: {
-          resource_id: this.resourceId,
-          repository_id: this.repositoryId,
+          resource_uri: await this.resourceUri,
+          repository_uri: await this.repositoryUri,
           value: this.nextCode,
           prefix:  this.nextPrefix,
           location: this.nextLocation
         }
       };
+    },
+
+    formValid: function () {
+      return this.resourceId && this.repositoryId && this.nextCode && this.nextPrefix && this.nextLocation;
     }
   },
   data: function () {
     return {
       locationOptions: [],
+      fetchingLocations: false,
       repositoryOptions: [],
-      resourceOptions: [],
       fetchingRepositories: false,
-      fetchingResources: false
+      resourceOptions: [],
+      fetchingResources: false,
+      containerProfileOptions: [],
+      fetchingContainerProfiles: false,
+      containerOptions: [],
+      fetchingContainers: false
     }
   },
   mounted: async function () {
     const fetchedLocations = await this.locations;
-
     this.locationOptions = fetchedLocations.map((location) => {
       return {
-        label: location.label,
-        value: location.value
+        id: location.id,
+        label: location.building,
+        uri: location.uri
       };
     });
 
     const fetchedRepositories = await this.repositories;
     this.repositoryOptions = fetchedRepositories.map((repository) => {
       return {
+        id: repository.id,
         label: repository.name,
-        value: repository.id
+        uri: repository.uri
+      };
+    });
+
+    const fetchedContainerProfiles = await this.containerProfiles;
+    this.containerProfileOptions = fetchedContainerProfiles.map((containerProfile) => {
+      return {
+        id: containerProfile.id,
+        label: containerProfile.name,
+        uri: containerProfile.uri
       };
     });
   },
@@ -236,12 +365,22 @@ export default {
       return resources;
     },
 
-    changeRepositoryId: async function (repositoryId) {
-      const fetchedResources = await this.fetchResources(repositoryId);
+    changeRepositoryId: async function (newId) {
+      const fetchedResources = await this.fetchResources(this.repositoryId);
       this.resourceOptions = fetchedResources.map((resource) => {
         return {
           label: resource.title,
-          value: resource.id
+          uri: resource.uri,
+          id: resource.id
+        };
+      });
+
+      const fetchedContainers = await this.fetchContainers(this.repositoryId);
+      this.containerOptions = fetchedContainers.map((resource) => {
+        return {
+          label: resource.indicator,
+          uri: resource.uri,
+          id: resource.id
         };
       });
     },
@@ -267,6 +406,8 @@ export default {
     },
 
     getLocations: async function () {
+      this.fetchingLocations = true;
+
       const response = await fetch('/absolute-ids/locations', {
             method: 'GET',
             mode: 'cors',
@@ -279,12 +420,16 @@ export default {
             redirect: 'follow',
             referrerPolicy: 'no-referrer'
       });
+
+      this.fetchingLocations = false;
       return response;
     },
 
-    postData: async function (data = {}) {
-      const response = await fetch(this.action, {
-            method: this.method,
+    getContainerProfiles: async function () {
+      this.fetchingContainerProfiles = true;
+
+      const response = await fetch('/absolute-ids/container-profiles', {
+            method: 'GET',
             mode: 'cors',
             cache: 'no-cache',
             credentials: 'same-origin',
@@ -293,18 +438,70 @@ export default {
               'Authorization': `Bearer ${this.token}`
             },
             redirect: 'follow',
-            referrerPolicy: 'no-referrer',
-            body: JSON.stringify(data)
+            referrerPolicy: 'no-referrer'
       });
+
+      this.fetchingContainerProfiles = false;
+      return response;
+    },
+
+    getContainers: async function (repositoryId) {
+      this.fetchingContainers = true;
+
+      const response = await fetch(`/absolute-ids/repositories/${repositoryId}/containers`, {
+            method: 'GET',
+            mode: 'cors',
+            cache: 'no-cache',
+            credentials: 'same-origin',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${this.token}`
+            },
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer'
+      });
+
+      this.fetchingContainers = false;
+      return response;
+    },
+
+    fetchContainers: async function (repositoryId) {
+      if (!repositoryId) {
+        return [];
+      }
+
+      const response = await this.getContainers(repositoryId);
+      const resources = response.json();
+
+      return resources;
+    },
+
+    postData: async function (data = {}) {
+      const response = await fetch(this.action, {
+        method: this.method,
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.token}`
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(data)
+      });
+
       return response;
     },
 
     submit: async function (event) {
+      const payload = await this.formData;
+
       event.target.disabled = true;
-      const response = await this.postData(this.formData);
+      const response = await this.postData(payload);
 
       event.target.disabled = false;
-      if (response.status == 301) {
+      if (response.status === 302) {
         const redirectUrl = response.headers.get('Content-Type');
         window.location.assign(redirectUrl);
       } else {

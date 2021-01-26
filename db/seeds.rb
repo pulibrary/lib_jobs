@@ -9,10 +9,16 @@
 AbsoluteId::Location.create_configured
 
 rounds = 13 - AbsoluteId.all.length
+client = LibJobs::ArchivesSpace::Client.default
 rounds.times.each do
   locations = AbsoluteId::Location.all
   index = rand(0..locations.length - 1)
   random_location = locations[index]
 
-  AbsoluteId.generate(location: random_location)
+  repository_index = rand(1..rounds)
+  repository_uri = "#{client.base_uri}repositories/#{repository_index}"
+  resource_index = rand(1..rounds)
+  resource_uri = "#{repository_uri}/resources/#{resource_index}"
+
+  built = AbsoluteId.generate(location: random_location.value, repository_uri: repository_uri, resource_uri: resource_uri)
 end
