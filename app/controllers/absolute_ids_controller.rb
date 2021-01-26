@@ -160,7 +160,8 @@ class AbsoluteIdsController < ApplicationController
   end
 
   def absolute_id_params
-    output = params.permit(absolute_id: [:id_prefix, :first_code, :repository_id, :resource_id])
+    #output = params.permit(absolute_id: [:id_prefix, :first_code, :repository_id, :resource_id])
+    output = params.permit(absolute_id: [:prefix, :value, :location, :repository_uri, :resource_uri])
     parsed = output.to_h.deep_symbolize_keys
     parsed.fetch(:absolute_id, {})
   end

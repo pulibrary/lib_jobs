@@ -27,9 +27,8 @@ ActiveRecord::Schema.define(version: 2021_01_13_202151) do
     t.datetime "updated_at", null: false
     t.string "prefix"
     t.string "initial_value"
-    t.string "repository_id"
-    t.string "resource_id"
-    t.string "archivesspace_resource_id"
+    t.string "repository_uri"
+    t.string "resource_uri"
     t.integer "location_id"
     t.index ["location_id"], name: "index_absolute_ids_on_location_id"
   end

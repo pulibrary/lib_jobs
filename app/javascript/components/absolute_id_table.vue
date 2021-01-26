@@ -29,7 +29,6 @@
           <span v-else>{{ displayName(col) }}</span>
         </th>
 
-        <th colspan="2">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -56,17 +55,21 @@
             <hyperlink v-if="lineItem[col.name].link" :href="lineItem[col.name].link">
               {{ lineItem[col.name].value }}
             </hyperlink>
+            <span v-else-if="col.datatype === 'resource'">
+              <hyperlink :href="lineItem[col.name].uri">
+                {{ lineItem[col.name].uri }}
+              </hyperlink>
+            </span>
+            <span v-else-if="col.datatype === 'date'">
+              {{ new Date(lineItem[col.name].value).toLocaleString() }}
+            </span>
             <span v-else>
+              {{ col.datatype }}
               {{ lineItem[col.name].value }}
             </span>
           </span>
         </td>
-        <td>
-          <input-button variation="solid" size="small">Edit</input-button>
-        </td>
-        <td>
-          <input-button class="button--delete" variation="solid" size="small" :disabled="true">Delete</input-button>
-        </td>
+
       </tr>
     </tbody>
     <tfoot v-if="summaryLabel">

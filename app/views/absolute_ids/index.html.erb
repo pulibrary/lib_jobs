@@ -15,10 +15,12 @@
     <div class="absolute-ids-table lux">
       <absolute-id-table caption="Absolute Identifiers (AbIDs)"
                   :columns="[
-                            { 'name': 'location', 'display_name': 'Location', 'align': 'left', 'sortable': true },
-                            { 'name': 'value', 'display_name': 'Barcode', 'align': 'left', 'sortable': true },
-                            { 'name': 'resource', 'display_name': 'ArchivesSpace Resource', 'align': 'left', 'sortable': false },
-                            { 'name': 'updated_at', 'display_name': 'Last Updated', 'datatype': 'date', 'sortable': true },
+                              { 'name': 'label', 'display_name': 'Identifier', 'align': 'left', 'sortable': true },
+                              { 'name': 'barcode_value', 'display_name': 'Barcode', 'align': 'left', 'sortable': true },
+                              { 'name': 'resource', 'display_name': 'ArchivesSpace URI', 'datatype': 'resource', 'align': 'left', 'sortable': false },
+                              { 'name': 'location', 'display_name': 'Location', 'align': 'left', 'sortable': true },
+                              { 'name': 'container_profile', 'display_name': 'Container Profile', 'align': 'left', 'sortable': true },
+                              { 'name': 'box_number', 'display_name': 'Box Number', 'align': 'left', 'sortable': true },
                             ]"
                   :json-data="<%= @absolute_ids.to_json %>" />
     </div>

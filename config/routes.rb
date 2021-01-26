@@ -11,8 +11,10 @@ Rails.application.routes.draw do
 
   get '/absolute-ids/repositories/:repository_id/resources/:resource_id', to: 'absolute_ids/repositories/resources#show'
   get '/absolute-ids/repositories/:repository_id/resources', to: 'absolute_ids/repositories/resources#index'
+  get '/absolute-ids/repositories/:repository_id/containers', to: 'absolute_ids/repositories/containers#index'
   get '/absolute-ids/repositories/:repository_id', to: 'absolute_ids/repositories#show'
   get '/absolute-ids/repositories', to: 'absolute_ids/repositories#index'
+  get '/absolute-ids/container-profiles', to: 'absolute_ids/container_profiles#index'
   get '/absolute-ids/locations', to: 'absolute_ids/locations#index'
   get '/absolute-ids/:value', to: 'absolute_ids#show', as: 'absolute_id'
   get '/absolute-ids', to: 'absolute_ids#index'
