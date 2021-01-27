@@ -3,10 +3,8 @@
     <div class="lux">
       <absolute-id-form
         action="<%= absolute_ids_path %>"
-        next-location=""
-        next-prefix=""
-        next-code=""
-        token="<%= current_user.token %>">
+        token="<%= current_user.token %>"
+        next-code="<%= next_code %>">
       </absolute-ids-form>
     </div>
   <% end %>
