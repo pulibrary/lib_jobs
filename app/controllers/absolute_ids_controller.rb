@@ -54,8 +54,17 @@ class AbsoluteIdsController < ApplicationController
     last_absolute_id.prefix
   end
 
-  def next_code
+  def next_code_deprecated
     absolute_ids = AbsoluteId.where(prefix: next_prefix)
+    return '0000000000000' if absolute_ids.empty?
+
+    last_absolute_id = absolute_ids.last
+    next_integer = last_absolute_id.integer + 1
+    format("%013d", next_integer)
+  end
+
+  def next_code
+    absolute_ids = AbsoluteId.all
     return '0000000000000' if absolute_ids.empty?
 
     last_absolute_id = absolute_ids.last

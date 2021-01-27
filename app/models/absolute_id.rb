@@ -250,11 +250,6 @@ class AbsoluteId < ApplicationRecord
     OpenStruct.new(values)
   end
 
-  #def barcode_value
-  #  output = elements.join(&:to_s)
-  #  "#{output}#{check_digit}"
-  #end
-
   def self.prefixes
     {
       'mudd' => 'S',
@@ -272,8 +267,17 @@ class AbsoluteId < ApplicationRecord
     self.class.prefixes[container_profile.name]
   end
 
+  def self.find_prefixed_models(prefix:)
+    models = all
+    models.select do |model|
+      model.prefix == prefix
+    end
+  end
+
   def index
-    id - self.class.all.first.id
+    # id - self.class.all.first.id
+    models = self.class.find_prefixed_models(prefix: prefix)
+    models.index { |m| m.id == id }
   end
 
   def label
@@ -388,15 +392,13 @@ resource_uri: "http://localhost:8089/repositories/2/resources/1"
                       default_initial_value
                     end
 
-    # binding.pry
-    # prefix = container_profile_uri
+    #models = where(initial_value: initial_value)
+    #generated = models.select do |model|
+    #  prefix == model.prefix
+    #end
+    models = all
 
-    models = where(initial_value: initial_value)
-    generated = models.select do |model|
-      prefix == model.prefix
-    end
-
-    if generated.empty?
+    if models.empty?
       new_barcode = Barcode.new(initial_value)
       new_check_digit = new_barcode.check_digit
 
@@ -412,7 +414,7 @@ resource_uri: "http://localhost:8089/repositories/2/resources/1"
         resource: resource.to_json
       )
     else
-      last_absolute_id = generated.last
+      last_absolute_id = models.last
       next_integer = last_absolute_id.integer + 1
       # next_value = format("%s%013d", prefix, next_integer)
       next_value = format("%013d", next_integer)

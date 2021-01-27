@@ -121,13 +121,9 @@ export default {
       type: String,
       default: null
     },
-    nextPrefix: {
-      type: String,
-      default: 'A'
-    },
     nextCode: {
       type: String,
-      default: '000000000000'
+      default: '0000000000000'
     }
   },
   data: function () {
@@ -327,17 +323,17 @@ export default {
       return {
         absolute_id: {
           barcode: this.nextCode,
-          location_uri: selectedLocation,
-          repository_uri: selectedRepository,
-          resource_uri: selectedResource,
-          container_uri: selectedContainer,
-          container_profile: selectedContainerProfile
+          location: selectedLocation,
+          container_profile: selectedContainerProfile,
+          repository: selectedRepository,
+          resource: selectedResource,
+          container: selectedContainer
         }
       };
     },
 
     formValid: function () {
-      return this.selectedResourceId && this.selectedRepositoryId && this.nextCode && this.nextPrefix && this.selectedLocationId;
+      return this.nextCode && this.selectedLocation && this.selectedRepository && this.selectedResource && this.selectedContainer;
     }
   },
 
