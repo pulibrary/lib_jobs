@@ -3,7 +3,6 @@ class AbsoluteId::Location < ApplicationRecord
   def self.table_name_prefix
     'absolute_id_'
   end
-  has_many :absolute_ids
 
   class NokogiriSerializer
     def initialize(model, _options = {})

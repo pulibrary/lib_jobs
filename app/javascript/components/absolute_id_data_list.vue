@@ -16,8 +16,8 @@
         :placeholder="placeholder"
         :errormessage="errormessage"
         :class="['lux-input', { 'lux-input-error': hasError }]"
-        v-model="selected"
-        :value="selected"
+        v-model="value"
+        :value="value"
         @blur="inputblur($event.target)"
         @change="onChange($event)"
       />
@@ -191,14 +191,9 @@ export default {
       default: false,
     },
   },
-  data: function () {
-    return {
-      selected: null
-    }
-  },
   updated: function () {
-    if (this.selected) {
-      this.$emit("input", this.selected);
+    if (this.value) {
+      this.$emit("input", this.value);
     }
   },
   methods: {
@@ -207,7 +202,7 @@ export default {
     },
     onChange(event) {
       event.preventDefault();
-      this.$emit("change", this.selected)
+      this.$emit("change", this.value)
     }
   },
 }

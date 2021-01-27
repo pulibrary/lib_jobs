@@ -1,8 +1,34 @@
 # frozen_string_literal: true
 
 class AbsoluteIdsController < ApplicationController
-  helper_method :index_status, :next_code, :next_prefix, :next_location
+  helper_method :index_status, :next_code, :next_prefix, :next_location, :absolute_id_table_columns, :absolute_id_table_data
   skip_forgery_protection if: :token_header?
+
+  def absolute_id_table_columns
+    [
+      { name: 'label', display_name: 'Identifier', align: 'left', sortable: true },
+      { name: 'barcode', display_name: 'Barcode', align: 'left', sortable: true },
+      { name: 'location', display_name: 'Location', align: 'left', sortable: true },
+      { name: 'container_profile', display_name: 'Container Profile', align: 'left', sortable: true },
+      { name: 'repository', display_name: 'Repository', align: 'left', sortable: false },
+      { name: 'resource', display_name: 'Resource', align: 'left', sortable: false },
+      { name: 'container', display_name: 'Container', align: 'left', sortable: true },
+    ]
+  end
+
+  def absolute_id_table_data
+    @absolute_ids.map do |absolute_id|
+      {
+        label: absolute_id.label,
+        barcode: absolute_id.barcode.value,
+        location: { link: absolute_id.location.uri, value: absolute_id.location.building },
+        container_profile: { link: absolute_id.container_profile.uri, value: absolute_id.container_profile.name },
+        repository: { link: absolute_id.repository.uri, value: absolute_id.repository.name },
+        resource: { link: absolute_id.resource.uri, value: absolute_id.resource.title },
+        container: { link: absolute_id.container.uri, value: absolute_id.container.indicator },
+      }
+    end
+  end
 
   def next_location_model
     absolute_ids = AbsoluteId.all
@@ -98,8 +124,44 @@ class AbsoluteIdsController < ApplicationController
     end
   end
 
-  # POST /absolute-ids
-  # POST /absolute-ids.json
+  # POST /absolute-ids/batch
+  # POST /absolute-ids/batch.json
+  def create_batch
+    authorize! :create_batch, AbsoluteId
+    @absolute_ids = absolute_id_batch_params.each do |absolute_id_params|
+                      AbsoluteId.generate(**absolute_id_params)
+                    end
+
+    respond_to do |format|
+      format.html do
+        flash[:absolute_ids] = "Failed to generate a new absolute ID. Please contact the administrator." unless @absolute_id.save
+        redirect_to absolute_ids_path
+      end
+
+      format.json do
+        head :found, location: absolute_ids_path(format: :json)
+      end
+    end
+  rescue CanCan::AccessDenied
+    warning_message = if current_user_params.nil?
+                        "Denied attempt to create an Absolute ID by the anonymous client #{request.remote_ip}"
+                      else
+                        "Denied attempt to create an Absolute ID by the user ID #{current_user_id}"
+                      end
+
+    Rails.logger.warn(warning_message)
+
+    respond_to do |format|
+      format.html do
+        redirect_to absolute_ids_path
+      end
+
+      format.json { head :forbidden }
+    end
+  end
+
+  # PATCH /absolute-ids
+  # PATCH /absolute-ids.json
   def update
     authorize! :update, AbsoluteId
     @absolute_id = AbsoluteId.create_or_update(**absolute_id_params)
@@ -159,9 +221,56 @@ class AbsoluteIdsController < ApplicationController
     @current_user ||= find_user
   end
 
+=begin
+    container_profile_values = attributes[:container_profile]
+    container_profile_uri = container_profile_values[:uri]
+    prefix = container_profile_values[:name]
+
+    container_uri = attributes[:container_uri]
+    location_uri = attributes[:location_uri]
+    repository_uri = attributes[:location_uri]
+    resource_uri = attributes[:location_uri]
+=end
+
+  def absolute_id_batch_params
+    output = params.permit(
+      batch: [
+        {
+          absolute_id: [
+            :barcode,
+
+            :location_uri,
+            :repository_uri,
+            :resource_uri,
+            :container_uri,
+            container_profile: [
+              :name,
+              :uri
+            ],
+          ]
+        }
+      ]
+    )
+    parsed = output.to_h.deep_symbolize_keys
+    parsed.fetch(:batch, [])
+  end
+
   def absolute_id_params
     #output = params.permit(absolute_id: [:id_prefix, :first_code, :repository_id, :resource_id])
-    output = params.permit(absolute_id: [:prefix, :value, :location, :repository_uri, :resource_uri])
+    output = params.permit(
+      absolute_id: [
+        :barcode,
+
+        :location_uri,
+        :repository_uri,
+        :resource_uri,
+        :container_uri,
+        container_profile: [
+          :name,
+          :uri
+        ],
+      ]
+    )
     parsed = output.to_h.deep_symbolize_keys
     parsed.fetch(:absolute_id, {})
   end

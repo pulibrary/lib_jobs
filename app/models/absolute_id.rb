@@ -86,7 +86,17 @@ class AbsoluteId < ApplicationRecord
       return [] if @value.nil?
 
       output = @value.scan(/\d/)
-      output[0, 13]
+      output[0, 14]
+    end
+
+    def attributes
+      {
+        check_digit: check_digit,
+        digits: digits,
+        integer: integer,
+        valid: valid?,
+        value: @value
+      }
     end
   end
 
@@ -199,12 +209,13 @@ class AbsoluteId < ApplicationRecord
     if value.present?
       parsed_digits = Barcode.parse_digits(value)
 
-      if prefix.present? && parsed_digits.length >= 13 && value.length <= (13 + prefix.length)
-        truncated = parsed_digits.reverse[0..12]
-        normal = truncated.reverse.map(&:to_s).join
-        self.value = "#{prefix}#{normal}"
-        parsed_digits = Barcode.parse_digits(value)
-      end
+      ## if prefix.present? && parsed_digits.length >= 13 && value.length <= (13 + prefix.length)
+      #if parsed_digits.length >= 13 && value.length <= (13 + prefix.length)
+      #  truncated = parsed_digits.reverse[0..12]
+      #  normal = truncated.reverse.map(&:to_s).join
+      #  self.value = "#{prefix}#{normal}"
+      #  parsed_digits = Barcode.parse_digits(value)
+      #end
 
       self.integer = barcode.integer if integer.nil?
       self.check_digit = barcode.check_digit if check_digit.nil?
@@ -214,31 +225,90 @@ class AbsoluteId < ApplicationRecord
   end
 
   def barcode
-    Barcode.new(value)
+    @barcode ||= Barcode.new(value)
   end
   delegate :digits, :elements, to: :barcode
 
   def location
-    return if location_id.nil?
+    return if super.nil?
 
-    AbsoluteId::Location.find(location_id)
+    values = JSON.parse(super, symbolize_names: true)
+    OpenStruct.new(values)
   end
 
-  def archivesspace_resource
-    return if archivesspace_resource_id.nil?
+  def repository
+    return if super.nil?
+
+    values = JSON.parse(super, symbolize_names: true)
+    OpenStruct.new(values)
+  end
+
+  def resource
+    return if super.nil?
+
+    values = JSON.parse(super, symbolize_names: true)
+    OpenStruct.new(values)
+  end
+
+  #def barcode_value
+  #  output = elements.join(&:to_s)
+  #  "#{output}#{check_digit}"
+  #end
+
+  def self.prefixes
+    {
+      'mudd' => 'S',
+      'mudd1' => 'D',
+      'mudd2' => 'DO',
+      'mudd3' => 'L',
+      'mudd4' => 'LO',
+      'mudd5' => 'XH',
+      'mudd6' => 'XH',
+      'mss' => 'M'
+    }
+  end
+
+  def prefix
+    self.class.prefixes[container_profile.name]
+  end
+
+  def index
+    id - self.class.all.first.id
+  end
+
+  def label
+    return if location.nil?
+
+    format("%s-%06d", prefix, index)
+  end
+
+  def container_profile
+    return if super.nil?
+
+    values = JSON.parse(super, symbolize_names: true)
+    OpenStruct.new(values)
+  end
+
+  def container
+    return if super.nil?
+
+    values = JSON.parse(super, symbolize_names: true)
+    OpenStruct.new(values)
   end
 
   def attributes
     {
-      check_digit: check_digit,
+      barcode: barcode.attributes,
+      container: container.to_h,
+      container_profile: container_profile.to_h,
       created_at: created_at,
-      digits: digits,
-      integer: integer,
-      location: location,
-      resource: archivesspace_resource,
-      updated_at: updated_at,
-      valid: valid?,
-      value: value
+      id: index,
+      label: label,
+      location: location.to_h,
+      prefix: prefix,
+      repository: repository.to_h,
+      resource: resource.to_h,
+      updated_at: updated_at
     }
   end
 
@@ -260,49 +330,107 @@ class AbsoluteId < ApplicationRecord
     xml_serializer.new(self, options).serialize(&block)
   end
 
-  def self.default_prefix
-    'A'
-  end
+  #def self.default_prefix
+  #  'A'
+  #end
 
   def self.default_initial_integer
     0
   end
 
-  def self.default_initial_value(prefix:)
-    format("%s%013d", prefix, default_initial_integer)
+  # def self.default_initial_value(prefix:)
+  def self.default_initial_value
+    # format("%s%013d", prefix, default_initial_integer)
+    format("%013d", default_initial_integer)
   end
 
+  # @param [Hash] attributes
+  # @option opts [Hash] :container_profile
+  # @option opts [String] :container_uri
+  # @option opts [String] :location_uri
+  # @option opts [String] :repository_uri
+  # @option opts [String] :resource_uri
+  # @option opts [String] :barcode
   def self.generate(**attributes)
-    prefix = if attributes.key?(:id_prefix)
-               attributes[:id_prefix]
-             else
-               default_prefix
-             end
 
-    initial_value = if attributes.key?(:first_code)
-                      attributes[:first_code]
+=begin
+container_profile_uri: "http://localhost:8089/container_profiles/1"
+container_uri: "http://localhost:8089/repositories/2/top_containers/1"
+location_uri: "http://localhost:8089/locations/1"
+repository_uri: "http://localhost:8089/repositories/2"
+resource_uri: "http://localhost:8089/repositories/2/resources/1"
+=end
+
+    container_profile = attributes[:container_profile]
+    #container_profile = JSON.parse(container_profile_values, symbolize_names: true)
+    #prefix = container_profile[:name]
+    prefix = self.prefixes[container_profile[:name]]
+
+    container = attributes[:container]
+    # container = JSON.parse(container_values, symbolize_names: true)
+
+    # location_uri = attributes[:location_uri]
+    location = attributes[:location]
+    # location = JSON.parse(location_values, symbolize_names: true)
+
+    # repository_uri = attributes[:repository_uri]
+    repository = attributes[:repository]
+    # repository = JSON.parse(repository_values, symbolize_names: true)
+
+    # resource_uri = attributes[:resource_uri]
+    resource = attributes[:resource]
+    # resource = JSON.parse(resource_values, symbolize_names: true)
+
+    initial_value = if attributes.key?(:barcode)
+                      attributes[:barcode]
                     else
-                      default_initial_value(prefix: prefix)
+                      # default_initial_value(prefix: prefix)
+                      default_initial_value
                     end
 
-    location = attributes[:location]
-    location_id = if !location.nil?
-                    location.id
-                  end
+    # binding.pry
+    # prefix = container_profile_uri
 
-    generated = where(prefix: prefix, initial_value: initial_value)
+    models = where(initial_value: initial_value)
+    generated = models.select do |model|
+      prefix == model.prefix
+    end
+
     if generated.empty?
       new_barcode = Barcode.new(initial_value)
       new_check_digit = new_barcode.check_digit
-      create(prefix: prefix, value: initial_value, check_digit: new_check_digit, initial_value: initial_value, location_id: location_id)
+
+      create(
+        value: initial_value,
+        check_digit: new_check_digit,
+        initial_value: initial_value,
+
+        container_profile: container_profile.to_json,
+        container: container.to_json,
+        location: location.to_json,
+        repository: repository.to_json,
+        resource: resource.to_json
+      )
     else
       last_absolute_id = generated.last
       next_integer = last_absolute_id.integer + 1
-      next_value = format("%s%013d", prefix, next_integer)
+      # next_value = format("%s%013d", prefix, next_integer)
+      next_value = format("%013d", next_integer)
 
       new_barcode = Barcode.new(next_value)
       new_check_digit = new_barcode.check_digit
-      create(prefix: prefix, value: next_value, check_digit: new_check_digit, initial_value: initial_value, location_id: location_id)
+
+      create(
+        value: next_value,
+        check_digit: new_check_digit,
+        initial_value: initial_value,
+
+        container_profile: container_profile.to_json,
+        container: container.to_json,
+        location: location.to_json,
+        repository: repository.to_json,
+        resource: resource.to_json
+      )
     end
   end
 end
