@@ -45,10 +45,7 @@ module LibJobs
       end
 
       def container_profiles
-        super.map do |repository_json|
-          repository_attributes = repository_json.symbolize_keys.merge(client: self)
-          ContainerProfile.new(repository_attributes)
-        end
+        children(resource_class: ContainerProfile)
       end
 
       def repositories

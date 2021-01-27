@@ -19,6 +19,7 @@ class AbsoluteIds::ContainerProfilesController < ApplicationController
         "uri" => "http://test"
       }
     ]
+    @container_profiles = current_client.container_profiles
 
     respond_to do |format|
       format.json { render json: @container_profiles }
