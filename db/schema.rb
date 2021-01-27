@@ -10,14 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_13_202151) do
-
-  create_table "absolute_id_locations", force: :cascade do |t|
-    t.string "label"
-    t.string "value"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 2020_12_18_202656) do
 
   create_table "absolute_ids", force: :cascade do |t|
     t.string "value"
@@ -25,12 +18,12 @@ ActiveRecord::Schema.define(version: 2021_01_13_202151) do
     t.integer "check_digit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "prefix"
     t.string "initial_value"
-    t.string "repository_uri"
-    t.string "resource_uri"
-    t.integer "location_id"
-    t.index ["location_id"], name: "index_absolute_ids_on_location_id"
+    t.string "location"
+    t.string "container_profile"
+    t.string "repository"
+    t.string "resource"
+    t.string "container"
   end
 
   create_table "data_sets", force: :cascade do |t|

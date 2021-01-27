@@ -28,8 +28,8 @@
         :placeholder="locationPlaceholder"
         :disabled="fetchingLocations"
         :list="locationOptions"
-        :value="nextLocation"
-        v-model="nextLocation">
+        :value="selectedLocationId"
+        v-model="selectedLocationId">
       </absolute-id-data-list>
 
       <absolute-id-data-list
@@ -42,8 +42,8 @@
         :placeholder="containerProfilePlaceholder"
         :disabled="fetchingContainerProfiles"
         :list="containerProfileOptions"
-        :value="containerProfileId"
-        v-model="containerProfileId">
+        :value="selectedContainerProfileId"
+        v-model="selectedContainerProfileId">
       </absolute-id-data-list>
 
       <absolute-id-data-list
@@ -56,8 +56,8 @@
         :placeholder="repositoryPlaceholder"
         :disabled="fetchingRepositories"
         :list="repositoryOptions"
-        :value="repositoryId"
-        v-model="repositoryId"
+        :value="selectedRepositoryId"
+        v-model="selectedRepositoryId"
         v-on:change="changeRepositoryId($event)">
       </absolute-id-data-list>
 
@@ -71,8 +71,8 @@
         :placeholder="resourcePlaceholder"
         :disabled="resourceOptions.length < 1"
         :list="resourceOptions"
-        :value="resourceId"
-        v-model="resourceId">
+        :value="selectedResourceId"
+        v-model="selectedResourceId">
       </absolute-id-data-list>
 
       <absolute-id-data-list
@@ -85,8 +85,8 @@
         :placeholder="containerPlaceholder"
         :disabled="containerOptions.length < 1"
         :list="containerOptions"
-        :value="containerId"
-        v-model="containerId">
+        :value="selectedContainerId"
+        v-model="selectedContainerId">
       </absolute-id-data-list>
     </fieldset>
 
@@ -121,10 +121,6 @@ export default {
       type: String,
       default: null
     },
-    nextLocation: {
-      type: String,
-      default: null
-    },
     nextPrefix: {
       type: String,
       default: 'A'
@@ -132,23 +128,31 @@ export default {
     nextCode: {
       type: String,
       default: '000000000000'
-    },
-    repositoryId: {
-      type: String,
-      default: null
-    },
-    containerProfileId: {
-      type: String,
-      default: null
-    },
-    resourceId: {
-      type: String,
-      default: null
-    },
-    containerId: {
-      type: String,
-      default: null
-    },
+    }
+  },
+  data: function () {
+    return {
+      selectedLocationId: null,
+      selectedContainerProfileId: null,
+      selectedRepositoryId: null,
+      selectedResourceId: null,
+      selectedContainerId: null,
+
+      locationOptions: [],
+      fetchingLocations: false,
+
+      repositoryOptions: [],
+      fetchingRepositories: false,
+
+      resourceOptions: [],
+      fetchingResources: false,
+
+      containerProfileOptions: [],
+      fetchingContainerProfiles: false,
+
+      containerOptions: [],
+      fetchingContainers: false
+    }
   },
   computed: {
     locations: async function () {
@@ -161,9 +165,9 @@ export default {
     locationPlaceholder: function () {
       let value = 'No locations available';
 
-      if (this.fetchingRepositories) {
+      if (this.fetchingLocations) {
         value = 'Loading...';
-      } else if (this.repositoryOptions.length > 0) {
+      } else if (this.locationOptions.length > 0) {
         value = 'Select a location';
       }
 
@@ -189,26 +193,27 @@ export default {
       return value;
     },
 
-    repositoryUri: async function () {
-      if (!this.repositoryId) {
+    //selectedRepositoryUri: async function () {
+    selectedRepository: async function () {
+      if (!this.selectedRepositoryId) {
         return null;
       }
 
       const resolved = await this.repositories;
 
-      const selectedRepository = resolved.find( repo => repo.id === Number.parseInt(this.repositoryId) );
-      return selectedRepository.uri;
+      const model = resolved.find( repo => repo.id === this.selectedRepositoryId );
+      return model;
     },
 
     resources: async function () {
-      if (!this.repositoryId) {
+      if (!this.selectedRepositoryId) {
         return [];
       }
 
-      const response = await this.getResources();
-      const resources = response.json();
+      const response = await this.getResources(this.selectedRepositoryId);
+      const models = response.json();
 
-      return resources;
+      return models;
     },
 
     resourcePlaceholder: function () {
@@ -216,7 +221,7 @@ export default {
 
       if (this.fetchingResources) {
         value = 'Loading...';
-      } else if (this.repositoryId && this.resourceOptions.length < 1) {
+      } else if (this.selectedRepositoryId && this.resourceOptions.length < 1) {
         value = 'No resources available';
       } else if (this.resourceOptions.length > 1) {
         value = 'Select a resource';
@@ -242,7 +247,7 @@ export default {
 
       if (this.fetchingContainers) {
         value = 'Loading...';
-      } else if (this.repositoryId && this.containerOptions.length < 1) {
+      } else if (this.selectedRepositoryId && this.containerOptions.length < 1) {
         value = 'No containers available';
       } else if (this.containerOptions.length > 1) {
         value = 'Select a container';
@@ -251,14 +256,14 @@ export default {
       return value;
     },
 
-    resourceUri: async function () {
-      if (!this.resourceId) {
+    selectedResource: async function () {
+      if (!this.selectedResourceId) {
         return null;
       }
 
       const resolved = await this.resources;
-      const selectedResource = resolved.find( res => res.id === Number.parseInt(this.resourceId) );
-      return selectedResource.uri;
+      const model = resolved.find( res => res.id === this.selectedResourceId );
+      return model;
     },
 
     containerProfiles: async function () {
@@ -269,42 +274,73 @@ export default {
     },
 
     containers: async function () {
-      const response = await this.getContainers();
+      if (!this.selectedRepositoryId) {
+        return null;
+      }
+
+      const response = await this.getContainers(this.selectedRepositoryId);
       const models = response.json();
 
       return models;
     },
 
+    selectedContainerProfile: async function () {
+      if (!this.selectedContainerProfileId) {
+        return null;
+      }
+
+      const resolved = await this.containerProfiles;
+      const model = resolved.find( res => res.id === this.selectedContainerProfileId );
+      return model;
+    },
+
+    selectedContainer: async function () {
+      if (!this.selectedContainerId) {
+        return null;
+      }
+
+      const resolved = await this.containers;
+      console.log(resolved);
+      const model = resolved.find( res => res.id === this.selectedContainerId );
+      return model;
+    },
+
+    selectedLocation: async function () {
+      if (!this.selectedLocationId) {
+        return null;
+      }
+
+      const resolved = await this.locations;
+      const model = resolved.find( res => res.id === this.selectedLocationId );
+      return model;
+    },
+
     formData: async function () {
+      const selectedLocation = await this.selectedLocation;
+
+      const selectedContainerProfile = await this.selectedContainerProfile;
+      const selectedRepository = await this.selectedRepository;
+
+      const selectedResource = await this.selectedResource;
+      const selectedContainer = await this.selectedContainer;
+
       return {
         absolute_id: {
-          resource_uri: await this.resourceUri,
-          repository_uri: await this.repositoryUri,
-          value: this.nextCode,
-          prefix:  this.nextPrefix,
-          location: this.nextLocation
+          barcode: this.nextCode,
+          location_uri: selectedLocation,
+          repository_uri: selectedRepository,
+          resource_uri: selectedResource,
+          container_uri: selectedContainer,
+          container_profile: selectedContainerProfile
         }
       };
     },
 
     formValid: function () {
-      return this.resourceId && this.repositoryId && this.nextCode && this.nextPrefix && this.nextLocation;
+      return this.selectedResourceId && this.selectedRepositoryId && this.nextCode && this.nextPrefix && this.selectedLocationId;
     }
   },
-  data: function () {
-    return {
-      locationOptions: [],
-      fetchingLocations: false,
-      repositoryOptions: [],
-      fetchingRepositories: false,
-      resourceOptions: [],
-      fetchingResources: false,
-      containerProfileOptions: [],
-      fetchingContainerProfiles: false,
-      containerOptions: [],
-      fetchingContainers: false
-    }
-  },
+
   mounted: async function () {
     const fetchedLocations = await this.locations;
     this.locationOptions = fetchedLocations.map((location) => {
@@ -333,6 +369,7 @@ export default {
       };
     });
   },
+
   methods: {
     getResources: async function (repositoryId) {
       this.fetchingResources = true;
@@ -366,7 +403,7 @@ export default {
     },
 
     changeRepositoryId: async function (newId) {
-      const fetchedResources = await this.fetchResources(this.repositoryId);
+      const fetchedResources = await this.fetchResources(this.selectedRepositoryId);
       this.resourceOptions = fetchedResources.map((resource) => {
         return {
           label: resource.title,
@@ -375,7 +412,7 @@ export default {
         };
       });
 
-      const fetchedContainers = await this.fetchContainers(this.repositoryId);
+      const fetchedContainers = await this.fetchContainers(this.selectedRepositoryId);
       this.containerOptions = fetchedContainers.map((resource) => {
         return {
           label: resource.indicator,
@@ -429,16 +466,16 @@ export default {
       this.fetchingContainerProfiles = true;
 
       const response = await fetch('/absolute-ids/container-profiles', {
-            method: 'GET',
-            mode: 'cors',
-            cache: 'no-cache',
-            credentials: 'same-origin',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${this.token}`
-            },
-            redirect: 'follow',
-            referrerPolicy: 'no-referrer'
+        method: 'GET',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.token}`
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer'
       });
 
       this.fetchingContainerProfiles = false;
@@ -449,16 +486,16 @@ export default {
       this.fetchingContainers = true;
 
       const response = await fetch(`/absolute-ids/repositories/${repositoryId}/containers`, {
-            method: 'GET',
-            mode: 'cors',
-            cache: 'no-cache',
-            credentials: 'same-origin',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${this.token}`
-            },
-            redirect: 'follow',
-            referrerPolicy: 'no-referrer'
+        method: 'GET',
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.token}`
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer'
       });
 
       this.fetchingContainers = false;
