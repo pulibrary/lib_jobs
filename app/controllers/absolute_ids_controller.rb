@@ -284,12 +284,30 @@ class AbsoluteIdsController < ApplicationController
     output = params.permit(
       absolute_id: [
         :barcode,
-
-        :location_uri,
-        :repository_uri,
-        :resource_uri,
-        :container_uri,
+        location: [
+          :id,
+          :uri,
+          :building
+        ],
+        repository: [
+          :id,
+          :uri,
+          :name,
+          :repo_code
+        ],
+        resource: [
+          :id,
+          :uri,
+          :title
+        ],
+        container: [
+          :id,
+          :uri,
+          :barcode,
+          :indicator
+        ],
         container_profile: [
+          :id,
           :name,
           :uri
         ],
