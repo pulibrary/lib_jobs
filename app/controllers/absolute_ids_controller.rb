@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class AbsoluteIdsController < ApplicationController
-  helper_method :index_status, :next_code, :next_prefix, :next_location, :absolute_id_table_columns, :absolute_id_table_data
+  helper_method :index_status, :next_code, :absolute_id_table_columns, :absolute_id_table_data
   skip_forgery_protection if: :token_header?
 
   def absolute_id_table_columns
@@ -38,10 +38,12 @@ class AbsoluteIdsController < ApplicationController
     last_absolute_id.location
   end
 
+  # Remove
   def next_location
     next_location_model.value if next_location_model
   end
 
+  # Remove
   def next_prefix
     absolute_ids = if next_location_model
                      AbsoluteId.where(location_id: next_location_model.id)
@@ -54,22 +56,14 @@ class AbsoluteIdsController < ApplicationController
     last_absolute_id.prefix
   end
 
-  def next_code_deprecated
-    absolute_ids = AbsoluteId.where(prefix: next_prefix)
-    return '0000000000000' if absolute_ids.empty?
-
-    last_absolute_id = absolute_ids.last
-    next_integer = last_absolute_id.integer + 1
-    format("%013d", next_integer)
-  end
-
   def next_code
     absolute_ids = AbsoluteId.all
+    # This should be a constant
     return '0000000000000' if absolute_ids.empty?
 
     last_absolute_id = absolute_ids.last
     next_integer = last_absolute_id.integer + 1
-    format("%013d", next_integer)
+    format("%012d", next_integer)
   end
 
   # GET /absolute-ids
@@ -230,17 +224,6 @@ class AbsoluteIdsController < ApplicationController
     @current_user ||= find_user
   end
 
-=begin
-    container_profile_values = attributes[:container_profile]
-    container_profile_uri = container_profile_values[:uri]
-    prefix = container_profile_values[:name]
-
-    container_uri = attributes[:container_uri]
-    location_uri = attributes[:location_uri]
-    repository_uri = attributes[:location_uri]
-    resource_uri = attributes[:location_uri]
-=end
-
   def absolute_id_batch_params
     output = params.permit(
       batch: [
@@ -265,7 +248,6 @@ class AbsoluteIdsController < ApplicationController
   end
 
   def absolute_id_params
-    #output = params.permit(absolute_id: [:id_prefix, :first_code, :repository_id, :resource_id])
     output = params.permit(
       absolute_id: [
         :barcode,

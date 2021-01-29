@@ -1,7 +1,7 @@
 <section class="absolute-ids">
   <% if current_user %>
     <div class="lux">
-      <absolute-id-form
+      <absolute-id-batch-form
         action="<%= absolute_ids_path %>"
         token="<%= current_user.token %>"
         next-code="<%= next_code %>">

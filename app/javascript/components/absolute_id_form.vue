@@ -1,5 +1,5 @@
 <template>
-  <form method="post" class="absolute-ids-form" v-on:submit.prevent="submit">
+  <form method="post" class="absolute-ids-form" v-bind:value="value" v-on:input="onInput" v-on:submit.prevent="submit">
 
     <fieldset class="absolute-ids-form--fields">
       <legend>Barcode</legend>
@@ -28,7 +28,6 @@
         :placeholder="locationPlaceholder"
         :disabled="fetchingLocations"
         :list="locationOptions"
-        :value="selectedLocationId"
         v-model="selectedLocationId">
       </absolute-id-data-list>
 
@@ -42,7 +41,6 @@
         :placeholder="containerProfilePlaceholder"
         :disabled="fetchingContainerProfiles"
         :list="containerProfileOptions"
-        :value="selectedContainerProfileId"
         v-model="selectedContainerProfileId">
       </absolute-id-data-list>
 
@@ -56,7 +54,6 @@
         :placeholder="repositoryPlaceholder"
         :disabled="fetchingRepositories"
         :list="repositoryOptions"
-        :value="selectedRepositoryId"
         v-model="selectedRepositoryId"
         v-on:change="changeRepositoryId($event)">
       </absolute-id-data-list>
@@ -71,7 +68,6 @@
         :placeholder="resourcePlaceholder"
         :disabled="resourceOptions.length < 1"
         :list="resourceOptions"
-        :value="selectedResourceId"
         v-model="selectedResourceId">
       </absolute-id-data-list>
 
@@ -85,12 +81,12 @@
         :placeholder="containerPlaceholder"
         :disabled="containerOptions.length < 1"
         :list="containerOptions"
-        :value="selectedContainerId"
         v-model="selectedContainerId">
       </absolute-id-data-list>
     </fieldset>
 
     <button
+      v-if="!disableSubmit"
       data-v-b7851b04
       class="lux-button solid large lux-button absolute-ids-form--submit"
       :disabled="!formValid">Generate</button>
@@ -121,9 +117,27 @@ export default {
       type: String,
       default: null
     },
+    value: {
+      type: Object,
+      default: {
+        absolute_id: {
+          barcode: null,
+          location: null,
+          container_profile: null,
+          repository: null,
+          resource: null,
+          container: null
+        },
+        valid: false
+      }
+    },
     nextCode: {
       type: String,
       default: '0000000000000'
+    },
+    disableSubmit: {
+      type: Boolean,
+      default: false
     }
   },
   data: function () {
@@ -147,7 +161,9 @@ export default {
       fetchingContainerProfiles: false,
 
       containerOptions: [],
-      fetchingContainers: false
+      fetchingContainers: false,
+
+      valid: false
     }
   },
   computed: {
@@ -189,7 +205,6 @@ export default {
       return value;
     },
 
-    //selectedRepositoryUri: async function () {
     selectedRepository: async function () {
       if (!this.selectedRepositoryId) {
         return null;
@@ -259,6 +274,9 @@ export default {
 
       const resolved = await this.resources;
       const model = resolved.find( res => res.id === this.selectedResourceId );
+      if (!model) {
+        throw `Failed to find the model: ${this.selectedResourceId}`;
+      }
       return model;
     },
 
@@ -287,6 +305,9 @@ export default {
 
       const resolved = await this.containerProfiles;
       const model = resolved.find( res => res.id === this.selectedContainerProfileId );
+      if (!model) {
+        throw `Failed to find the model: ${this.selectedContainerProfileId}`;
+      }
       return model;
     },
 
@@ -296,7 +317,6 @@ export default {
       }
 
       const resolved = await this.containers;
-      console.log(resolved);
       const model = resolved.find( res => res.id === this.selectedContainerId );
       return model;
     },
@@ -311,6 +331,7 @@ export default {
       return model;
     },
 
+    // This might need to be removed
     formData: async function () {
       const selectedLocation = await this.selectedLocation;
 
@@ -320,6 +341,8 @@ export default {
       const selectedResource = await this.selectedResource;
       const selectedContainer = await this.selectedContainer;
 
+      const valid = await this.formData;
+
       return {
         absolute_id: {
           barcode: this.nextCode,
@@ -328,12 +351,24 @@ export default {
           repository: selectedRepository,
           resource: selectedResource,
           container: selectedContainer
-        }
+        },
+        valid
       };
     },
 
-    formValid: function () {
-      return this.nextCode && this.selectedLocation && this.selectedRepository && this.selectedResource && this.selectedContainer;
+    formValid: async function () {
+      //return this.nextCode && this.selectedLocation && this.selectedRepository && this.selectedResource && this.selectedContainer;
+      //const output = this.nextCode && this.selectedLocation && this.selectedRepository && this.selectedResource && this.selectedContainer;
+
+      //this.value.valid = output;
+
+      const selectedLocation = await this.selectedLocation;
+      const selectedRepository = await this.selectedRepository;
+      const selectedResource = await this.selectedResource;
+      const selectedContainer = await this.selectedContainer;
+
+      const output = this.nextCode && selectedLocation && selectedRepository && selectedResource && selectedContainer;
+      return !!output;
     }
   },
 
@@ -367,6 +402,69 @@ export default {
   },
 
   methods: {
+    /*
+    resources: async function () {
+      if (!this.selectedRepositoryId) {
+        return [];
+      }
+
+      const response = await this.getResources(this.selectedRepositoryId);
+      const models = response.json();
+
+      return models;
+    },
+    */
+
+    /*
+    getResourceOptions: async function () {
+
+    },
+    */
+
+    isFormValid: async function () {
+      //return this.nextCode && this.selectedLocation && this.selectedRepository && this.selectedResource && this.selectedContainer;
+      //const output = this.nextCode && this.selectedLocation && this.selectedRepository && this.selectedResource && this.selectedContainer;
+
+      //this.value.valid = output;
+
+      const selectedLocation = await this.selectedLocation;
+      const selectedRepository = await this.selectedRepository;
+      const selectedResource = await this.selectedResource;
+      const selectedContainer = await this.selectedContainer;
+
+      const output = this.nextCode && selectedLocation && selectedRepository && selectedResource && selectedContainer;
+      return !!output;
+    },
+
+    getFormData: async function () {
+      const selectedLocation = await this.selectedLocation;
+
+      const selectedContainerProfile = await this.selectedContainerProfile;
+      const selectedRepository = await this.selectedRepository;
+
+      const selectedResource = await this.selectedResource;
+      const selectedContainer = await this.selectedContainer;
+
+      const valid = await this.isFormValid();
+
+      return {
+        absolute_id: {
+          barcode: this.nextCode,
+          location: selectedLocation,
+          container_profile: selectedContainerProfile,
+          repository: selectedRepository,
+          resource: selectedResource,
+          container: selectedContainer
+        },
+        valid
+      };
+    },
+
+    onInput: async function () {
+      const inputState = await this.getFormData();
+      this.$emit('input', inputState);
+    },
+
     getResources: async function (repositoryId) {
       this.fetchingResources = true;
 
