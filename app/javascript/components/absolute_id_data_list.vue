@@ -16,12 +16,12 @@
         :placeholder="placeholder"
         :errormessage="errormessage"
         :class="['lux-input', { 'lux-input-error': hasError }]"
-        v-model="value"
-        :value="value"
+        v-bind:value="value"
+        v-on:input="onInput"
+        v-model="input"
         @blur="inputblur($event.target)"
-        @change="onChange($event)"
       />
-      <datalist :id="datalistId"  >
+      <datalist :id="datalistId">
         <option v-for="(item, index) in list" :value="item.id">
           {{ item.label }}
         </option>
@@ -191,18 +191,21 @@ export default {
       default: false,
     },
   },
-  updated: function () {
-    if (this.value) {
-      this.$emit("input", this.value);
+
+  data: function () {
+    return {
+      input: null
     }
   },
+
   methods: {
     inputblur(value) {
       this.$emit("inputblur", value)
     },
-    onChange(event) {
+    onInput(event) {
       event.preventDefault();
-      this.$emit("change", this.value)
+      this.$emit("input", this.input)
+      this.$emit("change", this.input)
     }
   },
 }

@@ -25,6 +25,7 @@ import "lux-design-system/dist/system/system.css"
 import "lux-design-system/dist/system/tokens/tokens.scss"
 
 import AbsoluteIdForm from '../components/absolute_id_form'
+import AbsoluteIdBatchForm from '../components/absolute_id_batch_form'
 import AbsoluteIdTable from '../components/absolute_id_table'
 import AbsoluteIdDataList from '../components/absolute_id_data_list'
 
@@ -35,6 +36,7 @@ for (var i = 0; i < elements.length; i++) {
     el: elements[i],
     components: {
       'absolute-id-form': AbsoluteIdForm,
+      'absolute-id-batch-form': AbsoluteIdBatchForm,
       'absolute-id-table': AbsoluteIdTable,
       'absolute-id-data-list': AbsoluteIdDataList
     }
