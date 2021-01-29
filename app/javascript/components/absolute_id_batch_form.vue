@@ -1,9 +1,10 @@
 <template>
   <form method="post" class="absolute-ids-batch-form" v-on:submit.prevent="submit">
-    <fieldset class="absolute-ids-batch-form--batch">
-      <legend>Batch</legend>
 
-      <template v-for="(entry, index) in batch">
+    <template v-for="(entry, index) in batch">
+      <fieldset class="absolute-ids-batch-form--batch">
+        <legend>Batch</legend>
+
         <absolute-id-form
           :key="index"
           v-model="batch[index]"
@@ -13,16 +14,19 @@
           :disable-submit="true">
         </absolute-id-form>
 
-        <input-text
-          :key="index"
-          v-model="batchSize[index]"
-          label="Input"
-          :hide-label="true"
-          helper="Number of barcodes"
-          size="small"
-          @change="onChangeBatchSize($event, index)"></input-text>
-      </template>
-    </fieldset>
+        <fieldset class="absolute-ids-batch-form--batch-size">
+          <legend>Batch Size</legend>
+          <input-text
+            :key="index"
+            v-model="batchSize[index]"
+            label="Input"
+            :hide-label="true"
+            helper="Number of Absolute IDs"
+            size="small"
+            @change="onChangeBatchSize($event, index)"></input-text>
+        </fieldset>
+      </fieldset>
+    </template>
 
     <button
       data-v-b7851b04
@@ -65,6 +69,7 @@ export default {
       default: '0000000000000'
     }
   },
+
   data: function () {
     return {
       batch: [
@@ -81,9 +86,12 @@ export default {
           valid: false
         }
       ],
+
       batchSize: [
         1
-      ]
+      ],
+
+      barcodes: []
     }
   },
 
@@ -115,6 +123,8 @@ export default {
   },
 
   mounted: async function () {
+    this.barcodes.push(this.nextCode);
+
     const fetchedLocations = await this.locations;
     this.locationOptions = fetchedLocations.map((location) => {
       return {
@@ -144,6 +154,21 @@ export default {
   },
 
   methods: {
+    buildAbsoluteId: function() {
+      return {
+        absolute_id: {
+          barcode: null,
+            location: null,
+            container_profile: null,
+            repository: null,
+            resource: null,
+            container: null
+        },
+          batchSize: 1,
+          valid: false
+      };
+    },
+
     onChangeBatchSize: function(event, batchIndex) {
       const entry = this.batch[batchIndex];
 
@@ -172,22 +197,42 @@ export default {
         batchSize = Number.parseInt(previousValue);
       }
 
-      const code = Number.parseInt(this.nextCode);
+      let code;
       let incremented;
       if (index <= 1) {
+        code = Number.parseInt(this.nextCode);
         incremented = code + batchSize;
       } else {
-        incremented = code + batchSize + index - 1;
+        const previousBarcode = this.barcodes[index - 1];
+        code = Number.parseInt(previousBarcode);
+        incremented = code + batchSize;
       }
 
       const encoded = incremented.toString();
+      const output = encoded.padStart(13, 0);
+      this.barcodes[index] = output;
 
-      return encoded.padStart(13, 0);
+      return output;
     },
 
     onClickAdd: function (event) {
+      let newBarcodeValue = Number.parseInt(this.nextCode);
+
+      if (this.batchSize.length === 1) {
+        newBarcodeValue = newBarcode + 1;
+      } else {
+        for (let i = 0; i < this.batchSize.length; i++) {
+          newBarcodeValue = newBarcodeValue + this.batchSize[i];
+        }
+      }
+
+      const encoded = newBarcodeValue.toString();
+      const newBarcode = encoded.padStart(13, 0);
+
+      this.barcodes.push(newBarcode);
       this.batchSize.push(1);
-      this.batch.push({});
+      const newAbsoluteId = this.buildAbsoluteId();
+      this.batch.push(newAbsoluteId);
     },
 
     getRepositories: async function () {
