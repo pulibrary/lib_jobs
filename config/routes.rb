@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   get '/absolute-ids/locations', to: 'absolute_ids/locations#index'
   get '/absolute-ids/:value', to: 'absolute_ids#show', as: 'absolute_id'
   get '/absolute-ids', to: 'absolute_ids#index'
+  post '/absolute-ids', to: 'absolute_ids#create_batch'
   post '/absolute-ids', to: 'absolute_ids#create'
 
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }, skip: [:passwords, :registration]

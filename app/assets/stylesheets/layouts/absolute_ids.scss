@@ -35,7 +35,27 @@
         margin-top: 4px;
         height: fit-content;
       }
+    }
+  }
 
+  &-batch-form {
+    &--add-form {
+      &.lux-button.solid[data-v-b7851b04] {
+        float: right;
+      }
+    }
+
+    &--submit {
+      &.lux-button.solid[data-v-b7851b04] {
+        float: right;
+      }
+    }
+
+    &--remove {
+      &.lux-button.solid[data-v-b7851b04] {
+        float: right;
+        background-color: $color-red;
+      }
     }
   }
 
