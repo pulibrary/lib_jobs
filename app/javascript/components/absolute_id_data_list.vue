@@ -16,9 +16,9 @@
         :placeholder="placeholder"
         :errormessage="errormessage"
         :class="['lux-input', { 'lux-input-error': hasError }]"
+        v-model="selected"
         v-bind:value="value"
         v-on:input="onInput"
-        v-model="input"
         @blur="inputblur($event.target)"
       />
       <datalist :id="datalistId">
@@ -192,20 +192,30 @@ export default {
     },
   },
 
-  data: function () {
+  data: function() {
     return {
-      input: null
+      selected: this.value
+    };
+  },
+
+  updated: function () {
+    if (this.value) {
+      if (!this.selected) {
+        this.selected = this.value;
+      }
     }
+    console.log(this);
   },
 
   methods: {
     inputblur(value) {
       this.$emit("inputblur", value)
     },
+
     onInput(event) {
       event.preventDefault();
-      this.$emit("input", this.input)
-      this.$emit("change", this.input)
+      this.$emit("input", this.selected);
+      //this.$emit("change", this.selected)
     }
   },
 }

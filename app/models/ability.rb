@@ -32,6 +32,7 @@ class Ability
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
 
     can :update, AbsoluteId if user.present? && user.token_valid?
+    can :create_batch, AbsoluteId if user.present? && user.token_valid?
     can :create, AbsoluteId if user.present? && user.token_valid?
     can :get_latest, DataSet if user.present?
   end

@@ -6,7 +6,7 @@
         <legend>Batch</legend>
 
         <absolute-id-form
-          :key="index"
+          :key="batchKey(index)"
           v-model="batch[index]"
           :action="action"
           :token="token"
@@ -18,6 +18,8 @@
           <legend>Batch Size</legend>
           <input-text
             :key="index"
+            id="batch-size"
+            name="batch[batch_size]"
             v-model="batchSize[index]"
             label="Input"
             :hide-label="true"
@@ -25,18 +27,31 @@
             size="small"
             @change="onChangeBatchSize($event, index)"></input-text>
         </fieldset>
+
+        <button
+          v-if="index > 0"
+          data-v-b7851b04
+          class="lux-button solid lux-button absolute-ids-batch-form--remove"
+          @click.prevent="onClickRemove(index)">Remove Batch</button>
+
       </fieldset>
     </template>
 
-    <button
-      data-v-b7851b04
-      class="lux-button solid lux-button absolute-ids-batch-form--add-form"
-      @click.prevent="onClickAdd">Add</button>
+    <grid-container>
+      <grid-item columns="lg-12 sm-12">
+        <button
+          data-v-b7851b04
+          class="lux-button solid lux-button absolute-ids-batch-form--add-form"
+          @click.prevent="onClickAdd">Add Batch</button>
+      </grid-item>
 
-    <button
-      data-v-b7851b04
-      class="lux-button solid large lux-button absolute-ids-batch-form--submit"
-      :disabled="!formValid">Generate</button>
+      <grid-item columns="lg-12 sm-12">
+        <button
+          data-v-b7851b04
+          class="lux-button solid large lux-button absolute-ids-batch-form--submit"
+          :disabled="!formValid">Generate</button>
+      </grid-item>
+    </grid-container>
   </form>
 </template>
 
@@ -82,16 +97,15 @@ export default {
             resource: null,
             container: null
           },
-          batchSize: 1,
+          batch_size: 1,
           valid: false
         }
       ],
-
       batchSize: [
         1
       ],
-
-      barcodes: []
+      barcodes: [],
+      batchUpdates: 0
     }
   },
 
@@ -119,8 +133,23 @@ export default {
 
     formValid: function () {
       return true;
+    },
+
+    formData: function () {
+      return {
+        batch: this.batch
+      };
     }
   },
+
+  /*
+  watch: {
+    batch: function(newBatch, oldBatch) {
+      //debugger;
+      this.batch = newBatch;
+    }
+  },
+  */
 
   mounted: async function () {
     this.barcodes.push(this.nextCode);
@@ -154,6 +183,9 @@ export default {
   },
 
   methods: {
+    batchKey: function (index) {
+      return index + this.batchUpdates;
+    },
     buildAbsoluteId: function() {
       return {
         absolute_id: {
@@ -164,8 +196,8 @@ export default {
             resource: null,
             container: null
         },
-          batchSize: 1,
-          valid: false
+        batch_size: 1,
+        valid: false
       };
     },
 
@@ -173,12 +205,12 @@ export default {
       const entry = this.batch[batchIndex];
 
       if (!event.target.value) {
-        entry.batchSize = null;
+        entry.batch_size = null;
       } else {
-        entry.batchSize = Number.parseInt(event.target.value);
+        entry.batch_size = Number.parseInt(event.target.value);
       }
 
-      this.batchSize[batchIndex] = entry.batchSize;
+      this.batchSize[batchIndex] = entry.batch_size;
     },
 
     getNextCode: function (index, updatedValue) {
@@ -215,6 +247,36 @@ export default {
       return output;
     },
 
+    removeBarcode: function (index) {
+      const u = this.barcodes.slice(0, index);
+      const v = this.barcodes.slice(index + 1, this.barcodes.length);
+      const output = u.concat(v);
+
+      return output;
+    },
+
+    removeBatchSize: function (index) {
+      const u = this.batchSize.slice(0, index);
+      const v = this.batchSize.slice(index + 1, this.batchSize.length);
+      const output = u.concat(v);
+
+      return output;
+    },
+
+    removeBatch: function (index) {
+      const u = this.batch.slice(0, index);
+      const v = this.batch.slice(index + 1, this.batch.length);
+      const output = u.concat(v);
+
+      return output;
+    },
+
+    onClickRemove: function (index) {
+      this.barcode = this.removeBarcode(index);
+      this.batchSize = this.removeBatchSize(index);
+      this.batch = this.removeBatch(index);
+    },
+
     onClickAdd: function (event) {
       let newBarcodeValue = Number.parseInt(this.nextCode);
 
@@ -233,6 +295,8 @@ export default {
       this.batchSize.push(1);
       const newAbsoluteId = this.buildAbsoluteId();
       this.batch.push(newAbsoluteId);
+
+      //this.batchUpdates++;
     },
 
     getRepositories: async function () {

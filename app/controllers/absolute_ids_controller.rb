@@ -131,13 +131,25 @@ class AbsoluteIdsController < ApplicationController
   # POST /absolute-ids/batch.json
   def create_batch
     authorize! :create_batch, AbsoluteId
-    @absolute_ids = absolute_id_batch_params.each do |absolute_id_params|
-                      AbsoluteId.generate(**absolute_id_params)
-                    end
+
+    @absolute_ids = absolute_id_batch_params.map { |batch_params|
+                      batch_size = batch_params[:batch_size]
+                      batch = batch_size.times.map do |index|
+                        params_valid = batch_params[:valid]
+
+                        absolute_id = if params_valid
+                                        absolute_id_params = batch_params[:absolute_id]
+                                        AbsoluteId.generate(**absolute_id_params)
+                                      else
+                                        Rails.logger.warn("Failed to create a new Absolute ID with invalid parameters.")
+                                        Rails.logger.warn(JSON.generate(batch_params))
+                                        nil
+                                      end
+                      end
+                    }.flatten
 
     respond_to do |format|
       format.html do
-        flash[:absolute_ids] = "Failed to generate a new absolute ID. Please contact the administrator." unless @absolute_id.save
         redirect_to absolute_ids_path
       end
 
@@ -225,25 +237,10 @@ class AbsoluteIdsController < ApplicationController
   end
 
   def absolute_id_batch_params
-    output = params.permit(
-      batch: [
-        {
-          absolute_id: [
-            :barcode,
+    ActionController::Parameters.permit_all_parameters = true
+    parsed = params.to_h.deep_symbolize_keys
+    ActionController::Parameters.permit_all_parameters = false
 
-            :location_uri,
-            :repository_uri,
-            :resource_uri,
-            :container_uri,
-            container_profile: [
-              :name,
-              :uri
-            ],
-          ]
-        }
-      ]
-    )
-    parsed = output.to_h.deep_symbolize_keys
     parsed.fetch(:batch, [])
   end
 
