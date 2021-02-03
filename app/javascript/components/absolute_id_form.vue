@@ -59,7 +59,7 @@
             :disabled="fetchingRepositories"
             :list="repositoryOptions"
             v-model="selectedRepositoryId"
-            v-on:change="changeRepositoryId($event)">
+            v-on:input="changeRepositoryId($event)">
           </absolute-id-data-list>
 
           <absolute-id-data-list
@@ -583,6 +583,8 @@ export default {
     },
 
     changeRepositoryId: async function (newId) {
+      console.log(this);
+      console.log(newId);
       const fetchedResources = await this.fetchResources(this.selectedRepositoryId);
       this.resourceOptions = fetchedResources.map((resource) => {
         return {
