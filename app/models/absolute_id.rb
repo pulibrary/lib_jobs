@@ -252,18 +252,29 @@ class AbsoluteId < ApplicationRecord
 
   def self.prefixes
     {
-      'mudd' => 'S',
-      'mudd1' => 'D',
-      'mudd2' => 'DO',
-      'mudd3' => 'L',
-      'mudd4' => 'LO',
-      'mudd5' => 'XH',
-      'mudd6' => 'XH',
-      'mss' => 'M'
+      'BoxQ' => 'S',
+      'Double Elephant size box' => 'D',
+      'Double Elephant volume' => 'DO',
+      'Elephant size box' => 'L',
+      'Elephant volume' => 'LO',
+      'Folio' => 'XH',
+      'Mudd OS depth' => 'XH',
+      'Mudd OS height' => 'XH',
+      'Mudd OS depth' => 'XH',
+      'NBox' => 'XH',
+      'Ordinary' => 'XH',
+      'Quarto' => 'XH',
+      'Small' => 'XH',
     }
   end
 
+  def self.default_prefix
+    'C'
+  end
+
   def prefix
+    return self.class.default_prefix unless self.class.prefixes.key?(container_profile.name)
+
     self.class.prefixes[container_profile.name]
   end
 
@@ -334,10 +345,6 @@ class AbsoluteId < ApplicationRecord
     xml_serializer.new(self, options).serialize(&block)
   end
 
-  #def self.default_prefix
-  #  'A'
-  #end
-
   def self.default_initial_integer
     0
   end
@@ -356,19 +363,8 @@ class AbsoluteId < ApplicationRecord
   # @option opts [String] :resource_uri
   # @option opts [String] :barcode
   def self.generate(**attributes)
-
-=begin
-container_profile_uri: "http://localhost:8089/container_profiles/1"
-container_uri: "http://localhost:8089/repositories/2/top_containers/1"
-location_uri: "http://localhost:8089/locations/1"
-repository_uri: "http://localhost:8089/repositories/2"
-resource_uri: "http://localhost:8089/repositories/2/resources/1"
-=end
-
     container_profile = attributes[:container_profile]
     #container_profile = JSON.parse(container_profile_values, symbolize_names: true)
-    #prefix = container_profile[:name]
-    prefix = self.prefixes[container_profile[:name]]
 
     container = attributes[:container]
     # container = JSON.parse(container_values, symbolize_names: true)

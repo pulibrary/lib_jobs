@@ -1,95 +1,102 @@
 <template>
   <form method="post" class="absolute-ids-form" v-bind:value="value" v-on:input="onInput" v-on:submit.prevent="submit">
 
-    <fieldset class="absolute-ids-form--fields">
-      <legend>Barcode</legend>
-      <input-text
-        id="next_code"
-        class="absolute-ids-form--input-field"
-        name="next_code"
-        label="Input"
-        :hide-label="true"
-        placeholder="Barcode"
-        helper="Barcode"
-        :value="nextCode">
-      </input-text>
-    </fieldset>
+    <grid-container>
+      <grid-item columns="sm-12 lg-3">
+        <fieldset class="absolute-ids-form--fields">
+          <legend>Barcode</legend>
+          <input-text
+            id="next_code"
+            class="absolute-ids-form--input-field"
+            name="next_code"
+            label="Input"
+            :hide-label="true"
+            placeholder="Barcode"
+            helper="Barcode"
+            :value="nextCode">
+          </input-text>
+        </fieldset>
+      </grid-item>
 
-    <fieldset class="absolute-ids-form--fields">
-      <legend>ArchivesSpace</legend>
+      <grid-item columns="sm-12 lg-9">
+        <fieldset class="absolute-ids-form--fields">
+          <legend>ArchivesSpace</legend>
 
-      <absolute-id-data-list
-        id="location_id"
-        class="absolute-ids-form--input-field"
-        name="location_id"
-        label="Location"
-        :hide-label="true"
-        helper="Location"
-        :placeholder="locationPlaceholder"
-        :disabled="fetchingLocations"
-        :list="locationOptions"
-        v-model="selectedLocationId">
-      </absolute-id-data-list>
+          <absolute-id-data-list
+            id="location_id"
+            class="absolute-ids-form--input-field"
+            name="location_id"
+            label="Location"
+            :hide-label="true"
+            helper="Location"
+            :placeholder="locationPlaceholder"
+            :disabled="fetchingLocations"
+            :list="locationOptions"
+            v-model="selectedLocationId">
+          </absolute-id-data-list>
 
-      <absolute-id-data-list
-        id="container_profile_id"
-        class="absolute-ids-form--input-field"
-        name="container_profile_id"
-        label="Container Profile"
-        :hide-label="true"
-        helper="Container Profile"
-        :placeholder="containerProfilePlaceholder"
-        :disabled="fetchingContainerProfiles"
-        :list="containerProfileOptions"
-        v-model="selectedContainerProfileId">
-      </absolute-id-data-list>
+          <absolute-id-data-list
+            id="container_profile_id"
+            class="absolute-ids-form--input-field"
+            name="container_profile_id"
+            label="Container Profile"
+            :hide-label="true"
+            helper="Container Profile"
+            :placeholder="containerProfilePlaceholder"
+            :disabled="fetchingContainerProfiles"
+            :list="containerProfileOptions"
+            v-model="selectedContainerProfileId">
+          </absolute-id-data-list>
 
-      <absolute-id-data-list
-        id="repository_id"
-        class="absolute-ids-form--input-field"
-        name="repository_id"
-        label="Repository"
-        :hide-label="true"
-        helper="Repository"
-        :placeholder="repositoryPlaceholder"
-        :disabled="fetchingRepositories"
-        :list="repositoryOptions"
-        v-model="selectedRepositoryId"
-        v-on:change="changeRepositoryId($event)">
-      </absolute-id-data-list>
+          <absolute-id-data-list
+            id="repository_id"
+            class="absolute-ids-form--input-field"
+            name="repository_id"
+            label="Repository"
+            :hide-label="true"
+            helper="Repository"
+            :placeholder="repositoryPlaceholder"
+            :disabled="fetchingRepositories"
+            :list="repositoryOptions"
+            v-model="selectedRepositoryId"
+            v-on:change="changeRepositoryId($event)">
+          </absolute-id-data-list>
 
-      <absolute-id-data-list
-        id="resource_id"
-        class="absolute-ids-form--input-field"
-        name="resource_id"
-        label="Resource"
-        :hide-label="true"
-        helper="Resource"
-        :placeholder="resourcePlaceholder"
-        :disabled="resourceOptions.length < 1"
-        :list="resourceOptions"
-        v-model="selectedResourceId">
-      </absolute-id-data-list>
+          <absolute-id-data-list
+            id="resource_id"
+            class="absolute-ids-form--input-field"
+            name="resource_id"
+            label="Resource"
+            :hide-label="true"
+            helper="Resource"
+            :placeholder="resourcePlaceholder"
+            :disabled="resourceOptions.length < 1"
+            :list="resourceOptions"
+            v-model="selectedResourceId">
+          </absolute-id-data-list>
 
-      <absolute-id-data-list
-        id="container_id"
-        class="absolute-ids-form--input-field"
-        name="container_id"
-        label="Container"
-        :hide-label="true"
-        helper="Container"
-        :placeholder="containerPlaceholder"
-        :disabled="containerOptions.length < 1"
-        :list="containerOptions"
-        v-model="selectedContainerId">
-      </absolute-id-data-list>
-    </fieldset>
+          <absolute-id-data-list
+            id="container_id"
+            class="absolute-ids-form--input-field"
+            name="container_id"
+            label="Container"
+            :hide-label="true"
+            helper="Container"
+            :placeholder="containerPlaceholder"
+            :disabled="containerOptions.length < 1"
+            :list="containerOptions"
+            v-model="selectedContainerId">
+          </absolute-id-data-list>
+        </fieldset>
 
-    <button
-      v-if="!disableSubmit"
-      data-v-b7851b04
-      class="lux-button solid large lux-button absolute-ids-form--submit"
-      :disabled="!formValid">Generate</button>
+        <button
+          v-if="!disableSubmit"
+          data-v-b7851b04
+          class="lux-button solid large lux-button absolute-ids-form--submit"
+          :disabled="!formValid">Generate</button>
+      </grid-item>
+
+    </grid-container>
   </form>
 </template>
 
@@ -128,6 +135,7 @@ export default {
           resource: null,
           container: null
         },
+        batch_size: 1,
         valid: false
       }
     },
@@ -141,12 +149,44 @@ export default {
     }
   },
   data: function () {
+    //debugger;
+    const defaultLocation = this.value.absolute_id.location;
+    let locationId = null;
+    if (defaultLocation) {
+      locationId = defaultLocation.id;
+    }
+
+    const defaultContainerProfile = this.value.absolute_id.container_profile;
+    let containerProfileId = null;
+    if (defaultContainerProfile) {
+      containerProfileId = defaultContainerProfile.id;
+    }
+
+    const defaultRepository = this.value.absolute_id.repository;
+    let repositoryId = null;
+    if (defaultRepository) {
+      repositoryId = defaultRepository.id;
+    }
+
+    const defaultResource = this.value.absolute_id.resource;
+    let resourceId = null;
+    if (defaultResource) {
+      resourceId = defaultResource.id;
+    }
+
+    const defaultContainer = this.value.absolute_id.container;
+    let containerId = null;
+    if (defaultContainer) {
+      containerId = defaultContainer.id;
+    }
+    //debugger;
+
     return {
-      selectedLocationId: null,
-      selectedContainerProfileId: null,
-      selectedRepositoryId: null,
-      selectedResourceId: null,
-      selectedContainerId: null,
+      selectedLocationId: locationId,
+      selectedContainerProfileId: containerProfileId,
+      selectedRepositoryId: repositoryId,
+      selectedResourceId: resourceId,
+      selectedContainerId: containerId,
 
       locationOptions: [],
       fetchingLocations: false,
@@ -163,7 +203,9 @@ export default {
       containerOptions: [],
       fetchingContainers: false,
 
-      valid: false
+      valid: false,
+
+      batchSize: 1
     }
   },
   computed: {
@@ -372,6 +414,47 @@ export default {
     }
   },
 
+  updated: async function () {
+    //debugger;
+    //console.log(this);
+
+    this.$nextTick(function () {
+
+      if (this.value && this.value.absolute_id && this.value.absolute_id.location) {
+        //console.log(this);
+        if (!this.selectedLocationId) {
+          this.selectedLocationId = this.value.absolute_id.location.id;
+          //console.log(this);
+        }
+      }
+
+      if (this.value && this.value.absolute_id && this.value.absolute_id.container_profile) {
+        if (!this.selectedContainerProfileId) {
+          this.selectedContainerProfileId = this.value.absolute_id.container_profile.id;
+        }
+      }
+
+      if (this.value && this.value.absolute_id && this.value.absolute_id.repository) {
+        if (!this.selectedRepositoryId) {
+          this.selectedRepositoryId = this.value.absolute_id.repository.id;
+        }
+      }
+
+      if (this.value && this.value.absolute_id && this.value.absolute_id.resource) {
+        if (!this.selectedResourceId) {
+          this.selectedResourceId = this.value.absolute_id.resource.id;
+        }
+      }
+
+      if (this.value && this.value.absolute_id && this.value.absolute_id.container) {
+        if (!this.selectedContainerId) {
+          this.selectedContainerId = this.value.absolute_id.container.id;
+        }
+      }
+
+    });
+  },
+
   mounted: async function () {
     const fetchedLocations = await this.locations;
     this.locationOptions = fetchedLocations.map((location) => {
@@ -447,6 +530,8 @@ export default {
 
       const valid = await this.isFormValid();
 
+      const batchSize = await this.batchSize;
+
       return {
         absolute_id: {
           barcode: this.nextCode,
@@ -456,7 +541,8 @@ export default {
           resource: selectedResource,
           container: selectedContainer
         },
-        valid
+        batch_size: batchSize,
+        valid,
       };
     },
 
