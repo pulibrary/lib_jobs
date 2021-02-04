@@ -5,6 +5,14 @@
       class="lux-input-field"
       :class="[{ 'lux-input-expand': width === 'expand' }, { disabled: disabled }, size]"
     >
+
+      <input
+        :name="name"
+        :id="id"
+        type="hidden"
+        v-model="selected"
+      />
+
       <input
         :name="name"
         :id="id"
@@ -16,14 +24,13 @@
         :placeholder="placeholder"
         :errormessage="errormessage"
         :class="['lux-input', { 'lux-input-error': hasError }]"
-        v-model="selected"
-        v-bind:value="value"
+        v-bind:value="displayedValue"
         v-on:input="onInput"
         @blur="inputblur($event.target)"
       />
       <datalist :id="datalistId">
-        <option v-for="(item, index) in list" :value="item.id">
-          {{ item.label }}
+        <option v-for="(item, index) in list" :value="item.label">
+          {{ displayOption(item) }}
         </option>
       </datalist>
     </div>
@@ -54,6 +61,15 @@ export default {
     },
     focus() {
       return this.defaultFocus || this.list.length > 0;
+    },
+    displayedValue() {
+      if (!this.selected) {
+        return this.value;
+      }
+
+      const displayed = this.selected[this.displayProperty];
+
+      return displayed;
     }
   },
   props: {
@@ -190,32 +206,61 @@ export default {
       type: Boolean,
       default: false,
     },
+    displayProperty: {
+      type: String,
+      default: 'label'
+    }
   },
 
   data: function() {
     return {
-      selected: this.value
+      selected: this.value,
+      item: null
     };
   },
 
+  // Uncertain if this is still needed
   updated: function () {
     if (this.value) {
       if (!this.selected) {
         this.selected = this.value;
       }
     }
-    console.log(this);
   },
 
   methods: {
+    displayOption(item) {
+      let displayed;
+
+      if (this.displayProperty === 'label') {
+        displayed = item['uri'];
+      } else {
+        displayed = item[this.displayProperty];
+      }
+
+      return displayed;
+    },
+    /*
+    onClickOption(event, item) {
+      event.preventDefault();
+      console.log(item);
+      this.item = item;
+    },
+    */
     inputblur(value) {
       this.$emit("inputblur", value)
     },
-
     onInput(event) {
       event.preventDefault();
-      this.$emit("input", this.selected);
-      //this.$emit("change", this.selected)
+
+      if (event.target.value) {
+        const model = this.list.find( (e) => event.target.value === e.label );
+
+        if (model) {
+          this.selected = model;
+          this.$emit("input", this.selected.id);
+        }
+      }
     }
   },
 }
