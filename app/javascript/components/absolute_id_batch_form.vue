@@ -5,17 +5,8 @@
       <fieldset class="absolute-ids-batch-form--batch">
         <legend>Batch</legend>
 
-        <absolute-id-form
-          :key="batchKey(index)"
-          v-model="batch[index]"
-          :action="action"
-          :token="token"
-          :next-code="getNextCode(index, batchSize[index])"
-          :disable-submit="true">
-        </absolute-id-form>
-
         <fieldset class="absolute-ids-batch-form--batch-size">
-          <legend>Batch Size</legend>
+          <legend>Size</legend>
           <input-text
             :key="index"
             id="batch-size"
@@ -28,12 +19,21 @@
             @change="onChangeBatchSize($event, index)"></input-text>
         </fieldset>
 
+        <absolute-id-form
+          :key="batchKey(index)"
+          v-model="batch[index]"
+          :action="action"
+          :token="token"
+          :next-code="getNextCode(index, batchSize[index])"
+          :batch-form="true"
+          :batch-size="batchSize[index]">
+        </absolute-id-form>
+
         <button
           v-if="index > 0"
           data-v-b7851b04
           class="lux-button solid lux-button absolute-ids-batch-form--remove"
           @click.prevent="onClickRemove(index)">Remove Batch</button>
-
       </fieldset>
     </template>
 
@@ -142,15 +142,6 @@ export default {
     }
   },
 
-  /*
-  watch: {
-    batch: function(newBatch, oldBatch) {
-      //debugger;
-      this.batch = newBatch;
-    }
-  },
-  */
-
   mounted: async function () {
     this.barcodes.push(this.nextCode);
 
@@ -201,6 +192,9 @@ export default {
       };
     },
 
+    /**
+     * This updates two separate models: this.batch[index] and this.batchSize[index]
+     */
     onChangeBatchSize: function(event, batchIndex) {
       const entry = this.batch[batchIndex];
 
@@ -221,8 +215,8 @@ export default {
 
       if (!currentValue) {
         batchSize = index;
-      } else if (!previousValue && index === 0) {
-        batchSize = index;
+      //} else if (!previousValue && index === 0) {
+      //  batchSize = index;
       } else if (!previousValue) {
         batchSize = index;
       } else {
@@ -231,13 +225,14 @@ export default {
 
       let code;
       let incremented;
-      if (index <= 1) {
+
+      if (index < 1) {
         code = Number.parseInt(this.nextCode);
         incremented = code + batchSize;
       } else {
         const previousBarcode = this.barcodes[index - 1];
         code = Number.parseInt(previousBarcode);
-        incremented = code + batchSize;
+        incremented = code + batchSize + 1;
       }
 
       const encoded = incremented.toString();
