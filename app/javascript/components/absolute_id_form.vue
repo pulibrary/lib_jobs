@@ -15,6 +15,17 @@
             helper="Barcode"
             :value="nextCode">
           </input-text>
+
+          <input-text
+            id="terminal_code"
+            class="absolute-ids-form--input-field"
+            name="terminal_code"
+            label="Input"
+            :hide-label="true"
+            helper="Ending Barcode"
+            :disabled="true"
+            :value="terminalCode">
+          </input-text>
         </fieldset>
       </grid-item>
 
@@ -59,38 +70,37 @@
             :disabled="fetchingRepositories"
             :list="repositoryOptions"
             v-model="selectedRepositoryId"
+            display-property="repoCode"
             v-on:input="changeRepositoryId($event)">
           </absolute-id-data-list>
 
-          <absolute-id-data-list
+          <input-text
             id="resource_id"
             class="absolute-ids-form--input-field"
             name="resource_id"
-            label="Resource"
+            label="Call Number"
             :hide-label="true"
-            helper="Resource"
+            helper="Call Number"
             :placeholder="resourcePlaceholder"
-            :disabled="resourceOptions.length < 1"
-            :list="resourceOptions"
+            :disabled="!selectedRepositoryId"
             v-model="selectedResourceId">
-          </absolute-id-data-list>
+          </input-text>
 
-          <absolute-id-data-list
+          <input-text
             id="container_id"
             class="absolute-ids-form--input-field"
             name="container_id"
-            label="Container"
+            label="Box Number"
             :hide-label="true"
-            helper="Container"
+            helper="Box Number"
             :placeholder="containerPlaceholder"
-            :disabled="containerOptions.length < 1"
-            :list="containerOptions"
+            :disabled="!selectedRepositoryId || !selectedResourceId"
             v-model="selectedContainerId">
-          </absolute-id-data-list>
+          </input-text>
         </fieldset>
 
         <button
-          v-if="!disableSubmit"
+          v-if="!batchForm"
           data-v-b7851b04
           class="lux-button solid large lux-button absolute-ids-form--submit"
           :disabled="!formValid">Generate</button>
@@ -143,13 +153,16 @@ export default {
       type: String,
       default: '0000000000000'
     },
-    disableSubmit: {
+    batchForm: {
       type: Boolean,
       default: false
+    },
+    batchSize: {
+      type: Number,
+      default: 1
     }
   },
   data: function () {
-    //debugger;
     const defaultLocation = this.value.absolute_id.location;
     let locationId = null;
     if (defaultLocation) {
@@ -179,7 +192,6 @@ export default {
     if (defaultContainer) {
       containerId = defaultContainer.id;
     }
-    //debugger;
 
     return {
       selectedLocationId: locationId,
@@ -203,12 +215,21 @@ export default {
       containerOptions: [],
       fetchingContainers: false,
 
-      valid: false,
-
-      batchSize: 1
+      valid: false
     }
   },
   computed: {
+    terminalCode: function () {
+      const parsedCode = Number.parseInt(this.nextCode);
+      const parsedSize = Number.parseInt(this.batchSize);
+      const incremented = parsedCode + parsedSize;
+
+      const encoded = incremented.toString();
+      const formatted = encoded.padStart(13, 0);
+
+      return formatted;
+    },
+
     locations: async function () {
       const response = await this.getLocations();
       const locations = response.json();
@@ -272,12 +293,8 @@ export default {
     resourcePlaceholder: function () {
       let value = 'No repository selected';
 
-      if (this.fetchingResources) {
-        value = 'Loading...';
-      } else if (this.selectedRepositoryId && this.resourceOptions.length < 1) {
-        value = 'No resources available';
-      } else if (this.resourceOptions.length > 1) {
-        value = 'Select a resource';
+      if (this.selectedRepositoryId) {
+        value = 'Enter a call number';
       }
 
       return value;
@@ -298,12 +315,10 @@ export default {
     containerPlaceholder: function () {
       let value = 'No repository selected';
 
-      if (this.fetchingContainers) {
-        value = 'Loading...';
-      } else if (this.selectedRepositoryId && this.containerOptions.length < 1) {
-        value = 'No containers available';
-      } else if (this.containerOptions.length > 1) {
-        value = 'Select a container';
+      if (this.selectedResourceId) {
+        value = 'Enter a box number';
+      } else if (this.selectedRepositoryId) {
+        value = 'No call number specified';
       }
 
       return value;
@@ -415,16 +430,11 @@ export default {
   },
 
   updated: async function () {
-    //debugger;
-    //console.log(this);
-
     this.$nextTick(function () {
 
       if (this.value && this.value.absolute_id && this.value.absolute_id.location) {
-        //console.log(this);
         if (!this.selectedLocationId) {
           this.selectedLocationId = this.value.absolute_id.location.id;
-          //console.log(this);
         }
       }
 
@@ -451,7 +461,6 @@ export default {
           this.selectedContainerId = this.value.absolute_id.container.id;
         }
       }
-
     });
   },
 
@@ -470,7 +479,8 @@ export default {
       return {
         id: repository.id,
         label: repository.name,
-        uri: repository.uri
+        uri: repository.uri,
+        repoCode: repository.repo_code
       };
     });
 
@@ -530,7 +540,7 @@ export default {
 
       const valid = await this.isFormValid();
 
-      const batchSize = await this.batchSize;
+      const batchSize = this.batchSize;
 
       return {
         absolute_id: {
