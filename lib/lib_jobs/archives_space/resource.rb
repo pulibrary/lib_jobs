@@ -2,10 +2,6 @@
 module LibJobs
   module ArchivesSpace
     class Resource < Object
-      def self.parse_id_foo(attributes)
-        attributes[:ead_id]
-      end
-
       def self.parse_id(attributes)
         uri = attributes[:uri]
         segments = uri.split("/")
@@ -18,7 +14,7 @@ module LibJobs
       end
 
       attr_reader :title
-      def initialize(attributes)
+      def initialize(_client, attributes)
         super(attributes)
 
         @id = self.class.parse_id(attributes)

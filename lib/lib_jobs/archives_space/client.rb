@@ -40,6 +40,43 @@ module LibJobs
         end
       end
 
+      def search_results(response:, resource_class:)
+        parsed = JSON.parse(response.body)
+        results = parsed['results']
+        results.map do |child_json|
+          child_json = child_json.transform_keys(&:to_sym)
+          child_json[:client] = self
+          resource_class.new(child_json)
+        end
+      end
+
+      def find_resources_by_ead_id(repository_id:, ead_id:)
+        identifier_query = [ead_id]
+        params = URI.encode_www_form([["identifier[]", identifier_query.to_json]])
+        path = "/repositories/#{repository_id}/find_by_id/resources?#{params}"
+
+        response = get(path)
+        return [] unless response.parsed.key?('resources')
+
+        response.parsed['resources']
+      end
+
+      def search_top_containers_by(repository_id:, query:)
+        params = URI.encode_www_form([["q", query]])
+        path = "/repositories/#{repository_id}/top_containers/search?#{params}"
+
+        response = get(path)
+
+        return [] unless response.parsed.key?('response')
+        search_response = response.parsed['response']
+
+        return [] unless search_response.key?('docs')
+
+        search_response['docs']
+        # search_docs = search_response['docs']
+        # return search_docs
+      end
+
       def locations
         children(resource_class: Location)
       end

@@ -5,21 +5,13 @@ class AbsoluteIds::ContainerProfilesController < ApplicationController
 
   # GET /absolute-ids/container-profiles.json
   def index
-    # @locations ||= AbsoluteId::Location.all
-    @container_profiles = [
-      {
-        "name" => "L959GY311",
-        "url" => "DKQ829S",
-        "dimension_units" => "inches",
-        "extent_dimension" => "width",
-        "depth" => "42",
-        "height" => "56",
-        "width" => "93",
-        "id" => "1",
-        "uri" => "http://test"
-      }
-    ]
-    @container_profiles = current_client.container_profiles
+    models = current_client.container_profiles
+
+    # Insert the prefixes
+    @container_profiles = models.map do |model|
+      model.prefix = AbsoluteId.find_prefix(model)
+      model
+    end
 
     respond_to do |format|
       format.json { render json: @container_profiles }

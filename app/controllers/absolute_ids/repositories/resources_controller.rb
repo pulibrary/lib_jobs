@@ -5,9 +5,9 @@ class AbsoluteIds::Repositories::ResourcesController < ApplicationController
 
   # GET /absolute-ids/repositories/repository_id/resources.json
   def index
-    #@resources ||= Rails.cache.fetch(index_cache_key, expires_in: cache_expiry) do
+    # @resources ||= Rails.cache.fetch(index_cache_key, expires_in: cache_expiry) do
     #  current_repository.resources
-    #end
+    # end
 
     begin
       @resources ||= current_repository.resources
@@ -22,9 +22,9 @@ class AbsoluteIds::Repositories::ResourcesController < ApplicationController
 
   # GET /absolute-ids/repositories/:repository_id/resources/:resource_id.json
   def show
-    #@resource ||= Rails.cache.fetch(show_cache_key, expires_in: cache_expiry) do
+    # @resource ||= Rails.cache.fetch(show_cache_key, expires_in: cache_expiry) do
     #  current_repository.find_resource(id: resource_id)
-    #end
+    # end
 
     begin
       @resource ||= current_repository.find_resource(id: resource_id)

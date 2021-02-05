@@ -13,7 +13,8 @@ module LibJobs
         URI.join(@client.config.base_uri, @values.uri)
       end
 
-      attr_reader :uri
+      attr_accessor :prefix
+      attr_reader :name, :uri
       def initialize(attributes)
         @values = OpenStruct.new(attributes)
 
@@ -29,7 +30,8 @@ module LibJobs
         {
           id: @id,
           uri: @uri,
-          name: @name
+          name: @name,
+          prefix: prefix
         }
       end
     end
