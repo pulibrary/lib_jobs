@@ -43,6 +43,7 @@
             :placeholder="locationPlaceholder"
             :disabled="fetchingLocations"
             :list="locationOptions"
+            display-property="classification"
             v-model="selectedLocationId">
           </absolute-id-data-list>
 
@@ -56,6 +57,7 @@
             :placeholder="containerProfilePlaceholder"
             :disabled="fetchingContainerProfiles"
             :list="containerProfileOptions"
+            display-property="prefix"
             v-model="selectedContainerProfileId">
           </absolute-id-data-list>
 
@@ -83,7 +85,7 @@
             helper="Call Number"
             :placeholder="resourcePlaceholder"
             :disabled="!selectedRepositoryId"
-            v-model="selectedResourceId">
+            v-model="resourceTitle">
           </input-text>
 
           <input-text
@@ -94,8 +96,8 @@
             :hide-label="true"
             helper="Box Number"
             :placeholder="containerPlaceholder"
-            :disabled="!selectedRepositoryId || !selectedResourceId"
-            v-model="selectedContainerId">
+            :disabled="!selectedRepositoryId || !resourceTitle"
+            v-model="containerIndicator">
           </input-text>
         </fieldset>
 
@@ -182,23 +184,33 @@ export default {
     }
 
     const defaultResource = this.value.absolute_id.resource;
-    let resourceId = null;
+    //let resourceId = null;
+    let resourceTitle = null;
     if (defaultResource) {
-      resourceId = defaultResource.id;
+      //resourceId = defaultResource.id;
+      resourceTitle = defaultResource.title;
     }
 
     const defaultContainer = this.value.absolute_id.container;
-    let containerId = null;
+    //let containerId = null;
+    let containerIndicator = null;
     if (defaultContainer) {
-      containerId = defaultContainer.id;
+      //containerId = defaultContainer.id;
+      containerIndicator = defaultContainer.indicator;
     }
 
     return {
       selectedLocationId: locationId,
       selectedContainerProfileId: containerProfileId,
       selectedRepositoryId: repositoryId,
-      selectedResourceId: resourceId,
-      selectedContainerId: containerId,
+
+      // Remove this
+      //selectedResourceId: resourceId,
+      // Remove this
+      //selectedContainerId: containerId,
+
+      resourceTitle,
+      containerIndicator,
 
       locationOptions: [],
       fetchingLocations: false,
@@ -268,6 +280,7 @@ export default {
       return value;
     },
 
+    /*
     selectedRepository: async function () {
       if (!this.selectedRepositoryId) {
         return null;
@@ -275,9 +288,12 @@ export default {
 
       const resolved = await this.repositories;
 
+      console.log(resolved);
+      console.log(this.selectedRepositoryId);
       const model = resolved.find( repo => repo.id === this.selectedRepositoryId );
       return model;
     },
+    */
 
     resources: async function () {
       if (!this.selectedRepositoryId) {
@@ -393,12 +409,13 @@ export default {
       const selectedLocation = await this.selectedLocation;
 
       const selectedContainerProfile = await this.selectedContainerProfile;
-      const selectedRepository = await this.selectedRepository;
+      //const selectedRepository = await this.selectedRepository;
+      const selectedRepository = await this.getSelectedRepository();
 
       const selectedResource = await this.selectedResource;
       const selectedContainer = await this.selectedContainer;
 
-      const valid = await this.formData;
+      const valid = await this.formValid;
 
       return {
         absolute_id: {
@@ -406,8 +423,8 @@ export default {
           location: selectedLocation,
           container_profile: selectedContainerProfile,
           repository: selectedRepository,
-          resource: selectedResource,
-          container: selectedContainer
+          resource: resourceTitle,
+          container: containerIndicator
         },
         valid
       };
@@ -420,7 +437,8 @@ export default {
       //this.value.valid = output;
 
       const selectedLocation = await this.selectedLocation;
-      const selectedRepository = await this.selectedRepository;
+      //const selectedRepository = await this.selectedRepository;
+      const selectedRepository = await this.getSelectedRepository();
       const selectedResource = await this.selectedResource;
       const selectedContainer = await this.selectedContainer;
 
@@ -470,6 +488,7 @@ export default {
       return {
         id: location.id,
         label: location.building,
+        classification: location.classification,
         uri: location.uri
       };
     });
@@ -489,6 +508,7 @@ export default {
       return {
         id: containerProfile.id,
         label: containerProfile.name,
+        prefix: containerProfile.prefix,
         uri: containerProfile.uri
       };
     });
@@ -521,11 +541,13 @@ export default {
       //this.value.valid = output;
 
       const selectedLocation = await this.selectedLocation;
-      const selectedRepository = await this.selectedRepository;
+      //const selectedRepository = await this.selectedRepository;
+      const selectedRepository = await this.getSelectedRepository();
       const selectedResource = await this.selectedResource;
       const selectedContainer = await this.selectedContainer;
 
-      const output = this.nextCode && selectedLocation && selectedRepository && selectedResource && selectedContainer;
+      //const output = this.nextCode && selectedLocation && selectedRepository && selectedResource && selectedContainer;
+      const output = this.nextCode && selectedLocation && selectedRepository && this.resourceTitle && this.containerIndicator;
       return !!output;
     },
 
@@ -533,14 +555,16 @@ export default {
       const selectedLocation = await this.selectedLocation;
 
       const selectedContainerProfile = await this.selectedContainerProfile;
-      const selectedRepository = await this.selectedRepository;
+      //const selectedRepository = await this.selectedRepository;
+      const selectedRepository = await this.getSelectedRepository();
 
-      const selectedResource = await this.selectedResource;
-      const selectedContainer = await this.selectedContainer;
-
-      const valid = await this.isFormValid();
+      //const selectedResource = await this.selectedResource;
+      //const selectedContainer = await this.selectedContainer;
+      const resourceTitle = await this.resourceTitle;
+      const containerIndicator = await this.containerIndicator;
 
       const batchSize = this.batchSize;
+      const valid = await this.isFormValid();
 
       return {
         absolute_id: {
@@ -548,8 +572,8 @@ export default {
           location: selectedLocation,
           container_profile: selectedContainerProfile,
           repository: selectedRepository,
-          resource: selectedResource,
-          container: selectedContainer
+          resource: resourceTitle,
+          container: containerIndicator
         },
         batch_size: batchSize,
         valid,
@@ -593,8 +617,6 @@ export default {
     },
 
     changeRepositoryId: async function (newId) {
-      console.log(this);
-      console.log(newId);
       const fetchedResources = await this.fetchResources(this.selectedRepositoryId);
       this.resourceOptions = fetchedResources.map((resource) => {
         return {
@@ -703,6 +725,17 @@ export default {
       const resources = response.json();
 
       return resources;
+    },
+
+    getSelectedRepository: async function () {
+      if (!this.selectedRepositoryId) {
+        return null;
+      }
+
+      const resolved = await this.repositories;
+
+      const model = resolved.find( repo => repo.id.toString() === this.selectedRepositoryId );
+      return model;
     },
 
     postData: async function (data = {}) {

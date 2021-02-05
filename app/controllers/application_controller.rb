@@ -63,7 +63,7 @@ class ApplicationController < ActionController::Base
   private
 
   def cache_expiry
-    1.hours
+    1.hour
   end
 
   def current_client

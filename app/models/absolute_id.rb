@@ -209,14 +209,6 @@ class AbsoluteId < ApplicationRecord
     if value.present?
       parsed_digits = Barcode.parse_digits(value)
 
-      ## if prefix.present? && parsed_digits.length >= 13 && value.length <= (13 + prefix.length)
-      #if parsed_digits.length >= 13 && value.length <= (13 + prefix.length)
-      #  truncated = parsed_digits.reverse[0..12]
-      #  normal = truncated.reverse.map(&:to_s).join
-      #  self.value = "#{prefix}#{normal}"
-      #  parsed_digits = Barcode.parse_digits(value)
-      #end
-
       self.integer = barcode.integer if integer.nil?
       self.check_digit = barcode.check_digit if check_digit.nil?
 
@@ -252,19 +244,23 @@ class AbsoluteId < ApplicationRecord
 
   def self.prefixes
     {
-      'BoxQ' => 'S',
-      'Double Elephant size box' => 'D',
-      'Double Elephant volume' => 'DO',
-      'Elephant size box' => 'L',
-      'Elephant volume' => 'LO',
-      'Folio' => 'XH',
-      'Mudd OS depth' => 'XH',
-      'Mudd OS height' => 'XH',
-      'Mudd OS depth' => 'XH',
-      'NBox' => 'XH',
-      'Ordinary' => 'XH',
-      'Quarto' => 'XH',
-      'Small' => 'XH',
+      'Objects' => 'C',
+
+      'BoxQ' => 'L',
+      'Double Elephant size box' => 'Z',
+      'Double Elephant volume' => 'D',
+      'Elephant size box' => 'P',
+      'Elephant volume' => 'E',
+      'Folio' => 'F',
+
+      'Mudd OS depth' => 'DO',
+      'Mudd OS height' => 'H',
+      'Mudd OS length' => 'LO',
+
+      'NBox' => 'B',
+      'Ordinary' => 'N',
+      'Quarto' => 'Q',
+      'Small' => 'S'
     }
   end
 
@@ -272,10 +268,14 @@ class AbsoluteId < ApplicationRecord
     'C'
   end
 
-  def prefix
-    return self.class.default_prefix unless self.class.prefixes.key?(container_profile.name)
+  def self.find_prefix(container_profile)
+    return default_prefix unless prefixes.key?(container_profile.name)
 
-    self.class.prefixes[container_profile.name]
+    prefixes[container_profile.name]
+  end
+
+  def prefix
+    self.class.find_prefix(container_profile)
   end
 
   def self.find_prefixed_models(prefix:)
@@ -286,7 +286,6 @@ class AbsoluteId < ApplicationRecord
   end
 
   def index
-    # id - self.class.all.first.id
     models = self.class.find_prefixed_models(prefix: prefix)
     models.index { |m| m.id == id }
   end
@@ -349,9 +348,7 @@ class AbsoluteId < ApplicationRecord
     0
   end
 
-  # def self.default_initial_value(prefix:)
   def self.default_initial_value
-    # format("%s%013d", prefix, default_initial_integer)
     format("%013d", default_initial_integer)
   end
 
@@ -364,34 +361,16 @@ class AbsoluteId < ApplicationRecord
   # @option opts [String] :barcode
   def self.generate(**attributes)
     container_profile = attributes[:container_profile]
-    #container_profile = JSON.parse(container_profile_values, symbolize_names: true)
-
     container = attributes[:container]
-    # container = JSON.parse(container_values, symbolize_names: true)
-
-    # location_uri = attributes[:location_uri]
     location = attributes[:location]
-    # location = JSON.parse(location_values, symbolize_names: true)
-
-    # repository_uri = attributes[:repository_uri]
     repository = attributes[:repository]
-    # repository = JSON.parse(repository_values, symbolize_names: true)
-
-    # resource_uri = attributes[:resource_uri]
     resource = attributes[:resource]
-    # resource = JSON.parse(resource_values, symbolize_names: true)
 
     initial_value = if attributes.key?(:barcode)
                       attributes[:barcode]
                     else
-                      # default_initial_value(prefix: prefix)
                       default_initial_value
                     end
-
-    #models = where(initial_value: initial_value)
-    #generated = models.select do |model|
-    #  prefix == model.prefix
-    #end
     models = all
 
     if models.empty?
@@ -412,7 +391,6 @@ class AbsoluteId < ApplicationRecord
     else
       last_absolute_id = models.last
       next_integer = last_absolute_id.integer + 1
-      # next_value = format("%s%013d", prefix, next_integer)
       next_value = format("%013d", next_integer)
 
       new_barcode = Barcode.new(next_value)

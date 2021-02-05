@@ -3,18 +3,20 @@
 class AbsoluteIds::RepositoriesController < ApplicationController
   skip_forgery_protection if: :token_header?
 
-  def disabled
-
-@repositories = [
+  # Remove this
+  def fixtures
+    @repositories = [
       {
-        label: 'test1',
-        uri: 'http://localhost:8089/repositories/1',
-        id: 1
+        id: 2,
+        name: 'Mudd Library',
+        repo_code: 'mudd',
+        uri: 'http://localhost:8089/repositories/2'
       },
       {
-        label: 'test2',
-        uri: 'http://localhost:8089/repositories/2',
-        id: 2
+        id: 3,
+        name: 'Special Collections',
+        repo_code: 'specoll',
+        uri: 'http://localhost:8089/repositories/3'
       }
     ]
   end
@@ -30,6 +32,9 @@ class AbsoluteIds::RepositoriesController < ApplicationController
     rescue
       @repositories = []
     end
+
+    # Remove this
+    # @repositories = fixtures
 
     respond_to do |format|
       format.json { render json: @repositories }

@@ -258,7 +258,7 @@ export default {
 
         if (model) {
           this.selected = model;
-          this.$emit("input", this.selected.id);
+          this.$emit("input", this.selected.id.toString());
         }
       }
     }
