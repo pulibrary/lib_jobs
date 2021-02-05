@@ -25,6 +25,7 @@ module LibJobs
         @area = attributes[:area]
         @barcode = attributes[:barcode]
         @temporary = attributes[:temporary]
+        @classification = attributes[:classification]
 
         @id = self.class.parse_id(attributes)
         @uri = generate_uri
@@ -33,6 +34,7 @@ module LibJobs
       def attributes
         {
           building: @building,
+          classification: @classification,
           id: @id,
           uri: @uri
         }

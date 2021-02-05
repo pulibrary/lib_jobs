@@ -22,7 +22,7 @@ module LibJobs
         @repo_code = attributes[:repo_code]
         @name = attributes[:name]
 
-        @id = self.class.parse_id(attributes)
+        @id = attributes[:id] || self.class.parse_id(attributes)
         @uri = generate_uri
       end
 
@@ -62,10 +62,9 @@ module LibJobs
         return nil if response.status == 404
 
         parsed = JSON.parse(response.body)
-        # binding.pry if resource_class == TopContainer
-        binding.pry
 
         response_body_json = parsed.transform_keys(&:to_sym)
+        response_body_json[:repository] = self
         response_body_json[:id] = id
         resource_class.new(@client, **response_body_json)
       end

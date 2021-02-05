@@ -33,6 +33,7 @@
           v-if="index > 0"
           data-v-b7851b04
           class="lux-button solid lux-button absolute-ids-batch-form--remove"
+          :disabled="submitting"
           @click.prevent="onClickRemove(index)">Remove Batch</button>
       </fieldset>
     </template>
@@ -42,6 +43,7 @@
         <button
           data-v-b7851b04
           class="lux-button solid lux-button absolute-ids-batch-form--add-form"
+          :disabled="submitting"
           @click.prevent="onClickAdd">Add Batch</button>
       </grid-item>
 
@@ -49,7 +51,7 @@
         <button
           data-v-b7851b04
           class="lux-button solid large lux-button absolute-ids-batch-form--submit"
-          :disabled="!formValid">Generate</button>
+          :disabled="submitting || !formValid">Generate</button>
       </grid-item>
     </grid-container>
   </form>
@@ -105,7 +107,8 @@ export default {
         1
       ],
       barcodes: [],
-      batchUpdates: 0
+      batchUpdates: 0,
+      submitting: false
     }
   },
 
@@ -132,7 +135,7 @@ export default {
     },
 
     formValid: function () {
-      return true;
+      return this.batch.map( (b) => (b.valid) ).reduce( (u,v) => (u && v) );
     },
 
     formData: function () {
@@ -376,13 +379,17 @@ export default {
       const payload = await this.formData;
 
       event.target.disabled = true;
+
+      this.submitting = true;
       const response = await this.postData(payload);
+      this.submitting = false;
 
       event.target.disabled = false;
       if (response.status === 302) {
         const redirectUrl = response.headers.get('Content-Type');
         window.location.assign(redirectUrl);
       } else {
+
         window.location.reload();
       }
     },

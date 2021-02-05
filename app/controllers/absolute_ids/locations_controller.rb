@@ -5,10 +5,10 @@ class AbsoluteIds::LocationsController < ApplicationController
 
   # GET /absolute-ids/locations.json
   def index
-    #begin
-    #rescue
+    # begin
+    # rescue
     #  @locations = []
-    #end
+    # end
     @locations ||= current_client.locations
 
     respond_to do |format|

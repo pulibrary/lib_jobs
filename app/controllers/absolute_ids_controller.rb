@@ -12,7 +12,7 @@ class AbsoluteIdsController < ApplicationController
       { name: 'container_profile', display_name: 'Container Profile', align: 'left', sortable: true },
       { name: 'repository', display_name: 'Repository', align: 'left', sortable: false },
       { name: 'resource', display_name: 'Resource', align: 'left', sortable: false },
-      { name: 'container', display_name: 'Container', align: 'left', sortable: true },
+      { name: 'container', display_name: 'Container', align: 'left', sortable: true }
     ]
   end
 
@@ -25,7 +25,9 @@ class AbsoluteIdsController < ApplicationController
         container_profile: { link: absolute_id.container_profile.uri, value: absolute_id.container_profile.name },
         repository: { link: absolute_id.repository.uri, value: absolute_id.repository.name },
         resource: { link: absolute_id.resource.uri, value: absolute_id.resource.title },
-        container: { link: absolute_id.container.uri, value: absolute_id.container.indicator },
+        # resource: { link: 'http://localhost', value: '' },
+        container: { link: absolute_id.container.uri, value: absolute_id.container.indicator }
+        # container: { link: absolute_id.container.uri, value: absolute_id.container.indicator },
       }
     end
   end
@@ -40,7 +42,7 @@ class AbsoluteIdsController < ApplicationController
 
   # Remove
   def next_location
-    next_location_model.value if next_location_model
+    next_location_model&.value
   end
 
   # Remove
@@ -127,26 +129,53 @@ class AbsoluteIdsController < ApplicationController
     end
   end
 
+  def find_resource(absolute_id_params)
+    resource_id = absolute_id_params[:resource_id]
+  end
+
+  def find_container(absolute_id_params)
+    container_id = absolute_id_params[:container_id]
+  end
+
   # POST /absolute-ids/batch
   # POST /absolute-ids/batch.json
   def create_batch
     authorize! :create_batch, AbsoluteId
 
-    @absolute_ids = absolute_id_batch_params.map { |batch_params|
-                      batch_size = batch_params[:batch_size]
-                      batch = batch_size.times.map do |index|
-                        params_valid = batch_params[:valid]
+    @absolute_ids = absolute_id_batch_params.map do |batch_params|
+      batch_size = batch_params[:batch_size]
+      batch = batch_size.times.map do |_index|
+        params_valid = batch_params[:valid]
 
-                        absolute_id = if params_valid
-                                        absolute_id_params = batch_params[:absolute_id]
-                                        AbsoluteId.generate(**absolute_id_params)
-                                      else
-                                        Rails.logger.warn("Failed to create a new Absolute ID with invalid parameters.")
-                                        Rails.logger.warn(JSON.generate(batch_params))
-                                        nil
-                                      end
+        absolute_id = if params_valid
+
+                        absolute_id_params = batch_params[:absolute_id]
+
+                        repository_param = absolute_id_params[:repository]
+                        repository_id = repository_param[:id]
+
+                        resource_param = absolute_id_params[:resource]
+                        container_param = absolute_id_params[:container]
+
+                        resource_refs = current_client.find_resources_by_ead_id(repository_id: repository_id, ead_id: resource_param)
+                        raise ArgumentError if resource_refs.empty?
+
+                        resource = build_resource_from(repository_id: repository_id, refs: resource_refs)
+
+                        container_docs = current_client.search_top_containers_by(repository_id: repository_id, query: container_param)
+                        raise ArgumentError if container_docs.empty?
+
+                        top_container = build_container_from(repository_id: repository_id, documents: container_docs)
+                        absolute_id_params[:container] = top_container
+
+                        absolute_id_params[:resource] = resource
+
+                        AbsoluteId.generate(**absolute_id_params)
+                      else
+                        raise ArgumentError
                       end
-                    }.flatten
+      end
+    end.flatten
 
     respond_to do |format|
       format.html do
@@ -172,6 +201,13 @@ class AbsoluteIdsController < ApplicationController
       end
 
       format.json { head :forbidden }
+    end
+  rescue ArgumentError
+    Rails.logger.warn("Failed to create a new Absolute ID with invalid parameters.")
+    Rails.logger.warn(JSON.generate(batch_params))
+
+    respond_to do |format|
+      format.json { head(400) }
     end
   end
 
@@ -213,6 +249,38 @@ class AbsoluteIdsController < ApplicationController
   end
 
   private
+
+  def build_resource_from(repository_id:, refs:)
+    resource_ref = refs.first
+
+    repository_attributes = {
+      client: current_client,
+      id: repository_id,
+      uri: "repositories/#{repository_id}"
+    }
+
+    repository = LibJobs::ArchivesSpace::Repository.new(repository_attributes)
+
+    ref_path = resource_ref['ref']
+    segments = ref_path.split('/')
+    resource_id = segments.last
+
+    repository.find_resource(id: resource_id)
+  end
+
+  # Move to ArchivesSpace::LibJobs::TopContainer.build_container_from
+  def build_container_from(repository_id:, documents:)
+    container_doc = documents.first
+    parsed = JSON.parse(container_doc['json'])
+
+    response_body_json = parsed.transform_keys(&:to_sym)
+
+    repository_json = { uri: "#{current_client.config.base_uri}/repositories/#{repository_id}" }
+    repository_obj = OpenStruct.new(repository_json)
+    response_body_json[:repository] = repository_obj
+
+    LibJobs::ArchivesSpace::TopContainer.new(**response_body_json)
+  end
 
   def value
     params[:value]
@@ -274,7 +342,7 @@ class AbsoluteIdsController < ApplicationController
           :id,
           :name,
           :uri
-        ],
+        ]
       ]
     )
     parsed = output.to_h.deep_symbolize_keys
