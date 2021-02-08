@@ -75,6 +75,10 @@
     }
   }
 
+  &-sync-form {
+    display: inline-block;
+  }
+
   h1 {
     font-size: $font-size-x-large-max;
     font-family: $font-family-heading;

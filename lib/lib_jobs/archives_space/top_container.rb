@@ -24,7 +24,7 @@ module LibJobs
         URI.join(@repository.uri, path)
       end
 
-      def initialize(attributes)
+      def initialize(client, attributes)
         super(attributes)
 
         @id = self.class.parse_id(attributes)
@@ -32,13 +32,26 @@ module LibJobs
       end
 
       def barcode
-        @values[:barcode]
         @values.barcode
       end
 
       def indicator
-        @values[:indicator]
         @values.indicator
+      end
+
+      def locations
+        @locations ||= begin
+                         locations_values = @values.container_locations
+                         locations_values.map do |location_attributes|
+                           #location_attributes[:uri] = location_attributes[:ref]
+
+                           segments = location_attributes[:ref].split('/')
+                           location_id = segments.last
+
+                           #Location.new(location_attributes)
+                           client.find_location(id: location_id)
+                         end
+                       end
       end
 
       def attributes
@@ -46,8 +59,47 @@ module LibJobs
           id: @id,
           uri: @uri,
           barcode: barcode,
-          indicator: indicator
+          indicator: indicator,
+          container_locations: locations
         }
+      end
+
+      def container_locations_api_params
+        @values.container_locations.map do |location|
+          if location.is_a?(Location)
+            location.to_container_ref
+          else
+            location
+          end
+        end
+      end
+
+      def api_params
+        {
+          jsonmodel_type: "top_container",
+          lock_version: @values.lock_version,
+          active_restrictions: @values.active_restrictions,
+          container_locations: container_locations_api_params,
+          series: @values.series,
+          collection: @values.collection,
+          indicator: indicator,
+          type: @values.type,
+          barcode: barcode,
+          ils_holding_id: @values.ils_holding_id,
+          ils_item_id: @values.ils_item_id,
+          exported_to_ils: @values.exported_to_ils
+        }
+      end
+
+      def update(barcode: nil, indicator: nil, container_locations: [])
+        @values.barcode = barcode if barcode
+        @values.indicator = indicator if indicator
+
+        @values.container_locations = container_locations.map do |location|
+          location.to_container_ref
+        end
+
+        repository.update_top_container(self)
       end
     end
   end

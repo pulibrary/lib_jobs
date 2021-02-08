@@ -69,7 +69,7 @@ class ApplicationController < ActionController::Base
   def current_client
     return @current_client unless @current_client.nil?
 
-    @current_client = LibJobs::ArchivesSpace::Client.default
+    @current_client = LibJobs::ArchivesSpace::Client.source
     @current_client.login
     @current_client
   end

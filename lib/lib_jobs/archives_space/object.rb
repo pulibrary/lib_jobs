@@ -3,13 +3,23 @@
 module LibJobs
   module ArchivesSpace
     class Object
-      attr_reader :id
+      attr_reader :id, :repository
+
+      def self.find(id:)
+        @repository.find_child(resource_class: self, id: id)
+      end
 
       def initialize(attributes)
         normalized = attributes.deep_symbolize_keys
 
         @repository = normalized.fetch(:repository)
         @values = OpenStruct.new(normalized)
+      end
+
+      def client
+        return if repository.nil?
+
+        repository.client
       end
 
       def attributes
@@ -25,11 +35,7 @@ module LibJobs
       end
 
       def update
-        @repository.update_child(self)
-      end
-
-      def self.find(id:)
-        @repository.find_child(resource_class: self, id: id)
+        repository.update_child(self)
       end
     end
   end
