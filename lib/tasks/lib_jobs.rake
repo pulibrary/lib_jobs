@@ -21,4 +21,12 @@ namespace :lib_jobs do
     feed = AlmaPersonFeed.new(begin_date: nil, end_date: nil)
     feed.run
   end
+
+  namespace :absolute_ids do
+    desc "import AbIDs from a CSV file"
+    task :import, [:csv_file_path] => [:environment] do |t, args|
+      importer = AbsoluteIdImporter.new(csv_file_path: args[:csv_file_path])
+      importer.import
+    end
+  end
 end
