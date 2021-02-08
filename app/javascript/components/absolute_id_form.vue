@@ -404,12 +404,10 @@ export default {
       return model;
     },
 
-    // This might need to be removed
     formData: async function () {
       const selectedLocation = await this.selectedLocation;
 
       const selectedContainerProfile = await this.selectedContainerProfile;
-      //const selectedRepository = await this.selectedRepository;
       const selectedRepository = await this.getSelectedRepository();
 
       const selectedResource = await this.selectedResource;
@@ -431,13 +429,7 @@ export default {
     },
 
     formValid: async function () {
-      //return this.nextCode && this.selectedLocation && this.selectedRepository && this.selectedResource && this.selectedContainer;
-      //const output = this.nextCode && this.selectedLocation && this.selectedRepository && this.selectedResource && this.selectedContainer;
-
-      //this.value.valid = output;
-
       const selectedLocation = await this.selectedLocation;
-      //const selectedRepository = await this.selectedRepository;
       const selectedRepository = await this.getSelectedRepository();
       const selectedResource = await this.selectedResource;
       const selectedContainer = await this.selectedContainer;
@@ -515,38 +507,12 @@ export default {
   },
 
   methods: {
-    /*
-    resources: async function () {
-      if (!this.selectedRepositoryId) {
-        return [];
-      }
-
-      const response = await this.getResources(this.selectedRepositoryId);
-      const models = response.json();
-
-      return models;
-    },
-    */
-
-    /*
-    getResourceOptions: async function () {
-
-    },
-    */
-
     isFormValid: async function () {
-      //return this.nextCode && this.selectedLocation && this.selectedRepository && this.selectedResource && this.selectedContainer;
-      //const output = this.nextCode && this.selectedLocation && this.selectedRepository && this.selectedResource && this.selectedContainer;
-
-      //this.value.valid = output;
-
       const selectedLocation = await this.selectedLocation;
-      //const selectedRepository = await this.selectedRepository;
       const selectedRepository = await this.getSelectedRepository();
       const selectedResource = await this.selectedResource;
       const selectedContainer = await this.selectedContainer;
 
-      //const output = this.nextCode && selectedLocation && selectedRepository && selectedResource && selectedContainer;
       const output = this.nextCode && selectedLocation && selectedRepository && this.resourceTitle && this.containerIndicator;
       return !!output;
     },
@@ -555,11 +521,8 @@ export default {
       const selectedLocation = await this.selectedLocation;
 
       const selectedContainerProfile = await this.selectedContainerProfile;
-      //const selectedRepository = await this.selectedRepository;
       const selectedRepository = await this.getSelectedRepository();
 
-      //const selectedResource = await this.selectedResource;
-      //const selectedContainer = await this.selectedContainer;
       const resourceTitle = await this.resourceTitle;
       const containerIndicator = await this.containerIndicator;
 

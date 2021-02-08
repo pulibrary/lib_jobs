@@ -9,11 +9,7 @@ module LibJobs
         segments.last
       end
 
-      def generate_uri
-        URI.join(@client.config.base_uri, @values.uri)
-      end
-
-      attr_reader :uri
+      attr_reader :client, :uri
       def initialize(attributes)
         @values = OpenStruct.new(attributes)
 
@@ -24,6 +20,14 @@ module LibJobs
 
         @id = attributes[:id] || self.class.parse_id(attributes)
         @uri = generate_uri
+      end
+
+      def repository
+        self
+      end
+
+      def generate_uri
+        URI.join(@client.config.base_uri, @values.uri)
       end
 
       def attributes
@@ -79,7 +83,7 @@ module LibJobs
 
       def update_child(child)
         resource_class = child.class
-        response = @client.post("/repositories/#{@id}/#{resource_class.name.demodulize.pluralize.underscore}/#{child.id}", child.to_h)
+        response = @client.post("/repositories/#{@id}/#{resource_class.name.demodulize.pluralize.underscore}/#{child.id}", child.api_params)
         return nil if response.status == 400
 
         find_child(resource_class: child.class, id: child.id)

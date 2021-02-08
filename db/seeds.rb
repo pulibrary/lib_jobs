@@ -13,6 +13,7 @@ rounds.times.each do
   location_uri = "#{client.base_uri}locations/#{location_index}"
   location_building = "Test Location #{location_index}"
   location = {
+    id: location_index,
     building: location_building,
     uri: location_uri
   }
@@ -21,6 +22,7 @@ rounds.times.each do
   repository_uri = "#{client.base_uri}repositories/#{repository_index}"
   repository_name = "Test Repository #{repository_index}"
   repository = {
+    id: repository_index,
     name: repository_name,
     uri: repository_uri
   }
@@ -31,6 +33,7 @@ rounds.times.each do
   resource_level = "item"
   resource_ead_location = "116451DKA"
   resource = {
+    id: resource_index,
     title: resource_title,
     level: resource_level,
     ead_location: resource_ead_location,
@@ -42,6 +45,7 @@ rounds.times.each do
   container_indicator = "73516PYH"
   container_type = "box"
   container = {
+    id: container_index,
     indicator: container_indicator,
     type: container_type,
     uri: container_uri
@@ -55,6 +59,7 @@ rounds.times.each do
                              "mudd"
                            end
   container_profile = {
+    id: container_profile_index,
     name: container_profile_name,
     uri: container_profile_uri
   }

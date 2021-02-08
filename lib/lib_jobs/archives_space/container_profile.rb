@@ -10,7 +10,7 @@ module LibJobs
       end
 
       def generate_uri
-        URI.join(@client.config.base_uri, @values.uri)
+        URI.join(client.config.base_uri, @values.uri)
       end
 
       attr_accessor :prefix
@@ -24,6 +24,10 @@ module LibJobs
 
         @id = self.class.parse_id(attributes)
         @uri = generate_uri
+      end
+
+      def client
+        @client
       end
 
       def attributes

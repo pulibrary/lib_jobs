@@ -4,7 +4,20 @@
       {{
         caption
       }}
+
+      <form class="absolute-ids-sync-form" :action="synchronizeAction" :method="synchronizeMethod">
+        <grid-container>
+          <grid-item columns="lg-12 sm-12">
+            <button
+              data-v-b7851b04
+              class="lux-button solid large lux-button absolute-ids-sync-form--submit"
+              :disabled="synchronizing"
+              @click.prevent="onSynchronizeSubmit">Synchronize</button>
+          </grid-item>
+        </grid-container>
+      </form>
     </caption>
+
     <thead>
       <tr>
         <th v-for="(col, index) in parsedColumns" scope="col" nowrap>
@@ -107,6 +120,7 @@ export default {
     return {
       rows: this.jsonData,
       parsedColumns: [],
+      synchronizing: !this.synchronized
     }
   },
   props: {
@@ -153,6 +167,26 @@ export default {
       required: true,
       type: Array,
     },
+
+    token: {
+      type: String,
+      default: null
+    },
+
+    synchronized: {
+      type: Boolean,
+      default: true
+    },
+
+    synchronizeAction: {
+      type: String,
+      default: '/absolute-ids/synchronize'
+    },
+
+    synchronizeMethod: {
+      type: String,
+      default: 'POST'
+    }
   },
   created: function() {
     // Normalize the column data by converting any simple string field
@@ -263,6 +297,39 @@ export default {
     isRight(value) {
       return value === "right" ? true : false
     },
+
+    postData: async function () {
+      const response = await fetch(this.synchronizeAction, {
+        method: this.synchronizeMethod,
+        mode: 'cors',
+        cache: 'no-cache',
+        credentials: 'same-origin',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${this.token}`
+        },
+        redirect: 'follow',
+        referrerPolicy: 'no-referrer'
+      });
+
+      return response;
+    },
+
+    onSynchronizeSubmit: async function (event) {
+      event.target.disabled = true;
+
+      this.synchronizing = true;
+      const response = await this.postData();
+
+      event.target.disabled = false;
+      if (response.status === 302) {
+        const redirectUrl = response.headers.get('Content-Type');
+        window.location.assign(redirectUrl);
+      } else {
+        window.location.reload();
+      }
+    }
+
   },
 }
 </script>
