@@ -104,6 +104,27 @@ module LibJobs
         Repository.new(repository_attributes)
       end
 
+      def select_repositories_by(repo_code:)
+        output = repositories.select do |repository|
+          repository.repo_code === repo_code
+        end
+        output.to_a
+      end
+
+      def select_container_profiles_by(name:)
+        output = container_profiles.select do |container_profile|
+          container_profile.name === name
+        end
+        output.to_a
+      end
+
+      def select_locations_by(classification:)
+        output = locations.select do |location|
+          location.classification === classification
+        end
+        output.to_a
+      end
+
       def find_location(id:)
         response = get("/locations/#{id}")
         raise StandardError, "Error requesting the location #{id}: #{response.body}" if response.status.code != "200"

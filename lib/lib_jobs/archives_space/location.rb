@@ -9,7 +9,7 @@ module LibJobs
         segments.last
       end
 
-      attr_reader :uri
+      attr_reader :classification, :uri
       def initialize(attributes)
         @values = OpenStruct.new(attributes)
 

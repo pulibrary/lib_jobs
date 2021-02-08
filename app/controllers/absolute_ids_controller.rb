@@ -153,6 +153,7 @@ class AbsoluteIdsController < ApplicationController
 
                         repository_param = absolute_id_params[:repository]
                         repository_id = repository_param[:id]
+                        repository = current_client.find_repository(id: repository_id)
 
                         resource_param = absolute_id_params[:resource]
                         container_param = absolute_id_params[:container]
@@ -160,12 +161,14 @@ class AbsoluteIdsController < ApplicationController
                         resource_refs = current_client.find_resources_by_ead_id(repository_id: repository_id, ead_id: resource_param)
                         raise ArgumentError if resource_refs.empty?
 
-                        resource = build_resource_from(repository_id: repository_id, refs: resource_refs)
+                        # resource = build_resource_from(repository_id: repository_id, refs: resource_refs)
+                        resource = repository.build_resource_from(refs: resource_refs)
 
                         container_docs = current_client.search_top_containers_by(repository_id: repository_id, query: container_param)
                         raise ArgumentError if container_docs.empty?
 
-                        top_container = build_container_from(repository_id: repository_id, documents: container_docs)
+                        # top_container = build_container_from(repository_id: repository_id, documents: container_docs)
+                        top_container = repository.build_top_container_from(documents: container_docs)
                         absolute_id_params[:container] = top_container
 
                         absolute_id_params[:resource] = resource
@@ -266,6 +269,7 @@ class AbsoluteIdsController < ApplicationController
 
   private
 
+  # Deprecate
   def build_resource_from(repository_id:, refs:)
     resource_ref = refs.first
 
@@ -284,6 +288,7 @@ class AbsoluteIdsController < ApplicationController
     repository.find_resource(id: resource_id)
   end
 
+  # Deprecate
   # Move to ArchivesSpace::LibJobs::TopContainer.build_container_from
   def build_container_from(repository_id:, documents:)
     container_doc = documents.first
