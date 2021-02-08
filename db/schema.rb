@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 2020_12_18_202656) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "initial_value"
+    t.integer "index"
     t.string "location"
     t.string "container_profile"
     t.string "repository"
