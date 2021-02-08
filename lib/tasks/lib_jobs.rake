@@ -9,4 +9,12 @@ namespace :lib_jobs do
     differ = StaffDirectoryDifference.new(new_report: today_report, old_report: yesterday_report)
     differ.ids
   end
+
+  namespace :absolute_ids do
+    desc "import AbIDs from a CSV file"
+    task :import, [:csv_file_path] => [:environment] do |t, args|
+      importer = AbsoluteIdImporter.new(csv_file_path: args[:csv_file_path])
+      importer.import
+    end
+  end
 end
