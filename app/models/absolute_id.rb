@@ -285,10 +285,10 @@ class AbsoluteId < ApplicationRecord
     end
   end
 
-  def index
-    models = self.class.find_prefixed_models(prefix: prefix)
-    models.index { |m| m.id == id }
-  end
+  #def index
+  #  models = self.class.find_prefixed_models(prefix: prefix)
+  #  models.index { |m| m.id == id }
+  #end
 
   def label
     return if location.nil?
@@ -365,6 +365,7 @@ class AbsoluteId < ApplicationRecord
     location = attributes[:location]
     repository = attributes[:repository]
     resource = attributes[:resource]
+    index = attributes[:index]
 
     initial_value = if attributes.key?(:barcode)
                       attributes[:barcode]
@@ -376,6 +377,7 @@ class AbsoluteId < ApplicationRecord
     if models.empty?
       new_barcode = Barcode.new(initial_value)
       new_check_digit = new_barcode.check_digit
+      index = 0 if index.nil?
 
       create(
         value: initial_value,
@@ -386,7 +388,8 @@ class AbsoluteId < ApplicationRecord
         container: container.to_json,
         location: location.to_json,
         repository: repository.to_json,
-        resource: resource.to_json
+        resource: resource.to_json,
+        index: index
       )
     else
       last_absolute_id = models.last
@@ -395,6 +398,16 @@ class AbsoluteId < ApplicationRecord
 
       new_barcode = Barcode.new(next_value)
       new_check_digit = new_barcode.check_digit
+
+      if index.nil?
+        # Find persisted indices
+        persisted = find_by(location: location.to_json, container_profile: container_profile.to_json)
+        if !persisted.empty?
+          index = persisted.first.index + 1
+        else
+          index = 0
+        end
+      end
 
       create(
         value: next_value,
@@ -405,7 +418,8 @@ class AbsoluteId < ApplicationRecord
         container: container.to_json,
         location: location.to_json,
         repository: repository.to_json,
-        resource: resource.to_json
+        resource: resource.to_json,
+        index: index
       )
     end
   end

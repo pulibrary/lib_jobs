@@ -9,7 +9,28 @@ module LibJobs
         segments.last
       end
 
-      attr_reader :client, :uri
+      def build_resource_from(refs:)
+        resource_ref = refs.first
+
+        ref_path = resource_ref['ref']
+        segments = ref_path.split('/')
+        resource_id = segments.last
+
+        find_resource(id: resource_id)
+      end
+
+      def build_top_container_from(documents:)
+        container_doc = documents.first
+        parsed = JSON.parse(container_doc['json'])
+
+        response_body_json = parsed.transform_keys(&:to_sym)
+
+        response_body_json[:repository] = self
+
+        LibJobs::ArchivesSpace::TopContainer.new(@client, response_body_json)
+      end
+
+      attr_reader :client, :repo_code, :uri
       def initialize(attributes)
         @values = OpenStruct.new(attributes)
 
@@ -49,7 +70,7 @@ module LibJobs
         results.map do |child_json|
           child_json = child_json.transform_keys(&:to_sym)
           child_json[:repository] = self
-          resource_class.new(child_json)
+          resource_class.new(client, child_json)
         end
       end
 
@@ -79,6 +100,13 @@ module LibJobs
 
       def find_top_container(id:)
         find_child(resource_class: TopContainer, id: id)
+      end
+
+      def select_top_containers_by(barcode:)
+        output = top_containers.select do |top_container|
+          top_container.barcode === barcode
+        end
+        output.to_a
       end
 
       def update_child(child)
