@@ -2,16 +2,20 @@
 module LibJobs
   module ArchivesSpace
     class Client < ::ArchivesSpace::Client
-      def self.default_config_file_path
-        Rails.root.join('config', 'archivesspace.yml')
+      #def self.source_config_file_path
+      #  Rails.root.join('config', 'archives_space', 'source.yml')
+      #end
+
+      #def self.sync_config_file_path
+      #  Rails.root.join('config', 'archives_space', 'sync.yml')
+      #end
+
+      def self.source
+        new(Configuration.source)
       end
 
-      def self.default_config
-        config = Configuration.parse(default_config_file_path)
-      end
-
-      def self.default
-        new(default_config)
+      def self.sync
+        new(Configuration.sync)
       end
 
       def initialize(config)
@@ -71,10 +75,7 @@ module LibJobs
         search_response = response.parsed['response']
 
         return [] unless search_response.key?('docs')
-
         search_response['docs']
-        # search_docs = search_response['docs']
-        # return search_docs
       end
 
       def locations
@@ -101,6 +102,17 @@ module LibJobs
         repository_attributes = response_body_json.merge(client: self)
 
         Repository.new(repository_attributes)
+      end
+
+      def find_location(id:)
+        response = get("/locations/#{id}")
+        raise StandardError, "Error requesting the location #{id}: #{response.body}" if response.status.code != "200"
+
+        parsed = JSON.parse(response.body)
+        response_body_json = parsed.transform_keys(&:to_sym)
+        location_attributes = response_body_json.merge(client: self)
+
+        Location.new(location_attributes)
       end
     end
   end

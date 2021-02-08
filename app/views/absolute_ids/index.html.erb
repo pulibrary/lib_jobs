@@ -13,7 +13,10 @@
     <div class="absolute-ids-table lux">
       <absolute-id-table caption="Absolute Identifiers (AbIDs)"
                          :columns="<%= absolute_id_table_columns.to_json %>"
-                         :json-data="<%= absolute_id_table_data.to_json %>" />
+                         :json-data="<%= absolute_id_table_data.to_json %>"
+                         token="<%= current_user.token %>"
+                         synchronize-action="<%= absolute_ids_synchronize_path %>"
+                         />
     </div>
   <% else %>
     <h1>Absolute Identifiers (AbIDs)</h1>

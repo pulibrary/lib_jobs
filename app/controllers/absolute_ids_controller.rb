@@ -211,6 +211,22 @@ class AbsoluteIdsController < ApplicationController
     end
   end
 
+  # POST /absolute-ids/synchronize
+  # POST /absolute-ids/synchronize.json
+  def synchronize
+    authorize! :synchronize, AbsoluteId
+
+    @absolute_ids ||= AbsoluteId.all.map do |absolute_id|
+      job = ArchivesSpaceSyncJob.perform_now(user_id: current_user.id, absolute_id_id: absolute_id.id)
+      absolute_id.reload
+    end
+
+    respond_to do |format|
+      format.html { render :index }
+      format.json { render json: @absolute_ids }
+    end
+  end
+
   # PATCH /absolute-ids
   # PATCH /absolute-ids.json
   def update
