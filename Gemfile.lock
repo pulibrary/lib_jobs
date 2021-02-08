@@ -153,7 +153,7 @@ GEM
     omniauth (1.9.1)
       hashie (>= 3.4.6)
       rack (>= 1.6.2, < 3)
-    omniauth-cas (2.0.0)
+    omniauth-cas (1.1.1)
       addressable (~> 2.3)
       nokogiri (~> 1.5)
       omniauth (~> 1.2)
@@ -333,7 +333,7 @@ DEPENDENCIES
   listen (>= 3.0.5, < 3.2)
   net-ldap
   omniauth (~> 1.9)
-  omniauth-cas
+  omniauth-cas (~> 1.1)
   pg
   pry-byebug
   puma (~> 3.11)
