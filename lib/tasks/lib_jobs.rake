@@ -16,8 +16,8 @@ namespace :lib_jobs do
 
   namespace :absolute_ids do
     desc "import AbIDs from a CSV file"
-    task :import, [:csv_file_path] => [:environment] do |t, args|
-      importer = AbsoluteIdImporter.new(csv_file_path: args[:csv_file_path])
+    task :import, [:barcode_csv_file_path, :sequence_csv_file_path] => [:environment] do |t, args|
+      importer = AbsoluteIdImporter.new(barcode_csv_file_path: args[:barcode_csv_file_path], sequence_csv_file_path: args[:sequence_csv_file_path])
       importer.import
     end
   end

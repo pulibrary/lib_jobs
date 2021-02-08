@@ -1,25 +1,39 @@
 
 class AbsoluteIdImporter
 
-  def initialize(csv_file_path)
-    @csv_file_path = csv_file_path
+  def initialize(barcode_csv_file_path:, sequence_csv_file_path:)
+    @barcode_csv_file_path = barcode_csv_file_path
+    @sequence_csv_file_path = sequence_csv_file_path
+  end
+
+  def import
+    # def perform(barcode_entries:, sequence_entries:)
+    AbsoluteIdBatchImportJob.perform_now(barcode_entries: barcode_entries, sequence_entries: sequence_entries)
   end
 
   private
 
-  def csv_file
-    File.read(@csv_file_path)
+  def barcode_csv_file
+    File.read(@barcode_csv_file_path)
   end
 
-  def csv_table
-    CSV.parse(csv_file, headers: true)
+  def barcode_csv_table
+    CSV.parse(barcode_csv_file, headers: true)
   end
 
-  def csv_rows
-    csv_table.to_a
+  def barcode_entries
+    barcode_csv_table.to_a
   end
 
-  def import
-    AbsoluteIdBatchImportJob.perform_now(batch: csv_rows)
+  def sequence_csv_file
+    File.read(@sequence_csv_file_path)
+  end
+
+  def sequence_csv_table
+    CSV.parse(sequence_csv_file, headers: true)
+  end
+
+  def sequence_entries
+    sequence_csv_table.to_a
   end
 end
