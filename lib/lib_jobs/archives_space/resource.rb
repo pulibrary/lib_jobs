@@ -1,43 +1,30 @@
 # frozen_string_literal: true
 module LibJobs
   module ArchivesSpace
-    class Resource < Object
-      def self.parse_id(attributes)
-        uri = attributes[:uri]
-        segments = uri.split("/")
-        segments.last
-      end
-
-      def generate_uri
-        path = @values.uri
-        URI.join(@repository.uri, path)
-      end
-
-      attr_reader :title
-      def initialize(_client, attributes)
+    class Resource < ChildObject
+      attr_reader :ead_id, :title
+      def initialize(attributes)
         super(attributes)
 
-        @id = self.class.parse_id(attributes)
-        @uri = generate_uri
         @title = @values.title
         @ead_id = @values.ead_id
       end
 
       def attributes
         {
-          id: @id,
-          uri: @uri,
-          title: @title
+          id: id,
+          title: title,
+          uri: uri
         }
       end
 
       def instances
-        @values.instances.map { |instance_attributes| Instance.new(instance_attributes.merge(repository: @repository)) }
+        @values.instances.map { |instance_attributes| Instance.new(instance_attributes.merge(repository: repository)) }
       end
 
       def instances=(updated)
         instance_values = updated.map(&:to_h)
-        @values[:instances] = instance_values
+        @values.instances = instance_values
       end
 
       def top_containers
@@ -55,7 +42,7 @@ module LibJobs
           }
         end
 
-        @repository.bulk_update_barcodes(bulk_values)
+        repository.bulk_update_barcodes(bulk_values)
       end
 
       def update

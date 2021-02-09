@@ -27,34 +27,43 @@ class AbsoluteIdImportJob < ApplicationJob
 
     # Container Profile
     container_profile_name = AbsoluteId.prefixes.invert[prefix]
-    container_profiles = aspace_client.select_container_profiles_by(name: container_profile_name)
+
+    ## This is an optimization
+    container_profiles = client.select_container_profiles_by(name: container_profile_name)
+
     container_profile = container_profiles.first
     if !container_profile.nil?
       imported_attributes[:container_profile] = container_profile
     end
 
     # Location
-    locations = aspace_client.select_locations_by(classification: repo_code)
+    ## This is an optimization
+    locations = client.select_locations_by(classification: repo_code)
+
     location = locations.first
     if !location.nil?
       imported_attributes[:location] = location
     end
 
     # Repository
-    repositories = aspace_client.select_repositories_by(repo_code: repo_code)
+    ## This is an optimization
+    repositories = client.select_repositories_by(repo_code: repo_code)
     repository = repositories.first
 
     if !repository.nil?
       imported_attributes[:repository] = repository
 
       # Resource
-      resource_refs = aspace_client.find_resources_by_ead_id(repository_id: repository.id, ead_id: call_number)
+      ## This is an optimization
+      resource_refs = client.find_resources_by_ead_id(repository_id: repository.id, ead_id: call_number)
+
       if !resource_refs.empty?
         resource = repository.build_resource_from(refs: resource_refs)
         imported_attributes[:resource] = resource
       end
 
       # Container
+      ## This is an optimization
       top_containers = repository.select_top_containers_by(barcode: barcode)
       top_container = top_containers.first
       if !top_container.nil?
@@ -69,11 +78,11 @@ class AbsoluteIdImportJob < ApplicationJob
 
   private
 
-  def aspace_client
-    return @aspace_client unless @aspace_client.nil?
+  def client
+    return @client unless @client.nil?
 
-    @aspace_client = LibJobs::ArchivesSpace::Client.source
-    @aspace_client.login
-    @aspace_client
+    @client = LibJobs::ArchivesSpace::Client.source
+    @client.login
+    @client
   end
 end
