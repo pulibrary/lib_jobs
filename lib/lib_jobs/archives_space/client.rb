@@ -2,13 +2,6 @@
 module LibJobs
   module ArchivesSpace
     class Client < ::ArchivesSpace::Client
-      #def self.source_config_file_path
-      #  Rails.root.join('config', 'archives_space', 'source.yml')
-      #end
-
-      #def self.sync_config_file_path
-      #  Rails.root.join('config', 'archives_space', 'sync.yml')
-      #end
 
       def self.source
         new(Configuration.source)
@@ -29,18 +22,28 @@ module LibJobs
         @config.base_uri
       end
 
-      # This needs to be deduplicated
-      def children(resource_class:)
+      # @param resource_class
+      # @param model_class
+      def children(resource_class:, model_class:)
+        cached = model_class.cached
+        if !cached.empty?
+          return cached
+        end
+
         query = URI.encode_www_form([["page", "1"], ["page_size", "100000"]])
         response = get("/#{resource_class.name.demodulize.pluralize.underscore}?#{query}")
         return [] if response.status.code == "404"
 
         parsed = JSON.parse(response.body)
         results = parsed['results']
-        results.map do |child_json|
+        resources = results.map do |child_json|
           child_json = child_json.transform_keys(&:to_sym)
           child_json[:client] = self
           resource_class.new(child_json)
+        end
+
+        resources.map do |resource|
+          model.cache(resource)
         end
       end
 
@@ -54,6 +57,7 @@ module LibJobs
         end
       end
 
+      # Move this into Repository
       def find_resources_by_ead_id(repository_id:, ead_id:)
         identifier_query = [ead_id]
         params = URI.encode_www_form([["identifier[]", identifier_query.to_json]])
@@ -65,6 +69,7 @@ module LibJobs
         response.parsed['resources']
       end
 
+      # Move this into Repository
       def search_top_containers_by(repository_id:, query:)
         params = URI.encode_www_form([["q", query]])
         path = "/repositories/#{repository_id}/top_containers/search?#{params}"
@@ -78,30 +83,30 @@ module LibJobs
         search_response['docs']
       end
 
-      def locations
-        children(resource_class: Location)
+      def self.build_repository(repository_json)
+        repository_attributes = repository_json.symbolize_keys.merge(client: self)
+        Repository.new(repository_attributes)
       end
 
-      def container_profiles
-        children(resource_class: ContainerProfile)
-      end
-
+      # This is a different and distinct case from #children
       def repositories
+        cached = repository_model.cached
+        if !cached.empty?
+          return cached
+        end
+
         super.map do |repository_json|
-          repository_attributes = repository_json.symbolize_keys.merge(client: self)
-          Repository.new(repository_attributes)
+          resource = self.class.build_repository(repository_json)
+          repository_model.cache(resource)
         end
       end
 
+      def repository_model
+        ::AbsoluteId::Repository
+      end
+
       def find_repository(id:)
-        response = get("/repositories/#{id}")
-        raise StandardError, "Error requesting the repository #{id}: #{response.body}" if response.status.code != "200"
-
-        parsed = JSON.parse(response.body)
-        response_body_json = parsed.transform_keys(&:to_sym)
-        repository_attributes = response_body_json.merge(client: self)
-
-        Repository.new(repository_attributes)
+        find_child(id: id, resource_class: Repository, model_class: repository_model)
       end
 
       def select_repositories_by(repo_code:)
@@ -111,6 +116,7 @@ module LibJobs
         output.to_a
       end
 
+      # Container Profiles
       def select_container_profiles_by(name:)
         output = container_profiles.select do |container_profile|
           container_profile.name === name
@@ -118,6 +124,15 @@ module LibJobs
         output.to_a
       end
 
+      def container_profile_model
+        ::AbsoluteId::ContainerProfile
+      end
+
+      def container_profiles
+        children(resource_class: ContainerProfile, model_class: container_profile_model)
+      end
+
+      # Locations
       def select_locations_by(classification:)
         output = locations.select do |location|
           location.classification === classification
@@ -125,15 +140,33 @@ module LibJobs
         output.to_a
       end
 
-      def find_location(id:)
-        response = get("/locations/#{id}")
-        raise StandardError, "Error requesting the location #{id}: #{response.body}" if response.status.code != "200"
+      def location_model
+        ::AbsoluteId::Location
+      end
+
+      def locations
+        children(resource_class: Location)
+      end
+
+      def find_child(id:, resource_class:, model_class:)
+        cached = model_class.find_cached(id)
+        if !cached.nil?
+          return cached
+        end
+
+        response = get("/#{resource_class.name.demodulize.pluralize.underscore}/#{id}")
+        raise StandardError, "Error requesting the #{resource_class.name.demodulize} #{id}: #{response.body}" if response.status.code != "200"
 
         parsed = JSON.parse(response.body)
         response_body_json = parsed.transform_keys(&:to_sym)
-        location_attributes = response_body_json.merge(client: self)
+        resource_attributes = response_body_json.merge(client: self)
 
-        Location.new(location_attributes)
+        resource = resource_class.new(resource_attributes)
+        model_class.cache(resource)
+      end
+
+      def find_location(id:)
+        find_child(id: id, resource_class: Location, model_class: location_model)
       end
     end
   end

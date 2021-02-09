@@ -2,53 +2,39 @@
 
 module LibJobs
   module ArchivesSpace
-    class TopContainer < Object
-      # def barcode
-      #  return unless @values[:barcode]
+    class TopContainer < ChildObject
+      attr_reader :active_restrictions,
+                  :barcode,
+                  :collection,
+                  :exported_to_ils,
+                  :ils_holding_id,
+                  :ils_item_id,
+                  :indicator,
+                  :series,
+                  :type
 
-      #  @barcode ||= AbsoluteId.find_or_initialize_by(value: @values[:barcode])
-      # end
-
-      # def barcode=(updated)
-      #  @value[:barcode] = updated.value
-      # end
-
-      def self.parse_id(attributes)
-        uri = attributes[:uri]
-        segments = uri.split("/")
-        segments.last
-      end
-
-      def generate_uri
-        path = @values.uri
-        URI.join(@repository.uri, path)
-      end
-
-      def initialize(client, attributes)
+      def initialize(attributes)
         super(attributes)
 
-        @id = self.class.parse_id(attributes)
-        @uri = generate_uri
-      end
-
-      def barcode
-        @values.barcode
-      end
-
-      def indicator
-        @values.indicator
+        @active_restrictions = @values.active_restrictions
+        @barcode = @values.barcode
+        @collection = @values.collection
+        @exported_to_ils = @values.exported_to_ils
+        @ils_holding_id = @values.ils_holding_id
+        @ils_item_id = @values.ils_item_id
+        @indicator = @values.indicator
+        @series = @values.series
+        @type = @values.type
       end
 
       def locations
         @locations ||= begin
                          locations_values = @values.container_locations
                          locations_values.map do |location_attributes|
-                           #location_attributes[:uri] = location_attributes[:ref]
 
                            segments = location_attributes[:ref].split('/')
                            location_id = segments.last
 
-                           #Location.new(location_attributes)
                            client.find_location(id: location_id)
                          end
                        end
@@ -56,38 +42,35 @@ module LibJobs
 
       def attributes
         {
-          id: @id,
-          uri: @uri,
+          id: id,
+          uri: uri,
+          active_restrictions: active_restrictions,
           barcode: barcode,
+          collection: collection,
+          container_locations: locations,
+          exported_to_ils: exported_to_ils,
+          ils_holding_id: ils_holding_id,
+          ils_item_id: ils_item_id,
           indicator: indicator,
-          container_locations: locations
+          series: series,
+          type: type
         }
       end
 
-      def container_locations_api_params
-        @values.container_locations.map do |location|
-          if location.is_a?(Location)
-            location.to_container_ref
-          else
-            location
-          end
-        end
-      end
-
-      def api_params
+      def to_params
         {
           jsonmodel_type: "top_container",
-          lock_version: @values.lock_version,
-          active_restrictions: @values.active_restrictions,
-          container_locations: container_locations_api_params,
-          series: @values.series,
-          collection: @values.collection,
+          lock_version: lock_version,
+          active_restrictions: active_restrictions,
+          container_locations: container_locations_params,
+          series: series,
+          collection: collection,
           indicator: indicator,
-          type: @values.type,
+          type: type,
           barcode: barcode,
-          ils_holding_id: @values.ils_holding_id,
-          ils_item_id: @values.ils_item_id,
-          exported_to_ils: @values.exported_to_ils
+          ils_holding_id: ils_holding_id,
+          ils_item_id: ils_item_id,
+          exported_to_ils: exported_to_ils
         }
       end
 
@@ -100,6 +83,18 @@ module LibJobs
         end
 
         repository.update_top_container(self)
+      end
+
+      private
+
+      def container_locations_params
+        @values.container_locations.map do |location|
+          if location.is_a?(Location)
+            location.to_container_ref
+          else
+            location
+          end
+        end
       end
     end
   end

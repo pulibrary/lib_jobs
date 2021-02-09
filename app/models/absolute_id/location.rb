@@ -1,7 +1,7 @@
 # frozen_string_literal: true
-class AbsoluteId::Location < ApplicationRecord
-  def self.table_name_prefix
-    'absolute_id_'
+class AbsoluteId::Location < AbsoluteId::Record
+  def self.resource_class
+    LibJobs::ArchivesSpace::Location
   end
 
   class NokogiriSerializer
