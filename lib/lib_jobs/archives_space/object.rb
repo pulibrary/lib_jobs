@@ -1,4 +1,3 @@
-
 # frozen_string_literal: true
 module LibJobs
   module ArchivesSpace
@@ -10,7 +9,6 @@ module LibJobs
       end
 
       attr_reader :id,
-                  :client,
                   :create_time,
                   :lock_version,
                   :system_mtime,
@@ -39,7 +37,13 @@ module LibJobs
       end
 
       def attributes
-        @values.to_h
+        {
+          create_time: create_time,
+          id: id,
+          system_mtime: system_mtime,
+          uri: uri,
+          user_mtime: user_mtime
+        }
       end
 
       def to_h
@@ -48,6 +52,23 @@ module LibJobs
 
       def as_json(**_options)
         attributes
+      end
+
+      def client
+        @client ||= begin
+                      source_client = LibJobs::ArchivesSpace::Client.source
+                      @base_uri = source_client.config.base_uri
+                      source_client.login
+                      source_client
+                    end
+      end
+
+      def base_uri
+        @base_uri ||= if @client.nil?
+                        LibJobs::ArchivesSpace::Configuration.source.base_uri
+                      else
+                        client.config.base_uri
+                      end
       end
 
       def eql?(other)
@@ -59,7 +80,11 @@ module LibJobs
       private
 
       def generate_uri
-        URI.join(client.config.base_uri, @values.uri)
+        begin
+          URI.join(base_uri, @values.uri)
+        rescue StandardError => error
+          binding.pry
+        end
       end
     end
   end

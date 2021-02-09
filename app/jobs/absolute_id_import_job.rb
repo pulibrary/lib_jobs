@@ -79,10 +79,10 @@ class AbsoluteIdImportJob < ApplicationJob
   private
 
   def client
-    return @client unless @client.nil?
-
-    @client = LibJobs::ArchivesSpace::Client.source
-    @client.login
-    @client
+    @client ||= begin
+                  new_client = LibJobs::ArchivesSpace::Client.source
+                  new_client.login
+                  new_client
+                end
   end
 end

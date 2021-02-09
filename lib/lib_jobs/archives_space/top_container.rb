@@ -41,9 +41,7 @@ module LibJobs
       end
 
       def attributes
-        {
-          id: id,
-          uri: uri,
+        super.merge({
           active_restrictions: active_restrictions,
           barcode: barcode,
           collection: collection,
@@ -54,7 +52,7 @@ module LibJobs
           indicator: indicator,
           series: series,
           type: type
-        }
+        })
       end
 
       def to_params

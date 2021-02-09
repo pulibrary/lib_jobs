@@ -1,21 +1,21 @@
 # frozen_string_literal: true
-class AbsoluteId::TopContainer < AbsoluteId::Record
+class AbsoluteId::TopContainer < AbsoluteId::ChildRecord
   def self.resource_class
     LibJobs::ArchivesSpace::TopContainer
   end
 
-  def attributes
+  def properties
     super.merge({
-      active_restrictions: active_restrictions,
-      barcode: barcode,
-      collection: collection,
-      container_locations: locations,
-      exported_to_ils: exported_to_ils,
-      ils_holding_id: ils_holding_id,
-      ils_item_id: ils_item_id,
-      indicator: indicator,
-      series: series,
-      type: type
+      active_restrictions: json_object.active_restrictions,
+      barcode: json_object.barcode,
+      collection: json_object.collection,
+      container_locations: json_object.locations,
+      exported_to_ils: json_object.exported_to_ils,
+      ils_holding_id: json_object.ils_holding_id,
+      ils_item_id: json_object.ils_item_id,
+      indicator: json_object.indicator,
+      series: json_object.series,
+      type: json_object.type
     })
   end
 end

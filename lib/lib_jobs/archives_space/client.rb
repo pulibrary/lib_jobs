@@ -43,7 +43,7 @@ module LibJobs
         end
 
         resources.map do |resource|
-          model.cache(resource)
+          model_class.cache(resource)
         end
       end
 
@@ -83,7 +83,7 @@ module LibJobs
         search_response['docs']
       end
 
-      def self.build_repository(repository_json)
+      def build_repository(repository_json)
         repository_attributes = repository_json.symbolize_keys.merge(client: self)
         Repository.new(repository_attributes)
       end
@@ -96,7 +96,7 @@ module LibJobs
         end
 
         super.map do |repository_json|
-          resource = self.class.build_repository(repository_json)
+          resource = build_repository(repository_json)
           repository_model.cache(resource)
         end
       end
@@ -145,7 +145,7 @@ module LibJobs
       end
 
       def locations
-        children(resource_class: Location)
+        children(resource_class: Location, model_class: location_model)
       end
 
       def find_child(id:, resource_class:, model_class:)
