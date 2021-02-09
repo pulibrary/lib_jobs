@@ -4,6 +4,20 @@ class AbsoluteId::Location < AbsoluteId::Record
     LibJobs::ArchivesSpace::Location
   end
 
+  def attributes
+    super.merge({
+      area: json_resource.area,
+      barcode: json_resource.barcode,
+      building: json_resource.building,
+      classification: json_resource.classification,
+      external_ids: json_resource.external_ids,
+      floor: json_resource.floor,
+      functions: json_resource.functions,
+      room: json_resource.room,
+      temporary: json_resource.temporary
+    })
+  end
+
   class NokogiriSerializer
     def initialize(model, _options = {})
       @model = model
