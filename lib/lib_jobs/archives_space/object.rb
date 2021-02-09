@@ -3,23 +3,21 @@
 module LibJobs
   module ArchivesSpace
     class Object
-      attr_reader :id, :repository
-
-      def self.find(id:)
-        @repository.find_child(resource_class: self, id: id)
+      def self.parse_id(attributes)
+        uri = attributes[:uri]
+        segments = uri.split("/")
+        segments.last
       end
 
+      attr_reader :id, :client, :lock_version, :uri
       def initialize(attributes)
         normalized = attributes.deep_symbolize_keys
-
-        @repository = normalized.fetch(:repository)
         @values = OpenStruct.new(normalized)
-      end
+        @client = @values.client
+        @lock_version = @values.lock_version
 
-      def client
-        return if repository.nil?
-
-        repository.client
+        @id = self.class.parse_id(attributes)
+        @uri = generate_uri
       end
 
       def attributes
@@ -34,8 +32,16 @@ module LibJobs
         attributes
       end
 
-      def update
-        repository.update_child(self)
+      def eql?(other)
+        return false unless id === other.id
+
+        attributes === other.attributes
+      end
+
+      private
+
+      def generate_uri
+        URI.join(client.config.base_uri, @values.uri)
       end
     end
   end
