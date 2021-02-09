@@ -22,12 +22,10 @@ module LibJobs
       end
 
       def attributes
-        {
-          id: id,
-          uri: uri,
-          repo_code: repo_code,
-          name: name
-        }
+        super.merge({
+          name: name,
+          repo_code: repo_code
+        })
       end
 
       def children(resource_class:, model_class:)

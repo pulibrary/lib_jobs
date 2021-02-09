@@ -11,11 +11,10 @@ module LibJobs
       end
 
       def attributes
-        {
-          id: id,
+        super.merge({
+          ead_id: ead_id,
           title: title,
-          uri: uri
-        }
+        })
       end
 
       def instances

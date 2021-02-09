@@ -4,10 +4,10 @@ class AbsoluteId::ContainerProfile < AbsoluteId::Record
     LibJobs::ArchivesSpace::ContainerProfile
   end
 
-  def attributes
+  def properties
     super.merge({
-      name: json_resource.name,
-      prefix: json_resource.prefix
+      name: json_object.name,
+      prefix: json_object.prefix
     })
   end
 end
