@@ -50,8 +50,8 @@ module LibJobs
           jsonmodel_type: 'container_location',
           status: 'current',
           start_date: start_date,
-          system_mtime: @values.system_mtime,
-          user_mtime: @values.user_mtime,
+          system_mtime: system_mtime,
+          user_mtime: user_mtime,
           ref: ref
         }
       end
@@ -63,12 +63,6 @@ module LibJobs
         subset = segments[(-2..-1)]
         output = subset.join('/')
         "/#{output}"
-      end
-
-      def start_date
-        create_time = @values.create_time
-        segments = create_time.split('T')
-        segments.first
       end
     end
   end

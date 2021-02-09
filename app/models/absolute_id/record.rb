@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class AbsoluteId::Record < ApplicationRecord
+  self.abstract_class = true
+
   def self.table_name_prefix
     'absolute_id_'
   end
@@ -36,6 +38,24 @@ class AbsoluteId::Record < ApplicationRecord
 
   def self.resource_class
     raise NotImplementedError, "#{self} is an abstract base class. Please use a class derived from this one."
+  end
+
+  def json_resource
+    @json_resource ||= begin
+                         json_properties = super
+                         properties = JSON.parse(json_properties)
+                         OpenStruct.new(properties)
+                       end
+  end
+
+  def attributes
+    {
+      create_time: json_resource.create_time,
+      id: json_resource.id,
+      system_mtime: json_resource.system_mtime,
+      uri: uri,
+      user_mtime: json_resource.user_mtime
+    }
   end
 
   def to_resource

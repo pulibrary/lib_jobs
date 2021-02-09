@@ -9,15 +9,33 @@ module LibJobs
         segments.last
       end
 
-      attr_reader :id, :client, :lock_version, :uri
+      attr_reader :id,
+                  :client,
+                  :create_time,
+                  :lock_version,
+                  :system_mtime,
+                  :user_mtime,
+                  :uri
+
       def initialize(attributes)
         normalized = attributes.deep_symbolize_keys
         @values = OpenStruct.new(normalized)
+
         @client = @values.client
+        @create_time = @values.create_time
+        @system_mtime = @values.system_mtime
+        @user_mtime = @values.user_mtime
         @lock_version = @values.lock_version
 
         @id = self.class.parse_id(attributes)
         @uri = generate_uri
+      end
+
+      def start_date
+        @start_date ||= begin
+                          segments = create_time.split('T')
+                          segments.first
+                        end
       end
 
       def attributes
