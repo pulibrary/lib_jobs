@@ -10,7 +10,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_18_202656) do
+ActiveRecord::Schema.define(version: 2021_02_09_175744) do
+
+  create_table "absolute_id_container_profiles", force: :cascade do |t|
+    t.string "uri"
+    t.string "json_resource"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "absolute_id_locations", force: :cascade do |t|
+    t.string "uri"
+    t.string "json_resource"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "absolute_id_repositories", force: :cascade do |t|
+    t.string "uri"
+    t.string "json_resource"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "absolute_id_resources", force: :cascade do |t|
+    t.string "uri"
+    t.string "json_resource"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "absolute_id_top_containers", force: :cascade do |t|
+    t.string "uri"
+    t.string "json_resource"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "absolute_ids", force: :cascade do |t|
     t.string "value"

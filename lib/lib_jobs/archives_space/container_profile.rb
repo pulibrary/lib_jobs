@@ -5,14 +5,18 @@ module LibJobs
     class ContainerProfile < Object
       attr_accessor :prefix
       attr_reader :name
+      def initialize(attributes)
+        super(attributes)
+
+        @name = attributes[:name]
+        @prefix = attributes[:prefix]
+      end
 
       def attributes
-        {
-          id: @id,
-          uri: @uri,
-          name: @name,
+        super.merge({
+          name: name,
           prefix: prefix
-        }
+        })
       end
     end
   end

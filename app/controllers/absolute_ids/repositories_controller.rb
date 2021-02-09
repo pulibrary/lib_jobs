@@ -3,38 +3,9 @@
 class AbsoluteIds::RepositoriesController < ApplicationController
   skip_forgery_protection if: :token_header?
 
-  # Remove this
-  def fixtures
-    @repositories = [
-      {
-        id: 2,
-        name: 'Mudd Library',
-        repo_code: 'mudd',
-        uri: 'http://localhost:8089/repositories/2'
-      },
-      {
-        id: 3,
-        name: 'Special Collections',
-        repo_code: 'specoll',
-        uri: 'http://localhost:8089/repositories/3'
-      }
-    ]
-  end
-
   # GET /absolute-ids/repositories.json
   def index
-    # @repositories ||= Rails.cache.fetch(index_cache_key, expires_in: cache_expiry) do
-    #   current_client.repositories
-    # end
-
-    begin
-      @repositories ||= current_client.repositories
-    rescue
-      @repositories = []
-    end
-
-    # Remove this
-    # @repositories = fixtures
+    @repositories ||= current_client.repositories
 
     respond_to do |format|
       format.json { render json: @repositories }
