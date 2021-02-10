@@ -33,11 +33,8 @@ module LibJobs
                          return [] if locations_values.nil?
 
                          locations_values.map do |location_attributes|
-
-                           segments = location_attributes[:ref].split('/')
-                           location_id = segments.last
-
-                           client.find_location(id: location_id)
+                           location_uri = "#{base_uri}#{location_attributes[:ref]}"
+                           client.find_location(uri: location_uri)
                          end
                        end
       end
