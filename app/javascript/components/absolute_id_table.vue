@@ -208,7 +208,6 @@ export default {
     // objects with the link properties
     let rowNum = this.jsonData.length
     for (let i = 0; i < rowNum; i++) {
-      // console.log(this.jsonData[i].name)
       for (var key in this.jsonData[i]) {
         if (this.jsonData[i].hasOwnProperty(key)) {
           if (!this.isObject(this.jsonData[i][key])) {
@@ -218,6 +217,10 @@ export default {
       }
     }
     this.rows = this.jsonData
+
+    if (this.parsedColumns.length > 0 && this.parsedColumns[0].ascending !== null) {
+      this.sortTable(this.parsedColumns[0]);
+    }
   },
   computed: {
     footerColumns() {
