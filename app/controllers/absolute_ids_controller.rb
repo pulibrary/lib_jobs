@@ -142,12 +142,15 @@ class AbsoluteIdsController < ApplicationController
 
     @absolute_ids = absolute_id_batch_params.map do |batch_params|
       batch_size = batch_params[:batch_size]
+      this_params = batch_params
+
       batch = batch_size.times.map do |_index|
-        params_valid = batch_params[:valid]
+
+        params_valid = this_params[:valid]
 
         absolute_id = if params_valid
 
-                        absolute_id_params = batch_params[:absolute_id]
+                        absolute_id_params = this_params[:absolute_id]
 
                         repository_param = absolute_id_params[:repository]
                         repository_id = repository_param[:id]
