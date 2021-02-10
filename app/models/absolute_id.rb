@@ -93,7 +93,7 @@ class AbsoluteId < ApplicationRecord
       {
         check_digit: check_digit,
         digits: digits,
-        integer: integer,
+        integer: integer.to_i,
         valid: valid?,
         value: @value
       }
@@ -172,7 +172,7 @@ class AbsoluteId < ApplicationRecord
       return if absolute_id.value.nil?
 
       unless absolute_id.integer.nil?
-        absolute_id.errors.add(:value, "Mismatch between the digit sequence and the ID") if absolute_id.integer != absolute_id.barcode.integer
+        absolute_id.errors.add(:value, "Mismatch between the digit sequence and the ID") if absolute_id.integer.to_i != absolute_id.barcode.integer
       end
 
       if absolute_id.check_digit.nil?
@@ -209,7 +209,7 @@ class AbsoluteId < ApplicationRecord
     if value.present?
       parsed_digits = Barcode.parse_digits(value)
 
-      self.integer = barcode.integer if integer.nil?
+      self.integer = barcode.integer.to_s if integer.nil?
       self.check_digit = barcode.check_digit if check_digit.nil?
 
       self.value = "#{value}#{check_digit}" if parsed_digits.length == 13
@@ -388,7 +388,7 @@ class AbsoluteId < ApplicationRecord
       )
     else
       last_absolute_id = models.last
-      next_integer = last_absolute_id.integer + 1
+      next_integer = last_absolute_id.integer.to_i + 1
       next_value = format("%013d", next_integer)
 
       new_barcode = Barcode.new(next_value)
