@@ -2,7 +2,6 @@
 module LibJobs
   module ArchivesSpace
     class Client < ::ArchivesSpace::Client
-
       def self.source
         new(Configuration.source)
       end
@@ -105,8 +104,8 @@ module LibJobs
         ::AbsoluteId::Repository
       end
 
-      def find_repository(id:)
-        find_child(id: id, resource_class: Repository, model_class: repository_model)
+      def find_repository(uri:)
+        find_child(uri: uri, resource_class: Repository, model_class: repository_model)
       end
 
       def select_repositories_by(repo_code:)
@@ -148,14 +147,17 @@ module LibJobs
         children(resource_class: Location, model_class: location_model)
       end
 
-      def find_child(id:, resource_class:, model_class:)
-        cached = model_class.find_cached(id)
+      def find_child(uri:, resource_class:, model_class:)
+        cached = model_class.find_cached(uri)
         if !cached.nil?
           return cached
         end
 
-        response = get("/#{resource_class.name.demodulize.pluralize.underscore}/#{id}")
-        raise StandardError, "Error requesting the #{resource_class.name.demodulize} #{id}: #{response.body}" if response.status.code != "200"
+        uri_path = uri.sub(base_uri, '')
+
+        # response = get("/#{resource_class.name.demodulize.pluralize.underscore}/#{id}")
+        response = get(uri_path)
+        raise StandardError, "Error requesting the #{resource_class.name.demodulize} #{uri}: #{response.body}" if response.status.code != "200"
 
         parsed = JSON.parse(response.body)
         response_body_json = parsed.transform_keys(&:to_sym)
@@ -165,8 +167,8 @@ module LibJobs
         model_class.cache(resource)
       end
 
-      def find_location(id:)
-        find_child(id: id, resource_class: Location, model_class: location_model)
+      def find_location(uri:)
+        find_child(uri: uri, resource_class: Location, model_class: location_model)
       end
     end
   end

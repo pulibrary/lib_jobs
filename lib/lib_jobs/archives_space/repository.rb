@@ -70,7 +70,8 @@ module LibJobs
           return cached
         end
 
-        uri_path = "/repositories/#{@id}/#{resource_class.name.demodulize.pluralize.underscore}/#{id}"
+        uri_path = uri.sub(base_uri, '')
+
         response = client.get(uri_path)
         return nil if response.status == 404
 
@@ -79,7 +80,6 @@ module LibJobs
         response_body_json = parsed.transform_keys(&:to_sym)
         response_body_json[:repository] = self
         response_body_json[:uri] = uri_path
-        response_body_json[:id] = id
         resource = resource_class.new(response_body_json)
         model_class.cache(resource)
       end
@@ -90,10 +90,6 @@ module LibJobs
 
       def build_resource_from(refs:)
         resource_ref = refs.first
-
-        #ref_path = resource_ref['ref']
-        #segments = ref_path.split('/')
-        #resource_id = segments.last
 
         resource_uri = "#{base_uri}#{resource_ref['ref']}"
         find_resource(uri: resource_uri)

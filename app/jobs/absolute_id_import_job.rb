@@ -46,7 +46,6 @@ class AbsoluteIdImportJob < ApplicationJob
     end
 
     # Repository
-    ## This is an optimization
     repositories = client.select_repositories_by(repo_code: repo_code)
     repository = repositories.first
 
@@ -54,7 +53,6 @@ class AbsoluteIdImportJob < ApplicationJob
       imported_attributes[:repository] = repository
 
       # Resource
-      ## This is an optimization
       resource_refs = client.find_resources_by_ead_id(repository_id: repository.id, ead_id: call_number)
 
       if !resource_refs.empty?
@@ -63,7 +61,6 @@ class AbsoluteIdImportJob < ApplicationJob
       end
 
       # Container
-      ## This is an optimization
       top_containers = repository.select_top_containers_by(barcode: barcode)
       top_container = top_containers.first
       if !top_container.nil?

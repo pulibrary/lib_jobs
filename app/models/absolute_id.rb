@@ -221,27 +221,6 @@ class AbsoluteId < ApplicationRecord
   end
   delegate :digits, :elements, to: :barcode
 
-  def location
-    return if super.nil?
-
-    values = JSON.parse(super, symbolize_names: true)
-    OpenStruct.new(values)
-  end
-
-  def repository
-    return if super.nil?
-
-    values = JSON.parse(super, symbolize_names: true)
-    OpenStruct.new(values)
-  end
-
-  def resource
-    return if super.nil?
-
-    values = JSON.parse(super, symbolize_names: true)
-    OpenStruct.new(values)
-  end
-
   def self.prefixes
     {
       'Objects' => 'C',
@@ -274,10 +253,6 @@ class AbsoluteId < ApplicationRecord
     prefixes[container_profile.name]
   end
 
-  def prefix
-    self.class.find_prefix(container_profile)
-  end
-
   def self.find_prefixed_models(prefix:)
     models = all
     models.select do |model|
@@ -285,10 +260,9 @@ class AbsoluteId < ApplicationRecord
     end
   end
 
-  #def index
-  #  models = self.class.find_prefixed_models(prefix: prefix)
-  #  models.index { |m| m.id == id }
-  #end
+  def prefix
+    self.class.find_prefix(container_profile_object)
+  end
 
   def label
     return if location.nil?
@@ -296,32 +270,53 @@ class AbsoluteId < ApplicationRecord
     format("%s-%06d", prefix, index)
   end
 
-  def container_profile
-    return if super.nil?
+  def location_object
+    return if location.nil?
 
-    values = JSON.parse(super, symbolize_names: true)
+    values = JSON.parse(location, symbolize_names: true)
     OpenStruct.new(values)
   end
 
-  def container
-    return if super.nil?
+  def repository_object
+    return if repository.nil?
 
-    values = JSON.parse(super, symbolize_names: true)
+    values = JSON.parse(repository, symbolize_names: true)
+    OpenStruct.new(values)
+  end
+
+  def resource_object
+    return if resource.nil?
+
+    values = JSON.parse(resource, symbolize_names: true)
+    OpenStruct.new(values)
+  end
+
+  def container_profile_object
+    return if container_profile.nil?
+
+    values = JSON.parse(container_profile, symbolize_names: true)
+    OpenStruct.new(values)
+  end
+
+  def container_object
+    return if container.nil?
+
+    values = JSON.parse(container, symbolize_names: true)
     OpenStruct.new(values)
   end
 
   def attributes
     {
       barcode: barcode.attributes,
-      container: container.to_h,
-      container_profile: container_profile.to_h,
+      container: container_object.to_h,
+      container_profile: container_profile_object.to_h,
       created_at: created_at,
       id: index,
       label: label,
-      location: location.to_h,
+      location: location_object.to_h,
       prefix: prefix,
-      repository: repository.to_h,
-      resource: resource.to_h,
+      repository: repository_object.to_h,
+      resource: resource_object.to_h,
       updated_at: updated_at
     }
   end
