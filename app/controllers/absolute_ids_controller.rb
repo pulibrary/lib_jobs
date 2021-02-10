@@ -21,13 +21,11 @@ class AbsoluteIdsController < ApplicationController
       {
         label: absolute_id.label,
         barcode: absolute_id.barcode.value,
-        location: { link: absolute_id.location.uri, value: absolute_id.location.building },
-        container_profile: { link: absolute_id.container_profile.uri, value: absolute_id.container_profile.name },
-        repository: { link: absolute_id.repository.uri, value: absolute_id.repository.name },
-        resource: { link: absolute_id.resource.uri, value: absolute_id.resource.title },
-        # resource: { link: 'http://localhost', value: '' },
-        container: { link: absolute_id.container.uri, value: absolute_id.container.indicator }
-        # container: { link: absolute_id.container.uri, value: absolute_id.container.indicator },
+        location: { link: absolute_id.location_object.uri, value: absolute_id.location_object.building },
+        container_profile: { link: absolute_id.container_profile_object.uri, value: absolute_id.container_profile_object.name },
+        repository: { link: absolute_id.repository_object.uri, value: absolute_id.repository_object.name },
+        resource: { link: absolute_id.resource_object.uri, value: absolute_id.resource_object.title },
+        container: { link: absolute_id.container_object.uri, value: absolute_id.container_object.indicator }
       }
     end
   end

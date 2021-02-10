@@ -30,6 +30,8 @@ module LibJobs
       def locations
         @locations ||= begin
                          locations_values = @values.container_locations
+                         return [] if locations_values.nil?
+
                          locations_values.map do |location_attributes|
 
                            segments = location_attributes[:ref].split('/')

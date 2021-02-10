@@ -4,12 +4,8 @@ class AbsoluteIdBatchImportJob < ApplicationJob
     @barcode_entries = barcode_entries
     @sequence_entries = sequence_entries
 
-    begin
-      entries.each do |entry|
-        AbsoluteIdImportJob.perform_now(entry)
-      end
-    rescue StandardError => error
-      binding.pry
+    entries.each do |entry|
+      AbsoluteIdImportJob.perform_now(entry)
     end
   end
 
