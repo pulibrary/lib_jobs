@@ -6,7 +6,7 @@ class ArchivesSpaceSyncJob < ApplicationJob
     @user_id = user_id
     @absolute_id_value = absolute_id_id
 
-    update_top_container(id: container.id, barcode: absolute_id.barcode, indicator: absolute_id.label, location: location)
+    update_top_container(uri: container.uri, barcode: absolute_id.barcode, indicator: absolute_id.label, location: location)
   end
 
   private
@@ -31,39 +31,97 @@ class ArchivesSpaceSyncJob < ApplicationJob
     absolute_id.repository
   end
 
-  def sync_client
-    return @sync_client unless @sync_client.nil?
+  class ArchivesSpaceClientMapper
+    def self.root_config_file_path
+      Rails.root.join('config', 'archives_space', 'mapper')
+    end
 
-    @sync_client = LibJobs::ArchivesSpace::Client.sync
-    @sync_client.login
-    @sync_client
+    def self.sync_config_file_path
+      root_config_file_path.join('sync.yml')
+    end
+
+    def self.sync_config_erb
+      io_stream = IO.read(sync_config_file_path)
+      erb_document = ERB.new(io_stream)
+      erb_document.result(binding)
+    end
+
+    def self.sync_config
+      parsed = YAML.safe_load(sync_config_erb)
+      OpenStruct.new(**parsed.symbolize_keys)
+    rescue StandardError, SyntaxError => e
+      raise("#{yaml_file_path} was found, but could not be parsed: \n#{e.inspect}")
+    end
+
+    def self.find_sync_location_uri(source_uri)
+      sync_config.locations[source_uri]
+    end
+
+    def self.find_sync_repository_uri(source_uri)
+      sync_config.repositories[source_uri]
+    end
+
+    def self.find_sync_container_uri(source_uri)
+      sync_config.top_containers[source_uri]
+    end
+
+    def sync_client
+      @sync_client ||= begin
+                        client = LibJobs::ArchivesSpace::Client.sync
+                        client.login
+                        client
+                      end
+    end
+
+    def initialize(source_repository:)
+      @source_repository = source_repository
+    end
+
+    def sync_repository
+      @sync_repository = find_sync_repository(uri: @source_repository.uri)
+    end
+
+    def find_sync_repository(uri:)
+      mapped_uri = self.class.find_sync_repository_uri(uri)
+      sync_client.find_repository(uri: mapped_uri)
+    end
+
+    def find_sync_location(uri:)
+      mapped_uri = self.class.find_sync_location_uri(uri)
+      sync_client.find_location(uri: mapped_uri)
+    end
+
+    def find_sync_top_container(uri:)
+      mapped_uri = self.class.find_sync_container_uri(uri)
+      sync_repository.find_top_container(uri: mapped_uri)
+    end
   end
 
-  def sync_repository
-    # @sync_repository ||= sync_client.find_repository(id: repository.id)
-    @sync_repository ||= sync_client.find_repository(id: 2)
+  def client_mapper
+    @aspace_space_client ||= ArchivesSpaceClientMapper.new(source_repository: repository)
   end
 
-  def update_top_container(id:, barcode:, indicator:, location:)
+  def update_top_container(uri:, barcode:, indicator:, location:)
     #absolute_id.locking_user = user
     #absolute_id.save
     #absolute_id.reload
 
-    # Remove this
-    #container = sync_repository.find_top_container(id: id)
-    container = sync_repository.find_top_container(id: 1)
+    sync_container = client_mapper.find_sync_top_container(uri: uri)
+    if sync_container.nil?
+      raise ArchivesSpaceSyncError, "Failed to locate the container resource for #{uri}"
+    end
 
     current_locations = container.locations
 
-    # Remove this
-    location2 = current_locations.first.client.find_location(id: 2)
+    sync_location = client_mapper.find_sync_location(uri: location.uri)
+    if sync_location.nil?
+      raise ArchivesSpaceSyncError, "Failed to locate the location resource for #{location.uri}"
+    end
 
-    diff = [location] - current_locations
+    diff = [sync_location] - current_locations
     updated_locations = current_locations + diff
-    # Remove this
-    updated_locations = current_locations + [location2]
 
-    container.update(barcode: barcode.value, indicator: indicator, container_locations: updated_locations)
+    sync_container.update(barcode: barcode.value, indicator: indicator, container_locations: updated_locations)
 
     #absolute_id.locking_user = nil
     #absolute_id.synchronized = true

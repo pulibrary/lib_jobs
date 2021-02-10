@@ -25,7 +25,7 @@ module LibJobs
         @user_mtime = @values.user_mtime
         @lock_version = @values.lock_version
 
-        @id = self.class.parse_id(attributes)
+        @id = @values.id || self.class.parse_id(attributes)
         @uri = generate_uri
       end
 
@@ -80,11 +80,7 @@ module LibJobs
       private
 
       def generate_uri
-        begin
-          URI.join(base_uri, @values.uri)
-        rescue StandardError => error
-          binding.pry
-        end
+        URI.join(base_uri, @values.uri)
       end
     end
   end
