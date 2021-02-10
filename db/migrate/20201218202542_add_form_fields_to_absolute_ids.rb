@@ -2,6 +2,6 @@
 class AddFormFieldsToAbsoluteIds < ActiveRecord::Migration[5.2]
   def change
     add_column :absolute_ids, :initial_value, :string
-    add_column :absolute_ids, :index, :integer
+    add_column :absolute_ids, :index, :string
   end
 end

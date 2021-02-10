@@ -311,7 +311,7 @@ class AbsoluteId < ApplicationRecord
       container: container_object.to_h,
       container_profile: container_profile_object.to_h,
       created_at: created_at,
-      id: index,
+      id: index.to_i,
       label: label,
       location: location_object.to_h,
       prefix: prefix,
@@ -384,7 +384,7 @@ class AbsoluteId < ApplicationRecord
         location: location.to_json,
         repository: repository.to_json,
         resource: resource.to_json,
-        index: index
+        index: index.to_i
       )
     else
       last_absolute_id = models.last
@@ -398,7 +398,7 @@ class AbsoluteId < ApplicationRecord
         # Find persisted indices
         persisted = find_by(location: location.to_json, container_profile: container_profile.to_json)
         if !persisted.empty?
-          index = persisted.first.index + 1
+          index = persisted.first.index.to_i + 1
         else
           index = 0
         end
@@ -414,7 +414,7 @@ class AbsoluteId < ApplicationRecord
         location: location.to_json,
         repository: repository.to_json,
         resource: resource.to_json,
-        index: index
+        index: index.to_i
       )
     end
   end
