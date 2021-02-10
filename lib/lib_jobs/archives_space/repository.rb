@@ -31,11 +31,11 @@ module LibJobs
       def children(resource_class:, model_class:)
         cached = model_class.all
         if !cached.empty?
-          return cached
+          return cached.map(&:to_resource)
         end
 
         query = URI.encode_www_form([["page", "1"], ["page_size", "100000"]])
-        response = @client.get("/repositories/#{@id}/#{resource_class.name.demodulize.pluralize.underscore}?#{query}")
+        response = client.get("/repositories/#{@id}/#{resource_class.name.demodulize.pluralize.underscore}?#{query}")
         return [] if response.status.code == "404"
 
         parsed = JSON.parse(response.body)
@@ -64,40 +64,43 @@ module LibJobs
         children(resource_class: TopContainer, model_class: top_container_model)
       end
 
-      def find_child(id:, resource_class:, model_class:)
-        cached = model_class.find(id)
+      def find_child(uri:, resource_class:, model_class:)
+        cached = model_class.find_cached(uri)
         if !cached.nil?
           return cached
         end
 
-        response = @client.get("/repositories/#{@id}/#{resource_class.name.demodulize.pluralize.underscore}/#{id}")
+        uri_path = "/repositories/#{@id}/#{resource_class.name.demodulize.pluralize.underscore}/#{id}"
+        response = client.get(uri_path)
         return nil if response.status == 404
 
         parsed = JSON.parse(response.body)
 
         response_body_json = parsed.transform_keys(&:to_sym)
         response_body_json[:repository] = self
+        response_body_json[:uri] = uri_path
         response_body_json[:id] = id
         resource = resource_class.new(response_body_json)
         model_class.cache(resource)
       end
 
-      def find_resource(id:)
-        find_child(id: id, resource_class: Resource, model_class: resource_model)
+      def find_resource(uri:)
+        find_child(uri: uri, resource_class: Resource, model_class: resource_model)
       end
 
       def build_resource_from(refs:)
         resource_ref = refs.first
 
-        ref_path = resource_ref['ref']
-        segments = ref_path.split('/')
-        resource_id = segments.last
+        #ref_path = resource_ref['ref']
+        #segments = ref_path.split('/')
+        #resource_id = segments.last
 
-        find_resource(id: resource_id)
+        resource_uri = "#{base_uri}#{resource_ref['ref']}"
+        find_resource(uri: resource_uri)
       end
 
-      def find_top_container(id:)
-        find_child(id: id, resource_class: TopContainer, model_class: top_container_model)
+      def find_top_container(uri:)
+        find_child(uri: uri, resource_class: TopContainer, model_class: top_container_model)
       end
 
       def select_top_containers_by(barcode:)
@@ -109,12 +112,12 @@ module LibJobs
 
       def update_child(child:, model_class:)
         resource_class = child.class
-        response = @client.post("/repositories/#{@id}/#{resource_class.name.demodulize.pluralize.underscore}/#{child.id}", child.to_params)
+        response = client.post("/repositories/#{@id}/#{resource_class.name.demodulize.pluralize.underscore}/#{child.id}", child.to_params)
         return nil if response.status == 400
 
         model_class.uncache(child)
 
-        find_child(resource_class: child.class, id: child.id)
+        find_child(uri: child.uri, resource_class: child.class)
       end
 
       def update_top_container(top_container)
@@ -126,7 +129,7 @@ module LibJobs
       end
 
       def bulk_update_barcodes(update_values)
-        response = @client.post("/repositories/#{@id}/top_containers/bulk/barcodes", update_values.to_h)
+        response = client.post("/repositories/#{@id}/top_containers/bulk/barcodes", update_values.to_h)
         return nil if response.status != 200 || !response[:id]
 
         find_resource(id: response[:id])
