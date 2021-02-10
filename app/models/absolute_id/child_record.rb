@@ -2,14 +2,18 @@
 class AbsoluteId::ChildRecord < AbsoluteId::Record
   self.abstract_class = true
 
-  def repository_resource
-    binding.pry
+  def repository_id
+    return unless uri.include?('repositories')
+
+    segments = uri.split('/repositories/')
+    last_segment = segments.last
+    sub_segments = last_segment.split('/')
+    sub_segments.first
   end
 
   def to_resource
     resource_attributes = properties
-    #resource_attributes[:client] = source_client
-    #resource_attributes[:repository] = repository_resource
+    resource_attributes[:repository_id] = repository_id
 
     self.class.resource_class.new(resource_attributes)
   end
