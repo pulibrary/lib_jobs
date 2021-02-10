@@ -62,7 +62,7 @@ class AbsoluteIdsController < ApplicationController
     return '0000000000000' if absolute_ids.empty?
 
     last_absolute_id = absolute_ids.last
-    next_integer = last_absolute_id.integer + 1
+    next_integer = last_absolute_id.integer.to_i + 1
     format("%012d", next_integer)
   end
 
