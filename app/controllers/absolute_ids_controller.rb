@@ -6,8 +6,8 @@ class AbsoluteIdsController < ApplicationController
 
   def absolute_id_table_columns
     [
+      { name: 'barcode', display_name: 'Barcode', align: 'left', sortable: true, ascending: 'undefined' },
       { name: 'label', display_name: 'Identifier', align: 'left', sortable: true },
-      { name: 'barcode', display_name: 'Barcode', align: 'left', sortable: true },
       { name: 'location', display_name: 'Location', align: 'left', sortable: true },
       { name: 'container_profile', display_name: 'Container Profile', align: 'left', sortable: true },
       { name: 'repository', display_name: 'Repository', align: 'left', sortable: false },
@@ -19,8 +19,8 @@ class AbsoluteIdsController < ApplicationController
   def absolute_id_table_data
     @absolute_ids.map do |absolute_id|
       {
-        label: absolute_id.label,
         barcode: absolute_id.barcode.value,
+        label: absolute_id.label,
         location: { link: absolute_id.location_object.uri, value: absolute_id.location_object.building },
         container_profile: { link: absolute_id.container_profile_object.uri, value: absolute_id.container_profile_object.name },
         repository: { link: absolute_id.repository_object.uri, value: absolute_id.repository_object.name },

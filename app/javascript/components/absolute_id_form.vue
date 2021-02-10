@@ -13,6 +13,7 @@
             :hide-label="true"
             placeholder="Barcode"
             helper="Barcode"
+            :disabled="true"
             :value="nextCode">
           </input-text>
 
