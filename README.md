@@ -26,6 +26,7 @@
 
 ```bash
 bundle install
+yarn install
 bundle exec foreman start
 bundle exec rails db:seed
 ```
