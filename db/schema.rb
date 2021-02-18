@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_17_192430) do
+ActiveRecord::Schema.define(version: 2021_02_17_203226) do
 
   create_table "absolute_ids", force: :cascade do |t|
     t.string "value"
@@ -27,6 +27,7 @@ ActiveRecord::Schema.define(version: 2020_12_17_192430) do
     t.string "data"
     t.string "data_file"
     t.string "category"
+    t.boolean "status", default: true
     t.index ["category"], name: "index_data_sets_on_category"
   end
 
