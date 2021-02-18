@@ -59,4 +59,35 @@ class ApplicationController < ActionController::Base
       'menu-items': header_menu_items
     }
   end
+
+  def current_user
+    return super if current_user_params.nil?
+
+    @current_user ||= find_user
+  end
+
+  private
+
+  def current_user_params
+    params.permit(user: [:id, :token])[:user]
+  end
+
+  def current_user_id
+    current_user_params[:id]
+  end
+
+  def token_header
+    value = request.headers['Authorization']
+    return if value.nil?
+
+    value.gsub(/\s*?Bearer\s*/i, '')
+  end
+
+  def current_user_token
+    token_header || current_user_params[:token]
+  end
+
+  def find_user
+    User.find_by(id: current_user_id, token: current_user_token)
+  end
 end
