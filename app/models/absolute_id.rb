@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 class AbsoluteId < ApplicationRecord
+  belongs_to :batch
+
   class Barcode
     attr_reader :value
 
