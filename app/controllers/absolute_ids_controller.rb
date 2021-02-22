@@ -140,21 +140,24 @@ class AbsoluteIdsController < ApplicationController
   def create_batch
     authorize! :create_batch, AbsoluteId
 
+    # @absolute_ids = absolute_id_batch_params.map do |this_params|
     @absolute_ids = absolute_id_batch_params.map do |batch_params|
+      #batch_size = this_params[:batch_size]
       batch_size = batch_params[:batch_size]
-      this_params = batch_params
 
       batch = batch_size.times.map do |_index|
-
-        params_valid = this_params[:valid]
+        #params_valid = this_params[:valid]
+        params_valid = batch_params[:valid]
 
         absolute_id = if params_valid
 
-                        absolute_id_params = this_params[:absolute_id]
+                        # absolute_id_params = this_params[:absolute_id]
+                        absolute_id_params = batch_params[:absolute_id]
 
                         repository_param = absolute_id_params[:repository]
                         repository_id = repository_param[:id]
-                        repository = current_client.find_repository(id: repository_id)
+                        repository_uri = repository_param[:uri]
+                        repository = current_client.find_repository(uri: repository_uri)
 
                         resource_param = absolute_id_params[:resource]
                         container_param = absolute_id_params[:container]
@@ -206,9 +209,9 @@ class AbsoluteIdsController < ApplicationController
 
       format.json { head :forbidden }
     end
-  rescue ArgumentError
+  rescue ArgumentError => error
     Rails.logger.warn("Failed to create a new Absolute ID with invalid parameters.")
-    Rails.logger.warn(JSON.generate(batch_params))
+    Rails.logger.warn(JSON.generate(absolute_id_batch_params))
 
     respond_to do |format|
       format.json { head(400) }

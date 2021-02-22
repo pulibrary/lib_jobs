@@ -13,7 +13,6 @@
             :hide-label="true"
             placeholder="Barcode"
             helper="Barcode"
-            :disabled="true"
             :value="nextCode">
           </input-text>
 
@@ -31,9 +30,12 @@
       </grid-item>
 
       <grid-item columns="sm-12 lg-9">
+
         <fieldset class="absolute-ids-form--fields">
           <legend>ArchivesSpace</legend>
 
+<grid-container>
+      <grid-item columns="sm-12 lg-12">
           <absolute-id-data-list
             id="location_id"
             class="absolute-ids-form--input-field"
@@ -76,30 +78,52 @@
             display-property="repoCode"
             v-on:input="changeRepositoryId($event)">
           </absolute-id-data-list>
+      </grid-item>
 
+      <grid-item columns="sm-12 lg-12">
           <input-text
             id="resource_id"
-            class="absolute-ids-form--input-field"
+            v-bind:class="{ 'absolute-ids-form--input-field__validated': (validatedResource), 'absolute-ids-form--input-field__invalid': (resourceTitle.length > 0 && !validResource), 'absolute-ids-form--input-field': true }"
             name="resource_id"
             label="Call Number"
             :hide-label="true"
             helper="Call Number"
             :placeholder="resourcePlaceholder"
-            :disabled="!selectedRepositoryId"
+            :disabled="!selectedRepositoryId || validatingResource"
+            v-on:inputblur="onResourceFocusOut($event, resourceTitle)"
             v-model="resourceTitle">
           </input-text>
+      </grid-item>
 
-          <input-text
-            id="container_id"
-            class="absolute-ids-form--input-field"
-            name="container_id"
-            label="Box Number"
-            :hide-label="true"
-            helper="Box Number"
-            :placeholder="containerPlaceholder"
-            :disabled="!selectedRepositoryId || !resourceTitle"
-            v-model="containerIndicator">
-          </input-text>
+      <grid-item columns="sm-12 lg-9">
+
+            <input-text
+              id="container_id"
+              v-bind:class="{ 'absolute-ids-form--input-field__validated': (validatedContainer), 'absolute-ids-form--input-field__invalid': (containerIndicator.length > 0 && !validContainer), 'absolute-ids-form--input-field': true }"
+              name="container_id"
+              label="Starting Box Number"
+              :hide-label="true"
+              helper="Starting Box Number"
+              :placeholder="containerPlaceholder"
+              :disabled="!selectedRepositoryId || !resourceTitle || validatingContainer"
+              v-on:inputblur="onContainerFocusOut($event, containerIndicator)"
+              v-model="containerIndicator">
+            </input-text>
+
+            <input-text
+              id="last_container_id"
+              class="absolute-ids-form--input-field"
+              name="last_container_id"
+              label="Ending Box Number"
+              :hide-label="true"
+              helper="Ending Box Number"
+              :placeholder="containerPlaceholder"
+              :disabled="true"
+              v-model="containerIndicator">
+            </input-text>
+
+      </grid-item>
+</grid-container>
         </fieldset>
 
         <button
@@ -185,18 +209,14 @@ export default {
     }
 
     const defaultResource = this.value.absolute_id.resource;
-    //let resourceId = null;
-    let resourceTitle = null;
+    let resourceTitle = "";
     if (defaultResource) {
-      //resourceId = defaultResource.id;
       resourceTitle = defaultResource.title;
     }
 
     const defaultContainer = this.value.absolute_id.container;
-    //let containerId = null;
-    let containerIndicator = null;
+    let containerIndicator = "";
     if (defaultContainer) {
-      //containerId = defaultContainer.id;
       containerIndicator = defaultContainer.indicator;
     }
 
@@ -221,12 +241,18 @@ export default {
 
       resourceOptions: [],
       fetchingResources: false,
+      validResource: false,
+      validatedResource: false,
+      validatingResource: false,
 
       containerProfileOptions: [],
       fetchingContainerProfiles: false,
 
       containerOptions: [],
       fetchingContainers: false,
+      validContainer: false,
+      validatedContainer: false,
+      validatingContainer: false,
 
       valid: false
     }
@@ -280,21 +306,6 @@ export default {
 
       return value;
     },
-
-    /*
-    selectedRepository: async function () {
-      if (!this.selectedRepositoryId) {
-        return null;
-      }
-
-      const resolved = await this.repositories;
-
-      console.log(resolved);
-      console.log(this.selectedRepositoryId);
-      const model = resolved.find( repo => repo.id === this.selectedRepositoryId );
-      return model;
-    },
-    */
 
     resources: async function () {
       if (!this.selectedRepositoryId) {
@@ -549,6 +560,96 @@ export default {
       this.$emit('input', inputState);
     },
 
+    searchResources: async function (queryParam) {
+      let response;
+      this.fetchingResources = true;
+
+      try {
+        response = await fetch(`/absolute-ids/repositories/${this.selectedRepositoryId}/resources/search/${queryParam}`, {
+          method: 'GET',
+          mode: 'cors',
+          cache: 'no-cache',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${this.token}`
+          },
+          redirect: 'follow',
+          referrerPolicy: 'no-referrer'
+        });
+      } catch (error) {
+        console.warn(error);
+      }
+
+      this.fetchingResources = false;
+      return response;
+    },
+
+    searchContainers: async function (queryParam) {
+      let response;
+      this.fetchingContainers = true;
+
+      try {
+        response = await fetch(`/absolute-ids/repositories/${this.selectedRepositoryId}/containers/search/${queryParam}`, {
+          method: 'GET',
+          mode: 'cors',
+          cache: 'no-cache',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${this.token}`
+          },
+          redirect: 'follow',
+          referrerPolicy: 'no-referrer'
+        });
+      } catch(error) {
+        console.warn(error);
+      }
+
+      this.fetchingContainers = false;
+      return response;
+    },
+
+    onResourceFocusOut: async function (event, value) {
+
+      this.validResource = false;
+      this.validatedResource = false;
+
+      if (value.length > 0) {
+        this.validatingResource = true;
+
+        const response = await this.searchResources(value);
+        const resource = await response.json();
+
+        this.validatingResource = false;
+
+        if (resource) {
+          this.validResource = true;
+          this.validatedResource = true;
+        }
+      }
+    },
+
+    onContainerFocusOut: async function (event, value) {
+
+      this.validContainer = false;
+      this.validatedContainer = false;
+
+      if (value.length > 0) {
+        this.validatingContainer = true;
+
+        const response = await this.searchContainers(value);
+        const resource = await response.json();
+
+        this.validatingContainer = false;
+
+        if (resource) {
+          this.validContainer = true;
+          this.validatedContainer = true;
+        }
+      }
+    },
+
     getResources: async function (repositoryId) {
       this.fetchingResources = true;
 
@@ -700,6 +801,44 @@ export default {
 
       const model = resolved.find( repo => repo.id.toString() === this.selectedRepositoryId );
       return model;
+    },
+
+    resourceClasses: async function () {
+      const classes = ["absolute-ids-form--input-field"];
+
+      const validatedResource = await this.validatedResource;
+      const validResource = await this.validResource;
+      const resourceTitle = await this.resourceTitle;
+
+      console.log(validatedResource);
+      console.log(validResource);
+      console.log(resourceTitle);
+
+      if (validatedResource) {
+        classes.push('absolute-ids-form--input-field__validated');
+      } else if (resourceTitle.length > 0 && !validResource) {
+        classes.push('absolute-ids-form--input-field__invalid');
+      }
+
+      console.log(classes);
+      return classes.join(' ');
+    },
+
+    containerClasses: async function () {
+      const classes = ["absolute-ids-form--input-field"];
+
+      const validatedContainer = await this.validatedContainer;
+      const validContainer = await this.validContainer;
+      const containerIndicator = await this.containerIndicator;
+
+      if (validatedContainer) {
+        classes.push('absolute-ids-form--input-field__validated');
+      } else if (containerIndicator.length > 0 && !validContainer) {
+        classes.push('absolute-ids-form--input-field__invalid');
+      }
+
+      console.log(classes);
+      return classes.join(' ');
     },
 
     postData: async function (data = {}) {
