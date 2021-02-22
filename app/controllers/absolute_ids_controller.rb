@@ -140,18 +140,14 @@ class AbsoluteIdsController < ApplicationController
   def create_batch
     authorize! :create_batch, AbsoluteId
 
-    # @absolute_ids = absolute_id_batch_params.map do |this_params|
-    @absolute_ids = absolute_id_batch_params.map do |batch_params|
-      #batch_size = this_params[:batch_size]
+    @absolute_ids = absolute_id_batch_params.map { |batch_params|
       batch_size = batch_params[:batch_size]
 
-      batch = batch_size.times.map do |_index|
-        #params_valid = this_params[:valid]
+      children = batch_size.times.map do |_child_index|
         params_valid = batch_params[:valid]
 
         absolute_id = if params_valid
 
-                        # absolute_id_params = this_params[:absolute_id]
                         absolute_id_params = batch_params[:absolute_id]
 
                         repository_param = absolute_id_params[:repository]
@@ -165,13 +161,11 @@ class AbsoluteIdsController < ApplicationController
                         resource_refs = current_client.find_resources_by_ead_id(repository_id: repository_id, ead_id: resource_param)
                         raise ArgumentError if resource_refs.empty?
 
-                        # resource = build_resource_from(repository_id: repository_id, refs: resource_refs)
                         resource = repository.build_resource_from(refs: resource_refs)
 
                         container_docs = current_client.search_top_containers_by(repository_id: repository_id, query: container_param)
                         raise ArgumentError if container_docs.empty?
 
-                        # top_container = build_container_from(repository_id: repository_id, documents: container_docs)
                         top_container = repository.build_top_container_from(documents: container_docs)
                         absolute_id_params[:container] = top_container
 
@@ -182,7 +176,12 @@ class AbsoluteIdsController < ApplicationController
                         raise ArgumentError
                       end
       end
-    end.flatten
+    }.flatten
+
+    if !@absolute_ids.empty?
+      @batch = AbsoluteId::Batch.create(absolute_ids: @absolute_ids)
+      @batch.save
+    end
 
     respond_to do |format|
       format.html do
