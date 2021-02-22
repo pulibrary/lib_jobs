@@ -347,13 +347,6 @@ class AbsoluteId < ApplicationRecord
     format("%013d", default_initial_integer)
   end
 
-  # @param [Hash] attributes
-  # @option opts [Hash] :container_profile
-  # @option opts [String] :container_uri
-  # @option opts [String] :location_uri
-  # @option opts [String] :repository_uri
-  # @option opts [String] :resource_uri
-  # @option opts [String] :barcode
   def self.generate(**attributes)
     container_profile = attributes[:container_profile]
     container = attributes[:container]
@@ -369,6 +362,28 @@ class AbsoluteId < ApplicationRecord
                     end
     models = all
 
+    container_profile_resource = container_profile
+    container_profile_resource.delete(:create_time)
+    container_profile_resource.delete(:system_mtime)
+    container_profile_resource.delete(:user_mtime)
+
+    container_resource = JSON.parse(container.to_json)
+    container_resource.delete(:create_time)
+    container_resource.delete(:system_mtime)
+    container_resource.delete(:user_mtime)
+
+    location_resource = JSON.parse(location.to_json)
+
+    repository_resource = JSON.parse(repository.to_json)
+    repository_resource.delete(:create_time)
+    repository_resource.delete(:system_mtime)
+    repository_resource.delete(:user_mtime)
+
+    ead_resource = JSON.parse(resource.to_json)
+    ead_resource.delete(:create_time)
+    ead_resource.delete(:system_mtime)
+    ead_resource.delete(:user_mtime)
+
     if models.empty?
       new_barcode = Barcode.new(initial_value)
       new_check_digit = new_barcode.check_digit
@@ -379,11 +394,11 @@ class AbsoluteId < ApplicationRecord
         check_digit: new_check_digit,
         initial_value: initial_value,
 
-        container_profile: container_profile.to_json,
-        container: container.to_json,
-        location: location.to_json,
-        repository: repository.to_json,
-        resource: resource.to_json,
+        container_profile: container_profile_resource.to_json,
+        container: container_resource.to_json,
+        location: location_resource.to_json,
+        repository: repository_resource.to_json,
+        resource: ead_resource.to_json,
         index: index.to_i
       )
     else
@@ -395,10 +410,14 @@ class AbsoluteId < ApplicationRecord
       new_check_digit = new_barcode.check_digit
 
       if index.nil?
+
         # Find persisted indices
-        persisted = find_by(location: location.to_json, container_profile: container_profile.to_json)
+        persisted = where(location: location_resource.to_json, container_profile: container_profile_resource.to_json)
+
+        #if !persisted.nil?
         if !persisted.empty?
-          index = persisted.first.index.to_i + 1
+          index = persisted.last.index.to_i + 1
+          #index = persisted.index.to_i + 1
         else
           index = 0
         end
@@ -409,11 +428,11 @@ class AbsoluteId < ApplicationRecord
         check_digit: new_check_digit,
         initial_value: initial_value,
 
-        container_profile: container_profile.to_json,
-        container: container.to_json,
-        location: location.to_json,
-        repository: repository.to_json,
-        resource: resource.to_json,
+        container_profile: container_profile_resource.to_json,
+        container: container_resource.to_json,
+        location: location_resource.to_json,
+        repository: repository_resource.to_json,
+        resource: ead_resource.to_json,
         index: index.to_i
       )
     end

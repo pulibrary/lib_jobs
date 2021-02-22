@@ -104,8 +104,8 @@ module LibJobs
         ::AbsoluteId::Repository
       end
 
-      def find_repository(uri:)
-        find_child(uri: uri, resource_class: Repository, model_class: repository_model)
+      def find_repository(uri: nil, id: nil)
+        find_child(uri: uri, resource_class: Repository, model_class: repository_model, id: id)
       end
 
       def select_repositories_by(repo_code:)
@@ -147,7 +147,24 @@ module LibJobs
         children(resource_class: Location, model_class: location_model)
       end
 
-      def find_child(uri:, resource_class:, model_class:)
+      def find_child_by(child_id:, resource_class:, model_class:)
+        response = get("/#{resource_class.name.demodulize.pluralize.underscore}/#{child_id}")
+
+        raise StandardError, "Error requesting the #{resource_class.name.demodulize} #{child_id}: #{response.body}" if response.status.code != "200"
+
+        parsed = JSON.parse(response.body)
+        response_body_json = parsed.transform_keys(&:to_sym)
+        resource_attributes = response_body_json.merge(client: self)
+
+        resource = resource_class.new(resource_attributes)
+        model_class.cache(resource)
+      end
+
+      def find_child(uri:, resource_class:, model_class:, id: nil)
+        if !id.nil?
+          return find_child_by(child_id: id, resource_class: resource_class, model_class: model_class)
+        end
+
         cached = model_class.find_cached(uri)
         if !cached.nil?
           return cached

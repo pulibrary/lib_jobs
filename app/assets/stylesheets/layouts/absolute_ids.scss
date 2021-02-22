@@ -27,6 +27,20 @@
           margin-bottom: 1.4rem;
         }
       }
+
+      &__invalid {
+        div[data-v-4d16608c] input {
+          background-color: $color-red !important;
+          color: #ffffff !important;
+        }
+      }
+
+      &__validated {
+        div[data-v-4d16608c] input {
+          background-color: $color-green !important;
+          color: #ffffff !important;
+        }
+      }
     }
 
     &--submit {
@@ -39,6 +53,12 @@
   }
 
   &-batch-form {
+    &--batch-size {
+      div {
+        display: inline-flex;
+      }
+    }
+
     &--add-form {
       &.lux-button.solid[data-v-b7851b04] {
         float: right;

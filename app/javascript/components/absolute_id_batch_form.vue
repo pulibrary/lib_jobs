@@ -5,6 +5,16 @@
       <fieldset class="absolute-ids-batch-form--batch">
         <legend>Batch</legend>
 
+        <absolute-id-form
+          :key="batchKey(index)"
+          v-model="batch[index]"
+          :action="action"
+          :token="token"
+          :next-code="getNextCode(index, batchSize[index])"
+          :batch-form="true"
+          :batch-size="batchSize[index]">
+        </absolute-id-form>
+
         <fieldset class="absolute-ids-batch-form--batch-size">
           <legend>Size</legend>
           <input-text
@@ -17,17 +27,6 @@
             helper="Number of Absolute IDs"
             size="small"
             @change="onChangeBatchSize($event, index)"></input-text>
-        </fieldset>
-
-        <absolute-id-form
-          :key="batchKey(index)"
-          v-model="batch[index]"
-          :action="action"
-          :token="token"
-          :next-code="getNextCode(index, batchSize[index])"
-          :batch-form="true"
-          :batch-size="batchSize[index]">
-        </absolute-id-form>
 
         <button
           v-if="index > 0"
@@ -35,6 +34,7 @@
           class="lux-button solid lux-button absolute-ids-batch-form--remove"
           :disabled="submitting"
           @click.prevent="onClickRemove(index)">Remove Batch</button>
+        </fieldset>
       </fieldset>
     </template>
 

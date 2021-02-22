@@ -27,6 +27,7 @@ import "lux-design-system/dist/system/tokens/tokens.scss"
 import AbsoluteIdForm from '../components/absolute_id_form'
 import AbsoluteIdBatchForm from '../components/absolute_id_batch_form'
 import AbsoluteIdTable from '../components/absolute_id_table'
+import AbsoluteIdBatchTable from '../components/absolute_id_batch_table'
 import AbsoluteIdDataList from '../components/absolute_id_data_list'
 
 Vue.use(system)
@@ -37,6 +38,7 @@ for (var i = 0; i < elements.length; i++) {
     components: {
       'absolute-id-form': AbsoluteIdForm,
       'absolute-id-batch-form': AbsoluteIdBatchForm,
+      'absolute-id-batch-table': AbsoluteIdBatchTable,
       'absolute-id-table': AbsoluteIdTable,
       'absolute-id-data-list': AbsoluteIdDataList
     }
