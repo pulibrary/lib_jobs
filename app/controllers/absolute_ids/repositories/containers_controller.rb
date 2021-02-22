@@ -5,10 +5,6 @@ class AbsoluteIds::Repositories::ContainersController < ApplicationController
 
   # GET /absolute-ids/repositories/repository_id/resources.json
   def index
-    # @resources ||= Rails.cache.fetch(index_cache_key, expires_in: cache_expiry) do
-    #  current_repository.resources
-    # end
-
     begin
       @resources ||= current_repository.top_containers
     rescue
@@ -22,10 +18,6 @@ class AbsoluteIds::Repositories::ContainersController < ApplicationController
 
   # GET /absolute-ids/repositories/:repository_id/resources/:resource_id.json
   def show
-    # @resource ||= Rails.cache.fetch(show_cache_key, expires_in: cache_expiry) do
-    #  current_repository.find_resource(id: resource_id)
-    # end
-
     begin
       @resource ||= current_repository.find_resource(id: resource_id)
     rescue
@@ -34,6 +26,30 @@ class AbsoluteIds::Repositories::ContainersController < ApplicationController
 
     respond_to do |format|
       format.json { render json: @resource }
+    end
+  end
+
+  # GET /absolute-ids/repositories/:repository_id/containers/search/:container_param.json
+  def search
+    query = if json_request?
+              "#{container_param}.#{request.path_parameters[:format]}"
+            else
+              container_param
+            end
+
+    begin
+      top_containers = current_repository.search_top_containers(query: query)
+      @resource = top_containers.first
+    rescue
+      @resource = nil
+    end
+
+    if json_request?
+      render json: @resource
+    else
+      respond_to do |format|
+        format.json { render json: @resource }
+      end
     end
   end
 
@@ -84,11 +100,7 @@ class AbsoluteIds::Repositories::ContainersController < ApplicationController
     @current_client ||= current_client.find_repository(id: repository_id)
   end
 
-  def index_cache_key
-    "absolute_ids/repositories/#{repository_id}/resources"
-  end
-
-  def show_cache_key
-    "absolute_ids/repositories/#{repository_id}resources/#{resource_id}"
+  def container_param
+    params[:container_param]
   end
 end

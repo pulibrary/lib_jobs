@@ -5,10 +5,6 @@ class AbsoluteIds::Repositories::ResourcesController < ApplicationController
 
   # GET /absolute-ids/repositories/repository_id/resources.json
   def index
-    # @resources ||= Rails.cache.fetch(index_cache_key, expires_in: cache_expiry) do
-    #  current_repository.resources
-    # end
-
     begin
       @resources ||= current_repository.resources
     rescue
@@ -22,10 +18,6 @@ class AbsoluteIds::Repositories::ResourcesController < ApplicationController
 
   # GET /absolute-ids/repositories/:repository_id/resources/:resource_id.json
   def show
-    # @resource ||= Rails.cache.fetch(show_cache_key, expires_in: cache_expiry) do
-    #  current_repository.find_resource(id: resource_id)
-    # end
-
     begin
       @resource ||= current_repository.find_resource(id: resource_id)
     rescue
@@ -34,6 +26,44 @@ class AbsoluteIds::Repositories::ResourcesController < ApplicationController
 
     respond_to do |format|
       format.json { render json: @resource }
+    end
+  end
+
+  def resource_param
+    params[:resource_param]
+  end
+
+  # GET /absolute-ids/repositories/:repository_id/resources/search/:resource_param.json
+  def search
+
+    if json_request?
+      ead_id = "#{resource_param}.#{request.path_parameters[:format]}"
+    else
+      ead_id = resource_param
+    end
+
+
+    begin
+      #@resource ||= current_repository.find_resource(id: resource_id)
+
+      #repository_id = repository_param[:id]
+      #repository_uri = repository_param[:uri]
+      #repository = current_client.find_repository(uri: repository_uri)
+
+      #resource_param = absolute_id_params[:resource]
+
+      resource_refs = current_client.find_resources_by_ead_id(repository_id: repository_id, ead_id: ead_id)
+      @resource = current_repository.build_resource_from(refs: resource_refs)
+    rescue
+      @resource = nil
+    end
+
+    if json_request?
+      render json: @resource
+    else
+      respond_to do |format|
+        format.json { render json: @resource }
+      end
     end
   end
 
@@ -81,7 +111,7 @@ class AbsoluteIds::Repositories::ResourcesController < ApplicationController
   end
 
   def current_repository
-    @current_client ||= current_client.find_repository(id: repository_id)
+    @current_repository ||= current_client.find_repository(id: repository_id)
   end
 
   def index_cache_key
