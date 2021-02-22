@@ -10,7 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_09_175744) do
+ActiveRecord::Schema.define(version: 2021_02_22_184047) do
+
+  create_table "absolute_id_batches", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "absolute_id_container_profiles", force: :cascade do |t|
     t.string "uri"
@@ -60,6 +65,8 @@ ActiveRecord::Schema.define(version: 2021_02_09_175744) do
     t.string "repository"
     t.string "resource"
     t.string "container"
+    t.integer "batch_id"
+    t.index ["batch_id"], name: "index_absolute_ids_on_batch_id"
   end
 
   create_table "data_sets", force: :cascade do |t|
