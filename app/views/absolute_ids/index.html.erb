@@ -4,29 +4,25 @@
       <absolute-id-batch-form
         action="<%= absolute_ids_path %>"
         token="<%= current_user.token %>"
-        next-code="<%= next_code %>">
+      >
       </absolute-id-form>
     </div>
   <% end %>
 
-  <% if @absolute_id_batch %>
-    <div class="absolute-ids-batch-table lux">
-      <absolute-id-batch-table caption="Absolute Identifiers (AbIDs)"
-                               :columns="<%= absolute_id_table_columns.to_json %>"
-                               :json-data="<%= absolute_id_table_data.to_json %>"
-                               />
-    </div>
-  <% end %>
+  <% if current_user && !@sessions.empty? %>
 
-  <% if @absolute_ids.length > 0 %>
-    <div class="absolute-ids-table lux">
-      <absolute-id-table caption="Absolute Identifiers (AbIDs)"
-                         :columns="<%= absolute_id_table_columns.to_json %>"
-                         :json-data="<%= absolute_id_table_data.to_json %>"
-                         token="<%= current_user&.token %>"
-                         synchronize-action="<%= absolute_ids_synchronize_path %>"
-                         />
-    </div>
+    <% @sessions.each do |absolute_id_session| %>
+
+      <div class="lux absolute-ids-session">
+        <absolute-id-batch-table
+          header="<%= absolute_id_session.label %>"
+          :columns="<%= JSON.generate(table_columns) %>"
+          :session="<%= absolute_id_session.as_json %>"
+          token="<%= current_user.token %>"
+          synchronize-action="<%= absolute_ids_synchronize_path %>"
+        />
+      </div>
+    <% end %>
   <% else %>
     <h1>Absolute Identifiers (AbIDs)</h1>
   <% end %>

@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   get '/absolute-ids', to: 'absolute_ids#index'
   post '/absolute-ids/synchronize', to: 'absolute_ids#synchronize'
   post '/absolute-ids/batch', to: 'absolute_ids#create_batch'
-  post '/absolute-ids', to: 'absolute_ids#create_batch'
+  post '/absolute-ids', to: 'absolute_ids#create_batches'
 
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }, skip: [:passwords, :registration]
   devise_scope :user do

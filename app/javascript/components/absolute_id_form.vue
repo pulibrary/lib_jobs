@@ -6,14 +6,18 @@
         <fieldset class="absolute-ids-form--fields">
           <legend>Barcode</legend>
           <input-text
-            id="next_code"
+            id="barcode"
             class="absolute-ids-form--input-field"
-            name="next_code"
+            name="barcode"
             label="Input"
             :hide-label="true"
             placeholder="Barcode"
-            helper="Barcode"
-            :value="nextCode">
+            helper="Starting Barcode"
+            :maxlength="barcodeLength"
+            v-on:input="onBarcodeInput($event)"
+            :disabled="barcodeValid"
+            :value="bar()"
+            >
           </input-text>
 
           <input-text
@@ -22,63 +26,63 @@
             name="terminal_code"
             label="Input"
             :hide-label="true"
+            placeholder="Ending Barcode"
             helper="Ending Barcode"
             :disabled="true"
-            :value="terminalCode">
+            :value="baz()">
           </input-text>
         </fieldset>
       </grid-item>
 
       <grid-item columns="sm-12 lg-9">
-
         <fieldset class="absolute-ids-form--fields">
           <legend>ArchivesSpace</legend>
 
-<grid-container>
-      <grid-item columns="sm-12 lg-12">
-          <absolute-id-data-list
-            id="location_id"
-            class="absolute-ids-form--input-field"
-            name="location_id"
-            label="Location"
-            :hide-label="true"
-            helper="Location"
-            :placeholder="locationPlaceholder"
-            :disabled="fetchingLocations"
-            :list="locationOptions"
-            display-property="classification"
-            v-model="selectedLocationId">
-          </absolute-id-data-list>
+          <grid-container>
+            <grid-item columns="sm-12 lg-12">
+              <absolute-id-data-list
+                id="location_id"
+                class="absolute-ids-form--input-field"
+                name="location_id"
+                label="Location"
+                :hide-label="true"
+                helper="Location"
+                :placeholder="locationPlaceholder"
+                :disabled="fetchingLocations"
+                :list="locationOptions"
+                display-property="classification"
+                v-model="selectedLocationId">
+              </absolute-id-data-list>
 
-          <absolute-id-data-list
-            id="container_profile_id"
-            class="absolute-ids-form--input-field"
-            name="container_profile_id"
-            label="Container Profile"
-            :hide-label="true"
-            helper="Container Profile"
-            :placeholder="containerProfilePlaceholder"
-            :disabled="fetchingContainerProfiles"
-            :list="containerProfileOptions"
-            display-property="prefix"
-            v-model="selectedContainerProfileId">
-          </absolute-id-data-list>
+              <absolute-id-data-list
+                id="container_profile_id"
+                class="absolute-ids-form--input-field"
+                name="container_profile_id"
+                label="Container Profile"
+                :hide-label="true"
+                helper="Container Profile"
+                :placeholder="containerProfilePlaceholder"
+                :disabled="fetchingContainerProfiles"
+                :list="containerProfileOptions"
+                display-property="prefix"
+                v-model="selectedContainerProfileId">
+              </absolute-id-data-list>
 
-          <absolute-id-data-list
-            id="repository_id"
-            class="absolute-ids-form--input-field"
-            name="repository_id"
-            label="Repository"
-            :hide-label="true"
-            helper="Repository"
-            :placeholder="repositoryPlaceholder"
-            :disabled="fetchingRepositories"
-            :list="repositoryOptions"
-            v-model="selectedRepositoryId"
-            display-property="repoCode"
-            v-on:input="changeRepositoryId($event)">
-          </absolute-id-data-list>
-      </grid-item>
+              <absolute-id-data-list
+                id="repository_id"
+                class="absolute-ids-form--input-field"
+                name="repository_id"
+                label="Repository"
+                :hide-label="true"
+                helper="Repository"
+                :placeholder="repositoryPlaceholder"
+                :disabled="fetchingRepositories"
+                :list="repositoryOptions"
+                v-model="selectedRepositoryId"
+                display-property="repoCode"
+                v-on:input="changeRepositoryId($event)">
+              </absolute-id-data-list>
+          </grid-item>
 
       <grid-item columns="sm-12 lg-12">
           <input-text
@@ -176,9 +180,9 @@ export default {
         valid: false
       }
     },
-    nextCode: {
+    barcode: {
       type: String,
-      default: '0000000000000'
+      default: ''
     },
     batchForm: {
       type: Boolean,
@@ -225,11 +229,6 @@ export default {
       selectedContainerProfileId: containerProfileId,
       selectedRepositoryId: repositoryId,
 
-      // Remove this
-      //selectedResourceId: resourceId,
-      // Remove this
-      //selectedContainerId: containerId,
-
       resourceTitle,
       containerIndicator,
 
@@ -254,12 +253,23 @@ export default {
       validatedContainer: false,
       validatingContainer: false,
 
+      barcodeLength: 13,
+      barcodeValid: false,
+      parsedBarcode: this.barcode,
+      parsedEndingBarcode: '',
+
       valid: false
     }
   },
   computed: {
+
+    // Barcodes
     terminalCode: function () {
-      const parsedCode = Number.parseInt(this.nextCode);
+      if (this.barcode.length < 1) {
+        return '';
+      }
+
+      const parsedCode = Number.parseInt(this.barcode);
       const parsedSize = Number.parseInt(this.batchSize);
       const incremented = parsedCode + parsedSize;
 
@@ -269,6 +279,7 @@ export default {
       return formatted;
     },
 
+    // Locations
     locations: async function () {
       const response = await this.getLocations();
       const locations = response.json();
@@ -288,6 +299,7 @@ export default {
       return value;
     },
 
+    // Repositories
     repositories: async function () {
       const response = await this.getRepositories();
       const repositories = response.json();
@@ -429,7 +441,7 @@ export default {
 
       return {
         absolute_id: {
-          barcode: this.nextCode,
+          barcode: this.barcode,
           location: selectedLocation,
           container_profile: selectedContainerProfile,
           repository: selectedRepository,
@@ -446,7 +458,7 @@ export default {
       const selectedResource = await this.selectedResource;
       const selectedContainer = await this.selectedContainer;
 
-      const output = this.nextCode && selectedLocation && selectedRepository && selectedResource && selectedContainer;
+      const output = this.barcode && selectedLocation && selectedRepository && selectedResource && selectedContainer;
       return !!output;
     }
   },
@@ -483,6 +495,9 @@ export default {
           this.selectedContainerId = this.value.absolute_id.container.id;
         }
       }
+
+      // Handling the barcode
+      //this.barcode = `${this.barcode}1`;
     });
   },
 
@@ -519,13 +534,85 @@ export default {
   },
 
   methods: {
+    bar: function () {
+      return this.parsedBarcode;
+    },
+
+    //endingBarcode: function () {
+    baz: function () {
+      return this.parsedEndingBarcode;
+    },
+
+    generateChecksum: function (base) {
+
+      let sum  = 0;
+      const digits = base.slice(0, 13);
+      const elements = digits.split();
+
+      elements.forEach( (element, index) => {
+        let addend = element;
+
+        if (index % 2 > 0) {
+          addend = addend * 2;
+          if (addend > 9) {
+            addend = addend - 9;
+          }
+        }
+
+        sum = sum + addend;
+      });
+
+      const remainder = sum % 10;
+
+      if (remainder == 0) {
+        return 0;
+      } else {
+        return 10 - remainder;
+      }
+    },
+
+    updateBarcode: function (value) {
+      if (value.length < 13) {
+        this.barcodeLength = 13;
+        this.barcodeValid = false;
+
+      } else if (value.length == 13) {
+        const checksum = this.generateChecksum(value);
+        this.barcodeLength = 14;
+        this.barcodeValid = true;
+
+        this.parsedBarcode = `${value}${checksum}`;
+      }
+    },
+
+    updateEndingBarcode: function (value) {
+      if (value.length < 13) {
+        return;
+      }
+
+      const parsed = Number.parseInt(value);
+      const parsedSize = Number.parseInt(this.batchSize);
+      const incremented = parsed + parsedSize;
+
+      const encoded = incremented.toString();
+      const formatted = encoded.padStart(13, 0);
+      const checksum = this.generateChecksum(formatted);
+
+      this.parsedEndingBarcode = `${formatted}${checksum}`;
+    },
+
+    onBarcodeInput: function (value) {
+      this.updateBarcode(value);
+      this.updateEndingBarcode(value);
+    },
+
     isFormValid: async function () {
       const selectedLocation = await this.selectedLocation;
       const selectedRepository = await this.getSelectedRepository();
       const selectedResource = await this.selectedResource;
       const selectedContainer = await this.selectedContainer;
 
-      const output = this.nextCode && selectedLocation && selectedRepository && this.resourceTitle && this.containerIndicator;
+      const output = this.barcode && selectedLocation && selectedRepository && this.resourceTitle && this.containerIndicator;
       return !!output;
     },
 
@@ -543,7 +630,7 @@ export default {
 
       return {
         absolute_id: {
-          barcode: this.nextCode,
+          barcode: this.barcode,
           location: selectedLocation,
           container_profile: selectedContainerProfile,
           repository: selectedRepository,
@@ -724,21 +811,30 @@ export default {
     getLocations: async function () {
       this.fetchingLocations = true;
 
-      const response = await fetch('/absolute-ids/locations', {
-            method: 'GET',
-            mode: 'cors',
-            cache: 'no-cache',
-            credentials: 'same-origin',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${this.token}`
-            },
-            redirect: 'follow',
-            referrerPolicy: 'no-referrer'
-      });
+      try {
+        const response = await fetch('/absolute-ids/locations', {
+              method: 'GET',
+              mode: 'cors',
+              cache: 'no-cache',
+              credentials: 'same-origin',
+              headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${this.token}`
+              },
+              redirect: 'follow',
+              referrerPolicy: 'no-referrer'
+        });
 
-      this.fetchingLocations = false;
-      return response;
+        this.fetchingLocations = false;
+        return response;
+      } catch (e) {
+
+        this.fetchingLocations = false;
+        return;
+      }
+
+      //this.fetchingLocations = false;
+      //return response;
     },
 
     getContainerProfiles: async function () {
