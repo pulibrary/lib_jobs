@@ -1,23 +1,6 @@
 <template>
   <table border="1px" :class="['lux-data-table']">
-    <caption>
-      {{
-        caption
-      }}
-
-      <form class="absolute-ids-sync-form" :action="synchronizeAction" :method="synchronizeMethod">
-        <grid-container>
-          <grid-item columns="lg-12 sm-12">
-            <button
-              data-v-b7851b04
-              class="lux-button solid large lux-button absolute-ids-sync-form--submit"
-              :disabled="synchronizing"
-              @click.prevent="onSynchronizeSubmit">Synchronize</button>
-          </grid-item>
-        </grid-container>
-      </form>
-    </caption>
-
+    <caption>{{ caption }}</caption>
     <thead>
       <tr>
         <th v-for="(col, index) in parsedColumns" scope="col" nowrap>
@@ -41,7 +24,6 @@
           >
           <span v-else>{{ displayName(col) }}</span>
         </th>
-
       </tr>
     </thead>
     <tbody>

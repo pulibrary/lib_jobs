@@ -10,7 +10,7 @@
           v-model="batch[index]"
           :action="action"
           :token="token"
-          :next-code="getNextCode(index, batchSize[index])"
+          :barcode="generateBarcode(index, batchSize[index])"
           :batch-form="true"
           :batch-size="batchSize[index]">
         </absolute-id-form>
@@ -81,9 +81,9 @@ export default {
       type: String,
       default: null
     },
-    nextCode: {
+    barcode: {
       type: String,
-      default: '0000000000000'
+      default: ''
     }
   },
 
@@ -146,7 +146,7 @@ export default {
   },
 
   mounted: async function () {
-    this.barcodes.push(this.nextCode);
+    this.barcodes.push(this.barcode);
 
     const fetchedLocations = await this.locations;
     this.locationOptions = fetchedLocations.map((location) => {
@@ -210,7 +210,11 @@ export default {
       this.batchSize[batchIndex] = entry.batch_size;
     },
 
-    getNextCode: function (index, updatedValue) {
+    generateBarcode: function (index, updatedValue) {
+      if (this.barcode.length < 1) {
+        return this.barcode;
+      }
+
       const currentValue = this.batchSize[index];
       const previousValue = this.batchSize[index - 1];
 
@@ -218,8 +222,6 @@ export default {
 
       if (!currentValue) {
         batchSize = index;
-      //} else if (!previousValue && index === 0) {
-      //  batchSize = index;
       } else if (!previousValue) {
         batchSize = index;
       } else {
@@ -230,7 +232,7 @@ export default {
       let incremented;
 
       if (index < 1) {
-        code = Number.parseInt(this.nextCode);
+        code = Number.parseInt(this.barcode);
         incremented = code + batchSize;
       } else {
         const previousBarcode = this.barcodes[index - 1];
@@ -276,7 +278,7 @@ export default {
     },
 
     onClickAdd: function (event) {
-      let newBarcodeValue = Number.parseInt(this.nextCode);
+      let newBarcodeValue = Number.parseInt(this.barcode);
 
       if (this.batchSize.length === 1) {
         newBarcodeValue = newBarcode + 1;

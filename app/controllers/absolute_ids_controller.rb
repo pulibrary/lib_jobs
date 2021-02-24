@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 class AbsoluteIdsController < ApplicationController
-  helper_method :index_status, :next_code, :absolute_id_table_columns, :absolute_id_table_data
+  helper_method :index_status, :table_columns
   skip_forgery_protection if: :token_header?
 
-  def absolute_id_table_columns
+  def table_columns
     [
+      { name: 'user', display_name: 'User', align: 'left', sortable: false },
       { name: 'barcode', display_name: 'Barcode', align: 'left', sortable: true, ascending: 'undefined' },
       { name: 'label', display_name: 'Identifier', align: 'left', sortable: true },
       { name: 'location', display_name: 'Location', align: 'left', sortable: true },
@@ -16,46 +17,7 @@ class AbsoluteIdsController < ApplicationController
     ]
   end
 
-  def absolute_id_table_data
-    @absolute_ids.map do |absolute_id|
-      {
-        barcode: absolute_id.barcode.value,
-        label: absolute_id.label,
-        location: { link: absolute_id.location_object.uri, value: absolute_id.location_object.building },
-        container_profile: { link: absolute_id.container_profile_object.uri, value: absolute_id.container_profile_object.name },
-        repository: { link: absolute_id.repository_object.uri, value: absolute_id.repository_object.name },
-        resource: { link: absolute_id.resource_object.uri, value: absolute_id.resource_object.title },
-        container: { link: absolute_id.container_object.uri, value: absolute_id.container_object.indicator }
-      }
-    end
-  end
-
-  def next_location_model
-    absolute_ids = AbsoluteId.all
-    return if absolute_ids.empty?
-
-    last_absolute_id = absolute_ids.last
-    last_absolute_id.location
-  end
-
-  # Remove
-  def next_location
-    next_location_model&.value
-  end
-
-  # Remove
-  def next_prefix
-    absolute_ids = if next_location_model
-                     AbsoluteId.where(location_id: next_location_model.id)
-                   else
-                     AbsoluteId.all
-                   end
-    return AbsoluteId.default_prefix if absolute_ids.empty?
-
-    last_absolute_id = AbsoluteId.last
-    last_absolute_id.prefix
-  end
-
+  # Remove this
   def next_code
     absolute_ids = AbsoluteId.all
     # This should be a constant
@@ -69,11 +31,15 @@ class AbsoluteIdsController < ApplicationController
   # GET /absolute-ids
   # GET /absolute-ids.json
   def index
-    @absolute_ids ||= AbsoluteId.all
+    # @batches ||= AbsoluteId::Batch.where(user: current_user).reverse
+    @sessions ||= begin
+                    models = AbsoluteId::Session.where(user: current_user)
+                    models.reverse
+                  end
 
     respond_to do |format|
       format.html { render :index }
-      format.json { render json: @absolute_ids }
+      format.json { render json: @sessions }
     end
   end
 
@@ -135,12 +101,12 @@ class AbsoluteIdsController < ApplicationController
     container_id = absolute_id_params[:container_id]
   end
 
-  # POST /absolute-ids/batch
-  # POST /absolute-ids/batch.json
-  def create_batch
-    authorize! :create_batch, AbsoluteId
+  # POST /absolute-ids/batches
+  # POST /absolute-ids/batches.json
+  def create_batches
+    authorize! :create_batches, AbsoluteId
 
-    @absolute_ids = absolute_id_batch_params.map { |batch_params|
+    @batches = absolute_id_batches.map { |batch_params|
       batch_size = batch_params[:batch_size]
 
       children = batch_size.times.map do |_child_index|
@@ -176,11 +142,17 @@ class AbsoluteIdsController < ApplicationController
                         raise ArgumentError
                       end
       end
+
+      if !children.empty?
+        batch = AbsoluteId::Batch.create(absolute_ids: children, user: current_user)
+        batch.save
+        batch
+      end
     }.flatten
 
-    if !@absolute_ids.empty?
-      @batch = AbsoluteId::Batch.create(absolute_ids: @absolute_ids)
-      @batch.save
+    if !@batches.empty?
+      @session = AbsoluteId::Session.create(batches: @batches, user: current_user)
+      @session.save
     end
 
     respond_to do |format|
@@ -210,7 +182,7 @@ class AbsoluteIdsController < ApplicationController
     end
   rescue ArgumentError => error
     Rails.logger.warn("Failed to create a new Absolute ID with invalid parameters.")
-    Rails.logger.warn(JSON.generate(absolute_id_batch_params))
+    Rails.logger.warn(JSON.generate(absolute_id_batches))
 
     respond_to do |format|
       format.json { head(400) }
@@ -266,8 +238,24 @@ class AbsoluteIdsController < ApplicationController
     end
   end
 
+  def batches
+    @batches ||= begin
+                   return [] if @session.nil?
+
+                   @session.batches
+                 end
+  end
+
+  def absolute_ids
+    @absolute_ids ||= begin
+                        return [] if @batches.nil?
+
+                        batches.map(&:absolute_ids).flatten
+                      end
+  end
+
   def index_status
-    "No absolute IDs have been generated yet." if @absolute_ids.empty?
+    "No absolute IDs have been generated yet." if absolute_ids.empty?
   end
 
   private
@@ -343,7 +331,7 @@ class AbsoluteIdsController < ApplicationController
     @current_user ||= find_user
   end
 
-  def absolute_id_batch_params
+  def absolute_id_batches
     ActionController::Parameters.permit_all_parameters = true
     parsed = params.to_h.deep_symbolize_keys
     ActionController::Parameters.permit_all_parameters = false
