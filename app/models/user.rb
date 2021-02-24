@@ -3,7 +3,8 @@ require 'jwt'
 
 class User < ApplicationRecord
   validates :email, presence: true
-  #has_many :batches
+  has_many :batches
+  has_many :sessions
 
   after_validation do
     if token.nil?

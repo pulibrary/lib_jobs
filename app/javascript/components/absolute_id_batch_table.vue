@@ -1,96 +1,35 @@
-
 <template>
-  <table border="1px" :class="['lux-data-table']">
-    <thead>
-      <tr>
-        <th v-for="(col, index) in parsedColumns" scope="col" nowrap>
-          <input-button
-            v-if="col.sortable"
-            type="button"
-            v-on:button-clicked="sortTable(col)"
-            variation="text"
-          >
-            <lux-icon-base
-              v-if="col.sortable"
-              width="16"
-              height="16"
-              :icon-name="iconLabel(col.ascending)"
-            >
-              <lux-icon-ascending v-if="col.ascending"></lux-icon-ascending>
-              <lux-icon-descending v-if="col.ascending === false"></lux-icon-descending>
-              <lux-icon-unsorted v-if="col.ascending === null"></lux-icon-unsorted>
-            </lux-icon-base>
-            {{ displayName(col) }}</input-button
-          >
-          <span v-else>{{ displayName(col) }}</span>
-        </th>
-      </tr>
-    </thead>
+  <div>
+    <div>
+      <header>{{ header }}</header>
+      <form class="absolute-ids-sync-form" :action="synchronizeAction" :method="synchronizeMethod">
+        <grid-container>
+          <grid-item columns="lg-12 sm-12">
+            <button
+              data-v-b7851b04
+              class="lux-button solid lux-button absolute-ids-sync-form--submit"
+              :disabled="synchronizing"
+              @click.prevent="onSynchronizeSubmit">Synchronize</button>
+          </grid-item>
+        </grid-container>
+      </form>
+    </div>
 
-    <tbody>
-      <tr class="row" v-for="(lineItem, index) in rows">
-        <td
-          v-for="(col, index) in parsedColumns"
-          :class="[
-            { 'lux-data-table-left': isLeft(col.align) },
-            { 'lux-data-table-center': isCenter(col.align) },
-            { 'lux-data-table-right': isRight(col.align) },
-            { 'lux-data-table-number': isNum(col.datatype) },
-            { 'lux-data-table-currency': isCurrency(col.datatype) },
-          ]"
-        >
-          <input
-            v-if="col.checkbox"
-            :id="lineItem[col.name].value"
-            type="checkbox"
-            :aria-label="Object.values(lineItem).join(', ')"
-            :name="col.name"
-            :value="lineItem[col.name].value"
-          />
-          <span v-else>
-            <hyperlink v-if="lineItem[col.name].link" :href="lineItem[col.name].link">
-              {{ lineItem[col.name].value }}
-            </hyperlink>
-            <span v-else-if="col.datatype === 'resource'">
-              <hyperlink :href="lineItem[col.name].uri">
-                {{ lineItem[col.name].uri }}
-              </hyperlink>
-            </span>
-            <span v-else-if="col.datatype === 'date'">
-              {{ new Date(lineItem[col.name].value).toLocaleString() }}
-            </span>
-            <span v-else>
-              {{ col.datatype }}
-              {{ lineItem[col.name].value }}
-            </span>
-          </span>
-        </td>
-      </tr>
-    </tbody>
-
-    <tfoot v-if="summaryLabel">
-      <tr>
-        <th scope="row">{{ summaryLabel }}</th>
-        <td
-          v-for="(col, index) in footerColumns"
-          :class="[
-            { 'lux-data-table-left': isLeft(col.align) },
-            { 'lux-data-table-center': isCenter(col.align) },
-            { 'lux-data-table-right': isRight(col.align) },
-            { 'lux-data-table-number': isNum(col.datatype) },
-            { 'lux-data-table-currency': isCurrency(col.datatype) },
-          ]"
-        >
-          <span>
-            {{ col.summary_value }}
-          </span>
-        </td>
-      </tr>
-    </tfoot>
-  </table>
+    <absolute-id-table
+      v-for="batch in session.batches"
+      :key="batch.id"
+      :caption="batch.label"
+      :columns="columns"
+      :json-data="batch.tableData"
+      :token="token"
+      :synchronize-action="synchronizeAction"
+    ></absolute-id-table>
+  </div>
 </template>
 
 <script>
+import AbsoluteIdTable from './absolute_id_table'
+
 /**
  * Used to display data to end users.
  */
@@ -99,61 +38,28 @@ export default {
   status: "prototype",
   release: "1.0.0",
   type: "Element",
-  data() {
-    return {
-      rows: this.jsonData,
-      parsedColumns: [],
-      synchronizing: !this.synchronized
-    }
+  components: {
+    "absolute-id-table": AbsoluteIdTable
   },
   props: {
-    /**
-     * caption provides context for the data that is helpful to users, particularly those who use screenreaders.
-     * `e.g. [name, title, age]`
-     */
-    caption: {
+    header: {
       required: true,
       type: String,
-    },
-    /**
-     * summaryLabel provides context to the data values in tfoot element cells.
-     */
-    summaryLabel: {
-      required: false,
-      type: String,
-    },
-    /**
-     * columns define the columns and order for which the data should be displayed.
-     * Columns entries can be simple strings, or they may be more complicated objects
-     * that can define `name`, `display_name`,`align`, `sortable`, and `checkbox` properties.
-     * Sorting on `numeric` or `currency` values requires a column to have
-     * a `datatype='number'` or `datatype='currency'` property.
-     * Sorting on `date` values requires a column to have
-     * a `datatype='date'` property.
-     * Use `checkbox=true` to create a checkbox whose value is the value for that
-     * column value for the row in the table.
-     * `e.g. ['name', 'email', 'age']`
-     */
-    columns: {
-      required: true,
-      type: Array,
-    },
-    /**
-     * jsonData is supplied via Array with an object representing each row.
-     * Applying links to data cell content can be achieved by supplying an object
-     * that contains a `value` and `link` property. Date sorting uses the JavaScript
-     * `datestring` parameter. Shorthand dates are supported in most browsers, but can be implementation-specific.
-     * (e.g., `{ value: 'content', link: 'https://url.com'}`)
-     * See above example for exact structure.
-     */
-    jsonData: {
-      required: true,
-      type: Array,
     },
 
     token: {
-      type: String,
-      default: null
+      required: true,
+      type: String
+    },
+
+    columns: {
+      required: true,
+      type: Array
+    },
+
+    session: {
+      required: true,
+      type: Object
     },
 
     synchronized: {
@@ -171,119 +77,17 @@ export default {
       default: 'POST'
     }
   },
-  created: function() {
-    // Normalize the column data by converting any simple string field
-    // names into objects with a name property
-    let pCols = this.columns.map(col => {
-      if (!this.isObject(col)) {
-        return { name: col.toLowerCase(), ascending: null }
-      } else {
-        col.name = col.name.toLowerCase()
-        if (col.sortable && typeof col.ascending === "undefined") {
-          col.ascending = null
-        }
-        return col
-      }
-    })
-    this.parsedColumns = pCols
-
-    // Normalize the row data by converting any simple values into
-    // objects with the link properties
-    let rowNum = this.jsonData.length
-    for (let i = 0; i < rowNum; i++) {
-      for (var key in this.jsonData[i]) {
-        if (this.jsonData[i].hasOwnProperty(key)) {
-          if (!this.isObject(this.jsonData[i][key])) {
-            this.jsonData[i][key] = { value: this.jsonData[i][key], link: null }
-          }
-        }
-      }
-    }
-    this.rows = this.jsonData
-
-    if (this.parsedColumns.length > 0 && this.parsedColumns[0].ascending !== null) {
-      this.sortTable(this.parsedColumns[0]);
+  data() {
+    return {
+      rows: this.jsonData,
+      parsedColumns: [],
+      synchronizing: !this.synchronized
     }
   },
-  computed: {
-    footerColumns() {
-      let fCols = this.columns
-      fCols.shift()
-      return fCols
-    },
+  created: function() {
+    // Remove this?
   },
   methods: {
-    iconLabel(value) {
-      if (value === true) {
-        return "ascending"
-      } else if (value === false) {
-        return "descending"
-      } else if (value === null) {
-        return "unsorted"
-      }
-    },
-    displayName(col) {
-      if (col.hasOwnProperty("display_name")) {
-        return col.display_name
-      } else {
-        return col.name
-      }
-    },
-    sortTable(col) {
-      if (!col.ascending) {
-        if (col.datatype === "number" || col.datatype === "currency") {
-          this.rows.sort((a, b) => a[col.name].value - b[col.name].value)
-        } else if (col.datatype === "date") {
-          this.rows.sort((a, b) => new Date(a[col.name].value) - new Date(b[col.name].value))
-        } else {
-          this.rows.sort(function(a, b) {
-            var textA = a[col.name.toLowerCase()].value.toString().toLowerCase()
-            var textB = b[col.name.toLowerCase()].value.toString().toLowerCase()
-            return textA < textB ? -1 : textA > textB ? 1 : 0
-          })
-        }
-      } else {
-        if (col.datatype === "number" || col.datatype === "currency") {
-          this.rows.sort((a, b) => b[col.name].value - a[col.name].value)
-        } else if (col.datatype === "date") {
-          this.rows.sort((a, b) => new Date(b[col.name].value) - new Date(a[col.name].value))
-        } else {
-          this.rows.sort(function(a, b) {
-            var textA = a[col.name.toLowerCase()].value.toString().toLowerCase()
-            var textB = b[col.name.toLowerCase()].value.toString().toLowerCase()
-            return textA < textB ? 1 : textA > textB ? -1 : 0
-          })
-        }
-      }
-      col.ascending = !col.ascending
-
-      // reset other columns ascending prop to null (aka, "unsorted")
-      this.parsedColumns = this.parsedColumns.map(function(column) {
-        if (col.name != column.name) {
-          column.ascending = null
-        }
-        return column
-      })
-    },
-    isObject(value) {
-      return value && typeof value === "object" && value.constructor === Object
-    },
-    isCurrency(value) {
-      return value === "currency" ? true : false
-    },
-    isNum(value) {
-      return value === "number" ? true : false
-    },
-    isLeft(value) {
-      return value === "left" ? true : false
-    },
-    isCenter(value) {
-      return value === "center" ? true : false
-    },
-    isRight(value) {
-      return value === "right" ? true : false
-    },
-
     postData: async function () {
       const response = await fetch(this.synchronizeAction, {
         method: this.synchronizeMethod,
@@ -299,6 +103,20 @@ export default {
       });
 
       return response;
+    },
+    onSynchronizeSubmit: async function (event) {
+      event.target.disabled = true;
+
+      this.synchronizing = true;
+      const response = await this.postData();
+
+      event.target.disabled = false;
+      if (response.status === 302) {
+        const redirectUrl = response.headers.get('Content-Type');
+        window.location.assign(redirectUrl);
+      } else {
+        window.location.reload();
+      }
     }
   }
 }

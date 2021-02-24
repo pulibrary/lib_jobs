@@ -33,7 +33,7 @@ class Ability
 
     can :synchronize, AbsoluteId if user.present? && user.token_valid?
     can :update, AbsoluteId if user.present? && user.token_valid?
-    can :create_batch, AbsoluteId if user.present? && user.token_valid?
+    can :create_batches, AbsoluteId if user.present? && user.token_valid?
     can :create, AbsoluteId if user.present? && user.token_valid?
     can :get_latest, DataSet if user.present?
   end
