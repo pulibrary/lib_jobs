@@ -84,23 +84,28 @@
               </absolute-id-data-list>
           </grid-item>
 
-      <grid-item columns="sm-12 lg-12">
-          <input-text
-            id="resource_id"
-            v-bind:class="{ 'absolute-ids-form--input-field__validated': (validatedResource), 'absolute-ids-form--input-field__invalid': (resourceTitle.length > 0 && !validResource), 'absolute-ids-form--input-field': true }"
-            name="resource_id"
-            label="Call Number"
-            :hide-label="true"
-            helper="Call Number"
-            :placeholder="resourcePlaceholder"
-            :disabled="!selectedRepositoryId || validatingResource"
-            v-on:inputblur="onResourceFocusOut($event, resourceTitle)"
-            v-model="resourceTitle">
-          </input-text>
-      </grid-item>
+          <grid-item columns="sm-12 lg-12">
+            <input-text
+              id="resource_id"
+              v-bind:class="{ 'absolute-ids-form--input-field__validated': (validatedResource), 'absolute-ids-form--input-field__invalid': (resourceTitle.length > 0 && !validResource), 'absolute-ids-form--input-field': true }"
+              name="resource_id"
+              label="Call Number"
+              :hide-label="true"
+              helper="Call Number"
+              :placeholder="resourcePlaceholder"
+              :disabled="!selectedRepositoryId || validatingResource"
+              v-on:inputblur="onResourceFocusOut($event, resourceTitle)"
+              v-model="resourceTitle">
+            </input-text>
 
-      <grid-item columns="sm-12 lg-9">
+            <div class="lux-input">
+              <div class="lux-input-field medium">
+                {{ resourceStatus }}
+              </div>
+            </div>
+          </grid-item>
 
+          <grid-item columns="sm-12 lg-9">
             <input-text
               id="container_id"
               v-bind:class="{ 'absolute-ids-form--input-field__validated': (validatedContainer), 'absolute-ids-form--input-field__invalid': (containerIndicator.length > 0 && !validContainer), 'absolute-ids-form--input-field': true }"
@@ -115,16 +120,23 @@
             </input-text>
 
             <input-text
-              id="last_container_id"
+              id="ending_container_id"
               class="absolute-ids-form--input-field"
-              name="last_container_id"
-              label="Ending Box Number"
+              name="ending_container_id"
+              label="Ending Box Number (Optional)"
               :hide-label="true"
               helper="Ending Box Number"
-              :placeholder="containerPlaceholder"
-              :disabled="true"
-              v-model="containerIndicator">
+              :placeholder="endingContainerPlaceholder"
+              :disabled="!validContainer"
+              v-on:input="onEndingContainerInput($event)"
+              v-model="endingContainerIndicator">
             </input-text>
+
+            <div class="lux-input">
+              <div class="lux-input-field medium">
+                {{ containerStatus }}
+              </div>
+            </div>
 
       </grid-item>
 </grid-container>
@@ -258,12 +270,15 @@ export default {
       parsedBarcode: this.barcode,
       parsedEndingBarcode: '',
 
+      endingContainerIndicator: '',
+
       valid: false
     }
   },
   computed: {
 
     // Barcodes
+    /*
     terminalCode: function () {
       if (this.barcode.length < 1) {
         return '';
@@ -277,6 +292,39 @@ export default {
       const formatted = encoded.padStart(13, 0);
 
       return formatted;
+    },
+    */
+
+    resourceStatus: function () {
+      if (this.validResource) {
+        return 'Call number is valid';
+      } else if (this.validatingResource) {
+        return 'Validating call number...';
+      } else if (this.selectedRepositoryId) {
+        return 'Please enter a call number';
+      } else {
+        return '';
+      }
+    },
+
+    containerStatus: function () {
+      if (this.validContainer) {
+        return 'Box number is valid';
+      } else if (this.validatingContainer) {
+        return 'Validating box number...';
+      } else if (this.resourceTitle && this.validResource) {
+        return 'Please enter a box number';
+      } else {
+        return '';
+      }
+    },
+
+    endingContainerPlaceholder: function () {
+      if (this.validContainer) {
+        return this.containerIndicator;
+      } else {
+        return 'No call number specified.';
+      }
     },
 
     // Locations
@@ -496,8 +544,8 @@ export default {
         }
       }
 
-      // Handling the barcode
-      //this.barcode = `${this.barcode}1`;
+      const base = this.parsedBarcode.slice(0, -1);
+      this.updateEndingBarcode(base);
     });
   },
 
@@ -604,6 +652,15 @@ export default {
     onBarcodeInput: function (value) {
       this.updateBarcode(value);
       this.updateEndingBarcode(value);
+    },
+
+    onEndingContainerInput: function (value) {
+      const payload = {
+        'start': this.containerIndicator,
+        'end': value
+      };
+
+      this.$emit('input-size', payload);
     },
 
     isFormValid: async function () {
@@ -906,17 +963,12 @@ export default {
       const validResource = await this.validResource;
       const resourceTitle = await this.resourceTitle;
 
-      console.log(validatedResource);
-      console.log(validResource);
-      console.log(resourceTitle);
-
       if (validatedResource) {
         classes.push('absolute-ids-form--input-field__validated');
       } else if (resourceTitle.length > 0 && !validResource) {
         classes.push('absolute-ids-form--input-field__invalid');
       }
 
-      console.log(classes);
       return classes.join(' ');
     },
 
@@ -933,7 +985,6 @@ export default {
         classes.push('absolute-ids-form--input-field__invalid');
       }
 
-      console.log(classes);
       return classes.join(' ');
     },
 

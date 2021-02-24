@@ -12,6 +12,7 @@
           :token="token"
           :barcode="generateBarcode(index, batchSize[index])"
           :batch-form="true"
+          v-on:input-size="updateBatchSize($event, index)"
           :batch-size="batchSize[index]">
         </absolute-id-form>
 
@@ -21,12 +22,14 @@
             :key="index"
             id="batch-size"
             name="batch[batch_size]"
-            v-model="batchSize[index]"
+            :value="getBatchSize(index)"
             label="Input"
             :hide-label="true"
             helper="Number of Absolute IDs"
             size="small"
-            @change="onChangeBatchSize($event, index)"></input-text>
+            :disabled="true"
+            @change="onChangeBatchSize($event, index)">
+          </input-text>
 
         <button
           v-if="index > 0"
@@ -357,6 +360,25 @@ export default {
 
       this.fetchingContainerProfiles = false;
       return response;
+    },
+
+    getBatchSize: function (index) {
+      return this.batchSize[index];
+    },
+
+    updateBatchSize: function (payload, batchIndex) {
+      const start = payload.start;
+      const end = payload.end;
+
+      if (end.length < 1) {
+        return;
+      }
+
+      let size = Number.parseInt(end) - Number.parseInt(start);
+      if (size < 1) {
+        size = 1;
+      }
+      this.batchSize[batchIndex] = size;
     },
 
     postData: async function (data = {}) {
