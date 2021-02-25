@@ -137,10 +137,9 @@
                 {{ containerStatus }}
               </div>
             </div>
-
-      </grid-item>
-</grid-container>
-        </fieldset>
+          </grid-item>
+        </grid-container>
+      </fieldset>
 
         <button
           v-if="!batchForm"
@@ -269,6 +268,7 @@ export default {
       barcodeValid: false,
       parsedBarcode: this.barcode,
       parsedEndingBarcode: '',
+      repositoryId: null,
 
       endingContainerIndicator: '',
 
@@ -276,25 +276,6 @@ export default {
     }
   },
   computed: {
-
-    // Barcodes
-    /*
-    terminalCode: function () {
-      if (this.barcode.length < 1) {
-        return '';
-      }
-
-      const parsedCode = Number.parseInt(this.barcode);
-      const parsedSize = Number.parseInt(this.batchSize);
-      const incremented = parsedCode + parsedSize;
-
-      const encoded = incremented.toString();
-      const formatted = encoded.padStart(13, 0);
-
-      return formatted;
-    },
-    */
-
     resourceStatus: function () {
       if (this.validResource) {
         return 'Call number is valid';
@@ -323,7 +304,7 @@ export default {
       if (this.validContainer) {
         return this.containerIndicator;
       } else {
-        return 'No call number specified.';
+        return 'No call number specified';
       }
     },
 
@@ -367,12 +348,13 @@ export default {
       return value;
     },
 
+    // Resources
     resources: async function () {
       if (!this.selectedRepositoryId) {
         return [];
       }
 
-      const response = await this.getResources(this.selectedRepositoryId);
+      const response = await this.getResources(this.repositoryId);
       const models = response.json();
 
       return models;
@@ -480,7 +462,10 @@ export default {
       const selectedLocation = await this.selectedLocation;
 
       const selectedContainerProfile = await this.selectedContainerProfile;
+
+      console.log(this.selectedRepositoryId);
       const selectedRepository = await this.getSelectedRepository();
+      console.log(selectedRepository);
 
       const selectedResource = await this.selectedResource;
       const selectedContainer = await this.selectedContainer;
@@ -489,12 +474,12 @@ export default {
 
       return {
         absolute_id: {
-          barcode: this.barcode,
+          barcode: this.parsedBarcode,
           location: selectedLocation,
           container_profile: selectedContainerProfile,
           repository: selectedRepository,
-          resource: resourceTitle,
-          container: containerIndicator
+          resource: this.resourceTitle,
+          container: this.containerIndicator
         },
         valid
       };
@@ -502,17 +487,31 @@ export default {
 
     formValid: async function () {
       const selectedLocation = await this.selectedLocation;
-      const selectedRepository = await this.getSelectedRepository();
-      const selectedResource = await this.selectedResource;
-      const selectedContainer = await this.selectedContainer;
 
-      const output = this.barcode && selectedLocation && selectedRepository && selectedResource && selectedContainer;
+      const selectedRepositoryId = await this.selectedRepositoryId;
+      console.log(this);
+      console.log(selectedRepositoryId);
+      const selectedRepository = await this.getSelectedRepository();
+      console.log(selectedRepository);
+      console.log(this.repositoryId);
+
+      //const selectedResource = await this.selectedResource;
+      //const selectedContainer = await this.selectedContainer;
+
+      console.log(this.parsedBarcode);
+      console.log(selectedLocation);
+
+      //console.log(selectedResource);
+      //console.log(selectedContainer);
+      //const output = this.parsedBarcode && selectedLocation && selectedRepository && selectedResource && selectedContainer;
+
+      const output = this.parsedBarcode && selectedLocation && selectedRepository && this.resourceTitle && this.containerIndicator;
       return !!output;
     }
   },
 
   updated: async function () {
-    this.$nextTick(function () {
+    //this.$nextTick(function () {
 
       if (this.value && this.value.absolute_id && this.value.absolute_id.location) {
         if (!this.selectedLocationId) {
@@ -546,7 +545,9 @@ export default {
 
       const base = this.parsedBarcode.slice(0, -1);
       this.updateEndingBarcode(base);
-    });
+
+      this.valid = await this.formValid;
+    //});
   },
 
   mounted: async function () {
@@ -669,6 +670,7 @@ export default {
       const selectedResource = await this.selectedResource;
       const selectedContainer = await this.selectedContainer;
 
+      //const output = this.barcode && selectedLocation && selectedRepository && this.resourceTitle && this.containerIndicator;
       const output = this.barcode && selectedLocation && selectedRepository && this.resourceTitle && this.containerIndicator;
       return !!output;
     },
@@ -826,7 +828,9 @@ export default {
     },
 
     changeRepositoryId: async function (newId) {
-      const fetchedResources = await this.fetchResources(this.selectedRepositoryId);
+      this.repositoryId = newId;
+
+      const fetchedResources = await this.fetchResources(this.repositoryId);
       this.resourceOptions = fetchedResources.map((resource) => {
         return {
           label: resource.title,
@@ -835,7 +839,7 @@ export default {
         };
       });
 
-      const fetchedContainers = await this.fetchContainers(this.selectedRepositoryId);
+      const fetchedContainers = await this.fetchContainers(this.repositoryId);
       this.containerOptions = fetchedContainers.map((resource) => {
         return {
           label: resource.indicator,
@@ -949,10 +953,11 @@ export default {
       if (!this.selectedRepositoryId) {
         return null;
       }
+      //debugger;
 
       const resolved = await this.repositories;
 
-      const model = resolved.find( repo => repo.id.toString() === this.selectedRepositoryId );
+      const model = resolved.find(repo => repo.id.toString() === this.selectedRepositoryId);
       return model;
     },
 
