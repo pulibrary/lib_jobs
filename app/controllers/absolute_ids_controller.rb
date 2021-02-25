@@ -31,7 +31,6 @@ class AbsoluteIdsController < ApplicationController
   # GET /absolute-ids
   # GET /absolute-ids.json
   def index
-    # @batches ||= AbsoluteId::Batch.where(user: current_user).reverse
     @sessions ||= begin
                     models = AbsoluteId::Session.where(user: current_user)
                     models.reverse
@@ -115,6 +114,7 @@ class AbsoluteIdsController < ApplicationController
         absolute_id = if params_valid
 
                         absolute_id_params = batch_params[:absolute_id]
+                        binding.pry
 
                         repository_param = absolute_id_params[:repository]
                         repository_id = repository_param[:id]
