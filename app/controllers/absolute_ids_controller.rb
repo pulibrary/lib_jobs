@@ -103,7 +103,7 @@ class AbsoluteIdsController < ApplicationController
   # POST /absolute-ids/batches
   # POST /absolute-ids/batches.json
   def create_batches
-    authorize! :create_batches, AbsoluteId
+    # authorize! :create_batches, AbsoluteId
 
     @batches = absolute_id_batches.map { |batch_params|
       batch_size = batch_params[:batch_size]
