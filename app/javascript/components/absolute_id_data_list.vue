@@ -240,6 +240,7 @@ export default {
 
       return displayed;
     },
+
     /*
     onClickOption(event, item) {
       event.preventDefault();
@@ -247,6 +248,7 @@ export default {
       this.item = item;
     },
     */
+
     inputblur(value) {
       this.$emit("inputblur", value)
     },

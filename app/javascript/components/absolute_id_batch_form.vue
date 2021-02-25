@@ -138,7 +138,9 @@ export default {
     },
 
     formValid: function () {
-      return this.batch.map( (b) => (b.valid) ).reduce( (u,v) => (u && v) );
+      return this.batch.map( (b) => {
+        return b.absolute_id && b.absolute_id.container && b.absolute_id.container_profile && b.absolute_id.location && b.absolute_id.repository && b.absolute_id.resource;
+      } ).reduce( (u,v) => (u && v) );
     },
 
     formData: function () {
@@ -296,10 +298,9 @@ export default {
 
       this.barcodes.push(newBarcode);
       this.batchSize.push(1);
+
       const newAbsoluteId = this.buildAbsoluteId();
       this.batch.push(newAbsoluteId);
-
-      //this.batchUpdates++;
     },
 
     getRepositories: async function () {
