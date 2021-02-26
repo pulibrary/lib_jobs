@@ -463,9 +463,7 @@ export default {
 
       const selectedContainerProfile = await this.selectedContainerProfile;
 
-      console.log(this.selectedRepositoryId);
       const selectedRepository = await this.getSelectedRepository();
-      console.log(selectedRepository);
 
       const selectedResource = await this.selectedResource;
       const selectedContainer = await this.selectedContainer;
@@ -489,9 +487,12 @@ export default {
       const selectedLocation = await this.selectedLocation;
 
       const selectedRepositoryId = await this.selectedRepositoryId;
+
       console.log(this);
       console.log(selectedRepositoryId);
+
       const selectedRepository = await this.getSelectedRepository();
+
       console.log(selectedRepository);
       console.log(this.repositoryId);
 
@@ -511,46 +512,18 @@ export default {
   },
 
   updated: async function () {
-    //this.$nextTick(function () {
 
-      if (this.value && this.value.absolute_id && this.value.absolute_id.location) {
-        if (!this.selectedLocationId) {
-          this.selectedLocationId = this.value.absolute_id.location.id;
-        }
-      }
+    this.updateValue();
 
-      if (this.value && this.value.absolute_id && this.value.absolute_id.container_profile) {
-        if (!this.selectedContainerProfileId) {
-          this.selectedContainerProfileId = this.value.absolute_id.container_profile.id;
-        }
-      }
+    this.barcode = this.parsedBarcode;
+    const base = this.barcode.slice(0, -1);
+    this.updateEndingBarcode(base);
 
-      if (this.value && this.value.absolute_id && this.value.absolute_id.repository) {
-        if (!this.selectedRepositoryId) {
-          this.selectedRepositoryId = this.value.absolute_id.repository.id;
-        }
-      }
-
-      if (this.value && this.value.absolute_id && this.value.absolute_id.resource) {
-        if (!this.selectedResourceId) {
-          this.selectedResourceId = this.value.absolute_id.resource.id;
-        }
-      }
-
-      if (this.value && this.value.absolute_id && this.value.absolute_id.container) {
-        if (!this.selectedContainerId) {
-          this.selectedContainerId = this.value.absolute_id.container.id;
-        }
-      }
-
-      const base = this.parsedBarcode.slice(0, -1);
-      this.updateEndingBarcode(base);
-
-      this.valid = await this.formValid;
-    //});
+    this.valid = await this.formValid;
   },
 
   mounted: async function () {
+
     const fetchedLocations = await this.locations;
     this.locationOptions = fetchedLocations.map((location) => {
       return {
@@ -583,6 +556,38 @@ export default {
   },
 
   methods: {
+
+    updateAbsoluteId: async function () {
+
+      if (this.value.absolute_id) {
+        if (this.value.absolute_id.location) {
+          this.selectedLocationId = this.value.absolute_id.location.id;
+        }
+
+        if (this.value.absolute_id.container_profile) {
+          this.selectedContainerProfileId = this.value.absolute_id.container_profile.id;
+        }
+
+        if (this.value.absolute_id.repository) {
+          this.selectedRepositoryId = this.value.absolute_id.repository.id;
+        }
+
+        if (this.value.absolute_id.resource) {
+          this.selectedResourceId = this.value.absolute_id.resource.id;
+        }
+
+        if (this.value.absolute_id.container) {
+          this.selectedContainerId = this.value.absolute_id.container.id;
+        }
+      }
+    },
+
+    updateValue: async function () {
+      if (this.value) {
+        await this.updateAbsoluteId();
+      }
+    },
+
     bar: function () {
       return this.parsedBarcode;
     },
@@ -689,7 +694,7 @@ export default {
 
       return {
         absolute_id: {
-          barcode: this.barcode,
+          barcode: this.parsedBarcode,
           location: selectedLocation,
           container_profile: selectedContainerProfile,
           repository: selectedRepository,
@@ -953,7 +958,6 @@ export default {
       if (!this.selectedRepositoryId) {
         return null;
       }
-      //debugger;
 
       const resolved = await this.repositories;
 
