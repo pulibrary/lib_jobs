@@ -108,7 +108,7 @@ class AbsoluteIdsController < ApplicationController
     @batches = absolute_id_batches.map { |batch_params|
       batch_size = batch_params[:batch_size]
 
-      children = batch_size.times.map do |_child_index|
+      children = batch_size.times.map do |child_index|
 
         params_valid = batch_params[:valid]
 
@@ -125,19 +125,25 @@ class AbsoluteIdsController < ApplicationController
                         container_param = absolute_id_params[:container]
 
                         resource_refs = current_client.find_resources_by_ead_id(repository_id: repository_id, ead_id: resource_param)
-                        raise ArgumentError if resource_refs.empty?
+                        raise(ArgumentError, "Failed to resolve the repository resources for #{resource_param} in repository #{repository_id}") if resource_refs.empty?
 
                         resource = repository.build_resource_from(refs: resource_refs)
 
                         container_docs = current_client.search_top_containers_by(repository_id: repository_id, query: container_param)
-                        raise ArgumentError if container_docs.empty?
+                        raise(ArgumentError, "Failed to resolve the containers for #{container_param} in repository #{repository_id}") if container_docs.empty?
 
                         top_container = repository.build_top_container_from(documents: container_docs)
-                        absolute_id_params[:container] = top_container
 
-                        absolute_id_params[:resource] = resource
+                        build_attributes = absolute_id_params.deep_dup
+                        build_attributes[:container] = top_container
+                        build_attributes[:resource] = resource
 
-                        AbsoluteId.generate(**absolute_id_params)
+                        # Update the barcode
+                        new_barcode_value = build_attributes[:barcode]
+                        new_barcode = AbsoluteIds::Barcode.new(new_barcode_value)
+                        new_barcode = new_barcode + child_index
+
+                        AbsoluteId.generate(**build_attributes)
                       else
                         raise ArgumentError
                       end
@@ -181,7 +187,6 @@ class AbsoluteIdsController < ApplicationController
       format.json { head :forbidden }
     end
   rescue ArgumentError => error
-    binding.pry
     Rails.logger.warn("Failed to create a new Absolute ID with invalid parameters.")
     Rails.logger.warn(JSON.generate(absolute_id_batches))
 
