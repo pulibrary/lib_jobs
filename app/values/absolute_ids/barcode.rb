@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 module AbsoluteIds
-  # class InvalidBarcodeError < StandardError; end
 
   class Barcode
     attr_reader :value
@@ -9,6 +8,17 @@ module AbsoluteIds
       raise InvalidBarcodeError, "Barcode values cannot be nil" if value.nil?
 
       @value = value
+    end
+
+    def +(addend)
+      new_integer = integer + addend
+      new_value = format("%013d", new_integer)
+      @value = new_value
+
+      new_check_digit = self.class.generate_check_digit(@value)
+      @check_digit = new_check_digit
+
+      self
     end
 
     def check_digit=(new_check_digit)
@@ -86,7 +96,8 @@ module AbsoluteIds
       return [] if @value.nil?
 
       output = @value.scan(/\d/)
-      output[0, 14]
+      #output[0, 14]
+      output[0, 13]
     end
 
     def attributes

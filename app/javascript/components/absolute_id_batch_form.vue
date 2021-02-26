@@ -143,9 +143,12 @@ export default {
       } ).reduce( (u,v) => (u && v) );
     },
 
-    formData: function () {
+    formData: async function () {
+      const resolvedBatch = this.batch;
+      console.log(resolvedBatch);
+
       return {
-        batch: this.batch
+        batch: resolvedBatch
       };
     }
   },
@@ -203,6 +206,9 @@ export default {
     /**
      * This updates two separate models: this.batch[index] and this.batchSize[index]
      */
+
+    // Is this used any longer?
+    /*
     onChangeBatchSize: function(event, batchIndex) {
       const entry = this.batch[batchIndex];
 
@@ -212,8 +218,11 @@ export default {
         entry.batch_size = Number.parseInt(event.target.value);
       }
 
+      console.log(entry);
+      console.log(entry.batch_size);
       this.batchSize[batchIndex] = entry.batch_size;
     },
+    */
 
     generateBarcode: function (index, updatedValue) {
       if (this.barcode.length < 1) {
@@ -379,7 +388,16 @@ export default {
       if (size < 1) {
         size = 1;
       }
+
+      // Should this be used?
       this.batchSize[batchIndex] = size;
+      const batch = this.batch[batchIndex];
+      if (batch) {
+        batch.batch_size = size;
+        console.log(batch);
+        this.$set(this.batch, batchIndex, batch);
+      }
+      console.log(this.batch[batchIndex]);
     },
 
     postData: async function (data = {}) {
