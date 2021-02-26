@@ -229,7 +229,7 @@ class AbsoluteId < ApplicationRecord
     ead_resource.delete(:user_mtime)
 
     if models.empty?
-      new_barcode = self.class.barcode_model.new(initial_value)
+      new_barcode = self.barcode_model.new(initial_value)
       new_check_digit = new_barcode.check_digit
       index = 0 if index.nil?
 
@@ -250,7 +250,7 @@ class AbsoluteId < ApplicationRecord
       next_integer = last_absolute_id.integer.to_i + 1
       next_value = format("%013d", next_integer)
 
-      new_barcode = self.class.barcode_model.new(next_value)
+      new_barcode = self.barcode_model.new(next_value)
       new_check_digit = new_barcode.check_digit
 
       if index.nil?

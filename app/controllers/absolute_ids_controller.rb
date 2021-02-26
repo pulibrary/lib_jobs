@@ -109,12 +109,12 @@ class AbsoluteIdsController < ApplicationController
       batch_size = batch_params[:batch_size]
 
       children = batch_size.times.map do |_child_index|
+
         params_valid = batch_params[:valid]
 
         absolute_id = if params_valid
 
                         absolute_id_params = batch_params[:absolute_id]
-                        binding.pry
 
                         repository_param = absolute_id_params[:repository]
                         repository_id = repository_param[:id]
@@ -181,6 +181,7 @@ class AbsoluteIdsController < ApplicationController
       format.json { head :forbidden }
     end
   rescue ArgumentError => error
+    binding.pry
     Rails.logger.warn("Failed to create a new Absolute ID with invalid parameters.")
     Rails.logger.warn(JSON.generate(absolute_id_batches))
 
