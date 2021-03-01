@@ -1,18 +1,24 @@
 <template>
   <div>
     <div>
-      <header>{{ header }}</header>
-      <form class="absolute-ids-sync-form" :action="synchronizeAction" :method="synchronizeMethod">
-        <grid-container>
-          <grid-item columns="lg-12 sm-12">
+      <grid-container>
+        <grid-item columns="lg-12 sm-12">
+          <header>{{ header }}</header>
+          <form class="absolute-ids-sync-form" :action="synchronizeAction" :method="synchronizeMethod">
             <button
               data-v-b7851b04
               class="lux-button solid lux-button absolute-ids-sync-form--submit"
               :disabled="synchronizing"
               @click.prevent="onSynchronizeSubmit">Synchronize</button>
-          </grid-item>
-        </grid-container>
-      </form>
+          </form>
+
+          <a
+            data-v-b7851b04
+            :href="sessionIdPath"
+            class="lux-button solid lux-button absolute-ids-sync-form--submit">Report</a>
+        </grid-item>
+
+      </grid-container>
     </div>
 
     <absolute-id-table
@@ -75,6 +81,11 @@ export default {
     synchronizeMethod: {
       type: String,
       default: 'POST'
+    },
+
+    sessionIdPath: {
+      type: String,
+      default: ''
     }
   },
   data() {

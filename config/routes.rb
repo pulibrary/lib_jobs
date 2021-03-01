@@ -20,6 +20,8 @@ Rails.application.routes.draw do
   get '/absolute-ids/container-profiles', to: 'absolute_ids/container_profiles#index'
   get '/absolute-ids/locations', to: 'absolute_ids/locations#index'
 
+  get '/absolute-ids/sessions/:session_id', to: 'absolute_ids#show_session', as: 'session_id'
+
   get '/absolute-ids/:value', to: 'absolute_ids#show', as: 'absolute_id'
   get '/absolute-ids', to: 'absolute_ids#index'
   post '/absolute-ids/synchronize', to: 'absolute_ids#synchronize'
