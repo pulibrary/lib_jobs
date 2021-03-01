@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class AbsoluteId < ApplicationRecord
-  belongs_to :batch, optional: true
+  belongs_to :absolute_id_batch, optional: true
 
   def self.barcode_model
     AbsoluteIds::Barcode
