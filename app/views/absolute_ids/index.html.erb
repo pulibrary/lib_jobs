@@ -17,7 +17,7 @@
           :columns="<%= JSON.generate(table_columns) %>"
           :session="<%= absolute_id_session.as_json %>"
           token="<%= current_user.token %>"
-          synchronize-action="<%= absolute_ids_synchronize_path %>"
+          synchronize-action="<%= synchronize_session_path(absolute_id_session) %>"
           session-id-path="<%= session_id_path(absolute_id_session, format: 'txt') %>"
         />
       </div>

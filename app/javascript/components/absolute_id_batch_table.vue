@@ -9,7 +9,7 @@
               data-v-b7851b04
               class="lux-button solid lux-button absolute-ids-sync-form--submit"
               :disabled="synchronizing"
-              @click.prevent="onSynchronizeSubmit">Synchronize</button>
+              @click.prevent="onSynchronizeSubmit">{{ synchronizeLabel }}</button>
           </form>
 
           <a
@@ -93,6 +93,17 @@ export default {
       rows: this.jsonData,
       parsedColumns: [],
       synchronizing: !this.synchronized
+    }
+  },
+  computed: {
+    synchronizeLabel: function() {
+
+      let output = 'Synchronize';
+      if (this.synchronizing) {
+        output = 'Synchronizing';
+      }
+
+      return output;
     }
   },
   methods: {

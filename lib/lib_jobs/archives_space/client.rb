@@ -162,6 +162,7 @@ module LibJobs
           return cached
         end
 
+        binding.pry
         uri_path = uri.sub(base_uri, '')
 
         # response = get("/#{resource_class.name.demodulize.pluralize.underscore}/#{id}")

@@ -12,13 +12,6 @@ class AbsoluteIdImportJob < ApplicationJob
       barcode: barcode
     }
 
-    #prefix: prefix,
-    #call_number: call_number,
-    #repo_code: repo_code,
-
-    # Is this needed?
-    # container_indicator = format("%s-%06d", prefix, index)
-
     # Determine if this has been imported yet
     persisted_absolute_id = AbsoluteId.find_by(value: barcode)
     if !persisted_absolute_id.nil?
