@@ -203,7 +203,6 @@ class AbsoluteIdsController < ApplicationController
                         new_barcode = new_barcode + child_index
                         build_attributes[:barcode] = new_barcode.value
 
-                        # Query
                         generated = AbsoluteId.generate(**build_attributes)
                         generated
                       else
@@ -327,40 +326,6 @@ class AbsoluteIdsController < ApplicationController
   end
 
   private
-
-  # Deprecate
-  def build_resource_from(repository_id:, refs:)
-    resource_ref = refs.first
-
-    repository_attributes = {
-      client: current_client,
-      id: repository_id,
-      uri: "repositories/#{repository_id}"
-    }
-
-    repository = LibJobs::ArchivesSpace::Repository.new(repository_attributes)
-
-    ref_path = resource_ref['ref']
-    segments = ref_path.split('/')
-    resource_id = segments.last
-
-    repository.find_resource(id: resource_id)
-  end
-
-  # Deprecate
-  # Move to ArchivesSpace::LibJobs::TopContainer.build_container_from
-  def build_container_from(repository_id:, documents:)
-    container_doc = documents.first
-    parsed = JSON.parse(container_doc['json'])
-
-    response_body_json = parsed.transform_keys(&:to_sym)
-
-    repository_json = { uri: "#{current_client.config.base_uri}/repositories/#{repository_id}" }
-    repository_obj = OpenStruct.new(repository_json)
-    response_body_json[:repository] = repository_obj
-
-    LibJobs::ArchivesSpace::TopContainer.new(**response_body_json)
-  end
 
   def value
     params[:value]

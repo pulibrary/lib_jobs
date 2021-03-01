@@ -1,19 +1,20 @@
-
 class AbsoluteIdImportJob < ApplicationJob
   def perform(sequence_entry)
     prefix = sequence_entry[:prefix]
     index = sequence_entry[:index]
     call_number = sequence_entry[:call_number]
+    container_indicator = sequence_entry[:container_indicator]
     repo_code = sequence_entry[:repo_code]
     barcode = sequence_entry[:barcode]
 
     imported_attributes = {
-      prefix: prefix,
       index: index,
-      call_number: call_number,
-      repo_code: repo_code,
       barcode: barcode
     }
+
+    #prefix: prefix,
+    #call_number: call_number,
+    #repo_code: repo_code,
 
     # Is this needed?
     # container_indicator = format("%s-%06d", prefix, index)
@@ -27,28 +28,27 @@ class AbsoluteIdImportJob < ApplicationJob
 
     # Container Profile
     container_profile_name = AbsoluteId.prefixes.invert[prefix]
-
-    ## This is an optimization
     container_profiles = client.select_container_profiles_by(name: container_profile_name)
-
     container_profile = container_profiles.first
     if !container_profile.nil?
       imported_attributes[:container_profile] = container_profile
+    else
+      imported_attributes[:unencoded_container_profile] = container_profile
     end
 
     # Location
-    ## This is an optimization
     locations = client.select_locations_by(classification: repo_code)
-
     location = locations.first
     if !location.nil?
       imported_attributes[:location] = location
+    else
+      # Set the repo code for a legacy value
+      imported_attributes[:unencoded_location] = repo_code
     end
 
     # Repository
     repositories = client.select_repositories_by(repo_code: repo_code)
     repository = repositories.first
-
     if !repository.nil?
       imported_attributes[:repository] = repository
 
@@ -58,6 +58,8 @@ class AbsoluteIdImportJob < ApplicationJob
       if !resource_refs.empty?
         resource = repository.build_resource_from(refs: resource_refs)
         imported_attributes[:resource] = resource
+      else
+        binding.pry
       end
 
       # Container
@@ -65,7 +67,14 @@ class AbsoluteIdImportJob < ApplicationJob
       top_container = top_containers.first
       if !top_container.nil?
         imported_attributes[:container] = top_container
+      else
+        binding.pry
       end
+    else
+      # Set the legacy repository for a legacy value
+      imported_attributes[:unencoded_repository] = repo_code
+      imported_attributes[:unencoded_resource] = call_number
+      imported_attributes[:unencoded_container] = container_indicator
     end
 
     new_absolute_id = AbsoluteId.generate(imported_attributes)
