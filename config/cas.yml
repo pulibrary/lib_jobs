@@ -4,6 +4,11 @@ production:
   url: <%= ENV['CAS_URL'] || 'https://fed.princeton.edu/cas' %>
   after_sign_out_url: <%= ENV['CAS_LOGOUT_URL'] || 'https://fed.princeton.edu/cas/logout' %>
 
+staging:
+  host: <%= ENV['CAS_HOST'] || 'fed.princeton.edu' %>
+  url: <%= ENV['CAS_URL'] || 'https://fed.princeton.edu/cas' %>
+  after_sign_out_url: <%= ENV['CAS_LOGOUT_URL'] || 'https://fed.princeton.edu/cas/logout' %>
+
 development:
   host: <%= ENV['CAS_HOST'] || 'fed.princeton.edu' %>
   url: <%= ENV['CAS_URL'] || 'https://fed.princeton.edu/cas' %>
