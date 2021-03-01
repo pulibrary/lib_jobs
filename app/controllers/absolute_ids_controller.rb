@@ -100,6 +100,48 @@ class AbsoluteIdsController < ApplicationController
     container_id = absolute_id_params[:container_id]
   end
 
+  def container_attributes(attr)
+    container_resource = JSON.parse(attr.to_json)
+    container_resource.delete(:create_time)
+    container_resource.delete(:system_mtime)
+    container_resource.delete(:user_mtime)
+
+    container_resource
+  end
+
+  def location_attributes(attr)
+    location_resource = JSON.parse(attr.to_json)
+
+    location_resource
+  end
+
+  def repository_attributes(attr)
+    repository_resource = JSON.parse(attr.to_json)
+    repository_resource.delete(:create_time)
+    repository_resource.delete(:system_mtime)
+    repository_resource.delete(:user_mtime)
+
+    repository_resource
+  end
+
+  def resource_attributes(attr)
+    ead_resource = JSON.parse(attr.to_json)
+    ead_resource.delete(:create_time)
+    ead_resource.delete(:system_mtime)
+    ead_resource.delete(:user_mtime)
+
+    ead_resource
+  end
+
+  def container_profile_attributes(attr)
+    container_profile_resource = attr
+    container_profile_resource.delete(:create_time)
+    container_profile_resource.delete(:system_mtime)
+    container_profile_resource.delete(:user_mtime)
+
+    container_profile_resource
+  end
+
   # POST /absolute-ids/batches
   # POST /absolute-ids/batches.json
   def create_batches
@@ -135,15 +177,35 @@ class AbsoluteIdsController < ApplicationController
                         top_container = repository.build_top_container_from(documents: container_docs)
 
                         build_attributes = absolute_id_params.deep_dup
-                        build_attributes[:container] = top_container
-                        build_attributes[:resource] = resource
+
+                        location_resource = location_attributes(build_attributes[:location])
+                        build_attributes[:location] = location_resource
+
+                        container_profile_resource = container_profile_attributes(build_attributes[:container_profile])
+                        build_attributes[:container_profile] = container_profile_resource
+
+                        build_attributes[:repository] = repository_attributes(build_attributes[:repository])
+
+                        build_attributes[:resource] = resource_attributes(resource)
+
+                        build_attributes[:container] = container_attributes(top_container)
+
+                        persisted = AbsoluteId.where(location: location_resource.to_json, container_profile: container_profile_resource.to_json)
+                        index = child_index
+                        if !persisted.empty?
+                          index += persisted.last.index + 1
+                        end
+                        build_attributes[:index] = index
 
                         # Update the barcode
                         new_barcode_value = build_attributes[:barcode]
                         new_barcode = AbsoluteIds::Barcode.new(new_barcode_value)
                         new_barcode = new_barcode + child_index
+                        build_attributes[:barcode] = new_barcode.value
 
-                        AbsoluteId.generate(**build_attributes)
+                        # Query
+                        generated = AbsoluteId.generate(**build_attributes)
+                        generated
                       else
                         raise ArgumentError
                       end
