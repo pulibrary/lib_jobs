@@ -64,36 +64,9 @@ module LibJobs
         children(resource_class: TopContainer, model_class: top_container_model)
       end
 
-=begin
-        @active_restrictions = @values.active_restrictions
-        @barcode = @values.barcode
-        @collection = @values.collection
-        @exported_to_ils = @values.exported_to_ils
-        @ils_holding_id = @values.ils_holding_id
-        @ils_item_id = @values.ils_item_id
-        @indicator = @values.indicator
-        @series = @values.series
-        @type = @values.type
-=end
-
       def search_top_containers(query:)
-        #response = client.post("/repositories/#{@id}/#{resource_class.name.demodulize.pluralize.underscore}/#{child.id}", child.to_params)
-        path = "/repositories/#{@id}/top_containers/search?q=#{query}"
-        response = client.get(path)
-
-        # return nil if response.status != 200
-        return [] if response.status.code != "200"
-
-        solr_response = response.parsed["response"]
-        docs = solr_response["docs"]
-
-        docs.map do |doc|
-
-          response_body_json = doc.transform_keys(&:to_sym)
-          response_body_json[:repository] = self
-          # response_body_json[:uri] = uri_path
-
-          TopContainer.new(response_body_json)
+        top_containers.select do |container|
+          container.indicator == query
         end
       end
 
