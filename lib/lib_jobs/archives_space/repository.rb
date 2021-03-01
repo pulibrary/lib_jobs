@@ -71,7 +71,7 @@ module LibJobs
       end
 
       def find_child(uri:, resource_class:, model_class:)
-        cached = model_class.find_cached(uri)
+        cached = model_class.find_cached(uri.to_s)
         if !cached.nil?
           return cached
         end
@@ -119,7 +119,7 @@ module LibJobs
 
         model_class.uncache(child)
 
-        find_child(uri: child.uri, resource_class: child.class)
+        find_child(uri: child.uri.to_s, resource_class: resource_class, model_class: model_class)
       end
 
       def update_top_container(top_container)

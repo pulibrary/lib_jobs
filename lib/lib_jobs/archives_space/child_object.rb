@@ -6,25 +6,25 @@ module LibJobs
 
         @repository = @values.repository
         @repository_uri = @values.repository_uri
+        @repository_id = @values.repository_id
       end
 
       def repository
         @repository ||= begin
                           return unless client
-                          client.find_repository_by(uri: repository_uri)
+
+                          if @repository_id
+                            client.find_repository(id: @repository_id)
+                          else
+                            client.find_repository(uri: @repository_uri)
+                          end
                         end
-      end
-
-      def client
-        return if repository.nil?
-
-        repository.client
       end
 
       def update
         return if repository.nil?
 
-        repository.update_child(self)
+        repository.update_child(child: self, model_class: self.class)
       end
     end
   end

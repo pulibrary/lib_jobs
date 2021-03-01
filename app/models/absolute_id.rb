@@ -204,31 +204,6 @@ class AbsoluteId < ApplicationRecord
                     else
                       default_initial_value
                     end
-    #models = all
-
-=begin
-    container_profile_resource = container_profile
-    container_profile_resource.delete(:create_time)
-    container_profile_resource.delete(:system_mtime)
-    container_profile_resource.delete(:user_mtime)
-
-    container_resource = JSON.parse(container.to_json)
-    container_resource.delete(:create_time)
-    container_resource.delete(:system_mtime)
-    container_resource.delete(:user_mtime)
-
-    location_resource = JSON.parse(location.to_json)
-
-    repository_resource = JSON.parse(repository.to_json)
-    repository_resource.delete(:create_time)
-    repository_resource.delete(:system_mtime)
-    repository_resource.delete(:user_mtime)
-
-    ead_resource = JSON.parse(resource.to_json)
-    ead_resource.delete(:create_time)
-    ead_resource.delete(:system_mtime)
-    ead_resource.delete(:user_mtime)
-=end
 
     new_barcode = self.barcode_model.new(initial_value)
     new_check_digit = new_barcode.check_digit
