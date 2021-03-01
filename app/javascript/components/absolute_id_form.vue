@@ -488,23 +488,7 @@ export default {
 
       const selectedRepositoryId = await this.selectedRepositoryId;
 
-      console.log(this);
-      console.log(selectedRepositoryId);
-
       const selectedRepository = await this.getSelectedRepository();
-
-      console.log(selectedRepository);
-      console.log(this.repositoryId);
-
-      //const selectedResource = await this.selectedResource;
-      //const selectedContainer = await this.selectedContainer;
-
-      console.log(this.parsedBarcode);
-      console.log(selectedLocation);
-
-      //console.log(selectedResource);
-      //console.log(selectedContainer);
-      //const output = this.parsedBarcode && selectedLocation && selectedRepository && selectedResource && selectedContainer;
 
       const output = this.parsedBarcode && selectedLocation && selectedRepository && this.resourceTitle && this.containerIndicator;
       return !!output;
