@@ -204,7 +204,7 @@ class AbsoluteId < ApplicationRecord
                     else
                       default_initial_value
                     end
-    models = all
+    #models = all
 
 =begin
     container_profile_resource = container_profile
@@ -232,59 +232,30 @@ class AbsoluteId < ApplicationRecord
 
     new_barcode = self.barcode_model.new(initial_value)
     new_check_digit = new_barcode.check_digit
-    if models.empty?
-      #new_barcode = self.barcode_model.new(initial_value)
-      #new_check_digit = new_barcode.check_digit
-      #index = 0 if index.nil?
 
-      create(
-        value: initial_value,
-        check_digit: new_check_digit,
-        initial_value: initial_value,
+    model_attributes = {
+      value: initial_value,
+      check_digit: new_check_digit,
+      initial_value: initial_value,
 
-        container_profile: container_profile_resource.to_json,
-        container: container_resource.to_json,
-        location: location_resource.to_json,
-        repository: repository_resource.to_json,
-        resource: ead_resource.to_json,
-        index: index.to_i
-      )
+      container_profile: container_profile_resource.to_json,
+      container: container_resource.to_json,
+      resource: ead_resource.to_json,
+      index: index.to_i
+    }
+
+    if attributes.key(:unencoded_location)
+      model_attributes[:unencoded_location] = attributes[:unencoded_location]
     else
-      last_absolute_id = models.last
-      next_integer = last_absolute_id.integer.to_i + 1
-      next_value = format("%013d", next_integer)
-
-      #new_barcode = self.barcode_model.new(next_value)
-      #new_check_digit = new_barcode.check_digit
-
-=begin
-      if index.nil?
-
-        # Find persisted indices
-        persisted = where(location: location_resource.to_json, container_profile: container_profile_resource.to_json)
-
-        #if !persisted.nil?
-        if !persisted.empty?
-          index = persisted.last.index.to_i + 1
-          #index = persisted.index.to_i + 1
-        else
-          index = 0
-        end
-      end
-=end
-
-      create(
-        value: initial_value,
-        check_digit: new_check_digit,
-        initial_value: initial_value,
-
-        container_profile: container_profile_resource.to_json,
-        container: container_resource.to_json,
-        location: location_resource.to_json,
-        repository: repository_resource.to_json,
-        resource: ead_resource.to_json,
-        index: index.to_i
-      )
+      model_attributes[:location] = location_resource.to_json
     end
+
+    if attributes.key(:unencoded_repository)
+      model_attributes[:unencoded_repository] = attributes[:unencoded_repository]
+    else
+      model_attributes[:repository] = repository_resource.to_json
+    end
+
+    create(**model_attributes)
   end
 end

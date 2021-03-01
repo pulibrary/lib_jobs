@@ -1,13 +1,11 @@
 
 class AbsoluteIdImporter
-
   def initialize(barcode_csv_file_path:, sequence_csv_file_path:)
     @barcode_csv_file_path = barcode_csv_file_path
     @sequence_csv_file_path = sequence_csv_file_path
   end
 
   def import
-    # def perform(barcode_entries:, sequence_entries:)
     AbsoluteIdBatchImportJob.perform_now(barcode_entries: barcode_entries, sequence_entries: sequence_entries)
   end
 
