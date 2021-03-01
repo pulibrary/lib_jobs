@@ -193,14 +193,14 @@ class AbsoluteIdsController < ApplicationController
                         persisted = AbsoluteId.where(location: location_resource.to_json, container_profile: container_profile_resource.to_json)
                         index = child_index
                         if !persisted.empty?
-                          index += persisted.last.index + 1
+                          index += persisted.last.index.to_i + 1
                         end
-                        build_attributes[:index] = index
+                        build_attributes[:index] = index.to_s
 
                         # Update the barcode
                         new_barcode_value = build_attributes[:barcode]
                         new_barcode = AbsoluteIds::Barcode.new(new_barcode_value)
-                        new_barcode = new_barcode + child_index
+                        new_barcode = new_barcode + child_index.to_i
                         build_attributes[:barcode] = new_barcode.value
 
                         generated = AbsoluteId.generate(**build_attributes)
