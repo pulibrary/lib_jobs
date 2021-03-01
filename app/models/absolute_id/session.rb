@@ -17,7 +17,25 @@ class AbsoluteId::Session < ApplicationRecord
     JSON.generate(attributes)
   end
 
-  def to_txt
+  def to_yaml
     YAML.dump(attributes)
+  end
+
+  def to_txt
+    CSV.generate(col_sep: " | ") do |csv|
+      csv << ["User", "Barcode", "Label", "Location", "Container Profile", "Repository", "Call Number", "Box Number"]
+
+      batches.map(&:attributes).each do |batch|
+        batch[:tableData].each do |entry|
+          location = entry[:location][:value]
+          container_profile = entry[:container_profile][:value]
+          repository = entry[:repository][:value]
+          resource = entry[:resource][:value]
+          container = entry[:container][:value]
+
+          csv << [entry[:user], entry[:barcode], entry[:label], location, container_profile, repository, resource, container]
+        end
+      end
+    end
   end
 end

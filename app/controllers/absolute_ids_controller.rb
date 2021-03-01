@@ -293,6 +293,7 @@ class AbsoluteIdsController < ApplicationController
     else
       respond_to do |format|
         format.json { render json: @session }
+        format.yaml { render yaml: @session.to_yaml }
       end
     end
   end
