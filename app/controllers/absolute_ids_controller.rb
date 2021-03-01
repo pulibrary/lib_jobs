@@ -234,6 +234,11 @@ class AbsoluteIdsController < ApplicationController
       format.json do
         head :found, location: absolute_ids_path(format: :json)
       end
+
+      format.text do
+        head :found, location: absolute_ids_path(format: :json)
+      end
+
     end
   rescue CanCan::AccessDenied
     warning_message = if current_user_params.nil?
@@ -274,6 +279,21 @@ class AbsoluteIdsController < ApplicationController
     respond_to do |format|
       format.html { render :index }
       format.json { render json: @absolute_ids }
+    end
+  end
+
+  def show_session
+    session_id = params[:session_id]
+    @session ||= begin
+                   AbsoluteId::Session.find_by(user: current_user, id: session_id)
+                 end
+
+    if request.format.text?
+      render text: @session.to_txt
+    else
+      respond_to do |format|
+        format.json { render json: @session }
+      end
     end
   end
 

@@ -4,7 +4,6 @@ class AbsoluteId::Session < ApplicationRecord
   belongs_to :user
 
   def label
-    # format("Session %06d (%s)", id, created_at.strftime('%m/%d/%Y'))
     format("Session %d (%s)", id, created_at.strftime('%m/%d/%Y'))
   end
 
@@ -16,5 +15,9 @@ class AbsoluteId::Session < ApplicationRecord
 
   def as_json(options = nil)
     JSON.generate(attributes)
+  end
+
+  def to_txt
+    YAML.dump(attributes)
   end
 end

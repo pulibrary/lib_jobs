@@ -18,6 +18,7 @@
           :session="<%= absolute_id_session.as_json %>"
           token="<%= current_user.token %>"
           synchronize-action="<%= absolute_ids_synchronize_path %>"
+          session-id-path="<%= session_id_path(absolute_id_session, format: 'txt') %>"
         />
       </div>
     <% end %>
