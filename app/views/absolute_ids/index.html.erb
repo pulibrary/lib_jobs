@@ -10,9 +10,7 @@
   <% end %>
 
   <% if current_user && !@sessions.empty? %>
-
     <% @sessions.each do |absolute_id_session| %>
-
       <div class="lux absolute-ids-session">
         <absolute-id-batch-table
           header="<%= absolute_id_session.label %>"
