@@ -31,6 +31,8 @@ module LibJobs
 
       def start_date
         @start_date ||= begin
+                          return nil if create_time.nil?
+
                           segments = create_time.split('T')
                           segments.first
                         end

@@ -19,7 +19,7 @@ module LibJobs
         super(attributes)
 
         @area = attributes[:area]
-        @barcode = attributes[:building]
+        @barcode = attributes[:barcode]
         @building = attributes[:building]
         @classification = attributes[:classification]
         @external_ids = attributes[:external_ids]

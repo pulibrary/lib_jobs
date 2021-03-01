@@ -2,9 +2,12 @@
 class ArchivesSpaceSyncJob < ApplicationJob
   queue_as :default
 
-  def perform(user_id:, absolute_id_id:)
+  def perform(user_id:, model_id:)
     @user_id = user_id
-    @absolute_id_value = absolute_id_id
+    @model_id = model_id
+
+    return if container.to_h.empty?
+    return if location.to_h.empty?
 
     update_top_container(uri: container.uri, barcode: absolute_id.barcode, indicator: absolute_id.label, location: location)
   end
@@ -16,19 +19,19 @@ class ArchivesSpaceSyncJob < ApplicationJob
   end
 
   def absolute_id
-    @absolute_id ||= AbsoluteId.find_by(id: @absolute_id_value)
+    @absolute_id ||= AbsoluteId.find_by(id: @model_id)
   end
 
   def container
-    absolute_id.container
+    absolute_id.container_object
   end
 
   def location
-    absolute_id.location
+    absolute_id.location_object
   end
 
   def repository
-    absolute_id.repository
+    absolute_id.repository_object
   end
 
   class ArchivesSpaceClientMapper
@@ -53,18 +56,6 @@ class ArchivesSpaceSyncJob < ApplicationJob
       raise("#{yaml_file_path} was found, but could not be parsed: \n#{e.inspect}")
     end
 
-    def self.find_sync_location_uri(source_uri)
-      sync_config.locations[source_uri]
-    end
-
-    def self.find_sync_repository_uri(source_uri)
-      sync_config.repositories[source_uri]
-    end
-
-    def self.find_sync_container_uri(source_uri)
-      sync_config.top_containers[source_uri]
-    end
-
     def sync_client
       @sync_client ||= begin
                         client = LibJobs::ArchivesSpace::Client.sync
@@ -82,18 +73,18 @@ class ArchivesSpaceSyncJob < ApplicationJob
     end
 
     def find_sync_repository(uri:)
-      mapped_uri = self.class.find_sync_repository_uri(uri)
-      sync_client.find_repository(uri: mapped_uri)
+      #mapped_uri = self.class.find_sync_repository_uri(uri)
+      sync_client.find_repository(uri: uri)
     end
 
     def find_sync_location(uri:)
-      mapped_uri = self.class.find_sync_location_uri(uri)
-      sync_client.find_location(uri: mapped_uri)
+      #mapped_uri = self.class.find_sync_location_uri(uri)
+      sync_client.find_location(uri: uri)
     end
 
     def find_sync_top_container(uri:)
-      mapped_uri = self.class.find_sync_container_uri(uri)
-      sync_repository.find_top_container(uri: mapped_uri)
+      #mapped_uri = self.class.find_sync_container_uri(uri)
+      sync_repository.find_top_container(uri: uri)
     end
   end
 
@@ -102,30 +93,26 @@ class ArchivesSpaceSyncJob < ApplicationJob
   end
 
   def update_top_container(uri:, barcode:, indicator:, location:)
-    #absolute_id.locking_user = user
-    #absolute_id.save
-    #absolute_id.reload
-
     sync_container = client_mapper.find_sync_top_container(uri: uri)
     if sync_container.nil?
       raise ArchivesSpaceSyncError, "Failed to locate the container resource for #{uri}"
     end
 
-    current_locations = container.locations
+    current_locations = container.container_locations
 
     sync_location = client_mapper.find_sync_location(uri: location.uri)
     if sync_location.nil?
       raise ArchivesSpaceSyncError, "Failed to locate the location resource for #{location.uri}"
     end
 
-    diff = [sync_location] - current_locations
-    updated_locations = current_locations + diff
+    location_models = current_locations.map do |attrs|
+      LibJobs::ArchivesSpace::Location.new(attrs)
+    end
+
+    updated_locations = location_models.reject do |location_model|
+      location_model.uri.to_s == sync_location.uri.to_s
+    end
 
     sync_container.update(barcode: barcode.value, indicator: indicator, container_locations: updated_locations)
-
-    #absolute_id.locking_user = nil
-    #absolute_id.synchronized = true
-    #absolute_id.synchronized_on = DateTime.now
-    #absolute_id.save
   end
 end
