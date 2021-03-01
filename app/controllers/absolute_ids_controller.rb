@@ -212,7 +212,7 @@ class AbsoluteIdsController < ApplicationController
 
       if !children.empty?
         batch = AbsoluteId::Batch.create(absolute_ids: children, user: current_user)
-        batch.save
+        batch.save!
         Rails.logger.info("Batch created: #{batch.id}")
         batch
       end
@@ -220,8 +220,8 @@ class AbsoluteIdsController < ApplicationController
 
     if !@batches.empty?
       @session = AbsoluteId::Session.create(batches: @batches, user: current_user)
-      @session.save
-      Rails.logger.info("Batch created: #{@session.id}")
+      @session.save!
+      Rails.logger.info("Session created: #{@session.id}")
       @session
     end
 
