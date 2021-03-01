@@ -213,6 +213,7 @@ class AbsoluteIdsController < ApplicationController
       if !children.empty?
         batch = AbsoluteId::Batch.create(absolute_ids: children, user: current_user)
         batch.save
+        Rails.logger.info("Batch created: #{batch.id}")
         batch
       end
     }.flatten
@@ -220,6 +221,8 @@ class AbsoluteIdsController < ApplicationController
     if !@batches.empty?
       @session = AbsoluteId::Session.create(batches: @batches, user: current_user)
       @session.save
+      Rails.logger.info("Batch created: #{@session.id}")
+      @session
     end
 
     respond_to do |format|
@@ -250,6 +253,7 @@ class AbsoluteIdsController < ApplicationController
   rescue ArgumentError => error
     Rails.logger.warn("Failed to create a new Absolute ID with invalid parameters.")
     Rails.logger.warn(JSON.generate(absolute_id_batches))
+    raise error
 
     respond_to do |format|
       format.json { head(400) }
