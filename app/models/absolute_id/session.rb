@@ -5,7 +5,8 @@ class AbsoluteId::Session < ApplicationRecord
   belongs_to :user
 
   def label
-    format("Session %06d (%s)", id, created_at.strftime('%m/%d/%Y'))
+    # format("Session %06d (%s)", id, created_at.strftime('%m/%d/%Y'))
+    format("Session %d (%s)", id, created_at.strftime('%m/%d/%Y'))
   end
 
   def attributes

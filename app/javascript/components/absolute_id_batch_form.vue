@@ -31,18 +31,18 @@
             @change="onChangeBatchSize($event, index)">
           </input-text>
 
-        <button
-          v-if="index > 0"
-          data-v-b7851b04
-          class="lux-button solid lux-button absolute-ids-batch-form--remove"
-          :disabled="submitting"
-          @click.prevent="onClickRemove(index)">Remove Batch</button>
+          <button
+            v-if="index > 0"
+            data-v-b7851b04
+            class="lux-button solid lux-button absolute-ids-batch-form--remove"
+            :disabled="submitting"
+            @click.prevent="onClickRemove(index)">Remove Batch</button>
         </fieldset>
       </fieldset>
     </template>
 
     <grid-container>
-      <grid-item columns="lg-12 sm-12">
+      <grid-item columns="lg-12 sm-12" class="absolute-ids-batch-form--batch-button">
         <button
           data-v-b7851b04
           class="lux-button solid lux-button absolute-ids-batch-form--add-form"
@@ -50,7 +50,7 @@
           @click.prevent="onClickAdd">Add Batch</button>
       </grid-item>
 
-      <grid-item columns="lg-12 sm-12">
+      <grid-item columns="lg-12 sm-12" class="absolute-ids-batch-form--batch-button">
         <button
           data-v-b7851b04
           class="lux-button solid large lux-button absolute-ids-batch-form--submit"

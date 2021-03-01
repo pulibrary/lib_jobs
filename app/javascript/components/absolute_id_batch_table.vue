@@ -84,9 +84,6 @@ export default {
       synchronizing: !this.synchronized
     }
   },
-  created: function() {
-    // Remove this?
-  },
   methods: {
     postData: async function () {
       const response = await fetch(this.synchronizeAction, {
