@@ -192,11 +192,11 @@ class AbsoluteId < ApplicationRecord
   end
 
   def self.generate(**attributes)
-    container_profile = attributes[:container_profile]
-    container = attributes[:container]
-    location = attributes[:location]
-    repository = attributes[:repository]
-    resource = attributes[:resource]
+    container_profile_resource = attributes[:container_profile]
+    container_resource = attributes[:container]
+    location_resource = attributes[:location]
+    repository_resource = attributes[:repository]
+    ead_resource = attributes[:resource]
     index = attributes[:index]
 
     initial_value = if attributes.key?(:barcode)
@@ -206,6 +206,7 @@ class AbsoluteId < ApplicationRecord
                     end
     models = all
 
+=begin
     container_profile_resource = container_profile
     container_profile_resource.delete(:create_time)
     container_profile_resource.delete(:system_mtime)
@@ -227,11 +228,14 @@ class AbsoluteId < ApplicationRecord
     ead_resource.delete(:create_time)
     ead_resource.delete(:system_mtime)
     ead_resource.delete(:user_mtime)
+=end
 
+    new_barcode = self.barcode_model.new(initial_value)
+    new_check_digit = new_barcode.check_digit
     if models.empty?
-      new_barcode = self.barcode_model.new(initial_value)
-      new_check_digit = new_barcode.check_digit
-      index = 0 if index.nil?
+      #new_barcode = self.barcode_model.new(initial_value)
+      #new_check_digit = new_barcode.check_digit
+      #index = 0 if index.nil?
 
       create(
         value: initial_value,
@@ -250,9 +254,10 @@ class AbsoluteId < ApplicationRecord
       next_integer = last_absolute_id.integer.to_i + 1
       next_value = format("%013d", next_integer)
 
-      new_barcode = self.barcode_model.new(next_value)
-      new_check_digit = new_barcode.check_digit
+      #new_barcode = self.barcode_model.new(next_value)
+      #new_check_digit = new_barcode.check_digit
 
+=begin
       if index.nil?
 
         # Find persisted indices
@@ -266,9 +271,10 @@ class AbsoluteId < ApplicationRecord
           index = 0
         end
       end
+=end
 
       create(
-        value: next_value,
+        value: initial_value,
         check_digit: new_check_digit,
         initial_value: initial_value,
 
