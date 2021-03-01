@@ -171,10 +171,10 @@ class AbsoluteIdsController < ApplicationController
 
                         resource = repository.build_resource_from(refs: resource_refs)
 
-                        container_docs = current_client.search_top_containers_by(repository_id: repository_id, query: container_param)
-                        raise(ArgumentError, "Failed to resolve the containers for #{container_param} in repository #{repository_id}") if container_docs.empty?
+                        containers = current_client.search_top_containers_by(repository_id: repository_id, query: container_param)
+                        raise(ArgumentError, "Failed to resolve the containers for #{container_param} in repository #{repository_id}") if containers.empty?
 
-                        top_container = repository.build_top_container_from(documents: container_docs)
+                        top_container = containers.first
 
                         build_attributes = absolute_id_params.deep_dup
 
