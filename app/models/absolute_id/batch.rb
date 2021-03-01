@@ -1,7 +1,7 @@
 class AbsoluteId::Batch < ApplicationRecord
   include ActiveModel::Serializers::JSON
   has_many :absolute_ids
-  belongs_to :absolute_id_session, optional: true
+  belongs_to :session, class_name: 'AbsoluteId::Session', optional: true
   belongs_to :user
 
   def label
