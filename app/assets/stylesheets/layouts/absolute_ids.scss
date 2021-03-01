@@ -53,21 +53,19 @@
   }
 
   &-batch-form {
+    &--batch-button.lg-12 {
+
+      @media only screen and (min-width: 900px) {
+        display: inline-flex;
+        flex-basis: 8%;
+      }
+        display: inline-flex;
+        flex-basis: 34%;
+    }
+
     &--batch-size {
       div {
         display: inline-flex;
-      }
-    }
-
-    &--add-form {
-      &.lux-button.solid[data-v-b7851b04] {
-        float: right;
-      }
-    }
-
-    &--submit {
-      &.lux-button.solid[data-v-b7851b04] {
-        float: right;
       }
     }
 
@@ -75,6 +73,17 @@
       &.lux-button.solid[data-v-b7851b04] {
         float: right;
         background-color: $color-red;
+
+        padding-top: 0.95rem;
+        padding-bottom: 0.95rem;
+      }
+
+      &.lux-button.solid[data-v-b7851b04]:hover {
+        background-color: #982813;
+      }
+
+      &.lux-button.solid[data-v-b7851b04]:focus {
+        background-color: #982813;
       }
     }
   }
@@ -83,8 +92,18 @@
     margin-top: 3.35rem;
     margin-bottom: 3.35rem;
 
+    header {
+      font-size: 1.8rem;
+      font-weight: 600;
+      display: inline-flex;
+    }
+
     .h2 {
       font-size: 1.85rem;
+    }
+
+    .absolute-ids-sync-form {
+      display: inline-flex;
     }
   }
 
