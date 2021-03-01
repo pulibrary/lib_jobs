@@ -68,20 +68,6 @@ module LibJobs
         response.parsed['resources']
       end
 
-      # Move this into Repository
-      def search_top_containers_by(repository_id:, query:)
-        params = URI.encode_www_form([["q", query]])
-        path = "/repositories/#{repository_id}/top_containers/search?#{params}"
-
-        response = get(path)
-
-        return [] unless response.parsed.key?('response')
-        search_response = response.parsed['response']
-
-        return [] unless search_response.key?('docs')
-        search_response['docs']
-      end
-
       def build_repository(repository_json)
         repository_attributes = repository_json.symbolize_keys.merge(client: self)
         Repository.new(repository_attributes)
@@ -106,6 +92,12 @@ module LibJobs
 
       def find_repository(uri: nil, id: nil)
         find_child(uri: uri, resource_class: Repository, model_class: repository_model, id: id)
+      end
+
+      def search_top_containers_by(repository_id:, query:)
+        repository = find_repository(id: repository_id)
+
+        repository.search_top_containers(query: query)
       end
 
       def select_repositories_by(repo_code:)
