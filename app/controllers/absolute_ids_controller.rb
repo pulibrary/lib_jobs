@@ -204,6 +204,7 @@ class AbsoluteIdsController < ApplicationController
                         build_attributes[:barcode] = new_barcode.value
 
                         generated = AbsoluteId.generate(**build_attributes)
+                        generated.save!
                         generated
                       else
                         raise ArgumentError
