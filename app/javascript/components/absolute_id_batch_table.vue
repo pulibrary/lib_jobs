@@ -1,25 +1,23 @@
 <template>
   <div>
-    <div>
-      <grid-container>
-        <grid-item columns="lg-12 sm-12">
-          <header>{{ header }}</header>
-          <form class="absolute-ids-sync-form" :action="synchronizeAction" :method="synchronizeMethod">
-            <button
-              data-v-b7851b04
-              :class="synchronizeButtonClasses"
-              :disabled="synchronizing"
-              @click.prevent="onSynchronizeSubmit"
-            >{{ synchronizeButtonTextContent }}</button>
-          </form>
-          <a
+    <grid-container>
+      <grid-item columns="lg-12 sm-12">
+        <header>{{ header }}</header>
+        <form class="absolute-ids-sync-form" :action="synchronizeAction" :method="synchronizeMethod">
+          <button
             data-v-b7851b04
-            class="lux-button solid lux-button absolute-ids-sync-form--submit"
-            :href="sessionIdPath"
-          >Download Report</a>
-        </grid-item>
-      </grid-container>
-    </div>
+            :class="synchronizeButtonClasses"
+            :disabled="synchronizing"
+            @click.prevent="onSynchronizeSubmit"
+          >{{ synchronizeButtonTextContent }}</button>
+        </form>
+        <a
+          data-v-b7851b04
+          class="lux-button solid lux-button absolute-ids-sync-form--submit"
+          :href="sessionIdPath"
+        >Download Report</a>
+      </grid-item>
+    </grid-container>
 
     <absolute-id-table
       v-for="batch in session.batches"
@@ -114,7 +112,7 @@ export default {
     },
 
     synchronizeButtonClasses: function () {
-      let values = {
+      const values = {
         'lux-button': true,
         'solid': true,
         'absolute-ids-sync-form__submit': true,
