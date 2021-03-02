@@ -7,6 +7,14 @@ class AbsoluteId::Session < ApplicationRecord
     format("Session %d (%s)", id, created_at.strftime('%m/%d/%Y'))
   end
 
+  def synchronized?
+    batches.map(&:synchronized?).reduce(&:&)
+  end
+
+  def synchronizing?
+    batches.map(&:synchronizing?).reduce(&:|)
+  end
+
   def attributes
     {
       batches: batches.map(&:attributes)

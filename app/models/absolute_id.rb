@@ -149,6 +149,14 @@ class AbsoluteId < ApplicationRecord
     OpenStruct.new(values)
   end
 
+  def synchronized?
+    !synchronized_at.nil?
+  end
+
+  def synchronizing?
+    !synchronizing.nil? && synchronizing
+  end
+
   def attributes
     {
       barcode: barcode.attributes,
@@ -161,6 +169,8 @@ class AbsoluteId < ApplicationRecord
       prefix: prefix,
       repository: repository_object.to_h,
       resource: resource_object.to_h,
+      synchronized_at: synchronized_at,
+      synchronizing: synchronizing,
       updated_at: updated_at
     }
   end
