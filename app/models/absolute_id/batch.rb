@@ -5,8 +5,15 @@ class AbsoluteId::Batch < ApplicationRecord
   belongs_to :user
 
   def label
-    # format("Batch %06d (%s)", id, created_at.strftime('%m/%d/%Y'))
     format("Batch %06d", id)
+  end
+
+  def synchronized?
+    absolute_ids.map(&:synchronized?).reduce(&:&)
+  end
+
+  def synchronizing?
+    absolute_ids.map(&:synchronizing?).reduce(&:|)
   end
 
   def table_data
@@ -19,7 +26,8 @@ class AbsoluteId::Batch < ApplicationRecord
         container_profile: { link: absolute_id.container_profile_object.uri, value: absolute_id.container_profile_object.name },
         repository: { link: absolute_id.repository_object.uri, value: absolute_id.repository_object.name },
         resource: { link: absolute_id.resource_object.uri, value: absolute_id.resource_object.title },
-        container: { link: absolute_id.container_object.uri, value: absolute_id.container_object.indicator }
+        container: { link: absolute_id.container_object.uri, value: absolute_id.container_object.indicator },
+        synchronized_at: absolute_id.synchronized_at || 'Never'
       }
     end
   end

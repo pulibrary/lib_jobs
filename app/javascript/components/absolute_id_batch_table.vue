@@ -15,7 +15,7 @@
           <a
             data-v-b7851b04
             :href="sessionIdPath"
-            class="lux-button solid lux-button absolute-ids-sync-form--submit">Report</a>
+            class="lux-button solid lux-button absolute-ids-sync-form--submit">Download Report</a>
         </grid-item>
 
       </grid-container>
@@ -36,13 +36,8 @@
 <script>
 import AbsoluteIdTable from './absolute_id_table'
 
-/**
- * Used to display data to end users.
- */
 export default {
   name: "AbsoluteIdBatchTable",
-  status: "prototype",
-  release: "1.0.0",
   type: "Element",
   components: {
     "absolute-id-table": AbsoluteIdTable
@@ -51,6 +46,11 @@ export default {
     header: {
       required: true,
       type: String,
+    },
+
+    synchronized: {
+      type: Boolean,
+      default: false
     },
 
     token: {
@@ -70,7 +70,12 @@ export default {
 
     synchronized: {
       type: Boolean,
-      default: true
+      default: false
+    },
+
+    synchronizing: {
+      type: Boolean,
+      default: false
     },
 
     synchronizeAction: {
@@ -92,15 +97,17 @@ export default {
     return {
       rows: this.jsonData,
       parsedColumns: [],
-      synchronizing: !this.synchronized
+      submitted: false
     }
   },
   computed: {
     synchronizeLabel: function() {
-
       let output = 'Synchronize';
-      if (this.synchronizing) {
+
+      if (this.synchronizing || this.submitted) {
         output = 'Synchronizing';
+      } else if (this.synchronized) {
+        output = 'Resynchronize';
       }
 
       return output;
@@ -126,7 +133,7 @@ export default {
     onSynchronizeSubmit: async function (event) {
       event.target.disabled = true;
 
-      this.synchronizing = true;
+      this.submitted = true;
       const response = await this.postData();
 
       event.target.disabled = false;
