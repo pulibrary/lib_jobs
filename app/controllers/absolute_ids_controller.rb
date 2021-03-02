@@ -6,26 +6,16 @@ class AbsoluteIdsController < ApplicationController
 
   def table_columns
     [
-      { name: 'user', display_name: 'User', align: 'left', sortable: false },
       { name: 'barcode', display_name: 'Barcode', align: 'left', sortable: true, ascending: 'undefined' },
       { name: 'label', display_name: 'Identifier', align: 'left', sortable: true },
-      { name: 'location', display_name: 'Location', align: 'left', sortable: true },
-      { name: 'container_profile', display_name: 'Container Profile', align: 'left', sortable: true },
+      { name: 'location', display_name: 'Location', align: 'left', sortable: false },
+      { name: 'container_profile', display_name: 'Container Profile', align: 'left', sortable: false },
       { name: 'repository', display_name: 'Repository', align: 'left', sortable: false },
-      { name: 'resource', display_name: 'Resource', align: 'left', sortable: false },
-      { name: 'container', display_name: 'Container', align: 'left', sortable: true }
+      { name: 'resource', display_name: 'ASpace Resource', align: 'left', sortable: false },
+      { name: 'container', display_name: 'ASpace Container', align: 'left', sortable: false },
+      { name: 'user', display_name: 'User', align: 'left', sortable: false },
+      { name: 'synchronized_at', display_name: 'Last Synchronized', align: 'left', sortable: true }
     ]
-  end
-
-  # Remove this
-  def next_code
-    absolute_ids = AbsoluteId.all
-    # This should be a constant
-    return '0000000000000' if absolute_ids.empty?
-
-    last_absolute_id = absolute_ids.last
-    next_integer = last_absolute_id.integer.to_i + 1
-    format("%012d", next_integer)
   end
 
   # GET /absolute-ids
@@ -274,17 +264,15 @@ class AbsoluteIdsController < ApplicationController
     session_id = params[:session_id]
     @session = AbsoluteId::Session.find_by(user: current_user, id: session_id)
     @batches = @session.batches.to_a
-    @absolute_ids = @batches.map(&:absolute_ids)
+    @absolute_ids = @batches.map(&:absolute_ids).flatten
 
-    @absolute_ids.flatten.each do |absolute_id|
+    @absolute_ids.each do |absolute_id|
+      absolute_id.synchronizing = true
+      absolute_id.save!
       ArchivesSpaceSyncJob.perform_now(user_id: current_user.id, model_id: absolute_id.id)
     end
 
     respond_to do |format|
-      format.html do
-        # To be implemented
-      end
-
       format.json do
         head :found, location: absolute_ids_path(format: :json)
       end

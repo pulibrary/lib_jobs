@@ -14,6 +14,7 @@
       <div class="lux absolute-ids-session">
         <absolute-id-batch-table
           header="<%= absolute_id_session.label %>"
+          :synchronized="<%= absolute_id_session.synchronized? %>"
           :columns="<%= JSON.generate(table_columns) %>"
           :session="<%= absolute_id_session.as_json %>"
           token="<%= current_user.token %>"

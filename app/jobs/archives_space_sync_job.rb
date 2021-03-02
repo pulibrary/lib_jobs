@@ -9,7 +9,16 @@ class ArchivesSpaceSyncJob < ApplicationJob
     return if container.to_h.empty?
     return if location.to_h.empty?
 
-    update_top_container(uri: container.uri, barcode: absolute_id.barcode, indicator: absolute_id.label, location: location)
+    begin
+      update_top_container(uri: container.uri, barcode: absolute_id.barcode, indicator: absolute_id.label, location: location)
+      absolute_id.synchronized_at = DateTime.current
+    rescue StandardError => error
+      Rails.logger.warn("Warning: Failed to synchronize #{absolute_id.label}: #{error}")
+    end
+
+    absolute_id.synchronizing = false
+    absolute_id.save!
+    absolute_id
   end
 
   private
@@ -113,6 +122,7 @@ class ArchivesSpaceSyncJob < ApplicationJob
       location_model.uri.to_s == sync_location.uri.to_s
     end
 
-    sync_container.update(barcode: barcode.value, indicator: indicator, container_locations: updated_locations)
+    updated = sync_container.update(barcode: barcode.value, indicator: indicator, container_locations: updated_locations)
+    raise ArchivesSpaceSyncError("Failed to update the container: #{sync_container.uri}") if updated.nil?
   end
 end

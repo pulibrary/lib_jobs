@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_01_064548) do
+ActiveRecord::Schema.define(version: 2021_03_02_155220) do
 
   create_table "absolute_id_batches", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -65,12 +65,12 @@ ActiveRecord::Schema.define(version: 2021_03_01_064548) do
 
   create_table "absolute_ids", force: :cascade do |t|
     t.string "value"
-    t.integer "integer"
+    t.string "integer"
     t.integer "check_digit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "initial_value"
-    t.integer "index"
+    t.string "index"
     t.string "location"
     t.string "container_profile"
     t.string "repository"
@@ -81,6 +81,8 @@ ActiveRecord::Schema.define(version: 2021_03_01_064548) do
     t.string "unencoded_repository"
     t.string "unencoded_container_profile"
     t.string "unencoded_container"
+    t.datetime "synchronized_at"
+    t.boolean "synchronizing"
     t.index ["batch_id"], name: "index_absolute_ids_on_batch_id"
   end
 
