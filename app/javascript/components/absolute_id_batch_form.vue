@@ -42,7 +42,7 @@
     </template>
 
     <grid-container>
-      <grid-item columns="lg-12 sm-12" class="absolute-ids-batch-form--batch-button">
+      <grid-item columns="lg-6 sm-6" class="absolute-ids-batch-form__add-batch">
         <button
           data-v-b7851b04
           class="lux-button solid lux-button absolute-ids-batch-form--add-form"
@@ -50,11 +50,12 @@
           @click.prevent="onClickAdd">Add Batch</button>
       </grid-item>
 
-      <grid-item columns="lg-12 sm-12" class="absolute-ids-batch-form--batch-button">
+      <grid-item columns="lg-6 sm-6" class="absolute-ids-batch-form__submit">
         <button
           data-v-b7851b04
-          class="lux-button solid large lux-button absolute-ids-batch-form--submit"
-          :disabled="submitting || !formValid">Generate</button>
+          :class="submitButtonClass"
+          :disabled="submitting || !formValid"
+        >{{ submitButtonTextContent }}</button>
       </grid-item>
     </grid-container>
   </form>
@@ -65,8 +66,6 @@ import AbsoluteIdForm from './absolute_id_form'
 
 export default {
   name: 'AbsoluteIdsBatchForm',
-  status: 'ready',
-  release: '1.0.0',
   type: 'Element',
   components: {
     "absolute-id-form": AbsoluteIdForm
@@ -116,6 +115,30 @@ export default {
   },
 
   computed: {
+    submitButtonClass: function () {
+      const values = {
+        'lux-button': true,
+        'solid': true,
+        'large': true,
+        'absolute-ids-batch-form__submit-button': true,
+        'absolute-ids-batch-form__submit-button--in-progress': this.submitting
+      };
+
+      return values;
+    },
+
+    submitButtonTextContent: function () {
+      let output;
+
+      if (this.submitting) {
+        output = 'Generating';
+      } else {
+        output = 'Generate';
+      }
+
+      return output;
+    },
+
     locations: async function () {
       const response = await this.getLocations();
       const locations = response.json();
@@ -401,9 +424,8 @@ export default {
 
       this.submitting = true;
       const response = await this.postData(payload);
-      this.submitting = false;
-
-      event.target.disabled = false;
+      //this.submitting = false;
+      //event.target.disabled = false;
       if (response.status === 302) {
         const redirectUrl = response.headers.get('Content-Type');
         window.location.assign(redirectUrl);
