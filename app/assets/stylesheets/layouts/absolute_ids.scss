@@ -6,7 +6,6 @@
   }
 
   &-form {
-    /*margin-top: 2.1rem;*/
     display: inline-flex;
     align-items: center;
 
@@ -45,7 +44,6 @@
 
     &--submit {
       &.lux-button[data-v-b7851b04] {
-        /*margin-top: 2.1rem;*/
         margin-top: 4px;
         height: fit-content;
       }
@@ -53,14 +51,33 @@
   }
 
   &-batch-form {
-    &--batch-button.lg-12 {
-
+    &__add-batch.lg-12 {
       @media only screen and (min-width: 900px) {
         display: inline-flex;
-        flex-basis: 8%;
       }
+
+      display: inline-flex;
+    }
+
+    &__submit {
+      .lg-12 {
+        @media only screen and (min-width: 900px) {
+          display: inline-flex;
+        }
+
         display: inline-flex;
-        flex-basis: 34%;
+        flex-basis: 0;
+      }
+
+      &-button {
+        float: right;
+
+        &--in-progress {
+          &.lux-button.solid[data-v-b7851b04] {
+            background-color: $color-yellow;
+          }
+        }
+      }
     }
 
     &--batch-size {
