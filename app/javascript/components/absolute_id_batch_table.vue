@@ -7,17 +7,17 @@
           <form class="absolute-ids-sync-form" :action="synchronizeAction" :method="synchronizeMethod">
             <button
               data-v-b7851b04
-              class="lux-button solid lux-button absolute-ids-sync-form--submit"
+              :class="synchronizeButtonClasses"
               :disabled="synchronizing"
-              @click.prevent="onSynchronizeSubmit">{{ synchronizeLabel }}</button>
+              @click.prevent="onSynchronizeSubmit"
+            >{{ synchronizeButtonTextContent }}</button>
           </form>
-
           <a
             data-v-b7851b04
+            class="lux-button solid lux-button absolute-ids-sync-form--submit"
             :href="sessionIdPath"
-            class="lux-button solid lux-button absolute-ids-sync-form--submit">Download Report</a>
+          >Download Report</a>
         </grid-item>
-
       </grid-container>
     </div>
 
@@ -29,7 +29,7 @@
       :json-data="batch.tableData"
       :token="token"
       :synchronize-action="synchronizeAction"
-    ></absolute-id-table>
+    />
   </div>
 </template>
 
@@ -101,7 +101,7 @@ export default {
     }
   },
   computed: {
-    synchronizeLabel: function() {
+    synchronizeButtonTextContent: function() {
       let output = 'Synchronize';
 
       if (this.synchronizing || this.submitted) {
@@ -111,6 +111,18 @@ export default {
       }
 
       return output;
+    },
+
+    synchronizeButtonClasses: function () {
+      let values = {
+        'lux-button': true,
+        'solid': true,
+        'absolute-ids-sync-form__submit': true,
+        'absolute-ids-sync-form__submit--finished': this.synchronized && !(this.synchronizing || this.submitted),
+        'absolute-ids-sync-form__submit--in-progress': this.synchronizing || this.submitted
+      };
+
+      return values;
     }
   },
   methods: {
