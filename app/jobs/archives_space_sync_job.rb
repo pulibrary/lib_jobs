@@ -102,7 +102,8 @@ class ArchivesSpaceSyncJob < ApplicationJob
   end
 
   def update_top_container(uri:, barcode:, indicator:, location:)
-    sync_container = client_mapper.find_sync_top_container(uri: uri)
+    # This is where the wrong container is retrieved
+    sync_container = client_mapper.find_sync_top_container(uri: uri, locations: location)
     if sync_container.nil?
       raise ArchivesSpaceSyncError, "Failed to locate the container resource for #{uri}"
     end

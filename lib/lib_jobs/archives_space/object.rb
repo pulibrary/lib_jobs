@@ -82,7 +82,8 @@ module LibJobs
       private
 
       def generate_uri
-        URI.join(base_uri, @values.uri)
+        # URI.join(base_uri, @values.uri)
+        @values.uri
       end
     end
   end
