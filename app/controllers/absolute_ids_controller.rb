@@ -132,6 +132,23 @@ class AbsoluteIdsController < ApplicationController
     container_profile_resource
   end
 
+  def foo(repository_id, ead_id)
+    resource_refs = current_client.find_resources_by_ead_id(repository_id: repository_id, ead_id: ead_id)
+    resource = repository.build_resource_from(refs: resource_refs)
+
+    raise(ArgumentError, "Failed to resolve the repository resources for #{resource_param} in repository #{repository_id}") if resource.nil?
+    resource
+  end
+
+  def bar(resource, indicator)
+    # containers = current_client.search_top_containers_by(repository_id: repository_id, query: container_param)
+    top_containers = resource.search_top_containers_by(indicator: indicator)
+    top_container = top_containers.first
+
+    raise(ArgumentError, "Failed to resolve the containers for #{container_param} in repository #{repository_id}") if top_container.nil?
+    top_container
+  end
+
   # POST /absolute-ids/batches
   # POST /absolute-ids/batches.json
   def create_batches
@@ -154,17 +171,10 @@ class AbsoluteIdsController < ApplicationController
                         repository = current_client.find_repository(uri: repository_uri)
 
                         resource_param = absolute_id_params[:resource]
+                        resource = foo(repository_id, resource_param)
+
                         container_param = absolute_id_params[:container]
-
-                        resource_refs = current_client.find_resources_by_ead_id(repository_id: repository_id, ead_id: resource_param)
-                        raise(ArgumentError, "Failed to resolve the repository resources for #{resource_param} in repository #{repository_id}") if resource_refs.empty?
-
-                        resource = repository.build_resource_from(refs: resource_refs)
-
-                        containers = current_client.search_top_containers_by(repository_id: repository_id, query: container_param)
-                        raise(ArgumentError, "Failed to resolve the containers for #{container_param} in repository #{repository_id}") if containers.empty?
-
-                        top_container = containers.first
+                        top_container = bar(resource, container_param[:indicator])
 
                         build_attributes = absolute_id_params.deep_dup
 

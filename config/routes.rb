@@ -11,7 +11,8 @@ Rails.application.routes.draw do
   get '/absolute-ids/repositories/:repository_id/resources/:resource_id', to: 'absolute_ids/repositories/resources#show'
   get '/absolute-ids/repositories/:repository_id/resources', to: 'absolute_ids/repositories/resources#index'
 
-  get '/absolute-ids/repositories/:repository_id/containers/search/:container_param', to: 'absolute_ids/repositories/containers#search'
+  # get '/absolute-ids/repositories/:repository_id/containers/search/:container_param', to: 'absolute_ids/repositories/containers#search'
+  post '/absolute-ids/repositories/:repository_id/containers/search', to: 'absolute_ids/repositories/containers#search'
   get '/absolute-ids/repositories/:repository_id/containers', to: 'absolute_ids/repositories/containers#index'
 
   get '/absolute-ids/repositories/:repository_id', to: 'absolute_ids/repositories#show'

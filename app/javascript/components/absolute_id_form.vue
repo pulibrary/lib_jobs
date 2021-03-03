@@ -720,13 +720,18 @@ export default {
       return response;
     },
 
-    searchContainers: async function (queryParam) {
+    searchContainers: async function ({ indicator, resourceTitle }) {
+      const payload = {
+        indicator,
+        resourceTitle
+      };
+
       let response;
       this.fetchingContainers = true;
 
       try {
-        response = await fetch(`/absolute-ids/repositories/${this.selectedRepositoryId}/containers/search/${queryParam}`, {
-          method: 'GET',
+        response = await fetch(`/absolute-ids/repositories/${this.selectedRepositoryId}/containers/search`, {
+          method: 'POST',
           mode: 'cors',
           cache: 'no-cache',
           credentials: 'same-origin',
@@ -735,7 +740,8 @@ export default {
             'Authorization': `Bearer ${this.token}`
           },
           redirect: 'follow',
-          referrerPolicy: 'no-referrer'
+          referrerPolicy: 'no-referrer',
+          body: JSON.stringify(payload)
         });
       } catch(error) {
         console.warn(error);
@@ -766,17 +772,21 @@ export default {
     },
 
     onContainerFocusOut: async function (event, value) {
-
       this.validContainer = false;
       this.validatedContainer = false;
 
       if (value.length > 0) {
+        const resourceTitle = await this.resourceTitle;
         this.validatingContainer = true;
 
-        const response = await this.searchContainers(value);
-        const resource = await response.json();
+        const response = await this.searchContainers({ indicator: value, resourceTitle });
 
         this.validatingContainer = false;
+        if (!response) {
+          return;
+        }
+
+        const resource = await response.json();
 
         if (resource) {
           this.validContainer = true;

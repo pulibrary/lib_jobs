@@ -43,6 +43,7 @@ module LibJobs
         results.map do |child_json|
           child_json = child_json.transform_keys(&:to_sym)
           child_json[:repository] = self
+
           resource = resource_class.new(child_json)
           model_class.cache(resource)
         end
@@ -64,28 +65,28 @@ module LibJobs
         children(resource_class: TopContainer, model_class: top_container_model)
       end
 
-      def search_top_containers(query:)
-        top_containers.select do |container|
-          container.indicator == query
-        end
+      def search_top_containers(ead_id:, indicator:)
+        resource_refs = client.find_resources_by_ead_id(repository_id: @id, ead_id: ead_id)
+        resource = build_resource_from(refs: resource_refs)
+        resource.search_top_containers(indicator: indicator)
       end
 
-      def find_child(uri:, resource_class:, model_class:)
+      def find_child(uri:, resource_class:, model_class:, resource: nil)
         cached = model_class.find_cached(uri.to_s)
         if !cached.nil?
           return cached
         end
 
-        uri_path = uri.sub(base_uri, '')
-
-        response = client.get(uri_path)
+        response = client.get(uri.to_s)
         return nil if response.status == 404
 
         parsed = JSON.parse(response.body)
 
         response_body_json = parsed.transform_keys(&:to_sym)
         response_body_json[:repository] = self
-        response_body_json[:uri] = uri_path
+        response_body_json[:resource] = resource unless resource.nil?
+        response_body_json[:uri] = uri.to_s
+
         resource = resource_class.new(response_body_json)
         model_class.cache(resource)
       end
@@ -94,10 +95,14 @@ module LibJobs
         find_child(uri: uri, resource_class: Resource, model_class: resource_model)
       end
 
+      def find_archival_object(resource:, uri:)
+        find_child(uri: uri, resource_class: ArchivalObject, model_class: resource_model, resource: resource)
+      end
+
       def build_resource_from(refs:)
         resource_ref = refs.first
 
-        resource_uri = "#{base_uri}#{resource_ref['ref']}"
+        resource_uri = "#{resource_ref['ref']}"
         find_resource(uri: resource_uri)
       end
 

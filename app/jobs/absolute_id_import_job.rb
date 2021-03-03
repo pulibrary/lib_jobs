@@ -52,7 +52,7 @@ class AbsoluteIdImportJob < ApplicationJob
         resource = repository.build_resource_from(refs: resource_refs)
         imported_attributes[:resource] = resource
       else
-        binding.pry
+        raise(ArgumentError, "Failed to find the Archival Resource for #{call_number}")
       end
 
       # Container
@@ -61,7 +61,7 @@ class AbsoluteIdImportJob < ApplicationJob
       if !top_container.nil?
         imported_attributes[:container] = top_container
       else
-        binding.pry
+        raise(ArgumentError, "Failed to find the Top Container resource for #{barcode}")
       end
     else
       # Set the legacy repository for a legacy value

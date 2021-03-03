@@ -7,7 +7,8 @@ class AbsoluteIds::Repositories::ContainersController < ApplicationController
   def index
     begin
       @resources ||= current_repository.top_containers
-    rescue
+    rescue StandardError => error
+      Rails.logger.warn("Failed to retrieve the top containers: #{error}")
       @resources = []
     end
 
@@ -19,7 +20,7 @@ class AbsoluteIds::Repositories::ContainersController < ApplicationController
   # GET /absolute-ids/repositories/:repository_id/resources/:resource_id.json
   def show
     begin
-      @resource ||= current_repository.find_resource(id: resource_id)
+      @resource ||= current_repository.find_top_container(id: container_id)
     rescue
       @resource = nil
     end
@@ -30,20 +31,20 @@ class AbsoluteIds::Repositories::ContainersController < ApplicationController
   end
 
   # GET /absolute-ids/repositories/:repository_id/containers/search/:container_param.json
+  # POST /absolute-ids/repositories/:repository_id/containers/search.json
   def search
-    query = if json_request?
-              "#{container_param}.#{request.path_parameters[:format]}"
-            else
-              container_param
-            end
+    indicator = params[:indicator]
+    resource_title = params[:resourceTitle]
 
-    begin
-      top_containers = current_repository.search_top_containers(query: query)
+#    begin
+      top_containers = current_repository.search_top_containers(ead_id: resource_title, indicator: indicator)
       @resource = top_containers.first
-    rescue
-      @resource = nil
-    end
+#    rescue StandardError => error
+#      Rails.logger.warn("Failed to find the repository for #{indicator} linked to the resource #{resource_title}: #{error}")
+#      @resource = nil
+#    end
 
+    # Refactor/fix this
     if json_request?
       render json: @resource
     else
