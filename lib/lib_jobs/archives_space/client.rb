@@ -162,12 +162,8 @@ module LibJobs
           return cached
         end
 
-        binding.pry
-        uri_path = uri.sub(base_uri, '')
-
-        # response = get("/#{resource_class.name.demodulize.pluralize.underscore}/#{id}")
-        response = get(uri_path)
-        raise StandardError, "Error requesting the #{resource_class.name.demodulize} #{uri}: #{response.body}" if response.status.code != "200"
+        response = get(uri)
+        raise(StandardError, "Error requesting the #{resource_class.name.demodulize} #{uri}: #{response.body}") if response.status.code != "200"
 
         parsed = JSON.parse(response.body)
         response_body_json = parsed.transform_keys(&:to_sym)
