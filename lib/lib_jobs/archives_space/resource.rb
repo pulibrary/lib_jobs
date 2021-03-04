@@ -11,20 +11,8 @@ module LibJobs
 
       def attributes
         super.merge({
-          ead_id: ead_id,
-          title: title,
+          ead_id: ead_id
         })
-      end
-
-      def instances
-        instance_values = @values.to_h
-        persisted = instance_values.fetch(:instances, [])
-        persisted.map { |instance_attributes| Instance.new(instance_attributes.merge(repository: repository)) }
-      end
-
-      def instances=(updated)
-        instance_values = updated.map(&:to_h)
-        @values.instances = instance_values
       end
 
       def request_tree_root
@@ -41,14 +29,28 @@ module LibJobs
         response.parsed
       end
 
+      # This does *not* recurse!
+      def find_top_containers
+        # Fix this
+        return []
+
+        #response = client.get("/repositories/#{repository.id}/resources/#{@id}/top_containers")
+        #return nil if response.status == 404
+
+        #parsed = JSON.parse(response.body)
+      end
+
       def top_containers
-        child_containers = instances.map(&:top_container)
+        if !instances.empty?
+          return super
+        end
+
+        child_containers = find_top_containers
         child_containers + children.map { |child| child.top_containers }.flatten
       end
 
       def search_top_containers(indicator:)
         top_containers.select do |container|
-          #  !container.collection.empty? && container.collection.identifier == resource_title && container.indicator == indicator
           container.indicator == indicator
         end
       end

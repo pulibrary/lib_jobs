@@ -11,6 +11,12 @@ class AbsoluteId::ChildRecord < AbsoluteId::Record
     sub_segments.first
   end
 
+  def properties
+    super.merge({
+      instances: json_object.instances
+    })
+  end
+
   def to_resource
     resource_attributes = properties
     resource_attributes[:repository_id] = repository_id

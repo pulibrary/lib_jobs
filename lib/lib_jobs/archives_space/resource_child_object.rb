@@ -2,11 +2,14 @@
 module LibJobs
   module ArchivesSpace
     class ResourceChildObject < ChildObject
-      attr_reader :resource
+      attr_accessor :resource
       def initialize(attributes)
         super(attributes)
 
         @resource = @values.resource
+        # @resource_id = @resource.id unless @resource.nil?
+
+        @instance_properties = @values.instances || []
 
         @level = @values.level
         @title = @values.title
@@ -16,6 +19,33 @@ module LibJobs
         @children ||= find_children
       end
 
+      def instances
+        @instances ||= @instance_properties.map do |props|
+                         instance_attributes = props.merge(repository: repository)
+                         Instance.new(instance_attributes)
+                       end
+      end
+
+      def instances=(updated)
+        @instances = nil
+        @instance_properties = updated
+        instances
+      end
+
+      def top_containers
+        nodes = instances.map(&:top_container)
+
+        nodes + children.map { |child| child.top_containers }.flatten
+      end
+
+      def attributes
+        super.merge({
+          title: title,
+          level: level,
+          instances: @instance_properties
+        })
+      end
+
       private
 
       def request_tree_root
@@ -23,6 +53,9 @@ module LibJobs
         return if response.status.code == "404"
 
         response.parsed
+      rescue StandardError => standard_error
+        Rails.logger.warn("Failed to retrieve the tree root node data for #{uri}")
+        return
       end
 
       def build_children_from(waypoints:)
@@ -53,7 +86,7 @@ module LibJobs
         children
       end
 
-      def find_root_child_uris
+      def find_root_children
         children = []
         response = request_tree_root
         return children if response.nil?
@@ -67,9 +100,12 @@ module LibJobs
         return if response.status.code == "404"
 
         response.parsed
+      rescue StandardError => standard_error
+        Rails.logger.warn("Failed to retrieve the tree root node data for #{node_uri}")
+        return
       end
 
-      def find_node_child_uris(node_uri)
+      def find_node_children(node_uri)
         child_nodes = []
         response = request_tree_node(node_uri)
         return child_nodes if response.nil?
@@ -77,13 +113,13 @@ module LibJobs
         waypoints = response['precomputed_waypoints']
         build_children_from(waypoints: waypoints)
 
-        descendent_nodes = child_nodes.map { |child_node| find_node_child_uris(child_node.uri) }
+        descendent_nodes = child_nodes.map { |child_node| find_node_children(child_node.uri) }
         child_nodes + descendent_nodes.flatten
       end
 
       def find_children
-        child_nodes = find_root_child_uris
-        descendent_nodes = child_nodes.map { |child_node| find_node_child_uris(child_node.uri) }
+        child_nodes = find_root_children
+        descendent_nodes = child_nodes.map { |child_node| find_node_children(child_node.uri) }
         child_nodes + descendent_nodes.flatten
       end
     end
