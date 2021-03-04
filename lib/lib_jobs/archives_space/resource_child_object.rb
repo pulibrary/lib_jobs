@@ -2,7 +2,7 @@
 module LibJobs
   module ArchivesSpace
     class ResourceChildObject < ChildObject
-      attr_accessor :resource
+      attr_accessor :resource, :title, :level
       def initialize(attributes)
         super(attributes)
 

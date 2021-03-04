@@ -2,6 +2,10 @@
 module LibJobs
   module ArchivesSpace
     class Object
+      def self.model_class
+        raise(NotImplementedError, "#{self} is an abstract class, and does not have a corresponding ActiveRecord model.")
+      end
+
       def self.parse_id(attributes)
         uri = attributes[:uri]
         segments = uri.split("/")
@@ -79,10 +83,14 @@ module LibJobs
         attributes === other.attributes
       end
 
+      def cache
+        self.class.model_class.cache(self)
+      end
+
       private
 
+      # Can this be removed?
       def generate_uri
-        # URI.join(base_uri, @values.uri)
         @values.uri
       end
     end
