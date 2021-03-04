@@ -43,7 +43,7 @@ namespace :deploy do
   after :finishing do
     on roles(:app), in: :sequence, wait: 5 do
       within release_path do
-        execute :rake, 'lib_jobs:absolute_ids:aspace:cache', '--trace'
+        execute :rake, 'lib_jobs:absolute_ids:aspace:cache --trace'
       end
     end
   end
