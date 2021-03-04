@@ -1,6 +1,7 @@
 module LibJobs
   module ArchivesSpace
     class ChildObject < Object
+      attr_writer :repository
       def initialize(attributes)
         super(attributes)
 

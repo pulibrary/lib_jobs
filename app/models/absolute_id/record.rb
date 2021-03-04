@@ -73,7 +73,6 @@ class AbsoluteId::Record < ApplicationRecord
 
   def to_resource
     resource_attributes = properties
-    # resource_attributes[:client] = source_client
 
     self.class.resource_class.new(resource_attributes)
   end
