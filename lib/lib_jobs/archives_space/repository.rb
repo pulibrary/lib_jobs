@@ -3,6 +3,10 @@
 module LibJobs
   module ArchivesSpace
     class Repository < Object
+      def self.model_class
+        AbsoluteId::Repository
+      end
+
       def build_top_container_from(documents:)
         container_doc = documents.first
         parsed = JSON.parse(container_doc['json'])

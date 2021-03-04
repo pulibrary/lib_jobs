@@ -13,6 +13,10 @@ module LibJobs
                   :series,
                   :type
 
+      def self.model_class
+        AbsoluteId::TopContainer
+      end
+
       def initialize(attributes)
         super(attributes)
 

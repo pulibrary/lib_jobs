@@ -2,7 +2,11 @@
 module LibJobs
   module ArchivesSpace
     class Resource < ResourceChildObject
-      attr_reader :ead_id, :title
+      def self.model_class
+        AbsoluteId::Resource
+      end
+
+      attr_reader :ead_id
       def initialize(attributes)
         super(attributes)
 
