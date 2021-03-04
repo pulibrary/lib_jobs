@@ -100,12 +100,20 @@ module LibJobs
         model_class.cache(resource)
       end
 
-      def find_resource(uri:)
+      def find_resource(uri:, resource: nil)
         find_child(uri: uri, resource_class: Resource, model_class: resource_model)
       end
 
       def find_archival_object(resource:, uri:)
         find_child(uri: uri, resource_class: ArchivalObject, model_class: archive_object_model, resource: resource)
+      end
+
+      def find_resource_child_object(resource:, uri:)
+        if uri.include?('archival_objects')
+          find_archival_object(resource: resource, uri: uri)
+        else
+          find_resource(resource: resource, uri: uri)
+        end
       end
 
       def build_resource_from(refs:)

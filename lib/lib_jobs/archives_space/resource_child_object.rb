@@ -9,6 +9,7 @@ module LibJobs
         @resource = @values.resource
         # @resource_id = @resource.id unless @resource.nil?
 
+        @child_uris = @values.child_uris
         @instance_properties = @values.instances || []
 
         @level = @values.level
@@ -16,7 +17,14 @@ module LibJobs
       end
 
       def children
-        @children ||= find_children
+        @children ||= begin
+                        # This is needed for caching
+                        if @child_uris.nil?
+                          find_children
+                        else
+                          child_uris.map { |child_uri| repository.find_resource_child_object(resource: self, uri: child_uri) }
+                        end
+                      end
       end
 
       def instances
@@ -42,11 +50,17 @@ module LibJobs
         super.merge({
           title: title,
           level: level,
-          instances: @instance_properties
+          instances: @instance_properties,
+          child_uris: child_uris
         })
       end
 
       private
+
+      # No memoization in order to enable caching
+      def child_uris
+        @child_uris ||= children.map(&:uri)
+      end
 
       def request_tree_root
         response = client.get("/repositories/#{repository.id}/resources/#{resource.id}/tree/node?node_uri=#{uri}")
