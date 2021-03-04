@@ -132,7 +132,7 @@ class AbsoluteIdsController < ApplicationController
     container_profile_resource
   end
 
-  def foo(repository_id, ead_id)
+  def resolve_resource(repository_id, ead_id)
     resource_refs = current_client.find_resources_by_ead_id(repository_id: repository_id, ead_id: ead_id)
     resource = repository.build_resource_from(refs: resource_refs)
 
@@ -140,7 +140,7 @@ class AbsoluteIdsController < ApplicationController
     resource
   end
 
-  def bar(resource, indicator)
+  def resolve_container(resource, indicator)
     # containers = current_client.search_top_containers_by(repository_id: repository_id, query: container_param)
     top_containers = resource.search_top_containers_by(indicator: indicator)
     top_container = top_containers.first
@@ -171,10 +171,10 @@ class AbsoluteIdsController < ApplicationController
                         repository = current_client.find_repository(uri: repository_uri)
 
                         resource_param = absolute_id_params[:resource]
-                        resource = foo(repository_id, resource_param)
+                        resource = resolve_resource(repository_id, resource_param)
 
                         container_param = absolute_id_params[:container]
-                        top_container = bar(resource, container_param[:indicator])
+                        top_container = resolve_container(resource, container_param[:indicator])
 
                         build_attributes = absolute_id_params.deep_dup
 
@@ -279,7 +279,7 @@ class AbsoluteIdsController < ApplicationController
     @absolute_ids.each do |absolute_id|
       absolute_id.synchronizing = true
       absolute_id.save!
-      ArchivesSpaceSyncJob.perform_now(user_id: current_user.id, model_id: absolute_id.id)
+      ArchivesSpaceSyncJob.perform_later(user_id: current_user.id, model_id: absolute_id.id)
     end
 
     respond_to do |format|

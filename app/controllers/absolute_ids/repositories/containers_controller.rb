@@ -30,19 +30,18 @@ class AbsoluteIds::Repositories::ContainersController < ApplicationController
     end
   end
 
-  # GET /absolute-ids/repositories/:repository_id/containers/search/:container_param.json
   # POST /absolute-ids/repositories/:repository_id/containers/search.json
   def search
     indicator = params[:indicator]
     resource_title = params[:resourceTitle]
 
-#    begin
+    begin
       top_containers = current_repository.search_top_containers(ead_id: resource_title, indicator: indicator)
       @resource = top_containers.first
-#    rescue StandardError => error
-#      Rails.logger.warn("Failed to find the repository for #{indicator} linked to the resource #{resource_title}: #{error}")
-#      @resource = nil
-#    end
+    rescue StandardError => error
+      Rails.logger.warn("Failed to find the repository for #{indicator} linked to the resource #{resource_title}: #{error}")
+      @resource = nil
+    end
 
     # Refactor/fix this
     if json_request?

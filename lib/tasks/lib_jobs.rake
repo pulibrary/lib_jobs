@@ -24,4 +24,9 @@ namespace :lib_jobs do
       importer.import
     end
   end
+
+  desc "Clean dead Sidekiq Queues."
+  task :dead_queues, [] => [:environment] do |t, args|
+    CleanDeadQueuesJob.set(queue: :low).perform_later
+  end
 end
