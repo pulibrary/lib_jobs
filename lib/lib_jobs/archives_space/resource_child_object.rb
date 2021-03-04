@@ -125,7 +125,7 @@ module LibJobs
         return child_nodes if response.nil?
 
         waypoints = response['precomputed_waypoints']
-        build_children_from(waypoints: waypoints)
+        child_nodes = build_children_from(waypoints: waypoints)
 
         descendent_nodes = child_nodes.map { |child_node| find_node_children(child_node.uri) }
         child_nodes + descendent_nodes.flatten
