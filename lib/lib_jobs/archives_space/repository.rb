@@ -91,7 +91,8 @@ module LibJobs
         end
 
         response = client.get(uri.to_s)
-        return nil if response.status == 404
+        # return nil if response.status != 200
+        return nil if response.status.code != "200"
 
         parsed = JSON.parse(response.body)
 
@@ -101,6 +102,7 @@ module LibJobs
         response_body_json[:uri] = uri.to_s
 
         resource = resource_class.new(response_body_json)
+
         model_class.cache(resource)
       end
 
