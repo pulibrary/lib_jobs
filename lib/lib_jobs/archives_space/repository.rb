@@ -53,6 +53,10 @@ module LibJobs
         ::AbsoluteId::Resource
       end
 
+      def archive_object_model
+        ::AbsoluteId::ArchivalObject
+      end
+
       def resources
         children(resource_class: Resource, model_class: resource_model)
       end
@@ -74,6 +78,11 @@ module LibJobs
       def find_child(uri:, resource_class:, model_class:, resource: nil)
         cached = model_class.find_cached(uri.to_s)
         if !cached.nil?
+          if !resource.nil?
+            cached.resource = resource
+          end
+          cached.repository = self
+
           return cached
         end
 
@@ -96,7 +105,7 @@ module LibJobs
       end
 
       def find_archival_object(resource:, uri:)
-        find_child(uri: uri, resource_class: ArchivalObject, model_class: resource_model, resource: resource)
+        find_child(uri: uri, resource_class: ArchivalObject, model_class: archive_object_model, resource: resource)
       end
 
       def build_resource_from(refs:)
