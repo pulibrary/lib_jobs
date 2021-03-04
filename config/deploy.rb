@@ -38,3 +38,13 @@ set :deploy_to, "/opt/lib-jobs"
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
+
+namespace :deploy do
+  after :finishing do
+    on roles(:app), in: :parallel do
+      within release_path do
+        execute :rake, 'lib_jobs:absolute_ids:aspace:cache'
+      end
+    end
+  end
+end

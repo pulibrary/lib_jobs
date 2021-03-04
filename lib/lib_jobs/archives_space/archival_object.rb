@@ -2,7 +2,11 @@
 module LibJobs
   module ArchivesSpace
     class ArchivalObject < ResourceChildObject
-      attr_reader :ref_id, :title, :level
+      def self.model_class
+        AbsoluteId::ArchivalObject
+      end
+
+      attr_reader :ref_id
       def initialize(attributes)
         super(attributes)
 
