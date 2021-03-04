@@ -40,10 +40,10 @@ set :deploy_to, "/opt/lib-jobs"
 # set :ssh_options, verify_host_key: :secure
 
 namespace :deploy do
-  after :finishing do
+  after :finishing, :aspace_cache do
     on roles(:app), in: :sequence, wait: 5 do
       within release_path do
-        execute :rake, 'lib_jobs:absolute_ids:aspace:cache --trace'
+        execute :rake, 'lib_jobs:absolute_ids:aspace:cache', '--trace'
       end
     end
   end
