@@ -33,5 +33,6 @@ module IlsApps
     config.x.after_sign_out_url = config.cas.after_sign_out_url
 
     config.cache_store = :memory_store, { size: 64.megabytes }
+    config.active_job.queue_adapter = :sidekiq
   end
 end

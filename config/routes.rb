@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require "sidekiq/web"
 Rails.application.routes.draw do
   root 'data_sets#index'
   resources :data_sets
@@ -31,6 +32,10 @@ Rails.application.routes.draw do
 
   post '/absolute-ids/batch', to: 'absolute_ids#create_batch'
   post '/absolute-ids', to: 'absolute_ids#create_batches'
+
+  authenticate :user do
+    mount Sidekiq::Web => "/sidekiq"
+  end
 
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }, skip: [:passwords, :registration]
   devise_scope :user do
