@@ -759,6 +759,7 @@ export default {
       if (value.length > 0) {
         this.validatingResource = true;
 
+        /*
         const response = await this.searchResources(value);
         const resource = await response.json();
 
@@ -768,6 +769,11 @@ export default {
           this.validResource = true;
           this.validatedResource = true;
         }
+        */
+        this.validatingResource = false;
+        this.validResource = true;
+        this.validatedResource = true;
+
       }
     },
 
@@ -776,6 +782,7 @@ export default {
       this.validatedContainer = false;
 
       if (value.length > 0) {
+        /*
         const resourceTitle = await this.resourceTitle;
         this.validatingContainer = true;
 
@@ -792,6 +799,12 @@ export default {
           this.validContainer = true;
           this.validatedContainer = true;
         }
+        */
+        this.validatingContainer = true;
+        this.validatingContainer = false;
+
+        this.validContainer = true;
+        this.validatedContainer = true;
       }
     },
 
