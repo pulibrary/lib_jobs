@@ -82,149 +82,11 @@ class AbsoluteIdsController < ApplicationController
     end
   end
 
-  def find_resource(absolute_id_params)
-    resource_id = absolute_id_params[:resource_id]
-  end
-
-  def find_container(absolute_id_params)
-    container_id = absolute_id_params[:container_id]
-  end
-
-  def container_attributes(attr)
-    container_resource = JSON.parse(attr.to_json)
-    container_resource.delete(:create_time)
-    container_resource.delete(:system_mtime)
-    container_resource.delete(:user_mtime)
-
-    container_resource
-  end
-
-  def location_attributes(attr)
-    location_resource = JSON.parse(attr.to_json)
-
-    location_resource
-  end
-
-  def repository_attributes(attr)
-    repository_resource = JSON.parse(attr.to_json)
-    repository_resource.delete(:create_time)
-    repository_resource.delete(:system_mtime)
-    repository_resource.delete(:user_mtime)
-
-    repository_resource
-  end
-
-  def resource_attributes(attr)
-    ead_resource = JSON.parse(attr.to_json)
-    ead_resource.delete(:create_time)
-    ead_resource.delete(:system_mtime)
-    ead_resource.delete(:user_mtime)
-
-    ead_resource
-  end
-
-  def container_profile_attributes(attr)
-    container_profile_resource = attr
-    container_profile_resource.delete(:create_time)
-    container_profile_resource.delete(:system_mtime)
-    container_profile_resource.delete(:user_mtime)
-
-    container_profile_resource
-  end
-
-  def resolve_resource(repository_id, ead_id)
-    resource_refs = current_client.find_resources_by_ead_id(repository_id: repository_id, ead_id: ead_id)
-    resource = repository.build_resource_from(refs: resource_refs)
-
-    raise(ArgumentError, "Failed to resolve the repository resources for #{resource_param} in repository #{repository_id}") if resource.nil?
-    resource
-  end
-
-  def resolve_container(resource, indicator)
-    # containers = current_client.search_top_containers_by(repository_id: repository_id, query: container_param)
-    top_containers = resource.search_top_containers_by(indicator: indicator)
-    top_container = top_containers.first
-
-    raise(ArgumentError, "Failed to resolve the containers for #{container_param} in repository #{repository_id}") if top_container.nil?
-    top_container
-  end
-
   # POST /absolute-ids/batches
   # POST /absolute-ids/batches.json
   def create_batches
     # authorize! :create_batches, AbsoluteId
-
-    @batches = absolute_id_batches.map { |batch_params|
-      batch_size = batch_params[:batch_size]
-
-      children = batch_size.times.map do |child_index|
-
-        params_valid = batch_params[:valid]
-
-        absolute_id = if params_valid
-
-                        absolute_id_params = batch_params[:absolute_id]
-
-                        repository_param = absolute_id_params[:repository]
-                        repository_id = repository_param[:id]
-                        repository_uri = repository_param[:uri]
-                        repository = current_client.find_repository(uri: repository_uri)
-
-                        resource_param = absolute_id_params[:resource]
-                        resource = resolve_resource(repository_id, resource_param)
-
-                        container_param = absolute_id_params[:container]
-                        top_container = resolve_container(resource, container_param[:indicator])
-
-                        build_attributes = absolute_id_params.deep_dup
-
-                        location_resource = location_attributes(build_attributes[:location])
-                        build_attributes[:location] = location_resource
-
-                        container_profile_resource = container_profile_attributes(build_attributes[:container_profile])
-                        build_attributes[:container_profile] = container_profile_resource
-
-                        build_attributes[:repository] = repository_attributes(build_attributes[:repository])
-
-                        build_attributes[:resource] = resource_attributes(resource)
-
-                        build_attributes[:container] = container_attributes(top_container)
-
-                        persisted = AbsoluteId.where(location: location_resource.to_json, container_profile: container_profile_resource.to_json)
-                        index = child_index
-                        if !persisted.empty?
-                          index += persisted.last.index.to_i + 1
-                        end
-                        build_attributes[:index] = index.to_s
-
-                        # Update the barcode
-                        new_barcode_value = build_attributes[:barcode]
-                        new_barcode = AbsoluteIds::Barcode.new(new_barcode_value)
-                        new_barcode = new_barcode + child_index.to_i
-                        build_attributes[:barcode] = new_barcode.value
-
-                        generated = AbsoluteId.generate(**build_attributes)
-                        generated.save!
-                        generated
-                      else
-                        raise ArgumentError
-                      end
-      end
-
-      if !children.empty?
-        batch = AbsoluteId::Batch.create(absolute_ids: children, user: current_user)
-        batch.save!
-        Rails.logger.info("Batch created: #{batch.id}")
-        batch
-      end
-    }.flatten
-
-    if !@batches.empty?
-      @session = AbsoluteId::Session.create(batches: @batches, user: current_user)
-      @session.save!
-      Rails.logger.info("Session created: #{@session.id}")
-      @session
-    end
+    @session = AbsoluteIdCreateSessionJob.perform_now(session_attributes: absolute_id_batches, user_id: current_user_id)
 
     respond_to do |format|
       format.html do
@@ -238,13 +100,12 @@ class AbsoluteIdsController < ApplicationController
       format.text do
         head :found, location: absolute_ids_path(format: :json)
       end
-
     end
   rescue CanCan::AccessDenied
     warning_message = if current_user_params.nil?
-                        "Denied attempt to create an Absolute ID by the anonymous client #{request.remote_ip}"
+                        "Denied attempt to create batches of Absolute IDs by the anonymous client #{request.remote_ip}"
                       else
-                        "Denied attempt to create an Absolute ID by the user ID #{current_user_id}"
+                        "Denied attempt to create batches of Absolute IDs by the user ID #{current_user_id}"
                       end
 
     Rails.logger.warn(warning_message)
@@ -257,7 +118,7 @@ class AbsoluteIdsController < ApplicationController
       format.json { head :forbidden }
     end
   rescue ArgumentError => error
-    Rails.logger.warn("Failed to create a new Absolute ID with invalid parameters.")
+    Rails.logger.warn("Failed to create batches of new Absolute IDs with invalid parameters.")
     Rails.logger.warn(JSON.generate(absolute_id_batches))
     raise error
 
