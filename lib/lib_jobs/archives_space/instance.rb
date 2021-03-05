@@ -19,6 +19,8 @@ module LibJobs
       end
 
       def sub_container
+        return unless @values.sub_container
+
         @sub_container ||= SubContainer.new(@values.sub_container.merge(repository: @repository))
       end
 
