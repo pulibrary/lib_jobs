@@ -36,7 +36,7 @@ module LibJobs
       # This does *not* recurse!
       def find_top_containers
         # Fix this
-        return []
+        super
 
         #response = client.get("/repositories/#{repository.id}/resources/#{@id}/top_containers")
         #return nil if response.status == 404
@@ -44,21 +44,8 @@ module LibJobs
         #parsed = JSON.parse(response.body)
       end
 
-      def top_containers
-        raise NotImplementedError
-
-        #if !instances.empty?
-        #  return super
-        #end
-
-        #child_containers = find_top_containers
-        #child_containers + children.map { |child| child.top_containers }.flatten
-      end
-
       def search_top_containers_by(indicator:)
-        resolved = resolve_top_containers
-
-        resolved.select do |container|
+        top_containers.select do |container|
           container.indicator == indicator
         end
       end

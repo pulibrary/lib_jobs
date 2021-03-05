@@ -106,7 +106,13 @@ module LibJobs
         resource.cache
       end
 
+      # Deprecate
       def find_resource(uri:, resource: nil)
+        find_child(uri: uri, resource_class: Resource, model_class: resource_model)
+      end
+
+      # Resource should be removed
+      def find_resource_by(uri:, resource: nil)
         find_child(uri: uri, resource_class: Resource, model_class: resource_model)
       end
 

@@ -87,6 +87,18 @@ module LibJobs
         self.class.model_class.cache(self)
       end
 
+      def to_model
+        self.class.model_class.build_from_resource(self)
+      end
+
+      def find_model
+        self.class.model_class.find_by(uri: uri)
+      end
+
+      def find_or_create_model
+        find_model || to_model.save!
+      end
+
       private
 
       # Can this be removed?
