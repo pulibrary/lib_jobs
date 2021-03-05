@@ -13,9 +13,14 @@
         </form>
         <a
           data-v-b7851b04
-          class="lux-button solid lux-button absolute-ids-sync-form--submit"
-          :href="sessionIdPath"
+          class="lux-button solid lux-button absolute-ids-session--report"
+          :href="sessionReportPath"
         >Download Report</a>
+        <a
+          data-v-b7851b04
+          class="lux-button solid lux-button absolute-ids-session--xml"
+          :href="sessionXmlPath"
+        >Export XML Data</a>
       </grid-item>
     </grid-container>
 
@@ -86,7 +91,12 @@ export default {
       default: 'POST'
     },
 
-    sessionIdPath: {
+    sessionReportPath: {
+      type: String,
+      default: ''
+    },
+
+    sessionXmlPath: {
       type: String,
       default: ''
     }

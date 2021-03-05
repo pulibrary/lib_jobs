@@ -43,4 +43,13 @@ class AbsoluteId::Batch < ApplicationRecord
   def as_json(options = nil)
     JSON.generate(attributes)
   end
+
+  def self.xml_serializer
+    AbsoluteIds::BatchXmlSerializer
+  end
+
+  # @see ActiveModel::Serializers::Xml
+  def to_xml(options = {}, &block)
+    self.class.xml_serializer.new(self, options).serialize(&block)
+  end
 end

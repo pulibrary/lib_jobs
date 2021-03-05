@@ -82,6 +82,7 @@ class AbsoluteIdsController < ApplicationController
     end
   end
 
+  # This needs to be moved to another controller
   # POST /absolute-ids/batches
   # POST /absolute-ids/batches.json
   def create_batches
@@ -150,6 +151,7 @@ class AbsoluteIdsController < ApplicationController
     end
   end
 
+  # This needs to be moved to another controller
   def show_session
     session_id = params[:session_id]
     @session ||= begin
@@ -162,6 +164,7 @@ class AbsoluteIdsController < ApplicationController
       respond_to do |format|
         format.json { render json: @session }
         format.yaml { render yaml: @session.to_yaml }
+        format.xml { render xml: @session }
       end
     end
   end

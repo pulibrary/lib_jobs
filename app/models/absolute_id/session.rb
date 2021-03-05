@@ -47,4 +47,13 @@ class AbsoluteId::Session < ApplicationRecord
       end
     end
   end
+
+  def self.xml_serializer
+    AbsoluteIds::SessionXmlSerializer
+  end
+
+  # @see ActiveModel::Serializers::Xml
+  def to_xml(options = {}, &block)
+    self.class.xml_serializer.new(self, options).serialize(&block)
+  end
 end
