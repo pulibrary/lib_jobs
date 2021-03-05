@@ -11,22 +11,24 @@ module LibJobs
 
         #@child_uris = @values.child_uris
         #@container_uris = @values.container_uris
-        @children = @values.children || []
-        @top_containers = @values.top_containers || []
+
         @instance_properties = @values.instances || []
+        @children = @values.children
+        @top_containers = @values.top_containers
 
         @level = @values.level
         @title = @values.title
       end
 
-      def children
+      def children_deprecated
         @children ||= begin
                         # This is needed for caching
-                        if @child_uris.nil?
-                          find_children
-                        else
-                          child_uris.map { |child_uri| repository.find_resource_child_object(resource: self, uri: child_uri) }
-                        end
+                        #if @child_uris.nil?
+                        #  find_children
+                        #else
+                        #  child_uris.map { |child_uri| repository.find_resource_child_object(resource: self, uri: child_uri) }
+                        #end
+                        child_uris.map { |child_uri| repository.find_resource_child_object(resource: self, uri: child_uri) }
                       end
       end
 
@@ -56,6 +58,29 @@ module LibJobs
           instances: @instance_properties,
           top_containers: @top_containers
         })
+      end
+
+      def resolve_children
+        @resolved_children ||= find_children
+      end
+
+      def children
+        @children ||= resolve_children
+      end
+
+      def resolve_top_containers
+        @resolved_top_containers ||= find_top_containers
+      end
+
+      def top_containers
+        @top_containers ||= resolve_top_containers
+      end
+
+      def cache
+        #@children = resolve_children
+        #@top_containers = resolve_top_containers
+
+        super
       end
 
       private
@@ -140,32 +165,19 @@ module LibJobs
       end
 
       def find_children
+        #descendent_nodes = child_nodes.map { |child_node| find_node_children(child_node.uri) }
+        #child_nodes + descendent_nodes.flatten
         child_nodes = find_root_children
-        descendent_nodes = child_nodes.map { |child_node| find_node_children(child_node.uri) }
-        child_nodes + descendent_nodes.flatten
-      end
-
-      def resolve_children
-        @children ||= find_children
       end
 
       # Refactor this
       def find_top_containers
-        @top_containers ||= @children.map(&:resolve_top_containers).flatten
-      end
+        #@top_containers ||= @children.map(&:resolve_top_containers).flatten
+        top_container_nodes = instances.map(&:top_container)
 
-      def resolve_top_containers
-        resolved_children = resolve_children
-        find_top_containers
-
-        #child_containers + resolved_children.map { |child| child.resolve_top_containers }.flatten
-      end
-
-      def cache
-        @children = resolve_children
-        @top_containers = resolve_top_containers
-
-        super
+        #resolve_children
+        child_top_container_nodes = resolve_children.map(&:resolve_top_containers).flatten
+        top_container_nodes + child_top_container_nodes
       end
     end
   end

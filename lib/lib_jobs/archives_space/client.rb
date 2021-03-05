@@ -90,7 +90,12 @@ module LibJobs
         ::AbsoluteId::Repository
       end
 
+      # Deprecate this
       def find_repository(uri: nil, id: nil)
+        find_child(uri: uri, resource_class: Repository, model_class: repository_model, id: id)
+      end
+
+      def find_repository_by(uri: nil, id: nil)
         find_child(uri: uri, resource_class: Repository, model_class: repository_model, id: id)
       end
 

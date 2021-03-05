@@ -3,6 +3,14 @@ class ArchivesSpaceCacheJob < ApplicationJob
   queue_as :default
 
   def perform
+    source_client.repositories.each do |repository|
+      repository.resources.each do |resource|
+        ArchivesSpaceCacheResourceJob.perform_later(repository_uri: repository.uri, resource_uri: resource.uri)
+      end
+    end
+  end
+
+  def perform_foo
     Rails.logger.info("Caching locations...")
     source_client.locations.each do |location|
       location.cache
