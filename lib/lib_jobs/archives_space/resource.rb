@@ -45,16 +45,20 @@ module LibJobs
       end
 
       def top_containers
-        if !instances.empty?
-          return super
-        end
+        raise NotImplementedError
 
-        child_containers = find_top_containers
-        child_containers + children.map { |child| child.top_containers }.flatten
+        #if !instances.empty?
+        #  return super
+        #end
+
+        #child_containers = find_top_containers
+        #child_containers + children.map { |child| child.top_containers }.flatten
       end
 
-      def search_top_containers(indicator:)
-        top_containers.select do |container|
+      def search_top_containers_by(indicator:)
+        resolved = resolve_top_containers
+
+        resolved.select do |container|
           container.indicator == indicator
         end
       end

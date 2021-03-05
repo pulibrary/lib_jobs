@@ -20,6 +20,8 @@ module LibJobs
       def initialize(attributes)
         super(attributes)
 
+        @resources = @values.resources || []
+
         @active_restrictions = @values.active_restrictions
         @barcode = @values.barcode
         @collection = @values.collection
@@ -55,6 +57,7 @@ module LibJobs
           ils_item_id: ils_item_id,
           indicator: indicator,
           series: series,
+          resources: @resources,
           type: type
         })
       end
