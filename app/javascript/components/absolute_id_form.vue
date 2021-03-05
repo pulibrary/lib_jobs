@@ -782,12 +782,12 @@ export default {
       this.validatedContainer = false;
 
       if (value.length > 0) {
+        /*
         const resourceTitle = await this.resourceTitle;
         this.validatingContainer = true;
 
         const response = await this.searchContainers({ indicator: value, resourceTitle });
 
-        /*
         this.validatingContainer = false;
         if (!response) {
           return;
