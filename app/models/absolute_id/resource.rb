@@ -11,4 +11,11 @@ class AbsoluteId::Resource < AbsoluteId::ResourceChildRecord
       title: json_object.title
     })
   end
+
+  ###
+  def to_resource
+    resource_attributes = properties
+
+    self.class.resource_class.new(resource_attributes)
+  end
 end

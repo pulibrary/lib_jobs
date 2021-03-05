@@ -45,7 +45,14 @@ module LibJobs
       end
 
       def search_top_containers_by(indicator:)
-        top_containers.select do |container|
+        related = if top_containers.empty?
+                    resolve_top_containers
+                    cache
+                    resolve_top_containers
+                  else
+                    top_containers
+                  end
+        related.select do |container|
           container.indicator == indicator
         end
       end
