@@ -181,16 +181,12 @@ class AbsoluteId < ApplicationRecord
   end
 
   def self.xml_serializer
-    AbsoluteIds::BarcodeXmlSerializer
-  end
-
-  def xml_serializer
-    self.class.xml_serializer
+    AbsoluteIds::AbsoluteIdXmlSerializer
   end
 
   # @see ActiveModel::Serializers::Xml
   def to_xml(options = {}, &block)
-    xml_serializer.new(self, options).serialize(&block)
+    self.class.xml_serializer.new(self, options).serialize(&block)
   end
 
   def self.default_initial_integer
