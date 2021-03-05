@@ -79,6 +79,11 @@ module LibJobs
         resource.search_top_containers(indicator: indicator)
       end
 
+      def search_resources(ead_id:)
+        resource_refs = find_resources_by_ead_id(ead_id: ead_id)
+        resource = build_resource_from(refs: resource_refs)
+      end
+
       def find_child(uri:, resource_class:, model_class:, resource: nil)
         cached = model_class.find_cached(uri.to_s)
         if !cached.nil?
@@ -170,6 +175,19 @@ module LibJobs
 
         find_resource(id: response[:id])
       end
+
+      private
+
+        def find_resources_by_ead_id(ead_id:)
+          identifier_query = [ead_id]
+          params = URI.encode_www_form([["identifier[]", identifier_query.to_json]])
+          path = "/repositories/#{@id}/find_by_id/resources?#{params}"
+
+          response = get(path)
+          return [] unless response.parsed.key?('resources')
+
+          response.parsed['resources']
+        end
     end
   end
 end

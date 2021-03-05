@@ -36,7 +36,10 @@ class AbsoluteIds::Repositories::ContainersController < ApplicationController
     resource_title = params[:resourceTitle]
 
     begin
-      top_containers = current_repository.search_top_containers(ead_id: resource_title, indicator: indicator)
+      #top_containers = current_repository.search_top_containers(ead_id: resource_title, indicator: indicator)
+      current_resource = current_repository.search_resources(ead_id: resource_title)
+      top_containers = current_resource.search_top_containers_by(indicator: indicator)
+
       @resource = top_containers.first
     rescue StandardError => error
       Rails.logger.warn("Failed to find the repository for #{indicator} linked to the resource #{resource_title}: #{error}")
