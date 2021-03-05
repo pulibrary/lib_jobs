@@ -102,8 +102,8 @@ module LibJobs
         response_body_json[:uri] = uri.to_s
 
         resource = resource_class.new(response_body_json)
-
-        model_class.cache(resource)
+        #model_class.cache(resource)
+        resource.cache
       end
 
       def find_resource(uri:, resource: nil)

@@ -46,11 +46,11 @@ class AbsoluteIdCreateSessionJob < ApplicationJob
     container_profile_resource
   end
 
-  def resolve_resource(repository_id, ead_id)
-    resource_refs = current_client.find_resources_by_ead_id(repository_id: repository_id, ead_id: ead_id)
+  def resolve_resource(repository, ead_id)
+    resource_refs = current_client.find_resources_by_ead_id(repository_id: repository.id, ead_id: ead_id)
     resource = repository.build_resource_from(refs: resource_refs)
 
-    raise(ArgumentError, "Failed to resolve the repository resources for #{resource_param} in repository #{repository_id}") if resource.nil?
+    raise(ArgumentError, "Failed to resolve the repository resources for #{resource_param} in repository #{repository.id}") if resource.nil?
     resource
   end
 
@@ -58,13 +58,11 @@ class AbsoluteIdCreateSessionJob < ApplicationJob
     top_containers = resource.search_top_containers_by(indicator: indicator)
     top_container = top_containers.first
 
-    raise(ArgumentError, "Failed to resolve the containers for #{container_param} in repository #{repository_id}") if top_container.nil?
+    raise(ArgumentError, "Failed to resolve the containers for #{indicator} in resource #{resource.id}") if top_container.nil?
     top_container
   end
 
-
   def create_absolute_id(absolute_id_params, index)
-
     # Resolve the Repository
     repository_param = absolute_id_params[:repository]
     repository_id = repository_param[:id]
@@ -73,11 +71,12 @@ class AbsoluteIdCreateSessionJob < ApplicationJob
 
     # Resolve the Resource
     resource_param = absolute_id_params[:resource]
-    resource = resolve_resource(repository_id, resource_param)
+    resource = resolve_resource(repository, resource_param)
 
     # Resolve the TopContainer
     container_param = absolute_id_params[:container]
-    top_container = resolve_container(resource, container_param[:indicator])
+    #top_container = resolve_container(resource, container_param[:indicator])
+    top_container = resolve_container(resource, container_param)
 
     build_attributes = absolute_id_params.deep_dup
 
@@ -136,7 +135,7 @@ class AbsoluteIdCreateSessionJob < ApplicationJob
     end
   end
 
-  def create_session(**session_attributes)
+  def create_session(session_attributes)
     @batches = session_attributes.map { |batch_params| create_batch(batch_params) }
     if !@batches.empty?
       @session = AbsoluteId::Session.create(batches: @batches, user: current_user)
@@ -157,4 +156,6 @@ class AbsoluteIdCreateSessionJob < ApplicationJob
                           source_client
                         end
   end
+
+
 end
