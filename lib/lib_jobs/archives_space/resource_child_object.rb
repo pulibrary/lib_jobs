@@ -10,6 +10,7 @@ module LibJobs
         # @resource_id = @resource.id unless @resource.nil?
 
         @child_uris = @values.child_uris
+        @container_uris = @values.container_uris
         @instance_properties = @values.instances || []
 
         @level = @values.level
@@ -57,9 +58,14 @@ module LibJobs
 
       private
 
-      # No memoization in order to enable caching
       def child_uris
-        @child_uris ||= children.map(&:uri)
+        []
+        # Disabled for performance
+        # @child_uris ||= children.map(&:uri)
+      end
+
+      def container_uris
+        @container_uris ||= top_containers.map(&:uri)
       end
 
       def request_tree_root
