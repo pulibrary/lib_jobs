@@ -45,9 +45,7 @@ module LibJobs
       end
 
       def top_containers
-        binding.pry
         if !instances.empty?
-          binding.pry
           return super
         end
 
