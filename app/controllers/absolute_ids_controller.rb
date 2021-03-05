@@ -68,7 +68,7 @@ class AbsoluteIdsController < ApplicationController
     warning_message = if current_user_params.nil?
                         "Denied attempt to create an Absolute ID by the anonymous client #{request.remote_ip}"
                       else
-                        "Denied attempt to create an Absolute ID by the user ID #{current_user_id}"
+                        "Denied attempt to create an Absolute ID by the user ID #{current_user.email}"
                       end
 
     Rails.logger.warn(warning_message)
@@ -87,7 +87,7 @@ class AbsoluteIdsController < ApplicationController
   # POST /absolute-ids/batches.json
   def create_batches
     # authorize! :create_batches, AbsoluteId
-    @session = AbsoluteIdCreateSessionJob.perform_now(session_attributes: absolute_id_batches, user_id: current_user_id)
+    @session = ::AbsoluteIdCreateSessionJob.perform_now(session_attributes: absolute_id_batches, user_id: current_user.id)
 
     respond_to do |format|
       format.html do
@@ -106,7 +106,7 @@ class AbsoluteIdsController < ApplicationController
     warning_message = if current_user_params.nil?
                         "Denied attempt to create batches of Absolute IDs by the anonymous client #{request.remote_ip}"
                       else
-                        "Denied attempt to create batches of Absolute IDs by the user ID #{current_user_id}"
+                        "Denied attempt to create batches of Absolute IDs by the user ID #{current_user.id}"
                       end
 
     Rails.logger.warn(warning_message)

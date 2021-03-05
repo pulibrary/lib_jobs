@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_03_212821) do
+ActiveRecord::Schema.define(version: 2021_03_05_183303) do
 
   create_table "absolute_id_archival_objects", force: :cascade do |t|
     t.string "uri"
@@ -72,12 +72,12 @@ ActiveRecord::Schema.define(version: 2021_03_03_212821) do
 
   create_table "absolute_ids", force: :cascade do |t|
     t.string "value"
-    t.integer "integer"
+    t.string "integer"
     t.integer "check_digit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "initial_value"
-    t.integer "index"
+    t.string "index"
     t.string "location"
     t.string "container_profile"
     t.string "repository"
@@ -93,6 +93,13 @@ ActiveRecord::Schema.define(version: 2021_03_03_212821) do
     t.index ["batch_id"], name: "index_absolute_ids_on_batch_id"
   end
 
+  create_table "archival_objects_top_containers", id: false, force: :cascade do |t|
+    t.integer "archival_object_id", null: false
+    t.integer "top_container_id", null: false
+    t.index ["archival_object_id"], name: "archival_object_id"
+    t.index ["top_container_id"], name: "top_container_id"
+  end
+
   create_table "data_sets", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -101,6 +108,13 @@ ActiveRecord::Schema.define(version: 2021_03_03_212821) do
     t.string "data_file"
     t.string "category"
     t.index ["category"], name: "index_data_sets_on_category"
+  end
+
+  create_table "resources_top_containers", id: false, force: :cascade do |t|
+    t.integer "resource_id", null: false
+    t.integer "top_container_id", null: false
+    t.index ["resource_id"], name: "resource_id"
+    t.index ["top_container_id"], name: "container_id"
   end
 
   create_table "users", force: :cascade do |t|

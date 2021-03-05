@@ -9,8 +9,10 @@ module LibJobs
         @resource = @values.resource
         # @resource_id = @resource.id unless @resource.nil?
 
-        @child_uris = @values.child_uris
-        @container_uris = @values.container_uris
+        #@child_uris = @values.child_uris
+        #@container_uris = @values.container_uris
+        @children = @values.children || []
+        @top_containers = @values.top_containers || []
         @instance_properties = @values.instances || []
 
         @level = @values.level
@@ -52,7 +54,7 @@ module LibJobs
           title: title,
           level: level,
           instances: @instance_properties,
-          child_uris: child_uris
+          top_containers: @top_containers
         })
       end
 
@@ -141,6 +143,29 @@ module LibJobs
         child_nodes = find_root_children
         descendent_nodes = child_nodes.map { |child_node| find_node_children(child_node.uri) }
         child_nodes + descendent_nodes.flatten
+      end
+
+      def resolve_children
+        @children ||= find_children
+      end
+
+      # Refactor this
+      def find_top_containers
+        @top_containers ||= @children.map(&:resolve_top_containers).flatten
+      end
+
+      def resolve_top_containers
+        resolved_children = resolve_children
+        find_top_containers
+
+        #child_containers + resolved_children.map { |child| child.resolve_top_containers }.flatten
+      end
+
+      def cache
+        @children = resolve_children
+        @top_containers = resolve_top_containers
+
+        super
       end
     end
   end
