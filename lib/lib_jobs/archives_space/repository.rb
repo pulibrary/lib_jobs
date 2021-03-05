@@ -183,7 +183,7 @@ module LibJobs
           params = URI.encode_www_form([["identifier[]", identifier_query.to_json]])
           path = "/repositories/#{@id}/find_by_id/resources?#{params}"
 
-          response = get(path)
+          response = client.get(path)
           return [] unless response.parsed.key?('resources')
 
           response.parsed['resources']
