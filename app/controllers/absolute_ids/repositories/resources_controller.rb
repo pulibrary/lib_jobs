@@ -33,25 +33,18 @@ class AbsoluteIds::Repositories::ResourcesController < ApplicationController
     params[:resource_param]
   end
 
-  # GET /absolute-ids/repositories/:repository_id/resources/search/:resource_param.json
+  # POST /absolute-ids/repositories/:repository_id/resources/search.json
   def search
 
-    if json_request?
-      ead_id = "#{resource_param}.#{request.path_parameters[:format]}"
-    else
-      ead_id = resource_param
-    end
+    #if json_request?
+    #  ead_id = "#{resource_param}.#{request.path_parameters[:format]}"
+    #else
+    #  ead_id = resource_param
+    #end
 
+    ead_id = params[:eadId]
 
     begin
-      #@resource ||= current_repository.find_resource(id: resource_id)
-
-      #repository_id = repository_param[:id]
-      #repository_uri = repository_param[:uri]
-      #repository = current_client.find_repository(uri: repository_uri)
-
-      #resource_param = absolute_id_params[:resource]
-
       resource_refs = current_client.find_resources_by_ead_id(repository_id: repository_id, ead_id: ead_id)
       @resource = current_repository.build_resource_from(refs: resource_refs)
     rescue

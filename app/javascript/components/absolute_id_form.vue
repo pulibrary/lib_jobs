@@ -695,13 +695,17 @@ export default {
       this.$emit('input', inputState);
     },
 
-    searchResources: async function (queryParam) {
+    searchResources: async function ({ eadId }) {
+      const payload = {
+        eadId
+      };
+
       let response;
       this.fetchingResources = true;
 
       try {
-        response = await fetch(`/absolute-ids/repositories/${this.selectedRepositoryId}/resources/search/${queryParam}`, {
-          method: 'GET',
+        response = await fetch(`/absolute-ids/repositories/${this.selectedRepositoryId}/resources/search`, {
+          method: 'POST',
           mode: 'cors',
           cache: 'no-cache',
           credentials: 'same-origin',
@@ -710,7 +714,8 @@ export default {
             'Authorization': `Bearer ${this.token}`
           },
           redirect: 'follow',
-          referrerPolicy: 'no-referrer'
+          referrerPolicy: 'no-referrer',
+          body: JSON.stringify(payload)
         });
       } catch (error) {
         console.warn(error);
@@ -757,10 +762,11 @@ export default {
       this.validatedResource = false;
 
       if (value.length > 0) {
+        const eadId = await this.resourceTitle;
+
         this.validatingResource = true;
 
-        /*
-        const response = await this.searchResources(value);
+        const response = await this.searchResources({ eadId });
         const resource = await response.json();
 
         this.validatingResource = false;
@@ -769,10 +775,11 @@ export default {
           this.validResource = true;
           this.validatedResource = true;
         }
-        */
+        /*
         this.validatingResource = false;
         this.validResource = true;
         this.validatedResource = true;
+        */
 
       }
     },
