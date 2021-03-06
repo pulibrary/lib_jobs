@@ -50,3 +50,20 @@ namespace :deploy do
     end
   end
 end
+
+namespace :sidekiq do
+  task :quiet do
+    on roles(:worker) do
+      puts capture("kill -USR1 $(sudo initctl status lib-jobs-workers | grep /running | awk '{print $NF}') || :")
+    end
+  end
+  task :restart do
+    on roles(:worker) do
+      execute :sudo, :service, "lib-jobs-workers", :restart
+    end
+  end
+end
+
+after "deploy:reverted", "sidekiq:restart"
+after "deploy:starting", "sidekiq:quiet"
+after "deploy:published", "sidekiq:restart"
