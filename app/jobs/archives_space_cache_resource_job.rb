@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class ArchivesSpaceCacheResourceJob < ApplicationJob
-  queue_as :default
+  queue_as :high
 
   def perform(repository_uri:, resource_uri:)
     repository = source_client.find_repository_by(uri: repository_uri)

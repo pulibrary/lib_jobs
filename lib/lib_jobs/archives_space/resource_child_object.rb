@@ -20,18 +20,6 @@ module LibJobs
         @title = @values.title
       end
 
-      def children_deprecated
-        @children ||= begin
-                        # This is needed for caching
-                        #if @child_uris.nil?
-                        #  find_children
-                        #else
-                        #  child_uris.map { |child_uri| repository.find_resource_child_object(resource: self, uri: child_uri) }
-                        #end
-                        child_uris.map { |child_uri| repository.find_resource_child_object(resource: self, uri: child_uri) }
-                      end
-      end
-
       def instances
         @instances ||= @instance_properties.map do |props|
                          instance_attributes = props.merge(repository: repository)
@@ -95,15 +83,15 @@ module LibJobs
         @container_uris ||= top_containers.map(&:uri)
       end
 
-      def request_tree_root
-        response = client.get("/repositories/#{repository.id}/resources/#{resource.id}/tree/node?node_uri=#{uri}")
-        return if response.status.code == "404"
+      #def request_tree_root
+      #  response = client.get("/repositories/#{repository.id}/resources/#{resource.id}/tree/node?node_uri=#{uri}")
+      #  return if response.status.code == "404"
 
-        response.parsed
-      rescue StandardError => standard_error
-        Rails.logger.warn("Failed to retrieve the tree root node data for #{uri}")
-        return
-      end
+      #  response.parsed
+      #rescue StandardError => standard_error
+      #  Rails.logger.warn("Failed to retrieve the tree root node data for #{uri}")
+      #  return
+      #end
 
       def build_children_from(waypoints:)
         children = []
@@ -164,11 +152,13 @@ module LibJobs
         child_nodes + descendent_nodes.flatten
       end
 
-      def find_children
-        #descendent_nodes = child_nodes.map { |child_node| find_node_children(child_node.uri) }
-        #child_nodes + descendent_nodes.flatten
-        child_nodes = find_root_children
-      end
+      # This should flatten the hierarchy
+      #def find_children
+      #  child_nodes = find_root_children
+      #  #descendent_nodes = child_nodes.map { |child_node| find_node_children(child_node.uri) }
+      #  descendent_nodes = child_nodes.map { |child_node| child_node.resolve_children }
+      #  child_nodes + descendent_nodes.flatten
+      #end
 
       # Refactor this
       def find_top_containers
@@ -177,7 +167,8 @@ module LibJobs
 
         #resolve_children
         child_top_container_nodes = resolve_children.map(&:resolve_top_containers).flatten
-        top_container_nodes + child_top_container_nodes
+        nodes = top_container_nodes + child_top_container_nodes
+        nodes.uniq
       end
     end
   end
