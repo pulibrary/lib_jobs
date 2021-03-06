@@ -19,31 +19,6 @@ module LibJobs
         })
       end
 
-      def request_tree_root
-        response = client.get("/repositories/#{repository.id}/resources/#{@id}/tree/root")
-        return if response.status.code == "404"
-
-        response.parsed
-      end
-
-      def request_tree_node(node_uri)
-        response = client.get("/repositories/#{repository.id}/resources/#{@id}/tree/node?node_uri=#{node_uri}")
-        return if response.status.code == "404"
-
-        response.parsed
-      end
-
-      # This does *not* recurse!
-      def find_top_containers
-        # Fix this
-        super
-
-        #response = client.get("/repositories/#{repository.id}/resources/#{@id}/top_containers")
-        #return nil if response.status == 404
-
-        #parsed = JSON.parse(response.body)
-      end
-
       def search_top_containers_by(indicator:)
         related = if top_containers.empty?
                     resolve_top_containers
@@ -74,6 +49,40 @@ module LibJobs
       def update
         top_containers.each(&:update)
         super
+      end
+
+      private
+
+      def request_tree_root
+        response = client.get("/repositories/#{repository.id}/resources/#{@id}/tree/root")
+        return if response.status.code == "404"
+
+        response.parsed
+      end
+
+      def request_tree_node(node_uri)
+        response = client.get("/repositories/#{repository.id}/resources/#{@id}/tree/node?node_uri=#{node_uri}")
+        return if response.status.code == "404"
+
+        response.parsed
+      end
+
+      def find_children
+        child_nodes = find_root_children
+        #descendent_nodes = child_nodes.map { |child_node| find_node_children(child_node.uri) }
+        descendent_nodes = child_nodes.map { |child_node| child_node.resolve_children }
+        child_nodes + descendent_nodes.flatten
+      end
+
+      # This does *not* recurse!
+      def find_top_containers
+        # Fix this
+        super
+
+        #response = client.get("/repositories/#{repository.id}/resources/#{@id}/top_containers")
+        #return nil if response.status == 404
+
+        #parsed = JSON.parse(response.body)
       end
     end
   end

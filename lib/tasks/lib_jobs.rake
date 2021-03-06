@@ -16,6 +16,11 @@ namespace :lib_jobs do
       task :cache, [] => [:environment] do |t, args|
         ArchivesSpaceCacheJob.perform_later
       end
+
+      desc "clears the ArchivesSpace resource caches"
+      task :clear_cache, [] => [:environment] do |t, args|
+        ArchivesSpaceClearCacheJob.perform_later
+      end
     end
 
     desc "import AbIDs from a CSV file"
