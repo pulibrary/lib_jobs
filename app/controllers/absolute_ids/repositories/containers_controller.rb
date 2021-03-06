@@ -33,10 +33,10 @@ class AbsoluteIds::Repositories::ContainersController < ApplicationController
   # POST /absolute-ids/repositories/:repository_id/containers/search.json
   def search
     indicator = params[:indicator]
-    resource_title = params[:resourceTitle]
+    ead_id = params[:eadId]
 
     begin
-      current_resource = current_repository.search_resources(ead_id: resource_title)
+      current_resource = current_repository.search_resources(ead_id: ead_id)
       top_containers = current_resource.search_top_containers_by(indicator: indicator)
 
       @resource = top_containers.first
