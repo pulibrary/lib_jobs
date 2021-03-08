@@ -107,8 +107,9 @@ class AbsoluteIdCreateSessionJob < ApplicationJob
     persisted = AbsoluteId.where(location: location_resource.to_json, container_profile: container_profile_resource.to_json)
     if !persisted.empty?
       # This should not need to be case into an Integer, but this is in place for a PostgreSQL error
-      index += persisted.last.index.to_i
+      persisted.last.index.to_i + 1
     end
+
     # This should not need to be case into an Integer, but this is in place for a PostgreSQL error
     build_attributes[:index] = index.to_s
 
