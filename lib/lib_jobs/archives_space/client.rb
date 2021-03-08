@@ -23,11 +23,13 @@ module LibJobs
 
       # @param resource_class
       # @param model_class
-      def children(resource_class:, model_class:)
-        #cached = model_class.cached
-        #if !cached.empty?
-        #  return cached
-        #end
+      def children(resource_class:, model_class:, cache: false)
+        if cache
+          cached = model_class.cached
+          if !cached.empty?
+            return cached
+          end
+        end
 
         query = URI.encode_www_form([["page", "1"], ["page_size", "100000"]])
         response = get("/#{resource_class.name.demodulize.pluralize.underscore}?#{query}")
