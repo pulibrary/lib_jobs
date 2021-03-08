@@ -4,7 +4,7 @@ class AbsoluteId::ContainerProfile < AbsoluteId::Record
     LibJobs::ArchivesSpace::ContainerProfile
   end
 
-  def properties
+  def json_properties
     super.merge({
       name: json_object.name,
       prefix: json_object.prefix

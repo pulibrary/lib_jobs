@@ -152,23 +152,12 @@ module LibJobs
         child_nodes + descendent_nodes.flatten
       end
 
-      # This should flatten the hierarchy
-      #def find_children
-      #  child_nodes = find_root_children
-      #  #descendent_nodes = child_nodes.map { |child_node| find_node_children(child_node.uri) }
-      #  descendent_nodes = child_nodes.map { |child_node| child_node.resolve_children }
-      #  child_nodes + descendent_nodes.flatten
-      #end
-
-      # Refactor this
       def find_top_containers
-        #@top_containers ||= @children.map(&:resolve_top_containers).flatten
         top_container_nodes = instances.map(&:top_container)
 
-        #resolve_children
         child_top_container_nodes = resolve_children.map(&:resolve_top_containers).flatten
         nodes = top_container_nodes + child_top_container_nodes
-        nodes.uniq
+        nodes.uniq.reject(&:nil?)
       end
     end
   end

@@ -4,7 +4,7 @@ class AbsoluteId::Repository < AbsoluteId::Record
     LibJobs::ArchivesSpace::Repository
   end
 
-  def properties
+  def json_properties
     super.merge({
       name: json_object.name,
       repo_code: json_object.repo_code

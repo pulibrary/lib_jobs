@@ -4,7 +4,7 @@ class AbsoluteId::Location < AbsoluteId::Record
     LibJobs::ArchivesSpace::Location
   end
 
-  def properties
+  def json_properties
     super.merge({
       area: json_object.area,
       barcode: json_object.barcode,

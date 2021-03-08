@@ -5,17 +5,9 @@ class AbsoluteId::Resource < AbsoluteId::ResourceChildRecord
   end
 
   has_and_belongs_to_many :top_containers, join_table: 'resources_top_containers'
-
-  def properties
+  def json_properties
     super.merge({
       title: json_object.title
     })
-  end
-
-  ###
-  def to_resource
-    resource_attributes = properties
-
-    self.class.resource_class.new(resource_attributes)
   end
 end
