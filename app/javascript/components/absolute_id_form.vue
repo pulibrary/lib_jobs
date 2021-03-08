@@ -762,6 +762,7 @@ export default {
       this.validatedResource = false;
 
       if (value.length > 0) {
+        /*
         const eadId = await this.resourceTitle;
 
         this.validatingResource = true;
@@ -775,11 +776,11 @@ export default {
           this.validResource = true;
           this.validatedResource = true;
         }
-        /*
+        */
+
         this.validatingResource = false;
         this.validResource = true;
         this.validatedResource = true;
-        */
 
       }
     },
