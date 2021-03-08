@@ -139,9 +139,8 @@ class AbsoluteIdsController < ApplicationController
     @absolute_ids = @batches.map(&:absolute_ids).flatten
 
     @absolute_ids.each do |absolute_id|
-      absolute_id.synchronizing = true
-      absolute_id.save!
-      ArchivesSpaceSyncJob.perform_later(user_id: current_user.id, model_id: absolute_id.id)
+      #ArchivesSpaceSyncJob.perform_later(user_id: current_user.id, model_id: absolute_id.id)
+      ArchivesSpaceSyncJob.perform_now(user_id: current_user.id, model_id: absolute_id.id)
     end
 
     respond_to do |format|

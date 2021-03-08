@@ -42,10 +42,13 @@ module LibJobs
                         end
       end
 
+      # This is what gets serialized into the model
+      # This should match what is in self.class.model_class#properties
       def attributes
         {
           create_time: create_time,
           id: id,
+          lock_version: lock_version,
           system_mtime: system_mtime,
           uri: uri,
           user_mtime: user_mtime

@@ -5,7 +5,7 @@ class AbsoluteId::ArchivalObject < AbsoluteId::ResourceChildRecord
   end
 
   has_and_belongs_to_many :top_containers, join_table: 'archival_objects_top_containers'
-  def properties
+  def json_properties
     super.merge({
       ref_id: json_object.ref_id,
       title: json_object.title,

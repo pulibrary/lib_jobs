@@ -122,12 +122,12 @@ module LibJobs
         output.to_a
       end
 
-      def container_profile_model
-        ::AbsoluteId::ContainerProfile
+      def container_profiles
+        children(resource_class: ContainerProfile, model_class: ContainerProfile.model_class)
       end
 
-      def container_profiles
-        children(resource_class: ContainerProfile, model_class: container_profile_model)
+      def find_container_profile_by(uri:)
+        find_child(uri: uri, resource_class: ContainerProfile, model_class: ContainerProfile.model_class)
       end
 
       # Locations
@@ -180,7 +180,12 @@ module LibJobs
         model_class.cache(resource)
       end
 
+      # Deprecate
       def find_location(uri:)
+        find_child(uri: uri, resource_class: Location, model_class: location_model)
+      end
+
+      def find_location_by(uri:)
         find_child(uri: uri, resource_class: Location, model_class: location_model)
       end
     end

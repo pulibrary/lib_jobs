@@ -34,7 +34,7 @@ module LibJobs
       end
 
       def attributes
-        {
+        super.merge({
           area: area,
           barcode: barcode,
           building: building,
@@ -46,7 +46,7 @@ module LibJobs
           room: room,
           temporary: temporary,
           uri: uri
-        }
+        })
       end
 
       def to_container_ref

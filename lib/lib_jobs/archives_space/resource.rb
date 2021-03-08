@@ -69,7 +69,6 @@ module LibJobs
 
       def find_children
         child_nodes = find_root_children
-        #descendent_nodes = child_nodes.map { |child_node| find_node_children(child_node.uri) }
         descendent_nodes = child_nodes.map { |child_node| child_node.resolve_children }
         child_nodes + descendent_nodes.flatten
       end

@@ -96,7 +96,6 @@ module LibJobs
         end
 
         response = client.get(uri.to_s)
-        # return nil if response.status != 200
         return nil if response.status.code != "200"
 
         parsed = JSON.parse(response.body)
@@ -107,7 +106,6 @@ module LibJobs
         response_body_json[:uri] = uri.to_s
 
         resource = resource_class.new(response_body_json)
-        #model_class.cache(resource)
         resource.cache
       end
 
@@ -140,8 +138,12 @@ module LibJobs
         find_resource(uri: resource_uri)
       end
 
+      # Deprecate
       def find_top_container(uri:)
-        find_child(uri: uri, resource_class: TopContainer, model_class: top_container_model)
+        find_child(uri: uri, resource_class: TopContainer, model_class: TopContainer.model_class)
+      end
+      def find_top_container_by(uri:)
+        find_child(uri: uri, resource_class: TopContainer, model_class: TopContainer.model_class)
       end
 
       def select_top_containers_by(barcode:)
@@ -154,7 +156,7 @@ module LibJobs
       def update_child(child:, model_class:)
         resource_class = child.class
         response = client.post("/repositories/#{@id}/#{resource_class.name.demodulize.pluralize.underscore}/#{child.id}", child.to_params)
-        return nil if response.status == 400
+        return nil if response.status.code != "200"
 
         model_class.uncache(child)
 

@@ -6,8 +6,7 @@ class AbsoluteId::TopContainer < AbsoluteId::ChildRecord
 
   has_and_belongs_to_many :archival_objects, join_table: 'archival_objects_top_containers'
   has_and_belongs_to_many :resources, join_table: 'resources_top_containers'
-
-  def properties
+  def json_properties
     super.merge({
       active_restrictions: json_object.active_restrictions,
       barcode: json_object.barcode,
