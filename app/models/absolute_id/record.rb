@@ -52,10 +52,13 @@ class AbsoluteId::Record < ApplicationRecord
                      end
   end
 
-  def properties
+  # This is what gets serialized into the model
+  # This should match what is in self.class.resource_class#attributes
+  def json_properties
     {
       create_time: json_object.create_time,
       id: json_object.id,
+      lock_version: json_object.lock_version,
       system_mtime: json_object.system_mtime,
       uri: uri,
       user_mtime: json_object.user_mtime
@@ -72,8 +75,6 @@ class AbsoluteId::Record < ApplicationRecord
   end
 
   def to_resource
-    resource_attributes = properties
-
-    self.class.resource_class.new(resource_attributes)
+    self.class.resource_class.new(json_properties)
   end
 end

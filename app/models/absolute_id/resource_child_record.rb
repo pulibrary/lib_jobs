@@ -6,12 +6,12 @@ class AbsoluteId::ResourceChildRecord < AbsoluteId::ChildRecord
     resource_attributes = resource.attributes.deep_dup
 
     resource_attributes.delete(:children)
-    child_resources = resource.resolve_children
+    resolved_children = resource.resolve_children
     #children = child_resources.map(&:find_or_create_model)
 
     resource_attributes.delete(:top_containers)
-    container_resources = resource.resolve_top_containers
-    top_containers = container_resources.map(&:find_or_create_model)
+    resolved_containers = resource.resolve_top_containers
+    top_containers = resolved_containers.map(&:find_or_create_model)
 
     uri = resource.uri.to_s
     json_resource = JSON.generate(resource_attributes)
@@ -25,7 +25,7 @@ class AbsoluteId::ResourceChildRecord < AbsoluteId::ChildRecord
     top_containers
   end
 
-  def properties
+  def json_properties
     super.merge({
       children: children.map(&:to_resource),
       top_containers: top_containers.map(&:to_resource)

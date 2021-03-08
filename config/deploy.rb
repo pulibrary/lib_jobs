@@ -44,7 +44,6 @@ namespace :deploy do
     on roles(:app), in: :sequence, wait: 5 do
       within release_path do
         execute :rake, 'lib_jobs:dead_queues', '--trace'
-        execute :rake, 'lib_jobs:absolute_ids:aspace:clear_cache', '--trace'
         execute :rake, 'lib_jobs:absolute_ids:aspace:cache', '--trace'
       end
     end

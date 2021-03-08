@@ -7,6 +7,20 @@ class ArchivesSpaceCacheJob < ApplicationJob
       repository.resources.each do |resource|
         ArchivesSpaceCacheResourceJob.perform_later(repository_uri: repository.uri, resource_uri: resource.uri)
       end
+
+      repository.top_containers.each do |top_container|
+        ArchivesSpaceCacheTopContainerJob.perform_later(repository_uri: repository.uri, top_container_uri: top_container.uri)
+      end
+
+      ArchivesSpaceCacheRepositoryJob.perform_later(repository_uri: repository.uri)
+    end
+
+    source_client.locations.each do |location|
+      ArchivesSpaceCacheLocationJob.perform_later(location_uri: location.uri)
+    end
+
+    source_client.container_profiles.each do |container_profile|
+      ArchivesSpaceCacheContainerProfileJob.perform_later(container_profile_uri: container_profile.uri)
     end
   end
 

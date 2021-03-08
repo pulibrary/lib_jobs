@@ -4,12 +4,10 @@ module LibJobs
   module ArchivesSpace
     class TopContainer < ChildObject
       attr_reader :active_restrictions,
-                  :barcode,
                   :collection,
                   :exported_to_ils,
                   :ils_holding_id,
                   :ils_item_id,
-                  :indicator,
                   :series,
                   :type
 
@@ -23,27 +21,25 @@ module LibJobs
         @resources = @values.resources || []
 
         @active_restrictions = @values.active_restrictions
-        @barcode = @values.barcode
+        #@barcode = @values.barcode
         @collection = @values.collection
         @exported_to_ils = @values.exported_to_ils
         @ils_holding_id = @values.ils_holding_id
         @ils_item_id = @values.ils_item_id
-        @indicator = @values.indicator
+        #@indicator = @values.indicator
         @series = @values.series
         @type = @values.type
       end
 
       def locations
-        @locations ||= begin
-                         locations_values = @values.container_locations
-                         return [] if locations_values.nil?
+        locations_values = @values.container_locations
+        return [] if locations_values.nil?
 
-                         locations_values.map do |location_attributes|
-                           # location_uri = "#{base_uri}#{location_attributes[:ref]}"
-                           location_uri = "#{location_attributes[:ref]}"
-                           client.find_location(uri: location_uri)
-                         end
-                       end
+        locations_values.map do |location_attributes|
+          # location_uri = "#{base_uri}#{location_attributes[:ref]}"
+          location_uri = "#{location_attributes[:ref]}"
+          client.find_location_by(uri: location_uri)
+        end
       end
 
       def attributes
@@ -77,6 +73,14 @@ module LibJobs
           ils_item_id: ils_item_id,
           exported_to_ils: exported_to_ils
         }
+      end
+
+      def barcode
+        @values.barcode
+      end
+
+      def indicator
+        @values.indicator
       end
 
       def update(barcode: nil, indicator: nil, container_locations: [])
