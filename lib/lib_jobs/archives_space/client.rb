@@ -11,7 +11,7 @@ module LibJobs
       end
 
       def initialize(config)
-        client_config = ::ArchivesSpace::Configuration.new(config.to_h)
+        client_config = ::ArchivesSpace::Configuration.new(config.to_h.symbolize_keys)
         super(client_config)
       end
 
