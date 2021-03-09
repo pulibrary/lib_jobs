@@ -67,8 +67,7 @@ export default {
         return this.value;
       }
 
-      const displayed = this.selected[this.displayProperty];
-
+      const displayed = this.selected[this.selectedProperty];
       return displayed;
     }
   },
@@ -207,6 +206,10 @@ export default {
       default: false,
     },
     displayProperty: {
+      type: String,
+      default: 'label'
+    },
+    selectedProperty: {
       type: String,
       default: 'label'
     }

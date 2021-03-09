@@ -50,8 +50,10 @@
                 :placeholder="locationPlaceholder"
                 :disabled="fetchingLocations"
                 :list="locationOptions"
-                display-property="classification"
-                v-model="selectedLocationId">
+                display-property="display"
+                selected-property="building"
+                v-model="selectedLocationId"
+              >
               </absolute-id-data-list>
 
               <absolute-id-data-list
@@ -510,10 +512,19 @@ export default {
 
     const fetchedLocations = await this.locations;
     this.locationOptions = fetchedLocations.map((location) => {
+      const label = location.building;
+
+      let display = location.classification;
+      if (location.area) {
+        display = `${location.area} (${location.classification})`;
+      }
+
       return {
         id: location.id,
-        label: location.building,
+        label: label,
+        display: display,
         classification: location.classification,
+        building: location.building,
         uri: location.uri
       };
     });
