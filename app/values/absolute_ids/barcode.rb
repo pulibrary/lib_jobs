@@ -64,21 +64,59 @@ module AbsoluteIds
       parsed.map(&:to_i)
     end
 
-    def self.generate_check_digit(code)
-      sum = 0
+    # Luhn algorithm implementation
+    def self.generate_check_digit_bar(code)
+      # Parse the string into integers for processing
+      code_digits = code.scan(/\d/).map(&:to_i)
 
-      parsed = parse_digits(code)
-      digits = parsed[0, 13]
-      digits.each_with_index do |digit, index|
+      # Generate the sum
+      sum = 0
+      code_digits.reverse.each_with_index do |digit, index|
         addend = digit
 
-        if index.odd?
-          addend *= 2
-          addend -= 9 if addend > 9
+        if index % 2 == 0
+          addend = digit*2
         end
+
+        if addend > 9
+          addend = addend - 9
+        end
+
+        sum = sum + addend
+      end
+
+      # Retrieve modulo 10
+      if sum % 10 == 0
+        0
+      else
+        10 - sum
+      end
+    end
+
+    def self.generate_check_digit(code)
+      padded = "#{code}0"
+      parity = padded.length % 2
+      sum = 0
+
+      code_digits = padded.scan(/\d/).map(&:to_i)
+      puts padded
+      #puts code_digits
+      code_digits.reverse.each_with_index do |digit, index|
+        puts digit
+        addend = digit
+
+        if index % 2 == parity
+          addend *= 2
+        end
+
+        if addend > 9
+          addend -= 9
+        end
+        #puts addend
 
         sum += addend
       end
+      puts sum
 
       remainder = sum % 10
       remainder.zero? ? 0 : 10 - remainder

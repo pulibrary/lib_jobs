@@ -47,9 +47,9 @@
             :value="lineItem[col.name].value"
           />
           <span v-else>
-            <hyperlink v-if="lineItem[col.name].link" :href="lineItem[col.name].link">
-              {{ lineItem[col.name].value }}
-            </hyperlink>
+            <span v-if="col.datatype === 'constant'">
+              <tag type="tag" :tag-items="[ { name: lineItem[col.name].value, color: lineItem[col.name].color } ]" />
+            </span>
             <span v-else-if="col.datatype === 'resource'">
               <hyperlink :href="lineItem[col.name].uri">
                 {{ lineItem[col.name].uri }}
@@ -58,6 +58,11 @@
             <span v-else-if="col.datatype === 'date'">
               {{ new Date(lineItem[col.name].value).toLocaleString() }}
             </span>
+
+            <hyperlink v-else-if="lineItem[col.name].link" :href="lineItem[col.name].link">
+              {{ lineItem[col.name].value }}
+            </hyperlink>
+
             <span v-else>
               {{ col.datatype }}
               {{ lineItem[col.name].value }}

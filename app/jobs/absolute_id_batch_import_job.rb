@@ -9,11 +9,10 @@ class AbsoluteIdBatchImportJob < ApplicationJob
       user = find_user(email: email)
 
       batches = entries.map { |sequence_entry|
-        imported = AbsoluteIdImportJob.perform_now(sequence_entry)
-
-        batch = AbsoluteId::Batch.create(absolute_ids: [imported], user: user)
-        batch.save
-        batch
+          imported = AbsoluteIdImportJob.perform_now(sequence_entry)
+          batch = AbsoluteId::Batch.create(absolute_ids: [imported], user: user)
+          batch.save
+          batch
       }
 
       session = AbsoluteId::Session.create(batches: batches, user: user)

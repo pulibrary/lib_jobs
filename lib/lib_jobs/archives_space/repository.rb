@@ -84,15 +84,17 @@ module LibJobs
         resource = build_resource_from(refs: resource_refs)
       end
 
-      def find_child(uri:, resource_class:, model_class:, resource: nil)
-        cached = model_class.find_cached(uri.to_s)
-        if !cached.nil?
-          if !resource.nil?
-            cached.resource = resource
-          end
-          cached.repository = self
+      def find_child(uri:, resource_class:, model_class:, resource: nil, cache: true)
+        if cache
+          cached = model_class.find_cached(uri.to_s)
+          if !cached.nil?
+            if !resource.nil?
+              cached.resource = resource
+            end
+            cached.repository = self
 
-          return cached
+            return cached
+          end
         end
 
         response = client.get(uri.to_s)
@@ -106,17 +108,20 @@ module LibJobs
         response_body_json[:uri] = uri.to_s
 
         resource = resource_class.new(response_body_json)
-        resource.cache
+        if cache
+          resource.cache
+        end
+        resource
       end
 
       # Deprecate
-      def find_resource(uri:, resource: nil)
-        find_child(uri: uri, resource_class: Resource, model_class: resource_model)
+      def find_resource(uri:, resource: nil, cache: true)
+        find_child(uri: uri, resource_class: Resource, model_class: Resource.model_class, cache: cache)
       end
 
       # Resource should be removed
-      def find_resource_by(uri:, resource: nil)
-        find_child(uri: uri, resource_class: Resource, model_class: resource_model)
+      def find_resource_by(uri:, resource: nil, cache: true)
+        find_child(uri: uri, resource_class: Resource, model_class: Resource.model_class, cache: cache)
       end
 
       def find_archival_object(resource:, uri:)
@@ -131,11 +136,11 @@ module LibJobs
         end
       end
 
-      def build_resource_from(refs:)
+      def build_resource_from(refs:, cache: true)
         resource_ref = refs.first
 
         resource_uri = "#{resource_ref['ref']}"
-        find_resource(uri: resource_uri)
+        find_resource_by(uri: resource_uri, cache: cache)
       end
 
       # Deprecate

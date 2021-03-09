@@ -140,24 +140,37 @@
     }
   }
 
-  &-table {
-    margin-top: 2.1rem;
+  &-sync-form {
+    display: inline-block;
+  }
 
-    .lux-data-table {
-      width: 100%;
+  .lux-data-table {
+    width: 100%;
 
-      .button {
-        &--delete {
-          &.lux-button.solid[data-v-b7851b04] {
-            background-color: $color-red;
+    // This should be removed
+    .button {
+      &--delete {
+        &.lux-button.solid[data-v-b7851b04] {
+          background-color: $color-red;
+        }
+      }
+    }
+
+    tbody {
+      color: red;
+      .row {
+        td {
+          .lux-tag-item {
+            color: #fff;
+            font-size: 0.95rem;
+            padding: 0.4rem 0.6rem;
+            text-align: center;
+            font-weight: 600;
+            font-variant: all-small-caps;
           }
         }
       }
     }
-  }
-
-  &-sync-form {
-    display: inline-block;
   }
 
   h1 {

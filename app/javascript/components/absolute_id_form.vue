@@ -16,10 +16,8 @@
             :maxlength="barcodeLength"
             v-on:input="onBarcodeInput($event)"
             :disabled="barcodeValid"
-            :value="bar()"
-            >
-          </input-text>
-
+            :value="startingBarcode()"
+          />
           <input-text
             id="terminal_code"
             class="absolute-ids-form--input-field"
@@ -29,8 +27,8 @@
             placeholder="Ending Barcode"
             helper="Ending Barcode"
             :disabled="true"
-            :value="baz()">
-          </input-text>
+            :value="endingBarcode()"
+          />
         </fieldset>
       </grid-item>
 
@@ -555,6 +553,7 @@ export default {
       return {
         id: repository.id,
         label: repository.name,
+        selected: repository.name,
         uri: repository.uri,
         repoCode: repository.repo_code
       };
@@ -594,41 +593,29 @@ export default {
       }
     },
 
-    bar: function () {
+    startingBarcode: function () {
       return this.parsedBarcode;
     },
 
-    //endingBarcode: function () {
-    baz: function () {
+    endingBarcode: function () {
       return this.parsedEndingBarcode;
     },
 
     generateChecksum: function (base) {
+      const padded = `${base}0`;
+      const len = padded.length;
+      const parity = len % 2;
+      let sum = 0;
 
-      let sum  = 0;
-      const digits = base.slice(0, 13);
-      const elements = digits.split();
-
-      elements.forEach( (element, index) => {
-        let addend = element;
-
-        if (index % 2 > 0) {
-          addend = addend * 2;
-          if (addend > 9) {
-            addend = addend - 9;
-          }
-        }
-
-        sum = sum + addend;
-      });
+      for (let i = len-1; i >= 0; i--) {
+        let d = parseInt(padded.charAt(i));
+        if (i % 2 == parity) { d *= 2 };
+        if (d > 9) { d -= 9 };
+        sum += d;
+      }
 
       const remainder = sum % 10;
-
-      if (remainder == 0) {
-        return 0;
-      } else {
-        return 10 - remainder;
-      }
+      return remainder == 0 ? 0 : 10 - remainder;
     },
 
     updateBarcode: function (value) {

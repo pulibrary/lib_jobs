@@ -19,15 +19,16 @@ class AbsoluteId::Batch < ApplicationRecord
   def table_data
     absolute_ids.map do |absolute_id|
       {
+        label: absolute_id.label,
         user: user.email,
         barcode: absolute_id.barcode.value,
-        label: absolute_id.label,
         location: { link: absolute_id.location_object.uri, value: absolute_id.location_object.building },
         container_profile: { link: absolute_id.container_profile_object.uri, value: absolute_id.container_profile_object.name },
         repository: { link: absolute_id.repository_object.uri, value: absolute_id.repository_object.name },
         resource: { link: absolute_id.resource_object.uri, value: absolute_id.resource_object.title },
         container: { link: absolute_id.container_object.uri, value: absolute_id.container_object.indicator },
-        synchronized_at: absolute_id.synchronized_at || 'Never'
+        status: { value: 'Unsynced', color: 'blue' },
+        synchronized_at: absolute_id.synchronized_at || 'Never',
       }
     end
   end

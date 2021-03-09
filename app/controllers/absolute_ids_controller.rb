@@ -6,18 +6,20 @@ class AbsoluteIdsController < ApplicationController
 
   def table_columns
     [
-      { name: 'barcode', display_name: 'Barcode', align: 'left', sortable: true, ascending: 'undefined' },
       { name: 'label', display_name: 'Identifier', align: 'left', sortable: true },
+      { name: 'barcode', display_name: 'Barcode', align: 'left', sortable: true, ascending: 'undefined' },
       { name: 'location', display_name: 'Location', align: 'left', sortable: false },
       { name: 'container_profile', display_name: 'Container Profile', align: 'left', sortable: false },
       { name: 'repository', display_name: 'Repository', align: 'left', sortable: false },
       { name: 'resource', display_name: 'ASpace Resource', align: 'left', sortable: false },
       { name: 'container', display_name: 'ASpace Container', align: 'left', sortable: false },
       { name: 'user', display_name: 'User', align: 'left', sortable: false },
-      { name: 'synchronized_at', display_name: 'Last Synchronized', align: 'left', sortable: true }
+      { name: 'synchronized_at', display_name: 'Last Synchronized', align: 'left', sortable: true },
+      { name: 'status', display_name: 'Status', align: 'left', sortable: false, datatype: 'constant' }
     ]
   end
 
+  # This should be moved to a separate controller
   # GET /absolute-ids
   # GET /absolute-ids.json
   def index

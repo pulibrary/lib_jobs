@@ -17,12 +17,18 @@ class AbsoluteIdCreateBatchJob < ApplicationJob
     children = batch_size.times.map do |child_index|
       properties = absolute_id_params.deep_dup
       properties[:index] = child_index
-      model_id = AbsoluteIdCreateJob.perform_now(properties: properties, user_id: @user_id)
-      AbsoluteId.find(model_id)
+
+      begin
+        model_id = AbsoluteIdCreateJob.perform_now(properties: properties, user_id: @user_id)
+        AbsoluteId.find(model_id)
+      rescue StandardError => error
+        Rails.logger.warn("Failed to create the Absolute ID: #{properties['initial_value']}")
+        nil
+      end
     end
 
     if !children.empty?
-      batch = AbsoluteId::Batch.create(absolute_ids: children, user: current_user)
+      batch = AbsoluteId::Batch.create(absolute_ids: children.reject(&:nil?), user: current_user)
       batch.save!
       Rails.logger.info("Batch created: #{batch.id}")
       batch.id

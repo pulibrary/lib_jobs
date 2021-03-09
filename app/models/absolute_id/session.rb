@@ -31,8 +31,7 @@ class AbsoluteId::Session < ApplicationRecord
 
   def to_txt
     CSV.generate(col_sep: " | ") do |csv|
-      csv << ["User", "Barcode", "Label", "Location", "Container Profile", "Repository", "Call Number", "Box Number"]
-      csv << ["User", "Barcode", "Label", "Location", "Container Profile", "Repository", "Call Number", "Box Number"]
+      csv << ["ID", "User", "Barcode", "Location", "Container Profile", "Repository", "Call Number", "Box Number"]
 
       batches.map(&:attributes).each do |batch|
         batch[:tableData].each do |entry|
@@ -42,7 +41,7 @@ class AbsoluteId::Session < ApplicationRecord
           resource = entry[:resource][:value]
           container = entry[:container][:value]
 
-          csv << [entry[:user], entry[:barcode], entry[:label], location, container_profile, repository, resource, container]
+          csv << [entry[:label], entry[:user], entry[:barcode], location, container_profile, repository, resource, container]
         end
       end
     end

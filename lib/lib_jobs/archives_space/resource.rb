@@ -19,10 +19,10 @@ module LibJobs
         })
       end
 
-      def search_top_containers_by(indicator:)
+      def search_top_containers_by(indicator:, cache: true)
         related = if top_containers.empty?
                     resolve_top_containers
-                    cache
+                    cache if cache
                     resolve_top_containers
                   else
                     top_containers
