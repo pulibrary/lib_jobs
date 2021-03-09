@@ -2,17 +2,14 @@
   <component :is="wrapper" class="lux-input">
     <label v-if="label" :for="id" :class="{ 'lux-hidden': hideLabel }">{{ label }}</label>
     <div
-      class="lux-input-field"
-      :class="[{ 'lux-input-expand': width === 'expand' }, { disabled: disabled }, size]"
+      :class="[{ 'lux-input-expand': width === 'expand' }, { disabled: disabled }, size, lux-input-field]"
     >
-
       <input
         :name="name"
         :id="id"
         type="hidden"
         v-model="selected"
       />
-
       <input
         :name="name"
         :id="id"
@@ -49,8 +46,6 @@
  */
 export default {
   name: "AbsoluteIdDataList",
-  status: "prototype",
-  release: "1.0.0",
   type: "Element",
   computed: {
     datalistId() {
@@ -72,10 +67,6 @@ export default {
     }
   },
   props: {
-    /**
-     * The type of the form input field.
-     * `text, number, email`
-     */
     type: {
       type: String,
       default: "text",
@@ -207,11 +198,11 @@ export default {
     },
     displayProperty: {
       type: String,
-      default: 'label'
+      default: 'display'
     },
     selectedProperty: {
       type: String,
-      default: 'label'
+      default: 'selected'
     }
   },
 
@@ -226,6 +217,7 @@ export default {
   updated: function () {
     if (this.value) {
       if (!this.selected) {
+        console.log('trace');
         this.selected = this.value;
       }
     }

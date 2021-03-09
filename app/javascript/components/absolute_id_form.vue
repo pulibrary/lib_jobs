@@ -50,11 +50,8 @@
                 :placeholder="locationPlaceholder"
                 :disabled="fetchingLocations"
                 :list="locationOptions"
-                display-property="display"
-                selected-property="building"
                 v-model="selectedLocationId"
-              >
-              </absolute-id-data-list>
+              />
 
               <absolute-id-data-list
                 id="container_profile_id"
@@ -66,7 +63,6 @@
                 :placeholder="containerProfilePlaceholder"
                 :disabled="fetchingContainerProfiles"
                 :list="containerProfileOptions"
-                display-property="prefix"
                 v-model="selectedContainerProfileId">
               </absolute-id-data-list>
 
@@ -512,11 +508,16 @@ export default {
 
     const fetchedLocations = await this.locations;
     this.locationOptions = fetchedLocations.map((location) => {
-      const label = location.building;
+      const display = location.building;
 
-      let display = location.classification;
+      let label = location.classification;
+      let selected = location.classification;
       if (location.area) {
-        display = `${location.area} (${location.classification})`;
+        label = `${location.area} (${location.classification})`;
+        selected = `${location.area} (${location.classification})`;
+      } else if (location.building) {
+        label = `${location.building} (${location.classification})`;
+        selected = `${location.building} (${location.classification})`;
       }
 
       return {
@@ -525,7 +526,27 @@ export default {
         display: display,
         classification: location.classification,
         building: location.building,
+        selected: selected,
         uri: location.uri
+      };
+    });
+
+    const fetchedContainerProfiles = await this.containerProfiles;
+    this.containerProfileOptions = fetchedContainerProfiles.map((containerProfile) => {
+      const display = containerProfile.name;
+
+      let label = containerProfile.name;
+      let selected = containerProfile.name;
+      if (containerProfile.prefix) {
+        label = `${containerProfile.name} (${containerProfile.prefix})`;
+        selected = `${containerProfile.name} (${containerProfile.prefix})`;
+      }
+
+      return {
+        id: containerProfile.id,
+        label: label,
+        selected: selected,
+        uri: containerProfile.uri
       };
     });
 
@@ -536,16 +557,6 @@ export default {
         label: repository.name,
         uri: repository.uri,
         repoCode: repository.repo_code
-      };
-    });
-
-    const fetchedContainerProfiles = await this.containerProfiles;
-    this.containerProfileOptions = fetchedContainerProfiles.map((containerProfile) => {
-      return {
-        id: containerProfile.id,
-        label: containerProfile.name,
-        prefix: containerProfile.prefix,
-        uri: containerProfile.uri
       };
     });
   },
