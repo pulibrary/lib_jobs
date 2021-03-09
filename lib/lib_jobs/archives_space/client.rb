@@ -76,29 +76,28 @@ module LibJobs
       end
 
       # This is a different and distinct case from #children
-      def repositories
-        #cached = repository_model.cached
-        #if !cached.empty?
-        #  return cached
-        #end
-
-        super.map do |repository_json|
-          resource = build_repository(repository_json)
-          repository_model.cache(resource)
+      def repositories(cache: false)
+        if cache
+          cached = Repository.model_class.cached
+          if !cached.empty?
+            return cached
+          end
         end
-      end
 
-      def repository_model
-        ::AbsoluteId::Repository
+        super.to_a.map do |repository_json|
+          resource = build_repository(repository_json)
+          resource.cache if cache
+          resource
+        end
       end
 
       # Deprecate this
       def find_repository(uri: nil, id: nil)
-        find_child(uri: uri, resource_class: Repository, model_class: repository_model, id: id)
+        find_child(uri: uri, resource_class: Repository, model_class: Repository.model_class, id: id)
       end
 
       def find_repository_by(uri: nil, id: nil)
-        find_child(uri: uri, resource_class: Repository, model_class: repository_model, id: id)
+        find_child(uri: uri, resource_class: Repository, model_class: Repository.model_class, id: id)
       end
 
       def search_top_containers_by(repository_id:, query:)
@@ -138,12 +137,8 @@ module LibJobs
         output.to_a
       end
 
-      def location_model
-        ::AbsoluteId::Location
-      end
-
       def locations
-        children(resource_class: Location, model_class: location_model)
+        children(resource_class: Location, model_class: Location.model_class)
       end
 
       def find_child_by(child_id:, resource_class:, model_class:)
@@ -182,11 +177,11 @@ module LibJobs
 
       # Deprecate
       def find_location(uri:)
-        find_child(uri: uri, resource_class: Location, model_class: location_model)
+        find_child(uri: uri, resource_class: Location, model_class: Location.model_class)
       end
 
       def find_location_by(uri:)
-        find_child(uri: uri, resource_class: Location, model_class: location_model)
+        find_child(uri: uri, resource_class: Location, model_class: Location.model_class)
       end
     end
   end
