@@ -211,12 +211,13 @@ class AbsoluteId < ApplicationRecord
                       default_initial_value
                     end
 
-    new_barcode = self.barcode_model.new(initial_value)
-    new_check_digit = new_barcode.check_digit
+    #new_barcode = self.barcode_model.new(initial_value)
+    #new_check_digit = new_barcode.check_digit
+    check_digit = initial_value.last
 
     model_attributes = {
       value: initial_value,
-      check_digit: new_check_digit,
+      check_digit: check_digit,
       initial_value: initial_value,
 
       container_profile: container_profile_resource.to_json,

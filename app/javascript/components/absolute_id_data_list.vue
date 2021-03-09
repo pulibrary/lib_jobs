@@ -2,7 +2,7 @@
   <component :is="wrapper" class="lux-input">
     <label v-if="label" :for="id" :class="{ 'lux-hidden': hideLabel }">{{ label }}</label>
     <div
-      :class="[{ 'lux-input-expand': width === 'expand' }, { disabled: disabled }, size, lux-input-field]"
+      :class="[{ 'lux-input-expand': width === 'expand' }, { disabled: disabled }, size, 'lux-input-field']"
     >
       <input
         :name="name"

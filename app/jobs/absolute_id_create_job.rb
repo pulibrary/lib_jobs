@@ -50,9 +50,9 @@ class AbsoluteIdCreateJob < ApplicationJob
 
   def resolve_resource(repository, ead_id)
     resource_refs = current_client.find_resources_by_ead_id(repository_id: repository.id, ead_id: ead_id)
-    resource = repository.build_resource_from(refs: resource_refs)
+    resource = repository.build_resource_from(refs: resource_refs, cache: false)
 
-    raise(ArgumentError, "Failed to resolve the repository resources for #{resource_param} in repository #{repository.id}") if resource.nil?
+    raise(ArgumentError, "Failed to resolve the repository resources for #{ead_id} in repository #{repository.id}") if resource.nil?
     resource
   end
 
@@ -114,10 +114,10 @@ class AbsoluteIdCreateJob < ApplicationJob
     build_attributes[:index] = index.to_s
 
     # Update the barcode
-    new_barcode_value = build_attributes[:barcode]
-    new_barcode = AbsoluteIds::Barcode.new(new_barcode_value)
-    new_barcode = new_barcode + index.to_i
-    build_attributes[:barcode] = new_barcode.value
+    #new_barcode_value = build_attributes[:barcode]
+    #new_barcode = AbsoluteIds::Barcode.new(new_barcode_value)
+    #new_barcode = new_barcode + index.to_i
+    #build_attributes[:barcode] = new_barcode.value
 
     # Build and persist the AbId
     generated = AbsoluteId.generate(**build_attributes)
