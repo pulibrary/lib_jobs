@@ -1,20 +1,45 @@
 <template>
   <form method="post" class="absolute-ids-batch-form" v-on:submit.prevent="submit">
-
+    <div class="absolute-ids-batch-form--mode">
+      <input-radio
+        id="mode"
+        vertical
+        :options="[
+          {
+            name: 'radio-group-name',
+            label: 'ArchivesSpace Resources',
+            value: 'aspace',
+            id: 'aspace',
+            checked: true
+          },
+          {
+            name: 'radio-group-name',
+            label: 'MARC Records',
+            value: 'marc',
+            id: 'marc'
+          }
+        ]"
+        v-on:change="onChangeMode"
+      />
+    </div>
     <template v-for="(entry, index) in batch">
       <fieldset class="absolute-ids-batch-form--batch">
         <legend>Batch</legend>
 
         <absolute-id-form
           :key="batchKey(index)"
+
           v-model="batch[index]"
           :action="action"
           :token="token"
+          :mode="mode"
           :barcode="generateBarcode(index, batchSize[index])"
+
           :batch-form="true"
+          :batch-size="batchSize[index]"
+
           v-on:input-size="updateBatchSize($event, index)"
-          :batch-size="batchSize[index]">
-        </absolute-id-form>
+        />
 
         <fieldset class="absolute-ids-batch-form--batch-size">
           <legend>Size</legend>
@@ -28,7 +53,7 @@
             helper="Number of Absolute IDs"
             size="small"
             :disabled="true"
-            @change="onChangeBatchSize($event, index)">
+            >
           </input-text>
 
           <button
@@ -91,6 +116,7 @@ export default {
 
   data: function () {
     return {
+      mode: 'aspace',
       batch: [
         {
           absolute_id: {
@@ -101,6 +127,7 @@ export default {
             resource: null,
             container: null
           },
+          barcodes: [],
           batch_size: 1,
           valid: false
         }
@@ -173,6 +200,7 @@ export default {
 
     formData: async function () {
       const resolvedBatch = this.batch;
+      console.log(this.batch);
 
       return {
         batch: resolvedBatch
@@ -181,7 +209,11 @@ export default {
   },
 
   mounted: async function () {
-    this.barcodes.push(this.barcode);
+    /*
+    if (this.barcodes.length > 0) {
+      this.barcodes.push(this.barcode);
+    }
+    */
 
     const fetchedLocations = await this.locations;
     this.locationOptions = fetchedLocations.map((location) => {
@@ -212,9 +244,14 @@ export default {
   },
 
   methods: {
+    onChangeMode: function (changed) {
+      this.mode = changed;
+    },
+
     batchKey: function (index) {
       return index + this.batchUpdates;
     },
+
     buildAbsoluteId: function() {
       return {
         absolute_id: {
@@ -225,6 +262,7 @@ export default {
             resource: null,
             container: null
         },
+        barcodes: [],
         batch_size: 1,
         valid: false
       };
@@ -382,7 +420,24 @@ export default {
       return this.batchSize[index];
     },
 
-    updateBatchSize: function (payload, batchIndex) {
+    generateChecksum: function (base) {
+      const padded = `${base}0`;
+      const len = padded.length;
+      const parity = len % 2;
+      let sum = 0;
+
+      for (let i = len-1; i >= 0; i--) {
+        let d = parseInt(padded.charAt(i));
+        if (i % 2 == parity) { d *= 2 };
+        if (d > 9) { d -= 9 };
+        sum += d;
+      }
+
+      const remainder = sum % 10;
+      return remainder == 0 ? 0 : 10 - remainder;
+    },
+
+    updateBatchSize: async function (payload, batchIndex) {
       const start = payload.start;
       const end = payload.end;
 
@@ -395,12 +450,39 @@ export default {
         size = 1;
       }
 
-      // Should this be used?
-      this.batchSize[batchIndex] = size;
-      const batch = this.batch[batchIndex];
+      const batch = await this.batch[batchIndex];
+
       if (batch) {
+        const absoluteId = batch.absolute_id;
+        const barcode = absoluteId.barcode;
+
+        // Update the barcodes
+        const batchBarcodes = [];
+        //batch.barcodes = [];
+        for (const i of Array(size).keys()) {
+          const base = barcode.slice(0, 13);
+          const value = Number.parseInt(base) + i;
+          const encoded = `${value}`;
+          const incremented = encoded.padStart(13, 0);
+          const checksum = this.generateChecksum(incremented);
+          const newBarcode = `${incremented}${checksum}`;
+
+          batchBarcodes.push(newBarcode);
+          //this.$set(this.barcodes, i, newBarcode);
+          //batch.barcodes.push(newBarcode);
+        }
+        //batch.barcodes = batchBarcodes;
+
+        //this.batchSize[batchIndex] = size;
+        this.$set(this.batchSize, batchIndex, size);
+
         batch.batch_size = size;
+
+        // Update the batch
         this.$set(this.batch, batchIndex, batch);
+        console.log(batch);
+        console.log(this.batch);
+        //debugger;
       }
     },
 

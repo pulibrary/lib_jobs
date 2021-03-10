@@ -88,7 +88,7 @@ class AbsoluteIdsController < ApplicationController
   # POST /absolute-ids/batches.json
   def create_batches
     # authorize! :create_batches, AbsoluteId
-    @session = ::AbsoluteIdCreateSessionJob.perform_now(session_attributes: absolute_id_batches, user_id: current_user.id)
+    @session = ::AbsoluteIdCreateSessionJob.perform_now(session_attributes: session_params, user_id: current_user.id)
 
     respond_to do |format|
       format.html do
@@ -117,7 +117,7 @@ class AbsoluteIdsController < ApplicationController
     end
   rescue ArgumentError => error
     Rails.logger.warn("Failed to create batches of new Absolute IDs with invalid parameters.")
-    Rails.logger.warn(JSON.generate(absolute_id_batches))
+    Rails.logger.warn(JSON.generate(session_params))
     raise error
 
     respond_to do |format|
@@ -241,7 +241,7 @@ class AbsoluteIdsController < ApplicationController
     @current_user ||= find_user
   end
 
-  def absolute_id_batches
+  def session_params
     ActionController::Parameters.permit_all_parameters = true
     parsed = params.to_h.deep_symbolize_keys
     ActionController::Parameters.permit_all_parameters = false

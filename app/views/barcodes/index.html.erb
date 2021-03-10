@@ -1,35 +1,36 @@
 <section class="absolute-ids">
-  <h1>Absolute Identifiers (AbIDs)</h1>
+  <h1>Barcodes</h1>
   <% if current_user %>
     <div class="lux">
       <absolute-id-batch-form
         action="<%= absolute_ids_path %>"
         token="<%= current_user.token %>"
-      />
+      >
+      </absolute-id-form>
     </div>
   <% end %>
 
   <% if current_user && !@sessions.empty? %>
-    <% @sessions.each do |session| %>
+    <% @sessions.each do |absolute_id_session| %>
       <div class="lux absolute-ids-session">
         <absolute-id-batch-table
-          header="<%= session.label %>"
-          :synchronized="<%= session.synchronized? %>"
+          header="<%= absolute_id_session.label %>"
+          :synchronized="<%= absolute_id_session.synchronized? %>"
           :columns="<%= JSON.generate(table_columns) %>"
-          :session="<%= session.as_json %>"
+          :session="<%= absolute_id_session.as_json %>"
           token="<%= current_user.token %>"
-          synchronize-action="<%= synchronize_session_path(session) %>"
-          session-report-path="<%= session_id_path(session, format: 'txt') %>"
-          session-xml-path="<%= session_id_path(session, format: 'xml') %>"
+          synchronize-action="<%= synchronize_session_path(absolute_id_session) %>"
+          session-report-path="<%= session_id_path(absolute_id_session, format: 'txt') %>"
+          session-xml-path="<%= session_id_path(absolute_id_session, format: 'xml') %>"
         />
       </div>
     <% end %>
   <% end %>
 
   <div class="absolute-ids-status lux">
-    <div>Loading...</div>
     <% unless index_status.blank? %>
       <alert status="info" dismissible>
+        <%= index_status %>
       </alert>
     <% end %>
   </div>

@@ -16,6 +16,7 @@ class AbsoluteIdCreateBatchJob < ApplicationJob
 
     children = batch_size.times.map do |child_index|
       properties = absolute_id_params.deep_dup
+      properties[:barcode] = batch_properties[:barcodes][child_index]
       properties[:index] = child_index
 
       begin
