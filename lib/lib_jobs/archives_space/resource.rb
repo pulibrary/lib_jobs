@@ -30,7 +30,7 @@ module LibJobs
         #  container.indicator == indicator
         #end
         sorted = top_containers.sort { |u, v| u.id <=> v.id }
-        sorted[index]
+        sorted[index.to_i]
       end
 
       def barcodes
