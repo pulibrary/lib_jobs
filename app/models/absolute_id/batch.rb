@@ -16,6 +16,26 @@ class AbsoluteId::Batch < ApplicationRecord
     absolute_ids.map(&:synchronizing?).reduce(&:|)
   end
 
+  # Refactor this
+  def report_entries
+    entries = absolute_ids.map do |absolute_id|
+      {
+        label: absolute_id.label,
+        user: user.email,
+        barcode: absolute_id.barcode.value,
+        location: absolute_id.location_object,
+        container_profile: absolute_id.container_profile_object,
+        repository: absolute_id.repository_object,
+        resource: absolute_id.resource_object,
+        container: absolute_id.container_object,
+        status: AbsoluteId::UNSYNCHRONIZED,
+        synchronized_at: absolute_id.synchronized_at
+      }
+    end
+
+    entries.map { |entry| OpenStruct.new(entry) }
+  end
+
   def table_data
     absolute_ids.map do |absolute_id|
       {

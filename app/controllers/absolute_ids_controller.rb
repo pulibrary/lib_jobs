@@ -99,10 +99,6 @@ class AbsoluteIdsController < ApplicationController
       format.json do
         head :found, location: absolute_ids_path(format: :json)
       end
-
-      format.text do
-        head :found, location: absolute_ids_path(format: :json)
-      end
     end
   rescue CanCan::AccessDenied
     warning_message = if current_user_params.nil?
@@ -137,8 +133,9 @@ class AbsoluteIdsController < ApplicationController
 
     session_id = params[:session_id]
     @session = AbsoluteId::Session.find_by(user: current_user, id: session_id)
-    @batches = @session.batches.to_a
-    @absolute_ids = @batches.map(&:absolute_ids).flatten
+    #@batches = @session.batches.to_a
+    #@absolute_ids = @batches.map(&:absolute_ids).flatten
+    @absolute_ids = @session.absolute_ids
 
     @absolute_ids.each do |absolute_id|
       #ArchivesSpaceSyncJob.perform_later(user_id: current_user.id, model_id: absolute_id.id)

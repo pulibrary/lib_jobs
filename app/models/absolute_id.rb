@@ -1,42 +1,25 @@
 # frozen_string_literal: true
 class AbsoluteId < ApplicationRecord
+  NEVER_SYNCHRONIZED = 'never synchronized'
+  UNSYNCHRONIZED = 'unsynchronized'
+  SYNCHRONIZING = 'synchronizing'
+  SYNCHRONIZED = 'synchronized'
+  SYNCHRONIZE_FAILED = 'synchronization failed'
+
   belongs_to :batch, class_name: 'AbsoluteId::Batch', optional: true
 
-  def self.barcode_model
+  def self.barcode_class
     AbsoluteIds::Barcode
   end
 
   class BarcodeValidator < ActiveModel::Validator
     def validate(absolute_id)
-      return if absolute_id.value.nil?
-
       unless absolute_id.integer.nil?
         absolute_id.errors.add(:value, "Mismatch between the digit sequence and the ID") if absolute_id.integer.to_i != absolute_id.barcode.integer
       end
 
       if absolute_id.check_digit.nil?
-
-        unless absolute_id.digits.length != 14
-          absolute_id.errors.add(:value, "Please use an ID with a sequence of 13 digits and a check digit using the Luhn algorithm (please see: https://github.com/topics/luhn-algorithm?l=ruby)")
-        end
-        unless absolute_id.barcode.valid?
-          absolute_id.errors.add(:check_digit, "Please specify a ID with valid check digit using the Luhn algorithm (please see: https://github.com/topics/luhn-algorithm?l=ruby)")
-        end
-
-      elsif absolute_id.digits.length == 14 # check digit exists and value is 14 characters
-
-        unless absolute_id.check_digit == absolute_id.barcode.check_digit
-          absolute_id.errors.add(:check_digit, "Please specify a ID with valid check digit using the Luhn algorithm (please see: https://github.com/topics/luhn-algorithm?l=ruby)")
-        end
-
-      elsif absolute_id.digits.length == 13 # check digit exists and value is 13 characters
-
-        unless absolute_id.check_digit == absolute_id.barcode.check_digit
-          absolute_id.errors.add(:check_digit, "Please specify a ID with valid check digit using the Luhn algorithm (please see: https://github.com/topics/luhn-algorithm?l=ruby)")
-        end
-
-      else
-        absolute_id.errors.add(:value, "Please use an ID with a sequence of 13 digits")
+        absolute_id.errors.add(:check_digit, "Please specify a ID with valid check digit using the Luhn algorithm (please see: https://github.com/topics/luhn-algorithm?l=ruby)")
       end
     end
   end
@@ -44,19 +27,8 @@ class AbsoluteId < ApplicationRecord
   validates :value, presence: true
   validates_with BarcodeValidator
 
-  after_validation do
-    if value.present?
-      parsed_digits = self.class.barcode_model.parse_digits(value)
-
-      self.integer = barcode.integer.to_s if integer.nil?
-      self.check_digit = barcode.check_digit if check_digit.nil?
-
-      self.value = "#{value}#{check_digit}" if parsed_digits.length == 13
-    end
-  end
-
   def barcode
-    @barcode ||= self.class.barcode_model.new(value)
+    @barcode ||= self.class.barcode_class.new(value)
   end
   delegate :digits, :elements, to: :barcode
 
@@ -169,8 +141,8 @@ class AbsoluteId < ApplicationRecord
       prefix: prefix,
       repository: repository_object.to_h,
       resource: resource_object.to_h,
+      synchronize_status: synchronize_status,
       synchronized_at: synchronized_at,
-      synchronizing: synchronizing,
       updated_at: updated_at
     }
   end
@@ -189,12 +161,8 @@ class AbsoluteId < ApplicationRecord
     self.class.xml_serializer.new(self, options).serialize(&block)
   end
 
-  def self.default_initial_integer
-    0
-  end
-
-  def self.default_initial_value
-    format("%013d", default_initial_integer)
+  def self.default_barcode_value
+    format("%014d", 0)
   end
 
   def self.generate(**attributes)
@@ -203,27 +171,31 @@ class AbsoluteId < ApplicationRecord
     location_resource = attributes[:location]
     repository_resource = attributes[:repository]
     ead_resource = attributes[:resource]
+
     index = attributes[:index]
 
-    initial_value = if attributes.key?(:barcode)
+    synchronize_status = NEVER_SYNCHRONIZED
+
+    barcode_value = if attributes.key?(:barcode)
                       attributes[:barcode]
                     else
-                      default_initial_value
+                      default_barcode_value
                     end
 
-    #new_barcode = self.barcode_model.new(initial_value)
+    #new_barcode = self.barcode_class.new(initial_value)
     #new_check_digit = new_barcode.check_digit
-    check_digit = initial_value.last
+    check_digit = barcode_value.last
 
     model_attributes = {
-      value: initial_value,
+      value: barcode_value,
       check_digit: check_digit,
-      initial_value: initial_value,
 
       container_profile: container_profile_resource.to_json,
       container: container_resource.to_json,
       resource: ead_resource.to_json,
-      index: index.to_i
+      index: index.to_i,
+
+      synchronize_status: synchronize_status
     }
 
     if attributes.key(:unencoded_location)

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module AbsoluteIds
   class Barcode
-    attr_reader :value
+    attr_reader :value, :check_digit
 
     def initialize(value)
       raise InvalidBarcodeError, "Barcode values cannot be nil" if value.nil?
@@ -13,10 +13,6 @@ module AbsoluteIds
       new_integer = integer + addend
       new_value = format("%013d", new_integer)
       @value = new_value
-
-      new_check_digit = self.class.generate_check_digit(@value)
-      @check_digit = new_check_digit
-
       self
     end
 
@@ -35,12 +31,7 @@ module AbsoluteIds
     end
 
     def valid?
-      return false if @value.blank?
-      return false unless digits.length == 14
-
-      segment = value[-1, 1]
-      digit = segment.to_i
-      digit == check_digit
+      @value.present? && digits.length == 13
     end
 
     def digits
@@ -55,44 +46,13 @@ module AbsoluteIds
     end
     alias to_i integer
 
-    def check_digit
-      @check_digit ||= self.class.generate_check_digit(@value)
-    end
-
     def self.parse_digits(code)
       parsed = code.scan(/\d/)
       parsed.map(&:to_i)
     end
 
     # Luhn algorithm implementation
-    def self.generate_check_digit_bar(code)
-      # Parse the string into integers for processing
-      code_digits = code.scan(/\d/).map(&:to_i)
-
-      # Generate the sum
-      sum = 0
-      code_digits.reverse.each_with_index do |digit, index|
-        addend = digit
-
-        if index % 2 == 0
-          addend = digit*2
-        end
-
-        if addend > 9
-          addend = addend - 9
-        end
-
-        sum = sum + addend
-      end
-
-      # Retrieve modulo 10
-      if sum % 10 == 0
-        0
-      else
-        10 - sum
-      end
-    end
-
+    # Disabled for now
     def self.generate_check_digit(code)
       padded = "#{code}0"
       parity = padded.length % 2
@@ -122,10 +82,10 @@ module AbsoluteIds
       remainder.zero? ? 0 : 10 - remainder
     end
 
-    def self.build(integer)
-      check_digit = generate_check_digit(integer)
-      built = new(integer)
-      built.check_digit = check_digit
+    def self.build(code)
+      value = code[0..13]
+      built = new(value)
+      built.check_digit = code.last
       built
     end
 
@@ -133,7 +93,6 @@ module AbsoluteIds
       return [] if @value.nil?
 
       output = @value.scan(/\d/)
-      #output[0, 14]
       output[0, 13]
     end
 

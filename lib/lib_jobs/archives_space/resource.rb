@@ -19,17 +19,18 @@ module LibJobs
         })
       end
 
-      def search_top_containers_by(indicator:, cache: true)
-        related = if top_containers.empty?
-                    resolve_top_containers
-                    cache if cache
-                    resolve_top_containers
-                  else
-                    top_containers
-                  end
-        related.select do |container|
-          container.indicator == indicator
+      #def search_top_containers_by(indicator:, cache: true)
+      def search_top_containers_by(index:, cache: true)
+        if top_containers.empty?
+          resolve_top_containers
+          cache if cache
         end
+
+        #related.select do |container|
+        #  container.indicator == indicator
+        #end
+        sorted = top_containers.sort { |u, v| u.id <=> v.id }
+        sorted[index]
       end
 
       def barcodes

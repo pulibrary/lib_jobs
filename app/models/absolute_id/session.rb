@@ -15,6 +15,10 @@ class AbsoluteId::Session < ApplicationRecord
     batches.map(&:synchronizing?).reduce(&:|)
   end
 
+  def absolute_ids
+    @absolute_ids ||= batches.map(&:absolute_ids).flatten
+  end
+
   def attributes
     {
       batches: batches.map(&:attributes)
@@ -29,20 +33,35 @@ class AbsoluteId::Session < ApplicationRecord
     YAML.dump(attributes)
   end
 
+  def report_entries
+    @report_entries ||= begin
+                          values = batches.map(&:report_entries)
+                          values.flatten
+                        end
+  end
+
   def to_txt
     CSV.generate(col_sep: " | ") do |csv|
       csv << ["ID", "User", "Barcode", "Location", "Container Profile", "Repository", "Call Number", "Box Number"]
 
-      batches.map(&:attributes).each do |batch|
-        batch[:tableData].each do |entry|
-          location = entry[:location][:value]
-          container_profile = entry[:container_profile][:value]
-          repository = entry[:repository][:value]
-          resource = entry[:resource][:value]
-          container = entry[:container][:value]
+      report_entries.each do |entry|
 
-          csv << [entry[:label], entry[:user], entry[:barcode], location, container_profile, repository, resource, container]
-        end
+        location = "#{entry.location.building} (#{entry.location.uri})"
+        container_profile = "#{entry.container_profile.name} (#{entry.container_profile.uri})"
+        repository = "#{entry.repository.name} (#{entry.repository.uri})"
+        resource = "#{entry.resource.title} (#{entry.resource.uri})"
+        container = "#{entry.container.indicator} (#{entry.container.uri})"
+
+        csv << [
+          entry.label,
+          entry.user,
+          entry.barcode,
+          location,
+          container_profile,
+          repository,
+          resource,
+          container
+        ]
       end
     end
   end

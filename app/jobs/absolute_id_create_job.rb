@@ -50,14 +50,14 @@ class AbsoluteIdCreateJob < ApplicationJob
 
   def resolve_resource(repository, ead_id)
     resource_refs = current_client.find_resources_by_ead_id(repository_id: repository.id, ead_id: ead_id)
-    resource = repository.build_resource_from(refs: resource_refs, cache: false)
+    resource = repository.build_resource_from(refs: resource_refs)
 
     raise(ArgumentError, "Failed to resolve the repository resources for #{ead_id} in repository #{repository.id}") if resource.nil?
     resource
   end
 
   def resolve_container(resource, indicator)
-    top_containers = resource.search_top_containers_by(indicator: indicator)
+    top_containers = resource.search_top_containers_by(index: indicator)
     top_container = top_containers.first
 
     raise(ArgumentError, "Failed to resolve the containers for #{indicator} in resource #{resource.id}") if top_container.nil?
