@@ -134,6 +134,20 @@ class AbsoluteId < ApplicationRecord
     end
   end
 
+  # This is dislay logic - should this be migrated to another Class? A presenter?
+  def synchronize_status_color
+    case synchronize_status
+    when SYNCHRONIZED
+      'green'
+    when SYNCHRONIZE_FAILED
+      'red'
+    when SYNCHRONIZING
+      'yellow'
+    else
+      'blue'
+    end
+  end
+
   def synchronized?
     !synchronized_at.nil?
   end
