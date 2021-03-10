@@ -2,6 +2,9 @@
 class ArchivesSpaceSyncJob < ApplicationJob
   queue_as :default
 
+  class ArchivesSpaceSyncError < StandardError
+  end
+
   def perform(user_id:, model_id:)
     @user_id = user_id
     @model_id = model_id
