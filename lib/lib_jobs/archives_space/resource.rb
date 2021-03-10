@@ -30,9 +30,12 @@ module LibJobs
           resolve_top_containers
         end
 
-        #related.select do |container|
-        #  container.indicator == indicator
-        #end
+        selected = related.select do |container|
+          container.indicator == index
+        end
+
+        return selected unless selected.empty?
+
         sorted = top_containers.sort { |u, v| u.id <=> v.id }
         sorted[index.to_i] || []
       end
