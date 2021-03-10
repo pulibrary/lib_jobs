@@ -20,17 +20,21 @@ module LibJobs
       end
 
       #def search_top_containers_by(indicator:, cache: true)
-      def search_top_containers_by(index:, cache: true)
+      def search_top_containers_by(index:, cache: false)
         if top_containers.empty?
           resolve_top_containers
           cache if cache
+        end
+
+        if !cache
+          resolve_top_containers
         end
 
         #related.select do |container|
         #  container.indicator == indicator
         #end
         sorted = top_containers.sort { |u, v| u.id <=> v.id }
-        sorted[index.to_i]
+        sorted[index.to_i] || []
       end
 
       def barcodes
