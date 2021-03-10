@@ -50,6 +50,11 @@ class ApplicationController < ActionController::Base
         component: 'Absolute IDs',
         href: absolute_ids_path
       },
+      {
+        name: 'Barcodes',
+        component: 'Barcodes',
+        href: barcodes_path
+      },
       header_user_menu_item
     ]
   end

@@ -5,6 +5,7 @@
       <grid-item columns="sm-12 lg-3">
         <fieldset class="absolute-ids-form--fields">
           <legend>Barcode</legend>
+
           <input-text
             id="barcode"
             class="absolute-ids-form--input-field"
@@ -12,13 +13,14 @@
             label="Input"
             :hide-label="true"
             placeholder="Barcode"
-            helper="Starting Barcode"
+            :helper="size > 1 ? 'Starting Barcode' : null"
             :maxlength="barcodeLength"
             v-on:input="onBarcodeInput($event)"
             :disabled="barcodeValid"
             :value="startingBarcode()"
           />
           <input-text
+            v-if="size > 1"
             id="terminal_code"
             class="absolute-ids-form--input-field"
             name="terminal_code"
@@ -34,7 +36,7 @@
 
       <grid-item columns="sm-12 lg-9">
         <fieldset class="absolute-ids-form--fields">
-          <legend>ArchivesSpace</legend>
+          <legend>{{ sourceLegend }}</legend>
 
           <grid-container>
             <grid-item columns="sm-12 lg-12">
@@ -183,6 +185,7 @@ export default {
           resource: null,
           container: null
         },
+        barcodes: [],
         batch_size: 1,
         valid: false
       }
@@ -190,6 +193,10 @@ export default {
     barcode: {
       type: String,
       default: ''
+    },
+    mode: {
+      type: String,
+      default: 'aspace'
     },
     batchForm: {
       type: Boolean,
@@ -265,6 +272,8 @@ export default {
       parsedBarcode: this.barcode,
       parsedEndingBarcode: '',
       repositoryId: null,
+      barcodes: [],
+      size: this.batchSize,
 
       endingContainerIndicator: '',
 
@@ -272,6 +281,18 @@ export default {
     }
   },
   computed: {
+    sourceLegend: function () {
+      let output;
+
+      if (this.mode == 'aspace') {
+        output = 'ArchivesSpace';
+      } else if (this.mode == 'marc') {
+        output = 'MARC';
+      }
+
+      return output;
+    },
+
     resourceStatus: function () {
       if (this.validResource) {
         return 'Call number is valid';
@@ -495,8 +516,9 @@ export default {
 
     this.updateValue();
 
-    this.barcode = this.parsedBarcode;
-    const base = this.barcode.slice(0, -1);
+    //this.barcode = this.parsedBarcode;
+    //const base = this.barcode.slice(0, -1);
+    const base = this.parsedBarcode.slice(0, -1);
     this.updateEndingBarcode(base);
 
     this.valid = await this.formValid;
@@ -633,13 +655,12 @@ export default {
     },
 
     updateEndingBarcode: function (value) {
-      if (value.length < 13) {
+      if (value.length < 13 || this.size < 2) {
         return;
       }
 
       const parsed = Number.parseInt(value);
-      const parsedSize = Number.parseInt(this.batchSize);
-      const incremented = parsed + parsedSize;
+      const incremented = parsed + this.size - 1;
 
       const encoded = incremented.toString();
       const formatted = encoded.padStart(13, 0);
@@ -648,9 +669,26 @@ export default {
       this.parsedEndingBarcode = `${formatted}${checksum}`;
     },
 
+    updateBarcodes: function () {
+      console.log(this.size);
+      for (const i of Array(this.size).keys()) {
+        const base = this.parsedBarcode.slice(0, 13);
+        const value = Number.parseInt(base) + i;
+        const encoded = `${value}`;
+        const incremented = encoded.padStart(13, 0);
+        const checksum = this.generateChecksum(incremented);
+        const newBarcode = `${incremented}${checksum}`;
+
+        console.log(newBarcode);
+        this.$set(this.barcodes, i, newBarcode);
+      }
+      console.log(this.barcodes);
+    },
+
     onBarcodeInput: function (value) {
       this.updateBarcode(value);
       this.updateEndingBarcode(value);
+      this.updateBarcodes();
     },
 
     onEndingContainerInput: function (value) {
@@ -658,6 +696,10 @@ export default {
         'start': this.containerIndicator,
         'end': value
       };
+      const firstIndex = Number.parseInt(this.containerIndicator);
+      const lastIndex = Number.parseInt(value);
+      this.size = lastIndex - firstIndex + 1;
+      this.updateBarcodes();
 
       this.$emit('input-size', payload);
     },
@@ -669,7 +711,7 @@ export default {
       const selectedContainer = await this.selectedContainer;
 
       //const output = this.barcode && selectedLocation && selectedRepository && this.resourceTitle && this.containerIndicator;
-      const output = this.barcode && selectedLocation && selectedRepository && this.resourceTitle && this.containerIndicator;
+      const output = this.parsedBarcode && selectedLocation && selectedRepository && this.resourceTitle && this.containerIndicator;
       return !!output;
     },
 
@@ -682,7 +724,8 @@ export default {
       const resourceTitle = await this.resourceTitle;
       const containerIndicator = await this.containerIndicator;
 
-      const batchSize = this.batchSize;
+      const barcodes = this.barcodes;
+      const batchSize = this.size;
       const valid = await this.isFormValid();
 
       return {
@@ -694,6 +737,7 @@ export default {
           resource: resourceTitle,
           container: containerIndicator
         },
+        barcodes: barcodes,
         batch_size: batchSize,
         valid,
       };

@@ -160,6 +160,7 @@ module LibJobs
 
       def update_child(child:, model_class:)
         resource_class = child.class
+
         response = client.post("/repositories/#{@id}/#{resource_class.name.demodulize.pluralize.underscore}/#{child.id}", child.to_params)
         Rails.logger.warn(response.body)
         return nil if response.status.code != "200"
