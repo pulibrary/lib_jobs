@@ -47,7 +47,7 @@ class AbsoluteId::Batch < ApplicationRecord
         repository: { link: absolute_id.repository_object.uri, value: absolute_id.repository_object.name },
         resource: { link: absolute_id.resource_object.uri, value: absolute_id.resource_object.title },
         container: { link: absolute_id.container_object.uri, value: absolute_id.container_object.indicator },
-        status: { value: 'Unsynced', color: 'blue' },
+        status: { value: absolute_id.synchronize_status, color: 'blue' },
         synchronized_at: absolute_id.synchronized_at || 'Never',
       }
     end

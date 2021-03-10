@@ -121,6 +121,19 @@ class AbsoluteId < ApplicationRecord
     OpenStruct.new(values)
   end
 
+  def synchronize_status
+    value = super
+    if value.blank?
+      if synchronized_at.blank?
+        UNSYNCHRONIZED
+      else
+        SYNCHRONIZED
+      end
+    else
+      value
+    end
+  end
+
   def synchronized?
     !synchronized_at.nil?
   end
@@ -182,8 +195,6 @@ class AbsoluteId < ApplicationRecord
                       default_barcode_value
                     end
 
-    #new_barcode = self.barcode_class.new(initial_value)
-    #new_check_digit = new_barcode.check_digit
     check_digit = barcode_value.last
 
     model_attributes = {
