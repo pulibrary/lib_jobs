@@ -14,8 +14,7 @@ class AbsoluteIdsController < ApplicationController
       { name: 'resource', display_name: 'ASpace Resource', align: 'left', sortable: false },
       { name: 'container', display_name: 'ASpace Container', align: 'left', sortable: false },
       { name: 'user', display_name: 'User', align: 'left', sortable: false },
-      { name: 'synchronized_at', display_name: 'Last Synchronized', align: 'left', sortable: true },
-      { name: 'status', display_name: 'Status', align: 'left', sortable: false, datatype: 'constant' }
+      { name: 'status', display_name: 'Synchronization', align: 'left', sortable: false, datatype: 'constant' }
     ]
   end
 
@@ -133,8 +132,6 @@ class AbsoluteIdsController < ApplicationController
 
     session_id = params[:session_id]
     @session = AbsoluteId::Session.find_by(user: current_user, id: session_id)
-    #@batches = @session.batches.to_a
-    #@absolute_ids = @batches.map(&:absolute_ids).flatten
     @absolute_ids = @session.absolute_ids
 
     @absolute_ids.each do |absolute_id|

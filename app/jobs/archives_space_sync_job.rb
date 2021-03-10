@@ -11,13 +11,20 @@ class ArchivesSpaceSyncJob < ApplicationJob
 
     begin
       absolute_id.synchronizing = true
+      absolute_id.synchronize_status = AbsoluteId::SYNCHRONIZING
       absolute_id.save!
 
       update_top_container(uri: container.uri, barcode: absolute_id.barcode, indicator: absolute_id.label, location: location)
       absolute_id.synchronized_at = DateTime.current
+      absolute_id.synchronize_status = AbsoluteId::SYNCHRONIZED
+      absolute_id.save!
+
       absolute_id.save!
     rescue StandardError => error
       Rails.logger.warn("Warning: Failed to synchronize #{absolute_id.label}: #{error}")
+
+      absolute_id.synchronize_status = AbsoluteId::SYNCHRONIZE_FAILED
+      absolute_id.save!
     end
 
     absolute_id.synchronizing = false
