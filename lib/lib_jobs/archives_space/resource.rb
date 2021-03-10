@@ -30,7 +30,7 @@ module LibJobs
           resolve_top_containers
         end
 
-        selected = related.select do |container|
+        selected = top_containers.select do |container|
           container.indicator == index
         end
 
