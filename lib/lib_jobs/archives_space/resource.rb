@@ -30,14 +30,8 @@ module LibJobs
                      end
         end
 
-        #selected = resolved.select do |container|
-        #  container.indicator == index
-        #end
-
-        #return selected unless selected.empty?
-
         sorted = resolved.sort { |u, v| u.id <=> v.id }
-        found = sorted[index.to_i]
+        found = sorted[index.to_i - 1]
 
         raise(IndexError, "Failed to find the TopContainer using #{index}") if found.nil?
         [found]
