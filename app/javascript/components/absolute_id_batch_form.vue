@@ -27,6 +27,22 @@
         <legend>Batch</legend>
 
         <absolute-id-form
+          v-if="mode == 'aspace'"
+          :key="batchKey(index)"
+
+          v-model="batch[index]"
+          :action="action"
+          :token="token"
+          :mode="mode"
+          :barcode="generateBarcode(index, batchSize[index])"
+
+          :batch-form="true"
+          :batch-size="batchSize[index]"
+
+          v-on:input-size="updateBatchSize($event, index)"
+        />
+        <absolute-id-marc-form
+          v-else-if="mode == 'marc'"
           :key="batchKey(index)"
 
           v-model="batch[index]"
@@ -88,12 +104,14 @@
 
 <script>
 import AbsoluteIdForm from './absolute_id_form'
+import AbsoluteIdMarcForm from './absolute_id_marc_form'
 
 export default {
   name: 'AbsoluteIdsBatchForm',
   type: 'Element',
   components: {
-    "absolute-id-form": AbsoluteIdForm
+    "absolute-id-form": AbsoluteIdForm,
+    "absolute-id-marc-form": AbsoluteIdMarcForm
   },
   props: {
     action: {
