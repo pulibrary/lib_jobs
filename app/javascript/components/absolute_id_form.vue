@@ -155,8 +155,6 @@ import AbsoluteIdDataList from './absolute_id_data_list'
 
 export default {
   name: 'AbsoluteIdsForm',
-  status: 'ready',
-  release: '1.0.0',
   type: 'Element',
   components: {
     "absolute-id-data-list": AbsoluteIdDataList

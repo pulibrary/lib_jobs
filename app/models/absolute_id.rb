@@ -86,6 +86,7 @@ class AbsoluteId < ApplicationRecord
     format("%s-%06d", prefix, index)
   end
 
+  ## For ASpace Locations
   def location_object
     return if location.nil?
 
@@ -93,6 +94,7 @@ class AbsoluteId < ApplicationRecord
     OpenStruct.new(values)
   end
 
+  ## For ASpace Repositories
   def repository_object
     return if repository.nil?
 
