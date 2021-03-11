@@ -3,6 +3,7 @@ class AbsoluteIdCreateJob < ApplicationJob
     @user_id = user_id
     @index = properties[:index]
 
+    properties[:source] = 'aspace'
     create_absolute_id(properties, @index)
   end
 
@@ -14,20 +15,20 @@ class AbsoluteIdCreateJob < ApplicationJob
     container_resource.delete(:system_mtime)
     container_resource.delete(:user_mtime)
 
-    container_resource
+    container_resource.to_json
   end
 
   def location_attributes(attr)
-    JSON.parse(attr.to_json)
+    attr.to_json
   end
 
-  def repository_attributes(attr)
+  def transform_repository_properties(attr)
     repository_resource = JSON.parse(attr.to_json)
     repository_resource.delete(:create_time)
     repository_resource.delete(:system_mtime)
     repository_resource.delete(:user_mtime)
 
-    repository_resource
+    repository_resource.to_json
   end
 
   def resource_attributes(attr)
@@ -36,7 +37,7 @@ class AbsoluteIdCreateJob < ApplicationJob
     ead_resource.delete(:system_mtime)
     ead_resource.delete(:user_mtime)
 
-    ead_resource
+    ead_resource.to_json
   end
 
   def container_profile_attributes(attr)
@@ -45,7 +46,7 @@ class AbsoluteIdCreateJob < ApplicationJob
     container_profile_resource.delete(:system_mtime)
     container_profile_resource.delete(:user_mtime)
 
-    container_profile_resource
+    container_profile_resource.to_json
   end
 
   def resolve_resource(repository, ead_id)
@@ -56,53 +57,68 @@ class AbsoluteIdCreateJob < ApplicationJob
     resource
   end
 
-  def resolve_container(resource, indicator)
-    top_containers = resource.search_top_containers_by(index: indicator)
+  def resolve_container(resource, index)
+    top_containers = resource.search_top_containers_by(index: index)
     top_container = top_containers.first
 
     raise(ArgumentError, "Failed to resolve the containers for #{indicator} in resource #{resource.id}") if top_container.nil?
     top_container
   end
 
-  def create_absolute_id(absolute_id_params, index)
+  def transform_aspace_properties(properties, index)
+    transformed = properties.deep_dup
+
     # Resolve the Repository
-    repository_param = absolute_id_params[:repository]
+    repository_param = properties[:repository]
     repository_id = repository_param[:id]
     repository_uri = repository_param[:uri]
     repository = current_client.find_repository(uri: repository_uri)
 
+    # Build the repository attributes
+    repository_property = properties[:repository]
+    transformed[:repository] = transform_repository_properties(repository_property)
+
     # Resolve the Resource
-    resource_param = absolute_id_params[:resource]
-    resource = resolve_resource(repository, resource_param)
+    resource_property = properties[:resource]
+    resource = resolve_resource(repository, resource_property)
 
     # Resolve the TopContainer
-    container_param = absolute_id_params[:container]
-    #top_container = resolve_container(resource, container_param[:indicator])
+    container_param = properties[:container]
 
     indicator = container_param.to_i + index
     top_container = resolve_container(resource, indicator.to_s)
 
-    build_attributes = absolute_id_params.deep_dup
+    # Build the repository attributes
+    location = location_attributes(properties[:location])
+    transformed[:location] = location
 
     # Build the repository attributes
-    location_resource = location_attributes(build_attributes[:location])
-    build_attributes[:location] = location_resource
-
-    # Build the repository attributes
-    container_profile_resource = container_profile_attributes(build_attributes[:container_profile])
-    build_attributes[:container_profile] = container_profile_resource
-
-    # Build the repository attributes
-    build_attributes[:repository] = repository_attributes(build_attributes[:repository])
+    container_profile_property = properties[:container_profile]
+    container_profile = container_profile_attributes(container_profile_property)
+    transformed[:container_profile] = container_profile
 
     # Build the resource attributes
-    build_attributes[:resource] = resource_attributes(resource)
+    transformed[:resource] = resource_attributes(resource)
 
     # Build the container attributes
-    build_attributes[:container] = container_attributes(top_container)
+    transformed[:container] = container_attributes(top_container)
+
+    transformed
+  end
+
+  def create_absolute_id(properties, index)
+    build_attributes = properties.deep_dup
+
+    source = properties[:source]
+    if source == 'aspace'
+      build_attributes = transform_aspace_properties(properties, index)
+    end
 
     # Increment the index
-    persisted = AbsoluteId.where(location: location_resource.to_json, container_profile: container_profile_resource.to_json)
+    location = build_attributes[:location]
+    container_profile = build_attributes[:container_profile]
+
+    persisted = AbsoluteId.where(location: location, container_profile: container_profile)
     if !persisted.empty?
       # This should not need to be case into an Integer, but this is in place for a PostgreSQL error
       index = persisted.last.index.to_i + 1
@@ -112,12 +128,6 @@ class AbsoluteIdCreateJob < ApplicationJob
 
     # This should not need to be case into an Integer, but this is in place for a PostgreSQL error
     build_attributes[:index] = index.to_s
-
-    # Update the barcode
-    #new_barcode_value = build_attributes[:barcode]
-    #new_barcode = AbsoluteIds::Barcode.new(new_barcode_value)
-    #new_barcode = new_barcode + index.to_i
-    #build_attributes[:barcode] = new_barcode.value
 
     # Build and persist the AbId
     generated = AbsoluteId.generate(**build_attributes)

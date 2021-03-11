@@ -19,7 +19,6 @@ module LibJobs
         })
       end
 
-      #def search_top_containers_by(index:, cache: false)
       def search_top_containers_by(index:, cache: true)
         if !cache
           resolved = resolve_top_containers
@@ -31,19 +30,17 @@ module LibJobs
                      end
         end
 
-        selected = resolved.select do |container|
-          container.indicator == index
-        end
+        #selected = resolved.select do |container|
+        #  container.indicator == index
+        #end
 
-        return selected unless selected.empty?
+        #return selected unless selected.empty?
 
         sorted = resolved.sort { |u, v| u.id <=> v.id }
         found = sorted[index.to_i]
-        if found
-          [found]
-        else
-          []
-        end
+
+        raise(IndexError, "Failed to find the TopContainer using #{index}") if found.nil?
+        [found]
       end
 
       def barcodes
