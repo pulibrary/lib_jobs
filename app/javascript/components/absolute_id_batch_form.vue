@@ -26,7 +26,7 @@
       <fieldset class="absolute-ids-batch-form--batch">
         <legend>Batch</legend>
 
-        <absolute-id-form
+        <absolute-id-aspace-form
           v-if="mode == 'aspace'"
           :key="batchKey(index)"
 
@@ -103,14 +103,14 @@
 </template>
 
 <script>
-import AbsoluteIdForm from './absolute_id_form'
+import AbsoluteIdASpaceForm from './absolute_id_form'
 import AbsoluteIdMarcForm from './absolute_id_marc_form'
 
 export default {
   name: 'AbsoluteIdsBatchForm',
   type: 'Element',
   components: {
-    "absolute-id-form": AbsoluteIdForm,
+    "absolute-id-aspace-form": AbsoluteIdASpaceForm,
     "absolute-id-marc-form": AbsoluteIdMarcForm
   },
   props: {
@@ -476,7 +476,6 @@ export default {
 
         // Update the barcodes
         const batchBarcodes = [];
-        //batch.barcodes = [];
         for (const i of Array(size).keys()) {
           const base = barcode.slice(0, 13);
           const value = Number.parseInt(base) + i;
@@ -486,21 +485,13 @@ export default {
           const newBarcode = `${incremented}${checksum}`;
 
           batchBarcodes.push(newBarcode);
-          //this.$set(this.barcodes, i, newBarcode);
-          //batch.barcodes.push(newBarcode);
         }
-        //batch.barcodes = batchBarcodes;
-
-        //this.batchSize[batchIndex] = size;
         this.$set(this.batchSize, batchIndex, size);
 
         batch.batch_size = size;
 
         // Update the batch
         this.$set(this.batch, batchIndex, batch);
-        console.log(batch);
-        console.log(this.batch);
-        //debugger;
       }
     },
 
@@ -529,13 +520,11 @@ export default {
 
       this.submitting = true;
       const response = await this.postData(payload);
-      //this.submitting = false;
-      //event.target.disabled = false;
+
       if (response.status === 302) {
         const redirectUrl = response.headers.get('Content-Type');
         window.location.assign(redirectUrl);
       } else {
-
         window.location.reload();
       }
     },

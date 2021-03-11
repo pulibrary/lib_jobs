@@ -217,25 +217,16 @@ class AbsoluteId < ApplicationRecord
       value: barcode_value,
       check_digit: check_digit,
 
-      container_profile: container_profile_resource.to_json,
-      container: container_resource.to_json,
-      resource: ead_resource.to_json,
+      location: location_resource,
+      container_profile: container_profile_resource,
+      repository: repository_resource,
+      resource: ead_resource,
+      container: container_resource,
+
       index: index.to_i,
 
       synchronize_status: synchronize_status
     }
-
-    if attributes.key(:unencoded_location)
-      model_attributes[:unencoded_location] = attributes[:unencoded_location]
-    else
-      model_attributes[:location] = location_resource.to_json
-    end
-
-    if attributes.key(:unencoded_repository)
-      model_attributes[:unencoded_repository] = attributes[:unencoded_repository]
-    else
-      model_attributes[:repository] = repository_resource.to_json
-    end
 
     create(**model_attributes)
   end
