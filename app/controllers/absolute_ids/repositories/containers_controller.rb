@@ -5,16 +5,14 @@ class AbsoluteIds::Repositories::ContainersController < ApplicationController
 
   # GET /absolute-ids/repositories/repository_id/resources.json
   def index
-    begin
-      @resources ||= current_repository.top_containers
-    rescue StandardError => error
-      Rails.logger.warn("Failed to retrieve the top containers: #{error}")
-      @resources = []
-    end
+    @resources ||= current_repository.top_containers
 
     respond_to do |format|
       format.json { render json: @resources }
     end
+  rescue StandardError => error
+    Rails.logger.warn("Failed to retrieve the top containers: #{error}")
+    @resources = []
   end
 
   # GET /absolute-ids/repositories/:repository_id/resources/:resource_id.json

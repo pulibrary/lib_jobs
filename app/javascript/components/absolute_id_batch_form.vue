@@ -1,8 +1,8 @@
 <template>
   <form method="post" class="absolute-ids-batch-form" v-on:submit.prevent="submit">
-    <div class="absolute-ids-batch-form--mode">
+    <div class="absolute-ids-batch-form--source">
       <input-radio
-        id="mode"
+        id="source"
         vertical
         :options="[
           {
@@ -27,13 +27,13 @@
         <legend>Batch</legend>
 
         <absolute-id-aspace-form
-          v-if="mode == 'aspace'"
+          v-if="source == 'aspace'"
           :key="batchKey(index)"
 
           v-model="batch[index]"
           :action="action"
           :token="token"
-          :mode="mode"
+          :source="source"
           :barcode="generateBarcode(index, batchSize[index])"
 
           :batch-form="true"
@@ -42,13 +42,13 @@
           v-on:input-size="updateBatchSize($event, index)"
         />
         <absolute-id-marc-form
-          v-else-if="mode == 'marc'"
+          v-else-if="source == 'marc'"
           :key="batchKey(index)"
 
           v-model="batch[index]"
           :action="action"
           :token="token"
-          :mode="mode"
+          :source="source"
           :barcode="generateBarcode(index, batchSize[index])"
 
           :batch-form="true"
@@ -134,7 +134,7 @@ export default {
 
   data: function () {
     return {
-      mode: 'aspace',
+      source: 'aspace',
       batch: [
         {
           absolute_id: {
@@ -218,7 +218,6 @@ export default {
 
     formData: async function () {
       const resolvedBatch = this.batch;
-      console.log(this.batch);
 
       return {
         batch: resolvedBatch
@@ -263,7 +262,7 @@ export default {
 
   methods: {
     onChangeMode: function (changed) {
-      this.mode = changed;
+      this.source = changed;
     },
 
     batchKey: function (index) {

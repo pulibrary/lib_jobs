@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get '/removed-staff', to: 'staff_directory#removed', defaults: { format: 'text' }
 
   # Barcodes
+  get '/barcodes/:value', to: 'barcodes#show'
   get '/barcodes', to: 'barcodes#index'
 
   #get '/absolute-ids/repositories/:repository_id/resources/search/:resource_param', to: 'absolute_ids/repositories/resources#search'
