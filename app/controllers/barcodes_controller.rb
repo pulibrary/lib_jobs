@@ -16,4 +16,16 @@ class BarcodesController < AbsoluteIdsController
       format.json { render json: @sessions }
     end
   end
+
+  # GET /absolute-ids/:value
+  # GET /absolute-ids/:value.json
+  # GET /absolute-ids/:value.xml
+  def show
+    @absolute_id ||= AbsoluteId.find_by(value: value)
+
+    respond_to do |format|
+      format.json { render json: @absolute_id }
+      format.xml { render xml: @absolute_id }
+    end
+  end
 end

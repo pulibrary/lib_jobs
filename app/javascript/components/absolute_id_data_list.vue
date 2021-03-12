@@ -217,7 +217,6 @@ export default {
   updated: function () {
     if (this.value) {
       if (!this.selected) {
-        console.log('trace');
         this.selected = this.value;
       }
     }

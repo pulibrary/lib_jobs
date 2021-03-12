@@ -6,19 +6,30 @@
         <fieldset class="absolute-ids-form--fields">
           <legend>Barcode</legend>
 
-          <input-text
+          <absolute-id-input-text
             id="barcode"
-            class="absolute-ids-form--input-field"
+            v-bind:classes="barcodeInputClasses"
             name="barcode"
-            label="Input"
+            label="Barcode"
             :hide-label="true"
-            placeholder="Barcode"
             :helper="size > 1 ? 'Starting Barcode' : null"
             :maxlength="barcodeLength"
             v-on:input="onBarcodeInput($event)"
             :disabled="barcodeValid"
             :value="startingBarcode()"
           />
+
+          <div class="lux-input">
+            <div class="lux-input-status">
+              {{ barcodeStatus }}
+            </div>
+          </div>
+
+          <button
+            data-v-b7851b04
+            class="lux-button solid"
+            @click.prevent="clearBarcode()">Reset</button>
+
           <input-text
             v-if="size > 1"
             id="terminal_code"
@@ -97,20 +108,39 @@
             </input-text>
 
             <div class="lux-input">
-              <div class="lux-input-field medium">
+              <div class="lux-input-status">
                 {{ resourceStatus }}
               </div>
             </div>
           </grid-item>
-
+          <grid-item columns="sm-12 lg-9">
+            <div>
+              <input-checkbox
+                :options="[
+                  {
+                    name: 'batch_mode',
+                    label: 'Reference a range of box numbers',
+                    value: batchMode,
+                    id: 'checkbox-opt1',
+                    checked: batchMode
+                  }
+                ]"
+                v-on:change="onChangeBatchMode"
+              />
+            </div>
+          </grid-item>
           <grid-item columns="sm-12 lg-9">
             <input-text
               id="container_id"
-              v-bind:class="{ 'absolute-ids-form--input-field__validated': (validatedContainer), 'absolute-ids-form--input-field__invalid': (containerIndicator.length > 0 && !validContainer), 'absolute-ids-form--input-field': true }"
+              v-bind:class="{
+                             'absolute-ids-form--input-field__validated': (validatedContainer),
+                             'absolute-ids-form--input-field__invalid': (containerIndicator.length > 0 && !validContainer),
+                             'absolute-ids-form--input-field': true
+              }"
               name="container_id"
-              label="Starting Box Number"
+              :label="batchMode ? 'Starting Box Number' : 'Box Number'"
               :hide-label="true"
-              helper="Starting Box Number"
+              :helper="batchMode ? 'Starting Box Number' : 'Box Number'"
               :placeholder="containerPlaceholder"
               :disabled="!selectedRepositoryId || !resourceTitle || validatingContainer"
               v-on:inputblur="onContainerFocusOut($event, containerIndicator)"
@@ -118,6 +148,7 @@
             </input-text>
 
             <input-text
+              v-if="batchMode"
               id="ending_container_id"
               class="absolute-ids-form--input-field"
               name="ending_container_id"
@@ -131,7 +162,7 @@
             </input-text>
 
             <div class="lux-input">
-              <div class="lux-input-field medium">
+              <div class="lux-input-status">
                 {{ containerStatus }}
               </div>
             </div>
@@ -139,11 +170,6 @@
         </grid-container>
       </fieldset>
 
-        <button
-          v-if="!batchForm"
-          data-v-b7851b04
-          class="lux-button solid large lux-button absolute-ids-form--submit"
-          :disabled="!formValid">Generate</button>
       </grid-item>
 
     </grid-container>
@@ -151,12 +177,14 @@
 </template>
 
 <script>
+import AbsoluteIdInputText from './absolute_id_input_text'
 import AbsoluteIdDataList from './absolute_id_data_list'
 
 export default {
   name: 'AbsoluteIdsForm',
   type: 'Element',
   components: {
+    "absolute-id-input-text": AbsoluteIdInputText,
     "absolute-id-data-list": AbsoluteIdDataList
   },
   props: {
@@ -192,7 +220,7 @@ export default {
       type: String,
       default: ''
     },
-    mode: {
+    source: {
       type: String,
       default: 'aspace'
     },
@@ -205,6 +233,7 @@ export default {
       default: 1
     }
   },
+
   data: function () {
     const defaultLocation = this.value.absolute_id.location;
     let locationId = null;
@@ -265,10 +294,15 @@ export default {
       validatedContainer: false,
       validatingContainer: false,
 
+      // Barcode
       barcodeLength: 13,
       barcodeValid: false,
+      barcodeValidated: false,
+      barcodeValidating: false,
       parsedBarcode: this.barcode,
       parsedEndingBarcode: '',
+      batchMode: true,
+
       repositoryId: null,
       barcodes: [],
       size: this.batchSize,
@@ -278,17 +312,51 @@ export default {
       valid: false
     }
   },
+
   computed: {
+
+    barcodeInputClasses: function () {
+      const barcodeValidated = this.barcodeValidated;
+      const barcode = this.parsedBarcode;
+      const barcodeValid = this.barcodeValid;
+
+      const output = {
+        'absolute-ids-form--input-field__validated': (barcodeValidated),
+        'absolute-ids-form--input-field__invalid': (barcode.length > 0 && !barcodeValid),
+        'absolute-ids-form--input-field': true
+      };
+
+      return output;
+    },
+
+    /**
+     * Source radio button
+     */
     sourceLegend: function () {
       let output;
 
-      if (this.mode == 'aspace') {
+      if (this.source == 'aspace') {
         output = 'ArchivesSpace';
-      } else if (this.mode == 'marc') {
+      } else if (this.source == 'marc') {
         output = 'MARC';
       }
 
       return output;
+    },
+
+    /**
+     * Barcodes
+     */
+    barcodeStatus: function () {
+      if (this.barcodeValid) {
+        return 'Barcode is valid';
+      } else if (this.barcodeValidating) {
+        return 'Validating barcode...';
+      } else if (this.parsedBarcode.length < 13) {
+        return 'Please enter a unique 13-digit barcode';
+      } else {
+        return 'This barcode has already been used. Please enter a unique barcode.';
+      }
     },
 
     resourceStatus: function () {
@@ -487,6 +555,7 @@ export default {
 
       return {
         absolute_id: {
+          source: this.source,
           barcode: this.parsedBarcode,
           location: selectedLocation,
           container_profile: selectedContainerProfile,
@@ -514,8 +583,6 @@ export default {
 
     this.updateValue();
 
-    //this.barcode = this.parsedBarcode;
-    //const base = this.barcode.slice(0, -1);
     const base = this.parsedBarcode.slice(0, -1);
     this.updateEndingBarcode(base);
 
@@ -578,9 +645,15 @@ export default {
         repoCode: repository.repo_code
       };
     });
+
+    
   },
 
   methods: {
+
+    onChangeBatchMode: async function (updated) {
+      this.batchMode = updated;
+    },
 
     updateAbsoluteId: async function () {
 
@@ -615,6 +688,12 @@ export default {
 
     startingBarcode: function () {
       return this.parsedBarcode;
+    },
+
+    clearBarcode: function () {
+      this.parsedBarcode = '';
+      this.barcodeValid = false;
+      this.barcodeValidated = false;
     },
 
     endingBarcode: function () {
@@ -668,7 +747,6 @@ export default {
     },
 
     updateBarcodes: function () {
-      console.log(this.size);
       for (const i of Array(this.size).keys()) {
         const base = this.parsedBarcode.slice(0, 13);
         const value = Number.parseInt(base) + i;
@@ -677,14 +755,59 @@ export default {
         const checksum = this.generateChecksum(incremented);
         const newBarcode = `${incremented}${checksum}`;
 
-        console.log(newBarcode);
         this.$set(this.barcodes, i, newBarcode);
       }
-      console.log(this.barcodes);
     },
 
-    onBarcodeInput: function (value) {
+    /**
+     * Barcode Methods
+     */
+    getBarcode: async function (barcode) {
+      let response;
+      let resource;
+      this.barcodeValidating = true;
+
+      try {
+        response = await fetch(`/barcodes/${barcode}`, {
+          method: 'GET',
+          mode: 'cors',
+          cache: 'no-cache',
+          credentials: 'same-origin',
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${this.token}`
+          },
+          redirect: 'follow',
+          referrerPolicy: 'no-referrer'
+        });
+        resource = response.json();
+      } catch (error) {
+        console.warn(error);
+      }
+
+      this.barcodeValidating = false;
+      return resource;
+    },
+
+    validateBarcode: async function () {
+      const barcode = await this.parsedBarcode;
+      if (barcode.length < 13) {
+        return false;
+      }
+
+      const resource = await this.getBarcode(barcode);
+
+      return !resource;
+    },
+
+    onBarcodeInput: async function (value) {
       this.updateBarcode(value);
+      this.barcodeValid = await this.validateBarcode();
+      this.barcodeValidated = this.barcodeValid;
+      if (!this.barcodeValid) {
+        return;
+      }
+
       this.updateEndingBarcode(value);
       this.updateBarcodes();
     },
@@ -702,6 +825,9 @@ export default {
       this.$emit('input-size', payload);
     },
 
+    /**
+     * Form validation
+     */
     isFormValid: async function () {
       const selectedLocation = await this.selectedLocation;
       const selectedRepository = await this.getSelectedRepository();
