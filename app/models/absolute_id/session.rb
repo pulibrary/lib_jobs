@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AbsoluteId::Session < ApplicationRecord
   include ActiveModel::Serializers::JSON
   has_many :batches, class_name: 'AbsoluteId::Batch'
@@ -25,7 +26,7 @@ class AbsoluteId::Session < ApplicationRecord
     }
   end
 
-  def as_json(options = nil)
+  def as_json(_options = nil)
     JSON.generate(attributes)
   end
 
@@ -45,7 +46,6 @@ class AbsoluteId::Session < ApplicationRecord
       csv << ["ID", "User", "Barcode", "Location", "Container Profile", "Repository", "Call Number", "Box Number"]
 
       report_entries.each do |entry|
-
         location = "#{entry.location.building} (#{entry.location.uri})"
         container_profile = "#{entry.container_profile.name} (#{entry.container_profile.uri})"
         repository = "#{entry.repository.name} (#{entry.repository.uri})"

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AbsoluteIdImportJob < ApplicationJob
   def perform(sequence_entry)
     prefix = sequence_entry[:prefix]
@@ -14,7 +15,7 @@ class AbsoluteIdImportJob < ApplicationJob
 
     # Determine if this has been imported yet
     persisted_absolute_id = AbsoluteId.find_by(value: barcode)
-    if !persisted_absolute_id.nil?
+    unless persisted_absolute_id.nil?
       Rails.logger.warn("Already imported the Absolute ID: #{persisted_absolute_id.label}")
       return persisted_absolute_id
     end

@@ -60,19 +60,15 @@ module AbsoluteIds
 
       code_digits = padded.scan(/\d/).map(&:to_i)
       puts padded
-      #puts code_digits
+      # puts code_digits
       code_digits.reverse.each_with_index do |digit, index|
         puts digit
         addend = digit
 
-        if index % 2 == parity
-          addend *= 2
-        end
+        addend *= 2 if index % 2 == parity
 
-        if addend > 9
-          addend -= 9
-        end
-        #puts addend
+        addend -= 9 if addend > 9
+        # puts addend
 
         sum += addend
       end

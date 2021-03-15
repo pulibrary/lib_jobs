@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AbsoluteId::Batch < ApplicationRecord
   include ActiveModel::Serializers::JSON
   has_many :absolute_ids
@@ -48,7 +49,7 @@ class AbsoluteId::Batch < ApplicationRecord
         resource: { link: absolute_id.resource_object.uri, value: absolute_id.resource_object.title },
         container: { link: absolute_id.container_object.uri, value: absolute_id.container_object.indicator },
         status: { value: absolute_id.synchronize_status, color: absolute_id.synchronize_status_color },
-        synchronized_at: absolute_id.synchronized_at || 'Never',
+        synchronized_at: absolute_id.synchronized_at || 'Never'
       }
     end
   end
@@ -61,7 +62,7 @@ class AbsoluteId::Batch < ApplicationRecord
     }
   end
 
-  def as_json(options = nil)
+  def as_json(_options = nil)
     JSON.generate(attributes)
   end
 

@@ -26,9 +26,7 @@ module LibJobs
       def children(resource_class:, model_class:, cache: false)
         if cache
           cached = model_class.cached
-          if !cached.empty?
-            return cached
-          end
+          return cached unless cached.empty?
         end
 
         query = URI.encode_www_form([["page", "1"], ["page_size", "100000"]])
@@ -79,9 +77,7 @@ module LibJobs
       def repositories(cache: false)
         if cache
           cached = Repository.model_class.cached
-          if !cached.empty?
-            return cached
-          end
+          return cached unless cached.empty?
         end
 
         super.to_a.map do |repository_json|
@@ -155,14 +151,10 @@ module LibJobs
       end
 
       def find_child(uri:, resource_class:, model_class:, id: nil)
-        if !id.nil?
-          return find_child_by(child_id: id, resource_class: resource_class, model_class: model_class)
-        end
+        return find_child_by(child_id: id, resource_class: resource_class, model_class: model_class) unless id.nil?
 
         cached = model_class.find_cached(uri)
-        if !cached.nil?
-          return cached
-        end
+        return cached unless cached.nil?
 
         response = get(uri)
         raise(StandardError, "Error requesting the #{resource_class.name.demodulize} #{uri}: #{response.body}") if response.status.code != "200"

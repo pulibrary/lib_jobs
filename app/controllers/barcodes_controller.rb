@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class BarcodesController < AbsoluteIdsController
-
   # This should be moved to a separate controller
   # GET /barcodes
   # GET /barcodes.json

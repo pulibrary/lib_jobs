@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module LibJobs
   module ArchivesSpace
     class ChildObject < Object

@@ -9,8 +9,8 @@ RSpec.describe "AbsoluteIds::Repositories::Resources", type: :request do
     Rails.root.join('spec', 'fixtures', 'archivesspace_repository.json')
   end
   let(:repository_fixture) do
-    #json = File.read(repository_fixture_file_path)
-    #JSON.parse(json)
+    # json = File.read(repository_fixture_file_path)
+    # JSON.parse(json)
     File.read(repository_fixture_file_path)
   end
 
@@ -18,8 +18,8 @@ RSpec.describe "AbsoluteIds::Repositories::Resources", type: :request do
     Rails.root.join('spec', 'fixtures', 'archivesspace_login.json')
   end
   let(:login_fixture) do
-    #json = File.read(login_fixture_file_path)
-    #JSON.parse(json)
+    # json = File.read(login_fixture_file_path)
+    # JSON.parse(json)
     File.read(login_fixture_file_path)
   end
 
@@ -34,7 +34,7 @@ RSpec.describe "AbsoluteIds::Repositories::Resources", type: :request do
     allow(repository_response).to receive(:status).and_return(repository_response_status)
     allow(repository_response).to receive(:body).and_return(repository_fixture)
     allow(client).to receive(:get).with("/repositories/#{repository_id}").and_return(repository_response)
-    #allow(client).to receive(:find_repository).with(id: repository_id).and_return(repository)
+    # allow(client).to receive(:find_repository).with(id: repository_id).and_return(repository)
 
     allow(client).to receive(:login).and_return(login_fixture)
     allow(LibJobs::ArchivesSpace::Client).to receive(:new).and_return(client)
@@ -52,8 +52,8 @@ RSpec.describe "AbsoluteIds::Repositories::Resources", type: :request do
         Rails.root.join('spec', 'fixtures', 'archivesspace_resources.json')
       end
       let(:resources_fixture) do
-        #json = File.read(resources_fixture_file_path)
-        #JSON.parse(json)
+        # json = File.read(resources_fixture_file_path)
+        # JSON.parse(json)
         File.read(resources_fixture_file_path)
       end
       let(:resources_response_status) { double }
@@ -83,6 +83,5 @@ RSpec.describe "AbsoluteIds::Repositories::Resources", type: :request do
         expect(resource_json).to include("title" => "American Civil Liberties Union Records: Subgroup 4")
       end
     end
-
   end
 end

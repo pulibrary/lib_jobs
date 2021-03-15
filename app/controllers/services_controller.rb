@@ -55,5 +55,4 @@ class ServicesController < ApplicationController
 
     @current_user ||= find_user
   end
-
 end

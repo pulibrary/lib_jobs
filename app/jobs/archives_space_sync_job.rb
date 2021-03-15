@@ -101,19 +101,15 @@ class ArchivesSpaceSyncJob < ApplicationJob
   end
 
   def update_top_container(uri:, barcode:, indicator:, location:)
-    #sync_client = client_mapper.sync_client
+    # sync_client = client_mapper.sync_client
     sync_client = client_mapper.source_client
     sync_repository = sync_client.find_repository_by(uri: repository.uri)
     sync_container = sync_repository.find_top_container_by(uri: uri)
-    if sync_container.nil?
-      raise(ArchivesSpaceSyncError, "Failed to locate the container resource for #{uri}")
-    end
+    raise(ArchivesSpaceSyncError, "Failed to locate the container resource for #{uri}") if sync_container.nil?
 
     current_locations = container.container_locations
     sync_location = sync_client.find_location_by(uri: location.uri)
-    if sync_location.nil?
-      raise(ArchivesSpaceSyncError, "Failed to locate the location resource for #{location.uri}")
-    end
+    raise(ArchivesSpaceSyncError, "Failed to locate the location resource for #{location.uri}") if sync_location.nil?
     updated_locations = current_locations.map { |location_attrs| LibJobs::ArchivesSpace::Location.new(location_attrs) }.reject do |location_model|
       location_model.uri.to_s == sync_location.uri.to_s
     end

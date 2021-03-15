@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AbsoluteIdCreateBatchJob < ApplicationJob
   def perform(properties:, user_id:)
     @user_id = user_id
@@ -28,7 +29,7 @@ class AbsoluteIdCreateBatchJob < ApplicationJob
       end
     end
 
-    if !children.empty?
+    unless children.empty?
       batch = AbsoluteId::Batch.create(absolute_ids: children.reject(&:nil?), user: current_user)
       batch.save!
       Rails.logger.info("Batch created: #{batch.id}")
