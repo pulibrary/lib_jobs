@@ -1,0 +1,11 @@
+Rails/HasAndBelongsToMany:
+  Exclude:
+    - 'app/models/absolute_id/archival_object.rb'
+    - 'app/models/absolute_id/resource.rb'
+    - 'app/models/absolute_id/top_container.rb'
+
+Rails/HasManyOrHasOneDependent:
+  Exclude:
+    - 'app/models/absolute_id/batch.rb'
+    - 'app/models/absolute_id/session.rb'
+    - 'app/models/user.rb'

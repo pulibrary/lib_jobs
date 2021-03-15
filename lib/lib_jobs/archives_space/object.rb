@@ -81,9 +81,9 @@ module LibJobs
       end
 
       def eql?(other)
-        return false unless id === other.id
+        return false unless id == other.id
 
-        attributes === other.attributes
+        attributes == other.attributes
       end
 
       def cache

@@ -33,12 +33,6 @@ module LibJobs
         instances
       end
 
-      def top_containers
-        nodes = instances.map(&:top_container)
-
-        nodes + children.map(&:top_containers).flatten
-      end
-
       def attributes
         super.merge({
                       title: title,
@@ -135,8 +129,8 @@ module LibJobs
         return if response.status.code == "404"
 
         response.parsed
-      rescue StandardError => standard_error
-        Rails.logger.warn("Failed to retrieve the tree root node data for #{node_uri}")
+      rescue StandardError => error
+        Rails.logger.warn("Failed to retrieve the tree root node data for #{node_uri}: #{error}")
         nil
       end
 

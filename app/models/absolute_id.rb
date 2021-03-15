@@ -18,9 +18,9 @@ class AbsoluteId < ApplicationRecord
         absolute_id.errors.add(:value, "Mismatch between the digit sequence and the ID") if absolute_id.integer.to_i != absolute_id.barcode.integer
       end
 
-      if absolute_id.check_digit.nil?
-        absolute_id.errors.add(:check_digit, "Please specify a ID with valid check digit using the Luhn algorithm (please see: https://github.com/topics/luhn-algorithm?l=ruby)")
-      end
+      return unless absolute_id.check_digit.nil?
+
+      absolute_id.errors.add(:check_digit, "Please specify a ID with valid check digit using the Luhn algorithm (please see: https://github.com/topics/luhn-algorithm?l=ruby)")
     end
   end
 

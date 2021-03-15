@@ -71,7 +71,6 @@ class AbsoluteIdCreateJob < ApplicationJob
 
     # Resolve the Repository
     repository_param = properties[:repository]
-    repository_id = repository_param[:id]
     repository_uri = repository_param[:uri]
     repository = current_client.find_repository(uri: repository_uri)
 
@@ -121,7 +120,7 @@ class AbsoluteIdCreateJob < ApplicationJob
     if !persisted.empty?
       # This should not need to be case into an Integer, but this is in place for a PostgreSQL error
       index = persisted.last.index.to_i + 1
-    elsif index == 0
+    elsif index.zero?
       index = 1
     end
 

@@ -6,7 +6,8 @@ class AbsoluteId::ResourceChildRecord < AbsoluteId::ChildRecord
     resource_attributes = resource.attributes.deep_dup
 
     resource_attributes.delete(:children)
-    resolved_children = resource.resolve_children
+    # This needs to implement polymorphic assocations for child Resources
+    # resolved_children = resource.resolve_children
     # children = child_resources.map(&:find_or_create_model)
 
     resource_attributes.delete(:top_containers)
