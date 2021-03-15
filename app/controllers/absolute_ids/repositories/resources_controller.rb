@@ -35,12 +35,11 @@ class AbsoluteIds::Repositories::ResourcesController < ApplicationController
 
   # POST /absolute-ids/repositories/:repository_id/resources/search.json
   def search
-
-    #if json_request?
+    # if json_request?
     #  ead_id = "#{resource_param}.#{request.path_parameters[:format]}"
-    #else
+    # else
     #  ead_id = resource_param
-    #end
+    # end
 
     ead_id = params[:eadId]
 

@@ -18,9 +18,9 @@ module LibJobs
 
       def attributes
         super.merge({
-          name: name,
-          prefix: prefix
-        })
+                      name: name,
+                      prefix: prefix
+                    })
       end
     end
   end

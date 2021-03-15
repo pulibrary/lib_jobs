@@ -17,8 +17,8 @@ class AbsoluteId::ChildRecord < AbsoluteId::Record
 
   def json_properties
     super.merge({
-      repository_id: repository_id,
-      instances: json_object.instances
-    })
+                  repository_id: repository_id,
+                  instances: json_object.instances
+                })
   end
 end

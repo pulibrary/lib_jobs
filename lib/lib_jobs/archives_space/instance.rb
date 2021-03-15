@@ -2,7 +2,6 @@
 module LibJobs
   module ArchivesSpace
     class Instance < Object
-
       # These are nested objects
       def initialize(attributes)
         normalized = attributes.deep_symbolize_keys

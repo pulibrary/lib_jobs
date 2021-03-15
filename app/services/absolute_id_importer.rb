@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 class AbsoluteIdImporter
   def initialize(barcode_csv_file_path:, sequence_csv_file_path:)

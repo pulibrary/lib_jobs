@@ -15,22 +15,22 @@ module LibJobs
 
       def attributes
         super.merge({
-          ead_id: ead_id
-        })
+                      ead_id: ead_id
+                    })
       end
 
       def search_top_containers_by(index:, cache: true)
-        if !cache
-          resolved = resolve_top_containers
-        else
-          resolved = if top_containers.empty?
+        resolved = if !cache
+                     resolve_top_containers
+                   else
+                     if top_containers.empty?
                        resolve_top_containers
                      else
                        top_containers
-                     end
-        end
+                                end
+                   end
 
-        sorted = resolved.sort { |u, v| u.id <=> v.id }
+        sorted = resolved.sort_by(&:id)
         found = sorted[index.to_i - 1]
 
         raise(IndexError, "Failed to find the TopContainer using #{index}") if found.nil?
@@ -74,7 +74,7 @@ module LibJobs
 
       def find_children
         child_nodes = find_root_children
-        descendent_nodes = child_nodes.map { |child_node| child_node.resolve_children }
+        descendent_nodes = child_nodes.map(&:resolve_children)
         child_nodes + descendent_nodes.flatten
       end
 
@@ -83,10 +83,10 @@ module LibJobs
         # Fix this
         super
 
-        #response = client.get("/repositories/#{repository.id}/resources/#{@id}/top_containers")
-        #return nil if response.status == 404
+        # response = client.get("/repositories/#{repository.id}/resources/#{@id}/top_containers")
+        # return nil if response.status == 404
 
-        #parsed = JSON.parse(response.body)
+        # parsed = JSON.parse(response.body)
       end
     end
   end

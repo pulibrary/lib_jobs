@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AbsoluteIdBatchImportJob < ApplicationJob
   def perform(barcode_entries:, sequence_entries:)
     @entries_by_user = {}
@@ -8,12 +9,12 @@ class AbsoluteIdBatchImportJob < ApplicationJob
       entries = entries_by_user(email)
       user = find_user(email: email)
 
-      batches = entries.map { |sequence_entry|
-          imported = AbsoluteIdImportJob.perform_now(sequence_entry)
-          batch = AbsoluteId::Batch.create(absolute_ids: [imported], user: user)
-          batch.save
-          batch
-      }
+      batches = entries.map do |sequence_entry|
+        imported = AbsoluteIdImportJob.perform_now(sequence_entry)
+        batch = AbsoluteId::Batch.create(absolute_ids: [imported], user: user)
+        batch.save
+        batch
+      end
 
       session = AbsoluteId::Session.create(batches: batches, user: user)
       session.save
@@ -52,7 +53,6 @@ class AbsoluteIdBatchImportJob < ApplicationJob
 
     csv_entries = @sequence_entries[(1..-1)]
     @entries = csv_entries.map do |sequence_entry|
-
       # Barcode
       barcode_key = sequence_entry[1]
       barcode = barcode_rows[barcode_key]

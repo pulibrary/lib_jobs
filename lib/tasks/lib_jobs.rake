@@ -25,25 +25,25 @@ namespace :lib_jobs do
   namespace :absolute_ids do
     namespace :aspace do
       desc "caches ArchivesSpace resources"
-      task :cache, [] => [:environment] do |t, args|
+      task :cache, [] => [:environment] do |_t, _args|
         ArchivesSpaceCacheJob.perform_later
       end
 
       desc "clears the ArchivesSpace resource caches"
-      task :clear_cache, [] => [:environment] do |t, args|
+      task :clear_cache, [] => [:environment] do |_t, _args|
         ArchivesSpaceClearCacheJob.perform_later
       end
     end
 
     desc "import AbIDs from a CSV file"
-    task :import, [:barcode_csv_file_path, :sequence_csv_file_path] => [:environment] do |t, args|
+    task :import, [:barcode_csv_file_path, :sequence_csv_file_path] => [:environment] do |_t, args|
       importer = AbsoluteIdImporter.new(barcode_csv_file_path: args[:barcode_csv_file_path], sequence_csv_file_path: args[:sequence_csv_file_path])
       importer.import
     end
   end
 
   desc "Clean dead Sidekiq Queues."
-  task :dead_queues, [] => [:environment] do |t, args|
+  task :dead_queues, [] => [:environment] do |_t, _args|
     CleanDeadQueuesJob.set(queue: :low).perform_later
   end
 end

@@ -20,9 +20,7 @@ class AbsoluteId::Record < ApplicationRecord
 
   def self.uncache(resource)
     models = where(uri: resource.uri.to_s)
-    models.each do |model|
-      model.destroy
-    end
+    models.each(&:destroy)
     resource
   end
 

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AbsoluteIdCreateSessionJob < ApplicationJob
   def perform(session_attributes:, user_id:)
     @user_id = user_id
@@ -12,7 +13,7 @@ class AbsoluteIdCreateSessionJob < ApplicationJob
       AbsoluteId::Batch.find(model_id)
     end
 
-    if !@batches.empty?
+    unless @batches.empty?
       @session = AbsoluteId::Session.create(batches: @batches, user: current_user)
       @session.save!
       Rails.logger.info("Session created: #{@session.id}")

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AbsoluteIdCreateJob < ApplicationJob
   def perform(properties:, user_id:)
     @user_id = user_id
@@ -110,9 +111,7 @@ class AbsoluteIdCreateJob < ApplicationJob
     build_attributes = properties.deep_dup
 
     source = properties[:source]
-    if source == 'aspace'
-      build_attributes = transform_aspace_properties(properties, index)
-    end
+    build_attributes = transform_aspace_properties(properties, index) if source == 'aspace'
 
     # Increment the index
     location = build_attributes[:location]

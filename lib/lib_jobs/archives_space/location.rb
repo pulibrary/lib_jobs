@@ -35,18 +35,18 @@ module LibJobs
 
       def attributes
         super.merge({
-          area: area,
-          barcode: barcode,
-          building: building,
-          classification: classification,
-          external_ids: external_ids,
-          floor: floor,
-          functions: functions,
-          id: id,
-          room: room,
-          temporary: temporary,
-          uri: uri
-        })
+                      area: area,
+                      barcode: barcode,
+                      building: building,
+                      classification: classification,
+                      external_ids: external_ids,
+                      floor: floor,
+                      functions: functions,
+                      id: id,
+                      room: room,
+                      temporary: temporary,
+                      uri: uri
+                    })
       end
 
       def to_container_ref

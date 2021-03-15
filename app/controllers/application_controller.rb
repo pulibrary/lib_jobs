@@ -96,8 +96,6 @@ class ApplicationController < ActionController::Base
     User.find_by(id: current_user_id, token: current_user_token)
   end
 
-  private
-
   def cache_expiry
     1.hour
   end

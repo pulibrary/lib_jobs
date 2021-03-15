@@ -21,12 +21,12 @@ module LibJobs
         @resources = @values.resources || []
 
         @active_restrictions = @values.active_restrictions
-        #@barcode = @values.barcode
+        # @barcode = @values.barcode
         @collection = @values.collection
         @exported_to_ils = @values.exported_to_ils
         @ils_holding_id = @values.ils_holding_id
         @ils_item_id = @values.ils_item_id
-        #@indicator = @values.indicator
+        # @indicator = @values.indicator
         @series = @values.series
         @type = @values.type
       end
@@ -37,25 +37,25 @@ module LibJobs
 
         locations_values.map do |location_attributes|
           # location_uri = "#{base_uri}#{location_attributes[:ref]}"
-          location_uri = "#{location_attributes[:ref]}"
+          location_uri = (location_attributes[:ref]).to_s
           client.find_location_by(uri: location_uri)
         end
       end
 
       def attributes
         super.merge({
-          active_restrictions: active_restrictions,
-          barcode: barcode,
-          collection: collection,
-          container_locations: locations,
-          exported_to_ils: exported_to_ils,
-          ils_holding_id: ils_holding_id,
-          ils_item_id: ils_item_id,
-          indicator: indicator,
-          series: series,
-          resources: @resources,
-          type: type
-        })
+                      active_restrictions: active_restrictions,
+                      barcode: barcode,
+                      collection: collection,
+                      container_locations: locations,
+                      exported_to_ils: exported_to_ils,
+                      ils_holding_id: ils_holding_id,
+                      ils_item_id: ils_item_id,
+                      indicator: indicator,
+                      series: series,
+                      resources: @resources,
+                      type: type
+                    })
       end
 
       def to_params
@@ -87,9 +87,7 @@ module LibJobs
         @values.barcode = barcode if barcode
         @values.indicator = indicator if indicator
 
-        @values.container_locations = container_locations.map do |location|
-          location.to_container_ref
-        end
+        @values.container_locations = container_locations.map(&:to_container_ref)
 
         repository.update_top_container(self)
       end

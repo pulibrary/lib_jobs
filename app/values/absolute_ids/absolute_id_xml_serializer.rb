@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 module AbsoluteIds
   class AbsoluteIdXmlSerializer < RecordXmlSerializer
-
     def build_array_elements(element_name, enum_value)
       enum_element = document_tree.create_element(element_name)
 
@@ -47,9 +46,7 @@ module AbsoluteIds
                       else
                         build_element(element_name: child_element_name, type_attribute: type_attribute, value: value)
                       end
-        if !new_element.nil?
-          hash_element.add_child(new_element)
-        end
+        hash_element.add_child(new_element) unless new_element.nil?
       end
 
       hash_element
@@ -58,13 +55,9 @@ module AbsoluteIds
     def build_element(element_name:, type_attribute:, value:)
       return if value.blank?
 
-      if type_attribute == 'array'
-        return build_array_elements(element_name, value)
-      end
+      return build_array_elements(element_name, value) if type_attribute == 'array'
 
-      if type_attribute == 'hash'
-        return build_hash_element(element_name, value)
-      end
+      return build_hash_element(element_name, value) if type_attribute == 'hash'
 
       new_element = document_tree.create_element(element_name)
       new_element['type'] = type_attribute unless type_attribute.nil?
@@ -83,8 +76,8 @@ module AbsoluteIds
     def build_document
       @document_tree = build_document_tree
 
-      #new_element = build_element(element_name: 'barcode', type_attribute: 'string', value: @model.barcode.value)
-      #root_element.add_child(new_element)
+      # new_element = build_element(element_name: 'barcode', type_attribute: 'string', value: @model.barcode.value)
+      # root_element.add_child(new_element)
 
       @model.attributes.each_pair do |key, value|
         element_name = key.to_s.underscore
@@ -93,7 +86,7 @@ module AbsoluteIds
                            # build_hash_element(element_name, value)
                            'hash'
                          elsif value.is_a?(TrueClass) || value.is_a?(FalseClass)
-#        type_attribute = if value.is_a?(TrueClass) || value.is_a?(FalseClass)
+                           #        type_attribute = if value.is_a?(TrueClass) || value.is_a?(FalseClass)
                            'boolean'
                          elsif value.is_a?(NilClass)
                            nil
@@ -104,9 +97,7 @@ module AbsoluteIds
                          end
         new_element = build_element(element_name: element_name, type_attribute: type_attribute, value: value)
 
-        if !new_element.nil?
-          root_element.add_child(new_element)
-        end
+        root_element.add_child(new_element) unless new_element.nil?
       end
 
       document_tree
