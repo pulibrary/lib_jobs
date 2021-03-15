@@ -5,7 +5,7 @@ class AbsoluteIdBatchImportJob < ApplicationJob
     @barcode_entries = barcode_entries
     @sequence_entries = sequence_entries
 
-    emails.each do |email|
+    emails.map do |email|
       entries = entries_by_user(email)
       user = find_user(email: email)
 

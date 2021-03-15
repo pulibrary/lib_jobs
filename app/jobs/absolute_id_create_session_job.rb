@@ -13,12 +13,12 @@ class AbsoluteIdCreateSessionJob < ApplicationJob
       AbsoluteId::Batch.find(model_id)
     end
 
-    unless @batches.empty?
-      @session = AbsoluteId::Session.create(batches: @batches, user: current_user)
-      @session.save!
-      Rails.logger.info("Session created: #{@session.id}")
-      @session.id
-    end
+    return if @batches.empty?
+
+    @session = AbsoluteId::Session.create(batches: @batches, user: current_user)
+    @session.save!
+    Rails.logger.info("Session created: #{@session.id}")
+    @session.id
   end
 
   def current_user

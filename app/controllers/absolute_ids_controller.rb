@@ -119,10 +119,6 @@ class AbsoluteIdsController < ApplicationController
     Rails.logger.warn("Failed to create batches of new Absolute IDs with invalid parameters.")
     Rails.logger.warn(JSON.generate(session_params))
     raise error
-
-    respond_to do |format|
-      format.json { head(400) }
-    end
   end
 
   # POST /absolute-ids/synchronize

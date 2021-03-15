@@ -79,7 +79,7 @@ module LibJobs
 
       def search_resources(ead_id:)
         resource_refs = find_resources_by_ead_id(ead_id: ead_id)
-        resource = build_resource_from(refs: resource_refs)
+        build_resource_from(refs: resource_refs)
       end
 
       def find_child(uri:, resource_class:, model_class:, resource: nil, cache: true)
@@ -109,12 +109,11 @@ module LibJobs
       end
 
       # Deprecate
-      def find_resource(uri:, resource: nil, cache: true)
+      def find_resource(uri:, cache: true)
         find_child(uri: uri, resource_class: Resource, model_class: Resource.model_class, cache: cache)
       end
 
-      # Resource should be removed
-      def find_resource_by(uri:, resource: nil, cache: true)
+      def find_resource_by(uri:, cache: true)
         find_child(uri: uri, resource_class: Resource, model_class: Resource.model_class, cache: cache)
       end
 
@@ -148,7 +147,7 @@ module LibJobs
 
       def select_top_containers_by(barcode:)
         output = top_containers.select do |top_container|
-          top_container.barcode === barcode
+          top_container.barcode == barcode
         end
         output.to_a
       end

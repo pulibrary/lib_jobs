@@ -104,7 +104,7 @@ module LibJobs
 
       def select_repositories_by(repo_code:)
         output = repositories.select do |repository|
-          repository.repo_code === repo_code
+          repository.repo_code == repo_code
         end
         output.to_a
       end
@@ -112,7 +112,7 @@ module LibJobs
       # Container Profiles
       def select_container_profiles_by(name:)
         output = container_profiles.select do |container_profile|
-          container_profile.name === name
+          container_profile.name == name
         end
         output.to_a
       end
@@ -128,7 +128,7 @@ module LibJobs
       # Locations
       def select_locations_by(classification:)
         output = locations.select do |location|
-          location.classification === classification
+          location.classification == classification
         end
         output.to_a
       end

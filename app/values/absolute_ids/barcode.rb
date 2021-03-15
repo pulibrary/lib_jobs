@@ -9,8 +9,8 @@ module AbsoluteIds
       @value = value
     end
 
-    def +(addend)
-      new_integer = integer + addend
+    def +(other)
+      new_integer = integer + other
       new_value = format("%013d", new_integer)
       @value = new_value
       self
@@ -59,20 +59,14 @@ module AbsoluteIds
       sum = 0
 
       code_digits = padded.scan(/\d/).map(&:to_i)
-      puts padded
-      # puts code_digits
       code_digits.reverse.each_with_index do |digit, index|
-        puts digit
         addend = digit
 
         addend *= 2 if index % 2 == parity
-
         addend -= 9 if addend > 9
-        # puts addend
 
         sum += addend
       end
-      puts sum
 
       remainder = sum % 10
       remainder.zero? ? 0 : 10 - remainder

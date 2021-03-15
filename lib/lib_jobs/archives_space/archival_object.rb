@@ -26,8 +26,8 @@ module LibJobs
         return if response.status.code == "404"
 
         response.parsed
-      rescue StandardError => standard_error
-        Rails.logger.warn("Failed to retrieve the tree root node data for #{uri}")
+      rescue StandardError => error
+        Rails.logger.warn("Failed to retrieve the tree root node data for #{uri}: #{error}")
         nil
       end
 

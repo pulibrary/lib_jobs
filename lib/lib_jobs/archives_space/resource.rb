@@ -22,12 +22,10 @@ module LibJobs
       def search_top_containers_by(index:, cache: true)
         resolved = if !cache
                      resolve_top_containers
+                   elsif top_containers.empty?
+                     resolve_top_containers
                    else
-                     if top_containers.empty?
-                       resolve_top_containers
-                     else
-                       top_containers
-                                end
+                     top_containers
                    end
 
         sorted = resolved.sort_by(&:id)
