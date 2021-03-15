@@ -53,7 +53,13 @@
 
     &--fields {
       border-width: 0;
+    }
 
+    &--status {
+      div, ul {
+        display: inline-block;
+        max-width: 100%;
+      }
     }
 
     &--input-field {

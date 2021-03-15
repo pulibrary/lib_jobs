@@ -40,6 +40,9 @@ Rails.application.routes.draw do
   post '/absolute-ids/batch', to: 'absolute_ids#create_batch'
   post '/absolute-ids', to: 'absolute_ids#create_batches'
 
+  # External Services
+  get '/services/archivesspace', to: 'services#show_archivesspace'
+
   authenticate :user do
     mount Sidekiq::Web => "/sidekiq"
   end

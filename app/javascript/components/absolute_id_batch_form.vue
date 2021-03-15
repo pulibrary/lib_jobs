@@ -16,7 +16,8 @@
             name: 'radio-group-name',
             label: 'MARC Records',
             value: 'marc',
-            id: 'marc'
+            id: 'marc',
+            disabled: true
           }
         ]"
         v-on:change="onChangeMode"
@@ -24,7 +25,7 @@
     </div>
     <template v-for="(entry, index) in batch">
       <fieldset class="absolute-ids-batch-form--batch">
-        <legend>Batch</legend>
+        <legend>New Batch</legend>
 
         <absolute-id-aspace-form
           v-if="source == 'aspace'"
@@ -32,6 +33,7 @@
 
           v-model="batch[index]"
           :action="action"
+          service-status-action="/services/archivesspace"
           :token="token"
           :source="source"
           :barcode="generateBarcode(index, batchSize[index])"

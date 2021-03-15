@@ -47,7 +47,11 @@
 
       <grid-item columns="sm-12 lg-9">
         <fieldset class="absolute-ids-form--fields">
-          <legend>{{ sourceLegend }}</legend>
+          <absolute-id-aspace-status
+            :action="serviceStatusAction"
+            :token="token"
+            service="ArchivesSpace"
+          />
 
           <grid-container>
             <grid-item columns="sm-12 lg-12">
@@ -177,13 +181,15 @@
 </template>
 
 <script>
+import AbsoluteIdASpaceStatus from './absolute_id_aspace_status'
 import AbsoluteIdInputText from './absolute_id_input_text'
 import AbsoluteIdDataList from './absolute_id_data_list'
 
 export default {
-  name: 'AbsoluteIdsForm',
+  name: 'AbsoluteIdASpaceForm',
   type: 'Element',
   components: {
+    "absolute-id-aspace-status": AbsoluteIdASpaceStatus,
     "absolute-id-input-text": AbsoluteIdInputText,
     "absolute-id-data-list": AbsoluteIdDataList
   },
@@ -231,6 +237,10 @@ export default {
     batchSize: {
       type: Number,
       default: 1
+    },
+    serviceStatusAction: {
+      type: String,
+      required: true
     }
   },
 
@@ -580,7 +590,6 @@ export default {
   },
 
   updated: async function () {
-
     this.updateValue();
 
     const base = this.parsedBarcode.slice(0, -1);
@@ -590,7 +599,6 @@ export default {
   },
 
   mounted: async function () {
-
     const fetchedLocations = await this.locations;
     this.locationOptions = fetchedLocations.map((location) => {
       const display = location.building;
