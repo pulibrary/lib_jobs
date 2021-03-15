@@ -1,3 +1,13 @@
+GIT
+  remote: https://github.com/pulibrary/archivesspace-client.git
+  revision: 808b08d66b71025a331f0ba67d84b2b28be5a4ae
+  branch: fix_login
+  specs:
+    archivesspace-client (0.1.5)
+      httparty (= 0.14.0)
+      json (>= 2.0.3)
+      nokogiri (>= 1.6.8.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -48,13 +58,11 @@ GEM
       sshkit (>= 1.6.1, != 1.7.0)
     archive-zip (0.12.0)
       io-like (~> 0.3.0)
-    archivesspace-client (0.1.6)
-      httparty (= 0.14.0)
-      json (= 2.0.3)
-      nokogiri (= 1.10.10)
     arel (9.0.0)
     ast (2.4.1)
+    backport (1.1.2)
     bcrypt (3.1.16)
+    benchmark (0.1.1)
     bindex (0.8.1)
     bixby (3.0.2)
       rubocop (= 0.85.1)
@@ -110,6 +118,7 @@ GEM
       responders
       warden (~> 1.2.3)
     diff-lcs (1.4.4)
+    e2mmap (0.1.0)
     erubi (1.9.0)
     execjs (2.7.0)
     factory_bot (6.1.0)
@@ -127,10 +136,15 @@ GEM
     i18n (1.8.5)
       concurrent-ruby (~> 1.0)
     io-like (0.3.1)
+    jaro_winkler (1.5.4)
     jbuilder (2.10.1)
       activesupport (>= 5.0.0)
-    json (2.0.3)
+    json (2.5.1)
     jwt (2.2.2)
+    kramdown (2.3.0)
+      rexml
+    kramdown-parser-gfm (1.1.0)
+      kramdown (~> 2.0)
     listen (3.1.5)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
@@ -217,6 +231,8 @@ GEM
     responders (3.0.1)
       actionpack (>= 5.0)
       railties (>= 5.0)
+    reverse_markdown (2.0.0)
+      nokogiri
     rexml (3.2.4)
     rspec-core (3.10.0)
       rspec-support (~> 3.10.0)
@@ -277,6 +293,20 @@ GEM
       rack (~> 2.0)
       rack-protection (>= 1.5.0)
       redis (>= 3.3.5, < 4.2)
+    solargraph (0.40.1)
+      backport (~> 1.1)
+      benchmark
+      bundler (>= 1.17.2)
+      e2mmap
+      jaro_winkler (~> 1.5)
+      kramdown (~> 2.3)
+      kramdown-parser-gfm (~> 1.1)
+      parser (~> 2.3)
+      reverse_markdown (>= 1.0.5, < 3)
+      rubocop (>= 0.52)
+      thor (~> 1.0)
+      tilt (~> 2.0)
+      yard (~> 0.9, >= 0.9.24)
     spring (2.1.1)
     spring-watcher-listen (2.0.1)
       listen (>= 2.7, < 4.0)
@@ -323,12 +353,13 @@ GEM
       chronic (>= 0.6.3)
     xpath (3.2.0)
       nokogiri (~> 1.8)
+    yard (0.9.26)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  archivesspace-client
+  archivesspace-client!
   bixby
   bootsnap (>= 1.1.0)
   cancancan
@@ -359,6 +390,7 @@ DEPENDENCIES
   sass-rails (~> 5.0)
   selenium-webdriver
   sidekiq (~> 5.2)
+  solargraph
   spring
   spring-watcher-listen (~> 2.0.0)
   sqlite3
