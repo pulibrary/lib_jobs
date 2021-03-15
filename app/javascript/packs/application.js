@@ -24,6 +24,7 @@ import system from 'lux-design-system'
 import "lux-design-system/dist/system/system.css"
 import "lux-design-system/dist/system/tokens/tokens.scss"
 
+import AbsoluteIdASpaceStatus from '../components/absolute_id_aspace_status'
 import AbsoluteIdInputText from '../components/absolute_id_input_text'
 import AbsoluteIdDataList from '../components/absolute_id_data_list'
 
@@ -41,11 +42,15 @@ for (var i = 0; i < elements.length; i++) {
   new Vue({
     el: elements[i],
     components: {
+      'absolute-id-aspace-status': AbsoluteIdASpaceStatus,
       'absolute-id-input-text': AbsoluteIdInputText,
       'absolute-id-data-list': AbsoluteIdDataList,
+
       'absolute-id-marc-form': AbsoluteIdMarcForm,
       'absolute-id-form': AbsoluteIdForm,
+
       'absolute-id-batch-form': AbsoluteIdBatchForm,
+
       'absolute-id-batch-table': AbsoluteIdBatchTable,
       'absolute-id-table': AbsoluteIdTable,
     }
