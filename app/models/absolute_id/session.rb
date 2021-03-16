@@ -26,9 +26,9 @@ class AbsoluteId::Session < ApplicationRecord
     }
   end
 
-  def as_json(_options = nil)
-    JSON.generate(attributes)
-  end
+  # def as_json(_options = nil)
+  #  JSON.generate(attributes)
+  # end
 
   def to_yaml
     YAML.dump(attributes)

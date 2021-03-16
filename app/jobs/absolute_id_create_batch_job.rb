@@ -15,14 +15,15 @@ class AbsoluteIdCreateBatchJob < ApplicationJob
     # Use the same set of params for each AbID
     absolute_id_params = batch_properties[:absolute_id]
 
-    children = Array.new(batch_size) do |child_index|
+    children = []
+    Array.new(batch_size.to_i) do |child_index|
       properties = absolute_id_params.deep_dup
       properties[:barcode] = batch_properties[:barcodes][child_index]
       properties[:index] = child_index
 
       begin
         model_id = AbsoluteIdCreateJob.perform_now(properties: properties, user_id: @user_id)
-        AbsoluteId.find(model_id)
+        children << AbsoluteId.find(model_id)
       rescue StandardError => error
         Rails.logger.warn("Failed to create the Absolute ID: #{properties['initial_value']}: #{error}")
         nil

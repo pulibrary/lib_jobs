@@ -23,8 +23,8 @@ ActiveRecord::Schema.define(version: 2021_03_10_052155) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
-    t.integer "session_id"
-    t.index ["session_id"], name: "index_absolute_id_batches_on_session_id"
+    t.integer "absolute_id_session_id"
+    t.index ["absolute_id_session_id"], name: "index_absolute_id_batches_on_absolute_id_session_id"
     t.index ["user_id"], name: "index_absolute_id_batches_on_user_id"
   end
 
@@ -72,18 +72,18 @@ ActiveRecord::Schema.define(version: 2021_03_10_052155) do
 
   create_table "absolute_ids", force: :cascade do |t|
     t.string "value"
-    t.integer "integer"
+    t.string "integer"
     t.integer "check_digit"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "initial_value"
-    t.integer "index"
+    t.string "index"
     t.string "location"
     t.string "container_profile"
     t.string "repository"
     t.string "resource"
     t.string "container"
-    t.integer "batch_id"
+    t.integer "absolute_id_batch_id"
     t.string "unencoded_location"
     t.string "unencoded_repository"
     t.string "unencoded_container_profile"
@@ -91,14 +91,14 @@ ActiveRecord::Schema.define(version: 2021_03_10_052155) do
     t.datetime "synchronized_at"
     t.boolean "synchronizing"
     t.string "synchronize_status"
-    t.index ["batch_id"], name: "index_absolute_ids_on_batch_id"
+    t.index ["absolute_id_batch_id"], name: "index_absolute_ids_on_absolute_id_batch_id"
   end
 
   create_table "archival_objects_top_containers", id: false, force: :cascade do |t|
     t.integer "archival_object_id", null: false
     t.integer "top_container_id", null: false
-    t.index ["archival_object_id"], name: "index_archival_objects_top_containers_on_archival_object_id"
-    t.index ["top_container_id"], name: "index_archival_objects_top_containers_on_top_container_id"
+    t.index ["archival_object_id"], name: "archival_object_id"
+    t.index ["top_container_id"], name: "top_container_id"
   end
 
   create_table "data_sets", force: :cascade do |t|
@@ -115,8 +115,8 @@ ActiveRecord::Schema.define(version: 2021_03_10_052155) do
   create_table "resources_top_containers", id: false, force: :cascade do |t|
     t.integer "resource_id", null: false
     t.integer "top_container_id", null: false
-    t.index ["resource_id"], name: "index_resources_top_containers_on_resource_id"
-    t.index ["top_container_id"], name: "index_resources_top_containers_on_top_container_id"
+    t.index ["resource_id"], name: "resource_id"
+    t.index ["top_container_id"], name: "container_id"
   end
 
   create_table "users", force: :cascade do |t|

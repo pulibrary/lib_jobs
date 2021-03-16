@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 class AbsoluteId::Batch < ApplicationRecord
-  include ActiveModel::Serializers::JSON
   has_many :absolute_ids
   belongs_to :session, class_name: 'AbsoluteId::Session', optional: true
   belongs_to :user
@@ -58,12 +57,8 @@ class AbsoluteId::Batch < ApplicationRecord
     {
       id: id,
       label: label,
-      tableData: table_data
+      table_data: table_data
     }
-  end
-
-  def as_json(_options = nil)
-    JSON.generate(attributes)
   end
 
   def self.xml_serializer

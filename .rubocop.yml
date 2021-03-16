@@ -9,6 +9,8 @@ AllCops:
 Layout/LineLength:
   Enabled: true
   Max: 200
+  Exclude:
+    - 'spec/support/stub_aspace_client.rb'
 
 Metrics/AbcSize:
   Exclude:
@@ -19,6 +21,7 @@ Metrics/AbcSize:
     - 'app/jobs/archives_space_sync_job.rb'
     - 'app/models/absolute_id/batch.rb'
     - 'app/models/absolute_id/session.rb'
+    - 'spec/support/stub_aspace_client.rb'
 
 Metrics/BlockLength:
   Exclude:
@@ -35,6 +38,7 @@ Metrics/ClassLength:
     - 'lib/lib_jobs/archives_space/client.rb'
     - 'lib/lib_jobs/archives_space/repository.rb'
     - 'lib/lib_jobs/archives_space/resource_child_object.rb'
+    - 'app/jobs/absolute_id_create_job.rb'
 
 Metrics/CyclomaticComplexity:
   Exclude:
@@ -64,6 +68,11 @@ Metrics/MethodLength:
     - 'lib/lib_jobs/archives_space/client.rb'
     - 'lib/lib_jobs/archives_space/repository.rb'
     - 'lib/lib_jobs/archives_space/resource_child_object.rb'
+    - 'spec/support/stub_aspace_client.rb'
+
+Metrics/ModuleLength:
+  Exclude:
+    - 'spec/support/stub_aspace_client.rb'
 
 Metrics/PerceivedComplexity:
   Exclude:

@@ -3,10 +3,8 @@ module LibJobs
   module ArchivesSpace
     class Configuration < OpenStruct
       def self.build
-        @build ||= begin
-                     parsed = LibJobs.config["archivesspace"]
-                     new(**parsed.symbolize_keys)
-                   end
+        parsed = LibJobs.config["archivesspace"]
+        new(**parsed.symbolize_keys)
       end
 
       def self.source

@@ -7,7 +7,8 @@ class AbsoluteIds::Repositories::ResourcesController < ApplicationController
   def index
     begin
       @resources ||= current_repository.resources
-    rescue
+    rescue StandardError => error
+      Rails.logger.warn("Failed to resolve the resources for the repository #{repository_id}: #{error}")
       @resources = []
     end
 
@@ -20,7 +21,8 @@ class AbsoluteIds::Repositories::ResourcesController < ApplicationController
   def show
     begin
       @resource ||= current_repository.find_resource(id: resource_id)
-    rescue
+    rescue StandardError => error
+      Rails.logger.warn("Failed to resolve the resource #{resource_id} for the repository #{repository_id}: #{error}")
       @resource = nil
     end
 
@@ -29,24 +31,13 @@ class AbsoluteIds::Repositories::ResourcesController < ApplicationController
     end
   end
 
-  def resource_param
-    params[:resource_param]
-  end
-
   # POST /absolute-ids/repositories/:repository_id/resources/search.json
   def search
-    # if json_request?
-    #  ead_id = "#{resource_param}.#{request.path_parameters[:format]}"
-    # else
-    #  ead_id = resource_param
-    # end
-
-    ead_id = params[:eadId]
-
     begin
       resource_refs = current_client.find_resources_by_ead_id(repository_id: repository_id, ead_id: ead_id)
       @resource = current_repository.build_resource_from(refs: resource_refs)
-    rescue
+    rescue StandardError => error
+      Rails.logger.warn("Failed to query for resources using #{ead_id} for the repository #{repository_id}: #{error}")
       @resource = nil
     end
 
@@ -60,6 +51,14 @@ class AbsoluteIds::Repositories::ResourcesController < ApplicationController
   end
 
   private
+
+  def ead_id
+    params[:eadId]
+  end
+
+  def resource_param
+    params[:resource_param]
+  end
 
   def current_user_params
     params[:user]
