@@ -104,6 +104,9 @@ class AbsoluteIdCreateJob < ApplicationJob
     transformed[:container] = container_attributes(top_container)
 
     transformed
+  rescue Errno::ECONNREFUSED => connection_error
+    Rails.logger.warn("Failed to connect to the ArchivesSpace REST API: #{error}")
+    raise connection_error
   end
 
   def create_absolute_id(properties, index)

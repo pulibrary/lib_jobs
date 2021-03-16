@@ -6,7 +6,7 @@ class AbsoluteId < ApplicationRecord
   SYNCHRONIZED = 'synchronized'
   SYNCHRONIZE_FAILED = 'synchronization failed'
 
-  belongs_to :batch, class_name: 'AbsoluteId::Batch', optional: true
+  belongs_to :batch, class_name: 'AbsoluteId::Batch', optional: true, foreign_key: "absolute_id_batch_id"
 
   def self.barcode_class
     AbsoluteIds::Barcode
@@ -86,41 +86,59 @@ class AbsoluteId < ApplicationRecord
     format("%s-%06d", prefix, index)
   end
 
-  ## For ASpace Locations
-  def location_object
-    return if location.nil?
+  # For ASpace Locations
+  def location_json
+    return {} if location.nil?
 
-    values = JSON.parse(location, symbolize_names: true)
-    OpenStruct.new(values)
+    JSON.parse(location, symbolize_names: true)
+  end
+
+  def location_object
+    OpenStruct.new(location_json)
   end
 
   ## For ASpace Repositories
-  def repository_object
-    return if repository.nil?
+  def repository_json
+    return {} if repository.nil?
 
-    values = JSON.parse(repository, symbolize_names: true)
-    OpenStruct.new(values)
+    JSON.parse(repository, symbolize_names: true)
+  end
+
+  def repository_object
+    OpenStruct.new(repository_json)
+  end
+
+  ## For ASpace Resources
+  def resource_json
+    return {} if resource.nil?
+
+    JSON.parse(resource, symbolize_names: true)
   end
 
   def resource_object
-    return if resource.nil?
+    OpenStruct.new(resource_json)
+  end
 
-    values = JSON.parse(resource, symbolize_names: true)
-    OpenStruct.new(values)
+  ## For ASpace ContainerProfiles
+  def container_profile_json
+    return {} if container_profile.nil?
+
+    JSON.parse(container_profile, symbolize_names: true)
   end
 
   def container_profile_object
-    return if container_profile.nil?
+    OpenStruct.new(container_profile_json)
+  end
 
-    values = JSON.parse(container_profile, symbolize_names: true)
-    OpenStruct.new(values)
+  ## For ASpace Containers
+  def container_json
+    return {} if container.nil?
+
+    JSON.parse(container, symbolize_names: true)
   end
 
   def container_object
-    return if container.nil?
-
-    values = JSON.parse(container, symbolize_names: true)
-    OpenStruct.new(values)
+    OpenStruct.new(container_json)
   end
 
   def synchronize_status

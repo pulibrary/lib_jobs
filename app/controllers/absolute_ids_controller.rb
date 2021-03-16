@@ -87,7 +87,7 @@ class AbsoluteIdsController < ApplicationController
   # POST /absolute-ids/batches
   # POST /absolute-ids/batches.json
   def create_batches
-    # authorize! :create_batches, AbsoluteId
+    authorize! :create_batches, AbsoluteId
     @session = ::AbsoluteIdCreateSessionJob.perform_now(session_attributes: session_params, user_id: current_user.id)
 
     respond_to do |format|
@@ -100,7 +100,7 @@ class AbsoluteIdsController < ApplicationController
       end
     end
   rescue CanCan::AccessDenied
-    warning_message = if current_user_params.nil?
+    warning_message = if current_user_params.nil? || current_user.nil?
                         "Denied attempt to create batches of Absolute IDs by the anonymous client #{request.remote_ip}"
                       else
                         "Denied attempt to create batches of Absolute IDs by the user ID #{current_user.id}"
@@ -238,11 +238,65 @@ class AbsoluteIdsController < ApplicationController
   end
 
   def session_params
-    ActionController::Parameters.permit_all_parameters = true
-    parsed = params.to_h.deep_symbolize_keys
-    ActionController::Parameters.permit_all_parameters = false
+    params.permit(batch: [
+                    :barcode,
+                    :batch_size,
+                    :valid,
+                    absolute_id: [
+                      :barcode,
+                      :container,
+                      container_profile: [
+                        :create_time,
+                        :id,
+                        :lock_version,
+                        :system_mtime,
+                        :uri,
+                        :user_mtime,
+                        :name,
+                        :prefix
+                      ],
+                      location: [
+                        :create_time,
+                        :id,
+                        :lock_version,
+                        :system_mtime,
+                        :uri,
+                        :user_mtime,
+                        :area,
+                        :barcode,
+                        :building,
+                        :classification,
+                        :external_ids,
+                        :floor,
+                        :functions,
+                        :room,
+                        :temporary
+                      ],
+                      repository: [
+                        :create_time,
+                        :id,
+                        :lock_version,
+                        :system_mtime,
+                        :uri,
+                        :user_mtime,
+                        :name,
+                        :repo_code
+                      ],
+                      resource: [
+                        :create_time,
+                        :id,
+                        :lock_version,
+                        :system_mtime,
+                        :uri,
+                        :user_mtime,
+                        :name,
+                        :repo_code
+                      ]
+                    ]
+                  ])
 
-    parsed.fetch(:batch, [])
+    elements = params.permit!.fetch(:batch, [])
+    elements.map(&:to_h).map(&:deep_dup)
   end
 
   def absolute_id_params

@@ -29,7 +29,7 @@
       :key="batch.id"
       :caption="batch.label"
       :columns="columns"
-      :json-data="batch.tableData"
+      :json-data="batch.table_data"
       :token="token"
       :synchronize-action="synchronizeAction"
     />
