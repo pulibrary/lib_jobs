@@ -76,17 +76,12 @@ module AbsoluteIds
     def build_document
       @document_tree = build_document_tree
 
-      # new_element = build_element(element_name: 'barcode', type_attribute: 'string', value: @model.barcode.value)
-      # root_element.add_child(new_element)
-
       @model.attributes.each_pair do |key, value|
         element_name = key.to_s.underscore
 
         type_attribute = if value.is_a?(Hash)
-                           # build_hash_element(element_name, value)
                            'hash'
                          elsif value.is_a?(TrueClass) || value.is_a?(FalseClass)
-                           #        type_attribute = if value.is_a?(TrueClass) || value.is_a?(FalseClass)
                            'boolean'
                          elsif value.is_a?(NilClass)
                            nil

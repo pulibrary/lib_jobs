@@ -131,7 +131,6 @@ class AbsoluteIdsController < ApplicationController
     @absolute_ids = @session.absolute_ids
 
     @absolute_ids.each do |absolute_id|
-      # ArchivesSpaceSyncJob.perform_later(user_id: current_user.id, model_id: absolute_id.id)
       ArchivesSpaceSyncJob.perform_now(user_id: current_user.id, model_id: absolute_id.id)
     end
 
