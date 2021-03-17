@@ -107,6 +107,11 @@ jobs:
             bundle list
             bundle exec rspec
 
+      # Save coverage artifacts
+      - store_artifacts:
+          path: ~/project/coverage
+          destination: coverage
+
       - persist_to_workspace:
           root: '~/project'
           paths: '*'
