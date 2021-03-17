@@ -135,11 +135,22 @@ jobs:
       - setup-bundler
       - run: bundle exec rubocop
 
+  prettier-eslint:
+    executor: lib-jobs-executor
+    steps:
+      - attach_workspace:
+          at: '~/project'
+      - setup-bundler
+      - run: yarn run lint
+
 workflows:
   build_accept:
     jobs:
       - build
       - rubocop:
+         requires:
+          - build
+      - prettier-eslint:
          requires:
           - build
       - test:
