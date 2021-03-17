@@ -1,33 +1,30 @@
 module.exports = {
-  extends: [
-    'plugin:vue/recommended',
-    'plugin:prettier-vue/recommended'
-  ],
+  extends: ["plugin:vue/recommended", "plugin:prettier-vue/recommended"],
 
   settings: {
-    'prettier-vue': {
+    "prettier-vue": {
       SFCBlocks: {
         template: true,
         script: true,
         style: true,
         customBlocks: {
-          docs: { lang: 'markdown' },
-          config: { lang: 'json' },
-          module: { lang: 'js' },
-          comments: false,
-        },
+          docs: { lang: "markdown" },
+          config: { lang: "json" },
+          module: { lang: "js" },
+          comments: false
+        }
       },
       usePrettierrc: true,
       fileInfoOptions: {
-        ignorePath: '.prettierignore',
-        withNodeModules: false,
+        ignorePath: ".prettierignore",
+        withNodeModules: false
       }
     }
   },
 
   rules: {
-    'prettier-vue/prettier': [
-      'warn',
+    "prettier-vue/prettier": [
+      "warn",
       {
         printWidth: 100,
         singleQuote: false,
@@ -49,7 +46,7 @@ module.exports = {
             }
           }
         ]
-      },
-    ],
-  },
-}
+      }
+    ]
+  }
+};

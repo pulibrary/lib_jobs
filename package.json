@@ -32,10 +32,10 @@
     "webpack-dev-server": "^3.11.0"
   },
   "scripts": {
-    "prettier": "prettier --check app/javascript/**/*{vue,js}",
-    "prettier-fix": "prettier --write app/javascript/**/*{vue,js}",
-    "lint": "prettier-eslint --eslint-config-path .eslintrc.js --config .prettierrc.json app/javascript/**/*{js,vue}",
-    "format": "prettier-eslint --write --eslint-config-path .eslintrc.js --config .prettierrc.json app/javascript/**/*{js,vue}",
+    "prettier": "prettier --check app/javascript/**/*{vue,js} .*js .*json",
+    "prettier-fix": "prettier --write app/javascript/**/*{vue,js} .*js .*json",
+    "lint": "prettier-eslint --eslint-config-path .eslintrc.js --config .prettierrc.json app/javascript/**/*{js,vue} .*js .*json",
+    "format": "prettier-eslint --write --eslint-config-path .eslintrc.js --config .prettierrc.json app/javascript/**/*{js,vue} .*js .*json",
     "jest": "jest --config jest.config.js --coverage"
   }
 }
