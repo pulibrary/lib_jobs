@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 class AbsoluteId::Session < ApplicationRecord
   include ActiveModel::Serializers::JSON
-  has_many :batches, class_name: 'AbsoluteId::Batch'
-  belongs_to :user
+  has_many :batches, class_name: 'AbsoluteId::Batch', foreign_key: "absolute_id_session_id"
+  belongs_to :user, foreign_key: "user_id"
 
   def label
     format("Session %d (%s)", id, created_at.strftime('%m/%d/%Y'))
