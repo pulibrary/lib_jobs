@@ -101,7 +101,6 @@ class ArchivesSpaceSyncJob < ApplicationJob
   end
 
   def update_top_container(uri:, barcode:, indicator:, location:)
-    # sync_client = client_mapper.sync_client
     sync_client = client_mapper.source_client
     sync_repository = sync_client.find_repository_by(uri: repository.uri)
     sync_container = sync_repository.find_top_container_by(uri: uri)

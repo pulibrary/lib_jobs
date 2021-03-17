@@ -7,10 +7,6 @@ module LibJobs
         super(attributes)
 
         @resource = @values.resource
-        # @resource_id = @resource.id unless @resource.nil?
-
-        # @child_uris = @values.child_uris
-        # @container_uris = @values.container_uris
 
         @instance_properties = @values.instances || []
         @children = @values.children
@@ -59,9 +55,6 @@ module LibJobs
       end
 
       def cache
-        # @children = resolve_children
-        # @top_containers = resolve_top_containers
-
         super
       end
 
@@ -69,23 +62,11 @@ module LibJobs
 
       def child_uris
         []
-        # Disabled for performance
-        # @child_uris ||= children.map(&:uri)
       end
 
       def container_uris
         @container_uris ||= top_containers.map(&:uri)
       end
-
-      # def request_tree_root
-      #  response = client.get("/repositories/#{repository.id}/resources/#{resource.id}/tree/node?node_uri=#{uri}")
-      #  return if response.status.code == "404"
-
-      #  response.parsed
-      # rescue StandardError => standard_error
-      #  Rails.logger.warn("Failed to retrieve the tree root node data for #{uri}")
-      #  return
-      # end
 
       def build_children_from(waypoints:)
         children = []

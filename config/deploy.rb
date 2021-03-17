@@ -43,8 +43,7 @@ namespace :deploy do
   after :finishing, :aspace_cache do
     on roles(:app), in: :sequence, wait: 5 do
       within release_path do
-        # execute :rake, 'lib_jobs:dead_queues', '--trace'
-        # execute :rake, 'lib_jobs:absolute_ids:aspace:cache', '--trace'
+        # There may be reason to insert Rake tasks for clearing Sidekiq queues here
       end
     end
   end
