@@ -14,12 +14,11 @@ Rails.application.routes.draw do
   get '/barcodes/:value', to: 'barcodes#show'
   get '/barcodes', to: 'barcodes#index'
 
-  #get '/absolute-ids/repositories/:repository_id/resources/search/:resource_param', to: 'absolute_ids/repositories/resources#search'
+  # Absolute IDs, and related ArchivesSpace Resources
   post '/absolute-ids/repositories/:repository_id/resources/search', to: 'absolute_ids/repositories/resources#search'
   get '/absolute-ids/repositories/:repository_id/resources/:resource_id', to: 'absolute_ids/repositories/resources#show'
   get '/absolute-ids/repositories/:repository_id/resources', to: 'absolute_ids/repositories/resources#index'
 
-  # get '/absolute-ids/repositories/:repository_id/containers/search/:container_param', to: 'absolute_ids/repositories/containers#search'
   post '/absolute-ids/repositories/:repository_id/containers/search', to: 'absolute_ids/repositories/containers#search'
   get '/absolute-ids/repositories/:repository_id/containers', to: 'absolute_ids/repositories/containers#index'
 
@@ -34,13 +33,12 @@ Rails.application.routes.draw do
   get '/absolute-ids/:value', to: 'absolute_ids#show', as: 'absolute_id'
   get '/absolute-ids', to: 'absolute_ids#index'
 
-  #post '/absolute-ids/synchronize', to: 'absolute_ids#synchronize'
   post '/absolute-ids/sessions/:session_id/synchronize', to: 'absolute_ids#synchronize', as: 'synchronize_session'
 
   post '/absolute-ids/batch', to: 'absolute_ids#create_batch'
   post '/absolute-ids', to: 'absolute_ids#create_batches'
 
-  # External Services
+  # External Services (e. g. the ArchivesSpace API)
   get '/services/archivesspace', to: 'services#show_archivesspace'
 
   authenticate :user do

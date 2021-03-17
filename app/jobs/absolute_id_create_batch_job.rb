@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AbsoluteIdCreateBatchJob < ApplicationJob
   def perform(properties:, user_id:)
     @user_id = user_id
@@ -14,26 +15,27 @@ class AbsoluteIdCreateBatchJob < ApplicationJob
     # Use the same set of params for each AbID
     absolute_id_params = batch_properties[:absolute_id]
 
-    children = batch_size.times.map do |child_index|
+    children = []
+    Array.new(batch_size.to_i) do |child_index|
       properties = absolute_id_params.deep_dup
       properties[:barcode] = batch_properties[:barcodes][child_index]
       properties[:index] = child_index
 
       begin
         model_id = AbsoluteIdCreateJob.perform_now(properties: properties, user_id: @user_id)
-        AbsoluteId.find(model_id)
+        children << AbsoluteId.find(model_id)
       rescue StandardError => error
-        Rails.logger.warn("Failed to create the Absolute ID: #{properties['initial_value']}")
+        Rails.logger.warn("Failed to create the Absolute ID: #{properties['initial_value']}: #{error}")
         nil
       end
     end
 
-    if !children.empty?
-      batch = AbsoluteId::Batch.create(absolute_ids: children.reject(&:nil?), user: current_user)
-      batch.save!
-      Rails.logger.info("Batch created: #{batch.id}")
-      batch.id
-    end
+    return if children.empty?
+
+    batch = AbsoluteId::Batch.create(absolute_ids: children.reject(&:nil?), user: current_user)
+    batch.save!
+    Rails.logger.info("Batch created: #{batch.id}")
+    batch.id
   end
 
   def current_user

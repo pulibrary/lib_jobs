@@ -37,11 +37,13 @@ RSpec.describe "AbsoluteIds", type: :request do
 
         expect(json_response).to be_an(Hash)
 
-        expect(json_response).to include("check_digit" => 0)
-        expect(json_response).to include("digits" => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-        expect(json_response).to include("integer" => 0)
-        expect(json_response).to include("valid" => true)
-        expect(json_response).to include("value" => "A00000000000000")
+        expect(json_response).to include("created_at")
+        expect(json_response["created_at"]).not_to be_empty
+        expect(json_response).to include("updated_at")
+        expect(json_response["updated_at"]).not_to be_empty
+        expect(json_response).to include("id" => 0)
+        expect(json_response).to include("prefix" => "C")
+        expect(json_response).to include("synchronize_status" => "never synchronized")
       end
     end
 
@@ -65,42 +67,31 @@ RSpec.describe "AbsoluteIds", type: :request do
         xml_document = Nokogiri::XML(response.body)
         expect(xml_document.root.name).to eq("absolute_id")
         children = xml_document.root.elements
-        expect(children.length).to eq(8)
+        expect(children.length).to eq(6)
 
-        expect(children[0].name).to eq("archivesspace_resource_id")
+        expect(children[0].name).to eq("barcode")
         expect(children[0]['type']).to be nil
-        expect(children[0].content).to be_empty
+        expect(children[0].content).not_to be_empty
 
-        expect(children[1].name).to eq("check_digit")
-        expect(children[1]['type']).to eq("integer")
-        expect(children[1].content).to eq("0")
+        expect(children[1].name).to eq("created_at")
+        expect(children[1]['type']).to eq("time")
+        expect(children[1].content).not_to be_empty
 
-        expect(children[2].name).to eq("created_at")
-        expect(children[2]['type']).to eq("time")
-        expect(children[2].content).not_to be_empty
+        expect(children[2].name).to eq("id")
+        expect(children[2]['type']).to eq "integer"
+        expect(children[2].content).to eq("0")
 
-        expect(children[3].name).to eq("digits")
-        expect(children[3]['type']).to eq("array")
+        expect(children[3].name).to eq("prefix")
+        expect(children[3]['type']).to eq "string"
+        expect(children[3].content).to eq("C")
 
-        digits_elements = children[3].elements
-        expect(digits_elements.length).to eq(13)
-        expect(digits_elements.map(&:content)).to eq(["0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0"])
-
-        expect(children[4].name).to eq("integer")
-        expect(children[4]['type']).to eq("integer")
-        expect(children[4].content).to eq("0")
+        expect(children[4].name).to eq("synchronize_status")
+        expect(children[4]['type']).to eq "string"
+        expect(children[4].content).to eq("never synchronized")
 
         expect(children[5].name).to eq("updated_at")
         expect(children[5]['type']).to eq("time")
         expect(children[5].content).not_to be_empty
-
-        expect(children[6].name).to eq("valid")
-        expect(children[6]['type']).to eq("boolean")
-        expect(children[6].content).to eq("true")
-
-        expect(children[7].name).to eq("value")
-        expect(children[7]['type']).to eq("string")
-        expect(children[7].content).to eq("A00000000000000")
       end
     end
   end
@@ -131,35 +122,52 @@ RSpec.describe "AbsoluteIds", type: :request do
     end
 
     context "when requesting a JSON representation" do
+      let(:user) { create(:user) }
+      let(:params) do
+        {
+          user: { id: user.id }
+        }
+      end
       let(:headers) do
         {
-          "Accept" => "application/json"
+          "Accept" => "application/json",
+          "Authorization" => "Bearer #{user.token}"
         }
+      end
+      let(:absolute_id1) { create(:absolute_id, value: '32101103191142') }
+      let(:absolute_id2) { create(:absolute_id, value: '32101103191159') }
+      let(:absolute_id_batch) { create(:absolute_id_batch, absolute_ids: [absolute_id1, absolute_id2], user: user) }
+      let(:absolute_id_session) { create(:absolute_id_session, batches: [absolute_id_batch], user: user) }
+
+      before do
+        absolute_id_session
       end
 
       it "renders all the absolute identifiers" do
-        get "/absolute-ids/", headers: headers
+        get "/absolute-ids/", headers: headers, params: params
 
         expect(response.content_type).to eq("application/json")
         expect(response.body).not_to be_empty
         json_response = JSON.parse(response.body)
 
         expect(json_response).to be_an(Array)
-        expect(json_response.length).to eq(2)
+        expect(json_response.length).to eq(1)
 
-        expect(json_response.first).to be_a(Hash)
-        expect(json_response.first).to include("check_digit" => 0)
-        expect(json_response.first).to include("digits" => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0])
-        expect(json_response.first).to include("integer" => 0)
-        expect(json_response.first).to include("valid" => true)
-        expect(json_response.first).to include("value" => "A00000000000000")
+        expect(json_response.first).to include("batches")
+        batches_json = json_response.first["batches"]
 
-        expect(json_response.last).to be_a(Hash)
-        expect(json_response.last).to include("check_digit" => 9)
-        expect(json_response.last).to include("digits" => [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1])
-        expect(json_response.last).to include("integer" => 1)
-        expect(json_response.last).to include("valid" => true)
-        expect(json_response.last).to include("value" => "A00000000000019")
+        expect(batches_json.length).to eq(1)
+        batch_json = batches_json.first
+
+        expect(batch_json).to include("id" => 1)
+        expect(batch_json).to include("label" => "Batch 000001")
+        expect(batch_json).to include("table_data")
+
+        table_json = batch_json["table_data"]
+        expect(table_json.length).to eq(2)
+
+        expect(table_json.first).to include("barcode" => "32101103191142")
+        expect(table_json.last).to include("barcode" => "32101103191159")
       end
     end
   end
@@ -270,21 +278,66 @@ RSpec.describe "AbsoluteIds", type: :request do
         context "and requests a prefix and starting code" do
           let(:params) do
             {
-              user: { id: user.id },
-              absolute_id: {
-                id_prefix: 'B',
-                first_code: '0000000000001'
-              }
+              user: {
+                id: user.id
+              },
+              batch: [
+                absolute_id: {
+                  barcode: "32101103191142",
+                  container: "1",
+                  container_profile: {
+                    create_time: "2021-01-21T20:10:59Z",
+                    id: "2",
+                    lock_version: 873,
+                    system_mtime: "2021-01-25T05:10:46Z",
+                    uri: "/container_profiles/2",
+                    user_mtime: "2021-01-21T20:10:59Z",
+                    name: "Elephant size box",
+                    prefix: "P"
+                  },
+                  location: {
+                    create_time: "2021-01-22T22:29:46Z",
+                    id: "23640",
+                    lock_version: 0,
+                    system_mtime: "2021-01-22T22:29:47Z",
+                    uri: "/locations/23640",
+                    user_mtime: "2021-01-22T22:29:46Z",
+                    area: "Annex B",
+                    barcode: nil,
+                    building: "Annex",
+                    classification: "anxb",
+                    external_ids: [],
+                    floor: nil,
+                    functions: [],
+                    room: nil,
+                    temporary: nil
+                  },
+                  repository: {
+                    create_time: "2016-06-27T14:10:42Z",
+                    id: "4",
+                    lock_version: 1,
+                    system_mtime: "2021-01-22T22:20:30Z",
+                    uri: "/repositories/4",
+                    user_mtime: "2021-01-22T22:20:30Z",
+                    name: "University Archives",
+                    repo_code: "univarchives"
+                  },
+                  resource: "ABID001"
+                },
+                barcodes: [
+                  "32101103191142"
+                ],
+                batch_size: 2,
+                valid: true
+              ]
             }
           end
-          let(:params2) do
-            {
-              user: { id: user.id },
-              absolute_id: {
-                id_prefix: 'C',
-                first_code: '0000000000001'
-              }
-            }
+          let(:repository_id) { '4' }
+          let(:ead_id) { 'ABID001' }
+          let(:resource_id) { '4188' }
+
+          before do
+            stub_aspace_resource(repository_id: repository_id, resource_id: resource_id, ead_id: ead_id)
           end
 
           it "generates a new Ab. ID with the new prefix and uses the starting code" do
@@ -292,62 +345,11 @@ RSpec.describe "AbsoluteIds", type: :request do
 
             post "/absolute-ids/", headers: headers, params: params
 
-            expect(response).to redirect_to(absolute_id_path(value: AbsoluteId.last.value, format: :json))
-            follow_redirect!
-
-            expect(response.content_type).to eq("application/json")
-            expect(response.body).not_to be_empty
-            json_response = JSON.parse(response.body)
-            expect(json_response).to be_a(Hash)
-            expect(json_response).to include("value" => "B00000000000019")
-
-            post "/absolute-ids/", headers: headers, params: params
-
-            expect(response).to redirect_to(absolute_id_path(value: AbsoluteId.last.value, format: :json))
-            follow_redirect!
-
-            expect(response.content_type).to eq("application/json")
-            expect(response.body).not_to be_empty
-            json_response = JSON.parse(response.body)
-            expect(json_response).to be_a(Hash)
-            expect(json_response).to include("value" => "B00000000000028")
-
-            post "/absolute-ids/", headers: headers, params: params2
-
-            expect(response).to redirect_to(absolute_id_path(value: AbsoluteId.last.value, format: :json))
-            follow_redirect!
-
-            expect(response.content_type).to eq("application/json")
-            expect(response.body).not_to be_empty
-            json_response = JSON.parse(response.body)
-            expect(json_response).to be_a(Hash)
-            expect(json_response).to include("value" => "C00000000000019")
+            expect(response).to redirect_to(absolute_ids_path(format: :json))
+            expect(AbsoluteId.all).not_to be_empty
+            expect(AbsoluteId.first.barcode).to be_an(AbsoluteIds::Barcode)
+            expect(AbsoluteId.first.barcode.value).to eq("32101103191142")
           end
-        end
-
-        it "generates, saves, and redirects to a new absolute ID" do
-          expect(AbsoluteId.all).to be_empty
-
-          post "/absolute-ids/", headers: headers, params: params
-
-          expect(response).to redirect_to(absolute_id_path(value: AbsoluteId.last.value, format: :json))
-          follow_redirect!
-
-          expect(response.content_type).to eq("application/json")
-          expect(response.body).not_to be_empty
-          json_response = JSON.parse(response.body)
-          expect(json_response).to be_a(Hash)
-          expect(json_response).to include("value" => "A00000000000000")
-          post "/absolute-ids/", headers: headers, params: params
-
-          expect(response).to redirect_to(absolute_id_path(value: AbsoluteId.last.value, format: :json))
-          follow_redirect!
-
-          expect(response.content_type).to eq("application/json")
-          expect(response.body).not_to be_empty
-          json_response = JSON.parse(response.body)
-          expect(json_response).to be_a(Hash)
-          expect(json_response).to include("value" => "A00000000000019")
         end
       end
     end

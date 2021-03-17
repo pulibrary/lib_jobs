@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AbsoluteIdCreateSessionJob < ApplicationJob
   def perform(session_attributes:, user_id:)
     @user_id = user_id
@@ -8,16 +9,16 @@ class AbsoluteIdCreateSessionJob < ApplicationJob
 
   def create_session(session_attributes)
     @batches = session_attributes.map do |batch_params|
-      model_id = AbsoluteIdCreateBatchJob.perform_now(properties: batch_params, user_id: @user_id)
+      model_id = AbsoluteIdCreateBatchJob.perform_now(properties: batch_params.deep_symbolize_keys, user_id: @user_id)
       AbsoluteId::Batch.find(model_id)
     end
 
-    if !@batches.empty?
-      @session = AbsoluteId::Session.create(batches: @batches, user: current_user)
-      @session.save!
-      Rails.logger.info("Session created: #{@session.id}")
-      @session.id
-    end
+    return if @batches.empty?
+
+    @session = AbsoluteId::Session.create(batches: @batches, user: current_user)
+    @session.save!
+    Rails.logger.info("Session created: #{@session.id}")
+    @session.id
   end
 
   def current_user

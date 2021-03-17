@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AbsoluteIdImportJob < ApplicationJob
   def perform(sequence_entry)
     prefix = sequence_entry[:prefix]
@@ -14,7 +15,7 @@ class AbsoluteIdImportJob < ApplicationJob
 
     # Determine if this has been imported yet
     persisted_absolute_id = AbsoluteId.find_by(value: barcode)
-    if !persisted_absolute_id.nil?
+    unless persisted_absolute_id.nil?
       Rails.logger.warn("Already imported the Absolute ID: #{persisted_absolute_id.label}")
       return persisted_absolute_id
     end
@@ -48,21 +49,18 @@ class AbsoluteIdImportJob < ApplicationJob
       # Resource
       resource_refs = client.find_resources_by_ead_id(repository_id: repository.id, ead_id: call_number)
 
-      if !resource_refs.empty?
-        resource = repository.build_resource_from(refs: resource_refs)
-        imported_attributes[:resource] = resource
-      else
-        raise(ArgumentError, "Failed to find the Archival Resource for #{call_number}")
-      end
+      raise(ArgumentError, "Failed to find the Archival Resource for #{call_number}") if resource_refs.empty?
+
+      resource = repository.build_resource_from(refs: resource_refs)
+      imported_attributes[:resource] = resource
 
       # Container
       top_containers = repository.select_top_containers_by(barcode: barcode)
       top_container = top_containers.first
-      if !top_container.nil?
-        imported_attributes[:container] = top_container
-      else
-        raise(ArgumentError, "Failed to find the Top Container resource for #{barcode}")
-      end
+
+      raise(ArgumentError, "Failed to find the Top Container resource for #{barcode}") if top_container.nil?
+
+      imported_attributes[:container] = top_container
     else
       # Set the legacy repository for a legacy value
       imported_attributes[:unencoded_repository] = repo_code

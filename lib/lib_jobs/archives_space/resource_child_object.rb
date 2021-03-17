@@ -7,10 +7,6 @@ module LibJobs
         super(attributes)
 
         @resource = @values.resource
-        # @resource_id = @resource.id unless @resource.nil?
-
-        #@child_uris = @values.child_uris
-        #@container_uris = @values.container_uris
 
         @instance_properties = @values.instances || []
         @children = @values.children
@@ -22,9 +18,9 @@ module LibJobs
 
       def instances
         @instances ||= @instance_properties.map do |props|
-                         instance_attributes = props.merge(repository: repository)
-                         Instance.new(instance_attributes)
-                       end
+          instance_attributes = props.merge(repository: repository)
+          Instance.new(instance_attributes)
+        end
       end
 
       def instances=(updated)
@@ -33,19 +29,13 @@ module LibJobs
         instances
       end
 
-      def top_containers
-        nodes = instances.map(&:top_container)
-
-        nodes + children.map { |child| child.top_containers }.flatten
-      end
-
       def attributes
         super.merge({
-          title: title,
-          level: level,
-          instances: @instance_properties,
-          top_containers: @top_containers
-        })
+                      title: title,
+                      level: level,
+                      instances: @instance_properties,
+                      top_containers: @top_containers
+                    })
       end
 
       def resolve_children
@@ -65,9 +55,6 @@ module LibJobs
       end
 
       def cache
-        #@children = resolve_children
-        #@top_containers = resolve_top_containers
-
         super
       end
 
@@ -75,29 +62,17 @@ module LibJobs
 
       def child_uris
         []
-        # Disabled for performance
-        # @child_uris ||= children.map(&:uri)
       end
 
       def container_uris
         @container_uris ||= top_containers.map(&:uri)
       end
 
-      #def request_tree_root
-      #  response = client.get("/repositories/#{repository.id}/resources/#{resource.id}/tree/node?node_uri=#{uri}")
-      #  return if response.status.code == "404"
-
-      #  response.parsed
-      #rescue StandardError => standard_error
-      #  Rails.logger.warn("Failed to retrieve the tree root node data for #{uri}")
-      #  return
-      #end
-
       def build_children_from(waypoints:)
         children = []
 
-        waypoints.each_pair do |node_uri, paths|
-          paths.each_pair do |path_index, path_attributes|
+        waypoints.each_pair do |_node_uri, paths|
+          paths.each_pair do |_path_index, path_attributes|
             path_attributes.each do |path|
               child_uri = path['uri']
 
@@ -135,9 +110,9 @@ module LibJobs
         return if response.status.code == "404"
 
         response.parsed
-      rescue StandardError => standard_error
-        Rails.logger.warn("Failed to retrieve the tree root node data for #{node_uri}")
-        return
+      rescue StandardError => error
+        Rails.logger.warn("Failed to retrieve the tree root node data for #{node_uri}: #{error}")
+        nil
       end
 
       def find_node_children(node_uri)

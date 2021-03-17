@@ -96,8 +96,6 @@ class ApplicationController < ActionController::Base
     User.find_by(id: current_user_id, token: current_user_token)
   end
 
-  private
-
   def cache_expiry
     1.hour
   end
@@ -111,6 +109,6 @@ class ApplicationController < ActionController::Base
   end
 
   def json_request?
-    request.content_type === "application/json" && request.path_parameters.key?(:format) && request.path_parameters[:format] != 'json'
+    request.content_type == "application/json" && request.path_parameters.key?(:format) && request.path_parameters[:format] != 'json'
   end
 end

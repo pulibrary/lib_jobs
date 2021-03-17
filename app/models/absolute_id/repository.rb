@@ -6,8 +6,8 @@ class AbsoluteId::Repository < AbsoluteId::Record
 
   def json_properties
     super.merge({
-      name: json_object.name,
-      repo_code: json_object.repo_code
-    })
+                  name: json_object.name,
+                  repo_code: json_object.repo_code
+                })
   end
 end

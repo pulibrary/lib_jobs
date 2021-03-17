@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AbsoluteIdCreateJob < ApplicationJob
   def perform(properties:, user_id:)
     @user_id = user_id
@@ -70,7 +71,6 @@ class AbsoluteIdCreateJob < ApplicationJob
 
     # Resolve the Repository
     repository_param = properties[:repository]
-    repository_id = repository_param[:id]
     repository_uri = repository_param[:uri]
     repository = current_client.find_repository(uri: repository_uri)
 
@@ -104,15 +104,16 @@ class AbsoluteIdCreateJob < ApplicationJob
     transformed[:container] = container_attributes(top_container)
 
     transformed
+  rescue Errno::ECONNREFUSED => connection_error
+    Rails.logger.warn("Failed to connect to the ArchivesSpace REST API: #{error}")
+    raise connection_error
   end
 
   def create_absolute_id(properties, index)
     build_attributes = properties.deep_dup
 
     source = properties[:source]
-    if source == 'aspace'
-      build_attributes = transform_aspace_properties(properties, index)
-    end
+    build_attributes = transform_aspace_properties(properties, index) if source == 'aspace'
 
     # Increment the index
     location = build_attributes[:location]
@@ -122,7 +123,7 @@ class AbsoluteIdCreateJob < ApplicationJob
     if !persisted.empty?
       # This should not need to be case into an Integer, but this is in place for a PostgreSQL error
       index = persisted.last.index.to_i + 1
-    elsif index == 0
+    elsif index.zero?
       index = 1
     end
 

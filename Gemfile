@@ -43,6 +43,7 @@ gem 'tiny_tds'
 
 group :development, :test do
   gem 'bixby'
+  gem "factory_bot_rails"
   gem 'pry-byebug'
   gem 'rubocop'
   gem 'rubocop-rails'
@@ -78,6 +79,7 @@ gem 'cancancan'
 gem "devise", ">= 4.6.0"
 gem 'foreman'
 gem 'jwt'
+gem 'nokogiri', "~> 1.10"
 gem "omniauth", "~> 1.9"
 gem 'omniauth-cas'
 gem 'pg'

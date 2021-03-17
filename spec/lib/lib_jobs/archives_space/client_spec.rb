@@ -2,33 +2,49 @@
 require 'rails_helper'
 
 describe LibJobs::ArchivesSpace::Client do
-  describe '.build_config' do
-    let(:config_attributes) do
+  describe '.source' do
+    let(:config_properties) do
       {
-        base_uri: "https://archives.university.edu/api",
-        username: "admin",
-        password: "123456"
+        'archivesspace' => {
+          'source' => {
+            base_uri: "https://archives-readonly.university.edu/api",
+            username: "admin",
+            password: "123456"
+          }
+        }
       }
     end
+    let(:client) { described_class.source }
 
-    it 'constructs a configuration object' do
-      config = described_class.build_config(config_attributes)
+    before do
+      allow(LibJobs).to receive(:config).and_return(config_properties)
+    end
 
-      expect(config.base_uri).to eq('https://archives.university.edu/api')
-      expect(config.username).to eq('admin')
-      expect(config.password).to eq('123456')
+    it 'constructs a client for an ArchivesSpace source repository' do
+      expect(client.base_uri).to eq('https://archives-readonly.university.edu/api')
     end
   end
 
-  describe '.parse_config' do
-    let(:config_file_path) { Rails.root.join('spec', 'fixtures', 'archivesspace_config.yml') }
+  describe '.sync' do
+    let(:config_properties) do
+      {
+        'archivesspace' => {
+          'sync' => {
+            base_uri: "https://archives.university.edu/api",
+            username: "admin",
+            password: "123456"
+          }
+        }
+      }
+    end
+    let(:client) { described_class.sync }
 
-    it 'constructs a configuration object from a YAML file' do
-      client = described_class.parse_config(config_file_path)
+    before do
+      allow(LibJobs).to receive(:config).and_return(config_properties)
+    end
 
-      expect(client.config.base_uri).to eq('https://archives.university.edu/api')
-      expect(client.config.username).to eq('admin')
-      expect(client.config.password).to eq('123456')
+    it 'constructs a client for an ArchivesSpace installation used for synchronizing TopContainer and Location Records' do
+      expect(client.base_uri).to eq('https://archives.university.edu/api')
     end
   end
 end

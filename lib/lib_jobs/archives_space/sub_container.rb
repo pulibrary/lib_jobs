@@ -3,7 +3,6 @@
 module LibJobs
   module ArchivesSpace
     class SubContainer < Object
-
       # These are nested objects
       def initialize(attributes)
         normalized = attributes.deep_symbolize_keys

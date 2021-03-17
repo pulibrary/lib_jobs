@@ -27,16 +27,14 @@ module LibJobs
 
       def attributes
         super.merge({
-          name: name,
-          repo_code: repo_code
-        })
+                      name: name,
+                      repo_code: repo_code
+                    })
       end
 
       def children(resource_class:, model_class:)
         cached = model_class.all
-        if !cached.empty?
-          return cached.map(&:to_resource)
-        end
+        return cached.map(&:to_resource) unless cached.empty?
 
         query = URI.encode_www_form([["page", "1"], ["page_size", "100000"]])
         response = client.get("/repositories/#{@id}/#{resource_class.name.demodulize.pluralize.underscore}?#{query}")
@@ -81,16 +79,14 @@ module LibJobs
 
       def search_resources(ead_id:)
         resource_refs = find_resources_by_ead_id(ead_id: ead_id)
-        resource = build_resource_from(refs: resource_refs)
+        build_resource_from(refs: resource_refs)
       end
 
       def find_child(uri:, resource_class:, model_class:, resource: nil, cache: true)
         if cache
           cached = model_class.find_cached(uri.to_s)
-          if !cached.nil?
-            if !resource.nil?
-              cached.resource = resource
-            end
+          unless cached.nil?
+            cached.resource = resource unless resource.nil?
             cached.repository = self
 
             return cached
@@ -108,19 +104,16 @@ module LibJobs
         response_body_json[:uri] = uri.to_s
 
         resource = resource_class.new(response_body_json)
-        if cache
-          resource.cache
-        end
+        resource.cache if cache
         resource
       end
 
       # Deprecate
-      def find_resource(uri:, resource: nil, cache: true)
+      def find_resource(uri:, cache: true)
         find_child(uri: uri, resource_class: Resource, model_class: Resource.model_class, cache: cache)
       end
 
-      # Resource should be removed
-      def find_resource_by(uri:, resource: nil, cache: true)
+      def find_resource_by(uri:, cache: true)
         find_child(uri: uri, resource_class: Resource, model_class: Resource.model_class, cache: cache)
       end
 
@@ -139,7 +132,7 @@ module LibJobs
       def build_resource_from(refs:, cache: true)
         resource_ref = refs.first
 
-        resource_uri = "#{resource_ref['ref']}"
+        resource_uri = (resource_ref['ref']).to_s
         find_resource_by(uri: resource_uri, cache: cache)
       end
 
@@ -147,13 +140,14 @@ module LibJobs
       def find_top_container(uri:)
         find_child(uri: uri, resource_class: TopContainer, model_class: TopContainer.model_class)
       end
+
       def find_top_container_by(uri:)
         find_child(uri: uri, resource_class: TopContainer, model_class: TopContainer.model_class)
       end
 
       def select_top_containers_by(barcode:)
         output = top_containers.select do |top_container|
-          top_container.barcode === barcode
+          top_container.barcode == barcode
         end
         output.to_a
       end
@@ -187,16 +181,16 @@ module LibJobs
 
       private
 
-        def find_resources_by_ead_id(ead_id:)
-          identifier_query = [ead_id]
-          params = URI.encode_www_form([["identifier[]", identifier_query.to_json]])
-          path = "/repositories/#{@id}/find_by_id/resources?#{params}"
+      def find_resources_by_ead_id(ead_id:)
+        identifier_query = [ead_id]
+        params = URI.encode_www_form([["identifier[]", identifier_query.to_json]])
+        path = "/repositories/#{@id}/find_by_id/resources?#{params}"
 
-          response = client.get(path)
-          return [] unless response.parsed.key?('resources')
+        response = client.get(path)
+        return [] unless response.parsed.key?('resources')
 
-          response.parsed['resources']
-        end
+        response.parsed['resources']
+      end
     end
   end
 end

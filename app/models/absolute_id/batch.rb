@@ -1,8 +1,8 @@
+# frozen_string_literal: true
 class AbsoluteId::Batch < ApplicationRecord
-  include ActiveModel::Serializers::JSON
-  has_many :absolute_ids
-  belongs_to :session, class_name: 'AbsoluteId::Session', optional: true
-  belongs_to :user
+  has_many :absolute_ids, foreign_key: "absolute_id_batch_id"
+  belongs_to :session, class_name: 'AbsoluteId::Session', foreign_key: "absolute_id_session_id", optional: true
+  belongs_to :user, foreign_key: "user_id"
 
   def label
     format("Batch %06d", id)
@@ -48,7 +48,7 @@ class AbsoluteId::Batch < ApplicationRecord
         resource: { link: absolute_id.resource_object.uri, value: absolute_id.resource_object.title },
         container: { link: absolute_id.container_object.uri, value: absolute_id.container_object.indicator },
         status: { value: absolute_id.synchronize_status, color: absolute_id.synchronize_status_color },
-        synchronized_at: absolute_id.synchronized_at || 'Never',
+        synchronized_at: absolute_id.synchronized_at || 'Never'
       }
     end
   end
@@ -57,12 +57,8 @@ class AbsoluteId::Batch < ApplicationRecord
     {
       id: id,
       label: label,
-      tableData: table_data
+      table_data: table_data
     }
-  end
-
-  def as_json(options = nil)
-    JSON.generate(attributes)
   end
 
   def self.xml_serializer
