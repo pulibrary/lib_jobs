@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 class AbsoluteId::Batch < ApplicationRecord
-  has_many :absolute_ids
+  has_many :absolute_ids, foreign_key: "absolute_id_batch_id"
   belongs_to :session, class_name: 'AbsoluteId::Session', optional: true
-  belongs_to :user
+  belongs_to :user, foreign_key: "user_id"
 
   def label
     format("Batch %06d", id)
