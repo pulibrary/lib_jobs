@@ -1,4 +1,24 @@
-module.exports = function(api) {
+// Please see https://github.com/tleunen/find-babel-config/issues/36
+
+// If we aren't passed an api, mock one out here..
+// Ref: https://babeljs.io/docs/en/config-files#apienv
+const fakedApiObject = {
+  env: checkEnv => {
+    const envName = process.env.NODE_ENV || 'development'
+
+    if (typeof checkEnv === 'string') {
+      return checkEnv === envName
+    } else if (Array.isArray(checkEnv)) {
+      return checkEnv.includes(envName)
+    } else if (typeof checkEnv === 'function') {
+      return checkEnv(envName)
+    } else {
+      return envName
+    }
+  }
+}
+
+module.exports = function(api = fakedApiObject) {
   var validEnv = ['development', 'test', 'production']
   var currentEnv = api.env()
   var isDevelopmentEnv = api.env('development')
@@ -34,7 +54,8 @@ module.exports = function(api) {
           modules: false,
           exclude: ['transform-typeof-symbol']
         }
-      ]
+      ],
+      '@vue/cli-plugin-babel/preset'
     ].filter(Boolean),
     plugins: [
       'babel-plugin-macros',
