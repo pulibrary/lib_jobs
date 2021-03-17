@@ -39,3 +39,7 @@ yarn-debug.log*
 .env
 coverage
 yarn.lock
+app/javascript/__tests__/coverage/clover.xml
+app/javascript/__tests__/coverage/coverage-final.json
+app/javascript/__tests__/coverage/lcov-report/
+app/javascript/__tests__/coverage/lcov.info
