@@ -22,7 +22,7 @@ class AbsoluteIdCreateBatchJob < ApplicationJob
       properties[:index] = child_index
 
       begin
-        model_id = AbsoluteIdCreateJob.perform_now(properties: properties, user_id: @user_id)
+        model_id = AbsoluteIdCreateRecordJob.polymorphic_perform_now(properties: properties, user_id: @user_id)
         children << AbsoluteId.find(model_id)
       rescue StandardError => error
         Rails.logger.warn("Failed to create the Absolute ID: #{properties['initial_value']}: #{error}")
@@ -32,7 +32,7 @@ class AbsoluteIdCreateBatchJob < ApplicationJob
 
     return if children.empty?
 
-    batch = AbsoluteId::Batch.create(absolute_ids: children.reject(&:nil?), user: current_user)
+    batch = AbsoluteId::Batch.create(absolute_ids: children, user: current_user)
     batch.save!
     Rails.logger.info("Batch created: #{batch.id}")
     batch.id

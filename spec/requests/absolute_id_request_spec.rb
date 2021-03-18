@@ -236,7 +236,7 @@ RSpec.describe "AbsoluteIds", type: :request do
 
       context "when the client is authenticated" do
         let(:user) do
-          User.create(email: 'user@localhost')
+          create(:user)
         end
 
         let(:headers) do
@@ -244,20 +244,6 @@ RSpec.describe "AbsoluteIds", type: :request do
             "Accept" => "application/json",
             "Authorization" => "Bearer #{user.token}"
           }
-        end
-
-        let(:params) do
-          {
-            user: { id: user.id },
-            absolute_id: {
-              id_prefix: 'A',
-              first_code: '0000000000000'
-            }
-          }
-        end
-
-        before do
-          user
         end
 
         context "and requests a prefix and starting code" do
@@ -307,12 +293,13 @@ RSpec.describe "AbsoluteIds", type: :request do
                     name: "University Archives",
                     repo_code: "univarchives"
                   },
-                  resource: "ABID001"
+                  resource: "ABID001",
+                  source: 'aspace'
                 },
                 barcodes: [
                   "32101103191142"
                 ],
-                batch_size: 2,
+                batch_size: 1,
                 valid: true
               ]
             }

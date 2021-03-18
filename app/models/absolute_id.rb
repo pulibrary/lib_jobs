@@ -6,12 +6,6 @@ class AbsoluteId < ApplicationRecord
   SYNCHRONIZED = 'synchronized'
   SYNCHRONIZE_FAILED = 'synchronization failed'
 
-  belongs_to :batch, class_name: 'AbsoluteId::Batch', optional: true, foreign_key: "absolute_id_batch_id"
-
-  def self.barcode_class
-    AbsoluteIds::Barcode
-  end
-
   class BarcodeValidator < ActiveModel::Validator
     def validate(absolute_id)
       unless absolute_id.integer.nil?
@@ -27,10 +21,38 @@ class AbsoluteId < ApplicationRecord
   validates :value, presence: true
   validates_with BarcodeValidator
 
-  def barcode
-    @barcode ||= self.class.barcode_class.new(value)
+  belongs_to :batch, class_name: 'AbsoluteId::Batch', optional: true, foreign_key: "absolute_id_batch_id"
+
+  def self.barcode_class
+    AbsoluteIds::Barcode
   end
-  delegate :digits, :elements, to: :barcode
+
+  def self.default_barcode_value
+    format("%014d", 0)
+  end
+
+  def self.generate(**attributes)
+    index = attributes[:index]
+
+    synchronize_status = NEVER_SYNCHRONIZED
+
+    barcode_value = if attributes.key?(:barcode)
+                      attributes.delete(:barcode)
+                    else
+                      default_barcode_value
+                    end
+
+    check_digit = barcode_value.last
+
+    model_attributes = attributes.merge({
+                                          value: barcode_value,
+                                          check_digit: check_digit,
+                                          index: index.to_i,
+                                          synchronize_status: synchronize_status
+                                        })
+
+    create(**model_attributes)
+  end
 
   def self.prefixes
     {
@@ -76,6 +98,15 @@ class AbsoluteId < ApplicationRecord
     end
   end
 
+  def self.xml_serializer
+    AbsoluteIds::AbsoluteIdXmlSerializer
+  end
+
+  def barcode
+    @barcode ||= self.class.barcode_class.new(value)
+  end
+  delegate :digits, :elements, to: :barcode
+
   def prefix
     self.class.find_prefix(container_profile_object)
   end
@@ -87,56 +118,26 @@ class AbsoluteId < ApplicationRecord
   end
 
   # For ASpace Locations
-  def location_json
-    return {} if location.nil?
-
-    JSON.parse(location, symbolize_names: true)
-  end
-
   def location_object
     OpenStruct.new(location_json)
   end
 
-  ## For ASpace Repositories
-  def repository_json
-    return {} if repository.nil?
-
-    JSON.parse(repository, symbolize_names: true)
+  ## For ASpace ContainerProfiles
+  def container_profile_object
+    OpenStruct.new(container_profile_json)
   end
 
+  ## For ASpace Repositories
   def repository_object
     OpenStruct.new(repository_json)
   end
 
   ## For ASpace Resources
-  def resource_json
-    return {} if resource.nil?
-
-    JSON.parse(resource, symbolize_names: true)
-  end
-
   def resource_object
     OpenStruct.new(resource_json)
   end
 
-  ## For ASpace ContainerProfiles
-  def container_profile_json
-    return {} if container_profile.nil?
-
-    JSON.parse(container_profile, symbolize_names: true)
-  end
-
-  def container_profile_object
-    OpenStruct.new(container_profile_json)
-  end
-
   ## For ASpace Containers
-  def container_json
-    return {} if container.nil?
-
-    JSON.parse(container, symbolize_names: true)
-  end
-
   def container_object
     OpenStruct.new(container_json)
   end
@@ -194,13 +195,9 @@ class AbsoluteId < ApplicationRecord
     }
   end
 
-  # Not certain why this is happening
+  # Not certain why this is required
   def as_json(**_args)
     attributes
-  end
-
-  def self.xml_serializer
-    AbsoluteIds::AbsoluteIdXmlSerializer
   end
 
   # @see ActiveModel::Serializers::Xml
@@ -208,44 +205,41 @@ class AbsoluteId < ApplicationRecord
     self.class.xml_serializer.new(self, options).serialize(&block)
   end
 
-  def self.default_barcode_value
-    format("%014d", 0)
+  private
+
+  def location_json
+    return {} if location.nil?
+
+    JSON.parse(location, symbolize_names: true)
   end
 
-  def self.generate(**attributes)
-    container_profile_resource = attributes[:container_profile]
-    container_resource = attributes[:container]
-    location_resource = attributes[:location]
-    repository_resource = attributes[:repository]
-    ead_resource = attributes[:resource]
+  def container_profile_json
+    return {} if container_profile.nil?
 
-    index = attributes[:index]
+    JSON.parse(container_profile, symbolize_names: true)
+  end
 
-    synchronize_status = NEVER_SYNCHRONIZED
+  def repository_json
+    return {} if repository.nil?
 
-    barcode_value = if attributes.key?(:barcode)
-                      attributes[:barcode]
-                    else
-                      default_barcode_value
-                    end
+    JSON.parse(repository, symbolize_names: true)
+  end
 
-    check_digit = barcode_value.last
+  def resource_json
+    return {} if resource.nil?
 
-    model_attributes = {
-      value: barcode_value,
-      check_digit: check_digit,
+    output = JSON.parse(resource, symbolize_names: true)
+    return {} unless output.is_a?(Hash)
 
-      location: location_resource,
-      container_profile: container_profile_resource,
-      repository: repository_resource,
-      resource: ead_resource,
-      container: container_resource,
+    output
+  end
 
-      index: index.to_i,
+  def container_json
+    return {} if container.nil?
 
-      synchronize_status: synchronize_status
-    }
+    output = JSON.parse(container, symbolize_names: true)
+    return {} unless output.is_a?(Hash)
 
-    create(**model_attributes)
+    output
   end
 end
