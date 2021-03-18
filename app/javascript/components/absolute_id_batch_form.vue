@@ -1,5 +1,9 @@
 <template>
-  <form method="post" class="absolute-ids-batch-form" v-on:submit.prevent="submit">
+  <form
+    method="post"
+    class="absolute-ids-batch-form"
+    v-on:submit.prevent="submit"
+  >
     <div class="absolute-ids-batch-form--source">
       <input-radio
         id="source"
@@ -16,8 +20,7 @@
             name: 'radio-group-name',
             label: 'MARC Records',
             value: 'marc',
-            id: 'marc',
-            disabled: true
+            id: 'marc'
           }
         ]"
         v-on:change="onChangeMode"
@@ -30,32 +33,26 @@
         <absolute-id-aspace-form
           v-if="source == 'aspace'"
           :key="batchKey(index)"
-
           v-model="batch[index]"
           :action="action"
-          service-status-action="/services/archivesspace"
           :token="token"
           :source="source"
+          :service="service"
           :barcode="generateBarcode(index, batchSize[index])"
-
           :batch-form="true"
           :batch-size="batchSize[index]"
-
           v-on:input-size="updateBatchSize($event, index)"
         />
         <absolute-id-marc-form
           v-else-if="source == 'marc'"
           :key="batchKey(index)"
-
           v-model="batch[index]"
           :action="action"
           :token="token"
           :source="source"
           :barcode="generateBarcode(index, batchSize[index])"
-
           :batch-form="true"
           :batch-size="batchSize[index]"
-
           v-on:input-size="updateBatchSize($event, index)"
         />
 
@@ -71,7 +68,7 @@
             helper="Number of Absolute IDs"
             size="small"
             :disabled="true"
-            >
+          >
           </input-text>
 
           <button
@@ -79,7 +76,10 @@
             data-v-b7851b04
             class="lux-button solid lux-button absolute-ids-batch-form--remove"
             :disabled="submitting"
-            @click.prevent="onClickRemove(index)">Remove Batch</button>
+            @click.prevent="onClickRemove(index)"
+          >
+            Remove Batch
+          </button>
         </fieldset>
       </fieldset>
     </template>
@@ -90,7 +90,10 @@
           data-v-b7851b04
           class="lux-button solid lux-button absolute-ids-batch-form--add-form"
           :disabled="submitting"
-          @click.prevent="onClickAdd">Add Batch</button>
+          @click.prevent="onClickAdd"
+        >
+          Add Batch
+        </button>
       </grid-item>
 
       <grid-item columns="lg-6 sm-6" class="absolute-ids-batch-form__submit">
@@ -98,19 +101,21 @@
           data-v-b7851b04
           :class="submitButtonClass"
           :disabled="submitting || !formValid"
-        >{{ submitButtonTextContent }}</button>
+        >
+          {{ submitButtonTextContent }}
+        </button>
       </grid-item>
     </grid-container>
   </form>
 </template>
 
 <script>
-import AbsoluteIdASpaceForm from './absolute_id_form'
-import AbsoluteIdMarcForm from './absolute_id_marc_form'
+import AbsoluteIdASpaceForm from "./absolute_id_form";
+import AbsoluteIdMarcForm from "./absolute_id_marc_form";
 
 export default {
-  name: 'AbsoluteIdsBatchForm',
-  type: 'Element',
+  name: "AbsoluteIdBatchForm",
+  type: "Element",
   components: {
     "absolute-id-aspace-form": AbsoluteIdASpaceForm,
     "absolute-id-marc-form": AbsoluteIdMarcForm
@@ -118,25 +123,26 @@ export default {
   props: {
     action: {
       type: String,
-      default: null
+      required: true
     },
     method: {
       type: String,
-      default: 'post'
+      default: "POST"
     },
     token: {
       type: String,
       default: null
     },
-    barcode: {
-      type: String,
-      default: ''
+    service: {
+      type: Object,
+      required: true
     }
   },
 
-  data: function () {
+  data: function() {
     return {
-      source: 'aspace',
+      source: "aspace",
+      barcode: "",
       batch: [
         {
           absolute_id: {
@@ -152,62 +158,60 @@ export default {
           valid: false
         }
       ],
-      batchSize: [
-        1
-      ],
+      batchSize: [1],
       barcodes: [],
       batchUpdates: 0,
       submitting: false
-    }
+    };
   },
 
   computed: {
-    submitButtonClass: function () {
+    submitButtonClass: function() {
       const values = {
-        'lux-button': true,
-        'solid': true,
-        'large': true,
-        'absolute-ids-batch-form__submit-button': true,
-        'absolute-ids-batch-form__submit-button--in-progress': this.submitting
+        "lux-button": true,
+        solid: true,
+        large: true,
+        "absolute-ids-batch-form__submit-button": true,
+        "absolute-ids-batch-form__submit-button--in-progress": this.submitting
       };
 
       return values;
     },
 
-    submitButtonTextContent: function () {
+    submitButtonTextContent: function() {
       let output;
 
       if (this.submitting) {
-        output = 'Generating';
+        output = "Generating";
       } else {
-        output = 'Generate';
+        output = "Generate";
       }
 
       return output;
     },
 
-    locations: async function () {
+    locations: async function() {
       const response = await this.getLocations();
       const locations = response.json();
 
       return locations;
     },
 
-    repositories: async function () {
+    repositories: async function() {
       const response = await this.getRepositories();
       const repositories = response.json();
 
       return repositories;
     },
 
-    containerProfiles: async function () {
+    containerProfiles: async function() {
       const response = await this.getContainerProfiles();
       const models = response.json();
 
       return models;
     },
 
-    formValid: function () {
+    formValid: function() {
       return true;
 
       // Enable this once the performance issues are finished
@@ -218,7 +222,7 @@ export default {
       */
     },
 
-    formData: async function () {
+    formData: async function() {
       const resolvedBatch = this.batch;
 
       return {
@@ -227,15 +231,9 @@ export default {
     }
   },
 
-  mounted: async function () {
-    /*
-    if (this.barcodes.length > 0) {
-      this.barcodes.push(this.barcode);
-    }
-    */
-
+  mounted: async function() {
     const fetchedLocations = await this.locations;
-    this.locationOptions = fetchedLocations.map((location) => {
+    this.locationOptions = fetchedLocations.map(location => {
       return {
         id: location.id,
         label: location.building,
@@ -244,7 +242,7 @@ export default {
     });
 
     const fetchedRepositories = await this.repositories;
-    this.repositoryOptions = fetchedRepositories.map((repository) => {
+    this.repositoryOptions = fetchedRepositories.map(repository => {
       return {
         id: repository.id,
         label: repository.name,
@@ -253,21 +251,23 @@ export default {
     });
 
     const fetchedContainerProfiles = await this.containerProfiles;
-    this.containerProfileOptions = fetchedContainerProfiles.map((containerProfile) => {
-      return {
-        id: containerProfile.id,
-        label: containerProfile.name,
-        uri: containerProfile.uri
-      };
-    });
+    this.containerProfileOptions = fetchedContainerProfiles.map(
+      containerProfile => {
+        return {
+          id: containerProfile.id,
+          label: containerProfile.name,
+          uri: containerProfile.uri
+        };
+      }
+    );
   },
 
   methods: {
-    onChangeMode: function (changed) {
+    onChangeMode: function(changed) {
       this.source = changed;
     },
 
-    batchKey: function (index) {
+    batchKey: function(index) {
       return index + this.batchUpdates;
     },
 
@@ -275,11 +275,11 @@ export default {
       return {
         absolute_id: {
           barcode: null,
-            location: null,
-            container_profile: null,
-            repository: null,
-            resource: null,
-            container: null
+          location: null,
+          container_profile: null,
+          repository: null,
+          resource: null,
+          container: null
         },
         barcodes: [],
         batch_size: 1,
@@ -287,7 +287,7 @@ export default {
       };
     },
 
-    generateBarcode: function (index, updatedValue) {
+    generateBarcode: function(index, updatedValue) {
       if (this.barcode.length < 1) {
         return this.barcode;
       }
@@ -324,7 +324,7 @@ export default {
       return output;
     },
 
-    removeBarcode: function (index) {
+    removeBarcode: function(index) {
       const u = this.barcodes.slice(0, index);
       const v = this.barcodes.slice(index + 1, this.barcodes.length);
       const output = u.concat(v);
@@ -332,7 +332,7 @@ export default {
       return output;
     },
 
-    removeBatchSize: function (index) {
+    removeBatchSize: function(index) {
       const u = this.batchSize.slice(0, index);
       const v = this.batchSize.slice(index + 1, this.batchSize.length);
       const output = u.concat(v);
@@ -340,7 +340,7 @@ export default {
       return output;
     },
 
-    removeBatch: function (index) {
+    removeBatch: function(index) {
       const u = this.batch.slice(0, index);
       const v = this.batch.slice(index + 1, this.batch.length);
       const output = u.concat(v);
@@ -348,13 +348,13 @@ export default {
       return output;
     },
 
-    onClickRemove: function (index) {
+    onClickRemove: function(index) {
       this.barcode = this.removeBarcode(index);
       this.batchSize = this.removeBatchSize(index);
       this.batch = this.removeBatch(index);
     },
 
-    onClickAdd: function (event) {
+    onClickAdd: function(event) {
       let newBarcodeValue = Number.parseInt(this.barcode);
 
       if (this.batchSize.length === 1) {
@@ -375,80 +375,84 @@ export default {
       this.batch.push(newAbsoluteId);
     },
 
-    getRepositories: async function () {
+    getRepositories: async function() {
       this.fetchingRepositories = true;
 
-      const response = await fetch('/absolute-ids/repositories', {
-            method: 'GET',
-            mode: 'cors',
-            cache: 'no-cache',
-            credentials: 'same-origin',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${this.token}`
-            },
-            redirect: 'follow',
-            referrerPolicy: 'no-referrer'
+      const response = await fetch(this.service.repositories, {
+        method: "GET",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`
+        },
+        redirect: "follow",
+        referrerPolicy: "no-referrer"
       });
 
       this.fetchingRepositories = false;
       return response;
     },
 
-    getLocations: async function () {
+    getLocations: async function() {
       this.fetchingLocations = true;
 
-      const response = await fetch('/absolute-ids/locations', {
-            method: 'GET',
-            mode: 'cors',
-            cache: 'no-cache',
-            credentials: 'same-origin',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${this.token}`
-            },
-            redirect: 'follow',
-            referrerPolicy: 'no-referrer'
+      const response = await fetch(this.service.locations, {
+        method: "GET",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`
+        },
+        redirect: "follow",
+        referrerPolicy: "no-referrer"
       });
 
       this.fetchingLocations = false;
       return response;
     },
 
-    getContainerProfiles: async function () {
+    getContainerProfiles: async function() {
       this.fetchingContainerProfiles = true;
 
-      const response = await fetch('/absolute-ids/container-profiles', {
-        method: 'GET',
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
+      const response = await fetch(this.service.containerProfiles, {
+        method: "GET",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.token}`
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`
         },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer'
+        redirect: "follow",
+        referrerPolicy: "no-referrer"
       });
 
       this.fetchingContainerProfiles = false;
       return response;
     },
 
-    getBatchSize: function (index) {
+    getBatchSize: function(index) {
       return this.batchSize[index];
     },
 
-    generateChecksum: function (base) {
+    generateChecksum: function(base) {
       const padded = `${base}0`;
       const len = padded.length;
       const parity = len % 2;
       let sum = 0;
 
-      for (let i = len-1; i >= 0; i--) {
+      for (let i = len - 1; i >= 0; i--) {
         let d = parseInt(padded.charAt(i));
-        if (i % 2 == parity) { d *= 2 };
-        if (d > 9) { d -= 9 };
+        if (i % 2 == parity) {
+          d *= 2;
+        }
+        if (d > 9) {
+          d -= 9;
+        }
         sum += d;
       }
 
@@ -456,7 +460,7 @@ export default {
       return remainder == 0 ? 0 : 10 - remainder;
     },
 
-    updateBatchSize: async function (payload, batchIndex) {
+    updateBatchSize: async function(payload, batchIndex) {
       const start = payload.start;
       const end = payload.end;
 
@@ -496,25 +500,25 @@ export default {
       }
     },
 
-    postData: async function (data = {}) {
+    postData: async function(data = {}) {
       const response = await fetch(this.action, {
         method: this.method,
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.token}`
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`
         },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
+        redirect: "follow",
+        referrerPolicy: "no-referrer",
         body: JSON.stringify(data)
       });
 
       return response;
     },
 
-    submit: async function (event) {
+    submit: async function(event) {
       const payload = await this.formData;
 
       event.target.disabled = true;
@@ -523,13 +527,12 @@ export default {
       const response = await this.postData(payload);
 
       if (response.status === 302) {
-        const redirectUrl = response.headers.get('Content-Type');
+        const redirectUrl = response.headers.get("Content-Type");
         window.location.assign(redirectUrl);
       } else {
         window.location.reload();
       }
-    },
+    }
   }
-}
-
+};
 </script>

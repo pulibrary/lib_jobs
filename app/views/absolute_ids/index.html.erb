@@ -3,8 +3,17 @@
   <% if current_user %>
     <div class="lux">
       <absolute-id-batch-form
-        action="<%= absolute_ids_path %>"
+        action="<%= absolute_ids_url %>"
         token="<%= current_user.token %>"
+        :service="<%=
+          {
+            action: services_archivesspace_url,
+            locations: absolute_ids_locations_url,
+            containerProfiles: absolute_ids_container_profiles_url,
+            repositories: absolute_ids_repositories_url,
+            barcodes: barcodes_url
+          }.to_json
+        %>"
       />
     </div>
   <% end %>
