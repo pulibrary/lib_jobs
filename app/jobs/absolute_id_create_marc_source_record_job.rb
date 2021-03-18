@@ -9,68 +9,10 @@ class AbsoluteIdCreateMarcSourceRecordJob < AbsoluteIdCreateRecordJob
 
   private
 
-  def location_attributes(attr)
-    attr.to_json
-  end
-
-  def transform_repository_properties(attr)
-    repository_resource = JSON.parse(attr.to_json)
-    repository_resource.delete(:create_time)
-    repository_resource.delete(:system_mtime)
-    repository_resource.delete(:user_mtime)
-
-    repository_resource.to_json
-  end
-
-  def container_profile_attributes(attr)
-    container_profile_resource = attr
-    container_profile_resource.delete(:create_time)
-    container_profile_resource.delete(:system_mtime)
-    container_profile_resource.delete(:user_mtime)
-
-    container_profile_resource.to_json
-  end
-
-  def transform_aspace_properties(properties, _index)
-    transformed = properties.deep_dup
-
-    # Build the repository attributes
-    repository_property = properties[:repository]
-    transformed[:repository] = transform_repository_properties(repository_property)
-
-    # Resolve the Resource
-    resource_property = properties[:resource]
-    resource = resource_property
-
-    # Resolve the TopContainer
-    top_container = properties[:container]
-
-    # Build the repository attributes
-    location = location_attributes(properties[:location])
-    transformed[:location] = location
-
-    # Build the repository attributes
-    container_profile_property = properties[:container_profile]
-    container_profile = container_profile_attributes(container_profile_property)
-    transformed[:container_profile] = container_profile
-
-    # Build the resource attributes
-    transformed[:resource] = resource
-
-    # Build the container attributes
-    transformed[:container] = top_container
-
-    transformed
-  rescue Errno::ECONNREFUSED => connection_error
-    Rails.logger.warn("Failed to connect to the ArchivesSpace REST API: #{error}")
-    raise connection_error
-  end
-
   def create_absolute_id(properties, index)
-    build_attributes = transform_aspace_properties(properties.deep_dup, index)
+    build_attributes = properties.deep_dup
 
     location = build_attributes[:location]
-
     container_profile = build_attributes[:container_profile]
 
     persisted = AbsoluteId.where(location: location, container_profile: container_profile)

@@ -5,8 +5,8 @@
         <header>{{ header }}</header>
         <form
           class="absolute-ids-sync-form"
-          :action="synchronizeAction"
-          :method="synchronizeMethod"
+          :action="synchronize.action"
+          :method="synchronize.method"
         >
           <button
             data-v-b7851b04
@@ -20,13 +20,13 @@
         <a
           data-v-b7851b04
           class="lux-button solid lux-button absolute-ids-session--report"
-          :href="sessionReportPath"
+          :href="reportPath"
           >Download Report</a
         >
         <a
           data-v-b7851b04
           class="lux-button solid lux-button absolute-ids-session--xml"
-          :href="sessionXmlPath"
+          :href="xmlPath"
           >Export XML Data</a
         >
       </grid-item>
@@ -35,11 +35,11 @@
     <batch-table
       v-for="batch in session.batches"
       :key="batch.id"
+      :token="token"
+      :synchronize="synchronize"
       :caption="batch.label"
       :columns="columns"
       :json-data="batch.table_data"
-      :token="token"
-      :synchronize-action="synchronizeAction"
     />
   </div>
 </template>
@@ -59,11 +59,6 @@ export default {
       type: String
     },
 
-    synchronized: {
-      type: Boolean,
-      default: false
-    },
-
     token: {
       required: true,
       type: String
@@ -79,32 +74,17 @@ export default {
       type: Object
     },
 
-    synchronized: {
-      type: Boolean,
-      default: false
+    synchronize: {
+      type: Object,
+      required: false
     },
 
-    synchronizing: {
-      type: Boolean,
-      default: false
-    },
-
-    synchronizeAction: {
-      type: String,
-      default: "/absolute-ids/synchronize"
-    },
-
-    synchronizeMethod: {
-      type: String,
-      default: "POST"
-    },
-
-    sessionReportPath: {
+    reportPath: {
       type: String,
       default: ""
     },
 
-    sessionXmlPath: {
+    xmlPath: {
       type: String,
       default: ""
     }
@@ -117,6 +97,14 @@ export default {
     };
   },
   computed: {
+    synchronized: function() {
+      return this.synchronize.status == "synchronized";
+    },
+
+    synchronizing: function() {
+      return this.synchronize.status == "synchronizing";
+    },
+
     synchronizeButtonTextContent: function() {
       let output = "Synchronize";
 
@@ -145,8 +133,8 @@ export default {
   },
   methods: {
     postData: async function() {
-      const response = await fetch(this.synchronizeAction, {
-        method: this.synchronizeMethod,
+      const response = await fetch(this.synchronize.action, {
+        method: this.synchronize.method || "POST",
         mode: "cors",
         cache: "no-cache",
         credentials: "same-origin",
@@ -387,22 +375,3 @@ export default {
   }
 }
 </style>
-
-<docs>
-  ```jsx
-  <data-table caption="Staff Emails" summary-label="Average"
-    :columns="[
-      { 'name': 'id', 'display_name': 'Select Items', 'align': 'center', 'checkbox': true },
-      'name',
-      { 'name': 'email', 'display_name': 'Email Address', 'align': 'center', 'sortable': true },
-      { 'name': 'birthday', 'datatype': 'date', 'sortable': true },
-      { 'name': 'age', 'datatype': 'number', 'summary_value': '33', 'sortable': true }
-    ]"
-    :json-data="[
-      {'id': 1,'name': { value: 'foo', link: 'https://library.princeton.edu'},'email': 'foo@xxx.xxx', 'age': 30, 'birthday': 'March 4, 1989' },
-      {'id': 2,'name': 'bar','email': 'bar@xxx.xxx', 'age': 44, 'birthday': 'October 4, 1975' },
-      {'id': 3,'name': 'fez','email': 'fez@xxx.xxx', 'age': 19, 'birthday': 'May 14, 2000' },
-      {'id': 4,'name': 'hey','email': 'hey@xxx.xxx', 'age': 19 , 'birthday': 'May 5, 2000'},
-    ]"/>
-  ```
-</docs>

@@ -57,6 +57,7 @@ group :development do
   gem 'capistrano', '>= 3.14.1'
   gem 'capistrano-passenger'
   gem 'capistrano-rails', '~> 1.1.6'
+  gem 'database_cleaner-active_record'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'rspec-rails'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring

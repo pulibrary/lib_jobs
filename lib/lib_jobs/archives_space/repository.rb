@@ -119,6 +119,7 @@ module LibJobs
         find_child(uri: uri, resource_class: Resource, model_class: Resource.model_class, cache: cache)
       end
 
+      # This does not have a caching option
       def find_archival_object(resource:, uri:)
         find_child(uri: uri, resource_class: ArchivalObject, model_class: archive_object_model, resource: resource)
       end

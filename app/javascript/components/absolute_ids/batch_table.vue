@@ -113,13 +113,8 @@
 </template>
 
 <script>
-/**
- * Used to display data to end users.
- */
 export default {
-  name: "AbsoluteIdTable",
-  status: "prototype",
-  release: "1.0.0",
+  name: "BatchTable",
   type: "Element",
   data() {
     return {
@@ -178,19 +173,9 @@ export default {
       default: null
     },
 
-    synchronized: {
-      type: Boolean,
-      default: true
-    },
-
-    synchronizeAction: {
-      type: String,
-      default: "/absolute-ids/synchronize"
-    },
-
-    synchronizeMethod: {
-      type: String,
-      default: "POST"
+    synchronize: {
+      type: Object,
+      required: true
     }
   },
   created: function() {
@@ -234,6 +219,9 @@ export default {
     }
   },
   computed: {
+    synchronized() {
+      return this.synchronize.status == "synchronized";
+    },
     footerColumns() {
       let fCols = this.columns;
       fCols.shift();
@@ -325,8 +313,8 @@ export default {
     },
 
     postData: async function() {
-      const response = await fetch(this.synchronizeAction, {
-        method: this.synchronizeMethod,
+      const response = await fetch(this.synchronize.action, {
+        method: this.synchronize.method || "POST",
         mode: "cors",
         cache: "no-cache",
         credentials: "same-origin",
@@ -568,22 +556,3 @@ export default {
   }
 }
 </style>
-
-<docs>
-  ```jsx
-  <data-table caption="Staff Emails" summary-label="Average"
-    :columns="[
-      { 'name': 'id', 'display_name': 'Select Items', 'align': 'center', 'checkbox': true },
-      'name',
-      { 'name': 'email', 'display_name': 'Email Address', 'align': 'center', 'sortable': true },
-      { 'name': 'birthday', 'datatype': 'date', 'sortable': true },
-      { 'name': 'age', 'datatype': 'number', 'summary_value': '33', 'sortable': true }
-    ]"
-    :json-data="[
-      {'id': 1,'name': { value: 'foo', link: 'https://library.princeton.edu'},'email': 'foo@xxx.xxx', 'age': 30, 'birthday': 'March 4, 1989' },
-      {'id': 2,'name': 'bar','email': 'bar@xxx.xxx', 'age': 44, 'birthday': 'October 4, 1975' },
-      {'id': 3,'name': 'fez','email': 'fez@xxx.xxx', 'age': 19, 'birthday': 'May 14, 2000' },
-      {'id': 4,'name': 'hey','email': 'hey@xxx.xxx', 'age': 19 , 'birthday': 'May 5, 2000'},
-    ]"/>
-  ```
-</docs>
