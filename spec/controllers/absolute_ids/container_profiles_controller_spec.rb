@@ -13,7 +13,8 @@ RSpec.describe AbsoluteIds::ContainerProfilesController do
       expect(response).to be_success
       json = JSON.parse(response.body)
       expect(json.length).to eq 13
-      # TODO: Clarify what prefixes are. What are they?
+      # Prefixes are mappers to the legacy AbID database's concept of container
+      # profiles.
       expect(json[0]["prefix"]).to eq "P"
       expect(json[0]["name"]).to eq "Elephant size box"
     end
