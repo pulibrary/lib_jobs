@@ -11,7 +11,7 @@ RSpec.describe AbsoluteIds::Repositories::ContainersController do
 
       get :index, params: { repository_id: "4" }, format: :json
 
-      expect(response).to be_success
+      expect(response).to be_successful
       json = JSON.parse(response.body)
       # TODO: Fix this - it's a bug, containers aren't paging.
       expect(json.length).to eq 250
@@ -53,6 +53,20 @@ RSpec.describe AbsoluteIds::Repositories::ContainersController do
           "type" => "box"
         }
       )
+    end
+
+    context "when something goes wrong" do
+      it "returns an empty array" do
+        stub_aspace_login
+        stub_repository
+        stub_repository_top_containers(repository_id: "4", error: true)
+
+        get :index, params: { repository_id: "4" }, format: :json
+
+        expect(response).to be_successful
+        json = JSON.parse(response.body)
+        expect(json).to eq []
+      end
     end
 
     context 'when authorizing via a bearer token' do
