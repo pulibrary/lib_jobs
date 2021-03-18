@@ -32,6 +32,17 @@ class AbsoluteId < ApplicationRecord
     end
   end
 
+  class LocatorValidator < ActiveModel::Validator
+    def validate(absolute_id)
+      return if absolute_id.index.nil?
+
+      persisted = AbsoluteId.find_by(index: absolute_id.index, container_profile: absolute_id.container_profile, location: absolute_id.location)
+      return if persisted.nil? || persisted.id == absolute_id.id
+
+      absolute_id.errors.add(:index, "Duplicate index #{absolute_id.index} for the AbID within the Location #{absolute_id.location} and ContainerProfile #{absolute_id.container_profile}")
+    end
+  end
+
   validates :value, presence: true
   ## Disabled until the factories are fixed
   # validates :check_digit, presence: true
@@ -139,18 +150,6 @@ class AbsoluteId < ApplicationRecord
   # @todo Deprecate #prefix in favor of #size
   alias prefix size
 
-  def locator
-    return if index.nil? || size.nil?
-
-    format("%s-%06d", size, index)
-  end
-  # @todo Deprecate #label in favor of #locator
-  alias label locator
-
-  def barcode_only?
-    barcode.present? && label.blank?
-  end
-
   # For ASpace Locations
   def location_object
     OpenStruct.new(location_json)
@@ -166,14 +165,16 @@ class AbsoluteId < ApplicationRecord
     OpenStruct.new(repository_json)
   end
 
-  ## For ASpace Resources
-  def resource_object
-    OpenStruct.new(resource_json)
-  end
+  def locator
+    return if index.nil? || size.nil?
 
-  ## For ASpace Containers
-  def container_object
-    OpenStruct.new(container_json)
+    format("%s-%06d", size, index)
+  end
+  # @todo Deprecate #label in favor of #locator
+  alias label locator
+
+  def barcode_only?
+    barcode.present? && label.blank?
   end
 
   def synchronize_status
@@ -230,6 +231,7 @@ class AbsoluteId < ApplicationRecord
   end
 
   # @todo Determine why this is required
+  # Not certain why this is required
   def as_json(**_args)
     attributes
   end

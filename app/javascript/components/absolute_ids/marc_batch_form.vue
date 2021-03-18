@@ -5,7 +5,6 @@
     class="absolute-ids-form"
     v-bind:value="value"
     v-on:input="onInput"
-    v-on:submit.prevent="submit"
   >
     <grid-container>
       <grid-item columns="sm-12 lg-3">
@@ -206,6 +205,7 @@ export default {
   components: {
     "absolute-id-input-text": AbsoluteIdInputText
   },
+
   props: {
     action: {
       type: String,
@@ -234,7 +234,7 @@ export default {
           barcodes: [],
           batch_size: 1,
           valid: false
-        }
+        };
       }
     },
     source: {
@@ -298,6 +298,9 @@ export default {
       return !!output;
     },
 
+    /**
+     * Parse the form field data
+     */
     getFormData: async function() {
       const selectedLocation = await this.selectedLocation;
 
