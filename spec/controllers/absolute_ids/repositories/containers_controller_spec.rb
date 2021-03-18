@@ -15,42 +15,42 @@ RSpec.describe AbsoluteIds::Repositories::ContainersController do
       json = JSON.parse(response.body)
       # TODO: Fix this - it's a bug, containers aren't paging.
       expect(json.length).to eq 250
-      expect(json[0]).to eq (
+      expect(json[0]).to eq(
         {
-          "create_time"=>"2021-01-23T18:03:11Z",
-          "id"=>"57589",
-          "lock_version"=>8,
-          "system_mtime"=>"2021-01-26T13:49:26Z",
-          "uri"=>"/repositories/4/top_containers/57589",
-          "user_mtime"=>"2021-01-25T03:48:14Z",
-          "active_restrictions"=>[],
-          "barcode"=>"32101092753035",
-          "collection"=>[{"ref"=>"/repositories/4/resources/1870", "identifier"=>"AC001", "display_string"=>"General Manuscripts Collection"}],
-          "container_locations"=>
+          "create_time" => "2021-01-23T18:03:11Z",
+          "id" => "57589",
+          "lock_version" => 8,
+          "system_mtime" => "2021-01-26T13:49:26Z",
+          "uri" => "/repositories/4/top_containers/57589",
+          "user_mtime" => "2021-01-25T03:48:14Z",
+          "active_restrictions" => [],
+          "barcode" => "32101092753035",
+          "collection" => [{ "ref" => "/repositories/4/resources/1870", "identifier" => "AC001", "display_string" => "General Manuscripts Collection" }],
+          "container_locations" =>
           [
-            {"create_time"=>"2021-01-22T22:29:47Z",
-             "id"=>"23649",
-             "lock_version"=>0,
-             "system_mtime"=>"2021-01-22T22:29:47Z",
-             "uri"=>"/locations/23649",
-             "user_mtime"=>"2021-01-22T22:29:47Z",
-             "area"=>nil,
-             "barcode"=>nil,
-             "building"=>"Seeley G. Mudd Manuscript Library",
-             "classification"=>"mudd",
-             "external_ids"=>[],
-             "floor"=>nil,
-             "functions"=>[],
-             "room"=>nil,
-             "temporary"=>nil}
+            { "create_time" => "2021-01-22T22:29:47Z",
+              "id" => "23649",
+              "lock_version" => 0,
+              "system_mtime" => "2021-01-22T22:29:47Z",
+              "uri" => "/locations/23649",
+              "user_mtime" => "2021-01-22T22:29:47Z",
+              "area" => nil,
+              "barcode" => nil,
+              "building" => "Seeley G. Mudd Manuscript Library",
+              "classification" => "mudd",
+              "external_ids" => [],
+              "floor" => nil,
+              "functions" => [],
+              "room" => nil,
+              "temporary" => nil }
           ],
-          "exported_to_ils"=>nil,
-          "ils_holding_id"=>"AC001_i1",
-          "ils_item_id"=>nil,
-          "indicator"=>"3",
-          "series"=>[],
-          "resources"=>[],
-          "type"=>"box"
+          "exported_to_ils" => nil,
+          "ils_holding_id" => "AC001_i1",
+          "ils_item_id" => nil,
+          "indicator" => "3",
+          "series" => [],
+          "resources" => [],
+          "type" => "box"
         }
       )
     end
