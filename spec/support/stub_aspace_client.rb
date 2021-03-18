@@ -83,10 +83,9 @@ module ASpaceClientStubbing
       ).to receive(:status).and_return(
         resources_find_results_response_status
       )
-      # allow(resources_find_results_response).to receive(:body).and_return(resources_find_results_fixture)
       allow(resources_find_results_response).to receive(:parsed).and_return(JSON.parse(resources_find_results_fixture))
 
-      query_params = URI.encode_www_form([["identifier[]", [ead_id].to_json]])
+      query_params = URI.encode_www_form([["identifier[]", [resource_id].to_json]])
       query_uri_path = "/repositories/#{repository_id}/find_by_id/resources?#{query_params}"
       allow(client).to receive(:get).with(query_uri_path).and_return(resources_find_results_response)
     end
@@ -108,7 +107,6 @@ module ASpaceClientStubbing
     allow(client).to receive(:get).with("/repositories/#{repository_id}/resources/#{resource_id}").and_return(resource_response)
 
     # Stub the GET response for the child Resources and ArchivalObjects
-    # resource_tree_fixture_file_path = Rails.root.join('spec', 'fixtures', 'archives_space', 'resource_tree.json')
     resource_tree_fixture_file_path = Rails.root.join('spec', 'fixtures', 'archives_space', 'resource_tree_single_child.json')
     resource_tree_fixture = File.read(resource_tree_fixture_file_path)
 
@@ -128,7 +126,6 @@ module ASpaceClientStubbing
     if client.nil?
       default_client = stub_aspace_client
 
-      # client = stub_aspace_resource(repository_id: repository_id, resource_id: '1872', client: default_client)
       client = stub_aspace_resource(repository_id: repository_id, resource_id: '1870', client: default_client)
     end
 
@@ -140,7 +137,6 @@ module ASpaceClientStubbing
     allow(resources_response_status).to receive(:code).and_return("200")
     allow(resources_response).to receive(:status).and_return(resources_response_status)
 
-    # allow(resources_response).to receive(:body).and_return(resources_fixture)
     parsed_response = JSON.parse(resources_fixture)
     response_results = parsed_response["results"]
     one_child_response = {
