@@ -32,7 +32,7 @@
       </grid-item>
     </grid-container>
 
-    <absolute-id-table
+    <batch-table
       v-for="batch in session.batches"
       :key="batch.id"
       :caption="batch.label"
@@ -45,13 +45,13 @@
 </template>
 
 <script>
-import AbsoluteIdTable from "./absolute_id_table";
+import BatchTable from "./batch_table";
 
 export default {
-  name: "AbsoluteIdBatchTable",
+  name: "AbsoluteIdSessionTable",
   type: "Element",
   components: {
-    "absolute-id-table": AbsoluteIdTable
+    "batch-table": BatchTable
   },
   props: {
     header: {
@@ -179,7 +179,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../../node_modules/lux-design-system/dist/system/system.utils.scss";
+@import "../../../../node_modules/lux-design-system/dist/system/system.utils.scss";
 
 .lux-data-table {
   border-collapse: collapse;
