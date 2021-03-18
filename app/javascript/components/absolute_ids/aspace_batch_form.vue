@@ -31,14 +31,6 @@
             </div>
           </div>
 
-          <button
-            data-v-b7851b04
-            class="lux-button solid"
-            @click.prevent="clearBarcode()"
-          >
-            Reset
-          </button>
-
           <input-text
             v-if="size > 1"
             id="terminal_code"
@@ -51,6 +43,16 @@
             :disabled="true"
             :value="endingBarcode()"
           />
+
+          <div>
+            <button
+              data-v-b7851b04
+              class="lux-button solid"
+              @click.prevent="clearBarcode()"
+            >
+              Reset
+            </button>
+          </div>
         </fieldset>
       </grid-item>
 
@@ -201,6 +203,8 @@
 </template>
 
 <script>
+import BatchFormMixin from "./batch_form_mixin";
+
 import AbsoluteIdASpaceStatus from "./service_status";
 import AbsoluteIdInputText from "./input_text";
 import AbsoluteIdDataList from "./data_list";
@@ -208,6 +212,7 @@ import AbsoluteIdDataList from "./data_list";
 export default {
   name: "AbsoluteIdASpaceForm",
   type: "Element",
+  mixins: [BatchFormMixin],
   components: {
     "absolute-id-aspace-status": AbsoluteIdASpaceStatus,
     "absolute-id-input-text": AbsoluteIdInputText,
@@ -241,7 +246,7 @@ export default {
           barcodes: [],
           batch_size: 1,
           valid: false
-        }
+        };
       }
     },
     source: {
@@ -256,9 +261,17 @@ export default {
       type: String,
       default: ""
     },
-    batchForm: {
-      type: Boolean,
-      default: false
+    locations: {
+      type: Promise,
+      required: true
+    },
+    containerProfiles: {
+      type: Promise,
+      required: true
+    },
+    repositories: {
+      type: Promise,
+      required: true
     },
     batchSize: {
       type: Number,
@@ -266,171 +279,10 @@ export default {
     }
   },
 
-  data: function() {
-    const defaultLocation = this.value.absolute_id.location;
-    let locationId = null;
-    if (defaultLocation) {
-      locationId = defaultLocation.id;
-    }
-
-    const defaultContainerProfile = this.value.absolute_id.container_profile;
-    let containerProfileId = null;
-    if (defaultContainerProfile) {
-      containerProfileId = defaultContainerProfile.id;
-    }
-
-    const defaultRepository = this.value.absolute_id.repository;
-    let repositoryId = null;
-    if (defaultRepository) {
-      repositoryId = defaultRepository.id;
-    }
-
-    const defaultResource = this.value.absolute_id.resource;
-    let resourceTitle = "";
-    if (defaultResource) {
-      resourceTitle = defaultResource.title;
-    }
-
-    const defaultContainer = this.value.absolute_id.container;
-    let containerIndicator = "";
-    if (defaultContainer) {
-      containerIndicator = defaultContainer.indicator;
-    }
-
-    return {
-      selectedLocationId: locationId,
-      selectedContainerProfileId: containerProfileId,
-      selectedRepositoryId: repositoryId,
-
-      resourceTitle,
-      containerIndicator,
-
-      locationOptions: [],
-      fetchingLocations: false,
-
-      repositoryOptions: [],
-      fetchingRepositories: false,
-
-      resourceOptions: [],
-      fetchingResources: false,
-      validResource: false,
-      validatedResource: false,
-      validatingResource: false,
-
-      containerProfileOptions: [],
-      fetchingContainerProfiles: false,
-
-      containerOptions: [],
-      fetchingContainers: false,
-      validContainer: false,
-      validatedContainer: false,
-      validatingContainer: false,
-
-      // Barcode
-      barcodeLength: 13,
-      barcodeValid: false,
-      barcodeValidated: false,
-      barcodeValidating: false,
-      parsedBarcode: this.barcode,
-      parsedEndingBarcode: "",
-      batchMode: true,
-
-      repositoryId: null,
-      barcodes: [],
-      size: this.batchSize,
-
-      endingContainerIndicator: "",
-
-      valid: false
-    };
-  },
-
   computed: {
-    barcodeInputClasses: function() {
-      const barcodeValidated = this.barcodeValidated;
-      const barcode = this.parsedBarcode;
-      const barcodeValid = this.barcodeValid;
-
-      const output = {
-        "absolute-ids-form--input-field__validated": barcodeValidated,
-        "absolute-ids-form--input-field__invalid":
-          barcode.length > 0 && !barcodeValid,
-        "absolute-ids-form--input-field": true
-      };
-
-      return output;
-    },
-
     /**
-     * Source radio button
+     * Placeholder for the location <input> elements
      */
-    sourceLegend: function() {
-      let output;
-
-      if (this.source == "aspace") {
-        output = "ArchivesSpace";
-      } else if (this.source == "marc") {
-        output = "MARC";
-      }
-
-      return output;
-    },
-
-    /**
-     * Barcodes
-     */
-    barcodeStatus: function() {
-      if (this.barcodeValid) {
-        return "Barcode is valid";
-      } else if (this.barcodeValidating) {
-        return "Validating barcode...";
-      } else if (this.parsedBarcode.length < 13) {
-        return "Please enter a unique 13-digit barcode";
-      } else {
-        return "This barcode has already been used. Please enter a unique barcode.";
-      }
-    },
-
-    resourceStatus: function() {
-      if (this.validResource) {
-        return "Call number is valid";
-      } else if (this.validatingResource) {
-        return "Validating call number...";
-      } else if (this.selectedRepositoryId) {
-        return "Please enter a call number";
-      } else {
-        return "";
-      }
-    },
-
-    containerStatus: function() {
-      if (this.validContainer) {
-        return "Box number is valid";
-      } else if (this.validatingContainer) {
-        return "Validating box number...";
-      } else if (this.resourceTitle && this.validResource) {
-        return "Please enter a box number";
-      } else {
-        return "";
-      }
-    },
-
-    endingContainerPlaceholder: function() {
-      if (this.validContainer) {
-        return this.containerIndicator;
-      } else {
-        return "No call number specified";
-      }
-    },
-
-    // Locations
-    locations: async function() {
-      const response = await this.getLocations();
-      const locations = response.json();
-
-      return locations;
-    },
-
     locationPlaceholder: function() {
       let value = "No locations available";
 
@@ -443,27 +295,24 @@ export default {
       return value;
     },
 
-    // Repositories
-    repositories: async function() {
-      const response = await this.getRepositories();
-      const repositories = response.json();
-
-      return repositories;
-    },
-
+    /*
+     * Placeholder for the repository <input> elements
+     */
     repositoryPlaceholder: function() {
       let value = "No repositories available";
 
-      if (this.fetchingRepositories) {
+      if (this.fetchingLocations) {
         value = "Loading...";
-      } else if (this.repositoryOptions.length > 0) {
+      } else if (this.locationOptions.length > 0) {
         value = "Select a repository";
       }
 
       return value;
     },
 
-    // Resources
+    /**
+     * Parse the fetch-retrieved ArchivesSpace Resources
+     */
     resources: async function() {
       if (!this.selectedRepositoryId) {
         return [];
@@ -475,16 +324,9 @@ export default {
       return models;
     },
 
-    resourcePlaceholder: function() {
-      let value = "No repository selected";
-
-      if (this.selectedRepositoryId) {
-        value = "Enter a call number";
-      }
-
-      return value;
-    },
-
+    /*
+     * Placeholder for the ContainerProfile <input> elements
+     */
     containerProfilePlaceholder: function() {
       let value = "No container profiles available";
 
@@ -497,6 +339,23 @@ export default {
       return value;
     },
 
+    /**
+     * Parse the fetch-retrieved Container Resources
+     */
+    containers: async function() {
+      if (!this.selectedRepositoryId) {
+        return null;
+      }
+
+      const response = await this.getContainers(this.selectedRepositoryId);
+      const models = response.json();
+
+      return models;
+    },
+
+    /*
+     * Placeholder for the "Box Number"/Container <input> elements
+     */
     containerPlaceholder: function() {
       let value = "No repository selected";
 
@@ -520,24 +379,6 @@ export default {
         throw `Failed to find the model: ${this.selectedResourceId}`;
       }
       return model;
-    },
-
-    containerProfiles: async function() {
-      const response = await this.getContainerProfiles();
-      const models = response.json();
-
-      return models;
-    },
-
-    containers: async function() {
-      if (!this.selectedRepositoryId) {
-        return null;
-      }
-
-      const response = await this.getContainers(this.selectedRepositoryId);
-      const models = response.json();
-
-      return models;
     },
 
     selectedContainerProfile: async function() {
@@ -575,32 +416,6 @@ export default {
       return model;
     },
 
-    formData: async function() {
-      const selectedLocation = await this.selectedLocation;
-
-      const selectedContainerProfile = await this.selectedContainerProfile;
-
-      const selectedRepository = await this.getSelectedRepository();
-
-      const selectedResource = await this.selectedResource;
-      const selectedContainer = await this.selectedContainer;
-
-      const valid = await this.formValid;
-
-      return {
-        absolute_id: {
-          source: this.source,
-          barcode: this.parsedBarcode,
-          location: selectedLocation,
-          container_profile: selectedContainerProfile,
-          repository: selectedRepository,
-          resource: this.resourceTitle,
-          container: this.containerIndicator
-        },
-        valid
-      };
-    },
-
     formValid: async function() {
       const selectedLocation = await this.selectedLocation;
 
@@ -618,17 +433,10 @@ export default {
     }
   },
 
-  updated: async function() {
-    this.updateValue();
-
-    const base = this.parsedBarcode.slice(0, -1);
-    this.updateEndingBarcode(base);
-
-    this.valid = await this.formValid;
-  },
-
   mounted: async function() {
     const fetchedLocations = await this.locations;
+    this.fetchingLocations = false;
+
     this.locationOptions = fetchedLocations.map(location => {
       const display = location.building;
 
@@ -654,6 +462,8 @@ export default {
     });
 
     const fetchedContainerProfiles = await this.containerProfiles;
+    this.fetchingContainerProfiles = false;
+
     this.containerProfileOptions = fetchedContainerProfiles.map(
       containerProfile => {
         const display = containerProfile.name;
@@ -675,6 +485,8 @@ export default {
     );
 
     const fetchedRepositories = await this.repositories;
+    this.fetchingRepositories = false;
+
     this.repositoryOptions = fetchedRepositories.map(repository => {
       return {
         id: repository.id,
@@ -686,236 +498,84 @@ export default {
     });
   },
 
+  updated: async function() {
+    this.updateValue();
+
+    const base = this.parsedBarcode.slice(0, -1);
+    this.updateEndingBarcode(base);
+
+    this.valid = await this.formValid;
+  },
+
   methods: {
-    onChangeBatchMode: async function(updated) {
-      this.batchMode = updated;
-    },
+    searchResources: async function({ eadId }) {
+      const payload = {
+        eadId
+      };
 
-    updateAbsoluteId: async function() {
-      if (this.value.absolute_id) {
-        if (this.value.absolute_id.location) {
-          this.selectedLocationId = this.value.absolute_id.location.id;
-        }
-
-        if (this.value.absolute_id.container_profile) {
-          this.selectedContainerProfileId = this.value.absolute_id.container_profile.id;
-        }
-
-        if (this.value.absolute_id.repository) {
-          this.selectedRepositoryId = this.value.absolute_id.repository.id;
-        }
-
-        if (this.value.absolute_id.resource) {
-          this.selectedResourceId = this.value.absolute_id.resource.id;
-        }
-
-        if (this.value.absolute_id.container) {
-          this.selectedContainerId = this.value.absolute_id.container.id;
-        }
-      }
-    },
-
-    updateValue: async function() {
-      if (this.value) {
-        await this.updateAbsoluteId();
-      }
-    },
-
-    startingBarcode: function() {
-      return this.parsedBarcode;
-    },
-
-    clearBarcode: function() {
-      this.parsedBarcode = "";
-      this.barcodeValid = false;
-      this.barcodeValidated = false;
-    },
-
-    endingBarcode: function() {
-      return this.parsedEndingBarcode;
-    },
-
-    generateChecksum: function(base) {
-      const padded = `${base}0`;
-      const len = padded.length;
-      const parity = len % 2;
-      let sum = 0;
-
-      for (let i = len - 1; i >= 0; i--) {
-        let d = parseInt(padded.charAt(i));
-        if (i % 2 == parity) {
-          d *= 2;
-        }
-        if (d > 9) {
-          d -= 9;
-        }
-        sum += d;
-      }
-
-      const remainder = sum % 10;
-      return remainder == 0 ? 0 : 10 - remainder;
-    },
-
-    updateBarcode: function(value) {
-      if (value.length < 13) {
-        this.barcodeLength = 13;
-        this.barcodeValid = false;
-      } else if (value.length == 13) {
-        const checksum = this.generateChecksum(value);
-        this.barcodeLength = 14;
-        this.barcodeValid = true;
-
-        this.parsedBarcode = `${value}${checksum}`;
-      }
-    },
-
-    updateEndingBarcode: function(value) {
-      if (value.length < 13 || this.size < 2) {
-        return;
-      }
-
-      const parsed = Number.parseInt(value);
-      const incremented = parsed + this.size - 1;
-
-      const encoded = incremented.toString();
-      const formatted = encoded.padStart(13, 0);
-      const checksum = this.generateChecksum(formatted);
-
-      this.parsedEndingBarcode = `${formatted}${checksum}`;
-    },
-
-    updateBarcodes: function() {
-      for (const i of Array(this.size).keys()) {
-        const base = this.parsedBarcode.slice(0, 13);
-        const value = Number.parseInt(base) + i;
-        const encoded = `${value}`;
-        const incremented = encoded.padStart(13, 0);
-        const checksum = this.generateChecksum(incremented);
-        const newBarcode = `${incremented}${checksum}`;
-
-        this.$set(this.barcodes, i, newBarcode);
-      }
-    },
-
-    /**
-     * Barcode Methods
-     */
-    getBarcode: async function(barcode) {
       let response;
-      let resource;
-      this.barcodeValidating = true;
+      this.fetchingResources = true;
 
       try {
-        response = await fetch(`${this.service.barcodes}/${barcode}`, {
-          method: "GET",
-          mode: "cors",
-          cache: "no-cache",
-          credentials: "same-origin",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${this.token}`
-          },
-          redirect: "follow",
-          referrerPolicy: "no-referrer"
-        });
-        resource = response.json();
+        response = await fetch(
+          `${this.service.repositories}/${this.selectedRepositoryId}/resources/search`,
+          {
+            method: "POST",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${this.token}`
+            },
+            redirect: "follow",
+            referrerPolicy: "no-referrer",
+            body: JSON.stringify(payload)
+          }
+        );
       } catch (error) {
         console.warn(error);
       }
 
-      this.barcodeValidating = false;
-      return resource;
+      this.fetchingResources = false;
+      return response;
     },
 
-    validateBarcode: async function() {
-      const barcode = await this.parsedBarcode;
-      if (barcode.length < 13) {
-        return false;
-      }
-
-      const resource = await this.getBarcode(barcode);
-
-      return !resource;
-    },
-
-    onBarcodeInput: async function(value) {
-      this.updateBarcode(value);
-      this.barcodeValid = await this.validateBarcode();
-      this.barcodeValidated = this.barcodeValid;
-      if (!this.barcodeValid) {
-        return;
-      }
-
-      this.updateEndingBarcode(value);
-      this.updateBarcodes();
-    },
-
-    onEndingContainerInput: function(value) {
+    searchContainers: async function({ indicator, resourceTitle }) {
       const payload = {
-        start: this.containerIndicator,
-        end: value
+        indicator,
+        resourceTitle
       };
-      const firstIndex = Number.parseInt(this.containerIndicator);
-      const lastIndex = Number.parseInt(value);
-      this.size = lastIndex - firstIndex + 1;
-      this.updateBarcodes();
 
-      this.$emit("input-size", payload);
+      let response;
+      this.fetchingContainers = true;
+
+      try {
+        response = await fetch(
+          `${this.service.repositories}/${this.selectedRepositoryId}/containers/search`,
+          {
+            method: "POST",
+            mode: "cors",
+            cache: "no-cache",
+            credentials: "same-origin",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${this.token}`
+            },
+            redirect: "follow",
+            referrerPolicy: "no-referrer",
+            body: JSON.stringify(payload)
+          }
+        );
+      } catch (error) {
+        console.warn(error);
+      }
+
+      this.fetchingContainers = false;
+      return response;
     },
 
-    /**
-     * Form validation
-     */
-    isFormValid: async function() {
-      const selectedLocation = await this.selectedLocation;
-      const selectedRepository = await this.getSelectedRepository();
-      const selectedResource = await this.selectedResource;
-      const selectedContainer = await this.selectedContainer;
-
-      //const output = this.barcode && selectedLocation && selectedRepository && this.resourceTitle && this.containerIndicator;
-      const output =
-        this.parsedBarcode &&
-        selectedLocation &&
-        selectedRepository &&
-        this.resourceTitle &&
-        this.containerIndicator;
-      return !!output;
-    },
-
-    getFormData: async function() {
-      const selectedLocation = await this.selectedLocation;
-
-      const selectedContainerProfile = await this.selectedContainerProfile;
-      const selectedRepository = await this.getSelectedRepository();
-
-      const resourceTitle = await this.resourceTitle;
-      const containerIndicator = await this.containerIndicator;
-
-      const barcodes = this.barcodes;
-      const batchSize = this.size;
-      const valid = await this.isFormValid();
-
-      return {
-        absolute_id: {
-          barcode: this.parsedBarcode,
-          location: selectedLocation,
-          container_profile: selectedContainerProfile,
-          repository: selectedRepository,
-          resource: resourceTitle,
-          container: containerIndicator
-        },
-        barcodes: barcodes,
-        batch_size: batchSize,
-        valid
-      };
-    },
-
-    onInput: async function() {
-      const inputState = await this.getFormData();
-      this.$emit("input", inputState);
-    },
-
-    onResourceFocusOut: async function (event, value) {
+    onResourceFocusOut: async function(event, value) {
       this.validResource = false;
       this.validatedResource = false;
 
@@ -1073,9 +733,6 @@ export default {
         this.fetchingLocations = false;
         return;
       }
-
-      //this.fetchingLocations = false;
-      //return response;
     },
 
     getContainerProfiles: async function() {
@@ -1145,68 +802,37 @@ export default {
       return model;
     },
 
-    resourceClasses: async function() {
-      const classes = ["absolute-ids-form--input-field"];
+    /**
+     * This is needed for the data list
+     */
+    updateAbsoluteId: async function() {
+      if (this.value.absolute_id) {
+        if (this.value.absolute_id.location) {
+          this.selectedLocationId = this.value.absolute_id.location.id;
+        }
 
-      const validatedResource = await this.validatedResource;
-      const validResource = await this.validResource;
-      const resourceTitle = await this.resourceTitle;
+        if (this.value.absolute_id.container_profile) {
+          this.selectedContainerProfileId = this.value.absolute_id.container_profile.id;
+        }
 
-      if (validatedResource) {
-        classes.push("absolute-ids-form--input-field__validated");
-      } else if (resourceTitle.length > 0 && !validResource) {
-        classes.push("absolute-ids-form--input-field__invalid");
+        console.log(this.value);
+        if (this.value.absolute_id.repository) {
+          this.selectedRepositoryId = this.value.absolute_id.repository.id;
+        }
+
+        if (this.value.absolute_id.resource) {
+          this.selectedResourceId = this.value.absolute_id.resource.id;
+        }
+
+        if (this.value.absolute_id.container) {
+          this.selectedContainerId = this.value.absolute_id.container.id;
+        }
       }
-
-      return classes.join(" ");
     },
 
-    containerClasses: async function() {
-      const classes = ["absolute-ids-form--input-field"];
-
-      const validatedContainer = await this.validatedContainer;
-      const validContainer = await this.validContainer;
-      const containerIndicator = await this.containerIndicator;
-
-      if (validatedContainer) {
-        classes.push("absolute-ids-form--input-field__validated");
-      } else if (containerIndicator.length > 0 && !validContainer) {
-        classes.push("absolute-ids-form--input-field__invalid");
-      }
-
-      return classes.join(" ");
-    },
-
-    postData: async function(data = {}) {
-      const response = await fetch(this.action, {
-        method: this.method,
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${this.token}`
-        },
-        redirect: "follow",
-        referrerPolicy: "no-referrer",
-        body: JSON.stringify(data)
-      });
-
-      return response;
-    },
-
-    submit: async function(event) {
-      const payload = await this.formData;
-
-      event.target.disabled = true;
-      const response = await this.postData(payload);
-
-      event.target.disabled = false;
-      if (response.status === 302) {
-        const redirectUrl = response.headers.get("Content-Type");
-        window.location.assign(redirectUrl);
-      } else {
-        window.location.reload();
+    updateValue: async function() {
+      if (this.value) {
+        await this.updateAbsoluteId();
       }
     }
   }

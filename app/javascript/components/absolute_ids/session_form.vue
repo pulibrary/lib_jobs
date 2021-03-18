@@ -43,7 +43,6 @@
           :container-profiles="containerProfiles"
           :repositories="repositories"
           :batch-size="batchSizes[index]"
-          :batch-form="true"
           v-on:input-size="updateBatchSize($event, index)"
         />
         <marc-batch-form
@@ -56,7 +55,6 @@
           :service="service"
           :barcode="generateBarcode(index, batchSizes[index])"
           :batch-size="batchSizes[index]"
-          :batch-form="true"
           v-on:input-size="updateBatchSize($event, index)"
         />
 
@@ -260,6 +258,42 @@ export default {
     }
   },
 
+  mounted: async function() {
+    /*
+    const fetchedLocations = await this.locations;
+    console.log(this.locations);
+    this.locationOptions = fetchedLocations.map(location => {
+      return {
+        id: location.id,
+        label: location.building,
+        uri: location.uri
+      };
+    });
+    */
+    /*
+    const fetchedRepositories = await this.repositories;
+    this.repositoryOptions = fetchedRepositories.map(repository => {
+      return {
+        id: repository.id,
+        label: repository.name,
+        uri: repository.uri
+      };
+    });
+    */
+    /*
+    const fetchedContainerProfiles = await this.containerProfiles;
+    this.containerProfileOptions = fetchedContainerProfiles.map(
+      containerProfile => {
+        return {
+          id: containerProfile.id,
+          label: containerProfile.name,
+          uri: containerProfile.uri
+        };
+      }
+    );
+    */
+  },
+
   methods: {
     onChangeMode: function(changed) {
       this.source = changed;
@@ -383,10 +417,17 @@ export default {
       response = await fetch(this.service.locations, {
     */
 
+    /*
     getRepositories: async function() {
       this.fetchingRepositories = true;
+    */
 
-      const response = await fetch(this.service.repositories, {
+    getLocations: async function() {
+      let response = null;
+
+      this.fetchingLocations = true;
+
+      response = await fetch(this.service.locations, {
         method: "GET",
         mode: "cors",
         cache: "no-cache",
@@ -412,10 +453,11 @@ export default {
       response = await fetch(this.service.containerProfiles, {
     */
 
+    /*
     getLocations: async function() {
       this.fetchingLocations = true;
 
-      const response = await fetch(this.service.locations, {
+      response = await fetch(this.service.containerProfiles, {
         method: "GET",
         mode: "cors",
         cache: "no-cache",
@@ -431,6 +473,7 @@ export default {
       this.fetchingContainerProfiles = false;
       return response;
     },
+    */
 
     /*
     getRepositories: async function() {
@@ -442,10 +485,17 @@ export default {
         //
     */
 
+    /*
     getContainerProfiles: async function() {
       this.fetchingContainerProfiles = true;
+    */
 
-      const response = await fetch(this.service.containerProfiles, {
+    getRepositories: async function() {
+      let response = null;
+
+      this.fetchingRepositories = true;
+
+      response = await fetch(this.service.repositories, {
         method: "GET",
         mode: "cors",
         cache: "no-cache",
