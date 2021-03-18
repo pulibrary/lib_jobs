@@ -43,6 +43,8 @@
           :container-profiles="containerProfiles"
           :repositories="repositories"
           :batch-size="batchSizes[index]"
+          :batch-form="true"
+          :batch-size="batchSize[index]"
           v-on:input-size="updateBatchSize($event, index)"
         />
         <marc-batch-form
@@ -55,6 +57,7 @@
           :service="service"
           :barcode="generateBarcode(index, batchSizes[index])"
           :batch-size="batchSizes[index]"
+          :batch-form="true"
           v-on:input-size="updateBatchSize($event, index)"
         />
 
@@ -386,12 +389,19 @@ export default {
       this.fetchingRepositories = true;
     */
 
+    /*
     getLocations: async function() {
       let response = null;
 
       this.fetchingLocations = true;
 
       response = await fetch(this.service.locations, {
+    */
+
+    getRepositories: async function() {
+      this.fetchingRepositories = true;
+
+      const response = await fetch(this.service.repositories, {
         method: "GET",
         mode: "cors",
         cache: "no-cache",
@@ -417,11 +427,10 @@ export default {
       response = await fetch(this.service.containerProfiles, {
     */
 
-    /*
     getLocations: async function() {
       this.fetchingLocations = true;
 
-      response = await fetch(this.service.containerProfiles, {
+      const response = await fetch(this.service.locations, {
         method: "GET",
         mode: "cors",
         cache: "no-cache",
@@ -437,7 +446,6 @@ export default {
       this.fetchingContainerProfiles = false;
       return response;
     },
-    */
 
     /*
     getRepositories: async function() {
@@ -454,12 +462,20 @@ export default {
       this.fetchingContainerProfiles = true;
     */
 
+    /*
     getRepositories: async function() {
       let response = null;
 
       this.fetchingRepositories = true;
 
       response = await fetch(this.service.repositories, {
+        //
+    */
+
+    getContainerProfiles: async function() {
+      this.fetchingContainerProfiles = true;
+
+      const response = await fetch(this.service.containerProfiles, {
         method: "GET",
         mode: "cors",
         cache: "no-cache",

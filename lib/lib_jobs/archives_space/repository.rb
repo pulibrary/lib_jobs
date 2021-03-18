@@ -210,6 +210,31 @@ module LibJobs
         find_resource(id: response[:id])
       end
 
+      def batch_update_top_containers(containers:, container_profile_uri: nil, location_uri: nil)
+        request_path = if !container_profile_uri.nil?
+                         "/repositories/#{@id}/top_containers/batch/container_profile"
+                       else
+                         "/repositories/#{@id}/top_containers/batch/location"
+                       end
+
+        request_params = if !container_profile_uri.nil?
+                           {
+                             ids: container.map(&:id),
+                             container_profile_uri: container_profile_uri
+                           }
+                         else
+                           {
+                             ids: container.map(&:id),
+                             location_uri: location_uri
+                           }
+                         end
+        response = client.post(request_path, request_params)
+
+        model_class.uncache(container)
+
+        find_child(uri: container.uri.to_s, resource_class: container.class, model_class: container.class.model_class)
+      end
+
       private
 
       def find_resources_by_ead_id(ead_id:)

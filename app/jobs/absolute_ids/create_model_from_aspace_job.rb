@@ -63,7 +63,9 @@ module AbsoluteIds
     def resolve_container(aspace_resource:, indicator:, index:)
       container_index = indicator.to_i + index
 
-      top_containers = aspace_resource.search_top_containers_by(index: container_index)
+      # top_containers = aspace_resource.search_top_containers_by(index: container_index)
+      # /repositories/4/search?q=display_string%3ABox%2020&page=1&type[]=top_container
+      top_containers = aspace_resource.repository.search_top_containers_by(index: container_index)
       top_container = top_containers.first
 
       raise(ArgumentError, "Failed to resolve the container for index #{container_index} linked to the resource #{aspace_resource.id}") if top_container.nil?

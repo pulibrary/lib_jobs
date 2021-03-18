@@ -13,8 +13,7 @@ Rails.application.routes.draw do
   # Barcodes
   get '/barcodes/:value', to: 'barcodes#show'
 
-  ## Sessions
-  post '/barcodes/sessions', to: 'barcodes/sessions#create'
+  # Sessions
   get '/barcodes', to: 'barcodes/sessions#index'
   post '/barcodes/sessions/:session_id/synchronize', to: 'barcodes/sessions#synchronize', as: 'barcodes_synchronize_session'
   get '/barcodes/sessions/:session_id', to: 'barcodes/sessions#show_session', as: 'barcodes_session_id'
