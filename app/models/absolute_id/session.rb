@@ -16,19 +16,36 @@ class AbsoluteId::Session < ApplicationRecord
     batches.map(&:synchronizing?).reduce(&:|)
   end
 
+  def synchronize_status
+    values = batches.map(&:synchronize_status)
+
+    if values.include?(AbsoluteId::SYNCHRONIZE_FAILED)
+      AbsoluteId::SYNCHRONIZE_FAILED
+    elsif values.include?(AbsoluteId::NEVER_SYNCHRONIZED)
+      AbsoluteId::NEVER_SYNCHRONIZED
+    elsif values.include?(AbsoluteId::UNSYNCHRONIZED)
+      AbsoluteId::UNSYNCHRONIZED
+    elsif values.include?(AbsoluteId::SYNCHRONIZING)
+      AbsoluteId::SYNCHRONIZING
+    else
+      AbsoluteId::SYNCHRONIZED
+    end
+  end
+
   def absolute_ids
     @absolute_ids ||= batches.map(&:absolute_ids).flatten
   end
 
   def attributes
     {
-      batches: batches.map(&:attributes)
+      batches: batches.to_a.map(&:attributes)
     }
   end
 
-  # def as_json(_options = nil)
-  #  JSON.generate(attributes)
-  # end
+  # @todo Determine why this is needed
+  def as_json(_options = nil)
+    attributes
+  end
 
   def to_yaml
     YAML.dump(attributes)

@@ -26,34 +26,35 @@
         v-on:change="onChangeMode"
       />
     </div>
-    <template v-for="(entry, index) in batch">
+    <template v-for="(entry, index) in batches">
       <fieldset class="absolute-ids-batch-form--batch">
         <legend>New Batch</legend>
 
         <aspace-batch-form
           v-if="source == 'aspace'"
           :key="batchKey(index)"
-          v-model="batch[index]"
+          v-model="batches[index]"
           :action="action"
           :token="token"
           :source="source"
           :service="service"
-          :barcode="generateBarcode(index, batchSize[index])"
-          :batch-form="true"
-          :batch-size="batchSize[index]"
+          :barcode="generateBarcode(index, batchSizes[index])"
+          :locations="locations"
+          :container-profiles="containerProfiles"
+          :repositories="repositories"
+          :batch-size="batchSizes[index]"
           v-on:input-size="updateBatchSize($event, index)"
         />
         <marc-batch-form
           v-else-if="source == 'marc'"
           :key="batchKey(index)"
-          v-model="batch[index]"
+          v-model="batches[index]"
           :action="action"
           :token="token"
           :source="source"
           :service="service"
-          :barcode="generateBarcode(index, batchSize[index])"
-          :batch-form="true"
-          :batch-size="batchSize[index]"
+          :barcode="generateBarcode(index, batchSizes[index])"
+          :batch-size="batchSizes[index]"
           v-on:input-size="updateBatchSize($event, index)"
         />
 
@@ -62,7 +63,7 @@
           <input-text
             :key="index"
             id="batch-size"
-            name="batch[batch_size]"
+            name="batches[batch_size]"
             :value="getBatchSize(index)"
             label="Input"
             :hide-label="true"
@@ -141,9 +142,13 @@ export default {
 
   data: function() {
     return {
+      fetchedLocations: [],
+      fetchedContainerProfiles: [],
+      fetchedRepositories: [],
+
       source: "aspace",
       barcode: "",
-      batch: [
+      batches: [
         {
           absolute_id: {
             barcode: null,
@@ -158,7 +163,7 @@ export default {
           valid: false
         }
       ],
-      batchSize: [1],
+      batchSizes: [1],
       barcodes: [],
       batchUpdates: 0,
       submitting: false
@@ -191,48 +196,70 @@ export default {
     },
 
     locations: async function() {
-      const response = await this.getLocations();
-      const locations = response.json();
+      let locations = [];
+
+      try {
+        const response = await this.getLocations();
+        locations = await response.json();
+      } catch (error) {
+        console.warn(
+          `Failed to retrieve the locations from ${this.service.locations}: ${error}`
+        );
+      }
 
       return locations;
     },
 
+    containerProfiles: async function() {
+      let containerProfiles = [];
+
+      try {
+        const response = await this.getContainerProfiles();
+        containerProfiles = await response.json();
+      } catch (error) {
+        console.warn(
+          `Failed to retrieve the container profiles from ${this.service.containerProfiles}: ${error}`
+        );
+      }
+
+      return containerProfiles;
+    },
+
     repositories: async function() {
-      const response = await this.getRepositories();
-      const repositories = response.json();
+      let repositories = [];
+
+      try {
+        const response = await this.getRepositories();
+        repositories = await response.json();
+      } catch (error) {
+        console.warn(
+          `Failed to retrieve the repositories from ${this.service.repositories}: ${error}`
+        );
+      }
 
       return repositories;
     },
 
-    containerProfiles: async function() {
-      const response = await this.getContainerProfiles();
-      const models = response.json();
-
-      return models;
-    },
-
     formValid: function() {
-      return true;
-
       // Enable this once the performance issues are finished
-      /*
-      return this.batch.map( (b) => {
-        return b.absolute_id && b.absolute_id.container && b.absolute_id.container_profile && b.absolute_id.location && b.absolute_id.repository && b.absolute_id.resource;
-      } ).reduce( (u,v) => (u && v) );
-      */
+      const values = this.batches.map(batch => {
+        return batch.valid;
+      });
+
+      return values.reduce((u, v) => u && v);
     },
 
     formData: async function() {
-      const resolvedBatch = this.batch;
-
       return {
-        batch: resolvedBatch
+        batches: this.batches
       };
     }
   },
 
   mounted: async function() {
+    /*
     const fetchedLocations = await this.locations;
+    console.log(this.locations);
     this.locationOptions = fetchedLocations.map(location => {
       return {
         id: location.id,
@@ -240,7 +267,8 @@ export default {
         uri: location.uri
       };
     });
-
+    */
+    /*
     const fetchedRepositories = await this.repositories;
     this.repositoryOptions = fetchedRepositories.map(repository => {
       return {
@@ -249,7 +277,8 @@ export default {
         uri: repository.uri
       };
     });
-
+    */
+    /*
     const fetchedContainerProfiles = await this.containerProfiles;
     this.containerProfileOptions = fetchedContainerProfiles.map(
       containerProfile => {
@@ -260,6 +289,7 @@ export default {
         };
       }
     );
+    */
   },
 
   methods: {
@@ -292,8 +322,8 @@ export default {
         return this.barcode;
       }
 
-      const currentValue = this.batchSize[index];
-      const previousValue = this.batchSize[index - 1];
+      const currentValue = this.batchSizes[index];
+      const previousValue = this.batchSizes[index - 1];
 
       let batchSize;
 
@@ -333,16 +363,16 @@ export default {
     },
 
     removeBatchSize: function(index) {
-      const u = this.batchSize.slice(0, index);
-      const v = this.batchSize.slice(index + 1, this.batchSize.length);
+      const u = this.batchSizes.slice(0, index);
+      const v = this.batchSizes.slice(index + 1, this.batchSizes.length);
       const output = u.concat(v);
 
       return output;
     },
 
     removeBatch: function(index) {
-      const u = this.batch.slice(0, index);
-      const v = this.batch.slice(index + 1, this.batch.length);
+      const u = this.batches.slice(0, index);
+      const v = this.batches.slice(index + 1, this.batches.length);
       const output = u.concat(v);
 
       return output;
@@ -350,18 +380,18 @@ export default {
 
     onClickRemove: function(index) {
       this.barcode = this.removeBarcode(index);
-      this.batchSize = this.removeBatchSize(index);
-      this.batch = this.removeBatch(index);
+      this.batchSizes = this.removeBatchSize(index);
+      this.batches = this.removeBatch(index);
     },
 
     onClickAdd: function(event) {
       let newBarcodeValue = Number.parseInt(this.barcode);
 
-      if (this.batchSize.length === 1) {
+      if (this.batchSizes.length === 1) {
         newBarcodeValue = newBarcode + 1;
       } else {
-        for (let i = 0; i < this.batchSize.length; i++) {
-          newBarcodeValue = newBarcodeValue + this.batchSize[i];
+        for (let i = 0; i < this.batchSizes.length; i++) {
+          newBarcodeValue = newBarcodeValue + this.batchSizes[i];
         }
       }
 
@@ -369,36 +399,18 @@ export default {
       const newBarcode = encoded.padStart(13, 0);
 
       this.barcodes.push(newBarcode);
-      this.batchSize.push(1);
+      this.batchSizes.push(1);
 
       const newAbsoluteId = this.buildAbsoluteId();
-      this.batch.push(newAbsoluteId);
-    },
-
-    getRepositories: async function() {
-      this.fetchingRepositories = true;
-
-      const response = await fetch(this.service.repositories, {
-        method: "GET",
-        mode: "cors",
-        cache: "no-cache",
-        credentials: "same-origin",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${this.token}`
-        },
-        redirect: "follow",
-        referrerPolicy: "no-referrer"
-      });
-
-      this.fetchingRepositories = false;
-      return response;
+      this.batches.push(newAbsoluteId);
     },
 
     getLocations: async function() {
+      let response = null;
+
       this.fetchingLocations = true;
 
-      const response = await fetch(this.service.locations, {
+      response = await fetch(this.service.locations, {
         method: "GET",
         mode: "cors",
         cache: "no-cache",
@@ -416,9 +428,11 @@ export default {
     },
 
     getContainerProfiles: async function() {
+      let response = null;
+
       this.fetchingContainerProfiles = true;
 
-      const response = await fetch(this.service.containerProfiles, {
+      response = await fetch(this.service.containerProfiles, {
         method: "GET",
         mode: "cors",
         cache: "no-cache",
@@ -435,8 +449,30 @@ export default {
       return response;
     },
 
+    getRepositories: async function() {
+      let response = null;
+
+      this.fetchingRepositories = true;
+
+      response = await fetch(this.service.repositories, {
+        method: "GET",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`
+        },
+        redirect: "follow",
+        referrerPolicy: "no-referrer"
+      });
+
+      this.fetchingRepositories = false;
+      return response;
+    },
+
     getBatchSize: function(index) {
-      return this.batchSize[index];
+      return this.batchSizes[index];
     },
 
     generateChecksum: function(base) {
@@ -473,7 +509,7 @@ export default {
         size = 1;
       }
 
-      const batch = await this.batch[batchIndex];
+      const batch = await this.batches[batchIndex];
 
       if (batch) {
         const absoluteId = batch.absolute_id;
@@ -491,12 +527,12 @@ export default {
 
           batchBarcodes.push(newBarcode);
         }
-        this.$set(this.batchSize, batchIndex, size);
+        this.$set(this.batchSizes, batchIndex, size);
 
         batch.batch_size = size;
 
         // Update the batch
-        this.$set(this.batch, batchIndex, batch);
+        this.$set(this.batches, batchIndex, batch);
       }
     },
 

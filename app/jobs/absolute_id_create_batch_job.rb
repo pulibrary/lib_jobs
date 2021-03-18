@@ -20,6 +20,7 @@ class AbsoluteIdCreateBatchJob < ApplicationJob
       properties = absolute_id_params.deep_dup
       properties[:barcode] = batch_properties[:barcodes][child_index]
       properties[:index] = child_index
+      properties[:source] = batch_properties[:source]
 
       begin
         model_id = AbsoluteIdCreateRecordJob.polymorphic_perform_now(properties: properties, user_id: @user_id)

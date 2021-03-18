@@ -4,6 +4,10 @@ class AbsoluteId::Batch < ApplicationRecord
   belongs_to :session, class_name: 'AbsoluteId::Session', foreign_key: "absolute_id_session_id", optional: true
   belongs_to :user, foreign_key: "user_id"
 
+  def self.xml_serializer
+    AbsoluteIds::BatchXmlSerializer
+  end
+
   def label
     format("Batch %06d", id)
   end
@@ -14,6 +18,22 @@ class AbsoluteId::Batch < ApplicationRecord
 
   def synchronizing?
     absolute_ids.map(&:synchronizing?).reduce(&:|)
+  end
+
+  def synchronize_status
+    values = absolute_ids.map(&:synchronize_status)
+
+    if values.include?(AbsoluteId::SYNCHRONIZE_FAILED)
+      AbsoluteId::SYNCHRONIZE_FAILED
+    elsif values.include?(AbsoluteId::NEVER_SYNCHRONIZED)
+      AbsoluteId::NEVER_SYNCHRONIZED
+    elsif values.include?(AbsoluteId::UNSYNCHRONIZED)
+      AbsoluteId::UNSYNCHRONIZED
+    elsif values.include?(AbsoluteId::SYNCHRONIZING)
+      AbsoluteId::SYNCHRONIZING
+    else
+      AbsoluteId::SYNCHRONIZED
+    end
   end
 
   # Refactor this
@@ -61,12 +81,13 @@ class AbsoluteId::Batch < ApplicationRecord
     }
   end
 
-  def self.xml_serializer
-    AbsoluteIds::BatchXmlSerializer
-  end
-
   # @see ActiveModel::Serializers::Xml
   def to_xml(options = {}, &block)
     self.class.xml_serializer.new(self, options).serialize(&block)
+  end
+
+  # @todo Determine why this is required
+  def as_json(**_args)
+    attributes
   end
 end

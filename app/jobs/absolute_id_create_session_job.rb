@@ -8,10 +8,11 @@ class AbsoluteIdCreateSessionJob < ApplicationJob
   private
 
   def create_session(session_attributes)
-    @batches = session_attributes.map do |batch_params|
+    @batches = []
+    session_attributes.each do |batch_params|
       model_id = AbsoluteIdCreateBatchJob.perform_now(properties: batch_params.deep_symbolize_keys, user_id: @user_id)
-      AbsoluteId::Batch.find(model_id) unless model_id.nil?
-    end.reject(&:nil?)
+      @batches << AbsoluteId::Batch.find(model_id) unless model_id.nil?
+    end
 
     return if @batches.empty?
 
