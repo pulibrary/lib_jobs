@@ -44,7 +44,6 @@
           :repositories="repositories"
           :batch-size="batchSizes[index]"
           :batch-form="true"
-          :batch-size="batchSize[index]"
           v-on:input-size="updateBatchSize($event, index)"
         />
         <marc-batch-form
