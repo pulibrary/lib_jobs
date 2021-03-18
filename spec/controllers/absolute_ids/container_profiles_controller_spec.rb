@@ -13,9 +13,17 @@ RSpec.describe AbsoluteIds::ContainerProfilesController do
       expect(response).to be_success
       json = JSON.parse(response.body)
       expect(json.length).to eq 13
-      # TODO: Clarify what prefixes are. What are they?
-      expect(json[0]["prefix"]).to eq "P"
-      expect(json[0]["name"]).to eq "Elephant size box"
+      container_profile = json[0]
+      expect(container_profile["create_time"]).to be_present
+      expect(container_profile["id"]).to eq "2"
+      expect(container_profile["lock_version"]).to eq 873
+      expect(container_profile["system_mtime"]).to be_present
+      expect(container_profile["uri"]).to eq "/container_profiles/2"
+      expect(container_profile["user_mtime"]).to be_present
+      # Prefixes are the container profile equivalent in the legacy AbID
+      # database. We keep them here for cross-referencing.
+      expect(container_profile["prefix"]).to eq "P"
+      expect(container_profile["name"]).to eq "Elephant size box"
     end
 
     context "when authorizing via a bearer token" do
