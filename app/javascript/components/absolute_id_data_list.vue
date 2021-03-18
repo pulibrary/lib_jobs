@@ -1,15 +1,17 @@
 <template>
   <component :is="wrapper" class="lux-input">
-    <label v-if="label" :for="id" :class="{ 'lux-hidden': hideLabel }">{{ label }}</label>
+    <label v-if="label" :for="id" :class="{ 'lux-hidden': hideLabel }">{{
+      label
+    }}</label>
     <div
-      :class="[{ 'lux-input-expand': width === 'expand' }, { disabled: disabled }, size, 'lux-input-field']"
+      :class="[
+        { 'lux-input-expand': width === 'expand' },
+        { disabled: disabled },
+        size,
+        'lux-input-field'
+      ]"
     >
-      <input
-        :name="name"
-        :id="id"
-        type="hidden"
-        v-model="selected"
-      />
+      <input :name="name" :id="id" type="hidden" v-model="selected" />
       <input
         :name="name"
         :id="id"
@@ -32,7 +34,9 @@
       </datalist>
     </div>
 
-    <div role="alert" class="lux-error" v-if="errormessage">{{ errormessage }}</div>
+    <div role="alert" class="lux-error" v-if="errormessage">
+      {{ errormessage }}
+    </div>
     <div class="lux-helper" v-if="helper">{{ helper }}</div>
   </component>
 </template>
@@ -49,10 +53,10 @@ export default {
   type: "Element",
   computed: {
     datalistId() {
-      return this.id + "-list"
+      return this.id + "-list";
     },
     hasError() {
-      return this.errormessage.length
+      return this.errormessage.length;
     },
     focus() {
       return this.defaultFocus || this.list.length > 0;
@@ -71,29 +75,29 @@ export default {
       type: String,
       default: "text",
       validator: value => {
-        return value.match(/(text|number|email)/)
-      },
+        return value.match(/(text|number|email)/);
+      }
     },
     /**
      * Text value of the form input field.
      */
     value: {
       type: String,
-      default: "",
+      default: ""
     },
     /**
      * The placeholder value for the form input field.
      */
     placeholder: {
       type: String,
-      default: "",
+      default: ""
     },
     /**
      * The label of the form input field.
      */
     label: {
       type: String,
-      default: "",
+      default: ""
     },
     /**
      * List of suggested values.
@@ -101,28 +105,28 @@ export default {
     list: {
       type: Array,
       default: [],
-      required: true,
+      required: true
     },
     /**
      * Visually hides the label of the form input field.
      */
     hideLabel: {
       type: Boolean,
-      default: false,
+      default: false
     },
     /**
      * The validation message a user should get.
      */
     errormessage: {
       type: String,
-      default: "",
+      default: ""
     },
     /**
      * The helper text a user should get.
      */
     helper: {
       type: String,
-      default: "",
+      default: ""
     },
     /**
      * The html element name used for the wrapper.
@@ -132,8 +136,8 @@ export default {
       type: String,
       default: "div",
       validator: value => {
-        return value.match(/(div|section)/)
-      },
+        return value.match(/(div|section)/);
+      }
     },
     /**
      * Unique identifier of the form input field.
@@ -141,7 +145,7 @@ export default {
     id: {
       type: String,
       default: "",
-      required: true,
+      required: true
     },
     /**
      * The name attribute for the form input field.
@@ -149,7 +153,7 @@ export default {
     name: {
       type: String,
       default: "",
-      required: true,
+      required: true
     },
     /**
      * The width of the form input field.
@@ -159,8 +163,8 @@ export default {
       type: String,
       default: "expand",
       validator: value => {
-        return value.match(/(auto|expand)/)
-      },
+        return value.match(/(auto|expand)/);
+      }
     },
     /**
      * Sets the size of the input area `small, medium, large`
@@ -169,8 +173,8 @@ export default {
       type: String,
       default: "medium",
       validator: value => {
-        return value.match(/(small|medium|large)/)
-      },
+        return value.match(/(small|medium|large)/);
+      }
     },
     /**
      * Whether the form input field is disabled or not.
@@ -178,7 +182,7 @@ export default {
      */
     disabled: {
       type: Boolean,
-      default: false,
+      default: false
     },
     /**
      * Manually trigger input field’s hover state.
@@ -186,7 +190,7 @@ export default {
      */
     hover: {
       type: Boolean,
-      default: false,
+      default: false
     },
     /**
      * Manually trigger input field’s focus state.
@@ -194,15 +198,15 @@ export default {
      */
     defaultFocus: {
       type: Boolean,
-      default: false,
+      default: false
     },
     displayProperty: {
       type: String,
-      default: 'display'
+      default: "display"
     },
     selectedProperty: {
       type: String,
-      default: 'selected'
+      default: "selected"
     }
   },
 
@@ -214,7 +218,7 @@ export default {
   },
 
   // Uncertain if this is still needed
-  updated: function () {
+  updated: function() {
     if (this.value) {
       if (!this.selected) {
         this.selected = this.value;
@@ -226,8 +230,8 @@ export default {
     displayOption(item) {
       let displayed;
 
-      if (this.displayProperty === 'label') {
-        displayed = item['uri'];
+      if (this.displayProperty === "label") {
+        displayed = item["uri"];
       } else {
         displayed = item[this.displayProperty];
       }
@@ -235,13 +239,13 @@ export default {
       return displayed;
     },
     inputblur(value) {
-      this.$emit("inputblur", value)
+      this.$emit("inputblur", value);
     },
     onInput(event) {
       event.preventDefault();
 
       if (event.target.value) {
-        const model = this.list.find( (e) => event.target.value === e.label );
+        const model = this.list.find(e => event.target.value === e.label);
 
         if (model) {
           this.selected = model;
@@ -249,8 +253,8 @@ export default {
         }
       }
     }
-  },
-}
+  }
+};
 </script>
 
 <style lang="scss" scoped>
@@ -335,12 +339,14 @@ $color-placeholder: tint($color-grayscale, 50%);
 
     &:hover,
     &[hover] {
-      box-shadow: 0 1px 5px 0 rgba($color-rich-black, 0.07), 0 0 0 1px tint($color-rich-black, 60%);
+      box-shadow: 0 1px 5px 0 rgba($color-rich-black, 0.07),
+        0 0 0 1px tint($color-rich-black, 60%);
     }
     &:focus,
     &[focus] {
       transition: box-shadow 0.2s ease;
-      box-shadow: inset 0 0 0 1px $color-bleu-de-france, 0 0 0 1px $color-bleu-de-france;
+      box-shadow: inset 0 0 0 1px $color-bleu-de-france,
+        0 0 0 1px $color-bleu-de-france;
       outline: 0;
     }
     &[disabled],

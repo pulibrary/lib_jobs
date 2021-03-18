@@ -1,6 +1,11 @@
 <template>
-  <form method="post" class="absolute-ids-form" v-bind:value="value" v-on:input="onInput" v-on:submit.prevent="submit">
-
+  <form
+    method="post"
+    class="absolute-ids-form"
+    v-bind:value="value"
+    v-on:input="onInput"
+    v-on:submit.prevent="submit"
+  >
     <grid-container>
       <grid-item columns="sm-12 lg-3">
         <fieldset class="absolute-ids-form--fields">
@@ -77,7 +82,12 @@
             <grid-item columns="sm-12 lg-12">
               <input-text
                 id="resource_id"
-                v-bind:class="{ 'absolute-ids-form--input-field__validated': (validatedResource), 'absolute-ids-form--input-field__invalid': (callNumber.length > 0 && !validResource), 'absolute-ids-form--input-field': true }"
+                v-bind:class="{
+                  'absolute-ids-form--input-field__validated': validatedResource,
+                  'absolute-ids-form--input-field__invalid':
+                    callNumber.length > 0 && !validResource,
+                  'absolute-ids-form--input-field': true
+                }"
                 name="resource_id"
                 label="Call Number"
                 :hide-label="true"
@@ -98,7 +108,12 @@
             <grid-item columns="sm-12 lg-9">
               <input-text
                 id="container_id"
-                v-bind:class="{ 'absolute-ids-form--input-field__validated': (validatedContainer), 'absolute-ids-form--input-field__invalid': (boxIndex.length > 0 && !validContainer), 'absolute-ids-form--input-field': true }"
+                v-bind:class="{
+                  'absolute-ids-form--input-field__validated': validatedContainer,
+                  'absolute-ids-form--input-field__invalid':
+                    boxIndex.length > 0 && !validContainer,
+                  'absolute-ids-form--input-field': true
+                }"
                 name="container_id"
                 label="Starting Box Number"
                 :hide-label="true"
@@ -106,7 +121,8 @@
                 :placeholder="containerPlaceholder"
                 :disabled="!repository || !callNumber || validatingContainer"
                 v-on:inputblur="onContainerFocusOut($event, boxIndex)"
-                v-model="boxIndex">
+                v-model="boxIndex"
+              >
               </input-text>
 
               <input-text
@@ -119,7 +135,8 @@
                 :placeholder="endingContainerPlaceholder"
                 :disabled="!validContainer"
                 v-on:input="onEndingContainerInput($event)"
-                v-model="endingBoxIndex">
+                v-model="endingBoxIndex"
+              >
               </input-text>
 
               <div class="lux-input">
@@ -128,10 +145,8 @@
                 </div>
               </div>
             </grid-item>
-
           </grid-container>
         </fieldset>
-
       </grid-item>
     </grid-container>
   </form>
@@ -139,8 +154,8 @@
 
 <script>
 export default {
-  name: 'AbsoluteIdMarcForm',
-  type: 'Element',
+  name: "AbsoluteIdMarcForm",
+  type: "Element",
   props: {
     action: {
       type: String,
@@ -148,7 +163,7 @@ export default {
     },
     method: {
       type: String,
-      default: 'post'
+      default: "post"
     },
     token: {
       type: String,
@@ -172,11 +187,11 @@ export default {
     },
     barcode: {
       type: String,
-      default: ''
+      default: ""
     },
     mode: {
       type: String,
-      default: 'aspace'
+      default: "aspace"
     },
     batchSize: {
       type: Number,
@@ -184,14 +199,14 @@ export default {
     }
   },
 
-  data: function () {
+  data: function() {
     return {
       location: this.value.absolute_id.location,
       containerProfile: this.value.absolute_id.containerProfile,
       repository: this.value.absolute_id.repository,
-      callNumber: this.value.absolute_id.resource || '',
-      boxIndex: this.value.absolute_id.container || '',
-      endingBoxIndex: '',
+      callNumber: this.value.absolute_id.resource || "",
+      boxIndex: this.value.absolute_id.container || "",
+      endingBoxIndex: "",
 
       validResource: false,
       validatedResource: false,
@@ -202,62 +217,62 @@ export default {
       barcodeLength: 13,
       barcodeValid: false,
       parsedBarcode: this.barcode,
-      parsedEndingBarcode: '',
+      parsedEndingBarcode: "",
       barcodes: [],
 
       size: this.batchSize,
 
       valid: false
-    }
+    };
   },
 
   computed: {
-    sourceLegend: function () {
+    sourceLegend: function() {
       let output;
 
-      if (this.mode == 'aspace') {
-        output = 'ArchivesSpace';
-      } else if (this.mode == 'marc') {
-        output = 'MARC';
+      if (this.mode == "aspace") {
+        output = "ArchivesSpace";
+      } else if (this.mode == "marc") {
+        output = "MARC";
       }
 
       return output;
     },
 
-    resourceStatus: function () {
+    resourceStatus: function() {
       if (this.validResource) {
-        return 'Call number is valid';
+        return "Call number is valid";
       } else if (this.validatingResource) {
-        return 'Validating call number...';
+        return "Validating call number...";
       } else if (this.repository) {
-        return 'Please enter a call number';
+        return "Please enter a call number";
       } else {
-        return '';
+        return "";
       }
     },
 
-    containerStatus: function () {
+    containerStatus: function() {
       if (this.validContainer) {
-        return 'Box number is valid';
+        return "Box number is valid";
       } else if (this.validatingContainer) {
-        return 'Validating box number...';
+        return "Validating box number...";
       } else if (this.callNumber && this.validResource) {
-        return 'Please enter a box number';
+        return "Please enter a box number";
       } else {
-        return '';
+        return "";
       }
     },
 
-    endingContainerPlaceholder: function () {
+    endingContainerPlaceholder: function() {
       if (this.validContainer) {
         return this.boxIndex;
       } else {
-        return 'No call number specified';
+        return "No call number specified";
       }
     },
 
-    locationPlaceholder: function () {
-      let value = 'Enter a location';
+    locationPlaceholder: function() {
+      let value = "Enter a location";
 
       /*
       if (this.fetchingLocations) {
@@ -270,8 +285,8 @@ export default {
       return value;
     },
 
-    repositoryPlaceholder: function () {
-      let value = 'Enter a repository';
+    repositoryPlaceholder: function() {
+      let value = "Enter a repository";
 
       /*
       if (this.fetchingRepositories) {
@@ -285,12 +300,12 @@ export default {
     },
 
     // Resources
-    resources: async function () {
+    resources: async function() {
       return [];
     },
 
-    resourcePlaceholder: function () {
-      let value = 'Enter a call number';
+    resourcePlaceholder: function() {
+      let value = "Enter a call number";
 
       /*
       if (this.repository) {
@@ -301,8 +316,8 @@ export default {
       return value;
     },
 
-    containerProfilePlaceholder: function () {
-      let value = 'Enter a container profile';
+    containerProfilePlaceholder: function() {
+      let value = "Enter a container profile";
 
       /*
       if (this.fetchingRepositories) {
@@ -315,8 +330,8 @@ export default {
       return value;
     },
 
-    containerPlaceholder: function () {
-      let value = 'Enter a box number';
+    containerPlaceholder: function() {
+      let value = "Enter a box number";
 
       /*
       if (this.selectedResourceId) {
@@ -329,20 +344,20 @@ export default {
       return value;
     },
 
-    selectedResource: async function () {
+    selectedResource: async function() {
       if (!this.selectedResourceId) {
         return null;
       }
 
       const resolved = await this.resources;
-      const model = resolved.find( res => res.id === this.selectedResourceId );
+      const model = resolved.find(res => res.id === this.selectedResourceId);
       if (!model) {
         throw `Failed to find the model: ${this.selectedResourceId}`;
       }
       return model;
     },
 
-    containers: async function () {
+    containers: async function() {
       if (!this.repository) {
         return null;
       }
@@ -353,7 +368,7 @@ export default {
       return models;
     },
 
-    formData: async function () {
+    formData: async function() {
       const selectedLocation = await this.selectedLocation;
 
       const selectedContainerProfile = await this.selectedContainerProfile;
@@ -379,20 +394,24 @@ export default {
       };
     },
 
-    formValid: async function () {
+    formValid: async function() {
       const selectedLocation = await this.selectedLocation;
 
       const repository = await this.repository;
 
       //const selectedRepository = await this.getSelectedRepository();
 
-      const output = this.parsedBarcode && selectedLocation && this.inputRepository && this.callNumber && this.boxIndex;
+      const output =
+        this.parsedBarcode &&
+        selectedLocation &&
+        this.inputRepository &&
+        this.callNumber &&
+        this.boxIndex;
       return !!output;
     }
   },
 
-  updated: async function () {
-
+  updated: async function() {
     this.updateValue();
 
     const base = this.parsedBarcode.slice(0, -1);
@@ -402,9 +421,7 @@ export default {
   },
 
   methods: {
-
-    updateAbsoluteId: async function () {
-
+    updateAbsoluteId: async function() {
       if (this.value.absolute_id) {
         if (this.value.absolute_id.location) {
           this.location = this.value.absolute_id.location.id;
@@ -428,30 +445,34 @@ export default {
       }
     },
 
-    updateValue: async function () {
+    updateValue: async function() {
       if (this.value) {
         await this.updateAbsoluteId();
       }
     },
 
-    startingBarcode: function () {
+    startingBarcode: function() {
       return this.parsedBarcode;
     },
 
-    endingBarcode: function () {
+    endingBarcode: function() {
       return this.parsedEndingBarcode;
     },
 
-    generateChecksum: function (base) {
+    generateChecksum: function(base) {
       const padded = `${base}0`;
       const len = padded.length;
       const parity = len % 2;
       let sum = 0;
 
-      for (let i = len-1; i >= 0; i--) {
+      for (let i = len - 1; i >= 0; i--) {
         let d = parseInt(padded.charAt(i));
-        if (i % 2 == parity) { d *= 2 };
-        if (d > 9) { d -= 9 };
+        if (i % 2 == parity) {
+          d *= 2;
+        }
+        if (d > 9) {
+          d -= 9;
+        }
         sum += d;
       }
 
@@ -459,11 +480,10 @@ export default {
       return remainder == 0 ? 0 : 10 - remainder;
     },
 
-    updateBarcode: function (value) {
+    updateBarcode: function(value) {
       if (value.length < 13) {
         this.barcodeLength = 13;
         this.barcodeValid = false;
-
       } else if (value.length == 13) {
         const checksum = this.generateChecksum(value);
         this.barcodeLength = 14;
@@ -473,7 +493,7 @@ export default {
       }
     },
 
-    updateEndingBarcode: function (value) {
+    updateEndingBarcode: function(value) {
       if (value.length < 13 || this.size < 2) {
         return;
       }
@@ -488,7 +508,7 @@ export default {
       this.parsedEndingBarcode = `${formatted}${checksum}`;
     },
 
-    updateBarcodes: function () {
+    updateBarcodes: function() {
       for (const i of Array(this.size).keys()) {
         const base = this.parsedBarcode.slice(0, 13);
         const value = Number.parseInt(base) + i;
@@ -501,26 +521,26 @@ export default {
       }
     },
 
-    onBarcodeInput: function (value) {
+    onBarcodeInput: function(value) {
       this.updateBarcode(value);
       this.updateEndingBarcode(value);
       this.updateBarcodes();
     },
 
-    onEndingContainerInput: function (value) {
+    onEndingContainerInput: function(value) {
       const payload = {
-        'start': this.boxIndex,
-        'end': value
+        start: this.boxIndex,
+        end: value
       };
       const firstIndex = Number.parseInt(this.boxIndex);
       const lastIndex = Number.parseInt(value);
       this.size = lastIndex - firstIndex + 1;
       this.updateBarcodes();
 
-      this.$emit('input-size', payload);
+      this.$emit("input-size", payload);
     },
 
-    isFormValid: async function () {
+    isFormValid: async function() {
       const selectedLocation = await this.selectedLocation;
       //const selectedRepository = await this.getSelectedRepository();
       const selectedRepository = this.repository;
@@ -528,11 +548,16 @@ export default {
       const selectedContainer = await this.selectedContainer;
 
       //const output = this.barcode && selectedLocation && selectedRepository && this.callNumber && this.boxIndex;
-      const output = this.parsedBarcode && selectedLocation && selectedRepository && this.callNumber && this.boxIndex;
+      const output =
+        this.parsedBarcode &&
+        selectedLocation &&
+        selectedRepository &&
+        this.callNumber &&
+        this.boxIndex;
       return !!output;
     },
 
-    getFormData: async function () {
+    getFormData: async function() {
       const selectedLocation = await this.selectedLocation;
 
       const selectedContainerProfile = await this.selectedContainerProfile;
@@ -557,17 +582,16 @@ export default {
         },
         barcodes: barcodes,
         batch_size: batchSize,
-        valid,
+        valid
       };
     },
 
-    onInput: async function () {
+    onInput: async function() {
       const inputState = await this.getFormData();
-      this.$emit('input', inputState);
+      this.$emit("input", inputState);
     },
 
     onResourceFocusOut: async function (event, value) {
-
       this.validResource = false;
       this.validatedResource = false;
 
@@ -591,11 +615,10 @@ export default {
         this.validatingResource = false;
         this.validResource = true;
         this.validatedResource = true;
-
       }
     },
 
-    onContainerFocusOut: async function (event, value) {
+    onContainerFocusOut: async function(event, value) {
       this.validContainer = false;
       this.validatedContainer = false;
 
@@ -627,7 +650,7 @@ export default {
       }
     },
 
-    fetchContainers: async function (repositoryId) {
+    fetchContainers: async function(repositoryId) {
       if (!repositoryId) {
         return [];
       }
@@ -638,7 +661,7 @@ export default {
       return resources;
     },
 
-    resourceClasses: async function () {
+    resourceClasses: async function() {
       const classes = ["absolute-ids-form--input-field"];
 
       const validatedResource = await this.validatedResource;
@@ -646,15 +669,15 @@ export default {
       const callNumber = await this.callNumber;
 
       if (validatedResource) {
-        classes.push('absolute-ids-form--input-field__validated');
+        classes.push("absolute-ids-form--input-field__validated");
       } else if (callNumber.length > 0 && !validResource) {
-        classes.push('absolute-ids-form--input-field__invalid');
+        classes.push("absolute-ids-form--input-field__invalid");
       }
 
-      return classes.join(' ');
+      return classes.join(" ");
     },
 
-    containerClasses: async function () {
+    containerClasses: async function() {
       const classes = ["absolute-ids-form--input-field"];
 
       const validatedContainer = await this.validatedContainer;
@@ -662,33 +685,33 @@ export default {
       const boxIndex = await this.boxIndex;
 
       if (validatedContainer) {
-        classes.push('absolute-ids-form--input-field__validated');
+        classes.push("absolute-ids-form--input-field__validated");
       } else if (boxIndex.length > 0 && !validContainer) {
-        classes.push('absolute-ids-form--input-field__invalid');
+        classes.push("absolute-ids-form--input-field__invalid");
       }
 
-      return classes.join(' ');
+      return classes.join(" ");
     },
 
-    postData: async function (data = {}) {
+    postData: async function(data = {}) {
       const response = await fetch(this.action, {
         method: this.method,
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.token}`
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`
         },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer',
+        redirect: "follow",
+        referrerPolicy: "no-referrer",
         body: JSON.stringify(data)
       });
 
       return response;
     },
 
-    submit: async function (event) {
+    submit: async function(event) {
       const payload = await this.formData;
 
       event.target.disabled = true;
@@ -696,13 +719,12 @@ export default {
 
       event.target.disabled = false;
       if (response.status === 302) {
-        const redirectUrl = response.headers.get('Content-Type');
+        const redirectUrl = response.headers.get("Content-Type");
         window.location.assign(redirectUrl);
       } else {
         window.location.reload();
       }
-    },
+    }
   }
-}
-
+};
 </script>

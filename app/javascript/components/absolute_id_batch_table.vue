@@ -3,24 +3,32 @@
     <grid-container>
       <grid-item columns="lg-12 sm-12">
         <header>{{ header }}</header>
-        <form class="absolute-ids-sync-form" :action="synchronizeAction" :method="synchronizeMethod">
+        <form
+          class="absolute-ids-sync-form"
+          :action="synchronizeAction"
+          :method="synchronizeMethod"
+        >
           <button
             data-v-b7851b04
             :class="synchronizeButtonClasses"
             :disabled="synchronizing"
             @click.prevent="onSynchronizeSubmit"
-          >{{ synchronizeButtonTextContent }}</button>
+          >
+            {{ synchronizeButtonTextContent }}
+          </button>
         </form>
         <a
           data-v-b7851b04
           class="lux-button solid lux-button absolute-ids-session--report"
           :href="sessionReportPath"
-        >Download Report</a>
+          >Download Report</a
+        >
         <a
           data-v-b7851b04
           class="lux-button solid lux-button absolute-ids-session--xml"
           :href="sessionXmlPath"
-        >Export XML Data</a>
+          >Export XML Data</a
+        >
       </grid-item>
     </grid-container>
 
@@ -37,7 +45,7 @@
 </template>
 
 <script>
-import AbsoluteIdTable from './absolute_id_table'
+import AbsoluteIdTable from "./absolute_id_table";
 
 export default {
   name: "AbsoluteIdBatchTable",
@@ -48,7 +56,7 @@ export default {
   props: {
     header: {
       required: true,
-      type: String,
+      type: String
     },
 
     synchronized: {
@@ -83,22 +91,22 @@ export default {
 
     synchronizeAction: {
       type: String,
-      default: '/absolute-ids/synchronize'
+      default: "/absolute-ids/synchronize"
     },
 
     synchronizeMethod: {
       type: String,
-      default: 'POST'
+      default: "POST"
     },
 
     sessionReportPath: {
       type: String,
-      default: ''
+      default: ""
     },
 
     sessionXmlPath: {
       type: String,
-      default: ''
+      default: ""
     }
   },
   data() {
@@ -106,51 +114,53 @@ export default {
       rows: this.jsonData,
       parsedColumns: [],
       submitted: false
-    }
+    };
   },
   computed: {
     synchronizeButtonTextContent: function() {
-      let output = 'Synchronize';
+      let output = "Synchronize";
 
       if (this.synchronizing || this.submitted) {
-        output = 'Synchronizing';
+        output = "Synchronizing";
       } else if (this.synchronized) {
-        output = 'Resynchronize';
+        output = "Resynchronize";
       }
 
       return output;
     },
 
-    synchronizeButtonClasses: function () {
+    synchronizeButtonClasses: function() {
       const values = {
-        'lux-button': true,
-        'solid': true,
-        'absolute-ids-sync-form__submit': true,
-        'absolute-ids-sync-form__submit--finished': this.synchronized && !(this.synchronizing || this.submitted),
-        'absolute-ids-sync-form__submit--in-progress': this.synchronizing || this.submitted
+        "lux-button": true,
+        solid: true,
+        "absolute-ids-sync-form__submit": true,
+        "absolute-ids-sync-form__submit--finished":
+          this.synchronized && !(this.synchronizing || this.submitted),
+        "absolute-ids-sync-form__submit--in-progress":
+          this.synchronizing || this.submitted
       };
 
       return values;
     }
   },
   methods: {
-    postData: async function () {
+    postData: async function() {
       const response = await fetch(this.synchronizeAction, {
         method: this.synchronizeMethod,
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.token}`
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`
         },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer'
+        redirect: "follow",
+        referrerPolicy: "no-referrer"
       });
 
       return response;
     },
-    onSynchronizeSubmit: async function (event) {
+    onSynchronizeSubmit: async function(event) {
       event.target.disabled = true;
 
       this.submitted = true;
@@ -158,14 +168,14 @@ export default {
 
       event.target.disabled = false;
       if (response.status === 302) {
-        const redirectUrl = response.headers.get('Content-Type');
+        const redirectUrl = response.headers.get("Content-Type");
         window.location.assign(redirectUrl);
       } else {
         window.location.reload();
       }
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -309,13 +319,15 @@ export default {
 
     /* On mouse-over, add a grey background color */
     input:not([disabled]):hover::before {
-      box-shadow: 0 1px 5px 0 rgba($color-rich-black, 0.07), 0 0 0 1px tint($color-rich-black, 60%);
+      box-shadow: 0 1px 5px 0 rgba($color-rich-black, 0.07),
+        0 0 0 1px tint($color-rich-black, 60%);
     }
 
     input:checked::before {
       transition: box-shadow 0.2s ease;
       background-color: $color-bleu-de-france;
-      box-shadow: inset 0 0 0 1px $color-bleu-de-france, 0 0 0 1px $color-bleu-de-france;
+      box-shadow: inset 0 0 0 1px $color-bleu-de-france,
+        0 0 0 1px $color-bleu-de-france;
       outline: 0;
     }
 
@@ -345,7 +357,8 @@ export default {
     /*Adding focus styles on the outer-box of the fake checkbox*/
     input[type="checkbox"]:focus::before {
       transition: box-shadow $duration-quickly ease;
-      box-shadow: inset 0 0 0 1px $color-bleu-de-france, 0 0 0 1px $color-bleu-de-france;
+      box-shadow: inset 0 0 0 1px $color-bleu-de-france,
+        0 0 0 1px $color-bleu-de-france;
     }
   }
 
