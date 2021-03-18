@@ -360,7 +360,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../../node_modules/lux-design-system/dist/system/system.utils.scss";
+@import "../../../../node_modules/lux-design-system/dist/system/system.utils.scss";
 
 .lux-data-table {
   border-collapse: collapse;
