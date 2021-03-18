@@ -170,22 +170,226 @@ RSpec.describe "AbsoluteIds", type: :request do
         expect(children[6].name).to eq("size")
         expect(children[6]['type']).to eq "string"
         expect(children[6].content).to eq("P")
+      end
+    end
+  end
 
-        expect(children[7].name).to eq("repository")
-        expect(children[7]['type']).to be nil
-        expect(children[7].content).not_to be_empty
+  describe "GET /absolute-ids/" do
+    let(:absolute_id1) do
+      AbsoluteId.generate
+    end
 
-        expect(children[8].name).to eq("resource")
-        expect(children[8]['type']).to be nil
-        expect(children[8].content).not_to be_empty
+    let(:absolute_id2) do
+      AbsoluteId.generate
+    end
 
-        expect(children[9].name).to eq("synchronize_status")
-        expect(children[9]['type']).to eq "string"
-        expect(children[9].content).to eq("never synchronized")
+    let(:absolute_ids) do
+      [
+        absolute_id1,
+        absolute_id2
+      ]
+    end
 
-        expect(children[10].name).to eq("updated_at")
-        expect(children[10]['type']).to eq("time")
-        expect(children[10].content).not_to be_empty
+    before do
+      absolute_ids
+    end
+
+    it "renders all the absolute identifiers" do
+      get "/absolute-ids/"
+      # Pending
+    end
+
+    context "when requesting a JSON representation" do
+      let(:user) { create(:user) }
+      let(:params) do
+        {
+          user: { id: user.id }
+        }
+      end
+      let(:headers) do
+        {
+          "Accept" => "application/json",
+          "Authorization" => "Bearer #{user.token}"
+        }
+      end
+      let(:absolute_id1) { create(:absolute_id, value: '32101103191142') }
+      let(:absolute_id2) { create(:absolute_id, value: '32101103191159') }
+      let(:absolute_id_batch) { create(:absolute_id_batch, absolute_ids: [absolute_id1, absolute_id2], user: user) }
+      let(:absolute_id_session) { create(:absolute_id_session, batches: [absolute_id_batch], user: user) }
+
+      before do
+        absolute_id_session
+      end
+
+      it "renders all the absolute identifiers" do
+        get "/absolute-ids/", headers: headers, params: params
+
+        expect(response.content_type).to eq("application/json")
+        expect(response.body).not_to be_empty
+        json_response = JSON.parse(response.body)
+
+        expect(json_response).to be_an(Array)
+        expect(json_response.length).to eq(1)
+
+        expect(json_response.first).to include("batches")
+        batches_json = json_response.first["batches"]
+
+        expect(batches_json.length).to eq(1)
+        batch_json = batches_json.first
+
+        batch = AbsoluteId::Batch.first
+        expect(batch_json).to include("id" => batch.id)
+        expect(batch_json).to include("label" => batch.label)
+        expect(batch_json).to include("table_data")
+
+        table_json = batch_json["table_data"]
+        expect(table_json.length).to eq(2)
+
+        expect(table_json.first).to include("barcode" => "32101103191142")
+        expect(table_json.last).to include("barcode" => "32101103191159")
+      end
+    end
+  end
+
+  describe "POST /absolute-ids/" do
+    xit "renders all the absolute identifiers" do
+      post "/absolute-ids/"
+      # Pending
+    end
+
+    context "when requesting a JSON representation" do
+      let(:headers) do
+        {
+          "Accept" => "application/json"
+        }
+      end
+
+      context "when the client passes an invalid JSON Web Token" do
+        let(:user) do
+          User.create(email: 'user@localhost')
+        end
+
+        let(:headers) do
+          {
+            "Accept" => "application/json",
+            "Authorization" => "Bearer invalid"
+          }
+        end
+
+        let(:params) do
+          {
+            user: { id: user.id }
+          }
+        end
+
+        before do
+          user
+        end
+
+        it "denies the request" do
+          post "/absolute-ids/", headers: headers, params: params
+
+          expect(response.forbidden?).to be true
+        end
+      end
+
+      context "when the client does not pass a user ID" do
+        let(:user) do
+          User.create(email: 'user@localhost')
+        end
+
+        let(:headers) do
+          {
+            "Accept" => "application/json",
+            "Authorization" => "Bearer #{user.token}"
+          }
+        end
+
+        before do
+          user
+        end
+
+        it "denies the request" do
+          post "/absolute-ids/", headers: headers
+
+          expect(response.forbidden?).to be true
+        end
+      end
+
+      context "when the client is authenticated" do
+        let(:user) do
+          create(:user)
+        end
+
+        let(:headers) do
+          {
+            "Accept" => "application/json",
+            "Authorization" => "Bearer #{user.token}"
+          }
+        end
+
+        context "and requests a prefix and starting code" do
+          let(:params) do
+            {
+              user: {
+                id: user.id
+              },
+              batch: [
+                absolute_id: {
+                  barcode: "32101103191142",
+                  container: "1",
+                  container_profile: {
+                    create_time: "2021-01-21T20:10:59Z",
+                    id: "2",
+                    lock_version: 873,
+                    system_mtime: "2021-01-25T05:10:46Z",
+                    uri: "/container_profiles/2",
+                    user_mtime: "2021-01-21T20:10:59Z",
+                    name: "Elephant size box",
+                    prefix: "P"
+                  },
+                  location: {
+                    create_time: "2021-01-22T22:29:46Z",
+                    id: "23640",
+                    lock_version: 0,
+                    system_mtime: "2021-01-22T22:29:47Z",
+                    uri: "/locations/23640",
+                    user_mtime: "2021-01-22T22:29:46Z",
+                    area: "Annex B",
+                    barcode: nil,
+                    building: "Annex",
+                    classification: "anxb",
+                    external_ids: [],
+                    floor: nil,
+                    functions: [],
+                    room: nil,
+                    temporary: nil
+                  },
+                  repository: {
+                    create_time: "2016-06-27T14:10:42Z",
+                    id: "4",
+                    lock_version: 1,
+                    system_mtime: "2021-01-22T22:20:30Z",
+                    uri: "/repositories/4",
+                    user_mtime: "2021-01-22T22:20:30Z",
+                    name: "University Archives",
+                    repo_code: "univarchives"
+                  },
+                  resource: "ABID001",
+                  source: 'aspace'
+                },
+                barcodes: [
+                  "32101103191142"
+                ],
+                batch_size: 1,
+                valid: true
+              ]
+            }
+          end
+          let(:repository_id) { '4' }
+          let(:ead_id) { 'ABID001' }
+          let(:resource_id) { '4188' }
+        end
       end
     end
   end

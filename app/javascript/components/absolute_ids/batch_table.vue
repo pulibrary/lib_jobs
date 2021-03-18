@@ -147,6 +147,14 @@ export default {
     synchronize: {
       type: Object,
       required: true
+    },
+    synchronizeAction: {
+      type: String,
+      default: "/absolute-ids/synchronize"
+    },
+    synchronizeMethod: {
+      type: String,
+      default: "POST"
     }
   },
   created: function() {
