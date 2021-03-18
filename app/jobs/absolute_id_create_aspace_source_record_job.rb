@@ -7,6 +7,36 @@ class AbsoluteIdCreateAspaceSourceRecordJob < AbsoluteIdCreateRecordJob
     create_absolute_id(properties, @index)
   end
 
+  def self.polymorphic_perform_now(**args)
+    properties = args[:properties]
+    source = properties.delete(:source)
+    args[:properties] = properties
+
+    case source
+    when 'aspace'
+      ::AbsoluteIdCreateAspaceSourceRecordJob.perform_now(**args)
+    when 'marc'
+      ::AbsoluteIdCreateMarcSourceRecordJob.perform_now(**args)
+    else
+      perform_now(**args)
+    end
+  end
+
+  def self.polymorphic_perform_later(**args)
+    properties = args[:properties]
+    source = properties.delete(:source)
+    args[:properties] = properties
+
+    case source
+    when 'aspace'
+      ::AbsoluteIdCreateAspaceSourceRecordJob.perform_later(**args)
+    when 'marc'
+      ::AbsoluteIdCreateMarcSourceRecordJob.perform_later(**args)
+    else
+      perform_later(**args)
+    end
+  end
+
   private
 
   def container_attributes(attr)

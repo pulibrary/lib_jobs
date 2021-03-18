@@ -224,7 +224,6 @@ class AbsoluteId < ApplicationRecord
   end
 
   # @todo Determine why this is required
-  # Not certain why this is required
   def as_json(**_args)
     attributes
   end
@@ -237,8 +236,6 @@ class AbsoluteId < ApplicationRecord
   private
 
   def json_attribute(value)
-    return {} if value.nil?
-
     output = JSON.parse(value, symbolize_names: true)
     return {} unless output.is_a?(Hash)
 

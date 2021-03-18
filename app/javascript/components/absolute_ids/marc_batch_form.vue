@@ -5,10 +5,7 @@
     class="absolute-ids-form"
     v-bind:value="value"
     v-on:input="onInput"
-<<<<<<< HEAD
-=======
     v-on:submit.prevent="submit"
->>>>>>> Fixing the errors found in messages rendered for AbID forms for unauthenticated users
   >
     <grid-container>
       <grid-item columns="sm-12 lg-3">
@@ -34,8 +31,6 @@
             </div>
           </div>
 
-<<<<<<< HEAD
-=======
           <button
             data-v-b7851b04
             class="lux-button solid"
@@ -44,7 +39,6 @@
             Reset
           </button>
 
->>>>>>> Fixing the errors found in messages rendered for AbID forms for unauthenticated users
           <input-text
             v-if="size > 1"
             id="terminal_code"
@@ -57,7 +51,6 @@
             :disabled="true"
             :value="endingBarcode()"
           />
-<<<<<<< HEAD
 
           <div class="lux-input">
             <button
@@ -68,14 +61,11 @@
               Reset
             </button>
           </div>
-=======
->>>>>>> Fixing the errors found in messages rendered for AbID forms for unauthenticated users
         </fieldset>
       </grid-item>
 
       <grid-item columns="sm-12 lg-9">
         <fieldset class="absolute-ids-form--fields">
-<<<<<<< HEAD
           <div>
             MARC Records (<a href="https://catalog.princeton.edu"
               >Online Catalog</a
@@ -85,77 +75,41 @@
           <grid-container>
             <grid-item columns="sm-12 lg-12">
               <input-text
-=======
-          <div>MARC Records (<a href="https://catalog.princeton.edu">Online Catalog</a>)</div>
-
-          <grid-container>
-            <grid-item columns="sm-12 lg-12">
-              <absolute-id-data-list
->>>>>>> Fixing the errors found in messages rendered for AbID forms for unauthenticated users
                 id="location_id"
                 class="absolute-ids-form--input-field"
                 name="location_id"
                 label="Location"
                 :hide-label="true"
                 helper="Location"
-<<<<<<< HEAD
                 placeholder="Enter a location"
                 v-model="selectedLocationId"
               />
 
               <input-text
-=======
-                :placeholder="locationPlaceholder"
-                :disabled="fetchingLocations"
-                :list="locationOptions"
-                v-model="selectedLocationId"
-              />
-
-              <absolute-id-data-list
->>>>>>> Fixing the errors found in messages rendered for AbID forms for unauthenticated users
                 id="container_profile_id"
                 class="absolute-ids-form--input-field"
                 name="container_profile_id"
                 label="Container Profile"
                 :hide-label="true"
-<<<<<<< HEAD
                 helper="Size"
                 placeholder="Enter a shelving size code"
                 v-model="selectedContainerProfileId"
               />
 
               <input-text
-=======
-                helper="Container Profile"
-                :placeholder="containerProfilePlaceholder"
-                :disabled="fetchingContainerProfiles"
-                :list="containerProfileOptions"
-                v-model="selectedContainerProfileId"
-              >
-              </absolute-id-data-list>
-
-              <absolute-id-data-list
->>>>>>> Fixing the errors found in messages rendered for AbID forms for unauthenticated users
                 id="repository_id"
                 class="absolute-ids-form--input-field"
                 name="repository_id"
                 label="Repository"
                 :hide-label="true"
                 helper="Repository"
-<<<<<<< HEAD
-                placeholder="Enter a repository"
-                v-model="selectedRepositoryId"
-              />
-=======
+
                 :placeholder="repositoryPlaceholder"
                 :disabled="fetchingRepositories"
-                :list="repositoryOptions"
                 v-model="selectedRepositoryId"
                 display-property="repoCode"
                 v-on:input="changeRepositoryId($event)"
-              >
-              </absolute-id-data-list>
->>>>>>> Fixing the errors found in messages rendered for AbID forms for unauthenticated users
+              />
             </grid-item>
 
             <grid-item columns="sm-12 lg-12">
@@ -219,12 +173,7 @@
                 "
                 v-on:inputblur="onContainerFocusOut($event, containerIndicator)"
                 v-model="containerIndicator"
-<<<<<<< HEAD
               />
-=======
-              >
-              </input-text>
->>>>>>> Fixing the errors found in messages rendered for AbID forms for unauthenticated users
 
               <input-text
                 v-if="batchMode"
@@ -238,12 +187,7 @@
                 :disabled="!validContainer"
                 v-on:input="onEndingContainerInput($event)"
                 v-model="endingContainerIndicator"
-<<<<<<< HEAD
               />
-=======
-              >
-              </input-text>
->>>>>>> Fixing the errors found in messages rendered for AbID forms for unauthenticated users
 
               <div class="lux-input">
                 <div class="lux-input-status">
@@ -259,11 +203,8 @@
 </template>
 
 <script>
-<<<<<<< HEAD
 import BatchFormMixin from "./batch_form_mixin";
 
-=======
->>>>>>> Fixing the errors found in messages rendered for AbID forms for unauthenticated users
 import AbsoluteIdASpaceStatus from "./service_status";
 import AbsoluteIdInputText from "./input_text";
 import AbsoluteIdDataList from "./data_list";
@@ -271,18 +212,10 @@ import AbsoluteIdDataList from "./data_list";
 export default {
   name: "MarcBatchForm",
   type: "Element",
-<<<<<<< HEAD
   mixins: [BatchFormMixin],
   components: {
     "absolute-id-input-text": AbsoluteIdInputText
   },
-
-=======
-  components: {
-    "absolute-id-input-text": AbsoluteIdInputText,
-    "absolute-id-data-list": AbsoluteIdDataList
-  },
->>>>>>> Fixing the errors found in messages rendered for AbID forms for unauthenticated users
   props: {
     action: {
       type: String,
@@ -311,11 +244,7 @@ export default {
           barcodes: [],
           batch_size: 1,
           valid: false
-<<<<<<< HEAD
-        };
-=======
         }
->>>>>>> Fixing the errors found in messages rendered for AbID forms for unauthenticated users
       }
     },
     source: {
@@ -340,7 +269,6 @@ export default {
     }
   },
 
-<<<<<<< HEAD
   computed: {
     /**
      * Form validation
@@ -358,8 +286,11 @@ export default {
         this.resourceTitle &&
         this.containerIndicator;
 
-      console.log(output);
-=======
+      return !!output;
+    }
+  },
+
+  /*
   data: function() {
     const defaultLocation = this.value.absolute_id.location;
     let locationId = null;
@@ -440,282 +371,28 @@ export default {
   },
 
   computed: {
-    barcodeInputClasses: function() {
-      const barcodeValidated = this.barcodeValidated;
-      const barcode = this.parsedBarcode;
-      const barcodeValid = this.barcodeValid;
-
-      const output = {
-        "absolute-ids-form--input-field__validated": barcodeValidated,
-        "absolute-ids-form--input-field__invalid":
-          barcode.length > 0 && !barcodeValid,
-        "absolute-ids-form--input-field": true
-      };
-
-      return output;
-    },
-
     /**
-     * Source radio button
-     */
-    sourceLegend: function() {
-      let output;
-
-      if (this.source == "aspace") {
-        output = "ArchivesSpace";
-      } else if (this.source == "marc") {
-        output = "MARC";
-      }
-
-      return output;
-    },
-
-    /**
-     * Barcodes
-     */
-    barcodeStatus: function() {
-      if (this.barcodeValid) {
-        return "Barcode is valid";
-      } else if (this.barcodeValidating) {
-        return "Validating barcode...";
-      } else if (this.parsedBarcode.length < 13) {
-        return "Please enter a unique 13-digit barcode";
-      } else {
-        return "This barcode has already been used. Please enter a unique barcode.";
-      }
-    },
-
-    resourceStatus: function() {
-      if (this.validResource) {
-        return "Call number is valid";
-      } else if (this.validatingResource) {
-        return "Validating call number...";
-      } else if (this.selectedRepositoryId) {
-        return "Please enter a call number";
-      } else {
-        return "";
-      }
-    },
-
-    containerStatus: function() {
-      if (this.validContainer) {
-        return "Box number is valid";
-      } else if (this.validatingContainer) {
-        return "Validating box number...";
-      } else if (this.resourceTitle && this.validResource) {
-        return "Please enter a box number";
-      } else {
-        return "";
-      }
-    },
-
-    endingContainerPlaceholder: function() {
-      if (this.validContainer) {
-        return this.containerIndicator;
-      } else {
-        return "No call number specified";
-      }
-    },
-
-    // Locations
-    locations: async function() {
-      const response = await this.getLocations();
-      const locations = response.json();
-
-      return locations;
-    },
-
-    locationPlaceholder: function() {
-      let value = "No locations available";
-
-      if (this.fetchingLocations) {
-        value = "Loading...";
-      } else if (this.locationOptions.length > 0) {
-        value = "Select a location";
-      }
-
-      return value;
-    },
-
-    // Repositories
-    repositories: async function() {
-      const response = await this.getRepositories();
-      const repositories = response.json();
-
-      return repositories;
-    },
-
-    repositoryPlaceholder: function() {
-      let value = "No repositories available";
-
-      if (this.fetchingRepositories) {
-        value = "Loading...";
-      } else if (this.repositoryOptions.length > 0) {
-        value = "Select a repository";
-      }
-
-      return value;
-    },
-
-    // Resources
-    resources: async function() {
-      if (!this.selectedRepositoryId) {
-        return [];
-      }
-
-      const response = await this.getResources(this.repositoryId);
-      const models = response.json();
-
-      return models;
-    },
-
-    resourcePlaceholder: function() {
-      let value = "No repository selected";
-
-      if (this.selectedRepositoryId) {
-        value = "Enter a call number";
-      }
-
-      return value;
-    },
-
-    containerProfilePlaceholder: function() {
-      let value = "No container profiles available";
-
-      if (this.fetchingRepositories) {
-        value = "Loading...";
-      } else if (this.repositoryOptions.length > 0) {
-        value = "Select a container profile";
-      }
-
-      return value;
-    },
-
-    containerPlaceholder: function() {
-      let value = "No repository selected";
-
-      if (this.selectedResourceId) {
-        value = "Enter a box number";
-      } else if (this.selectedRepositoryId) {
-        value = "No call number specified";
-      }
-
-      return value;
-    },
-
-    selectedResource: async function() {
-      if (!this.selectedResourceId) {
-        return null;
-      }
-
-      const resolved = await this.resources;
-      const model = resolved.find(res => res.id === this.selectedResourceId);
-      if (!model) {
-        throw `Failed to find the model: ${this.selectedResourceId}`;
-      }
-      return model;
-    },
-
-    containerProfiles: async function() {
-      const response = await this.getContainerProfiles();
-      const models = response.json();
-
-      return models;
-    },
-
-    containers: async function() {
-      if (!this.selectedRepositoryId) {
-        return null;
-      }
-
-      const response = await this.getContainers(this.selectedRepositoryId);
-      const models = response.json();
-
-      return models;
-    },
-
-    selectedContainerProfile: async function() {
-      if (!this.selectedContainerProfileId) {
-        return null;
-      }
-
-      const resolved = await this.containerProfiles;
-      const model = resolved.find(
-        res => res.id === this.selectedContainerProfileId
-      );
-      if (!model) {
-        throw `Failed to find the model: ${this.selectedContainerProfileId}`;
-      }
-      return model;
-    },
-
-    selectedContainer: async function() {
-      if (!this.selectedContainerId) {
-        return null;
-      }
-
-      const resolved = await this.containers;
-      const model = resolved.find(res => res.id === this.selectedContainerId);
-      return model;
-    },
-
-    selectedLocation: async function() {
-      if (!this.selectedLocationId) {
-        return null;
-      }
-
-      const resolved = await this.locations;
-      const model = resolved.find(res => res.id === this.selectedLocationId);
-      return model;
-    },
-
-    formData: async function() {
-      const selectedLocation = await this.selectedLocation;
-
-      const selectedContainerProfile = await this.selectedContainerProfile;
-
-      const selectedRepository = await this.getSelectedRepository();
-
-      const selectedResource = await this.selectedResource;
-      const selectedContainer = await this.selectedContainer;
-
-      const valid = await this.formValid;
-
-      return {
-        absolute_id: {
-          source: this.source,
-          barcode: this.parsedBarcode,
-          location: selectedLocation,
-          container_profile: selectedContainerProfile,
-          repository: selectedRepository,
-          resource: this.resourceTitle,
-          container: this.containerIndicator
-        },
-        valid
-      };
-    },
-
+     * Form validation
+     * /
     formValid: async function() {
-      const selectedLocation = await this.selectedLocation;
-
+      const selectedLocationId = await this.selectedLocationId;
+      const selectedContainerProfileId = await this.selectedContainerProfileId;
       const selectedRepositoryId = await this.selectedRepositoryId;
-
-      const selectedRepository = await this.getSelectedRepository();
 
       const output =
         this.parsedBarcode &&
-        selectedLocation &&
-        selectedRepository &&
+        selectedLocationId &&
+        selectedContainerProfileId &&
+        selectedRepositoryId &&
         this.resourceTitle &&
         this.containerIndicator;
->>>>>>> Fixing the errors found in messages rendered for AbID forms for unauthenticated users
+
       return !!output;
     }
   },
 
-<<<<<<< HEAD
   methods: {
-=======
+  */
   updated: async function() {
     this.updateValue();
 
@@ -961,23 +638,14 @@ export default {
       this.$emit("input-size", payload);
     },
 
->>>>>>> Fixing the errors found in messages rendered for AbID forms for unauthenticated users
+  methods: {
     /**
      * Form validation
      */
     isFormValid: async function() {
-<<<<<<< HEAD
       const selectedLocation = await this.selectedLocationId;
       const selectedRepository = await this.selectedRepositoryId;
 
-=======
-      const selectedLocation = await this.selectedLocation;
-      const selectedRepository = await this.getSelectedRepository();
-      const selectedResource = await this.selectedResource;
-      const selectedContainer = await this.selectedContainer;
-
-      //const output = this.barcode && selectedLocation && selectedRepository && this.resourceTitle && this.containerIndicator;
->>>>>>> Fixing the errors found in messages rendered for AbID forms for unauthenticated users
       const output =
         this.parsedBarcode &&
         selectedLocation &&
@@ -987,30 +655,18 @@ export default {
       return !!output;
     },
 
-<<<<<<< HEAD
-    /**
-     * Parse the form field data
-     */
-=======
->>>>>>> Fixing the errors found in messages rendered for AbID forms for unauthenticated users
     getFormData: async function() {
       const selectedLocation = await this.selectedLocation;
 
       const selectedContainerProfile = await this.selectedContainerProfile;
-<<<<<<< HEAD
       const selectedRepository = await this.selectedRepositoryId;
-=======
-      const selectedRepository = await this.getSelectedRepository();
->>>>>>> Fixing the errors found in messages rendered for AbID forms for unauthenticated users
 
       const resourceTitle = await this.resourceTitle;
       const containerIndicator = await this.containerIndicator;
 
-<<<<<<< HEAD
-=======
       const barcodes = this.barcodes;
       const batchSize = this.size;
->>>>>>> Fixing the errors found in messages rendered for AbID forms for unauthenticated users
+
       const valid = await this.isFormValid();
 
       return {
@@ -1022,13 +678,6 @@ export default {
           resource: resourceTitle,
           container: containerIndicator
         },
-<<<<<<< HEAD
-        barcodes: this.barcodes,
-        batch_size: this.batchSize,
-        source: this.source,
-        valid
-      };
-=======
         barcodes: barcodes,
         batch_size: batchSize,
         valid
@@ -1400,7 +1049,6 @@ export default {
       } else {
         window.location.reload();
       }
->>>>>>> Fixing the errors found in messages rendered for AbID forms for unauthenticated users
     }
   }
 };
