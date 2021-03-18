@@ -84,7 +84,7 @@ Metrics/PerceivedComplexity:
     - 'app/values/absolute_ids/absolute_id_xml_serializer.rb'
 
 RSpec/ExampleLength:
-  Max: 25
+  Max: 100
   Exclude:
     - 'spec/requests/absolute_id_request_spec.rb'
     - 'spec/requests/absolute_ids/repositories/resource_request_spec.rb'

@@ -12,6 +12,15 @@ module AspaceStubbing
         headers: { "Content-Type": "application/json" }
       )
   end
+
+  def stub_locations
+    stub_request(:get, "https://aspace.test.org/staff/api/locations?page=1&page_size=100000")
+      .to_return(
+        status: 200,
+        body: File.open(Rails.root.join("spec", "fixtures", "archives_space", "locations.json")),
+        headers: { "Content-Type": "application/json" }
+      )
+  end
 end
 
 RSpec.configure do |config|
