@@ -1,23 +1,13 @@
 # frozen_string_literal: true
-class AbsoluteIdCreateJob < ApplicationJob
+class AbsoluteIdCreateMarcSourceRecordJob < AbsoluteIdCreateRecordJob
   def perform(properties:, user_id:)
     @user_id = user_id
     @index = properties[:index]
 
-    properties[:source] = 'aspace'
     create_absolute_id(properties, @index)
   end
 
   private
-
-  def container_attributes(attr)
-    container_resource = JSON.parse(attr.to_json)
-    container_resource.delete(:create_time)
-    container_resource.delete(:system_mtime)
-    container_resource.delete(:user_mtime)
-
-    container_resource.to_json
-  end
 
   def location_attributes(attr)
     attr.to_json
@@ -32,15 +22,6 @@ class AbsoluteIdCreateJob < ApplicationJob
     repository_resource.to_json
   end
 
-  def resource_attributes(attr)
-    ead_resource = JSON.parse(attr.to_json)
-    ead_resource.delete(:create_time)
-    ead_resource.delete(:system_mtime)
-    ead_resource.delete(:user_mtime)
-
-    ead_resource.to_json
-  end
-
   def container_profile_attributes(attr)
     container_profile_resource = attr
     container_profile_resource.delete(:create_time)
@@ -50,29 +31,8 @@ class AbsoluteIdCreateJob < ApplicationJob
     container_profile_resource.to_json
   end
 
-  def resolve_resource(repository, ead_id)
-    resource_refs = current_client.find_resources_by_ead_id(repository_id: repository.id, ead_id: ead_id)
-    resource = repository.build_resource_from(refs: resource_refs)
-
-    raise(ArgumentError, "Failed to resolve the repository resources for #{ead_id} in repository #{repository.id}") if resource.nil?
-    resource
-  end
-
-  def resolve_container(resource, index)
-    top_containers = resource.search_top_containers_by(index: index)
-    top_container = top_containers.first
-
-    raise(ArgumentError, "Failed to resolve the containers for #{indicator} in resource #{resource.id}") if top_container.nil?
-    top_container
-  end
-
-  def transform_aspace_properties(properties, index)
+  def transform_aspace_properties(properties, _index)
     transformed = properties.deep_dup
-
-    # Resolve the Repository
-    repository_param = properties[:repository]
-    repository_uri = repository_param[:uri]
-    repository = current_client.find_repository(uri: repository_uri)
 
     # Build the repository attributes
     repository_property = properties[:repository]
@@ -80,13 +40,10 @@ class AbsoluteIdCreateJob < ApplicationJob
 
     # Resolve the Resource
     resource_property = properties[:resource]
-    resource = resolve_resource(repository, resource_property)
+    resource = resource_property
 
     # Resolve the TopContainer
-    container_param = properties[:container]
-
-    indicator = container_param.to_i + index
-    top_container = resolve_container(resource, indicator.to_s)
+    top_container = properties[:container]
 
     # Build the repository attributes
     location = location_attributes(properties[:location])
@@ -98,10 +55,10 @@ class AbsoluteIdCreateJob < ApplicationJob
     transformed[:container_profile] = container_profile
 
     # Build the resource attributes
-    transformed[:resource] = resource_attributes(resource)
+    transformed[:resource] = resource
 
     # Build the container attributes
-    transformed[:container] = container_attributes(top_container)
+    transformed[:container] = top_container
 
     transformed
   rescue Errno::ECONNREFUSED => connection_error
@@ -110,13 +67,10 @@ class AbsoluteIdCreateJob < ApplicationJob
   end
 
   def create_absolute_id(properties, index)
-    build_attributes = properties.deep_dup
+    build_attributes = transform_aspace_properties(properties.deep_dup, index)
 
-    source = properties[:source]
-    build_attributes = transform_aspace_properties(properties, index) if source == 'aspace'
-
-    # Increment the index
     location = build_attributes[:location]
+
     container_profile = build_attributes[:container_profile]
 
     persisted = AbsoluteId.where(location: location, container_profile: container_profile)
@@ -134,6 +88,10 @@ class AbsoluteIdCreateJob < ApplicationJob
     generated = AbsoluteId.generate(**build_attributes)
     generated.save!
     generated.id
+  end
+
+  def current_user
+    @current_user ||= User.find_by(id: @user_id)
   end
 
   def current_client
