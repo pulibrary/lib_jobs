@@ -36,9 +36,7 @@ module LibJobs
         return [] if locations_values.nil?
 
         locations_values.map do |location_attributes|
-          # location_uri = "#{base_uri}#{location_attributes[:ref]}"
-          location_uri = (location_attributes[:ref]).to_s
-          client.find_location_by(uri: location_uri)
+          LibJobs::ArchivesSpace::Location.new(location_attributes[:_resolved])
         end
       end
 

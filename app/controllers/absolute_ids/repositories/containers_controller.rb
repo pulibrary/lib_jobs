@@ -3,7 +3,7 @@
 class AbsoluteIds::Repositories::ContainersController < ApplicationController
   skip_forgery_protection if: :token_header?
 
-  # GET /absolute-ids/repositories/repository_id/resources.json
+  # GET /absolute-ids/repositories/repository_id/containers.json
   def index
     @resources ||= current_repository.top_containers
 
@@ -55,14 +55,6 @@ class AbsoluteIds::Repositories::ContainersController < ApplicationController
 
   private
 
-  def current_user_params
-    params[:user]
-  end
-
-  def current_user_id
-    current_user_params[:id]
-  end
-
   def token_header
     value = request.headers['Authorization']
     return if value.nil?
@@ -74,33 +66,11 @@ class AbsoluteIds::Repositories::ContainersController < ApplicationController
     token_header.present?
   end
 
-  def current_user_token
-    token_header || current_user_params[:token]
-  end
-
-  def find_user
-    User.find_by(id: current_user_id, token: current_user_token)
-  end
-
-  def current_user
-    return super if !super.nil? || current_user_params.nil?
-
-    @current_user ||= find_user
-  end
-
   def repository_id
     params[:repository_id]
   end
 
-  def resource_id
-    params[:resource_id]
-  end
-
   def current_repository
-    @current_client ||= current_client.find_repository(id: repository_id)
-  end
-
-  def container_param
-    params[:container_param]
+    @current_repository ||= current_client.find_repository(id: repository_id)
   end
 end
