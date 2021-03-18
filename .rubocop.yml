@@ -80,6 +80,9 @@ Metrics/MethodLength:
     - 'app/controllers/absolute_ids/sessions_controller.rb'
     - 'app/jobs/absolute_ids/create_batch_job.rb'
     - 'app/jobs/absolute_ids/create_model_from_aspace_job.rb'
+    - 'app/jobs/absolute_id_create_aspace_source_record_job.rb'
+    - 'app/jobs/absolute_id_create_marc_source_record_job.rb'
+    - 'app/jobs/absolute_id_create_record_job.rb'
 
 Metrics/ModuleLength:
   Exclude:

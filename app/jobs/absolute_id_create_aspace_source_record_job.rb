@@ -1,40 +1,10 @@
 # frozen_string_literal: true
-class AbsoluteIdCreateRecordJob < ApplicationJob
+class AbsoluteIdCreateAspaceSourceRecordJob < AbsoluteIdCreateRecordJob
   def perform(properties:, user_id:)
     @user_id = user_id
     @index = properties[:index]
 
     create_absolute_id(properties, @index)
-  end
-
-  def self.polymorphic_perform_now(**args)
-    properties = args[:properties]
-    source = properties.delete(:source)
-    args[:properties] = properties
-
-    case source
-    when 'aspace'
-      ::AbsoluteIdCreateAspaceSourceRecordJob.perform_now(**args)
-    when 'marc'
-      ::AbsoluteIdCreateMarcSourceRecordJob.perform_now(**args)
-    else
-      raise(ArgumentError, "Unsupported AbsoluteID source: #{source}")
-    end
-  end
-
-  def self.polymorphic_perform_later(**args)
-    properties = args[:properties]
-    source = properties.delete(:source)
-    args[:properties] = properties
-
-    case source
-    when 'aspace'
-      ::AbsoluteIdCreateAspaceSourceRecordJob.perform_later(**args)
-    when 'marc'
-      ::AbsoluteIdCreateMarcSourceRecordJob.perform_later(**args)
-    else
-      raise(ArgumentError, "Unsupported AbsoluteID source: #{source}")
-    end
   end
 
   private
@@ -139,10 +109,7 @@ class AbsoluteIdCreateRecordJob < ApplicationJob
   end
 
   def create_absolute_id(properties, index)
-    build_attributes = properties.deep_dup
-
-    source = properties[:source]
-    build_attributes = transform_aspace_properties(properties, index) if source == 'aspace'
+    build_attributes = transform_aspace_properties(properties.deep_dup, index)
 
     # Increment the index
     location = build_attributes[:location]
@@ -163,10 +130,6 @@ class AbsoluteIdCreateRecordJob < ApplicationJob
     generated = AbsoluteId.generate(**build_attributes)
     generated.save!
     generated.id
-  end
-
-  def current_user
-    @current_user ||= User.find_by(id: @user_id)
   end
 
   def current_client
