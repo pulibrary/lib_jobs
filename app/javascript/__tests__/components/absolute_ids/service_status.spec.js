@@ -1,17 +1,17 @@
 import { createLocalVue, mount } from "@vue/test-utils"
 import lux from "lux-design-system"
-import AbsoluteIdASpaceStatus from "@/components/absolute_id_aspace_status.vue"
+import ServiceStatus from "@/components/absolute_ids/service_status.vue"
 
 const localVue = createLocalVue()
 localVue.use(lux)
 
-describe("AbsoluteIdASpaceStatus", () => {
+describe("ServiceStatus", () => {
   let wrapper
 
   beforeEach(() => {
     fetch.resetMocks()
 
-    wrapper = mount(AbsoluteIdASpaceStatus, {
+    wrapper = mount(ServiceStatus, {
       propsData: {
         action: '/services/archivesspace',
         token: 'secret',

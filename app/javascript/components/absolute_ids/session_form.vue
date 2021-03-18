@@ -30,7 +30,7 @@
       <fieldset class="absolute-ids-batch-form--batch">
         <legend>New Batch</legend>
 
-        <absolute-id-aspace-form
+        <aspace-batch-form
           v-if="source == 'aspace'"
           :key="batchKey(index)"
           v-model="batch[index]"
@@ -43,13 +43,14 @@
           :batch-size="batchSize[index]"
           v-on:input-size="updateBatchSize($event, index)"
         />
-        <absolute-id-marc-form
+        <marc-batch-form
           v-else-if="source == 'marc'"
           :key="batchKey(index)"
           v-model="batch[index]"
           :action="action"
           :token="token"
           :source="source"
+          :service="service"
           :barcode="generateBarcode(index, batchSize[index])"
           :batch-form="true"
           :batch-size="batchSize[index]"
@@ -68,8 +69,7 @@
             helper="Number of Absolute IDs"
             size="small"
             :disabled="true"
-          >
-          </input-text>
+          />
 
           <button
             v-if="index > 0"
@@ -110,15 +110,15 @@
 </template>
 
 <script>
-import AbsoluteIdASpaceForm from "./absolute_id_form";
-import AbsoluteIdMarcForm from "./absolute_id_marc_form";
+import ASpaceBatchForm from "./aspace_batch_form";
+import MarcBatchForm from "./marc_batch_form";
 
 export default {
-  name: "AbsoluteIdBatchForm",
+  name: "AbsoluteIdSessionForm",
   type: "Element",
   components: {
-    "absolute-id-aspace-form": AbsoluteIdASpaceForm,
-    "absolute-id-marc-form": AbsoluteIdMarcForm
+    "aspace-batch-form": ASpaceBatchForm,
+    "marc-batch-form": MarcBatchForm
   },
   props: {
     action: {

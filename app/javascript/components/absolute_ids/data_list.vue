@@ -258,7 +258,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../../../node_modules/lux-design-system/dist/system/system.utils.scss";
+@import "../../../../node_modules/lux-design-system/dist/system/system.utils.scss";
 
 // Design Tokens with local scope
 $color-placeholder: tint($color-grayscale, 50%);
@@ -404,24 +404,3 @@ $color-placeholder: tint($color-grayscale, 50%);
   }
 }
 </style>
-
-<docs>
-  ```jsx
-  <div>
-    <input-data-list
-      id="events"
-      name="value"
-      label="Event Title"
-      placeholder="Some suggestions..."
-      helper="This is helper text to help the user fill out this field"
-      :list="[
-        { value: 'Code4Lib', label: 'Code4Lib Annual Conference' },
-        { value: 'ALA', label: 'American Library Association Annual' },
-        { value: 'DLF', label: 'Digital Library Federation' },
-        { value: 'SAA', label: 'Society of American Archivists Annual Conference' },
-        { value: 'Access', label: 'Access Annual Conference' }
-      ]">
-    </input-data-list>
-  </div>
-  ```
-</docs>

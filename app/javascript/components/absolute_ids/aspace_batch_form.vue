@@ -201,9 +201,9 @@
 </template>
 
 <script>
-import AbsoluteIdASpaceStatus from "./absolute_id_aspace_status";
-import AbsoluteIdInputText from "./absolute_id_input_text";
-import AbsoluteIdDataList from "./absolute_id_data_list";
+import AbsoluteIdASpaceStatus from "./service_status";
+import AbsoluteIdInputText from "./input_text";
+import AbsoluteIdDataList from "./data_list";
 
 export default {
   name: "AbsoluteIdASpaceForm",
@@ -228,18 +228,20 @@ export default {
     },
     value: {
       type: Object,
-      default: {
-        absolute_id: {
-          barcode: null,
-          location: null,
-          container_profile: null,
-          repository: null,
-          resource: null,
-          container: null
-        },
-        barcodes: [],
-        batch_size: 1,
-        valid: false
+      default: function() {
+        return {
+          absolute_id: {
+            barcode: null,
+            location: null,
+            container_profile: null,
+            repository: null,
+            resource: null,
+            container: null
+          },
+          barcodes: [],
+          batch_size: 1,
+          valid: false
+        }
       }
     },
     source: {

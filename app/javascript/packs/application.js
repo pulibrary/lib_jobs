@@ -23,16 +23,8 @@ import system from "lux-design-system";
 import "lux-design-system/dist/system/system.css";
 import "lux-design-system/dist/system/tokens/tokens.scss";
 
-import AbsoluteIdASpaceStatus from "../components/absolute_id_aspace_status";
-import AbsoluteIdInputText from "../components/absolute_id_input_text";
-import AbsoluteIdDataList from "../components/absolute_id_data_list";
-
-import AbsoluteIdMarcForm from "../components/absolute_id_marc_form";
-import AbsoluteIdForm from "../components/absolute_id_form";
-import AbsoluteIdBatchForm from "../components/absolute_id_batch_form";
-
-import AbsoluteIdTable from "../components/absolute_id_table";
-import AbsoluteIdBatchTable from "../components/absolute_id_batch_table";
+import AbsoluteIdSessionForm from "../components/absolute_ids/session_form";
+import AbsoluteIdSessionTable from "../components/absolute_ids/session_table";
 
 Vue.use(system);
 var elements = document.getElementsByClassName("lux");
@@ -40,17 +32,8 @@ for (var i = 0; i < elements.length; i++) {
   new Vue({
     el: elements[i],
     components: {
-      "absolute-id-aspace-status": AbsoluteIdASpaceStatus,
-      "absolute-id-input-text": AbsoluteIdInputText,
-      "absolute-id-data-list": AbsoluteIdDataList,
-
-      "absolute-id-marc-form": AbsoluteIdMarcForm,
-      "absolute-id-form": AbsoluteIdForm,
-
-      "absolute-id-batch-form": AbsoluteIdBatchForm,
-
-      "absolute-id-batch-table": AbsoluteIdBatchTable,
-      "absolute-id-table": AbsoluteIdTable
+      "absolute-id-session-form": AbsoluteIdSessionForm,
+      "absolute-id-session-table": AbsoluteIdSessionTable
     }
   });
 }

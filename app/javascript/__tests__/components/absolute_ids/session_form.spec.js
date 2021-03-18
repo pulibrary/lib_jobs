@@ -1,11 +1,11 @@
 import { createLocalVue, mount } from "@vue/test-utils"
 import lux from "lux-design-system"
-import AbsoluteIdBatchForm from "@/components/absolute_id_batch_form.vue"
+import SessionForm from "@/components/absolute_ids/session_form.vue"
 
 const localVue = createLocalVue()
 localVue.use(lux)
 
-describe("AbsoluteIdBatchForm", () => {
+describe("SessionForm", () => {
   let wrapper
 
   beforeEach(() => {
@@ -95,7 +95,7 @@ describe("AbsoluteIdBatchForm", () => {
       }
     })
 
-    wrapper = mount(AbsoluteIdBatchForm, {
+    wrapper = mount(SessionForm, {
       propsData: {
         action: 'http://localhost/absolute-ids',
         token: 'secret',
