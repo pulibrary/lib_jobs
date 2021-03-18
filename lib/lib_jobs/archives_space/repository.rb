@@ -36,7 +36,9 @@ module LibJobs
         cached = model_class.all
         return cached.map(&:to_resource) unless cached.empty?
 
-        query = URI.encode_www_form([["page", "1"], ["page_size", "100000"]])
+        query_params = [["page", "1"], ["page_size", "100000"]]
+        query_params += [["resolve[]", "container_locations"]] if model_class == AbsoluteId::TopContainer
+        query = URI.encode_www_form(query_params)
         response = client.get("/repositories/#{@id}/#{resource_class.name.demodulize.pluralize.underscore}?#{query}")
         return [] if response.status.code == "404"
 
