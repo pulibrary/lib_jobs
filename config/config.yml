@@ -23,6 +23,15 @@ development:
 
 test:
   <<: *defaults
+  archivesspace:
+    source:
+      username: "test"
+      password: "password"
+      base_uri: "https://aspace.test.org/staff/api"
+    sync:
+      username: "test"
+      password: "password"
+      base_uri: "https://aspace.test.org/staff/api"
 
 production:
   <<: *defaults
