@@ -57,26 +57,36 @@ RSpec.describe StaffDirectoryGenerator, type: :model do
     allow(Ldap).to receive(:find_by_netid).with('testiii').and_return({ email: 'testiii@princeton.edu', telephone: '333-444-5555', title: "The Great LDAP Assistant" })
   end
 
-  describe "#report" do
-    # rubocop:disable RSpec/MessageSpies
+  after do
+    DataSet.all.each { |data_set| File.delete(data_set.data_file) }
+  end
+
+  describe "#run" do
     before do
-      expect(finance_report).to receive(:report).with(employee_id: '999999999').and_return(finance_report1)
-      expect(finance_report).to receive(:report).with(employee_id: '999999998').and_return(finance_report2)
-      expect(finance_report).to receive(:report).with(employee_id: '999999997').and_return("idStaff" => nil, "PUID" => nil, "NetID" => nil, "Phone" => nil, "Name" => nil, "lastName" => nil,
-                                                                                           "firstName" => nil, "middleName" => nil, "nickName" => nil, "Title" => nil, "LibraryTitle" => nil,
-                                                                                           "LongTitle" => nil, "Email" => nil, "Section" => nil, "Division" => nil, "Department" => nil,
-                                                                                           "StartDate" => nil, "StaffSort" => nil, "UnitSort" => nil,
-                                                                                           "DeptSort" => nil, "Unit" => nil, "DivSect" => nil, "FireWarden" => false, "BackupFireWarden" => false,
-                                                                                           "FireWardenNotes" => nil, "Office" => nil, "Building" => nil)
+      allow(finance_report).to receive(:report).with(employee_id: '999999999').and_return(finance_report1)
+      allow(finance_report).to receive(:report).with(employee_id: '999999998').and_return(finance_report2)
+      allow(finance_report).to receive(:report).with(employee_id: '999999997').and_return("idStaff" => nil, "PUID" => nil, "NetID" => nil, "Phone" => nil, "Name" => nil, "lastName" => nil,
+                                                                                          "firstName" => nil, "middleName" => nil, "nickName" => nil, "Title" => nil, "LibraryTitle" => nil,
+                                                                                          "LongTitle" => nil, "Email" => nil, "Section" => nil, "Division" => nil, "Department" => nil,
+                                                                                          "StartDate" => nil, "StaffSort" => nil, "UnitSort" => nil,
+                                                                                          "DeptSort" => nil, "Unit" => nil, "DivSect" => nil, "FireWarden" => false, "BackupFireWarden" => false,
+                                                                                          "FireWardenNotes" => nil, "Office" => nil, "Building" => nil)
     end
 
     let(:report_line3) do
       ',"999999997","testiii","333-444-5555","Test, III","Test","III",,"III",,"Library Office Assistant III","Library Office Assistant III","testiii@princeton.edu",,,,,,,,,,0,0,,,'
     end
 
-    # rubocop:enable RSpec/MessageSpies
     it "generates the staff list csv" do
-      expect(generator.report).to eq("#{report_header}\n#{report_line1}\n#{report_line2}\n#{report_line3}\n")
+      expect(generator.run).to be_truthy
+      data_set = DataSet.last
+      expect(data_set.category).to eq("StaffDirectory")
+      expect(data_set.report_time).to eq(Time.zone.now.midnight)
+      report_data = File.open(data_set.data_file).read
+      expect(report_data).to eq("#{report_header}\n#{report_line1}\n#{report_line2}\n#{report_line3}\n")
+      expect(finance_report).to have_received(:report).with(employee_id: '999999999')
+      expect(finance_report).to have_received(:report).with(employee_id: '999999998')
+      expect(finance_report).to have_received(:report).with(employee_id: '999999997')
     end
   end
 
@@ -88,11 +98,12 @@ RSpec.describe StaffDirectoryGenerator, type: :model do
       allow(finance_report).to receive(:report).with(employee_id: '999999998').and_return(finance_report2)
       allow(finance_report).to receive(:report).with(employee_id: '999999997').and_return(finance_report3)
     end
-    after do
-      File.delete(report_filename) if File.exist?(report_filename)
-    end
+
     it "generates the report" do
       expect { expect(generator.today).to eq("#{report_header}\n#{report_line1}\n#{report_line2}\n#{report_line3}\n") }.to change(DataSet, :count).by(1)
+      expect(finance_report).to have_received(:report).with(employee_id: '999999999')
+      expect(finance_report).to have_received(:report).with(employee_id: '999999998')
+      expect(finance_report).to have_received(:report).with(employee_id: '999999997')
     end
 
     context "already exists on disk" do
@@ -100,12 +111,13 @@ RSpec.describe StaffDirectoryGenerator, type: :model do
         File.open(report_filename, "w") do |file|
           file.write("#{report_header}\n#{report_line1}\n#{report_line2}\n#{report_line3}\n#{report_line4}\n")
         end
-        expect(finance_report).not_to have_received(:report).with(employee_id: '999999999')
-        expect(finance_report).not_to have_received(:report).with(employee_id: '999999998')
-        expect(finance_report).not_to have_received(:report).with(employee_id: '999999997')
+        DataSet.create(category: "StaffDirectory", report_time: Time.zone.now.midnight, data_file: report_filename)
       end
       it "serves up the report from disk" do
         expect(generator.today).to eq("#{report_header}\n#{report_line1}\n#{report_line2}\n#{report_line3}\n#{report_line4}\n")
+        expect(finance_report).not_to have_received(:report).with(employee_id: '999999999')
+        expect(finance_report).not_to have_received(:report).with(employee_id: '999999998')
+        expect(finance_report).not_to have_received(:report).with(employee_id: '999999997')
       end
     end
   end
