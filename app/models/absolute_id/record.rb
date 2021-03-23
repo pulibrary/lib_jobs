@@ -63,15 +63,6 @@ class AbsoluteId::Record < ApplicationRecord
     }
   end
 
-  # This can be removed
-  def source_client
-    @client ||= begin
-                  new_client = LibJobs::ArchivesSpace::Client.source
-                  new_client.login
-                  new_client
-                end
-  end
-
   def to_resource
     self.class.resource_class.new(json_properties)
   end
