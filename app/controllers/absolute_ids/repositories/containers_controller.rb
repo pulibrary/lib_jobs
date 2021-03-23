@@ -17,19 +17,6 @@ class AbsoluteIds::Repositories::ContainersController < ApplicationController
     end
   end
 
-  # GET /absolute-ids/repositories/:repository_id/resources/:resource_id.json
-  def show
-    begin
-      @resource ||= current_repository.find_top_container(id: container_id)
-    rescue StandardError
-      @resource = nil
-    end
-
-    respond_to do |format|
-      format.json { render json: @resource }
-    end
-  end
-
   private
 
   def token_header
