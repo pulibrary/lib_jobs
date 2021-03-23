@@ -24,12 +24,4 @@ class AbsoluteIdCreateSessionJob < ApplicationJob
   def current_user
     @current_user ||= User.find_by(id: @user_id)
   end
-
-  def current_client
-    @current_client ||= begin
-                          source_client = LibJobs::ArchivesSpace::Client.source
-                          source_client.login
-                          source_client
-                        end
-  end
 end
