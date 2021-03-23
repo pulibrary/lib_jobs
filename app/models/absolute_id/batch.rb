@@ -37,7 +37,7 @@ class AbsoluteId::Batch < ApplicationRecord
   end
 
   def table_data
-    absolute_ids.map do |absolute_id|
+    absolute_ids.order(:id).map do |absolute_id|
       {
         label: absolute_id.label,
         user: user.email,

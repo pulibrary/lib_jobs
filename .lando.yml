@@ -1,0 +1,5 @@
+name: libjobs
+services:
+  libjobs_database:
+    type: postgres:10
+    portforward: true
