@@ -8,10 +8,6 @@ RSpec.describe "AbsoluteIds", type: :request do
       AbsoluteId.generate
     end
 
-    after do
-      AbsoluteId.all.each(&:destroy)
-    end
-
     xit "renders an existing absolute identifier" do
       get "/absolute-ids/#{absolute_id.value}"
       # Pending
@@ -159,8 +155,9 @@ RSpec.describe "AbsoluteIds", type: :request do
         expect(batches_json.length).to eq(1)
         batch_json = batches_json.first
 
-        expect(batch_json).to include("id" => 1)
-        expect(batch_json).to include("label" => "Batch 000001")
+        batch = AbsoluteId::Batch.first
+        expect(batch_json).to include("id" => batch.id)
+        expect(batch_json).to include("label" => batch.label)
         expect(batch_json).to include("table_data")
 
         table_json = batch_json["table_data"]
@@ -207,10 +204,6 @@ RSpec.describe "AbsoluteIds", type: :request do
           user
         end
 
-        after do
-          user.destroy
-        end
-
         it "denies the request" do
           post "/absolute-ids/", headers: headers, params: params
 
@@ -232,10 +225,6 @@ RSpec.describe "AbsoluteIds", type: :request do
 
         before do
           user
-        end
-
-        after do
-          user.destroy
         end
 
         it "denies the request" do
@@ -269,10 +258,6 @@ RSpec.describe "AbsoluteIds", type: :request do
 
         before do
           user
-        end
-
-        after do
-          user.destroy
         end
 
         context "and requests a prefix and starting code" do
