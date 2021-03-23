@@ -880,67 +880,6 @@ export default {
       this.$emit('input', inputState);
     },
 
-    searchResources: async function ({ eadId }) {
-      const payload = {
-        eadId
-      };
-
-      let response;
-      this.fetchingResources = true;
-
-      try {
-        response = await fetch(`/absolute-ids/repositories/${this.selectedRepositoryId}/resources/search`, {
-          method: 'POST',
-          mode: 'cors',
-          cache: 'no-cache',
-          credentials: 'same-origin',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${this.token}`
-          },
-          redirect: 'follow',
-          referrerPolicy: 'no-referrer',
-          body: JSON.stringify(payload)
-        });
-      } catch (error) {
-        console.warn(error);
-      }
-
-      this.fetchingResources = false;
-      return response;
-    },
-
-    searchContainers: async function ({ indicator, resourceTitle }) {
-      const payload = {
-        indicator,
-        resourceTitle
-      };
-
-      let response;
-      this.fetchingContainers = true;
-
-      try {
-        response = await fetch(`/absolute-ids/repositories/${this.selectedRepositoryId}/containers/search`, {
-          method: 'POST',
-          mode: 'cors',
-          cache: 'no-cache',
-          credentials: 'same-origin',
-          headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${this.token}`
-          },
-          redirect: 'follow',
-          referrerPolicy: 'no-referrer',
-          body: JSON.stringify(payload)
-        });
-      } catch(error) {
-        console.warn(error);
-      }
-
-      this.fetchingContainers = false;
-      return response;
-    },
-
     onResourceFocusOut: async function (event, value) {
 
       this.validResource = false;

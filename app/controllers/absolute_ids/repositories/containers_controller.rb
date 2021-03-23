@@ -30,31 +30,6 @@ class AbsoluteIds::Repositories::ContainersController < ApplicationController
     end
   end
 
-  # POST /absolute-ids/repositories/:repository_id/containers/search.json
-  def search
-    indicator = params[:indicator]
-    ead_id = params[:eadId]
-
-    begin
-      current_resource = current_repository.search_resources(ead_id: ead_id)
-      top_containers = current_resource.search_top_containers_by(indicator: indicator)
-
-      @resource = top_containers.first
-    rescue StandardError => e
-      Rails.logger.warn("Failed to find the repository for #{indicator} linked to the resource #{resource_title}: #{e}")
-      @resource = nil
-    end
-
-    # Refactor/fix this
-    if json_request?
-      render json: @resource
-    else
-      respond_to do |format|
-        format.json { render json: @resource }
-      end
-    end
-  end
-
   private
 
   def token_header
