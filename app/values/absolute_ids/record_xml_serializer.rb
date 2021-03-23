@@ -21,10 +21,6 @@ module AbsoluteIds
       @root_element ||= document_tree.root
     end
 
-    def build_document
-      raise NotImplementedError
-    end
-
     def document
       @document ||= build_document
     end

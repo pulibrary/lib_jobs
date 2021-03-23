@@ -18,11 +18,10 @@ class HrStaffReport
 
   def initialize(hr_data: nil)
     @hr_data = hr_data || self.class.default_hr_data
-    @csv = ::CSV.new(@hr_data, col_sep: "\t", headers: true) unless @hr_data.nil?
   end
 
   def people
-    return [] if @csv.nil?
+    return [] if csv.nil?
 
     @people ||= csv.read
   end
@@ -32,14 +31,10 @@ class HrStaffReport
   end
 
   def csv
-    @csv ||= build_csv
-  end
-
-  private
-
-  def build_csv
-    return if @hr_data
-
-    ::CSV.new(@hr_data, col_sep: "\t", headers: true)
+    return if @hr_data.nil?
+    @csv ||=
+      begin
+        ::CSV.new(@hr_data, col_sep: "\t", headers: true)
+      end
   end
 end
