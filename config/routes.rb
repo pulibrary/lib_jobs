@@ -12,7 +12,13 @@ Rails.application.routes.draw do
 
   # Barcodes
   get '/barcodes/:value', to: 'barcodes#show'
-  get '/barcodes', to: 'barcodes#index'
+  # Sessions
+  get '/barcodes', to: 'barcodes/sessions#index'
+  post '/barcodes/sessions/:session_id/synchronize', to: 'barcodes/sessions#synchronize', as: 'barcodes_synchronize_session'
+  get '/barcodes/sessions/:session_id', to: 'barcodes/sessions#show_session', as: 'barcodes_session_id'
+  post '/barcodes/sessions', to: 'barcodes/sessions#create'
+  # I am not certain that this is needed
+  post '/barcodes/sessions/batch', to: 'barcodes/sessions#create_batch'
 
   # Absolute IDs, and related ArchivesSpace Resources
   post '/absolute-ids/repositories/:repository_id/resources/search', to: 'absolute_ids/repositories/resources#search'
@@ -27,15 +33,15 @@ Rails.application.routes.draw do
   get '/absolute-ids/container-profiles', to: 'absolute_ids/container_profiles#index'
   get '/absolute-ids/locations', to: 'absolute_ids/locations#index'
 
-  get '/absolute-ids/sessions/:session_id', to: 'absolute_ids#show_session', as: 'session_id'
-
   get '/absolute-ids/:value', to: 'absolute_ids#show', as: 'absolute_id'
-  get '/absolute-ids', to: 'absolute_ids#index'
 
-  post '/absolute-ids/sessions/:session_id/synchronize', to: 'absolute_ids#synchronize', as: 'synchronize_session'
-
-  post '/absolute-ids/batch', to: 'absolute_ids#create_batch'
-  post '/absolute-ids', to: 'absolute_ids#create_batches'
+  # Sessions
+  get '/absolute-ids', to: 'absolute_ids/sessions#index'
+  post '/absolute-ids/sessions/:session_id/synchronize', to: 'absolute_ids/sessions#synchronize', as: 'absolute_ids_synchronize_session'
+  get '/absolute-ids/sessions/:session_id', to: 'absolute_ids/sessions#show_session', as: 'absolute_ids_session_id'
+  post '/absolute-ids/sessions', to: 'absolute_ids/sessions#create'
+  # I am not certain that this is needed
+  post '/absolute-ids/sessions/batch', to: 'absolute_ids/sessions#create_batch'
 
   # External Services (e. g. the ArchivesSpace API)
   get '/services/archivesspace', to: 'services#show_archivesspace'

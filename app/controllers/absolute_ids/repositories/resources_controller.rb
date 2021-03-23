@@ -2,6 +2,7 @@
 
 class AbsoluteIds::Repositories::ResourcesController < ApplicationController
   skip_forgery_protection if: :token_header?
+  include TokenAuthorizedController
 
   # GET /absolute-ids/repositories/repository_id/resources.json
   def index
@@ -60,39 +61,6 @@ class AbsoluteIds::Repositories::ResourcesController < ApplicationController
     params[:resource_param]
   end
 
-  def current_user_params
-    params[:user]
-  end
-
-  def current_user_id
-    current_user_params[:id]
-  end
-
-  def token_header
-    value = request.headers['Authorization']
-    return if value.nil?
-
-    value.gsub(/\s*?Bearer\s*/i, '')
-  end
-
-  def token_header?
-    token_header.present?
-  end
-
-  def current_user_token
-    token_header || current_user_params[:token]
-  end
-
-  def find_user
-    User.find_by(id: current_user_id, token: current_user_token)
-  end
-
-  def current_user
-    return super if !super.nil? || current_user_params.nil?
-
-    @current_user ||= find_user
-  end
-
   def repository_id
     params[:repository_id]
   end
@@ -103,13 +71,5 @@ class AbsoluteIds::Repositories::ResourcesController < ApplicationController
 
   def current_repository
     @current_repository ||= current_client.find_repository(id: repository_id)
-  end
-
-  def index_cache_key
-    "absolute_ids/repositories/#{repository_id}/resources"
-  end
-
-  def show_cache_key
-    "absolute_ids/repositories/#{repository_id}resources/#{resource_id}"
   end
 end

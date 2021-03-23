@@ -314,15 +314,17 @@ export default {
     },
 
     updateBarcodes: function() {
-      for (const i of Array(this.size).keys()) {
-        const base = this.parsedBarcode.slice(0, 13);
-        const value = Number.parseInt(base) + i;
-        const encoded = `${value}`;
-        const incremented = encoded.padStart(13, 0);
-        const checksum = this.generateChecksum(incremented);
-        const newBarcode = `${incremented}${checksum}`;
+      if (this.size > 0) {
+        for (const i of Array(this.size).keys()) {
+          const base = this.parsedBarcode.slice(0, 13);
+          const value = Number.parseInt(base) + i;
+          const encoded = `${value}`;
+          const incremented = encoded.padStart(13, 0);
+          const checksum = this.generateChecksum(incremented);
+          const newBarcode = `${incremented}${checksum}`;
 
-        this.$set(this.barcodes, i, newBarcode);
+          this.$set(this.barcodes, i, newBarcode);
+        }
       }
     },
 

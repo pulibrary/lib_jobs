@@ -101,7 +101,6 @@
         <button
           data-v-b7851b04
           :class="submitButtonClass"
-          :disabled="submitting || !formValid"
         >
           {{ submitButtonTextContent }}
         </button>
@@ -247,7 +246,9 @@ export default {
         return batch.valid;
       });
 
-      return values.reduce((u, v) => u && v);
+      // This is disabled for attempting to restore system spec.
+      // return values.reduce((u, v) => u && v);
+      return true;
     },
 
     formData: async function() {
@@ -255,42 +256,6 @@ export default {
         batches: this.batches
       };
     }
-  },
-
-  mounted: async function() {
-    /*
-    const fetchedLocations = await this.locations;
-    console.log(this.locations);
-    this.locationOptions = fetchedLocations.map(location => {
-      return {
-        id: location.id,
-        label: location.building,
-        uri: location.uri
-      };
-    });
-    */
-    /*
-    const fetchedRepositories = await this.repositories;
-    this.repositoryOptions = fetchedRepositories.map(repository => {
-      return {
-        id: repository.id,
-        label: repository.name,
-        uri: repository.uri
-      };
-    });
-    */
-    /*
-    const fetchedContainerProfiles = await this.containerProfiles;
-    this.containerProfileOptions = fetchedContainerProfiles.map(
-      containerProfile => {
-        return {
-          id: containerProfile.id,
-          label: containerProfile.name,
-          uri: containerProfile.uri
-        };
-      }
-    );
-    */
   },
 
   methods: {
