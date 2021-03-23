@@ -1,37 +1,41 @@
 <section class="absolute-ids">
   <h1>Barcodes</h1>
-  <% if current_user %>
-    <div class="lux" id="abid-form">
-      <absolute-id-batch-form
-        action="<%= absolute_ids_path %>"
+  <div class="lux">
+    <% if current_user %>
+      <absolute-id-session-form
+        action="<%= barcodes_url %>"
         token="<%= current_user.token %>"
-      >
-      </absolute-id-form>
-    </div>
-  <% end %>
+        :service="<%=
+          {
+            action: services_archivesspace_url,
+            locations: absolute_ids_locations_url,
+            containerProfiles: absolute_ids_container_profiles_url,
+            repositories: absolute_ids_repositories_url,
+            barcodes: barcodes_url
+          }.to_json
+        %>"
+      />
+    <% else %>
+      <text-style variation="strong">Please authenticate in order to generate and manage barcodes.</text-style>
+    <% end %>
+  </div>
 
   <% if current_user && !@sessions.empty? %>
-    <% @sessions.each do |absolute_id_session| %>
+    <% @sessions.each do |session| %>
       <div class="lux absolute-ids-session">
-        <absolute-id-batch-table
-          header="<%= absolute_id_session.label %>"
-          :synchronized="<%= absolute_id_session.synchronized? %>"
+        <absolute-id-session-table
+          header="<%= session.label %>"
           :columns="<%= JSON.generate(table_columns) %>"
-          :session="<%= absolute_id_session.as_json %>"
+          :session="<%= session.as_json %>"
           token="<%= current_user.token %>"
-          synchronize-action="<%= synchronize_session_path(absolute_id_session) %>"
-          session-report-path="<%= session_id_path(absolute_id_session, format: 'txt') %>"
-          session-xml-path="<%= session_id_path(absolute_id_session, format: 'xml') %>"
+          :synchronize="<%= {
+            status: session.synchronize_status,
+            action: synchronize_session_path(session)
+          }.to_json %>"
+          report-path="<%= session_id_path(session, format: 'txt') %>"
+          xml-path="<%= session_id_path(session, format: 'xml') %>"
         />
       </div>
     <% end %>
   <% end %>
-
-  <div class="absolute-ids-status lux">
-    <% unless index_status.blank? %>
-      <alert status="info" dismissible>
-        <%= index_status %>
-      </alert>
-    <% end %>
-  </div>
 </section>

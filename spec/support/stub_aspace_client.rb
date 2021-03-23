@@ -88,6 +88,11 @@ module ASpaceClientStubbing
       query_params = URI.encode_www_form([["identifier[]", [resource_id].to_json]])
       query_uri_path = "/repositories/#{repository_id}/find_by_id/resources?#{query_params}"
       allow(client).to receive(:get).with(query_uri_path).and_return(resources_find_results_response)
+
+      query_params = URI.encode_www_form([["identifier[]", [ead_id].to_json]])
+      query_uri_path = "/repositories/#{repository_id}/find_by_id/resources?#{query_params}"
+
+      allow(client).to receive(:get).with(query_uri_path).and_return(resources_find_results_response)
     end
 
     # Stub the GET response for the Resource

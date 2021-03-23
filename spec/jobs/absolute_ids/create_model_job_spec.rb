@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe AbsoluteIdCreateRecordJob, type: :job do
+RSpec.describe AbsoluteIds::CreateModelJob, type: :job do
   describe '.polymorphic_perform_now' do
     let(:user) do
       create(:user)
@@ -75,7 +75,7 @@ RSpec.describe AbsoluteIdCreateRecordJob, type: :job do
 
       it 'created and persists a new AbsoluteId record' do
         expect(AbsoluteId.all).not_to be_empty
-        expect(AbsoluteId.first.value).to eq('32101103191142')
+        expect(AbsoluteId.last.value).to eq('32101103191142')
 
         expect(AbsoluteId.last.label).to include('P-00000')
         expect(AbsoluteId.last.container_profile).not_to be_empty
@@ -106,6 +106,9 @@ RSpec.describe AbsoluteIdCreateRecordJob, type: :job do
     end
 
     context 'when linking to MARC resources' do
+      let(:container_profile) { 'B' }
+      let(:location) { 'mss' }
+      let(:repository) { '' }
       let(:properties) do
         {
           barcode: "32101103191159",
@@ -118,30 +121,28 @@ RSpec.describe AbsoluteIdCreateRecordJob, type: :job do
           index: 0
         }
       end
-      let(:repository_id) { '4' }
 
       before do
-        stub_aspace_repository(repository_id: repository_id)
-
         described_class.polymorphic_perform_now(properties: properties, user_id: user.id)
       end
 
       it 'created and persists a new AbsoluteId record' do
         expect(AbsoluteId.all).not_to be_empty
         expect(AbsoluteId.last.value).to eq('32101103191159')
-        expect(AbsoluteId.last.label).to include('P-00000')
+        expect(AbsoluteId.last.label).to eq('B-000001')
 
         expect(AbsoluteId.last.container_profile).not_to be_empty
+        expect(AbsoluteId.last.container_profile).to eq(container_profile)
         expect(AbsoluteId.last.container_profile_object).not_to be_nil
-        expect(AbsoluteId.last.container_profile_object.id).to eq('2')
+        expect(AbsoluteId.last.container_profile_object.to_h).to be_empty
 
-        expect(AbsoluteId.last.location).not_to be_empty
+        expect(AbsoluteId.last.location).to eq(location)
         expect(AbsoluteId.last.location_object).not_to be_nil
-        expect(AbsoluteId.last.location_object.id).to eq('23640')
+        expect(AbsoluteId.last.location_object.to_h).to be_empty
 
-        expect(AbsoluteId.last.repository).not_to be_empty
+        expect(AbsoluteId.last.repository).to eq(repository)
         expect(AbsoluteId.last.repository_object).not_to be_nil
-        expect(AbsoluteId.last.repository_object.id).to eq('4')
+        expect(AbsoluteId.last.repository_object.to_h).to be_empty
 
         expect(AbsoluteId.last.resource).to eq('10915154')
         expect(AbsoluteId.last.resource_object).to be_an(OpenStruct)

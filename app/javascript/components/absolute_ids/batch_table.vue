@@ -124,55 +124,26 @@ export default {
     };
   },
   props: {
-    /**
-     * caption provides context for the data that is helpful to users, particularly those who use screenreaders.
-     * `e.g. [name, title, age]`
-     */
     caption: {
       required: true,
       type: String
     },
-    /**
-     * summaryLabel provides context to the data values in tfoot element cells.
-     */
     summaryLabel: {
       required: false,
       type: String
     },
-    /**
-     * columns define the columns and order for which the data should be displayed.
-     * Columns entries can be simple strings, or they may be more complicated objects
-     * that can define `name`, `display_name`,`align`, `sortable`, and `checkbox` properties.
-     * Sorting on `numeric` or `currency` values requires a column to have
-     * a `datatype='number'` or `datatype='currency'` property.
-     * Sorting on `date` values requires a column to have
-     * a `datatype='date'` property.
-     * Use `checkbox=true` to create a checkbox whose value is the value for that
-     * column value for the row in the table.
-     * `e.g. ['name', 'email', 'age']`
-     */
     columns: {
       required: true,
       type: Array
     },
-    /**
-     * jsonData is supplied via Array with an object representing each row.
-     * Applying links to data cell content can be achieved by supplying an object
-     * that contains a `value` and `link` property. Date sorting uses the JavaScript
-     * `datestring` parameter. Shorthand dates are supported in most browsers, but can be implementation-specific.
-     * (e.g., `{ value: 'content', link: 'https://url.com'}`)
-     * See above example for exact structure.
-     */
     jsonData: {
       required: true,
       type: Array
     },
-
     token: {
       type: String,
       default: null
     },
-
     synchronize: {
       type: Object,
       required: true
