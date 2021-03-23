@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 2021_03_10_052155) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "absolute_id_archival_objects", force: :cascade do |t|
     t.string "uri"
     t.string "json_resource"
@@ -22,8 +25,8 @@ ActiveRecord::Schema.define(version: 2021_03_10_052155) do
   create_table "absolute_id_batches", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.integer "absolute_id_session_id"
+    t.bigint "user_id"
+    t.bigint "absolute_id_session_id"
     t.index ["absolute_id_session_id"], name: "index_absolute_id_batches_on_absolute_id_session_id"
     t.index ["user_id"], name: "index_absolute_id_batches_on_user_id"
   end
@@ -59,7 +62,7 @@ ActiveRecord::Schema.define(version: 2021_03_10_052155) do
   create_table "absolute_id_sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
+    t.bigint "user_id"
     t.index ["user_id"], name: "index_absolute_id_sessions_on_user_id"
   end
 
@@ -83,7 +86,7 @@ ActiveRecord::Schema.define(version: 2021_03_10_052155) do
     t.string "repository"
     t.string "resource"
     t.string "container"
-    t.integer "absolute_id_batch_id"
+    t.bigint "absolute_id_batch_id"
     t.string "unencoded_location"
     t.string "unencoded_repository"
     t.string "unencoded_container_profile"
@@ -95,8 +98,8 @@ ActiveRecord::Schema.define(version: 2021_03_10_052155) do
   end
 
   create_table "archival_objects_top_containers", id: false, force: :cascade do |t|
-    t.integer "archival_object_id", null: false
-    t.integer "top_container_id", null: false
+    t.bigint "archival_object_id", null: false
+    t.bigint "top_container_id", null: false
     t.index ["archival_object_id"], name: "archival_object_id"
     t.index ["top_container_id"], name: "top_container_id"
   end
@@ -113,8 +116,8 @@ ActiveRecord::Schema.define(version: 2021_03_10_052155) do
   end
 
   create_table "resources_top_containers", id: false, force: :cascade do |t|
-    t.integer "resource_id", null: false
-    t.integer "top_container_id", null: false
+    t.bigint "resource_id", null: false
+    t.bigint "top_container_id", null: false
     t.index ["resource_id"], name: "resource_id"
     t.index ["top_container_id"], name: "container_id"
   end
@@ -126,4 +129,8 @@ ActiveRecord::Schema.define(version: 2021_03_10_052155) do
     t.datetime "updated_at", null: false
   end
 
+  add_foreign_key "absolute_id_batches", "absolute_id_sessions"
+  add_foreign_key "absolute_id_batches", "users"
+  add_foreign_key "absolute_id_sessions", "users"
+  add_foreign_key "absolute_ids", "absolute_id_batches"
 end

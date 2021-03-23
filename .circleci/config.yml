@@ -10,6 +10,12 @@ executors:
           BUNDLE_RETRY: 3
           BUNDLE_PATH: vendor/bundle
           RAILS_ENV: test
+          lando_libjobs_database_creds_user: "libjobs"
+      - image: postgres:10.6-alpine
+        environment:
+          POSTGRES_USER: libjobs
+          POSTGRES_DB: libjobs_test
+          POSTGRES_HOST_AUTH_METHOD: trust
     working_directory: ~/project
 
 commands:

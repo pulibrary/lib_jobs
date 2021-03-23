@@ -1,24 +1,25 @@
-# SQLite version 3.x
-#   gem install sqlite3
-#
-#   Ensure the SQLite 3 gem is defined in your Gemfile
-#   gem 'sqlite3'
-#
 default: &default
-  adapter: sqlite3
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  adapter: postgresql
+  encoding: utf8
+  min_messages: warning
+  pool: <%= Integer(ENV.fetch("DB_POOL", 40)) %>
+  reaping_frequency: <%= Integer(ENV.fetch("DB_REAPING_FREQUENCY", 10)) %>
   timeout: 5000
+  host: <%= ENV["lando_libjobs_database_conn_host"] || "localhost" %>
+  port: <%= ENV["lando_libjobs_database_conn_port"] || 5432 %>
+  username: <%= ENV["lando_libjobs_database_creds_user"] %>
+  password: <%= ENV["lando_libjobs_database_creds_password"] %>
 
 development:
   <<: *default
-  database: db/development.sqlite3
+  database: libjobs_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: db/test.sqlite3
+  database: libjobs_test
 
 staging: &staging
   adapter: postgresql
