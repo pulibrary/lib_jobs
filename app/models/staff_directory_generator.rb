@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-class StaffDirectoryGenerator
-  CATEGORY = "StaffDirectory"
-
+class StaffDirectoryGenerator < LibJob
   def self.report_filename(date: Time.zone.today)
     date_str = date.strftime('%Y%m%d')
     File.join(Rails.configuration.staff_directory['report_directory'], "#{Rails.configuration.staff_directory['report_name']}_#{date_str}.csv")
@@ -12,19 +10,29 @@ class StaffDirectoryGenerator
     report_filename(date: Time.zone.yesterday)
   end
 
-  attr_reader :finance_report, :hr_report
+  attr_reader :finance_report, :hr_report, :report_filename
   def initialize(finance_report:, hr_report:)
+    super(category: "StaffDirectory")
     @finance_report = finance_report
     @hr_report = hr_report
+    @report_filename = self.class.report_filename
   end
 
   def today
-    report_filename = self.class.report_filename
-    if !File.exist?(report_filename)
-      create_report(report_filename)
-    else
-      read_report(report_filename)
+    data_sets = DataSet.where(category: category, report_time: Time.zone.today.midnight)
+    run if data_sets.empty? || !File.exist?(data_sets.first.data_file)
+    read_report
+  end
+
+  private
+
+  def handle(data_set:)
+    File.open(report_filename, "w") do |file|
+      file.write(report)
     end
+    data_set.report_time = Time.zone.now.midnight
+    data_set.data_file = report_filename
+    data_set
   end
 
   def report
@@ -36,19 +44,7 @@ class StaffDirectoryGenerator
     generate_csv(people) unless people.empty?
   end
 
-  private
-
-  def create_report(report_filename)
-    report_data = ''
-    File.open(report_filename, "w") do |file|
-      report_data = report
-      file.write(report_data)
-    end
-    DataSet.create(report_time: DateTime.now.midnight, data: nil, data_file: report_filename, category: CATEGORY)
-    report_data
-  end
-
-  def read_report(report_filename)
+  def read_report
     report_data = ''
     File.open(report_filename) do |file|
       report_data = file.read
