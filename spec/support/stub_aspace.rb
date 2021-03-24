@@ -50,6 +50,15 @@ module AspaceStubbing
         )
     end
   end
+
+  def stub_repositories
+    stub_request(:get, 'https://aspace.test.org/staff/api/repositories?page=1')
+      .to_return(
+        status: 200,
+        body: File.open(Rails.root.join('spec', 'fixtures', 'archives_space', 'repositories.json')),
+        headers: { "Content-Type": 'application/json' }
+      )
+  end
 end
 
 RSpec.configure do |config|
