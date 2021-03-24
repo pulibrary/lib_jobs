@@ -99,7 +99,7 @@ jobs:
       - attach_workspace:
           at: '~/project'
       - setup-bundler
-
+      - setup-node
       - run:
           name: Database setup
           command: |
@@ -117,6 +117,11 @@ jobs:
       - store_artifacts:
           path: ~/project/coverage
           destination: coverage
+
+      # Save screenshot artifacts
+      - store_artifacts:
+          path: ~/project/tmp/screenshots
+          destination: screenshots
 
       - persist_to_workspace:
           root: '~/project'
