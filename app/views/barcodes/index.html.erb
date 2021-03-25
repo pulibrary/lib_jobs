@@ -1,7 +1,7 @@
 <section class="absolute-ids">
   <h1>Barcodes</h1>
   <% if current_user %>
-    <div class="lux">
+    <div class="lux" id="abid-form">
       <absolute-id-batch-form
         action="<%= absolute_ids_path %>"
         token="<%= current_user.token %>"

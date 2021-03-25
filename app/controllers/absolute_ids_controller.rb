@@ -84,8 +84,7 @@ class AbsoluteIdsController < ApplicationController
   end
 
   # This needs to be moved to another controller
-  # POST /absolute-ids/batches
-  # POST /absolute-ids/batches.json
+  # POST /absolute-ids
   def create_batches
     authorize! :create_batches, AbsoluteId
     @session = ::AbsoluteIdCreateSessionJob.perform_now(session_attributes: session_params, user_id: current_user.id)
