@@ -13,17 +13,12 @@ Rails.application.routes.draw do
   # Barcodes
   get '/barcodes/:value', to: 'barcodes#show'
 
-  # Sessions
+  ## Sessions
+  post '/barcodes/sessions', to: 'barcodes/sessions#create'
   get '/barcodes', to: 'barcodes/sessions#index'
   post '/barcodes/sessions/:session_id/synchronize', to: 'barcodes/sessions#synchronize', as: 'barcodes_synchronize_session'
   get '/barcodes/sessions/:session_id', to: 'barcodes/sessions#show_session', as: 'barcodes_session_id'
   post '/barcodes/sessions', to: 'barcodes/sessions#create'
-
-  get '/barcodes', to: 'barcodes#index'
-  # Sessions
-  post '/barcodes/sessions/:session_id/synchronize', to: 'barcodes/sessions#synchronize', as: 'barcodes_synchronize_session'
-  get '/barcodes/sessions/:session_id', to: 'barcodes/sessions#show_session', as: 'barcodes_session_id'
-  post '/barcodes/sessions', to: 'barcodes/sessions#create_batches'
 
   # I am not certain that this is needed
   post '/barcodes/sessions/batch', to: 'barcodes/sessions#create_batch'

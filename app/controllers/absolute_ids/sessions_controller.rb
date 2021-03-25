@@ -2,7 +2,6 @@
 
 class AbsoluteIds::SessionsController < ApplicationController
   skip_forgery_protection if: :token_header?
-<<<<<<< HEAD
   include TokenAuthorizedController
 
   # GET /absolute-ids
@@ -19,19 +18,12 @@ class AbsoluteIds::SessionsController < ApplicationController
   def self.create_session_job
     AbsoluteIds::CreateSessionJob
   end
-=======
->>>>>>> [WIP] Implementing the barcode-only routes
 
   # POST /absolute-ids/sessions
   # POST /absolute-ids/sessions.json
   def create
-<<<<<<< HEAD
     authorize!(:create, AbsoluteId::Session)
     @session = self.class.create_session_job.perform_now(session_attributes: session_params, user_id: current_user.id)
-=======
-    authorize!(:create_sessions, AbsoluteId::Session)
-    @session = ::AbsoluteIdCreateSessionJob.perform_now(session_attributes: session_params, user_id: current_user.id)
->>>>>>> [WIP] Implementing the barcode-only routes
 
     respond_to do |format|
       format.html do
@@ -84,7 +76,6 @@ class AbsoluteIds::SessionsController < ApplicationController
   end
 
   def show
-<<<<<<< HEAD
     @session = current_session
 
     respond_to do |format|
@@ -118,29 +109,10 @@ class AbsoluteIds::SessionsController < ApplicationController
                         batches.map(&:absolute_ids).flatten
                       end
   end
-=======
-    @session ||= begin
-                   AbsoluteId::Session.find_by(user: current_user, id: session_id)
-                 end
-
-    if request.format.text?
-      render text: @session.to_txt
-    else
-      respond_to do |format|
-        format.json { render json: @session }
-        format.yaml { render yaml: @session.to_yaml }
-        format.xml { render xml: @session }
-      end
-    end
-  end
-
-  private
->>>>>>> [WIP] Implementing the barcode-only routes
 
   def session_id
     params[:session_id]
   end
-<<<<<<< HEAD
 
   def session_params
     params.permit(batches: [
@@ -211,6 +183,4 @@ class AbsoluteIds::SessionsController < ApplicationController
                             models.reverse.to_a
                           end
   end
-=======
->>>>>>> [WIP] Implementing the barcode-only routes
 end
