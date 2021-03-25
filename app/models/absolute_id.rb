@@ -49,8 +49,6 @@ class AbsoluteId < ApplicationRecord
   end
 
   def self.generate(**attributes)
-    index = attributes[:index]
-
     synchronize_status = NEVER_SYNCHRONIZED
 
     barcode_value = if attributes.key?(:barcode)
@@ -64,7 +62,6 @@ class AbsoluteId < ApplicationRecord
     model_attributes = attributes.merge({
                                           value: barcode_value,
                                           check_digit: check_digit,
-                                          index: index.to_i,
                                           synchronize_status: synchronize_status
                                         })
 
@@ -113,15 +110,6 @@ class AbsoluteId < ApplicationRecord
 
   def self.xml_serializer
     AbsoluteIds::AbsoluteIdXmlSerializer
-  end
-
-  def barcode
-    @barcode ||= self.class.barcode_class.new(value)
-  end
-  delegate :digits, :elements, to: :barcode
-
-  def prefix
-    self.class.find_prefix(container_profile_object)
   end
 
   def barcode

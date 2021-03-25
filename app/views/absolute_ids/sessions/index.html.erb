@@ -3,7 +3,7 @@
   <div class="lux">
     <% if current_user %>
       <absolute-id-session-form
-        action="<%= absolute_ids_sessions_url %>"
+        action="<%= absolute_ids_url %>"
         token="<%= current_user.token %>"
         :service="<%=
           {
@@ -20,20 +20,20 @@
     <% end %>
   </div>
 
-  <% if current_user && @sessions.present? %>
+  <% if current_user && !@sessions.empty? %>
     <% @sessions.each do |session| %>
       <div class="lux absolute-ids-session">
         <absolute-id-session-table
           header="<%= session.label %>"
-          :columns="<%= session.data_table.columns.to_json %>"
-          :session="<%= session.data_table.to_json %>"
+          :columns="<%= JSON.generate(table_columns) %>"
+          :session="<%= session.as_json %>"
           token="<%= current_user.token %>"
           :synchronize="<%= {
             status: session.synchronize_status,
-            action: absolute_ids_synchronize_session_path(session)
+            action: synchronize_session_path(session)
           }.to_json %>"
-          report-path="<%= absolute_ids_session_id_path(session, format: 'txt') %>"
-          xml-path="<%= absolute_ids_session_id_path(session, format: 'xml') %>"
+          report-path="<%= session_id_path(session, format: 'txt') %>"
+          xml-path="<%= session_id_path(session, format: 'xml') %>"
         />
       </div>
     <% end %>

@@ -3,6 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe "AbsoluteIds::Session", type: :request do
+<<<<<<< HEAD
   let(:user) { create(:user) }
   describe "GET /absolute-ids/sessions" do
     let(:params) do
@@ -93,6 +94,8 @@ RSpec.describe "AbsoluteIds::Session", type: :request do
     end
   end
 
+=======
+>>>>>>> [WIP] Refactoring ApplicationJobs and implementing support for the generation of barcodes without AbIDs
   describe "POST /absolute-ids/sessions" do
     xit "renders all the absolute identifiers" do
       post "/absolute-ids/sessions"
@@ -176,6 +179,13 @@ RSpec.describe "AbsoluteIds::Session", type: :request do
       end
 
       context "when the client passes an invalid JSON Web Token" do
+<<<<<<< HEAD
+=======
+        let(:user) do
+          User.create(email: 'user@localhost')
+        end
+
+>>>>>>> [WIP] Refactoring ApplicationJobs and implementing support for the generation of barcodes without AbIDs
         let(:headers) do
           {
             "Accept" => "application/json",
@@ -189,6 +199,17 @@ RSpec.describe "AbsoluteIds::Session", type: :request do
           }
         end
 
+<<<<<<< HEAD
+=======
+        before do
+          user
+        end
+
+        after do
+          user.destroy
+        end
+
+>>>>>>> [WIP] Refactoring ApplicationJobs and implementing support for the generation of barcodes without AbIDs
         it "denies the request" do
           post "/absolute-ids/sessions", headers: headers, params: params
 
@@ -197,6 +218,13 @@ RSpec.describe "AbsoluteIds::Session", type: :request do
       end
 
       context "when the client does not pass a user ID" do
+<<<<<<< HEAD
+=======
+        let(:user) do
+          User.create(email: 'user@localhost')
+        end
+
+>>>>>>> [WIP] Refactoring ApplicationJobs and implementing support for the generation of barcodes without AbIDs
         let(:headers) do
           {
             "Accept" => "application/json",
@@ -204,6 +232,17 @@ RSpec.describe "AbsoluteIds::Session", type: :request do
           }
         end
 
+<<<<<<< HEAD
+=======
+        before do
+          user
+        end
+
+        after do
+          user.destroy
+        end
+
+>>>>>>> [WIP] Refactoring ApplicationJobs and implementing support for the generation of barcodes without AbIDs
         it "denies the request" do
           post "/absolute-ids/sessions", headers: headers
 
@@ -212,6 +251,13 @@ RSpec.describe "AbsoluteIds::Session", type: :request do
       end
 
       context "when the client is authenticated" do
+<<<<<<< HEAD
+=======
+        let(:user) do
+          create(:user)
+        end
+
+>>>>>>> [WIP] Refactoring ApplicationJobs and implementing support for the generation of barcodes without AbIDs
         let(:headers) do
           {
             "Accept" => "application/json",
