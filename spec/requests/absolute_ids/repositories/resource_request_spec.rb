@@ -14,10 +14,12 @@ RSpec.describe "AbsoluteIds::Repositories::Resources", type: :request do
           "Authorization" => "Bearer #{user.token}"
         }
       end
-      let(:client) { stub_aspace_repository(repository_id: repository_id) }
+      let(:client) do
+        stub_aspace_repository(repository_id: repository_id)
+      end
 
       before do
-        stub_aspace_repository(repository_id: repository_id)
+        allow(LibJobs::ArchivesSpace::Client).to receive(:source).and_return(client)
       end
 
       it "renders all existing ArchivesSpace Resources for a given Repository" do
