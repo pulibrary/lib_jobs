@@ -34,6 +34,15 @@ module AspaceStubbing
       )
   end
 
+  def stub_resource_find_by_id(repository_id:, identifier:, resource_id:)
+    stub_request(:get, "https://aspace.test.org/staff/api/repositories/#{repository_id}/find_by_id/resources?identifier[]=[\"#{identifier}\"]")
+      .to_return(
+        status: 200,
+        body: { resources: [{ ref: "/repositories/#{repository_id}/resources/#{resource_id}" }] }.to_json,
+        headers: { "Content-Type": 'application/json' }
+      )
+  end
+
   def stub_repository_top_containers(repository_id:, error: false)
     if error
       stub_request(:get, "https://aspace.test.org/staff/api/repositories/#{repository_id}/top_containers?page=1&page_size=100000&resolve[]=container_locations")
@@ -56,6 +65,33 @@ module AspaceStubbing
       .to_return(
         status: 200,
         body: File.open(Rails.root.join('spec', 'fixtures', 'archives_space', 'repositories.json')),
+        headers: { "Content-Type": 'application/json' }
+      )
+  end
+
+  def stub_resource(resource_id:, repository_id:)
+    stub_request(:get, "https://aspace.test.org/staff/api/repositories/#{repository_id}/resources/#{resource_id}")
+      .to_return(
+        status: 200,
+        body: File.open(Rails.root.join('spec', 'fixtures', 'archives_space', 'repositories', repository_id.to_s, "#{resource_id}.json")),
+        headers: { "Content-Type": 'application/json' }
+      )
+  end
+
+  def stub_archival_object(archival_object_id:, repository_id:)
+    stub_request(:get, "https://aspace.test.org/staff/api/repositories/#{repository_id}/archival_objects/#{archival_object_id}")
+      .to_return(
+        status: 200,
+        body: File.open(Rails.root.join('spec', 'fixtures', 'archives_space', 'repositories', repository_id.to_s, "archival_object_#{archival_object_id}.json")),
+        headers: { "Content-Type": 'application/json' }
+      )
+  end
+
+  def stub_tree_root(resource_id:, repository_id:)
+    stub_request(:get, "https://aspace.test.org/staff/api/repositories/#{repository_id}/resources/#{resource_id}/tree/root")
+      .to_return(
+        status: 200,
+        body: File.open(Rails.root.join('spec', 'fixtures', 'archives_space', 'repositories', repository_id.to_s, "#{resource_id}_tree_root.json")),
         headers: { "Content-Type": 'application/json' }
       )
   end

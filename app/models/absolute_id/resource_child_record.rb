@@ -8,6 +8,8 @@ class AbsoluteId::ResourceChildRecord < AbsoluteId::ChildRecord
     resource_attributes.delete(:children)
 
     resource_attributes.delete(:top_containers)
+    # TODO: URGENT: Inline top containers as part of the request here, otherwise our code is
+    # building out a bunch of extra requests.
     resolved_containers = resource.resolve_top_containers
     top_containers = resolved_containers.map(&:find_or_create_model)
 

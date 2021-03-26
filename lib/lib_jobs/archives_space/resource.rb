@@ -20,6 +20,7 @@ module LibJobs
       end
 
       def search_top_containers_by(index:, cache: true)
+        binding.pry
         resolved = if !cache
                      resolve_top_containers
                    elsif top_containers.empty?

@@ -11,7 +11,7 @@
 
   <% if current_user && !@sessions.empty? %>
     <% @sessions.each do |session| %>
-      <div class="lux absolute-ids-session">
+      <div class="lux absolute-ids-session" id="abid-form">
         <absolute-id-batch-table
           header="<%= session.label %>"
           :synchronized="<%= session.synchronized? %>"
