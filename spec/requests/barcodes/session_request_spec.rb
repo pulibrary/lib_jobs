@@ -160,9 +160,12 @@ RSpec.describe "Barcodes::Session", type: :request do
         context "and requests multiple batches of AbIDs linked to ArchivesSpace records" do
           let(:source) { 'aspace' }
           let(:barcode) { '32101103191142' }
+          let(:source_client) do
+            stub_aspace_resource(repository_id: repository_id, resource_id: resource_id, ead_id: ead_id)
+          end
 
           before do
-            stub_aspace_resource(repository_id: repository_id, resource_id: resource_id, ead_id: ead_id)
+            allow(LibJobs::ArchivesSpace::Client).to receive(:source).and_return(source_client)
           end
 
           it "generates a new Ab. ID with the new size and uses the starting code" do

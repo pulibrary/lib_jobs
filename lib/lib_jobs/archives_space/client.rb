@@ -97,12 +97,6 @@ module LibJobs
         find_child(uri: uri, resource_class: Repository, model_class: Repository.model_class, id: id)
       end
 
-      def search_top_containers_by(repository_id:, query:)
-        repository = find_repository(id: repository_id)
-
-        repository.search_top_containers(query: query)
-      end
-
       def select_repositories_by(repo_code:)
         output = repositories.select do |repository|
           repository.repo_code == repo_code

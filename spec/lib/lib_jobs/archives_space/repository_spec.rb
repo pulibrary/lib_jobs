@@ -45,11 +45,11 @@ describe LibJobs::ArchivesSpace::Repository do
 
   describe '#find_resource' do
     let(:id) { '4' }
-    before do
-      # stub_aspace_resource(repository_id: id, resource_id: resource_id)
-    end
     let(:client) do
       stub_aspace_resource(repository_id: id, resource_id: resource_id)
+    end
+    before do
+      allow(LibJobs::ArchivesSpace::Client).to receive(:source).and_return(client)
     end
 
     it 'retrieves the ArchivesSpace Resource' do

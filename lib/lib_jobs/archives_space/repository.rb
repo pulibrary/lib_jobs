@@ -7,9 +7,11 @@ module LibJobs
         AbsoluteId::Repository
       end
 
-      def build_top_container_from(documents:)
-        container_doc = documents.first
-        parsed = JSON.parse(container_doc['json'])
+      # Construct a TopContainer object from a SolrDocument
+      # @param document
+      # @return TopContainer
+      def build_top_container_from(document:)
+        parsed = JSON.parse(document['json'])
 
         response_body_json = parsed.transform_keys(&:to_sym)
         response_body_json[:repository] = self
@@ -73,12 +75,30 @@ module LibJobs
         children(resource_class: TopContainer, model_class: top_container_model)
       end
 
-      def search_top_containers(ead_id:, indicator:)
-        resource_refs = client.find_resources_by_ead_id(repository_id: @id, ead_id: ead_id)
-        resource = build_resource_from(refs: resource_refs)
-        resource.search_top_containers(indicator: indicator)
+      # Search for TopContainers using the EAD ID
+      # @param ead_id
+      # @param indicator
+      def search_top_containers_by(barcode:, resource_class: TopContainer)
+        query_params = [["q", barcode]]
+        query = URI.encode_www_form(query_params)
+        response = client.get("/repositories/#{@id}/#{resource_class.name.demodulize.pluralize.underscore}/search?#{query}")
+
+        return [] if response.status.code == "404"
+
+        parsed = JSON.parse(response.body)
+        return [] unless parsed.key?('response') || parsed['response'].key?('docs')
+
+        solr_response = parsed['response']
+        return [] unless solr_response.key?('docs')
+
+        solr_documents = solr_response['docs']
+        solr_documents.map do |document|
+          build_top_container_from(document: document)
+        end
       end
 
+      # Search for Resources using the EAD ID
+      # @param ead_id
       def search_resources(ead_id:)
         resource_refs = find_resources_by_ead_id(ead_id: ead_id)
         build_resource_from(refs: resource_refs)

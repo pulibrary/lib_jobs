@@ -4,7 +4,7 @@ module AbsoluteIds
     attr_reader :value, :check_digit
 
     def initialize(value)
-      raise InvalidBarcodeError, "Barcode values cannot be nil" if value.nil?
+      raise InvalidBarcodeError, "Barcode values cannot be blank" if value.blank?
 
       @value = value
     end
@@ -30,8 +30,10 @@ module AbsoluteIds
       @value = new_value
     end
 
+    # @todo This needs to be fixed
     def valid?
       @value.present? && digits.length == 13
+      false
     end
 
     def digits
@@ -52,7 +54,7 @@ module AbsoluteIds
     end
 
     # Luhn algorithm implementation
-    # Disabled for now
+    # @todo This needs to be fixed
     def self.generate_check_digit(code)
       padded = "#{code}0"
       parity = padded.length % 2
@@ -75,7 +77,7 @@ module AbsoluteIds
     def self.build(code)
       value = code[0..13]
       built = new(value)
-      built.check_digit = code.last
+      built.check_digit = code.last.to_i
       built
     end
 

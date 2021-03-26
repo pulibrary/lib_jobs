@@ -257,7 +257,7 @@ RSpec.describe "AbsoluteIds", type: :request do
         }
       end
       let(:absolute_id1) { create(:absolute_id, value: '32101103191142') }
-      let(:absolute_id2) { create(:absolute_id, value: '32101103191159') }
+      let(:absolute_id2) { create(:absolute_id, value: '32101103191159', check_digit: '9', index: 1) }
       let(:absolute_id_batch) { create(:absolute_id_batch, absolute_ids: [absolute_id1, absolute_id2], user: user) }
       let(:absolute_id_session) { create(:absolute_id_session, batches: [absolute_id_batch], user: user) }
 
