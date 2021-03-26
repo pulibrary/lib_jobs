@@ -12,4 +12,7 @@ RSpec.configure do |config|
       driven_by(:selenium_chrome_headless)
     end
   end
+  config.before(:each, type: :system, js: true, in_browser: true) do
+    driven_by(:selenium_chrome)
+  end
 end
