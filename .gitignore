@@ -38,4 +38,3 @@ yarn-debug.log*
 .yarn-integrity
 .env
 coverage
-yarn.lock
