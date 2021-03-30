@@ -23,13 +23,14 @@ module AspaceStubbing
       )
   end
 
-  # @note Currently only stubs Repository 4, univarchives, because that's what
-  # we're using in testing.
-  def stub_repository
-    stub_request(:get, 'https://aspace.test.org/staff/api/repositories/4')
+  def stub_repository(repository_id: 4)
+    uri = "/repositories/#{repository_id}"
+    path = Rails.root.join('spec', 'fixtures', 'archives_space', 'repositories', repository_id.to_s, 'repository.json')
+    cache_path(uri: uri, path: path)
+    stub_request(:get, "https://aspace.test.org/staff/api#{uri}")
       .to_return(
         status: 200,
-        body: File.open(Rails.root.join('spec', 'fixtures', 'archives_space', 'repository.json')),
+        body: File.open(path),
         headers: { "Content-Type": 'application/json' }
       )
   end
@@ -51,10 +52,13 @@ module AspaceStubbing
           body: 'Something broke'
         )
     else
-      stub_request(:get, "https://aspace.test.org/staff/api/repositories/#{repository_id}/top_containers?page=1&page_size=100000&resolve[]=container_locations")
+      path = Rails.root.join('spec', 'fixtures', 'archives_space', "top_containers_#{repository_id}_page1.json")
+      uri = "/repositories/#{repository_id}/top_containers?page=1&page_size=100000&resolve[]=container_locations"
+      cache_path(path: path, uri: uri)
+      stub_request(:get, "https://aspace.test.org/staff/api#{uri}")
         .to_return(
           status: 200,
-          body: File.open(Rails.root.join('spec', 'fixtures', 'archives_space', "top_containers_#{repository_id}_page1.json")),
+          body: File.open(path),
           headers: { "Content-Type": 'application/json' }
         )
     end
@@ -110,6 +114,7 @@ module AspaceStubbing
     client = LibJobs::ArchivesSpace::Client.new(LibJobs::ArchivesSpace::Configuration.new(LibJobs.all_environment_config['development']['archivesspace']['source'].symbolize_keys))
     client.login
     result = client.get(uri)
+    FileUtils.mkdir_p(Pathname.new(path).dirname)
     File.open(path, 'w') do |f|
       f.write(result.body)
     end

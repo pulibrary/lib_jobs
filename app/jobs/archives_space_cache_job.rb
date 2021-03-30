@@ -4,10 +4,6 @@ class ArchivesSpaceCacheJob < ApplicationJob
 
   def perform
     source_client.repositories.each do |repository|
-      repository.resources.each do |resource|
-        ArchivesSpaceCacheResourceJob.perform_later(repository_uri: repository.uri, resource_uri: resource.uri)
-      end
-
       repository.top_containers.each do |top_container|
         ArchivesSpaceCacheTopContainerJob.perform_later(repository_uri: repository.uri, top_container_uri: top_container.uri)
       end

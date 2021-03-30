@@ -19,10 +19,6 @@ source_client.repositories.each do |repository|
   repository.top_containers.each do |top_container|
     Rails.logger.info("Cached container #{top_container.uri}...")
   end
-
-  repository.resources.each do |resources|
-    Rails.logger.info("Cached resource #{resource.uri}...")
-  end
 end
 
 source_client.container_profiles
