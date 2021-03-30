@@ -1,0 +1,39 @@
+{
+    "child_count": 1,
+    "jsonmodel_type": "resource",
+    "level": "collection",
+    "parsed_title": "AbID Testing Resource #1",
+    "precomputed_waypoints": {
+        "": {
+            "0": [
+                {
+                    "child_count": 25,
+                    "dates": [
+                        {
+                            "begin": "2006",
+                            "end": "2008",
+                            "expression": "2006-2008",
+                            "label": "creation",
+                            "type": "inclusive"
+                        }
+                    ],
+                    "jsonmodel_type": "archival_object",
+                    "level": "series",
+                    "parent_id": null,
+                    "parsed_title": "Correspondence",
+                    "position": 0,
+                    "slugged_url": "",
+                    "title": "Correspondence",
+                    "uri": "/repositories/4/archival_objects/1446368",
+                    "waypoint_size": 200,
+                    "waypoints": 1
+                }
+            ]
+        }
+    },
+    "slugged_url": "",
+    "title": "AbID Testing Resource #1",
+    "uri": "/repositories/4/resources/4188",
+    "waypoint_size": 200,
+    "waypoints": 1
+}

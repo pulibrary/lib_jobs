@@ -34,6 +34,15 @@ module AspaceStubbing
       )
   end
 
+  def stub_resource_find_by_id(repository_id:, identifier:, resource_id:)
+    stub_request(:get, "https://aspace.test.org/staff/api/repositories/#{repository_id}/find_by_id/resources?identifier[]=[\"#{identifier}\"]")
+      .to_return(
+        status: 200,
+        body: { resources: [{ ref: "/repositories/#{repository_id}/resources/#{resource_id}" }] }.to_json,
+        headers: { "Content-Type": 'application/json' }
+      )
+  end
+
   def stub_repository_top_containers(repository_id:, error: false)
     if error
       stub_request(:get, "https://aspace.test.org/staff/api/repositories/#{repository_id}/top_containers?page=1&page_size=100000&resolve[]=container_locations")
@@ -56,6 +65,73 @@ module AspaceStubbing
       .to_return(
         status: 200,
         body: File.open(Rails.root.join('spec', 'fixtures', 'archives_space', 'repositories.json')),
+        headers: { "Content-Type": 'application/json' }
+      )
+  end
+
+  def stub_resource(resource_id:, repository_id:)
+    stub_request(:get, "https://aspace.test.org/staff/api/repositories/#{repository_id}/resources/#{resource_id}")
+      .to_return(
+        status: 200,
+        body: File.open(Rails.root.join('spec', 'fixtures', 'archives_space', 'repositories', repository_id.to_s, "#{resource_id}.json")),
+        headers: { "Content-Type": 'application/json' }
+      )
+  end
+
+  def stub_archival_object(archival_object_id:, repository_id:)
+    path = Rails.root.join('spec', 'fixtures', 'archives_space', 'repositories', repository_id.to_s, "archival_object_#{archival_object_id}.json")
+    cache_path(uri: "/repositories/#{repository_id}/archival_objects/#{archival_object_id}", path: path)
+    stub_request(:get, "https://aspace.test.org/staff/api/repositories/#{repository_id}/archival_objects/#{archival_object_id}")
+      .to_return(
+        status: 200,
+        body: File.open(path),
+        headers: { "Content-Type": 'application/json' }
+      )
+  end
+
+  def stub_top_container(repository_id:, top_container_id:)
+    path = Rails.root.join('spec', 'fixtures', 'archives_space', 'repositories', repository_id.to_s, "top_container_#{top_container_id}.json")
+    cache_path(uri: "/repositories/#{repository_id}/top_containers/#{top_container_id}", path: path)
+    stub_request(:get, "https://aspace.test.org/staff/api/repositories/#{repository_id}/top_containers/#{top_container_id}")
+      .to_return(
+        status: 200,
+        body: File.open(path),
+        headers: { "Content-Type": 'application/json' }
+      )
+  end
+
+  # It took too long to manually create the mocks for navigating the whole tree,
+  # so this shortcut function grabs it from the real API if necessary. Kind of
+  # like on-demand VCR.
+  def cache_path(uri:, path:)
+    return if File.exist?(path)
+
+    WebMock.disable!
+    client = LibJobs::ArchivesSpace::Client.new(LibJobs::ArchivesSpace::Configuration.new(LibJobs.all_environment_config['development']['archivesspace']['source'].symbolize_keys))
+    client.login
+    result = client.get(uri)
+    File.open(path, 'w') do |f|
+      f.write(result.body)
+    end
+    WebMock.enable!
+  end
+
+  def stub_tree_root(resource_id:, repository_id:)
+    stub_request(:get, "https://aspace.test.org/staff/api/repositories/#{repository_id}/resources/#{resource_id}/tree/root")
+      .to_return(
+        status: 200,
+        body: File.open(Rails.root.join('spec', 'fixtures', 'archives_space', 'repositories', repository_id.to_s, "#{resource_id}_tree_root.json")),
+        headers: { "Content-Type": 'application/json' }
+      )
+  end
+
+  def stub_tree_node(resource_id:, repository_id:, archival_object_id:)
+    path = Rails.root.join('spec', 'fixtures', 'archives_space', 'repositories', repository_id.to_s, "#{resource_id}_tree_#{archival_object_id}.json")
+    cache_path(uri: "/repositories/#{repository_id}/resources/#{resource_id}/tree/node?node_uri=/repositories/#{repository_id}/archival_objects/#{archival_object_id}", path: path)
+    stub_request(:get, "https://aspace.test.org/staff/api/repositories/#{repository_id}/resources/#{resource_id}/tree/node?node_uri=/repositories/#{repository_id}/archival_objects/#{archival_object_id}")
+      .to_return(
+        status: 200,
+        body: File.open(path),
         headers: { "Content-Type": 'application/json' }
       )
   end
