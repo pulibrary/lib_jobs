@@ -58,6 +58,23 @@ RSpec.describe 'Absolute ID Generation' do
       Capybara.using_wait_time 30 do
         expect(page).to have_button "Generate"
       end
+      expect(page).to have_button "Synchronize"
+      expect(page).to have_link "Download Report"
+
+      # Synchronize!
+      # Box 24.
+      stub_request(:post, "https://aspace.test.org/staff/api/repositories/4/top_containers/118114")
+        .to_return(status: 200, body: "", headers: {})
+      # Box 23
+      stub_request(:post, "https://aspace.test.org/staff/api/repositories/4/top_containers/118113")
+        .to_return(status: 200, body: "", headers: {})
+      # Box 22
+      stub_request(:post, "https://aspace.test.org/staff/api/repositories/4/top_containers/118112")
+        .to_return(status: 200, body: "", headers: {})
+      click_button "Synchronize"
+      Capybara.using_wait_time 30 do
+        expect(page).to have_selector(".lux-tag-item.green span", text: "synchronized", count: 3)
+      end
     end
   end
 end
