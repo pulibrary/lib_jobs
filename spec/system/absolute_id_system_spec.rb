@@ -75,6 +75,13 @@ RSpec.describe 'Absolute ID Generation' do
       Capybara.using_wait_time 30 do
         expect(page).to have_selector(".lux-tag-item.green span", text: "synchronized", count: 3)
       end
+
+      # Ensure Export XML button works.
+      # There's no user feature here - so this is just to get coverage.
+      click_link "Export XML Data"
+      expect(page.body).to include "/repositories/4/top_containers/118099"
+      doc = Nokogiri::XML(page.body)
+      expect(doc.errors).to be_blank
     end
   end
 end
