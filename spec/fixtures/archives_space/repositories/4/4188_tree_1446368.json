@@ -1,0 +1,767 @@
+{
+    "child_count": 25,
+    "jsonmodel_type": "archival_object",
+    "position": 1,
+    "precomputed_waypoints": {
+        "/repositories/4/archival_objects/1446368": {
+            "0": [
+                {
+                    "child_count": 0,
+                    "containers": [
+                        {
+                            "indicator_2": "1",
+                            "instance_type": "mixed_materials",
+                            "top_container_barcode": "32101103191155",
+                            "top_container_indicator": "P-000001",
+                            "top_container_type": "box",
+                            "type_2": "folder"
+                        }
+                    ],
+                    "dates": [
+                        {
+                            "begin": "2012",
+                            "end": "2012",
+                            "expression": "2012",
+                            "label": "creation",
+                            "type": "single"
+                        }
+                    ],
+                    "jsonmodel_type": "archival_object",
+                    "level": "file",
+                    "parent_id": 1446368,
+                    "parsed_title": "Lorem ipsum dolor sit amet",
+                    "position": 0,
+                    "slugged_url": "",
+                    "title": "Lorem ipsum dolor sit amet",
+                    "uri": "/repositories/4/archival_objects/1446369",
+                    "waypoint_size": 200,
+                    "waypoints": 0
+                },
+                {
+                    "child_count": 0,
+                    "containers": [
+                        {
+                            "indicator_2": "2",
+                            "instance_type": "mixed_materials",
+                            "top_container_barcode": "32101103191164",
+                            "top_container_indicator": "P-000002",
+                            "top_container_type": "box",
+                            "type_2": "folder"
+                        }
+                    ],
+                    "dates": [
+                        {
+                            "begin": "2008-03",
+                            "end": "2008-03",
+                            "expression": "2008 March",
+                            "label": "creation",
+                            "type": "single"
+                        }
+                    ],
+                    "jsonmodel_type": "archival_object",
+                    "level": "file",
+                    "parent_id": 1446368,
+                    "parsed_title": "Ut enim ad minim veniam",
+                    "position": 1,
+                    "slugged_url": "",
+                    "title": "Ut enim ad minim veniam",
+                    "uri": "/repositories/4/archival_objects/1446370",
+                    "waypoint_size": 200,
+                    "waypoints": 0
+                },
+                {
+                    "child_count": 0,
+                    "containers": [
+                        {
+                            "indicator_2": "1",
+                            "instance_type": "mixed_materials",
+                            "top_container_barcode": "32101103191173",
+                            "top_container_indicator": "P-000003",
+                            "top_container_type": "box",
+                            "type_2": "folder"
+                        }
+                    ],
+                    "dates": [
+                        {
+                            "begin": "2008",
+                            "end": "2008",
+                            "expression": "2008",
+                            "label": "creation",
+                            "type": "single"
+                        }
+                    ],
+                    "jsonmodel_type": "archival_object",
+                    "level": "file",
+                    "parent_id": 1446368,
+                    "parsed_title": "Duis aute irure dolor in reprehenderit",
+                    "position": 2,
+                    "slugged_url": "",
+                    "title": "Duis aute irure dolor in reprehenderit",
+                    "uri": "/repositories/4/archival_objects/1446371",
+                    "waypoint_size": 200,
+                    "waypoints": 0
+                },
+                {
+                    "child_count": 0,
+                    "containers": [
+                        {
+                            "indicator_2": "2",
+                            "instance_type": "mixed_materials",
+                            "top_container_barcode": "32101103191182",
+                            "top_container_indicator": "P-000004",
+                            "top_container_type": "box",
+                            "type_2": "folder"
+                        }
+                    ],
+                    "dates": [
+                        {
+                            "begin": "2008",
+                            "end": "2008",
+                            "expression": "2008",
+                            "label": "creation",
+                            "type": "single"
+                        }
+                    ],
+                    "jsonmodel_type": "archival_object",
+                    "level": "file",
+                    "parent_id": 1446368,
+                    "parsed_title": "Excepteur sint occaecat cupidatat non proident",
+                    "position": 3,
+                    "slugged_url": "",
+                    "title": "Excepteur sint occaecat cupidatat non proident",
+                    "uri": "/repositories/4/archival_objects/1446372",
+                    "waypoint_size": 200,
+                    "waypoints": 0
+                },
+                {
+                    "child_count": 0,
+                    "containers": [
+                        {
+                            "indicator_2": "1",
+                            "instance_type": "mixed_materials",
+                            "top_container_barcode": "32101103191209",
+                            "top_container_indicator": "P-000014",
+                            "top_container_type": "box",
+                            "type_2": "folder"
+                        }
+                    ],
+                    "dates": [
+                        {
+                            "begin": "2009",
+                            "end": "2012",
+                            "expression": "2009-2012",
+                            "label": "creation",
+                            "type": "inclusive"
+                        }
+                    ],
+                    "jsonmodel_type": "archival_object",
+                    "level": "file",
+                    "parent_id": 1446368,
+                    "parsed_title": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem",
+                    "position": 4,
+                    "slugged_url": "",
+                    "title": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem",
+                    "uri": "/repositories/4/archival_objects/1446373",
+                    "waypoint_size": 200,
+                    "waypoints": 0
+                },
+                {
+                    "child_count": 0,
+                    "containers": [
+                        {
+                            "indicator_2": "2",
+                            "instance_type": "mixed_materials",
+                            "top_container_barcode": "32101103191208",
+                            "top_container_indicator": "P-000006",
+                            "top_container_type": "box",
+                            "type_2": "folder"
+                        }
+                    ],
+                    "dates": [
+                        {
+                            "begin": "2008-04",
+                            "end": "2008-04",
+                            "expression": "2008 April",
+                            "label": "creation",
+                            "type": "single"
+                        }
+                    ],
+                    "jsonmodel_type": "archival_object",
+                    "level": "file",
+                    "parent_id": 1446368,
+                    "parsed_title": "Nemo enim ipsam voluptatem quia voluptas",
+                    "position": 5,
+                    "slugged_url": "",
+                    "title": "Nemo enim ipsam voluptatem quia voluptas",
+                    "uri": "/repositories/4/archival_objects/1446374",
+                    "waypoint_size": 200,
+                    "waypoints": 0
+                },
+                {
+                    "child_count": 0,
+                    "containers": [
+                        {
+                            "instance_type": "mixed_materials",
+                            "top_container_barcode": "32101103191217",
+                            "top_container_indicator": "P-000007",
+                            "top_container_type": "box"
+                        }
+                    ],
+                    "dates": [
+                        {
+                            "begin": "2006",
+                            "end": "2008",
+                            "expression": "2006-2008",
+                            "label": "creation",
+                            "type": "inclusive"
+                        }
+                    ],
+                    "jsonmodel_type": "archival_object",
+                    "level": "file",
+                    "parent_id": 1446368,
+                    "parsed_title": "Lorem ipsum dolor sit amet",
+                    "position": 6,
+                    "slugged_url": "",
+                    "title": "Lorem ipsum dolor sit amet",
+                    "uri": "/repositories/4/archival_objects/1446375",
+                    "waypoint_size": 200,
+                    "waypoints": 0
+                },
+                {
+                    "child_count": 0,
+                    "containers": [
+                        {
+                            "instance_type": "mixed_materials",
+                            "top_container_barcode": "32101103191226",
+                            "top_container_indicator": "P-000008",
+                            "top_container_type": "box"
+                        }
+                    ],
+                    "dates": [
+                        {
+                            "begin": "2012",
+                            "end": "2012",
+                            "expression": "2012",
+                            "label": "creation",
+                            "type": "single"
+                        }
+                    ],
+                    "jsonmodel_type": "archival_object",
+                    "level": "file",
+                    "parent_id": 1446368,
+                    "parsed_title": "Ut enim ad minim veniam",
+                    "position": 7,
+                    "slugged_url": "",
+                    "title": "Ut enim ad minim veniam",
+                    "uri": "/repositories/4/archival_objects/1446376",
+                    "waypoint_size": 200,
+                    "waypoints": 0
+                },
+                {
+                    "child_count": 0,
+                    "containers": [
+                        {
+                            "instance_type": "mixed_materials",
+                            "top_container_barcode": "32101103191235",
+                            "top_container_indicator": "P-000009",
+                            "top_container_type": "box"
+                        }
+                    ],
+                    "dates": [
+                        {
+                            "begin": "2008-03",
+                            "end": "2008-03",
+                            "expression": "2008 March",
+                            "label": "creation",
+                            "type": "single"
+                        }
+                    ],
+                    "jsonmodel_type": "archival_object",
+                    "level": "file",
+                    "parent_id": 1446368,
+                    "parsed_title": "Duis aute irure dolor in reprehenderit",
+                    "position": 8,
+                    "slugged_url": "",
+                    "title": "Duis aute irure dolor in reprehenderit",
+                    "uri": "/repositories/4/archival_objects/1446377",
+                    "waypoint_size": 200,
+                    "waypoints": 0
+                },
+                {
+                    "child_count": 0,
+                    "containers": [
+                        {
+                            "instance_type": "mixed_materials",
+                            "top_container_barcode": "32101113740656",
+                            "top_container_indicator": "P-000011",
+                            "top_container_type": "box"
+                        }
+                    ],
+                    "dates": [
+                        {
+                            "begin": "2008",
+                            "end": "2008",
+                            "expression": "2008",
+                            "label": "creation",
+                            "type": "single"
+                        }
+                    ],
+                    "jsonmodel_type": "archival_object",
+                    "level": "file",
+                    "parent_id": 1446368,
+                    "parsed_title": "Excepteur sint occaecat cupidatat non proident",
+                    "position": 9,
+                    "slugged_url": "",
+                    "title": "Excepteur sint occaecat cupidatat non proident",
+                    "uri": "/repositories/4/archival_objects/1446378",
+                    "waypoint_size": 200,
+                    "waypoints": 0
+                },
+                {
+                    "child_count": 0,
+                    "containers": [
+                        {
+                            "instance_type": "mixed_materials",
+                            "top_container_indicator": "11",
+                            "top_container_type": "box"
+                        }
+                    ],
+                    "dates": [
+                        {
+                            "begin": "2008",
+                            "end": "2008",
+                            "expression": "2008",
+                            "label": "creation",
+                            "type": "single"
+                        }
+                    ],
+                    "jsonmodel_type": "archival_object",
+                    "level": "file",
+                    "parent_id": 1446368,
+                    "parsed_title": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem",
+                    "position": 10,
+                    "slugged_url": "",
+                    "title": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem",
+                    "uri": "/repositories/4/archival_objects/1446379",
+                    "waypoint_size": 200,
+                    "waypoints": 0
+                },
+                {
+                    "child_count": 0,
+                    "containers": [
+                        {
+                            "instance_type": "mixed_materials",
+                            "top_container_barcode": "32101103191142",
+                            "top_container_indicator": "P-000021",
+                            "top_container_type": "box"
+                        }
+                    ],
+                    "dates": [
+                        {
+                            "begin": "2009",
+                            "end": "2012",
+                            "expression": "2009-2012",
+                            "label": "creation",
+                            "type": "inclusive"
+                        }
+                    ],
+                    "jsonmodel_type": "archival_object",
+                    "level": "file",
+                    "parent_id": 1446368,
+                    "parsed_title": "Nemo enim ipsam voluptatem quia voluptas",
+                    "position": 11,
+                    "slugged_url": "",
+                    "title": "Nemo enim ipsam voluptatem quia voluptas",
+                    "uri": "/repositories/4/archival_objects/1446380",
+                    "waypoint_size": 200,
+                    "waypoints": 0
+                },
+                {
+                    "child_count": 0,
+                    "containers": [
+                        {
+                            "instance_type": "mixed_materials",
+                            "top_container_indicator": "13",
+                            "top_container_type": "box"
+                        }
+                    ],
+                    "dates": [
+                        {
+                            "begin": "2006",
+                            "end": "2008",
+                            "expression": "2006-2008",
+                            "label": "creation",
+                            "type": "inclusive"
+                        }
+                    ],
+                    "jsonmodel_type": "archival_object",
+                    "level": "file",
+                    "parent_id": 1446368,
+                    "parsed_title": "Lorem ipsum dolor sit amet",
+                    "position": 12,
+                    "slugged_url": "",
+                    "title": "Lorem ipsum dolor sit amet",
+                    "uri": "/repositories/4/archival_objects/1446381",
+                    "waypoint_size": 200,
+                    "waypoints": 0
+                },
+                {
+                    "child_count": 0,
+                    "containers": [
+                        {
+                            "instance_type": "mixed_materials",
+                            "top_container_barcode": "32101103191159",
+                            "top_container_indicator": "P-000048",
+                            "top_container_type": "box"
+                        }
+                    ],
+                    "dates": [
+                        {
+                            "begin": "2012",
+                            "end": "2012",
+                            "expression": "2012",
+                            "label": "creation",
+                            "type": "single"
+                        }
+                    ],
+                    "jsonmodel_type": "archival_object",
+                    "level": "file",
+                    "parent_id": 1446368,
+                    "parsed_title": "Ut enim ad minim veniam",
+                    "position": 13,
+                    "slugged_url": "",
+                    "title": "Ut enim ad minim veniam",
+                    "uri": "/repositories/4/archival_objects/1446382",
+                    "waypoint_size": 200,
+                    "waypoints": 0
+                },
+                {
+                    "child_count": 0,
+                    "containers": [
+                        {
+                            "instance_type": "mixed_materials",
+                            "top_container_barcode": "32101103191167",
+                            "top_container_indicator": "P-000049",
+                            "top_container_type": "box"
+                        }
+                    ],
+                    "dates": [
+                        {
+                            "begin": "2008-03",
+                            "end": "2008-03",
+                            "expression": "2008 March",
+                            "label": "creation",
+                            "type": "single"
+                        }
+                    ],
+                    "jsonmodel_type": "archival_object",
+                    "level": "file",
+                    "parent_id": 1446368,
+                    "parsed_title": "Duis aute irure dolor in reprehenderit",
+                    "position": 14,
+                    "slugged_url": "",
+                    "title": "Duis aute irure dolor in reprehenderit",
+                    "uri": "/repositories/4/archival_objects/1446383",
+                    "waypoint_size": 200,
+                    "waypoints": 0
+                },
+                {
+                    "child_count": 0,
+                    "containers": [
+                        {
+                            "instance_type": "mixed_materials",
+                            "top_container_barcode": "32101103191175",
+                            "top_container_indicator": "P-000050",
+                            "top_container_type": "box"
+                        }
+                    ],
+                    "dates": [
+                        {
+                            "begin": "2008",
+                            "end": "2008",
+                            "expression": "2008",
+                            "label": "creation",
+                            "type": "single"
+                        }
+                    ],
+                    "jsonmodel_type": "archival_object",
+                    "level": "file",
+                    "parent_id": 1446368,
+                    "parsed_title": "Excepteur sint occaecat cupidatat non proident",
+                    "position": 15,
+                    "slugged_url": "",
+                    "title": "Excepteur sint occaecat cupidatat non proident",
+                    "uri": "/repositories/4/archival_objects/1446384",
+                    "waypoint_size": 200,
+                    "waypoints": 0
+                },
+                {
+                    "child_count": 0,
+                    "containers": [
+                        {
+                            "instance_type": "mixed_materials",
+                            "top_container_barcode": "32101103191183",
+                            "top_container_indicator": "P-000051",
+                            "top_container_type": "box"
+                        }
+                    ],
+                    "dates": [
+                        {
+                            "begin": "2008",
+                            "end": "2008",
+                            "expression": "2008",
+                            "label": "creation",
+                            "type": "single"
+                        }
+                    ],
+                    "jsonmodel_type": "archival_object",
+                    "level": "file",
+                    "parent_id": 1446368,
+                    "parsed_title": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem",
+                    "position": 16,
+                    "slugged_url": "",
+                    "title": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem",
+                    "uri": "/repositories/4/archival_objects/1446385",
+                    "waypoint_size": 200,
+                    "waypoints": 0
+                },
+                {
+                    "child_count": 0,
+                    "containers": [
+                        {
+                            "instance_type": "mixed_materials",
+                            "top_container_indicator": "18",
+                            "top_container_type": "box"
+                        }
+                    ],
+                    "dates": [
+                        {
+                            "begin": "2009",
+                            "end": "2012",
+                            "expression": "2009-2012",
+                            "label": "creation",
+                            "type": "inclusive"
+                        }
+                    ],
+                    "jsonmodel_type": "archival_object",
+                    "level": "file",
+                    "parent_id": 1446368,
+                    "parsed_title": "Nemo enim ipsam voluptatem quia voluptas",
+                    "position": 17,
+                    "slugged_url": "",
+                    "title": "Nemo enim ipsam voluptatem quia voluptas",
+                    "uri": "/repositories/4/archival_objects/1446386",
+                    "waypoint_size": 200,
+                    "waypoints": 0
+                },
+                {
+                    "child_count": 0,
+                    "containers": [
+                        {
+                            "instance_type": "mixed_materials",
+                            "top_container_indicator": "19",
+                            "top_container_type": "box"
+                        }
+                    ],
+                    "dates": [
+                        {
+                            "begin": "2006",
+                            "end": "2008",
+                            "expression": "2006-2008",
+                            "label": "creation",
+                            "type": "inclusive"
+                        }
+                    ],
+                    "jsonmodel_type": "archival_object",
+                    "level": "file",
+                    "parent_id": 1446368,
+                    "parsed_title": "Lorem ipsum dolor sit amet",
+                    "position": 18,
+                    "slugged_url": "",
+                    "title": "Lorem ipsum dolor sit amet",
+                    "uri": "/repositories/4/archival_objects/1446387",
+                    "waypoint_size": 200,
+                    "waypoints": 0
+                },
+                {
+                    "child_count": 0,
+                    "containers": [
+                        {
+                            "instance_type": "mixed_materials",
+                            "top_container_indicator": "20",
+                            "top_container_type": "box"
+                        }
+                    ],
+                    "dates": [
+                        {
+                            "begin": "2012",
+                            "end": "2012",
+                            "expression": "2012",
+                            "label": "creation",
+                            "type": "single"
+                        }
+                    ],
+                    "jsonmodel_type": "archival_object",
+                    "level": "file",
+                    "parent_id": 1446368,
+                    "parsed_title": "Ut enim ad minim veniam",
+                    "position": 19,
+                    "slugged_url": "",
+                    "title": "Ut enim ad minim veniam",
+                    "uri": "/repositories/4/archival_objects/1446388",
+                    "waypoint_size": 200,
+                    "waypoints": 0
+                },
+                {
+                    "child_count": 0,
+                    "containers": [
+                        {
+                            "instance_type": "mixed_materials",
+                            "top_container_indicator": "21",
+                            "top_container_type": "box"
+                        }
+                    ],
+                    "dates": [
+                        {
+                            "begin": "2008-03-01",
+                            "end": "2008-03-01",
+                            "expression": "2008 March 1",
+                            "label": "creation",
+                            "type": "single"
+                        }
+                    ],
+                    "jsonmodel_type": "archival_object",
+                    "level": "file",
+                    "parent_id": 1446368,
+                    "parsed_title": "Duis aute irure dolor in reprehenderit",
+                    "position": 20,
+                    "slugged_url": "",
+                    "title": "Duis aute irure dolor in reprehenderit",
+                    "uri": "/repositories/4/archival_objects/1446389",
+                    "waypoint_size": 200,
+                    "waypoints": 0
+                },
+                {
+                    "child_count": 0,
+                    "containers": [
+                        {
+                            "instance_type": "mixed_materials",
+                            "top_container_indicator": "22",
+                            "top_container_type": "box"
+                        }
+                    ],
+                    "dates": [
+                        {
+                            "begin": "2008",
+                            "end": "2008",
+                            "expression": "2008",
+                            "label": "creation",
+                            "type": "single"
+                        }
+                    ],
+                    "jsonmodel_type": "archival_object",
+                    "level": "file",
+                    "parent_id": 1446368,
+                    "parsed_title": "Excepteur sint occaecat cupidatat non proident",
+                    "position": 21,
+                    "slugged_url": "",
+                    "title": "Excepteur sint occaecat cupidatat non proident",
+                    "uri": "/repositories/4/archival_objects/1446390",
+                    "waypoint_size": 200,
+                    "waypoints": 0
+                },
+                {
+                    "child_count": 0,
+                    "containers": [
+                        {
+                            "instance_type": "mixed_materials",
+                            "top_container_indicator": "23",
+                            "top_container_type": "box"
+                        }
+                    ],
+                    "dates": [
+                        {
+                            "begin": "2008",
+                            "end": "2008",
+                            "expression": "2008",
+                            "label": "creation",
+                            "type": "single"
+                        }
+                    ],
+                    "jsonmodel_type": "archival_object",
+                    "level": "file",
+                    "parent_id": 1446368,
+                    "parsed_title": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem",
+                    "position": 22,
+                    "slugged_url": "",
+                    "title": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem",
+                    "uri": "/repositories/4/archival_objects/1446391",
+                    "waypoint_size": 200,
+                    "waypoints": 0
+                },
+                {
+                    "child_count": 0,
+                    "containers": [
+                        {
+                            "instance_type": "mixed_materials",
+                            "top_container_indicator": "24",
+                            "top_container_type": "box"
+                        }
+                    ],
+                    "dates": [
+                        {
+                            "begin": "2009",
+                            "end": "2012",
+                            "expression": "2009-2012",
+                            "label": "creation",
+                            "type": "inclusive"
+                        }
+                    ],
+                    "jsonmodel_type": "archival_object",
+                    "level": "file",
+                    "parent_id": 1446368,
+                    "parsed_title": "Nemo enim ipsam voluptatem quia voluptas",
+                    "position": 23,
+                    "slugged_url": "",
+                    "title": "Nemo enim ipsam voluptatem quia voluptas",
+                    "uri": "/repositories/4/archival_objects/1446392",
+                    "waypoint_size": 200,
+                    "waypoints": 0
+                },
+                {
+                    "child_count": 0,
+                    "containers": [
+                        {
+                            "instance_type": "mixed_materials",
+                            "top_container_indicator": "25",
+                            "top_container_type": "box"
+                        }
+                    ],
+                    "dates": [
+                        {
+                            "begin": "2009",
+                            "end": "2013",
+                            "expression": "2009-2013",
+                            "label": "creation",
+                            "type": "inclusive"
+                        }
+                    ],
+                    "jsonmodel_type": "archival_object",
+                    "level": "file",
+                    "parent_id": 1446368,
+                    "parsed_title": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem",
+                    "position": 24,
+                    "slugged_url": "",
+                    "title": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem",
+                    "uri": "/repositories/4/archival_objects/1446393",
+                    "waypoint_size": 200,
+                    "waypoints": 0
+                }
+            ]
+        }
+    },
+    "title": "Correspondence, 2006-2008",
+    "uri": "/repositories/4/archival_objects/1446368",
+    "waypoint_size": 200,
+    "waypoints": 1
+}
