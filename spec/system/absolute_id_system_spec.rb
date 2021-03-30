@@ -52,6 +52,12 @@ RSpec.describe 'Absolute ID Generation' do
       fill_in 'Ending Box Number', with: '24'
       expect(page).to have_content 'Barcode is valid'
       click_button 'Generate'
+
+      expect(page).to have_button "Generating", disabled: true
+      # Increase wait time - processing takes ~ 18 seconds for this request.
+      Capybara.using_wait_time 30 do
+        expect(page).to have_button "Generate"
+      end
     end
   end
 end
