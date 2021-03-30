@@ -314,7 +314,6 @@ export default {
     },
 
     updateBarcodes: function() {
-<<<<<<< HEAD
       if (this.size > 0) {
         for (const i of Array(this.size).keys()) {
           const base = this.parsedBarcode.slice(0, 13);
@@ -326,17 +325,6 @@ export default {
 
           this.$set(this.barcodes, i, newBarcode);
         }
-=======
-      for (const i of Array(this.size).keys()) {
-        const base = this.parsedBarcode.slice(0, 13);
-        const value = Number.parseInt(base) + i;
-        const encoded = `${value}`;
-        const incremented = encoded.padStart(13, 0);
-        const checksum = this.generateChecksum(incremented);
-        const newBarcode = `${incremented}${checksum}`;
-
-        this.$set(this.barcodes, i, newBarcode);
->>>>>>> Restructuring the AbID Session/Batch creation forms
       }
     },
 
@@ -500,6 +488,12 @@ export default {
       }
 
       return classes.join(" ");
+    },
+
+    updateValue: async function() {
+      if (this.value) {
+        await this.updateAbsoluteId();
+      }
     }
   }
 };

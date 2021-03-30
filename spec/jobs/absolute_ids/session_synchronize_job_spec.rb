@@ -4,7 +4,6 @@ require 'rails_helper'
 RSpec.describe AbsoluteIds::SessionSynchronizeJob, type: :job do
   describe '#perform' do
     let(:user) { create(:user) }
-
     let(:barcode) { '32101103191142' }
     let(:container_profile) do
       {
@@ -81,10 +80,12 @@ RSpec.describe AbsoluteIds::SessionSynchronizeJob, type: :job do
     end
     let(:absolute_id) { create(:absolute_id, model_attributes) }
     let(:barcode_unique) { true }
+    let(:indicator_unique) { true }
     let(:sync_client) do
       stubbed_client = stub_aspace_sync_client
       stubbed_client = stub_aspace_location(location_id: 23_640, client: stubbed_client)
-      stubbed_client = stub_aspace_search_top_containers(repository_id: 4, barcode: 32_101_103_191_142, empty: barcode_unique, client: stubbed_client)
+      stubbed_client = stub_aspace_search_top_containers(repository_id: 4, barcode: absolute_id.barcode.value, empty: barcode_unique, client: stubbed_client)
+      stubbed_client = stub_aspace_search_top_containers(repository_id: 4, indicator: absolute_id.label, empty: indicator_unique, client: stubbed_client)
       stubbed_client = stub_aspace_top_container(repository_id: 4, top_container_id: 118_091, client: stubbed_client)
       stubbed_client = stub_aspace_repository(repository_id: 4, client: stubbed_client)
       stubbed_client = stub_aspace_resource(repository_id: 4, resource_id: 4188, client: stubbed_client)
@@ -93,7 +94,6 @@ RSpec.describe AbsoluteIds::SessionSynchronizeJob, type: :job do
     let(:source_client) do
       stubbed_client = stub_aspace_source_client
       stubbed_client = stub_aspace_location(location_id: 23_640, client: stubbed_client)
-      stubbed_client = stub_aspace_search_top_containers(repository_id: 4, barcode: 32_101_103_191_142, empty: barcode_unique, client: stubbed_client)
       stubbed_client = stub_aspace_top_container(repository_id: 4, top_container_id: 118_091, client: stubbed_client)
       stubbed_client = stub_aspace_repository(repository_id: 4, client: stubbed_client)
       stubbed_client = stub_aspace_resource(repository_id: 4, resource_id: 4188, client: stubbed_client)
@@ -129,7 +129,7 @@ RSpec.describe AbsoluteIds::SessionSynchronizeJob, type: :job do
     end
 
     before do
-      stub_request(:get, "#{sync_client.base_uri}/repositories/4/top_containers/search?q=32101103191142").to_return(body: top_containers_search_fixture)
+      stub_request(:get, "#{sync_client.base_uri}/repositories/4/top_containers/search?q=#{absolute_id.barcode.value}").to_return(body: top_containers_search_fixture)
       stub_request(:post, "#{sync_client.base_uri}/repositories/4/top_containers/118091")
       allow(LibJobs::ArchivesSpace::Client).to receive(:sync).and_return(sync_client)
       allow(LibJobs::ArchivesSpace::Client).to receive(:source).and_return(source_client)
@@ -166,6 +166,29 @@ RSpec.describe AbsoluteIds::SessionSynchronizeJob, type: :job do
         )).not_to have_been_made
 
         expect(logger).to have_received(:warn).with("Warning: Failed to synchronize #{absolute_id.label}: Barcode #{absolute_id.barcode.value} is already used in ArchivesSpace.")
+      end
+    end
+
+    context 'when a TopContainer has already using an existing AbID' do
+      let(:logger) { instance_double(ActiveSupport::Logger) }
+      let(:indicator_unique) { false }
+
+      before do
+        allow(logger).to receive(:warn)
+        allow(Rails).to receive(:logger).and_return(logger)
+      end
+
+      it 'fails to update the ArchivesSpace TopContainer and raises an error' do
+        described_class.perform_now(user_id: user.id, model_id: absolute_id.id)
+
+        expect(a_request(:post, "#{sync_client.base_uri}/repositories/4/top_containers/118091").with(
+          body: post_params,
+          headers: {
+            'Content-Type' => 'application/json'
+          }
+        )).not_to have_been_made
+
+        expect(logger).to have_received(:warn).with("Warning: Failed to synchronize #{absolute_id.label}: Absolute ID #{absolute_id.label} is already used in ArchivesSpace.")
       end
     end
   end

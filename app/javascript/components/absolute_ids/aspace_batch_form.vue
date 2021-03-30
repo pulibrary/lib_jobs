@@ -671,6 +671,7 @@ export default {
     changeRepositoryId: async function(newId) {
       this.repositoryId = newId;
 
+      /*
       const fetchedResources = await this.fetchResources(this.repositoryId);
       this.resourceOptions = fetchedResources.map(resource => {
         return {
@@ -679,7 +680,9 @@ export default {
           id: resource.id
         };
       });
+      */
 
+      /*
       const fetchedContainers = await this.fetchContainers(this.repositoryId);
       this.containerOptions = fetchedContainers.map(resource => {
         return {
@@ -688,6 +691,7 @@ export default {
           id: resource.id
         };
       });
+      */
     },
 
     getRepositories: async function() {
@@ -815,7 +819,6 @@ export default {
           this.selectedContainerProfileId = this.value.absolute_id.container_profile.id;
         }
 
-        console.log(this.value);
         if (this.value.absolute_id.repository) {
           this.selectedRepositoryId = this.value.absolute_id.repository.id;
         }

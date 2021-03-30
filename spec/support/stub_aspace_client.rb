@@ -62,7 +62,7 @@ module ASpaceClientStubbing
     stub_aspace_source_client(client: client)
   end
 
-  def stub_aspace_search_top_containers(repository_id:, barcode:, empty: false, client: nil)
+  def stub_aspace_search_top_containers(repository_id:, barcode: nil, indicator: nil, empty: false, client: nil)
     client ||= stub_aspace_repository(repository_id: repository_id)
 
     # Implementing support for TopContainer querying
@@ -85,7 +85,16 @@ module ASpaceClientStubbing
     allow(top_container_response).to receive(:status).and_return(top_container_response_status)
     allow(top_container_response).to receive(:body).and_return(top_containers_search_fixture)
 
-    allow(client).to receive(:get).with("/repositories/#{repository_id}/top_containers/search?q=#{barcode}").and_return(top_container_response)
+    query_param = if !indicator.nil?
+                    [["q", indicator]]
+                  elsif !barcode.nil?
+                    [["q", barcode]]
+                  else
+                    ""
+                  end
+    query = URI.encode_www_form(query_param)
+
+    allow(client).to receive(:get).with("/repositories/#{repository_id}/top_containers/search?#{query}").and_return(top_container_response)
 
     client
   end

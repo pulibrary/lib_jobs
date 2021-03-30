@@ -25,15 +25,15 @@
       <div class="lux absolute-ids-session">
         <absolute-id-session-table
           header="<%= session.label %>"
-          :columns="<%= JSON.generate(table_columns) %>"
-          :session="<%= session.as_json %>"
+          :columns="<%= session.data_table.columns.to_json %>"
+          :session="<%= session.data_table.to_json %>"
           token="<%= current_user.token %>"
           :synchronize="<%= {
             status: session.synchronize_status,
-            action: synchronize_session_path(session)
+            action: absolute_ids_synchronize_session_path(session)
           }.to_json %>"
-          report-path="<%= session_id_path(session, format: 'txt') %>"
-          xml-path="<%= session_id_path(session, format: 'xml') %>"
+          report-path="<%= absolute_ids_session_id_path(session, format: 'txt') %>"
+          xml-path="<%= absolute_ids_session_id_path(session, format: 'xml') %>"
         />
       </div>
     <% end %>

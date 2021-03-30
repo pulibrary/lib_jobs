@@ -4,6 +4,7 @@ module AbsoluteIds
     queue_as :default
     class SynchronizeError < StandardError; end
     class DuplicateBarcodeError < SynchronizeError; end
+    class DuplicateIndicatorError < SynchronizeError; end
 
     class ClientMapper
       def self.root_config_file_path
@@ -54,10 +55,21 @@ module AbsoluteIds
     # @param indicator
     # @param repository
     # @return [Array<TopContainer>]
-    def validate_update(barcode:, repository:)
+    def validate_unique_barcode(barcode:, repository:)
       top_resources = repository.search_top_containers_by(barcode: barcode.value)
 
       raise(DuplicateBarcodeError, "Failed to synchronize #{@model_id} ArchivesSpace: the barcode #{barcode} is not unique") unless top_resources.empty?
+    end
+
+    # Ensure that the indicator is unique
+    # @param barcode
+    # @param indicator
+    # @param repository
+    # @return [Array<TopContainer>]
+    def validate_unique_indicator(indicator:, repository:)
+      top_resources = repository.search_top_containers_by(indicator: indicator)
+
+      raise(DuplicateIndicatorError, "Failed to synchronize #{@model_id} ArchivesSpace: the Absolute ID #{absolute_id.label} is not unique") unless top_resources.empty?
     end
 
     # Update the TopContainer
@@ -83,7 +95,8 @@ module AbsoluteIds
       sync_repository = sync_client.find_repository_by(uri: source_repository.uri)
 
       # Verify that the AbID and barcode are unique for the TopContainer
-      validate_update(barcode: barcode, repository: sync_repository)
+      validate_unique_barcode(barcode: barcode, repository: sync_repository)
+      validate_unique_indicator(indicator: indicator, repository: sync_repository)
 
       sync_container = sync_repository.find_top_container_by(uri: source_container.uri)
       updated = sync_container.update(barcode: barcode.value, indicator: indicator, container_locations: updated_locations)
@@ -108,6 +121,11 @@ module AbsoluteIds
         absolute_id.save!
       rescue DuplicateBarcodeError
         Rails.logger.warn("Warning: Failed to synchronize #{absolute_id.label}: Barcode #{absolute_id.barcode.value} is already used in ArchivesSpace.")
+
+        absolute_id.synchronize_status = AbsoluteId::SYNCHRONIZE_FAILED
+        absolute_id.save!
+      rescue DuplicateIndicatorError
+        Rails.logger.warn("Warning: Failed to synchronize #{absolute_id.label}: Absolute ID #{absolute_id.label} is already used in ArchivesSpace.")
 
         absolute_id.synchronize_status = AbsoluteId::SYNCHRONIZE_FAILED
         absolute_id.save!

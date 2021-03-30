@@ -95,6 +95,11 @@ class AbsoluteId::Batch < ApplicationRecord
     format("Batch %06d", id)
   end
 
+  def barcode_only?
+    children = absolute_ids.map(&:barcode_only?)
+    children.reduce(&:|)
+  end
+
   def synchronized?
     absolute_ids.map(&:synchronized?).reduce(&:&)
   end
@@ -119,9 +124,9 @@ class AbsoluteId::Batch < ApplicationRecord
     end
   end
 
-  # Refactor this
+  # @todo Determine whether or not the entries have been deprecated
   def report_entries
-    entries = absolute_ids.map do |absolute_id|
+    @report_entries ||= absolute_ids.map do |absolute_id|
       {
         label: absolute_id.label,
         user: user.email,

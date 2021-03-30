@@ -15,6 +15,10 @@ module LibJobs
         AbsoluteId::TopContainer
       end
 
+      def self.model_class_exists?
+        true
+      end
+
       def initialize(attributes)
         super(attributes)
 
