@@ -9,14 +9,14 @@
     </div>
   <% end %>
 
-  <% if current_user && !@sessions.empty? %>
+  <% if current_user && @sessions.present? %>
     <% @sessions.each do |session| %>
-      <div class="lux absolute-ids-session" id="abid-form">
+      <div class="lux absolute-ids-session">
         <absolute-id-batch-table
           header="<%= session.label %>"
           :synchronized="<%= session.synchronized? %>"
           :columns="<%= JSON.generate(table_columns) %>"
-          :session="<%= session.as_json %>"
+          :session="<%= session.to_json %>"
           token="<%= current_user.token %>"
           synchronize-action="<%= synchronize_session_path(session) %>"
           session-report-path="<%= session_id_path(session, format: 'txt') %>"
@@ -30,6 +30,7 @@
     <div>Loading...</div>
     <% unless index_status.blank? %>
       <alert status="info" dismissible>
+      <%= index_status %>
       </alert>
     <% end %>
   </div>
