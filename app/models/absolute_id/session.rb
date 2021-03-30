@@ -89,60 +89,13 @@ class AbsoluteId::Session < ApplicationRecord
     AbsoluteIds::SessionXmlSerializer
   end
 
-  class CsvPresenter
-    def self.headers
-      ["ID", "User", "Barcode", "Location", "Container Profile", "Repository", "Call Number", "Box Number"]
-    end
-
-    def initialize(model)
-      @model = model
-    end
-
-    def rows
-      @rows ||= begin
-                  batch_csv_tables = batches.map(&:csv_table)
-                  batch_csv_tables.map(&:to_a).flatten
-                end
-    end
-
-    def to_s
-      CSV.generate(col_sep: ",") do |csv|
-        csv << self.class.headers
-
-        rows.each do |entry|
-          location = "#{entry.location.building} (#{entry.location.uri})"
-          container_profile = "#{entry.container_profile.name} (#{entry.container_profile.uri})"
-          repository = "#{entry.repository.name} (#{entry.repository.uri})"
-          resource = "#{entry.resource.title} (#{entry.resource.uri})"
-          container = "#{entry.container.indicator} (#{entry.container.uri})"
-
-          csv << [
-            entry.label,
-            entry.user,
-            entry.barcode,
-            location,
-            container_profile,
-            repository,
-            resource,
-            container
-          ]
-        end
-      end
-    end
-
-    def table
-      @table ||= begin
-                   CSV::Table.new(rows)
-                 end
-    end
-  end
-
-  def self.xml_serializer
-    AbsoluteIds::SessionXmlSerializer
-  end
-
   def label
     format('Session %d (%s)', id, created_at.strftime('%m/%d/%Y'))
+  end
+
+  def barcode_only?
+    children = batches.map(&:barcode_only?)
+    children.reduce(&:|)
   end
 
   def synchronized?

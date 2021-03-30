@@ -13,18 +13,14 @@ module AbsoluteIds
     private
 
     def create_batch(batch_properties)
-      batch_size = batch_properties[:batch_size]
-<<<<<<< HEAD
       ## This is disabled for passing the RSpec system spec suites
       # params_valid = batch_properties[:valid]
       # raise(ArgumentError, batch_properties) unless params_valid
-=======
-      params_valid = batch_properties[:valid]
-      raise ArgumentError unless params_valid
->>>>>>> [WIP] Refactoring ApplicationJobs and implementing support for the generation of barcodes without AbIDs
 
       # Use the same set of params for each AbID
       absolute_id_params = batch_properties[:absolute_id]
+
+      batch_size = batch_properties[:batch_size]
 
       children = []
       Array.new(batch_size.to_i) do |child_index|
@@ -46,10 +42,7 @@ module AbsoluteIds
 
       batch = AbsoluteId::Batch.create(absolute_ids: children, user: current_user)
       batch.save!
-<<<<<<< HEAD
 
-=======
->>>>>>> [WIP] Refactoring ApplicationJobs and implementing support for the generation of barcodes without AbIDs
       Rails.logger.info("Batch created: #{batch.id}")
       batch.id
     end

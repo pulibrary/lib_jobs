@@ -258,42 +258,6 @@ export default {
     }
   },
 
-  mounted: async function() {
-    /*
-    const fetchedLocations = await this.locations;
-    console.log(this.locations);
-    this.locationOptions = fetchedLocations.map(location => {
-      return {
-        id: location.id,
-        label: location.building,
-        uri: location.uri
-      };
-    });
-    */
-    /*
-    const fetchedRepositories = await this.repositories;
-    this.repositoryOptions = fetchedRepositories.map(repository => {
-      return {
-        id: repository.id,
-        label: repository.name,
-        uri: repository.uri
-      };
-    });
-    */
-    /*
-    const fetchedContainerProfiles = await this.containerProfiles;
-    this.containerProfileOptions = fetchedContainerProfiles.map(
-      containerProfile => {
-        return {
-          id: containerProfile.id,
-          label: containerProfile.name,
-          uri: containerProfile.uri
-        };
-      }
-    );
-    */
-  },
-
   methods: {
     onChangeMode: function(changed) {
       this.source = changed;

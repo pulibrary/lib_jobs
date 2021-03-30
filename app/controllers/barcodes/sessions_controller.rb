@@ -2,7 +2,6 @@
 
 class Barcodes::SessionsController < AbsoluteIds::SessionsController
   skip_forgery_protection if: :token_header?
-  skip_forgery_protection if: :token_header?
 
   def self.create_session_job
     Barcodes::CreateSessionJob

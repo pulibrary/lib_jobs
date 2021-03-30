@@ -53,6 +53,7 @@ Metrics/CyclomaticComplexity:
     - 'app/models/ability.rb'
     - 'app/values/absolute_ids/absolute_id_xml_serializer.rb'
     - 'lib/lib_jobs/archives_space/repository.rb'
+    - 'lib/lib_jobs/archives_space/client.rb'
 
 Metrics/MethodLength:
   Exclude:
@@ -101,7 +102,7 @@ Metrics/PerceivedComplexity:
     - 'app/jobs/absolute_id_import_job.rb'
     - 'app/models/ability.rb'
     - 'app/values/absolute_ids/absolute_id_xml_serializer.rb'
-    - 'app/values/absolute_ids/absolute_id_xml_serializer.rb'
+    - 'lib/lib_jobs/archives_space/client.rb'
 
 RSpec/ExampleLength:
   Max: 100
