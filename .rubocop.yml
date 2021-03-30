@@ -11,6 +11,7 @@ Layout/LineLength:
   Max: 200
   Exclude:
     - 'spec/support/stub_aspace_client.rb'
+    - 'spec/support/stub_aspace.rb'
 
 Metrics/AbcSize:
   Exclude:
@@ -73,6 +74,7 @@ Metrics/MethodLength:
 Metrics/ModuleLength:
   Exclude:
     - 'spec/support/stub_aspace_client.rb'
+    - 'spec/support/stub_aspace.rb'
 
 Metrics/PerceivedComplexity:
   Exclude:
