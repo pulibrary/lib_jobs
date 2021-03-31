@@ -23,6 +23,18 @@ module AspaceStubbing
       )
   end
 
+  def stub_location(location_id:)
+    uri = "/locations/#{location_id}"
+    path = Rails.root.join('spec', 'fixtures', 'archives_space', 'locations', "#{location_id}.json")
+    cache_path(uri: uri, path: path)
+    stub_request(:get, "https://aspace.test.org/staff/api#{uri}")
+      .to_return(
+        status: 200,
+        body: File.open(path),
+        headers: { "Content-Type": 'application/json' }
+      )
+  end
+
   def stub_repository(repository_id: 4)
     uri = "/repositories/#{repository_id}"
     path = Rails.root.join('spec', 'fixtures', 'archives_space', 'repositories', repository_id.to_s, 'repository.json')

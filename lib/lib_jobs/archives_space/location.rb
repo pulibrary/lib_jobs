@@ -3,10 +3,6 @@
 module LibJobs
   module ArchivesSpace
     class Location < Object
-      def self.model_class
-        AbsoluteId::Location
-      end
-
       attr_reader :area,
                   :barcode,
                   :building,
