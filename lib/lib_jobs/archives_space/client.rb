@@ -41,6 +41,7 @@ module LibJobs
           resource_class.new(child_json)
         end
 
+        return resources if model_class.nil?
         resources.map do |resource|
           model_class.cache(resource)
         end
@@ -134,7 +135,7 @@ module LibJobs
       end
 
       def locations
-        children(resource_class: Location, model_class: Location.model_class)
+        children(resource_class: Location, model_class: nil)
       end
 
       def find_child_by(child_id:, resource_class:, model_class:)
@@ -153,8 +154,10 @@ module LibJobs
       def find_child(uri:, resource_class:, model_class:, id: nil)
         return find_child_by(child_id: id, resource_class: resource_class, model_class: model_class) unless id.nil?
 
-        cached = model_class.find_cached(uri)
-        return cached unless cached.nil?
+        if model_class
+          cached = model_class.find_cached(uri)
+          return cached unless cached.nil?
+        end
 
         response = get(uri)
         raise(StandardError, "Error requesting the #{resource_class.name.demodulize} #{uri}: #{response.body}") if response.status.code != "200"
@@ -164,7 +167,7 @@ module LibJobs
         resource_attributes = response_body_json.merge(client: self)
 
         resource = resource_class.new(resource_attributes)
-        model_class.cache(resource)
+        model_class&.cache(resource) || resource
       end
 
       # Deprecate
@@ -173,7 +176,7 @@ module LibJobs
       end
 
       def find_location_by(uri:)
-        find_child(uri: uri, resource_class: Location, model_class: Location.model_class)
+        find_child(uri: uri, resource_class: Location, model_class: nil)
       end
     end
   end

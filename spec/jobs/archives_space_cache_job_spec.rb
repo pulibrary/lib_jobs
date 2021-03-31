@@ -14,12 +14,10 @@ RSpec.describe ArchivesSpaceCacheJob do
     stub_repository_top_containers(repository_id: 3)
     stub_repository(repository_id: 3)
     stub_repository(repository_id: 4)
-    stub_locations
     stub_container_profiles
     described_class.perform_now
 
     expect(AbsoluteId::Repository.all.size).to eq 2
-    expect(AbsoluteId::Location.all.size).to eq 26
     expect(AbsoluteId::ContainerProfile.all.size).to eq 13
     # This number is way too small - it's only one page of one repository.
     # Do we need to cache these even?
