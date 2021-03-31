@@ -4,7 +4,7 @@ inherit_gem:
   bixby: bixby_default.yml
 
 AllCops:
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 2.6
 
 Layout/LineLength:
   Enabled: true
@@ -70,6 +70,7 @@ Metrics/MethodLength:
     - 'lib/lib_jobs/archives_space/repository.rb'
     - 'lib/lib_jobs/archives_space/resource_child_object.rb'
     - 'spec/support/stub_aspace_client.rb'
+    - 'spec/support/stub_aspace.rb'
 
 Metrics/ModuleLength:
   Exclude:
