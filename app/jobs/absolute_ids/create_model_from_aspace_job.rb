@@ -60,15 +60,13 @@ module AbsoluteIds
       aspace_resource
     end
 
-    def resolve_container(aspace_resource:, indicator:, index:)
-      container_index = indicator.to_i + index
+    def resolve_top_container(aspace_resource:, indicator:, index:)
+      current_indicator = (indicator.to_i + index).to_s
 
-      # top_containers = aspace_resource.search_top_containers_by(index: container_index)
-      # /repositories/4/search?q=display_string%3ABox%2020&page=1&type[]=top_container
-      top_containers = aspace_resource.repository.search_top_containers_by(index: container_index)
+      top_containers = aspace_resource.top_containers.select { |c| c.indicator == current_indicator || c.indicator =~ /(?:[bB]ox)\s#{current_indicator}/ }
       top_container = top_containers.first
 
-      raise(ArgumentError, "Failed to resolve the container for index #{container_index} linked to the resource #{aspace_resource.id}") if top_container.nil?
+      raise(ArgumentError, "Failed to resolve the container for indicator #{indicator} linked to the resource #{aspace_resource.id}") if top_container.nil?
       top_container
     end
 
@@ -112,7 +110,7 @@ module AbsoluteIds
       transformed[:resource] = build_resource(aspace_resource)
 
       # Resolve the TopContainer
-      top_container = resolve_container(aspace_resource: aspace_resource, indicator: properties[:container], index: properties[:index])
+      top_container = resolve_top_container(aspace_resource: aspace_resource, indicator: properties[:container], index: properties[:index])
 
       # Build the container attributes
       transformed[:container] = build_container(top_container)

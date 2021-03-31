@@ -79,27 +79,28 @@ module LibJobs
         children(resource_class: TopContainer, model_class: top_container_model)
       end
 
-      # Search for TopContainers using the EAD ID
-      # @param ead_id
+      # Search for TopContainers
+      # @param barcode
       # @param indicator
-      def search_top_containers_by(barcode: nil, indicator: nil, resource_class: TopContainer)
-        query_params = if !indicator.nil?
-                         [["q", indicator]]
-                       else
-                         [["q", barcode]]
-                       end
+      # @param collection
+      # @param resource_class
+      # @return [Array<TopContainer>]
+      def search_top_containers_by(barcode: nil, indicator: nil, collection: nil, resource_class: TopContainer)
+        query_params = []
+        query_params << ["q", "collection_identifier_u_stext:#{collection}"] unless collection.nil?
+
+        query_params << ["type[]", "top_container"]
+        query_params << ["page", "1"]
+
         query = URI.encode_www_form(query_params)
-        response = client.get("/repositories/#{@id}/#{resource_class.name.demodulize.pluralize.underscore}/search?#{query}")
+        response = client.get("/repositories/#{@id}/search?#{query}")
 
         return [] if response.status.code == "404"
 
         parsed = JSON.parse(response.body)
-        return [] unless parsed.key?('response') || parsed['response'].key?('docs')
+        return [] unless parsed.key?('results')
 
-        solr_response = parsed['response']
-        return [] unless solr_response.key?('docs')
-
-        solr_documents = solr_response['docs']
+        solr_documents = parsed['results']
         solr_documents.map do |document|
           build_top_container_from(document: document)
         end
@@ -233,6 +234,10 @@ module LibJobs
         model_class.uncache(container)
 
         find_child(uri: container.uri.to_s, resource_class: container.class, model_class: container.class.model_class)
+      end
+
+      def search_children_by(collection: nil, type: 'top_container')
+        # /repositories/4/search?q=display_string%3ABox%2020&page=1&type[]=top_container
       end
 
       private
