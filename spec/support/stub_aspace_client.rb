@@ -7,6 +7,50 @@ module ASpaceClientStubbing
     source_client
   end
 
+  def stub_aspace_locations(client: nil)
+    client ||= stub_aspace_client
+
+    fixture_file_path = Rails.root.join('spec', 'fixtures', 'archives_space', 'locations.json')
+    response = build_aspace_api_response(fixture_file_path)
+
+    allow(client).to receive(:get).with("/locations?page=1&page_size=100000").and_return(response)
+
+    client
+  end
+
+  def stub_aspace_container_profiles(client: nil)
+    client ||= stub_aspace_client
+
+    fixture_file_path = Rails.root.join('spec', 'fixtures', 'archives_space', 'container_profiles.json')
+    response = build_aspace_api_response(fixture_file_path)
+
+    allow(client).to receive(:get).with("/container_profiles?page=1&page_size=100000").and_return(response)
+
+    client
+  end
+
+  def stub_aspace_repositories(client: nil)
+    client ||= stub_aspace_client
+
+    fixture_file_path = Rails.root.join('spec', 'fixtures', 'archives_space', 'repositories.json')
+    response = build_aspace_api_response(fixture_file_path)
+
+    allow(client).to receive(:get).with("repositories", { cache: false, query: { page: 1 } }).and_return(response)
+
+    client
+  end
+
+  def stub_aspace_container_profile(container_profile_id:, client: nil)
+    client ||= stub_aspace_client
+
+    fixture_file_path = Rails.root.join('spec', 'fixtures', 'archives_space', 'container_profile.json')
+    response = build_aspace_api_response(fixture_file_path)
+
+    allow(client).to receive(:get).with("/container_profiles/#{container_profile_id}").and_return(response)
+
+    client
+  end
+
   def stub_aspace_top_container(repository_id:, top_container_id:, client: nil)
     client ||= stub_aspace_repository(repository_id: repository_id)
 
@@ -175,6 +219,24 @@ module ASpaceClientStubbing
     client = LibJobs::ArchivesSpace::Client.source
     allow(client).to receive(:login).and_return(login_fixture)
     client
+  end
+
+  private
+
+  def build_aspace_api_response(fixture_file_path)
+    response_fixture = File.read(fixture_file_path)
+
+    response_status = double
+    allow(response_status).to receive(:code).and_return("200")
+
+    response = double
+    allow(response).to receive(:status).and_return(response_status)
+    allow(response).to receive(:body).and_return(response_fixture)
+
+    parsed_response_body = JSON.parse(response_fixture)
+    allow(response).to receive(:parsed).and_return(parsed_response_body)
+
+    response
   end
 end
 

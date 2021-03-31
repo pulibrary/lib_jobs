@@ -22,6 +22,8 @@ class AbsoluteIdBatchImportJob < ApplicationJob
     end
   end
 
+  private
+
   def find_user(email:)
     User.find_or_create_by(email: email)
   end
@@ -38,14 +40,6 @@ class AbsoluteIdBatchImportJob < ApplicationJob
     end
 
     @barcode_rows = output
-  end
-
-  def current_client
-    return @current_client unless @current_client.nil?
-
-    @current_client = LibJobs::ArchivesSpace::Client.source
-    @current_client.login
-    @current_client
   end
 
   def entries
