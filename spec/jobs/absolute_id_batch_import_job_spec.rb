@@ -35,31 +35,13 @@ RSpec.describe AbsoluteIdBatchImportJob, type: :job do
   let(:repository_id) { '4' }
   let(:ead_id) { 'ABID001' }
   let(:resource_id) { '4188' }
-  let(:source_client) do
-    stub = stub_aspace_client
-    stub = stub_aspace_container_profiles(client: stub)
-    stub = stub_aspace_locations(client: stub)
-    stub = stub_aspace_repositories(client: stub)
-    stub = stub_aspace_container_profile(container_profile_id: container_profile_id, client: stub)
-    stub_aspace_resource(repository_id: repository_id, resource_id: resource_id, ead_id: ead_id, client: stub)
-  end
 
   before do
-    AbsoluteId.all.map(&:destroy)
-    AbsoluteId::Batch.all.map(&:destroy)
-    AbsoluteId::Session.all.map(&:destroy)
-    User.all.map(&:destroy)
-
-    allow(source_client).to receive(:get).with("/repositories/4/resources/4188/tree/root")
-
-    allow(LibJobs::ArchivesSpace::Client).to receive(:source).and_return(source_client)
-  end
-
-  after do
-    AbsoluteId.all.map(&:destroy)
-    AbsoluteId::Batch.all.map(&:destroy)
-    AbsoluteId::Session.all.map(&:destroy)
-    User.all.map(&:destroy)
+    stub_aspace_login
+    stub_container_profiles
+    stub_locations
+    stub_repositories
+    stub_resource(repository_id: repository_id, resource_id: resource_id)
   end
 
   describe '.perform' do
