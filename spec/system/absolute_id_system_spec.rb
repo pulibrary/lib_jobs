@@ -23,6 +23,9 @@ RSpec.describe 'Absolute ID Generation' do
       stub_repository
       stub_resource_find_by_id(repository_id: 4, identifier: 'ABID001', resource_id: '4188')
       stub_resource(resource_id: '4188', repository_id: 4)
+      # I suspect AbIDs don't actually need all this location info, and probably
+      # just needs the location URI
+      stub_location(location_id: "23641")
       # The following things are stubbed because the code uses this to find box
       # 22-24. We should be able to improve this via an advanced top container
       # search against ASpace, this is likely to be too slow for large real
