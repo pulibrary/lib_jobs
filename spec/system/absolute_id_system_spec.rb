@@ -56,8 +56,7 @@ RSpec.describe 'Absolute ID Generation' do
       expect(page).to have_content 'Barcode is valid'
       click_button 'Generate'
 
-      expect(page).to have_button "Generating", disabled: true
-      # Increase wait time - processing takes ~ 18 seconds for this request.
+      expect(page).to have_button "Generating", disabled: true # Increase wait time - processing takes ~ 18 seconds for this request.
       Capybara.using_wait_time 30 do
         expect(page).to have_button "Generate"
       end
@@ -85,6 +84,17 @@ RSpec.describe 'Absolute ID Generation' do
       expect(page.body).to include "/repositories/4/top_containers/118099"
       doc = Nokogiri::XML(page.body)
       expect(doc.errors).to be_blank
+
+      # Reporting
+      visit '/absolute-ids'
+
+      click_link "Download Report"
+      csv = CSV.new(page.text, headers: true)
+      first_row = csv.first.to_h
+      expect(first_row["Box Number"]).to eq "22"
+      expect(first_row["abID"]).to eq "B-000001"
+      expect(first_row["Barcode"]).to eq "00000000000000"
+      expect(first_row.keys.length).to eq 3
     end
   end
 end

@@ -1,11 +1,12 @@
 # frozen_string_literal: true
+
 class AbsoluteId::Session < ApplicationRecord
   include ActiveModel::Serializers::JSON
-  has_many :batches, class_name: 'AbsoluteId::Batch', foreign_key: "absolute_id_session_id"
-  belongs_to :user, foreign_key: "user_id"
+  has_many :batches, class_name: 'AbsoluteId::Batch', foreign_key: 'absolute_id_session_id'
+  belongs_to :user, foreign_key: 'user_id'
 
   def label
-    format("Session %d (%s)", id, created_at.strftime('%m/%d/%Y'))
+    format('Session %d (%s)', id, created_at.strftime('%m/%d/%Y'))
   end
 
   def synchronized?
@@ -42,25 +43,16 @@ class AbsoluteId::Session < ApplicationRecord
   end
 
   def to_txt
-    CSV.generate(col_sep: " | ") do |csv|
-      csv << ["ID", "User", "Barcode", "Location", "Container Profile", "Repository", "Call Number", "Box Number"]
+    CSV.generate do |csv|
+      csv << ['Box Number', 'abID', 'Barcode']
 
       report_entries.each do |entry|
-        location = "#{entry.location.building} (#{entry.location.uri})"
-        container_profile = "#{entry.container_profile.name} (#{entry.container_profile.uri})"
-        repository = "#{entry.repository.name} (#{entry.repository.uri})"
-        resource = "#{entry.resource.title} (#{entry.resource.uri})"
-        container = "#{entry.container.indicator} (#{entry.container.uri})"
-
+        ab_id = entry.label
+        container = entry.container.indicator.to_s
         csv << [
-          entry.label,
-          entry.user,
-          entry.barcode,
-          location,
-          container_profile,
-          repository,
-          resource,
-          container
+          container,
+          ab_id,
+          entry.barcode
         ]
       end
     end
