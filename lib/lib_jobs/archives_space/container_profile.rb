@@ -3,10 +3,6 @@
 module LibJobs
   module ArchivesSpace
     class ContainerProfile < Object
-      def self.model_class
-        AbsoluteId::ContainerProfile
-      end
-
       attr_accessor :prefix
       attr_reader :name
       def initialize(attributes)
