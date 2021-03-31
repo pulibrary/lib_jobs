@@ -78,8 +78,11 @@ gem 'cancancan'
 gem "devise", ">= 4.6.0"
 gem 'foreman'
 gem 'jwt'
+gem 'net-sftp'
+gem 'nokogiri'
 gem "omniauth", "~> 1.9"
 gem 'omniauth-cas'
 gem 'pg'
+gem 'rubyzip'
 gem 'webpacker'
 gem 'whenever'

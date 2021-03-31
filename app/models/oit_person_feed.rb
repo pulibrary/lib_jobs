@@ -33,7 +33,7 @@ class OitPersonFeed
     if result.instance_of?(Net::HTTPOK)
       JSON.parse(result.body)
     else
-      Rails.logger.error("Unable to get person data with parameters #{params}.  Error: #{result.message}")
+      Rails.logger.error("Unable to get person data with parameters #{uri}.  Error: #{result.message}")
       {}
     end
   end
@@ -41,10 +41,10 @@ class OitPersonFeed
   private
 
   def api_uri(begin_date:, end_date:, enabled_flag:)
-    params = { ei_flag: enabled_flag, begin_date: begin_date, end_date: end_date }
+    params_path = [enabled_flag, begin_date, end_date].compact.join('/')
+    params_path = "/#{params_path}" if params_path.present?
     uri = URI.parse(base_url)
-    uri.path = path
-    uri.query = URI.encode_www_form(params)
+    uri.path = path + params_path
     uri
   end
 end

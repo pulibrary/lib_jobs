@@ -1,0 +1,1003 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xs:annotation>
+		<xs:documentation>This XSD describes the researcher object that as part of the user object that is used in SIS load. For Esploro use only.</xs:documentation>
+	</xs:annotation>
+
+	<xs:element name="researcher" type="researcher" />
+
+	<xs:complexType name="researcher">
+		<xs:annotation>
+			<xs:documentation>Researcher information.
+					SIS, API:
+			</xs:documentation>
+		</xs:annotation>
+		<xs:all>
+			<xs:element name="researcher_first_name" type="string255Length" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:example>John</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's first name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="researcher_middle_name" type="string255Length" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:example>W</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's middle name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="researcher_last_name" type="string255Length" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:example>Smith</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's last name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			
+			<xs:element name="researcher_suffix" type="string255Length" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:example>Junior</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's suffix.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			
+			<xs:element name="researcher_title" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:codeTable>UserTitles</xs:codeTable>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:example>PROF</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's title.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional">
+								<xs:annotation>
+									<xs:appinfo>
+										<xs:example>Prof.</xs:example>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="profile_image_url" type="xs:string" minOccurs="0"	maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>URL of Researcher's profile image.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			
+			<xs:element name="photo_url" type="xs:string" minOccurs="0"	maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:example></xs:example>
+					</xs:appinfo>
+					<xs:documentation>Photo URL. Optional in User API and in SIS load.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			
+			<xs:element name="display_title" type="string255Length" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:example></xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's display title.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			
+			<xs:element name="position" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example></xs:example>
+					</xs:appinfo>
+					<xs:documentation>Researcher's position.
+					Possible codes are listed in 'OrganizationPositions' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+								Optional in User API and in SIS load.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional">
+								<xs:annotation>
+									<xs:appinfo>
+										<xs:example>Senior lecturer</xs:example>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element name="portal_profile" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:codeTable>EsploroPortalField</xs:codeTable>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example>true</xs:example>
+					</xs:appinfo>
+					<xs:documentation>This flag controls whether the researcher’s profile
+						is included in the Research Portal.
+						Possible codes are listed in 'Esploro Portal Field' [code
+						table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+						Default: Yes.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional">
+								<xs:annotation>
+									<xs:appinfo>
+										<xs:example>Yes</xs:example>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>		
+			</xs:element>
+			
+			<xs:element name="auto_capture" type="string20Length" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>This flag controls whether the researcher name is included in automatic capture.
+					Default: Yes.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			
+			<xs:element name="research_center" type="string20Length" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>This flag controls access to the Researcher Center. 
+					Default: Yes.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			
+			<xs:element name="previous_affiliated" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>This flag controls if the non-affiliated researcher was affiliated.
+					possible values: true/false
+					Default: false.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="default_publication_language" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:codeTable>UserPreferredLanguage</xs:codeTable>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example>hi</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's default publication language.
+					Possible codes are listed in 'User Preferred Language' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+					Default: en.
+					On SIS synch this field will not be replaced if it was updated manually.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional">
+								<xs:annotation>
+									<xs:appinfo>
+										<xs:example>English</xs:example>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+
+			<xs:element name="researcher_alternate_emails" type="researcher_alternate_emails" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>The researcher's alternate emails.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="researcher_organization_affiliations" type="researcher_organization_affiliations" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>The researcher's current organization affiliations.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="researcher_previous_organization_affiliations" type="researcher_previous_organization_affiliations" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>The researcher's previous organization affiliations.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="researcher_external_organization_affiliations" type="researcher_external_organization_affiliations" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>The researcher's current external organization affiliations.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="researcher_previous_external_organization_affiliations" type="researcher_previous_external_organization_affiliations" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>The researcher's previous external organization affiliations.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="researcher_name_variants" type="researcher_name_variants" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>The researcher's name variants.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			
+			<xs:element name="researcher_engagement_types" type="researcher_engagement_types" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>The researcher's engagement types. Maximum 5 researcher engagement types allowed.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="researcher_research_topics" type="researcher_research_topics" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>The researcher's research topics.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="researcher_keywords" type="researcher_keywords" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>The researcher's keywords.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="researcher_associations" type="researcher_associations" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>The researcher's associations.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="researcher_languages" type="researcher_languages" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>The researcher's languages.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="researcher_honors" type="researcher_honors" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>The researcher's honors.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="researcher_educations" type="researcher_educations" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>The researcher's educations.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="researcher_descriptions" type="researcher_descriptions" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>The researcher's descriptions.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="researcher_webpages" type="researcher_webpages" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>The researcher's webpages.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="user_identifiers" type="user_identifiers" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>List of the researcher's additional identifiers.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+		</xs:all>
+	</xs:complexType>
+
+	<xs:complexType name="researcher_keywords">
+		<xs:annotation>
+			<xs:documentation>List of researcher's keywords.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="researcher_keyword" type="researcher_keyword" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Specific researcher's keyword.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="researcher_keyword">
+		<xs:annotation>
+			<xs:documentation>Specific researcher's keyword.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="value" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The keyword value.
+						Mandatory.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="researcher_research_topics">
+		<xs:annotation>
+			<xs:documentation>List of researcher's research topics.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="researcher_research_topic" minOccurs="0"	maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Specific researcher's research topic.
+					Possible codes are listed in 'ResearchTopicsLabels' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+								Optional in User API and in SIS load.</xs:documentation>
+					<xs:appinfo>
+						<xs:codeTable>ResearchTopicsLabels</xs:codeTable>
+						<xs:tags>api get post put</xs:tags>
+						<xs:example>Agriculture</xs:example>
+					</xs:appinfo>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="researcher_associations">
+		<xs:annotation>
+			<xs:documentation>List of researcher's associations.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="researcher_association" type="researcher_association" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Specific researcher's association.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="researcher_association">
+		<xs:annotation>
+			<xs:documentation>Specific researcher's association.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="value" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The association value.
+						Mandatory.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="researcher_languages">
+		<xs:annotation>
+			<xs:documentation>List of researcher's languages.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="researcher_language" minOccurs="0"	maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>The language value.
+						Mandatory in User API and in SIS load.
+						Possible codes are listed in 'ResearchLanguagesNames' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="researcher_name_variants">
+		<xs:annotation>
+			<xs:documentation>List of researcher's name variants.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="researcher_name_variant" type="researcher_name_variant" minOccurs="0"	maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Specific researcher's name variant.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="researcher_name_variant">
+		<xs:annotation>
+			<xs:documentation>Specific researcher's name variant.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="first_name" type="string255Length" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example>John</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's first name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="middle_name" type="string255Length" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example>W</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's middle name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="last_name" type="string255Length" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example>Smith</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's last name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="name_suffix" type="string255Length" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example>Smith</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's name suffix.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	<xs:complexType name="researcher_engagement_types">
+		<xs:annotation>
+			<xs:documentation>List of researcher's engagement types. Maximum 5 researcher engagement types allowed.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="researcher_engagement_type" type="researcher_engagement_type" minOccurs="0"	maxOccurs="5">
+				<xs:annotation>
+					<xs:documentation>Specific researcher's engagement type.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="researcher_engagement_type">
+		<xs:annotation>
+			<xs:documentation>Specific researcher's engagement type.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="researcher_engagement" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:codeTable>ResearcherEngagementTypes</xs:codeTable>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example>Media</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's engagement type.
+					Possible codes are listed in 'Researcher Engagement Types' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+					Default: en.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional">
+								<xs:annotation>
+									<xs:appinfo>
+										<xs:example>Media</xs:example>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="engagement_end_date" type="xs:date" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis</xs:tags>
+						<xs:example>2020-04-08Z</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's engagement end date.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="researcher_alternate_emails">
+		<xs:annotation>
+			<xs:documentation>List of researcher's alternate emails.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="researcher_alternate_email" type="researcher_alternate_email" minOccurs="0"	maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Specific researcher's alternate email.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="researcher_alternate_email">
+		<xs:annotation>
+			<xs:documentation>Specific researcher's alternate email.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="email_address" type="string255Length" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example>jsmith@gmail.com</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's email address. Mandatory</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="researcher_organization_affiliations">
+		<xs:annotation>
+			<xs:documentation>List of researcher's current organization affiliations.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="researcher_organization_affiliation" type="researcher_organization_affiliation" minOccurs="0"	maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Specific researcher's current organization affiliation info.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="researcher_previous_organization_affiliations">
+		<xs:annotation>
+			<xs:documentation>List of researcher's previous organization affiliations.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="researcher_previous_organization_affiliation" type="researcher_organization_affiliation" minOccurs="0"	maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Specific researcher's previous organization affiliation info.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="researcher_external_organization_affiliations">
+		<xs:annotation>
+			<xs:documentation>List of researcher's current external organization affiliations.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="researcher_external_organization_affiliation" type="researcher_organization_affiliation" minOccurs="0"	maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Specific researcher's current external organization affiliation info.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="researcher_previous_external_organization_affiliations">
+		<xs:annotation>
+			<xs:documentation>List of researcher's previous external organization affiliations.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="researcher_previous_external_organization_affiliation" type="researcher_organization_affiliation" minOccurs="0"	maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Specific researcher's previous external organization affiliation info.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="researcher_organization_affiliation">
+		<xs:annotation>
+			<xs:documentation>Specific researcher's organization affiliation info.</xs:documentation>
+		</xs:annotation>
+		<xs:all>
+			<xs:element name="organization_code" type="string255Length" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example>1545584600011021</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's organization affiliation code.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="organization_name" type="string255Length" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example></xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's organization affiliation name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="start_date" type="xs:date" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example>2013-08-06Z</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's organization affiliation start date.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="end_date" type="xs:date" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example>2020-04-04Z</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's organization affiliation end date.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="position" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example></xs:example>
+					</xs:appinfo>
+					<xs:documentation>Researcher's position.
+					Possible codes are listed in 'OrganizationPositions' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+								Optional in User API and in SIS load.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional">
+								<xs:annotation>
+									<xs:appinfo>
+										<xs:example>Senior lecturer</xs:example>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="title" type="string255Length" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example>Professor of Clinical Psychology</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's full title/position.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="positionOrder" type="string255Length" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example>1</xs:example>
+					</xs:appinfo>
+					<xs:documentation>Order of this organization affiliation.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:all>
+	</xs:complexType>
+
+	<xs:complexType name="researcher_honors">
+		<xs:annotation>
+			<xs:documentation>List of researcher's honors.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="researcher_honor" type="researcher_honor" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Specific researcher's honor info.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="researcher_honor">
+		<xs:annotation>
+			<xs:documentation>Specific researcher's honor info.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="organization_code" type="string255Length" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example>1545584600011021</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's honor organization code.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="organization_name" type="string255Length" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example></xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's honor organization name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="title" type="string255Length" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example>title of researcher's honor</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's honor title.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="time_period" type="string255Length" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example></xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's honor time period.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="researcher_educations">
+		<xs:annotation>
+			<xs:documentation>List of researcher's educations.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="researcher_education" type="researcher_education" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Specific researcher's education info.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="researcher_education">
+		<xs:annotation>
+			<xs:documentation>Specific researcher's education info.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="organization_code" type="string255Length" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example>1545584600011021</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's education organization code.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="organization_name" type="string255Length" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example></xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's education organization name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="degree" type="string255Length" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example></xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's education degree.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="from_year" type="xs:int" minOccurs="0"	maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example>2003</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's education from year.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			
+			<xs:element name="to_year" type="xs:int" minOccurs="0"	maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example>2003</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's education to year.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="field_of_study" type="string255Length" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example></xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's education field_of_study. The default is 'Unknown'</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			
+			<xs:element name="additional_details" type="string255Length" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example></xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's education additional details.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="suppress_from_public_portal" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>sis get put</xs:tags>
+						<xs:example></xs:example>
+					</xs:appinfo>
+					<xs:documentation>The researcher's education suppress_from_public_portal. The default is false.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="researcher_descriptions">
+		<xs:annotation>
+			<xs:documentation>List of researcher's descriptions.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="researcher_description" type="researcher_description" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Specific researcher's description.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="researcher_description">
+		<xs:annotation>
+			<xs:documentation>Specific researcher's description.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="description" type="xs:string" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The description value.
+						Mandatory.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="researcher_webpages">
+		<xs:annotation>
+			<xs:documentation>List of researcher's webpages.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="researcher_webpage" type="researcher_webpage" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Specific researcher's webpage.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="researcher_webpage">
+		<xs:annotation>
+			<xs:documentation>Specific researcher's webpage.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="url" type="xs:string" minOccurs="1"	maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The webpage value.
+						Mandatory.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="title" type="xs:string" minOccurs="0"	maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The webpage title.
+						Optional.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="description" type="xs:string" minOccurs="0"	maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The webpage description.
+						Optional.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="type" type="xs:string" minOccurs="0"	maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The webpage title.
+						Possible values: Homepage, CV, Pubpage, Unknown, Profile, Lab.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+</xs:schema>

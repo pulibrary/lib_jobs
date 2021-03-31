@@ -7,6 +7,8 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
+require 'zip'
+
 module IlsApps
   class Application < Rails::Application
     def config_for(*args)
@@ -26,3 +28,5 @@ module IlsApps
     config.x.after_sign_out_url = config.cas.after_sign_out_url
   end
 end
+
+Zip.continue_on_exists_proc = true

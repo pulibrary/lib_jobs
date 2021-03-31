@@ -1,0 +1,1824 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xs:annotation>
+		<xs:documentation>There are two basic types of user accounts in Alma: [Internal users and External users|https://developers.exlibrisgroup.com/blog/Users-API-working-with-external-internal-users].
+			Internal users are users that exist only in Alma. They are created manually by library staff and are managed entirely within the library's scope.
+			External users are users that are stored and managed outside the library's scope, usually in another system maintained by the institution (for example, in a Student Information System).
+			These users' information is loaded into Alma and is synchronized on a regular basis.
+			See [User Types|https://developers.exlibrisgroup.com/alma/integrations/user-management] for more details.
+
+			This XSD describes the user object that is used in [SIS load (version 2)|https://developers.exlibrisgroup.com/alma/integrations/user-management/sis], and in the [Users API|https://developers.exlibrisgroup.com/alma/apis/users].
+			SIS load takes only external information into account: Internal users are not updated at all, and Internal segments that are related to an external user are not updated at all.
+			User API behavior is different: It does update internal user's information and updates internal segments that are related to an external user as well.
+		</xs:documentation>
+	</xs:annotation>
+
+	<xs:include schemaLocation="rest_researcher.xsd" />
+
+	<xs:element name="user" type="user" />
+	<xs:complexType name="user">
+		<xs:annotation>
+			<xs:documentation>User Object.</xs:documentation>
+		</xs:annotation>
+		<xs:all>
+			<xs:element name="record_type" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:codeTable>AddNewUserOptions</xs:codeTable>
+						<xs:tags>api get post put</xs:tags>
+						<xs:example>STAFF</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The type of user record.
+					Possible codes are listed in 'AddNewUserOptions' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API]: Contact, Staff, Public.
+						Mandatory In User API. On SIS load, this field is determined according to the SIS profile.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional">
+								<xs:annotation>
+									<xs:appinfo>
+										<xs:example>Staff</xs:example>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="primary_id" type="string255Length" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:example>johns</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The primary identifier of the user.
+					Mandatory In User API.
+					For new users in SIS load , if not supplied, the system will generate a default based on the first and the last name.
+					Note that the primary_id is case insensitive.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="first_name" type="string255Length" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:example>John</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The user's first name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="middle_name" type="string255Length" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:example>W</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The user's middle name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="last_name" type="string255Length" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:example>Smith</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The user's last name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="full_name" minOccurs="0" maxOccurs="1" type="string600Length">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api get</xs:tags>
+						<xs:example>John W Smith</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The user's full name. Output parameter.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pin_number" type="string255Length" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis post put</xs:tags>
+						<xs:example>4554</xs:example>
+					</xs:appinfo>
+					<xs:documentation>A four-digit number which serves as a password for the user to log on to the selfcheck machine (SIP2).
+					On SIS synch this field will not be replaced if it was updated manually (or if empty in the incoming user record).
+					For external users in PUT action: this field will not be replaced if it was updated manually (or if empty in the incoming user record), unless 'override' parameter is sent with the field's name.
+See [blog|https://developers.exlibrisgroup.com/blog/External-user-data-behavior-of-SIS-synchronization-and-API] for more details.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="user_title" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis post put</xs:tags>
+						<xs:example></xs:example>
+					</xs:appinfo>
+					<xs:documentation>The user's title
+					Possible codes are listed in the 'UserTitles' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+					On SIS synch this field will not be replaced if it was updated manually (or if empty in the incoming user record).
+					For external users in PUT action: this field will not be replaced if it was updated manually (or if empty in the incoming user record), unless 'override' parameter is sent with the field's name.
+See [blog|https://developers.exlibrisgroup.com/blog/External-user-data-behavior-of-SIS-synchronization-and-API] for more details.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="job_category" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:codeTable>JobTitles</xs:codeTable>
+						<xs:example>Cataloger</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The types of jobs the user performs in the library, such as Cataloger, Circulation Desk Operator, and so forth.
+					Possible values are listed in 'Job Titles' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+					On SIS synch this field will not be replaced if it was updated manually (or if empty in the incoming user record).
+					For external users in PUT action: this field will not be replaced if it was updated manually (or if empty in the incoming user record), unless 'override' parameter is sent with the field's name.
+See [blog|https://developers.exlibrisgroup.com/blog/External-user-data-behavior-of-SIS-synchronization-and-API] for more details.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="job_description" type="string255Length"
+				minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:example>The best cataloger</xs:example>
+					</xs:appinfo>
+					<xs:documentation>General description of the user's job.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="gender" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:codeTable>Genders</xs:codeTable>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:example>MALE</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The user's gender.
+					Possible codes are listed in the 'Genders' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional">
+								<xs:annotation>
+									<xs:appinfo>
+										<xs:example>Male</xs:example>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="user_group" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:codeTable>UserGroups</xs:codeTable>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:example>FACULTY</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The group within the institution to which the user belongs.
+					Possible codes are listed in 'User Groups' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+					Rules for user group usage are define in 'UserRecordTypeUserGroup' mapping table.
+					On SIS synch this field will not be replaced if it was updated manually (or if empty in the incoming user record).
+					For external users in PUT action: this field will not be replaced if it was updated manually (or if empty in the incoming user record), unless 'override' parameter is sent with the field's name.
+See [blog|https://developers.exlibrisgroup.com/blog/External-user-data-behavior-of-SIS-synchronization-and-API] for more details.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional">
+								<xs:annotation>
+									<xs:appinfo>
+										<xs:example>Faculty</xs:example>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="campus_code"  minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:example>Main</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The code of the campus related to the user.
+						Possible codes are listed in the "Campus List" of the general configuration menu.
+						On SIS synch this field will not be replaced if it was updated manually (or if empty in the incoming user record).
+						For external users in PUT action: this field will not be replaced if it was updated manually (or if empty in the incoming user record), unless 'override' parameter is sent with the field's name.
+See [blog|https://developers.exlibrisgroup.com/blog/External-user-data-behavior-of-SIS-synchronization-and-API] for more details.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string50Length">
+							<xs:attribute name="desc" type="string255Length" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="web_site_url" type="string255Length"
+				minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:example></xs:example>
+					</xs:appinfo>
+					<xs:documentation>The web site address related to the user.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cataloger_level" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:example></xs:example>
+					</xs:appinfo>
+					<xs:documentation>The cataloger level of the user.
+					                  The cataloger level serves to control which catalogers can edit and update records which have been edited and updated by other users.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="preferred_language" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:codeTable>UserPreferredLanguage</xs:codeTable>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:example>en</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The user's preferred language.
+					Possible codes are listed in 'User Preferred Language' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+					Default: en.
+					On SIS synch this field will not be replaced if it was updated manually (or if empty in the incoming user record).
+					For external users in PUT action: this field will not be replaced if it was updated manually (or if empty in the incoming user record), unless 'override' parameter is sent with the field's name.
+See [blog|https://developers.exlibrisgroup.com/blog/External-user-data-behavior-of-SIS-synchronization-and-API] for more details.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional">
+								<xs:annotation>
+									<xs:appinfo>
+										<xs:example>English</xs:example>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="birth_date" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:example>1979-01-11Z</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The user's birth date.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="expiry_date" type="xs:date" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:example>2030-01-16Z</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The estimated date when the user is expected to leave the institution.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="purge_date" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The date on which the user is purged from the system.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="account_type" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api get post put</xs:tags>
+						<xs:example>INTERNAL</xs:example>
+						<xs:codeTable>UserUserType</xs:codeTable>
+					</xs:appinfo>
+					<xs:documentation>The user's [account type|https://developers.exlibrisgroup.com/blog/Users-API-working-with-external-internal-users].
+					Possible code are listed in 'User Types - User' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+					This field is mandatory in the User API.
+					In the PUT action, it is possible to update Internal user to be External. It is NOT possible to update External user to be Internal.
+					On SIS load, users are always created as "External".
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="external_id" type="string255Length" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api post put get</xs:tags>
+						<xs:example></xs:example>
+					</xs:appinfo>
+					<xs:documentation>The external system from which the user was loaded into Alma. Relevant only for External users.
+						This field is mandatory during the POST and PUT actions for external users, and must match a valid SIS external system profile.
+						On SIS load, it is filled with the SIS profile code.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="password" type="string255Length" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api post put</xs:tags>
+						<xs:example>12345</xs:example>
+					</xs:appinfo>
+					<xs:documentation>user's password. Relevant for internal users only.
+					Due to security issues, it is returned empty in the GET action. Note that in the PUT action password can be updated, but if left empty - the existing password will be kept.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="force_password_change" type="string4Length"
+				minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api post put</xs:tags>
+						<xs:example>TRUE</xs:example>
+					</xs:appinfo>
+					<xs:documentation>
+						Set this field to 'TRUE' to prompt user to change the password on next log in. Relevant for internal users only.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="status" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:example>ACTIVE</xs:example>
+						<xs:codeTable>ContentStructureStatus</xs:codeTable>
+					</xs:appinfo>
+					<xs:documentation>Status of user account.
+					Possible codes are listed in 'Content Structure Status' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+					Default is Active.
+					</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional">
+								<xs:annotation>
+									<xs:appinfo>
+										<xs:example>Active</xs:example>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="status_date" type="xs:date" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api get</xs:tags>
+						<xs:example>2016-01-01Z</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The date of the last update to user status.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="last_patron_activity_date" type="xs:date" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api get</xs:tags>
+						<xs:example>2016-01-01Z</xs:example>
+					</xs:appinfo>
+					<xs:documentation>
+The last date that specific activities were executed. The relevant activities can be found in [OLH|https://knowledge.exlibrisgroup.com/Alma/Product_Documentation/010Alma_Online_Help_(English)/050Administration/030User_Management/010Managing_Users#UserDetails] 
+					</xs:documentation> 
+				</xs:annotation> 
+			</xs:element>
+			<xs:element name="requests" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api get</xs:tags>
+						<xs:example>0</xs:example>
+					</xs:appinfo>
+					<xs:documentation>Number of requests for user.
+					Output parameter.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:int">
+							<xs:attribute name="link" type="xs:string" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="loans" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api get</xs:tags>
+						<xs:example>5</xs:example>
+					</xs:appinfo>
+					<xs:documentation>Number of loans for user.
+				   Output parameter.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:int">
+							<xs:attribute name="link" type="xs:string" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="fees" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api get</xs:tags>
+					  <xs:example></xs:example>
+					</xs:appinfo>
+					<xs:documentation>Fines/fees active balance for user
+					Output parameter.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="xs:float">
+							<xs:attribute name="link" type="xs:string" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="contact_info" type="contact_info"
+				minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>List of the user's contacts information.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="user_identifiers" type="user_identifiers"
+				minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>List of the user's additional identifiers.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="user_roles" type="user_roles" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api get post put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>List of the user's roles.
+					SIS: roles are NOT part of the SIS load.
+					POST action: If list of roles is supplied, these will be the roles.
+					If list of roles was not supplied in the POST action, the user will be created with roles according to the role assignment rules
+					(General > User Management Configuration > Configuration Menu > Roles and Registration > Role Assignment Rules).
+					PUT action: If list of roles is supplied, it will replace the existing roles.
+					If list of roles was not supplied in the PUT action, the existing roles will be kept (note that the roles behavior is different than the other segments: all user segments are deleted if the incoming list is empty. Only roles are kept in such case).
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="user_blocks" type="user_blocks"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>List of the user's blocks.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="user_notes" type="user_notes" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>List of the user's related notes.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="user_statistics" type="user_statistics"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>List of the user's related statistics.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="proxy_for_users" type="proxy_for_users" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api get</xs:tags>
+					</xs:appinfo>
+					<xs:documentation> A list of the user's proxy users
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="rs_libraries" type="rs_libraries"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>List of the user's related resource sharing libraries.
+					On SIS synch this field will not be replaced if it was updated manually (or if empty in the incoming user record).
+					For external users in PUT action: this field will not be replaced if it was updated manually (or if empty in the incoming user record), unless 'override' parameter is sent with the field's name.
+See [blog|https://developers.exlibrisgroup.com/blog/External-user-data-behavior-of-SIS-synchronization-and-API] for more details.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="library_notices" type="library_notices"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>List of the user's library notices.
+					On SIS synch this field will not be replaced if it was updated manually (or if empty in the incoming user record).
+					For external users in PUT action: this field will not be replaced if it was updated manually (or if empty in the incoming user record), unless 'override' parameter is sent with the field's name.
+See [blog|https://developers.exlibrisgroup.com/blog/External-user-data-behavior-of-SIS-synchronization-and-API] for more details.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="source_link_id" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api get</xs:tags>
+						<xs:example>2541663001021</xs:example>
+					</xs:appinfo>
+					<xs:documentation>Reference to the system internal unique identifier at the institution identified by source_institution_code .
+   This field is populated at the copy user record (linked account).  The value is equal to the linking_id at the source institution (identified by source_institution_code).
+                     </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="source_institution_code" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api get</xs:tags>
+						<xs:example>2541663001021</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The code of the institution where the source user record is managed.
+This field is populated at the copy user record (linked account).
+                     </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="linking_id" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api get</xs:tags>
+						<xs:example>5131558001021</xs:example>
+					</xs:appinfo>
+					<xs:documentation> The system internal unique identifier of the source user account.
+This field is populated at the source user record.
+This can be used to fetch copies of the user record (linked accounts in other institutions) by calling the Get-User API with the source_institution_code parameter.
+                     </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="pref_first_name" type="string255Length" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:example>John</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The user's preferred first name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pref_middle_name" type="string255Length" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:example>W</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The user's preferred middle name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pref_last_name" type="string255Length" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:example>Smith</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The user's preferred last name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			
+			<xs:element name="pref_name_suffix" type="string255Length" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:example>Junior</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The user's name suffix. This field is only relevant to Esploro researchers.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+
+			<xs:element name="is_researcher" type="xs:boolean" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Indication whether the user is a researcher.
+						Default is false. For Esploro use only.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="researcher" type="researcher" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:example>true</xs:example>
+					</xs:appinfo>
+					<xs:documentation>researcher information. For Esploro use only.
+					</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="link" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="user_roles">
+		<xs:annotation>
+			<xs:appinfo>
+				<xs:tags>api get post put</xs:tags>
+			</xs:appinfo>
+			<xs:documentation>List of the user's roles.
+					SIS: roles are NOT part of the SIS load.
+					POST action: If list of roles is supplied- these will be the roles.
+					If list of roles was not supplied in the POST action, the user will be created with roles according to the role assignment rules
+					(General > User Management Configuration > Configuration Menu > Roles and Registration > Role Assignment Rules).
+					PUT action: If list of roles is supplied- it will replace the existing roles.
+					If list of roles was not supplied in the PUT action, the existing roles will be kept (note that the roles behavior is different than the other segments: all user segments are deleted if the incoming list is empty. Only roles are kept in such case).
+</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+	<xs:element name="user_role" type="user_role" minOccurs="0"
+				maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api get post put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>Specific user's role.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="user_role">
+		<xs:annotation>
+			<xs:appinfo>
+				<xs:tags>api get post put</xs:tags>
+			<xs:example></xs:example>
+			</xs:appinfo>
+			<xs:documentation>Specific user's role.</xs:documentation>
+		</xs:annotation>
+		<xs:all>
+			<xs:element name="status" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:codeTable>UserRoleStatus</xs:codeTable>
+						<xs:example>NEW</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The user's role status.
+					Possible codes are listed in 'User Roles Status Codes' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+					If empty, default value is Active, if an illegal value is given, default is Inactive.
+				</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="scope" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The campus/library to which the role applies.
+				</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string50Length">
+							<xs:attribute name="desc" type="string255Length" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="role_type" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:codeTable>HFrUserRoles.roleType</xs:codeTable>
+						<xs:example>200</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The user's role.
+					Possible codes are listed in 'User Roles' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+				</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="expiry_date" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The date after which the user no longer has the role.
+				</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		<xs:element name="parameters" type="parameters" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api get post put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>Role's related parameters.
+				</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:all>
+	</xs:complexType>
+	<xs:complexType name="user_statistics">
+		<xs:annotation>
+			<xs:documentation>List of user's statistics.
+				SIS: In case of new user, these segments will be marked as "external".
+				In case of synchronization, this list will replace the existing external statistics. Internal statistics will be kept.
+				POST action: The segments will be created as external or as internal according to the "segment_type" attribute.
+				PUT action: Incoming internal segments (based on the "segment_type" attribute) will replace the existing internal segments.
+				Incoming external segments (based on the "segment_type" attribute) will replace the existing external segments.
+				If the incoming list is empty, existing segments will be deleted.
+		</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+		<xs:element name="user_statistic" type="user_statistic"
+				minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Specific user statistic.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="user_statistic">
+		<xs:annotation>
+			<xs:documentation>Specific user statistic.</xs:documentation>
+		</xs:annotation>
+		<xs:all>
+			<xs:element name="statistic_category" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:codeTable>UserStatCategories</xs:codeTable>
+						<xs:example>LOCAL</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The statistic's Categories.
+					Possible codes are listed in 'User Statistical Categories' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+				</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="category_type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:codeTable>UserStatisticalTypes</xs:codeTable>
+						<xs:example>COLLEGE</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The statistic's type.
+					Possible codes are listed in 'User Category Types' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+					Output parameter.
+				</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		<xs:element name="statistic_note" type="string2000Length"
+				minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The statistic's related note.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="segment_type" type="string10Length">
+			<xs:annotation>
+				<xs:appinfo>
+					<xs:tags>api get post put</xs:tags>
+					<xs:example>External</xs:example>
+				</xs:appinfo>
+				<xs:documentation>The type of the segment ("Internal" or "External").
+			Relevant only for User API (and not for SIS).
+			For internal users, all the segments are considered internal.
+			External users might have internal or external segments. Empty or illegal segment_type for external user will be considered as external.
+			</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="proxy_for_users">
+		<xs:annotation>
+			<xs:documentation>A list of proxy information for users.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="proxy_for_user" type="proxy_for_user" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation> A specific user's proxy or substitute. </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="proxy_for_user">
+		<xs:annotation>
+            <xs:appinfo>
+                <xs:tags>api get</xs:tags>
+            </xs:appinfo>
+			<xs:documentation>A particular proxy for a user. </xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="primary_id" type="string255Length" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api get</xs:tags>
+						<xs:example>johns</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The primary identifier.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="full_name" type="string600Length" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api get</xs:tags>
+						<xs:example>John W Smith</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The user's first and last name.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="link" type="xs:string" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="user_notes">
+		<xs:annotation>
+			<xs:documentation>List of the user's related notes.
+				SIS: In case of new user, these segments will be marked as "external".
+				In case of synchronization, this list will replace the existing external notes. Internal notes will be kept.
+				POST action: The segments will be created as external or as internal according to the "segment_type" attribute.
+				PUT action: Incoming internal segments (based on the "segment_type" attribute) will replace the existing internal segments.
+				Incoming external segments (based on the "segment_type" attribute) will replace the existing external segments.
+				If the incoming list is empty, existing segments will be deleted.
+		</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+		<xs:element name="user_note" type="user_note" minOccurs="0"
+				maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Specific user's note.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="user_note">
+		<xs:annotation>
+			<xs:documentation>Specific user's note.</xs:documentation>
+		</xs:annotation>
+		<xs:all>
+			<xs:element name="note_type" minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:codeTable>NoteTypes</xs:codeTable>
+						<xs:example>ERP</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The note's type.
+					Possible codes are listed in the 'Note Types' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+					Mandatory.
+				</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="note_text" type="string2000Length" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:example>ERP user note example</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The note's text.
+					Mandatory.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="user_viewable" type="xs:boolean"
+				minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Indication whether the user is able to view the note.
+					Default is false.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="popup_note" type="xs:boolean"
+				minOccurs="1" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Indication whether the note supposed to popup while entering patron services.
+					Default is false.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="created_by" type="string255Length" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Creator of the note.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="created_date" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Creation date of the note.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="segment_type" type="string10Length">
+			<xs:annotation>
+				<xs:appinfo>
+					<xs:tags>api get post put</xs:tags>
+					<xs:example>External</xs:example>
+				</xs:appinfo>
+				<xs:documentation>The type of the segment ("Internal" or "External").
+			Relevant only for User API (and not for SIS).
+			For internal users, all the segments are considered internal.
+			External users might have internal or external segments. Empty or illegal segment_type for external user will be considered as external.
+			</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="user_blocks">
+		<xs:annotation>
+			<xs:documentation>List of user's blocks.
+				SIS: In case of new user, these segments will be marked as "external".
+				In case of synchronization, this list will replace the existing external blocks. Internal blocks will be kept.
+				POST action: The segments will be created as external or as internal according to the "segment_type" attribute.
+				PUT action: Incoming internal segments (based on the "segment_type" attribute) will replace the existing internal segments.
+				Incoming external segments (based on the "segment_type" attribute) will replace the existing external segments.
+				If the incoming list is empty, existing segments will be deleted.
+		</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+		<xs:element name="user_block" type="user_block" minOccurs="0"
+				maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>A specific user's block.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="user_block">
+		<xs:annotation>
+			<xs:documentation>A specific user's block.</xs:documentation>
+		</xs:annotation>
+		<xs:all>
+			<xs:element name="block_type" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:codeTable>UserBlockTypes</xs:codeTable>
+						<xs:example>LOAN</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The block type.
+					Possible codes are listed in the 'User Block Types' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+					Default is 'GENERAL'.
+				</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional">
+								<xs:annotation>
+									<xs:appinfo>
+										<xs:example>Loan</xs:example>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		<xs:element name="block_description" minOccurs="1"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:codeTable>UserBlockDescription</xs:codeTable>
+						<xs:example>CONSORTIA</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The block's description.
+					Mandatory.
+					Possible codes are listed in the 'User Block Description' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+				</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional">
+								<xs:annotation>
+									<xs:appinfo>
+										<xs:example>Consortia</xs:example>
+									</xs:appinfo>
+								</xs:annotation>
+							</xs:attribute>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		<xs:element name="block_status" type="string255Length"
+				minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The block's status.
+					Possible values: Active, Inactive.
+					Default is Active.
+				</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		<xs:element name="block_note" type="string2000Length" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>The block's related note.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="created_by" type="string255Length" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Creator of the block</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="created_date" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>Creation date of the block</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="expiry_date" type="xs:dateTime" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api get post put</xs:tags>
+						<xs:example>2019-12-18T14:36:48.659Z</xs:example>
+					</xs:appinfo>
+					<xs:documentation>Expiration date of the block</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="item_loan_id" type="xs:string" minOccurs="0" maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api get put</xs:tags>
+						<xs:example>1200186133000121</xs:example>
+					</xs:appinfo>
+					<xs:documentation>Internal identifier of the loan which generated this block.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="segment_type" type="string10Length">
+			<xs:annotation>
+				<xs:appinfo>
+					<xs:tags>api get post put</xs:tags>
+					<xs:example>Internal</xs:example>
+				</xs:appinfo>
+				<xs:documentation>The type of the segment ("Internal" or "External").
+			Relevant only for User API (and not for SIS).
+			For internal users, all the segments are considered internal.
+			External users might have internal or external segments. Empty or illegal segment_type for external user will be considered as external.
+			</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="contact_info">
+		<xs:annotation>
+			<xs:appinfo>
+				<xs:tags>api sis get post put</xs:tags>
+			</xs:appinfo>
+			<xs:documentation>List of the user's contacts information.
+				SIS: In case of new user, these segments will be marked as "external".
+				In case of synchronization, this list will replace the existing external contacts. Internal contacts will be kept.
+				POST action: The segments will be created as external or as internal according to the "segment_type" attribute.
+				PUT action: Incoming internal segments (based on the "segment_type" attribute) will replace the existing internal segments.
+				Incoming external segments (based on the "segment_type" attribute) will replace the existing external segments.
+				If the incoming list is empty, existing segments will be deleted.
+		</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="addresses" type="addresses" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>List of user's addresses.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="emails" type="emails" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>List of user's email addresses.
+				</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="phones" type="phones" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>List of user's phone numbers.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="emails">
+		<xs:annotation>
+			<xs:appinfo>
+				<xs:tags>api sis get post put</xs:tags>
+			</xs:appinfo>
+			<xs:documentation>List of user's email addresses.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+		<xs:element name="email" type="email" minOccurs="0"
+				maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Specific user's email address.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="email">
+		<xs:annotation>
+			<xs:appinfo>
+				<xs:tags>api sis get post put</xs:tags>
+				<xs:example>jhons@mylib.org</xs:example>
+			</xs:appinfo>
+			<xs:documentation>Specific user's email address.</xs:documentation>
+		</xs:annotation>
+		<xs:all>
+			<xs:element name="email_address" type="string255Length">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+						<xs:example>johns@mylib.org</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The email address. Mandatory.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		<xs:element name="description" type="string255Length" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+					<xs:example></xs:example>
+					</xs:appinfo>
+					<xs:documentation>The email address' related description.
+				</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="email_types">
+				<xs:complexType>
+					<xs:annotation>
+						<xs:appinfo>
+							<xs:tags>api sis get post put</xs:tags>
+							<xs:example>Personal</xs:example>
+						</xs:appinfo>
+						<xs:documentation>The different email types.
+						Mandatory.</xs:documentation>
+					</xs:annotation>
+					<xs:sequence>
+						<xs:element name="email_type" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:appinfo>
+									<xs:example>personal</xs:example>
+									<xs:codeTable>MT_UserRecordType2EmailType_by_CT_UserEmailTypes_source1:staff,public,contact_source2:anything</xs:codeTable>
+								</xs:appinfo>
+								<xs:documentation>Possible codes are listed in the 'UserEmailTypes' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+							</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:simpleContent>
+									<xs:extension base="string255Length">
+										<xs:attribute name="desc" type="string4000Length" use="optional"/>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="preferred" type="xs:boolean" default="false">
+			<xs:annotation>
+				<xs:appinfo>
+					<xs:tags>api sis get post put</xs:tags>
+					<xs:example>true</xs:example>
+				</xs:appinfo>
+				<xs:documentation>Indication whether the email address is the preferred one.
+				Only one address can be defined as preferred.
+			</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="segment_type" type="string10Length">
+			<xs:annotation>
+				<xs:appinfo>
+					<xs:tags>api get post put</xs:tags>
+					<xs:example>Internal</xs:example>
+				</xs:appinfo>
+				<xs:documentation>The type of the segment ("Internal" or "External").
+			Relevant only for User API (and not for SIS).
+			For internal users, all the segments are considered internal.
+			External users might have internal or external segments. Empty or illegal segment_type for external user will be considered as external.
+			</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="phones">
+		<xs:annotation>
+			<xs:documentation>List of user's phone numbers.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+		<xs:element name="phone" type="phone" minOccurs="0"
+				maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Specific user's phone number.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="phone">
+		<xs:annotation>
+			<xs:documentation>Specific user's phone number.</xs:documentation>
+		</xs:annotation>
+		<xs:all>
+			<xs:element name="phone_number" type="string255Length">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:example>18005882300</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The phone number.
+					Mandatory.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="phone_types">
+				<xs:annotation>
+					<xs:documentation>The different Phone types.
+					Mandatory.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:annotation>
+						<xs:documentation>Phone types.</xs:documentation>
+					</xs:annotation>
+					<xs:sequence>
+						<xs:element name="phone_type" minOccurs="0" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:appinfo>
+									<xs:codeTable>MT_UserRecordType2PhoneType_by_CT_UserPhoneTypes_source1:staff,public,contact_source2:anything</xs:codeTable>
+									<xs:example>home</xs:example>
+								</xs:appinfo>
+								<xs:documentation>Possible values are listed in the 'UserPhoneTypes' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+							</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:simpleContent>
+									<xs:extension base="string255Length">
+										<xs:attribute name="desc" type="string4000Length" use="optional"/>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="preferred" type="xs:boolean" default="false">
+			<xs:annotation>
+				<xs:documentation>Indication whether the phone number is the preferred one.
+				Only one address can be defined as preferred.
+			</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	<xs:attribute name="preferred_sms" type="xs:boolean"
+			default="false">
+			<xs:annotation>
+				<xs:documentation>Indication whether the phone number is the preferred one for SMS sending.
+				Only one phone number can be defined as preferred.
+			</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="segment_type" type="string10Length">
+			<xs:annotation>
+				<xs:appinfo>
+					<xs:tags>api get post put</xs:tags>
+					<xs:example>Internal</xs:example>
+				</xs:appinfo>
+				<xs:documentation>The type of the segment ("Internal" or "External").
+			Relevant only for User API (and not for SIS).
+			For internal users, all the segments are considered internal.
+			External users might have internal or external segments. Empty or illegal segment_type for external user will be considered as external.
+			</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="addresses">
+		<xs:annotation>
+			<xs:documentation>List of user's addresses.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+		<xs:element name="address" type="address" minOccurs="0"
+				maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Specific user's address.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="address">
+		<xs:annotation>
+			<xs:documentation>Specific user's address.</xs:documentation>
+		</xs:annotation>
+		<xs:all>
+			<xs:element name="line1" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:example>3598 N. Buckingham Road</xs:example>
+					</xs:appinfo>
+					<xs:documentation>Line 1 of the address.
+					Mandatory.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="line2" type="string255Length" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Line 2 of the address.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="line3" type="string255Length" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Line 3 of the address.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="line4" type="string255Length" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Line 4 of the address.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="line5" type="string255Length" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Line 5 of the address.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="city" type="string255Length" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:example>Scottsdale</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The address' relevant city.
+					Mandatory.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		<xs:element name="state_province" type="string255Length"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:example>AZ</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The address' relevant state.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="postal_code" type="string255Length" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:example>85054</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The address' relevant postal code.
+				</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="country" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:codeTable>CountryCodes</xs:codeTable>
+						<xs:example>USA</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The address' relevant country.
+					Possible codes are listed in the 'Country Codes' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+				</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		<xs:element name="address_note" type="string1000Length"
+				minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The address' related note.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="start_date" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The date from which the address is deemed to be active.
+				</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="end_date" type="xs:date" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The date after which the address is no longer active.
+				</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="address_types">
+				<xs:annotation>
+					<xs:documentation>Address types.
+					Mandatory.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:annotation>
+						<xs:documentation>Address types.</xs:documentation>
+					</xs:annotation>
+					<xs:sequence>
+					<xs:element name="address_type" minOccurs="0"
+							maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:appinfo>
+									<xs:codeTable>MT_UserRecordType2AddressType_by_CT_UserAddressTypes_source1:staff,public,contact_source2:anything</xs:codeTable>
+									<xs:example>home</xs:example>
+								</xs:appinfo>
+								<xs:documentation>Possible values are listed in the 'UserAddressTypes' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+							</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:simpleContent>
+									<xs:extension base="string255Length">
+										<xs:attribute name="desc" type="string4000Length" use="optional"/>
+									</xs:extension>
+								</xs:simpleContent>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="preferred" type="xs:boolean" default="false">
+			<xs:annotation>
+				<xs:appinfo>
+					<xs:example>true</xs:example>
+				</xs:appinfo>
+				<xs:documentation>Indication whether the address is the preferred one.
+				Only one address can be defined as preferred.
+			</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="segment_type" type="string10Length">
+			<xs:annotation>
+				<xs:appinfo>
+					<xs:tags>api get post put</xs:tags>
+					<xs:example>Internal</xs:example>
+				</xs:appinfo>
+				<xs:documentation>The type of the segment ("Internal" or "External").
+			Relevant only for User API (and not for SIS).
+			For internal users, all the segments are considered internal.
+			External users might have internal or external segments. Empty or illegal segment_type for external user will be considered as external.
+			</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="user_identifiers">
+		<xs:annotation>
+			<xs:documentation>List of the user's additional identifiers.
+			For more information regarding case sensitivity see [here|https://developers.exlibrisgroup.com/blog/case-insensitive-identifiers-and-emails-in-alma/#identifiers_anchor].
+			SIS: In case of new user, these segments will be marked as "external".
+			In case of synchronization, this list will replace the existing external identifiers. Internal identifiers will be kept.
+			POST action: The segments will be created as external or as internal according to the "segment_type" attribute.
+			PUT action: Incoming internal segments (based on the "segment_type" attribute) will replace the existing internal segments.
+			Incoming external segments (based on the "segment_type" attribute) will replace the existing external segments.
+			If the incoming list is empty, existing segments will be deleted.
+		</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+		<xs:element name="user_identifier" type="user_identifier"
+				minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Specific user's identifier.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rs_libraries">
+		<xs:annotation>
+			<xs:documentation>List of the user's related resource sharing libraries.
+		On SIS synch this field will not be replaced if it was updated manually (or if empty in the incoming user record).
+		For external users in PUT action: this field will not be replaced if it was updated manually (or if empty in the incoming user record), unless 'override' parameter is sent with the field's name.
+		</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+		<xs:element name="rs_library" type="rs_library"
+				minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Specific user's related resource sharing library.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="rs_library">
+		<xs:annotation>
+			<xs:documentation>Specific user's related resource sharing library.</xs:documentation>
+		</xs:annotation>
+		<xs:all>
+		<xs:element name="code"  minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api sis get post put</xs:tags>
+					<xs:example></xs:example>
+					</xs:appinfo>
+					<xs:documentation>The code of the resource sharing library.
+						Possible codes are libraries which are defined as "Resource Sharing".
+				</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string50Length">
+							<xs:attribute name="desc" type="string255Length" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+	</xs:complexType>
+	<xs:complexType name="library_notices">
+		<xs:annotation>
+			<xs:documentation>List of the user's library notices.
+		On SIS synch this field will not be replaced if it was updated manually (or if empty in the incoming user record).
+		For external users in PUT action: this field will not be replaced if it was updated manually (or if empty in the incoming user record), unless 'override' parameter is sent with the field's name.
+		</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+		<xs:element name="library_notice" type="library_notice"
+				minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Specific user's library notice.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="library_notice">
+		<xs:annotation>
+			<xs:documentation>Specific user's library notice.</xs:documentation>
+		</xs:annotation>
+		<xs:all>
+		<xs:element name="code"  minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:codeTable>LibraryNoticesOptInDisplay</xs:codeTable>
+						<xs:example>FulUserBorrowingActivityLetter</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The code of the library notice.
+						Possible codes are listed in 'Library Notices Opt In Display' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+				</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string255Length" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="value" type="xs:boolean" minOccurs="0" maxOccurs="1"/>
+		</xs:all>
+	</xs:complexType>
+	<xs:complexType name="user_identifier">
+		<xs:annotation>
+			<xs:documentation>Specific user's identifier.</xs:documentation>
+		</xs:annotation>
+		<xs:all>
+			<xs:element name="id_type" minOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:codeTable>UserIdentifierTypes</xs:codeTable>
+						<xs:example>UNIV_ID</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The identifier type.
+					Possible codes are listed in 'User Identifier Type' [code table|https://developers.exlibrisgroup.com/blog/Working-with-the-code-tables-API].
+					Mandatory.
+				</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		<xs:element name="value" type="string255Length" minOccurs="1"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:example>johns691</xs:example>
+					</xs:appinfo>
+					<xs:documentation>The identifier value.
+					Mandatory.
+					For more information regarding case sensitivity see [here|https://developers.exlibrisgroup.com/blog/case-insensitive-identifiers-and-emails-in-alma/#identifiers_anchor].
+				</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		<xs:element name="note" type="string2000Length" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>identifier's note.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		<xs:element name="status" type="string255Length" minOccurs="0"
+				maxOccurs="1">
+				<xs:annotation>
+					<xs:documentation>identifier's status.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:all>
+		<xs:attribute name="segment_type" type="string10Length">
+			<xs:annotation>
+				<xs:appinfo>
+					<xs:tags>api get post put</xs:tags>
+					<xs:example>Internal</xs:example>
+				</xs:appinfo>
+				<xs:documentation>The type of the segment ("Internal" or "External").
+			Relevant only for User API (and not for SIS).
+			For internal users, all the segments are considered internal.
+			External users might have internal or external segments. Empty or illegal segment_type for external user will be considered as external.
+			</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="parameters">
+		<xs:annotation>
+			<xs:appinfo>
+				<xs:tags>api get post put</xs:tags>
+			</xs:appinfo>
+			<xs:documentation>Role's related parameters.
+		</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+		<xs:element name="parameter" type="parameter" minOccurs="0"
+				maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api get post put</xs:tags>
+					</xs:appinfo>
+					<xs:documentation>Role's specific parameter.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="parameter">
+		<xs:annotation>
+			<xs:appinfo>
+				<xs:tags>api get post put</xs:tags>
+			</xs:appinfo>
+			<xs:documentation>Role's specific parameter.</xs:documentation>
+		</xs:annotation>
+		<xs:all>
+			<xs:element name="type" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The parameter's type.
+					Possible values: CirculationDesk, MetadataType, ServiceUnit, CantEditRestrictedUsers.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="scope" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>The library to which the parameter applies. 
+					Used for role of type ServiceUnit.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string255Length" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="value" minOccurs="0">
+				<xs:annotation>
+					<xs:appinfo>
+						<xs:tags>api get post put</xs:tags>
+					<xs:example>CircDeskOp</xs:example>
+					</xs:appinfo>
+					<xs:documentation>Parameter's related value:
+CirculationDesk - A valid Circulation desk code.
+ServiceUnit - A valid work order department code
+CantEditRestrictedUsers - true or false.</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:simpleContent>
+						<xs:extension base="string255Length">
+							<xs:attribute name="desc" type="string4000Length" use="optional"/>
+						</xs:extension>
+					</xs:simpleContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:all>
+	</xs:complexType>
+	<xs:simpleType name="string4Length">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="string10Length">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="10"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="string20Length">
+		<xs:restriction base="xs:string">
+      <xs:maxLength value="20" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="string50Length">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="50"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="string255Length">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="255"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="string600Length">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="600"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="string1000Length">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="1000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="string2000Length">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="2000"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="string4000Length">
+		<xs:restriction base="xs:string">
+			<xs:maxLength value="4000"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

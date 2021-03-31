@@ -9,7 +9,7 @@ RSpec.describe OitPersonFeed do
 
   describe "get" do
     before do
-      stub_request(:get, "https://example.com/person_feed?begin_date=2020-01-01&ei_flag=E&end_date=2020-02-01")
+      stub_request(:get, "https://example.com/person_feed/E/2020-01-01/2020-02-01")
         .with(
         headers: {
           'Accept' => 'application/json',
@@ -53,6 +53,93 @@ RSpec.describe OitPersonFeed do
         data = feed.get_json(begin_date: '2020-01-01', end_date: '2020-02-01')
         expect(data.count).to eq(1)
         expect(data[0]["EMPLID"]).to eq("999999999")
+      end
+    end
+
+    context "without a enabled flag" do
+      before do
+        stub_request(:get, "https://example.com/person_feed/2020-01-01/2020-02-01")
+          .with(
+          headers: {
+            'Accept' => 'application/json',
+            'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+            'Authorization' => 'Bearer secret_token',
+            'Content-Type' => 'application/json',
+            'Host' => 'example.com',
+            'User-Agent' => 'Ruby'
+          }
+        )
+          .to_return(status: 200, body: body2, headers: {})
+      end
+
+      let(:body2) do
+        "[{ \"EMPLID\": \"99998888\"\n   }]"
+      end
+
+      it "gets an new token and then gets data from the api" do
+        allow(token).to receive(:fetch).and_return('secret_token')
+        data = feed.get_json(begin_date: '2020-01-01', end_date: '2020-02-01', enabled_flag: nil)
+        expect(data.count).to eq(1)
+        expect(data[0]["EMPLID"]).to eq("99998888")
+        expect(token).to have_received(:fetch)
+      end
+    end
+
+    context "without a begin end date" do
+      before do
+        stub_request(:get, "https://example.com/person_feed/E")
+          .with(
+          headers: {
+            'Accept' => 'application/json',
+            'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+            'Authorization' => 'Bearer secret_token',
+            'Content-Type' => 'application/json',
+            'Host' => 'example.com',
+            'User-Agent' => 'Ruby'
+          }
+        )
+          .to_return(status: 200, body: body3, headers: {})
+      end
+
+      let(:body3) do
+        "[{ \"EMPLID\": \"11112222\"\n   }]"
+      end
+
+      it "gets an new token and then gets data from the api" do
+        allow(token).to receive(:fetch).and_return('secret_token')
+        data = feed.get_json(begin_date: nil, end_date: nil)
+        expect(data.count).to eq(1)
+        expect(data[0]["EMPLID"]).to eq("11112222")
+        expect(token).to have_received(:fetch)
+      end
+    end
+
+    context "without a begin end date or enabled flag" do
+      before do
+        stub_request(:get, "https://example.com/person_feed")
+          .with(
+          headers: {
+            'Accept' => 'application/json',
+            'Accept-Encoding' => 'gzip;q=1.0,deflate;q=0.6,identity;q=0.3',
+            'Authorization' => 'Bearer secret_token',
+            'Content-Type' => 'application/json',
+            'Host' => 'example.com',
+            'User-Agent' => 'Ruby'
+          }
+        )
+          .to_return(status: 200, body: body3, headers: {})
+      end
+
+      let(:body3) do
+        "[{ \"EMPLID\": \"55556666\"\n   }]"
+      end
+
+      it "gets an new token and then gets data from the api" do
+        allow(token).to receive(:fetch).and_return('secret_token')
+        data = feed.get_json(begin_date: nil, end_date: nil, enabled_flag: nil)
+        expect(data.count).to eq(1)
+        expect(data[0]["EMPLID"]).to eq("55556666")
+        expect(token).to have_received(:fetch)
       end
     end
   end
