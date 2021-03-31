@@ -72,11 +72,9 @@ module AbsoluteIds
       raise(DuplicateIndicatorError, "Failed to synchronize #{@model_id} ArchivesSpace: the Absolute ID #{absolute_id.label} is not unique") unless top_resources.empty?
     end
 
-    def update_container_profile(uri: container.id, container_profile_uri: container_profile.uri)
-    end
+    def update_container_profile(uri: container.id, container_profile_uri: container_profile.uri); end
 
-    def update_location(uri: container.id, location_uri: location.uri)
-    end
+    def update_location(uri: container.id, location_uri: location.uri); end
 
     # Update the TopContainer
     # @param uri
