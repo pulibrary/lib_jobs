@@ -119,11 +119,7 @@ module LibJobs
       end
 
       def container_profiles
-        children(resource_class: ContainerProfile, model_class: ContainerProfile.model_class)
-      end
-
-      def find_container_profile_by(uri:)
-        find_child(uri: uri, resource_class: ContainerProfile, model_class: ContainerProfile.model_class)
+        children(resource_class: ContainerProfile, model_class: nil)
       end
 
       # Locations

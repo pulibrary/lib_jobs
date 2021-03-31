@@ -10,10 +10,6 @@ class ArchivesSpaceCacheJob < ApplicationJob
 
       ArchivesSpaceCacheRepositoryJob.perform_later(repository_uri: repository.uri)
     end
-
-    source_client.container_profiles.each do |container_profile|
-      ArchivesSpaceCacheContainerProfileJob.perform_later(container_profile_uri: container_profile.uri)
-    end
   end
 
   private

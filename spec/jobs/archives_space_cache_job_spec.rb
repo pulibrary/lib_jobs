@@ -18,7 +18,6 @@ RSpec.describe ArchivesSpaceCacheJob do
     described_class.perform_now
 
     expect(AbsoluteId::Repository.all.size).to eq 2
-    expect(AbsoluteId::ContainerProfile.all.size).to eq 13
     # This number is way too small - it's only one page of one repository.
     # Do we need to cache these even?
     expect(AbsoluteId::TopContainer.all.size).to eq 250
