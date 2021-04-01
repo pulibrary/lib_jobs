@@ -300,6 +300,7 @@ RSpec.describe "AbsoluteIds", type: :request do
                   "32101103191142"
                 ],
                 batch_size: 1,
+                source: 'aspace',
                 valid: true
               ]
             }
