@@ -27,7 +27,7 @@
       />
     </div>
     <template v-for="(entry, index) in batches">
-      <fieldset class="absolute-ids-batch-form--batch">
+      <fieldset v-bind:key="index" class="absolute-ids-batch-form--batch">
         <legend>New Batch</legend>
 
         <aspace-batch-form
@@ -44,8 +44,7 @@
           :repositories="repositories"
           :batch-size="batchSizes[index]"
           :batch-form="true"
-          :batch-size="batchSize[index]"
-          v-on:input-size="updateBatchSize($event, index)"
+          @input-size="updateBatchSize($event, index)"
         />
         <marc-batch-form
           v-else-if="source == 'marc'"
@@ -58,14 +57,14 @@
           :barcode="generateBarcode(index, batchSizes[index])"
           :batch-size="batchSizes[index]"
           :batch-form="true"
-          v-on:input-size="updateBatchSize($event, index)"
+          @input-size="updateBatchSize($event, index)"
         />
 
         <fieldset class="absolute-ids-batch-form--batch-size">
           <legend>Size</legend>
           <input-text
-            :key="index"
             id="batch-size"
+            :key="index"
             name="batches[batch_size]"
             :value="getBatchSize(index)"
             label="Input"

@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 module LibJobs
   module ArchivesSpace
+    class UpdateRecordError < ArgumentError; end
+    class BatchUpdateRecordError < UpdateRecordError; end
+
     autoload(:Object, File.join(File.dirname(__FILE__), 'archives_space', 'object'))
     autoload(:ChildObject, File.join(File.dirname(__FILE__), 'archives_space', 'child_object'))
     autoload(:SubContainer, File.join(File.dirname(__FILE__), 'archives_space', 'sub_container'))

@@ -66,7 +66,7 @@ module AbsoluteIds
       top_containers = aspace_resource.top_containers.select { |c| c.indicator == current_indicator || c.indicator =~ /(?:[bB]ox)\s#{current_indicator}/ }
       top_container = top_containers.first
 
-      raise(ArgumentError, "Failed to resolve the container for indicator #{indicator} linked to the resource #{aspace_resource.id}") if top_container.nil?
+      raise(ArgumentError, "Failed to resolve the container for indicator #{current_indicator} linked to the resource #{aspace_resource.id}") if top_container.nil?
       top_container
     end
 

@@ -591,7 +591,7 @@ export default {
       this.$emit("input", inputState);
     },
 
-    onResourceFocusOut: async function (event, value) {
+    onResourceFocusOut: async function(event, value) {
       this.validResource = false;
       this.validatedResource = false;
 
