@@ -149,6 +149,7 @@ export default {
           },
           barcodes: [],
           batch_size: 1,
+          source: this.source,
           valid: false
         }
       ],
@@ -283,6 +284,7 @@ export default {
         },
         barcodes: [],
         batch_size: 1,
+        source: this.source,
         valid: false
       };
     },

@@ -18,7 +18,7 @@ class AbsoluteIdCreateRecordJob < ApplicationJob
     when 'marc'
       ::AbsoluteIdCreateMarcSourceRecordJob.perform_now(**args)
     else
-      super(**args)
+      raise(ArgumentError, "Unsupported AbsoluteID source: #{source}")
     end
   end
 
@@ -33,7 +33,7 @@ class AbsoluteIdCreateRecordJob < ApplicationJob
     when 'marc'
       ::AbsoluteIdCreateMarcSourceRecordJob.perform_later(**args)
     else
-      super(**args)
+      raise(ArgumentError, "Unsupported AbsoluteID source: #{source}")
     end
   end
 

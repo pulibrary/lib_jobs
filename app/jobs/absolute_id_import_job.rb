@@ -63,9 +63,9 @@ class AbsoluteIdImportJob < ApplicationJob
       imported_attributes[:container] = top_container
     else
       # Set the legacy repository for a legacy value
-      imported_attributes[:unencoded_repository] = repo_code
-      imported_attributes[:unencoded_resource] = call_number
-      imported_attributes[:unencoded_container] = container_indicator
+      imported_attributes[:repository] = repo_code
+      imported_attributes[:resource] = call_number
+      imported_attributes[:container] = container_indicator
     end
 
     new_absolute_id = AbsoluteId.generate(imported_attributes)

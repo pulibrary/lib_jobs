@@ -11,6 +11,7 @@ class AbsoluteIdCreateBatchJob < ApplicationJob
     batch_size = batch_properties[:batch_size]
     params_valid = batch_properties[:valid]
     raise ArgumentError unless params_valid
+    source = batch_properties[:source]
 
     # Use the same set of params for each AbID
     absolute_id_params = batch_properties[:absolute_id]
@@ -20,6 +21,7 @@ class AbsoluteIdCreateBatchJob < ApplicationJob
       properties = absolute_id_params.deep_dup
       properties[:barcode] = batch_properties[:barcodes][child_index]
       properties[:index] = child_index
+      properties[:source] = source
 
       begin
         model_id = AbsoluteIdCreateRecordJob.polymorphic_perform_now(properties: properties, user_id: @user_id)

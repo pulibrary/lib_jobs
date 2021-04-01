@@ -219,6 +219,7 @@ export default {
         },
         barcodes: [],
         batch_size: 1,
+        source: 'aspace',
         valid: false
       }
     },
@@ -573,6 +574,7 @@ export default {
           resource: this.resourceTitle,
           container: this.containerIndicator
         },
+        source: this.source,
         valid
       };
     },
@@ -871,6 +873,7 @@ export default {
         },
         barcodes: barcodes,
         batch_size: batchSize,
+        source: this.source,
         valid,
       };
     },
