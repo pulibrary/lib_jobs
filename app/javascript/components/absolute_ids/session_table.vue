@@ -124,8 +124,6 @@ export default {
         "lux-button": true,
         solid: true,
         "absolute-ids-sync-form__submit": true,
-        "absolute-ids-sync-form__submit--finished": this.synchronized && !(this.synchronizing || this.submitted),
-        "absolute-ids-sync-form__submit--in-progress": this.synchronizing || this.submitted
         "absolute-ids-sync-form__submit--finished":
           this.synchronized && !(this.synchronizing || this.submitted),
         "absolute-ids-sync-form__submit--in-progress":

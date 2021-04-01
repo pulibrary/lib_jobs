@@ -4,6 +4,10 @@ class AbsoluteIds::SessionsController < ApplicationController
   skip_forgery_protection if: :token_header?
   include TokenAuthorizedController
 
+  def self.create_session_job
+    AbsoluteIds::CreateSessionJob
+  end
+
   # GET /absolute-ids
   # GET /absolute-ids.json
   def index
@@ -13,10 +17,6 @@ class AbsoluteIds::SessionsController < ApplicationController
       format.html { render :index }
       format.json { render json: @sessions }
     end
-  end
-
-  def self.create_session_job
-    AbsoluteIds::CreateSessionJob
   end
 
   # POST /absolute-ids/sessions

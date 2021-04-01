@@ -14,16 +14,6 @@ module ASpaceClientStubbing
     login_fixture_file_path = Rails.root.join('spec', 'fixtures', 'archives_space', 'login.json')
     login_fixture = File.read(login_fixture_file_path)
 
-    client ||= LibJobs::ArchivesSpace::Client.source
-    allow(client).to receive(:login).and_return(login_fixture)
-    client
-  end
-  alias stub_aspace_client stub_aspace_source_client
-
-  def stub_aspace_sync_client(client: nil)
-    login_fixture_file_path = Rails.root.join('spec', 'fixtures', 'archives_space', 'login.json')
-    login_fixture = File.read(login_fixture_file_path)
-
     client ||= LibJobs::ArchivesSpace::Client.sync
     allow(client).to receive(:login).and_return(login_fixture)
     client

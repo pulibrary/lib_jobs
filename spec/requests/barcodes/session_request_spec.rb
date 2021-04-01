@@ -61,6 +61,7 @@ RSpec.describe "Barcodes::Session", type: :request do
           repo_code: "univarchives"
         }
       end
+      let(:container) { "1" }
       let(:params) do
         {
           user: {
@@ -69,7 +70,7 @@ RSpec.describe "Barcodes::Session", type: :request do
           batches: [
             absolute_id: {
               barcode: barcode,
-              container: "1",
+              container: container,
               container_profile: container_profile,
               location: location,
               repository: repository,
@@ -160,12 +161,19 @@ RSpec.describe "Barcodes::Session", type: :request do
         context "and requests multiple batches of AbIDs linked to ArchivesSpace records" do
           let(:source) { 'aspace' }
           let(:barcode) { '32101103191142' }
+          let(:container) { '13' }
           let(:source_client) do
             stub_aspace_resource(repository_id: repository_id, resource_id: resource_id, ead_id: ead_id)
           end
 
           before do
-            allow(LibJobs::ArchivesSpace::Client).to receive(:source).and_return(source_client)
+            stub_location(location_id: 23_640)
+            stub_top_containers(ead_id: 'ABID001', repository_id: 4)
+            stub_resource_find_by_id(repository_id: 4, identifier: '4188', resource_id: 4188)
+            stub_resource(resource_id: 4188, repository_id: 4)
+
+            stub_repository(repository_id: 4)
+            stub_aspace_login
           end
 
           it "generates a new Ab. ID with the new size and uses the starting code" do

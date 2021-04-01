@@ -17,9 +17,19 @@ RSpec.describe "AbsoluteIds::Repositories::Resources", type: :request do
       let(:client) do
         stub_aspace_repository(repository_id: repository_id)
       end
+      let(:id) { '4188' }
+      let(:ead_id) { 'AC001' }
 
       before do
-        allow(LibJobs::ArchivesSpace::Client).to receive(:source).and_return(client)
+        # allow(LibJobs::ArchivesSpace::Client).to receive(:source).and_return(client)
+
+        stub_location(location_id: '23640')
+        stub_top_containers(ead_id: ead_id, repository_id: repository_id)
+        stub_resources(repository_id: repository_id)
+        stub_resource_find_by_id(repository_id: repository_id, identifier: id, resource_id: id)
+        stub_repository(repository_id: repository_id)
+        stub_resource(repository_id: repository_id, resource_id: id)
+        stub_aspace_login
       end
 
       it "renders all existing ArchivesSpace Resources for a given Repository" do

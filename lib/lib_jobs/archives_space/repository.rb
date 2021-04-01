@@ -85,7 +85,35 @@ module LibJobs
       # @param collection
       # @param resource_class
       # @return [Array<TopContainer>]
-      def search_top_containers_by(barcode: nil, indicator: nil, collection: nil, resource_class: TopContainer)
+      def search_top_containers_by(barcode: nil, indicator: nil, resource_class: TopContainer)
+        query_params = []
+        query_params << ["q", indicator] unless indicator.nil?
+        query_params << ["q", barcode] unless barcode.nil?
+
+        query = URI.encode_www_form(query_params)
+        response = client.get("/repositories/#{@id}/#{resource_class.name.demodulize.pluralize.underscore}/search?#{query}")
+
+        return [] if response.status.code == "404"
+
+        parsed = JSON.parse(response.body)
+        return [] unless parsed.key?('response') || parsed['response'].key?('docs')
+
+        solr_response = parsed['response']
+        return [] unless solr_response.key?('docs')
+
+        solr_documents = solr_response['docs']
+        solr_documents.map do |document|
+          build_top_container_from(document: document)
+        end
+      end
+
+      # Search for TopContainers
+      # @param barcode
+      # @param indicator
+      # @param collection
+      # @param resource_class
+      # @return [Array<TopContainer>]
+      def search_top_container_children_by(collection: nil)
         query_params = []
         query_params << ["q", "collection_identifier_u_stext:#{collection}"] unless collection.nil?
 
@@ -168,11 +196,6 @@ module LibJobs
         find_resource_by(uri: resource_uri, cache: cache)
       end
 
-      # Deprecate
-      def find_top_container(uri:)
-        find_child(uri: uri, resource_class: TopContainer, model_class: TopContainer.model_class)
-      end
-
       def find_top_container_by(uri:)
         find_child(uri: uri, resource_class: TopContainer, model_class: TopContainer.model_class)
       end
@@ -188,8 +211,12 @@ module LibJobs
         resource_class = child.class
 
         response = client.post("/repositories/#{@id}/#{resource_class.name.demodulize.pluralize.underscore}/#{child.id}", child.to_params)
-        Rails.logger.warn(response.body)
-        return nil if response.status.code != "200"
+        if response.status.code == "400"
+          error_message = response.parsed.values.map(&:values).join('. ')
+          raise(UpdateRecordError, error_message)
+        elsif response.status.code != "200"
+          nil
+        end
 
         model_class.uncache(child)
 
@@ -212,32 +239,37 @@ module LibJobs
       end
 
       def batch_update_top_containers(containers:, container_profile_uri: nil, location_uri: nil)
-        request_path = if !container_profile_uri.nil?
-                         "/repositories/#{@id}/top_containers/batch/container_profile"
-                       else
-                         "/repositories/#{@id}/top_containers/batch/location"
-                       end
-
-        request_params = if !container_profile_uri.nil?
-                           {
-                             ids: container.map(&:id),
-                             container_profile_uri: container_profile_uri
-                           }
+        request_path_base = "/repositories/#{@id}/top_containers/batch"
+        jsonmodel_type = if !container_profile_uri.nil?
+                           "container_profile"
                          else
-                           {
-                             ids: container.map(&:id),
-                             location_uri: location_uri
-                           }
+                           "location"
                          end
-        response = client.post(request_path, request_params)
 
-        model_class.uncache(container)
+        request_params = {
+          'ids[]': containers.map(&:id)
+        }
 
-        find_child(uri: container.uri.to_s, resource_class: container.class, model_class: container.class.model_class)
-      end
+        request_params[:container_profile_uri] = container_profile_uri unless container_profile_uri.nil?
 
-      def search_children_by(collection: nil, type: 'top_container')
-        # /repositories/4/search?q=display_string%3ABox%2020&page=1&type[]=top_container
+        request_params[:location_uri] = location_uri unless location_uri.nil?
+
+        query_params = URI.encode_www_form(request_params)
+        request_path = "#{request_path_base}/#{jsonmodel_type}?#{query_params}"
+        response = client.post(request_path, {})
+
+        if response.status.code == "400"
+          error_message = response.parsed.values.map(&:values).join('. ')
+          raise(BatchUpdateRecordError, error_message)
+        elsif response.status.code != "200"
+          []
+        end
+
+        containers.map do |container|
+          container.class.model_class.uncache(container)
+
+          find_child(uri: container.uri.to_s, resource_class: container.class, model_class: container.class.model_class)
+        end
       end
 
       private
