@@ -10,6 +10,23 @@
     "vue-template-compiler": "^2.6.12"
   },
   "devDependencies": {
+    "webpack-dev-server": "^3.11.0",
+    "eslint": "^7.12.1",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier-vue": "^2.1.1",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-vue": "^7.7.0",
+    "prettier-eslint": "^12.0.0",
+    "prettier-eslint-cli": "^5.0.1",
     "webpack-dev-server": "^3.11.0"
+  },
+  "scripts": {
+    "prettier": "prettier --check app/javascript/**/*{vue,js}",
+    "prettier-fix": "prettier --write app/javascript/**/*{vue,js}",
+    "lint": "prettier-eslint --eslint-config-path .eslintrc.js --config .prettierrc.json app/javascript/**/*{js,vue}",
+    "format": "prettier-eslint --write --eslint-config-path .eslintrc.js --config .prettierrc.json app/javascript/**/*{js,vue}"
   }
 }
