@@ -1,0 +1,440 @@
+<?xml version="1.0"?>
+<voucher_build>
+  <fieldtypes>
+    <vchr_bank_stg class="r">
+      <business_unit type="char"/>
+      <voucher_id type="char"/>
+      <bank_id_qual type="char"/>
+      <bnk_id_nbr type="char"/>
+      <branch_id type="char"/>
+      <bank_acct_type type="char"/>
+      <bank_account_num type="char"/>
+      <check_digit type="char"/>
+      <dfi_id_qual type="char"/>
+      <dfi_id_num type="char"/>
+      <beneficiary_bank type="char"/>
+      <beneficiary_bnk_ac type="char"/>
+      <benef_branch type="char"/>
+      <benef_branch_ac type="char"/>
+      <country type="char"/>
+      <address1 type="char"/>
+      <address2 type="char"/>
+      <address3 type="char"/>
+      <address4 type="char"/>
+      <city type="char"/>
+      <num1 type="char"/>
+      <num2 type="char"/>
+      <house_type type="char"/>
+      <addr_field1 type="char"/>
+      <addr_field2 type="char"/>
+      <addr_field3 type="char"/>
+      <county type="char"/>
+      <state type="char"/>
+      <postal type="char"/>
+      <geo_code type="char"/>
+      <in_city_limit type="char"/>
+      <country_code type="char"/>
+      <phone type="char"/>
+      <extension type="char"/>
+      <fax type="char"/>
+      <iban_check_digit type="char"/>
+      <eft_pymnt_fmt_cd type="char"/>
+      <eft_trans_handling type="char"/>
+      <eft_dom_costs_cd type="char"/>
+      <eft_corr_costs_cd type="char"/>
+      <eft_check_draw_cd type="char"/>
+      <eft_check_fwrd_cd type="char"/>
+      <eft_pay_inst_cd1 type="char"/>
+    </vchr_bank_stg>
+    <vchr_ibank_stg class="r">
+      <business_unit type="char"/>
+      <voucher_id type="char"/>
+      <intrmed_seq_no type="number"/>
+      <intrmed_bank_cd type="char"/>
+      <intrmed_acct_key type="char"/>
+      <intrmed_dfi_id type="char"/>
+      <intrmed_pymnt_msg type="char"/>
+      <stl_routing_method type="char"/>
+    </vchr_ibank_stg>
+    <vchr_vndr_stg class="r">
+      <business_unit type="char"/>
+      <voucher_id type="char"/>
+      <name1 type="char"/>
+      <emailid type="char"/>
+      <country type="char"/>
+      <address1 type="char"/>
+      <address2 type="char"/>
+      <address3 type="char"/>
+      <address4 type="char"/>
+      <city type="char"/>
+      <num1 type="char"/>
+      <num2 type="char"/>
+      <house_type type="char"/>
+      <addr_field1 type="char"/>
+      <addr_field2 type="char"/>
+      <addr_field3 type="char"/>
+      <county type="char"/>
+      <state type="char"/>
+      <postal type="char"/>
+      <geo_code type="char"/>
+      <in_city_limit type="char"/>
+    </vchr_vndr_stg>
+    <vchr_hdr_stg class="r">
+      <business_unit type="char"/>
+      <voucher_id type="char"/>
+      <voucher_style type="char"/>
+      <invoice_id type="char"/>
+      <invoice_dt type="date"/>
+      <vendor_id type="char"/>
+      <vndr_loc type="char"/>
+      <address_seq_num type="number"/>
+      <grp_ap_id type="char"/>
+      <origin type="char"/>
+      <oprid type="char"/>
+      <accounting_dt type="date"/>
+      <post_voucher type="char"/>
+      <dst_cntrl_id type="char"/>
+      <voucher_id_related type="char"/>
+      <gross_amt type="number"/>
+      <dscnt_amt type="number"/>
+      <tax_exempt type="char"/>
+      <saletx_amt type="number"/>
+      <freight_amt type="number"/>
+      <misc_amt type="number"/>
+      <pymnt_terms_cd type="char"/>
+      <entered_dt type="date"/>
+      <txn_currency_cd type="char"/>
+      <rt_type type="char"/>
+      <rate_mult type="number"/>
+      <rate_div type="number"/>
+      <vat_entrd_amt type="number"/>
+      <match_action type="char"/>
+      <cur_rt_source type="char"/>
+      <dscnt_amt_flg type="char"/>
+      <due_dt_flg type="char"/>
+      <vchr_apprvl_flg type="char"/>
+      <busprocname type="char"/>
+      <appr_rule_set type="char"/>
+      <vat_dclrtn_point type="char"/>
+      <vat_calc_type type="char"/>
+      <vat_calc_gross_net type="char"/>
+      <vat_recalc_flg type="char"/>
+      <vat_calc_frght_flg type="char"/>
+      <vat_treatment_grp type="char"/>
+      <country_ship_from type="char"/>
+      <state_ship_from type="char"/>
+      <country_ship_to type="char"/>
+      <state_ship_to type="char"/>
+      <country_vat_billfr type="char"/>
+      <country_vat_billto type="char"/>
+      <vat_excptn_certif type="char"/>
+      <vat_round_rule type="char"/>
+      <country_loc_seller type="char"/>
+      <state_loc_seller type="char"/>
+      <country_loc_buyer type="char"/>
+      <state_loc_buyer type="char"/>
+      <country_vat_supply type="char"/>
+      <state_vat_supply type="char"/>
+      <country_vat_perfrm type="char"/>
+      <state_vat_perfrm type="char"/>
+      <state_vat_default type="char"/>
+      <prepaid_ref type="char"/>
+      <prepaid_auto_apply type="char"/>
+      <descr254_mixed type="char"/>
+      <ein_federal type="char"/>
+      <ein_state_local type="char"/>
+      <business_unit_po type="char"/>
+      <po_id type="char"/>
+      <packslip_no type="char"/>
+      <pay_trm_bse_dt_opt type="char"/>
+      <vat_calc_misc_flg type="char"/>
+      <pay_schedule_type type="char"/>
+      <tax_grp type="char"/>
+      <tax_pymnt_type type="char"/>
+      <inspect_dt type="date"/>
+      <invoice_rcpt_dt type="date"/>
+      <receipt_dt type="date"/>
+      <bill_of_lading type="char"/>
+      <carrier_id type="char"/>
+      <doc_type type="char"/>
+      <dscnt_due_dt type="date"/>
+      <dscnt_prorate_flg type="char"/>
+      <due_dt type="date"/>
+      <frght_charge_code type="char"/>
+      <lc_id type="char"/>
+      <misc_charge_code type="char"/>
+      <remit_addr_seq_num type="number"/>
+      <saletx_charge_code type="char"/>
+      <vchr_bld_code type="char"/>
+      <business_unit_ar type="char"/>
+      <cust_id type="char"/>
+      <item type="char"/>
+      <item_line type="number"/>
+      <vchr_src type="char"/>
+      <vat_excptn_type type="char"/>
+      <user_vchr_char1 type="char"/>
+      <user_vchr_char2 type="char"/>
+      <user_vchr_dec type="number"/>
+      <user_vchr_date type="date"/>
+      <user_vchr_num1 type="number"/>
+      <user_hdr_char1 type="char"/>
+      <vchr_line_stg class="r">
+        <business_unit type="char"/>
+        <voucher_id type="char"/>
+        <voucher_line_num type="number"/>
+        <business_unit_po type="char"/>
+        <po_id type="char"/>
+        <line_nbr type="number"/>
+        <sched_nbr type="number"/>
+        <descr type="char"/>
+        <merchandise_amt type="number"/>
+        <itm_setid type="char"/>
+        <inv_item_id type="char"/>
+        <qty_vchr type="number"/>
+        <statistic_amount type="number"/>
+        <unit_of_measure type="char"/>
+        <unit_price type="number"/>
+        <dscnt_appl_flg type="char"/>
+        <tax_cd_vat type="char"/>
+        <business_unit_recv type="char"/>
+        <receiver_id type="char"/>
+        <recv_ln_nbr type="number"/>
+        <recv_ship_seq_nbr type="number"/>
+        <match_line_opt type="char"/>
+        <distrib_mthd_flg type="char"/>
+        <shipto_id type="char"/>
+        <sut_base_id type="char"/>
+        <tax_cd_sut type="char"/>
+        <ultimate_use_cd type="char"/>
+        <sut_excptn_type type="char"/>
+        <sut_excptn_certif type="char"/>
+        <sut_applicability type="char"/>
+        <vat_applicability type="char"/>
+        <vat_txn_type_cd type="char"/>
+        <vat_use_id type="char"/>
+        <addr_seq_num_ship type="number"/>
+        <descr254_mixed type="char"/>
+        <business_unit_gl type="char"/>
+        <account type="char"/>
+        <altacct type="char"/>
+        <operating_unit type="char"/>
+        <product type="char"/>
+        <fund_code type="char"/>
+        <class_fld type="char"/>
+        <program_code type="char"/>
+        <budget_ref type="char"/>
+        <affiliate type="char"/>
+        <affiliate_intra1 type="char"/>
+        <affiliate_intra2 type="char"/>
+        <chartfield1 type="char"/>
+        <chartfield2 type="char"/>
+        <chartfield3 type="char"/>
+        <deptid type="char"/>
+        <project_id type="char"/>
+        <business_unit_pc type="char"/>
+        <activity_id type="char"/>
+        <analysis_type type="char"/>
+        <resource_type type="char"/>
+        <resource_category type="char"/>
+        <resource_sub_cat type="char"/>
+        <tax_dscnt_flg type="char"/>
+        <tax_frght_flg type="char"/>
+        <tax_misc_flg type="char"/>
+        <tax_vat_flg type="char"/>
+        <physical_nature type="char"/>
+        <vat_rcrd_inpt_flg type="char"/>
+        <vat_rcrd_outpt_flg type="char"/>
+        <vat_treatment type="char"/>
+        <vat_svc_supply_flg type="char"/>
+        <vat_service_type type="char"/>
+        <country_loc_buyer type="char"/>
+        <state_loc_buyer type="char"/>
+        <country_loc_seller type="char"/>
+        <state_loc_seller type="char"/>
+        <country_vat_supply type="char"/>
+        <state_vat_supply type="char"/>
+        <country_vat_perfrm type="char"/>
+        <state_vat_perfrm type="char"/>
+        <state_ship_from type="char"/>
+        <state_vat_default type="char"/>
+        <requestor_id type="char"/>
+        <wthd_sw type="char"/>
+        <wthd_cd type="char"/>
+        <mfg_id type="char"/>
+        <user_vchr_char1 type="char"/>
+        <user_vchr_char2 type="char"/>
+        <user_vchr_dec type="number"/>
+        <user_vchr_date type="date"/>
+        <user_vchr_num1 type="number"/>
+        <user_line_char1 type="char"/>
+        <user_sched_char1 type="char"/>
+        <vchr_dist_stg class="r">
+          <business_unit type="char"/>
+          <voucher_id type="char"/>
+          <voucher_line_num type="number"/>
+          <distrib_line_num type="number"/>
+          <business_unit_gl type="char"/>
+          <account type="char"/>
+          <altacct type="char"/>
+          <deptid type="char"/>
+          <statistics_code type="char"/>
+          <statistic_amount type="number"/>
+          <qty_vchr type="number"/>
+          <descr type="char"/>
+          <merchandise_amt type="number"/>
+          <business_unit_po type="char"/>
+          <po_id type="char"/>
+          <line_nbr type="number"/>
+          <sched_nbr type="number"/>
+          <po_dist_line_num type="number"/>
+          <business_unit_pc type="char"/>
+          <activity_id type="char"/>
+          <analysis_type type="char"/>
+          <resource_type type="char"/>
+          <resource_category type="char"/>
+          <resource_sub_cat type="char"/>
+          <asset_flg type="char"/>
+          <business_unit_am type="char"/>
+          <asset_id type="char"/>
+          <profile_id type="char"/>
+          <cost_type type="char"/>
+          <vat_txn_type_cd type="char"/>
+          <recv_dist_line_num type="number"/>
+          <operating_unit type="char"/>
+          <product type="char"/>
+          <fund_code type="char"/>
+          <class_fld type="char"/>
+          <program_code type="char"/>
+          <budget_ref type="char"/>
+          <affiliate type="char"/>
+          <affiliate_intra1 type="char"/>
+          <affiliate_intra2 type="char"/>
+          <chartfield1 type="char"/>
+          <chartfield2 type="char"/>
+          <chartfield3 type="char"/>
+          <project_id type="char"/>
+          <budget_dt type="date"/>
+          <entry_event type="char"/>
+          <jrnl_ln_ref type="char"/>
+          <vat_aport_cntrl type="char"/>
+          <user_vchr_char1 type="char"/>
+          <user_vchr_char2 type="char"/>
+          <user_vchr_dec type="number"/>
+          <user_vchr_date type="date"/>
+          <user_vchr_num1 type="number"/>
+          <user_dist_char1 type="char"/>
+          <open_item_key type="char"/>
+        </vchr_dist_stg>
+      </vchr_line_stg>
+      <vchr_pymt_stg class="r">
+        <business_unit type="char"/>
+        <voucher_id type="char"/>
+        <pymnt_cnt type="number"/>
+        <bank_cd type="char"/>
+        <bank_acct_key type="char"/>
+        <pymnt_method type="char"/>
+        <pymnt_message type="char"/>
+        <pymnt_handling_cd type="char"/>
+        <pymnt_hold type="char"/>
+        <pymnt_hold_reason type="char"/>
+        <message_cd type="char"/>
+        <pymnt_gross_amt type="number"/>
+        <pymnt_separate type="char"/>
+        <scheduled_pay_dt type="date"/>
+        <pymnt_group_cd type="char"/>
+        <eft_layout_cd type="char"/>
+      </vchr_pymt_stg>
+    </vchr_hdr_stg>
+    <vchr_msch_stg class="r">
+      <business_unit type="char"/>
+      <voucher_id type="char"/>
+      <dst_acct_type type="char"/>
+      <misc_charge_code type="char"/>
+      <misc_chrg_amt type="number"/>
+    </vchr_msch_stg>
+    <pscama class="r">
+      <language_cd type="char"/>
+      <audit_actn type="char"/>
+      <base_language_cd type="char"/>
+      <msg_seq_flg type="char"/>
+      <process_instance type="number"/>
+      <publish_rule_id type="char"/>
+      <msgnodename type="char"/>
+    </pscama>
+  </fieldtypes>
+  <msgdata>
+    <transaction>
+      <vchr_hdr_stg class="R">
+        <business_unit>PRINU</business_unit>
+        <voucher_id>A1222333</voucher_id>
+        <voucher_style>REG</voucher_style>
+        <invoice_id>PO-9999</invoice_id>
+        <invoice_dt>2021-03-30</invoice_dt>
+        <vendor_id>111222333</vendor_id>
+        <invoice_rcpt_dt>2021-03-30</invoice_rcpt_dt>
+        <origin>LIB</origin>
+        <vchr_src>XML</vchr_src>
+        <gross_amt>124.94</gross_amt>
+        <vndr_loc>L9999</vndr_loc>
+        <pymnt_terms_cd>IMM</pymnt_terms_cd>
+        <descr254_mixed>1112223334445555</descr254_mixed>
+        <vchr_pymt_stg class="R">
+          <business_unit>PRINU</business_unit>
+          <pymnt_cnt>1</pymnt_cnt>
+          <voucher_id>A1222333</voucher_id>
+        </vchr_pymt_stg>
+        <vchr_line_stg class="r">
+          <business_unit>PRINU</business_unit>
+          <voucher_line_num>1</voucher_line_num>
+          <descr>POL-999</descr>
+          <merchandise_amt>17.00</merchandise_amt>
+          <business_unit_gl>PRINU</business_unit_gl>
+          <voucher_id>A1222333</voucher_id>
+          <descr254_mixed>A Book we Wanted</descr254_mixed>
+          <vchr_dist_stg class="r">
+            <business_unit>PRINU</business_unit>
+            <voucher_line_num>1</voucher_line_num>
+            <distrib_line_num>1</distrib_line_num>
+            <business_unit_gl>PRINU</business_unit_gl>
+            <account>1234</account>
+            <deptid>44444</deptid>
+            <merchandise_amt>17.00</merchandise_amt>
+            <fund_code>E9999</fund_code>
+            <program_code/>
+            <voucher_id>A1222333</voucher_id>
+          </vchr_dist_stg>
+        </vchr_line_stg>
+        <vchr_line_stg class="r">
+          <business_unit>PRINU</business_unit>
+          <voucher_line_num>2</voucher_line_num>
+          <descr>POL-888</descr>
+          <merchandise_amt>107.94</merchandise_amt>
+          <business_unit_gl>PRINU</business_unit_gl>
+          <voucher_id>A1222333</voucher_id>
+          <descr254_mixed>Another book we want.</descr254_mixed>
+          <vchr_dist_stg class="r">
+            <business_unit>PRINU</business_unit>
+            <voucher_line_num>2</voucher_line_num>
+            <distrib_line_num>1</distrib_line_num>
+            <business_unit_gl>PRINU</business_unit_gl>
+            <account>1234</account>
+            <deptid>44444</deptid>
+            <merchandise_amt>107.94</merchandise_amt>
+            <fund_code>E9999</fund_code>
+            <program_code/>
+            <voucher_id>A1222333</voucher_id>
+          </vchr_dist_stg>
+        </vchr_line_stg>
+      </vchr_hdr_stg>
+      <pscama class="r">
+        <language_cd/>
+        <audit_actn>A</audit_actn>
+        <base_language_cd>ENG</base_language_cd>
+        <msg_seq_flg/>
+        <process_instance>0</process_instance>
+        <publish_rule_id/>
+        <msgnodename/>
+      </pscama>
+    </transaction>
+  </msgdata>
+</voucher_build>
