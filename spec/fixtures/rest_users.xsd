@@ -1,0 +1,35 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+
+	<xs:annotation>
+		<xs:documentation>List of users in Alma.
+		The list contains both internal and external users, both staff and patrons.
+		</xs:documentation>
+	</xs:annotation>
+
+	<xs:include schemaLocation="rest_user.xsd" />
+
+	<xs:element name="users" type="users" />
+
+	<xs:complexType name="users">
+		<xs:annotation>
+			<xs:documentation>A list of Users.</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element minOccurs="0" maxOccurs="unbounded" name="user"
+				type="user">
+				<xs:annotation>
+					<xs:documentation>User object.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+
+		<xs:attribute name="total_record_count" type="xs:long">
+			<xs:annotation>
+				<xs:documentation>The total number of users. This can be used when
+					retrieving the users list using pagination.</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+
+</xs:schema>

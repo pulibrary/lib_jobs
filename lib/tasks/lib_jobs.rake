@@ -9,4 +9,16 @@ namespace :lib_jobs do
     differ = StaffDirectoryDifference.new(new_report: today_report, old_report: yesterday_report)
     differ.ids
   end
+
+  desc "generate the daily alma people feed"
+  task alma_daily_people_feed: [:environment] do
+    feed = AlmaPersonFeed.new
+    feed.run
+  end
+
+  desc "generate the full alma people feed"
+  task alma_full_people_feed: [:environment] do
+    feed = AlmaPersonFeed.new(begin_date: nil, end_date: nil)
+    feed.run
+  end
 end
