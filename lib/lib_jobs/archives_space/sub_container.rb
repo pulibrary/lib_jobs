@@ -8,8 +8,6 @@ module LibJobs
         normalized = attributes.deep_symbolize_keys
         @values = OpenStruct.new(normalized)
 
-        # @client = @values.client
-        # ["lock_version", "created_by", "last_modified_by", "create_time", "system_mtime", "user_mtime", "instance_type", "jsonmodel_type", "is_representative", "sub_container"]
         @repository = @values.repository
 
         @create_time = @values.create_time
@@ -25,7 +23,7 @@ module LibJobs
                                       top_container_uri = @values.top_container[:ref]
                                       return unless top_container_uri
 
-                                      @repository.find_top_container(uri: top_container_uri)
+                                      @repository.find_top_container_by(uri: top_container_uri)
                                     end
       end
 

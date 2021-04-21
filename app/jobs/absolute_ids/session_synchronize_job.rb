@@ -50,15 +50,18 @@ module AbsoluteIds
       @client_mapper ||= ClientMapper.new
     end
 
-    # Ensure that the indicator is unique
+    # Ensure that the barcode is unique
     # @param barcode
     # @param indicator
     # @param repository
     # @return [Array<TopContainer>]
-    def validate_unique_barcode(barcode:, repository:)
+    def validate_unique_barcode(barcode:, repository:, container_id:)
       top_resources = repository.search_top_containers_by(barcode: barcode.value)
+      top_resource_ids = top_resources.map(&:id)
 
-      raise(DuplicateBarcodeError, "Failed to synchronize #{@model_id} ArchivesSpace: the barcode #{barcode} is not unique") unless top_resources.empty?
+      (return if top_resource_ids.include?(container_id) || top_resources.empty?)
+
+      raise(DuplicateBarcodeError, "The barcode #{barcode.value} is not unique")
     end
 
     # Ensure that the indicator is unique
@@ -66,10 +69,21 @@ module AbsoluteIds
     # @param indicator
     # @param repository
     # @return [Array<TopContainer>]
-    def validate_unique_indicator(indicator:, repository:)
+    def validate_unique_indicator(indicator:, repository:, container_id:)
       top_resources = repository.search_top_containers_by(indicator: indicator)
+      top_resource_ids = top_resources.map(&:id)
 
-      raise(DuplicateIndicatorError, "Failed to synchronize #{@model_id} ArchivesSpace: the Absolute ID #{absolute_id.label} is not unique") unless top_resources.empty?
+      (return if top_resource_ids.include?(container_id) || top_resources.empty?)
+
+      raise(DuplicateIndicatorError, "The Absolute ID #{absolute_id.label} is not unique")
+    end
+
+    def update_container_profile(uri: container.id, container_profile_uri: container_profile.uri)
+      # batch_update_top_containers(containers:, container_profile_uri: nil, location_uri: nil)
+    end
+
+    def update_location(uri: container.id, location_uri: location.uri)
+      # batch_update_top_containers(containers:, container_profile_uri: nil, location_uri: nil)
     end
 
     # Update the TopContainer
@@ -93,14 +107,24 @@ module AbsoluteIds
 
       sync_client = client_mapper.sync_client
       sync_repository = sync_client.find_repository_by(uri: source_repository.uri)
+      sync_container = sync_repository.find_top_container_by(uri: source_container.uri)
 
       # Verify that the AbID and barcode are unique for the TopContainer
-      validate_unique_barcode(barcode: barcode, repository: sync_repository)
-      validate_unique_indicator(indicator: indicator, repository: sync_repository)
+      validate_unique_barcode(barcode: barcode, repository: sync_repository, container_id: sync_container.id)
+      validate_unique_indicator(indicator: indicator, repository: sync_repository, container_id: sync_container.id)
 
-      sync_container = sync_repository.find_top_container_by(uri: source_container.uri)
       updated = sync_container.update(barcode: barcode.value, indicator: indicator, container_locations: updated_locations)
-      raise(SynchronizeError, "Failed to update the container: #{sync_container.uri}") if updated.nil?
+      Rails.logger.warn("Failed to update the TopContainer: #{sync_container.uri}") if updated.nil?
+
+      # Update the container profile
+      updated_with_profile = sync_repository.batch_update_top_containers(containers: [sync_container], container_profile_uri: container_profile.uri)
+      Rails.logger.warn("Failed to update the TopContainer #{sync_container.uri} with the ContainerProfile #{container_profile.uri}") if updated_with_profile.empty?
+
+      # Update the location
+      updated_with_location = sync_repository.batch_update_top_containers(containers: [sync_container], location_uri: location.uri)
+      Rails.logger.warn("Failed to update the TopContainer #{sync_container.uri} with the Location #{location.uri}") if updated_with_location.empty?
+
+      updated_with_location.first
     end
 
     def perform(user_id:, model_id:)
@@ -116,6 +140,7 @@ module AbsoluteIds
         absolute_id.save!
 
         update_top_container(uri: container.uri, barcode: absolute_id.barcode, indicator: absolute_id.label, location: location)
+
         absolute_id.synchronized_at = DateTime.current
         absolute_id.synchronize_status = AbsoluteId::SYNCHRONIZED
         absolute_id.save!
@@ -124,8 +149,8 @@ module AbsoluteIds
 
         absolute_id.synchronize_status = AbsoluteId::SYNCHRONIZE_FAILED
         absolute_id.save!
-      rescue DuplicateIndicatorError
-        Rails.logger.warn("Warning: Failed to synchronize #{absolute_id.label}: Absolute ID #{absolute_id.label} is already used in ArchivesSpace.")
+      rescue LibJobs::ArchivesSpace::UpdateRecordError => update_record_error
+        Rails.logger.warn("Warning: Failed to synchronize #{absolute_id.label}: #{update_record_error}")
 
         absolute_id.synchronize_status = AbsoluteId::SYNCHRONIZE_FAILED
         absolute_id.save!
@@ -157,6 +182,10 @@ module AbsoluteIds
 
     def location
       absolute_id.location_object
+    end
+
+    def container_profile
+      absolute_id.container_profile_object
     end
 
     def repository

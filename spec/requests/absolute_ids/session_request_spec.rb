@@ -152,6 +152,7 @@ RSpec.describe "AbsoluteIds::Session", type: :request do
           repo_code: "univarchives"
         }
       end
+      let(:container) { '13' }
       let(:params) do
         {
           user: {
@@ -160,7 +161,7 @@ RSpec.describe "AbsoluteIds::Session", type: :request do
           batches: [
             absolute_id: {
               barcode: barcode,
-              container: "1",
+              container: container,
               container_profile: container_profile,
               location: location,
               repository: repository,
@@ -228,7 +229,12 @@ RSpec.describe "AbsoluteIds::Session", type: :request do
           end
 
           before do
-            allow(LibJobs::ArchivesSpace::Client).to receive(:source).and_return(client)
+            stub_location(location_id: '23640')
+            stub_top_containers(ead_id: 'ABID001', repository_id: repository_id)
+            stub_resource_find_by_id(repository_id: repository_id, identifier: '4188', resource_id: resource_id)
+            stub_repository(repository_id: repository_id)
+            stub_resource(repository_id: repository_id, resource_id: resource_id)
+            stub_aspace_login
           end
 
           it "generates a new Ab. ID with the new size and uses the starting code" do

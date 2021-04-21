@@ -131,6 +131,9 @@ RSpec.describe AbsoluteIds::SessionSynchronizeJob, type: :job do
     before do
       stub_request(:get, "#{sync_client.base_uri}/repositories/4/top_containers/search?q=#{absolute_id.barcode.value}").to_return(body: top_containers_search_fixture)
       stub_request(:post, "#{sync_client.base_uri}/repositories/4/top_containers/118091")
+      stub_batch_update_container_profile(uri: '/container_profiles/2', top_container_ids: '118091', repository_id: '4')
+      stub_batch_update_location(uri: '/locations/23640', top_container_ids: '118091', repository_id: '4')
+
       allow(LibJobs::ArchivesSpace::Client).to receive(:sync).and_return(sync_client)
       allow(LibJobs::ArchivesSpace::Client).to receive(:source).and_return(source_client)
     end
@@ -188,7 +191,7 @@ RSpec.describe AbsoluteIds::SessionSynchronizeJob, type: :job do
           }
         )).not_to have_been_made
 
-        expect(logger).to have_received(:warn).with("Warning: Failed to synchronize #{absolute_id.label}: Absolute ID #{absolute_id.label} is already used in ArchivesSpace.")
+        expect(logger).to have_received(:warn).with("Warning: Failed to synchronize #{absolute_id.label}: The Absolute ID #{absolute_id.label} is not unique")
       end
     end
   end

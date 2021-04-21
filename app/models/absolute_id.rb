@@ -139,18 +139,6 @@ class AbsoluteId < ApplicationRecord
   # @todo Deprecate #prefix in favor of #size
   alias prefix size
 
-  def locator
-    return if index.nil? || size.nil?
-
-    format("%s-%06d", size, index)
-  end
-  # @todo Deprecate #label in favor of #locator
-  alias label locator
-
-  def barcode_only?
-    barcode.present? && label.blank?
-  end
-
   # For ASpace Locations
   def location_object
     OpenStruct.new(location_json)
@@ -176,6 +164,18 @@ class AbsoluteId < ApplicationRecord
     OpenStruct.new(container_json)
   end
 
+  def locator
+    return if index.nil? || size.nil?
+
+    format("%s-%06d", size, index)
+  end
+  # @todo Deprecate #label in favor of #locator
+  alias label locator
+
+  def barcode_only?
+    barcode.present? && label.blank?
+  end
+
   def synchronize_status
     value = super
     if value.blank?
@@ -189,7 +189,7 @@ class AbsoluteId < ApplicationRecord
     end
   end
 
-  # This is dislay logic - should this be migrated to another Class? A presenter?
+  # This is display logic - should this be migrated to another Class? A presenter?
   def synchronize_status_color
     case synchronize_status
     when SYNCHRONIZED
@@ -230,6 +230,7 @@ class AbsoluteId < ApplicationRecord
   end
 
   # @todo Determine why this is required
+  # Not certain why this is required
   def as_json(**_args)
     attributes
   end

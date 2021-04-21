@@ -27,6 +27,7 @@ Metrics/AbcSize:
     - 'app/controllers/absolute_ids/sessions_controller.rb'
     - 'app/jobs/absolute_ids/create_batch_job.rb'
     - 'app/jobs/absolute_ids/session_synchronize_job.rb'
+    - 'lib/lib_jobs/archives_space/repository.rb'
 
 Metrics/BlockLength:
   Exclude:
@@ -82,6 +83,10 @@ Metrics/MethodLength:
     - 'app/controllers/absolute_ids/sessions_controller.rb'
     - 'app/jobs/absolute_ids/create_batch_job.rb'
     - 'app/jobs/absolute_ids/create_model_from_aspace_job.rb'
+    - 'app/controllers/absolute_ids/sessions_controller.rb'
+    - 'app/jobs/absolute_ids/create_batch_job.rb'
+    - 'app/jobs/absolute_ids/create_model_from_aspace_job.rb'
+    - 'app/jobs/absolute_ids/session_synchronize_job.rb'
     - 'app/jobs/absolute_id_create_aspace_source_record_job.rb'
     - 'app/jobs/absolute_id_create_marc_source_record_job.rb'
     - 'app/jobs/absolute_id_create_record_job.rb'
@@ -103,6 +108,7 @@ Metrics/PerceivedComplexity:
     - 'app/models/ability.rb'
     - 'app/values/absolute_ids/absolute_id_xml_serializer.rb'
     - 'lib/lib_jobs/archives_space/client.rb'
+    - 'lib/lib_jobs/archives_space/repository.rb'
 
 RSpec/ExampleLength:
   Max: 100

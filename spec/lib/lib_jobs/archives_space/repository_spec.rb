@@ -5,51 +5,32 @@ describe LibJobs::ArchivesSpace::Repository do
   subject(:repository) do
     described_class.new(client: client, id: id)
   end
-  let(:client) { instance_double(LibJobs::ArchivesSpace::Client) }
-  let(:id) { 'test-repository' }
-  let(:top_container_id) { 'test-top-container-id' }
-  let(:resource_id) { 'test-resource-id' }
-  let(:resource_uri) { "/repositories/test-repository/resources/#{resource_id}" }
-  let(:resource_fixture_file_path) do
-    Rails.root.join('spec', 'fixtures', 'archives_space_resource.json')
+
+  let(:client) do
+    LibJobs::ArchivesSpace::Client.source
   end
-  let(:resource_fixture_json) do
-    File.read(resource_fixture_file_path)
-  end
-  let(:top_container_fixture_file_path) do
-    Rails.root.join('spec', 'fixtures', 'archives_space_top_container.json')
-  end
-  let(:top_container_fixture_json) do
-    File.read(top_container_fixture_file_path)
-  end
+  let(:id) { '4' }
+  let(:top_container_id) { '13' }
+  let(:resource_id) { '4188' }
+  let(:resource_uri) { "/repositories/#{id}/resources/#{resource_id}" }
   let(:top_container_uri) do
-    "/repositories/test-repository/top_containers/#{top_container_id}"
+    "/repositories/#{id}/top_containers/#{top_container_id}"
   end
-  let(:status) { double }
-  let(:top_container_response) { instance_double(::ArchivesSpace::Response) }
-  let(:resource_response) { instance_double(::ArchivesSpace::Response) }
+  let(:ead_id) { 'ABID001' }
 
   before do
-    allow(status).to receive(:code).and_return("200")
-    allow(top_container_response).to receive(:body).and_return(top_container_fixture_json)
-    allow(top_container_response).to receive(:status).and_return(status)
+    stub_location(location_id: '23640')
+    stub_top_containers(ead_id: ead_id, repository_id: id)
 
-    allow(client).to receive(:get).with(top_container_uri).and_return(top_container_response)
-    allow(client).to receive(:get).with("/repositories/2/top_containers/5").and_return(top_container_response)
-
-    allow(resource_response).to receive(:body).and_return(resource_fixture_json)
-    allow(resource_response).to receive(:status).and_return(status)
-
-    allow(client).to receive(:get).with(resource_uri).and_return(resource_response)
+    stub_resource(repository_id: id, resource_id: resource_id)
+    stub_aspace_login
   end
 
   describe '#find_resource' do
     let(:id) { '4' }
-    let(:client) do
-      stub_aspace_resource(repository_id: id, resource_id: resource_id)
-    end
+
     before do
-      allow(LibJobs::ArchivesSpace::Client).to receive(:source).and_return(client)
+      stub_search_repository_children(repository_id: id, type: 'top_container')
     end
 
     it 'retrieves the ArchivesSpace Resource' do
@@ -59,9 +40,14 @@ describe LibJobs::ArchivesSpace::Repository do
     end
   end
 
-  describe '#find_top_container' do
+  describe '#find_top_container_by' do
+    before do
+      stub_top_container(repository_id: id, top_container_id: top_container_id)
+      # stub_aspace_login
+    end
+
     it 'retrieves the ArchivesSpace TopContainer' do
-      top_container = repository.find_top_container(uri: top_container_uri)
+      top_container = repository.find_top_container_by(uri: top_container_uri)
       expect(top_container).to be_a LibJobs::ArchivesSpace::TopContainer
       expect(top_container.id).to eq(top_container_id)
     end

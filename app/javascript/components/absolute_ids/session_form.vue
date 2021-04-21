@@ -27,7 +27,7 @@
       />
     </div>
     <template v-for="(entry, index) in batches">
-      <fieldset class="absolute-ids-batch-form--batch">
+      <fieldset v-bind:key="index" class="absolute-ids-batch-form--batch">
         <legend>New Batch</legend>
 
         <aspace-batch-form
@@ -43,7 +43,8 @@
           :container-profiles="containerProfiles"
           :repositories="repositories"
           :batch-size="batchSizes[index]"
-          v-on:input-size="updateBatchSize($event, index)"
+          :batch-form="true"
+          @input-size="updateBatchSize($event, index)"
         />
         <marc-batch-form
           v-else-if="source == 'marc'"
@@ -55,14 +56,15 @@
           :service="service"
           :barcode="generateBarcode(index, batchSizes[index])"
           :batch-size="batchSizes[index]"
-          v-on:input-size="updateBatchSize($event, index)"
+          :batch-form="true"
+          @input-size="updateBatchSize($event, index)"
         />
 
         <fieldset class="absolute-ids-batch-form--batch-size">
           <legend>Size</legend>
           <input-text
-            :key="index"
             id="batch-size"
+            :key="index"
             name="batches[batch_size]"
             :value="getBatchSize(index)"
             label="Input"
@@ -386,12 +388,19 @@ export default {
       this.fetchingRepositories = true;
     */
 
+    /*
     getLocations: async function() {
       let response = null;
 
       this.fetchingLocations = true;
 
       response = await fetch(this.service.locations, {
+    */
+
+    getRepositories: async function() {
+      this.fetchingRepositories = true;
+
+      const response = await fetch(this.service.repositories, {
         method: "GET",
         mode: "cors",
         cache: "no-cache",
@@ -417,11 +426,10 @@ export default {
       response = await fetch(this.service.containerProfiles, {
     */
 
-    /*
     getLocations: async function() {
       this.fetchingLocations = true;
 
-      response = await fetch(this.service.containerProfiles, {
+      const response = await fetch(this.service.locations, {
         method: "GET",
         mode: "cors",
         cache: "no-cache",
@@ -437,7 +445,6 @@ export default {
       this.fetchingContainerProfiles = false;
       return response;
     },
-    */
 
     /*
     getRepositories: async function() {
@@ -454,12 +461,20 @@ export default {
       this.fetchingContainerProfiles = true;
     */
 
+    /*
     getRepositories: async function() {
       let response = null;
 
       this.fetchingRepositories = true;
 
       response = await fetch(this.service.repositories, {
+        //
+    */
+
+    getContainerProfiles: async function() {
+      this.fetchingContainerProfiles = true;
+
+      const response = await fetch(this.service.containerProfiles, {
         method: "GET",
         mode: "cors",
         cache: "no-cache",

@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 class ArchivesSpaceSyncJob < ApplicationJob
-  queue_as :default
+  class ArchivesSpaceSyncError < StandardError; end
 
-  class ArchivesSpaceSyncError < StandardError
-  end
+  queue_as :default
 
   def perform(user_id:, model_id:)
     @user_id = user_id
