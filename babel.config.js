@@ -54,8 +54,7 @@ module.exports = function(api = fakedApiObject) {
           modules: false,
           exclude: ['transform-typeof-symbol']
         }
-      ],
-      '@vue/cli-plugin-babel/preset'
+      ]
     ].filter(Boolean),
     plugins: [
       'babel-plugin-macros',
