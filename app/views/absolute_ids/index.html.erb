@@ -28,7 +28,7 @@
           :session="<%= session.as_json %>"
           token="<%= current_user.token %>"
           synchronize-action="<%= synchronize_session_path(session) %>"
-          session-report-path="<%= session_id_path(session, format: 'txt') %>"
+          session-report-path="<%= session_id_path(session, format: 'csv') %>"
           session-xml-path="<%= session_id_path(session, format: 'xml') %>"
         />
       </div>

@@ -361,17 +361,18 @@ export default {
         return false;
       }
 
-      const resource = await this.getBarcode(barcode);
-
-      return !resource;
+      return true
+      // Disabling this for performance reasons.
+      // const resource = await this.getBarcode(barcode);
+      //
+      // return !resource;
     },
 
     onBarcodeInput: async function(value) {
       this.updateBarcode(value);
 
-      // Disabling this due to performance issues
-      //this.barcodeValid = await this.validateBarcode();
-      this.barcodeValid = true;
+      this.barcodeValid = await this.validateBarcode();
+      // this.barcodeValid = true;
       this.barcodeValidated = this.barcodeValid;
       if (!this.barcodeValid) {
         return;
