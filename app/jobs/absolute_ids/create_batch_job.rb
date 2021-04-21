@@ -13,13 +13,14 @@ module AbsoluteIds
     private
 
     def create_batch(batch_properties)
-      batch_size = batch_properties[:batch_size]
       ## This is disabled for passing the RSpec system spec suites
       # params_valid = batch_properties[:valid]
       # raise(ArgumentError, batch_properties) unless params_valid
 
       # Use the same set of params for each AbID
       absolute_id_params = batch_properties[:absolute_id]
+
+      batch_size = batch_properties[:batch_size]
 
       children = []
       Array.new(batch_size.to_i) do |child_index|

@@ -68,36 +68,24 @@ class AbsoluteId < ApplicationRecord
     create(**model_attributes)
   end
 
+  def self.sizes
+    LibJobs.config["sizes"]
+  end
+
+  def self.global_prefixes
+    sizes["global"]
+  end
+
+  def self.local_prefixes
+    sizes.select { |k, v| k != "global" && v.is_a?(Hash) }
+  end
+
   def self.prefixes
-    {
-      'Objects' => 'C',
-
-      'BoxQ' => 'L',
-      'Double Elephant size box' => 'Z',
-      'Double Elephant volume' => 'D',
-      'Elephant size box' => 'P',
-      'Elephant volume' => 'E',
-      'Folio' => 'F',
-
-      'Mudd OS depth' => 'DO',
-      'Mudd OS height' => 'H',
-      'Mudd OS length' => 'LO',
-      'Mudd ST records center' => 'S',
-      'Mudd ST manuscript' => 'S',
-      'Mudd ST half-manuscript' => 'S',
-      'Mudd ST other' => 'S',
-      'Mudd OS open' => 'O',
-
-      'NBox' => 'B',
-      'Ordinary' => 'N',
-      'Quarto' => 'Q',
-      'Small' => 'S'
-    }
+    local_merged = local_prefixes.to_h.values.inject(:merge)
+    global_prefixes.merge(local_merged)
   end
 
   def self.find_prefix(key)
-    return unless prefixes.key?(key)
-
     prefixes[key]
   end
 
@@ -117,20 +105,50 @@ class AbsoluteId < ApplicationRecord
   end
   delegate :digits, :elements, to: :barcode
 
+  def find_local_prefixes(key)
+    self.class.local_prefixes[key]
+  end
+
+  def local_prefixes
+    @local_prefixes ||= begin
+                          if location_object.name
+                            find_local_prefixes(location.key)
+                          elsif self.class.local_prefixes.key?(location)
+                            find_local_prefixes(location)
+                          else
+                            {}
+                          end
+                        end
+  end
+
+  def prefixes
+    @prefixes ||= begin
+                    self.class.global_prefixes.merge(local_prefixes)
+                  end
+  end
+
   def size
     if container_profile_object.name
-      self.class.find_prefix(container_profile_object.name)
-    elsif self.class.prefixes.key?(container_profile)
-      self.class.find_prefix(container_profile)
+      prefixes[container_profile_object.name]
+    elsif prefixes.key?(container_profile)
+      prefixes[container_profile]
     else
       container_profile
     end
   end
+  # @todo Deprecate #prefix in favor of #size
+  alias prefix size
 
-  def label
+  def locator
     return if index.nil? || size.nil?
 
     format("%s-%06d", size, index)
+  end
+  # @todo Deprecate #label in favor of #locator
+  alias label locator
+
+  def barcode_only?
+    barcode.present? && label.blank?
   end
 
   # For ASpace Locations

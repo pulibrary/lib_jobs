@@ -71,7 +71,6 @@
             size="small"
             :disabled="true"
           />
-
           <button
             v-if="index > 0"
             data-v-b7851b04
@@ -101,6 +100,7 @@
         <button
           data-v-b7851b04
           :class="submitButtonClass"
+          :disabled="submitting || !formValid"
         >
           {{ submitButtonTextContent }}
         </button>
@@ -372,6 +372,20 @@ export default {
       this.batches.push(newAbsoluteId);
     },
 
+    /*
+    getLocations: async function() {
+      let response = null;
+
+      this.fetchingLocations = true;
+
+      response = await fetch(this.service.locations, {
+    */
+
+    /*
+    getRepositories: async function() {
+      this.fetchingRepositories = true;
+    */
+
     getLocations: async function() {
       let response = null;
 
@@ -394,10 +408,18 @@ export default {
       return response;
     },
 
+    /*
     getContainerProfiles: async function() {
       let response = null;
 
       this.fetchingContainerProfiles = true;
+
+      response = await fetch(this.service.containerProfiles, {
+    */
+
+    /*
+    getLocations: async function() {
+      this.fetchingLocations = true;
 
       response = await fetch(this.service.containerProfiles, {
         method: "GET",
@@ -415,6 +437,22 @@ export default {
       this.fetchingContainerProfiles = false;
       return response;
     },
+    */
+
+    /*
+    getRepositories: async function() {
+      let response = null;
+
+      this.fetchingRepositories = true;
+
+      response = await fetch(this.service.repositories, {
+        //
+    */
+
+    /*
+    getContainerProfiles: async function() {
+      this.fetchingContainerProfiles = true;
+    */
 
     getRepositories: async function() {
       let response = null;

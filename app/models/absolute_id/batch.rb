@@ -86,12 +86,18 @@ class AbsoluteId::Batch < ApplicationRecord
     AbsoluteIds::BatchXmlSerializer
   end
 
+  # Ensures that the AbIDs are ordered
   def absolute_ids
     super.order(id: :asc)
   end
 
   def label
     format("Batch %06d", id)
+  end
+
+  def barcode_only?
+    children = absolute_ids.map(&:barcode_only?)
+    children.reduce(&:|)
   end
 
   def synchronized?
@@ -115,6 +121,24 @@ class AbsoluteId::Batch < ApplicationRecord
       AbsoluteId::SYNCHRONIZING
     else
       AbsoluteId::SYNCHRONIZED
+    end
+  end
+
+  # @todo Determine whether or not the entries have been deprecated
+  def report_entries
+    @report_entries ||= absolute_ids.map do |absolute_id|
+      {
+        label: absolute_id.label,
+        user: user.email,
+        barcode: absolute_id.barcode.value,
+        location: absolute_id.location_object,
+        container_profile: absolute_id.container_profile_object,
+        repository: absolute_id.repository_object,
+        resource: absolute_id.resource_object,
+        container: absolute_id.container_object,
+        status: AbsoluteId::UNSYNCHRONIZED,
+        synchronized_at: absolute_id.synchronized_at
+      }
     end
   end
 

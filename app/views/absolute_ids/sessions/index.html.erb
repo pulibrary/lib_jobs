@@ -3,7 +3,7 @@
   <div class="lux">
     <% if current_user %>
       <absolute-id-session-form
-        action="<%= absolute_ids_sessions_url %>"
+        action="<%= absolute_ids_url %>"
         token="<%= current_user.token %>"
         :service="<%=
           {
@@ -20,7 +20,7 @@
     <% end %>
   </div>
 
-  <% if current_user && @sessions.present? %>
+  <% if current_user && !@sessions.empty? %>
     <% @sessions.each do |session| %>
       <div class="lux absolute-ids-session">
         <absolute-id-session-table

@@ -18,6 +18,32 @@ defaults: &defaults
       throttle: <%= ENV["ASPACE_THROTTLE"] || '0' %>
       verify_ssl: <%= ENV["ASPACE_VERIFY_SSL"] && ENV["ASPACE_VERIFY_SSL"].strip.downcase == 'true' || false %>
 
+  sizes:
+    global:
+      'Objects': 'C'
+      'BoxQ': 'L'
+      'Double Elephant size box': 'Z'
+      'Double Elephant volume': 'D'
+      'Elephant size box': 'P'
+      'Elephant volume': 'E'
+      'Folio': 'F'
+      'NBox': 'B'
+      'Ordinary': 'N'
+      'Quarto': 'Q'
+      'Small': 'S'
+    mudd:
+      'Mudd OS depth': 'DO'
+      'Mudd OS height': 'H'
+      'Mudd OS length': 'LO'
+      'Mudd OS Extra height': 'XH'
+      'Mudd OS Extra height, depth': 'XHD'
+      'Mudd ST records center': 'S'
+      'Mudd ST manuscript': 'S'
+      'Mudd ST half-manuscript': 'S'
+      'Mudd ST other': 'S'
+      'Mudd OS open': 'O'
+      'Mudd Oversize folder': 'C'
+
 development:
   <<: *defaults
 

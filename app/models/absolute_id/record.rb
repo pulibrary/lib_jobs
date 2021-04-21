@@ -6,11 +6,11 @@ class AbsoluteId::Record < ApplicationRecord
     'absolute_id_'
   end
 
-  def self.find_cached(uri)
+  def self.find_cached(uri, client = nil)
     model = find_by(uri: uri)
     return if model.nil?
 
-    model.to_resource
+    model.to_resource(client: client)
   end
 
   def self.uncache(resource)
@@ -59,7 +59,8 @@ class AbsoluteId::Record < ApplicationRecord
     }
   end
 
-  def to_resource
-    self.class.resource_class.new(json_properties)
+  def to_resource(client: nil)
+    resource_attributes = json_properties.merge(client: client)
+    self.class.resource_class.new(resource_attributes)
   end
 end

@@ -5,6 +5,7 @@
     class="absolute-ids-form"
     v-bind:value="value"
     v-on:input="onInput"
+    v-on:submit.prevent="submit"
   >
     <grid-container>
       <grid-item columns="sm-12 lg-3">
@@ -96,6 +97,8 @@
                 helper="Repository"
                 placeholder="Enter a repository"
                 v-model="selectedRepositoryId"
+                display-property="repoCode"
+                v-on:input="changeRepositoryId($event)"
               />
             </grid-item>
 
@@ -203,7 +206,6 @@ export default {
   components: {
     "absolute-id-input-text": AbsoluteIdInputText
   },
-
   props: {
     action: {
       type: String,
@@ -232,7 +234,7 @@ export default {
           barcodes: [],
           batch_size: 1,
           valid: false
-        };
+        }
       }
     },
     source: {
@@ -258,6 +260,7 @@ export default {
   },
 
   computed: {
+
     /**
      * Form validation
      */
@@ -274,7 +277,6 @@ export default {
         this.resourceTitle &&
         this.containerIndicator;
 
-      console.log(output);
       return !!output;
     }
   },
@@ -296,9 +298,6 @@ export default {
       return !!output;
     },
 
-    /**
-     * Parse the form field data
-     */
     getFormData: async function() {
       const selectedLocation = await this.selectedLocation;
 
@@ -321,9 +320,35 @@ export default {
         },
         barcodes: this.barcodes,
         batch_size: this.batchSize,
-        source: this.source,
         valid
       };
+    },
+
+    /**
+     * This is needed for the data list
+     */
+    updateAbsoluteId: async function() {
+      if (this.value.absolute_id) {
+        if (this.value.absolute_id.location) {
+          this.selectedLocationId = this.value.absolute_id.location;
+        }
+
+        if (this.value.absolute_id.container_profile) {
+          this.selectedContainerProfileId = this.value.absolute_id.container_profile;
+        }
+
+        if (this.value.absolute_id.repository) {
+          this.selectedRepositoryId = this.value.absolute_id.repository;
+        }
+
+        if (this.value.absolute_id.resource) {
+          this.selectedResourceId = this.value.absolute_id.resource;
+        }
+
+        if (this.value.absolute_id.container) {
+          this.selectedContainerId = this.value.absolute_id.container;
+        }
+      }
     }
   }
 };

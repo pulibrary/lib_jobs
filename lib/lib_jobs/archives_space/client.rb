@@ -97,12 +97,6 @@ module LibJobs
         find_child(uri: uri, resource_class: Repository, model_class: Repository.model_class, id: id)
       end
 
-      def search_top_containers_by(repository_id:, query:)
-        repository = find_repository(id: repository_id)
-
-        repository.search_top_containers(query: query)
-      end
-
       def select_repositories_by(repo_code:)
         output = repositories.select do |repository|
           repository.repo_code == repo_code
@@ -150,8 +144,9 @@ module LibJobs
       def find_child(uri:, resource_class:, model_class:, id: nil)
         return find_child_by(child_id: id, resource_class: resource_class, model_class: model_class) unless id.nil?
 
-        if model_class
-          cached = model_class.find_cached(uri)
+        model_class ||= resource_class.model_class unless resource_class.nil? || !resource_class.model_class_exists?
+        unless model_class.nil?
+          cached = model_class.find_cached(uri, self)
           return cached unless cached.nil?
         end
 

@@ -65,7 +65,7 @@ class AbsoluteIds::SessionsController < ApplicationController
     @session = AbsoluteId::Session.find_by(user: current_user, id: session_id)
 
     @session.absolute_ids.each do |absolute_id|
-      ArchivesSpaceSyncJob.perform_now(user_id: current_user.id, model_id: absolute_id.id)
+      AbsoluteIds::SessionSynchronizeJob.perform_now(user_id: current_user.id, model_id: absolute_id.id)
     end
 
     respond_to do |format|

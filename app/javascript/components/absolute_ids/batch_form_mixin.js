@@ -488,6 +488,12 @@ export default {
       }
 
       return classes.join(" ");
+    },
+
+    updateValue: async function() {
+      if (this.value) {
+        await this.updateAbsoluteId();
+      }
     }
   }
 };

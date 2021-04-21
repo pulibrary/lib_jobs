@@ -93,6 +93,11 @@ class AbsoluteId::Session < ApplicationRecord
     format('Session %d (%s)', id, created_at.strftime('%m/%d/%Y'))
   end
 
+  def barcode_only?
+    children = batches.map(&:barcode_only?)
+    children.reduce(&:|)
+  end
+
   def synchronized?
     batches.map(&:synchronized?).reduce(&:&)
   end
