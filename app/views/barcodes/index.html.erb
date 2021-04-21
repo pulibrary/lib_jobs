@@ -32,7 +32,7 @@
             status: session.synchronize_status,
             action: absolute_ids_synchronize_session_path(session)
           }.to_json %>"
-          report-path="<%= absolute_ids_session_id_path(session, format: 'txt') %>"
+          report-path="<%= absolute_ids_session_id_path(session, format: 'csv') %>"
           xml-path="<%= absolute_ids_session_id_path(session, format: 'xml') %>"
         />
       </div>

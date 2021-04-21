@@ -147,6 +147,18 @@ module AspaceStubbing
       )
   end
 
+  def stub_barcode_search(repository_id:, identifier:)
+    uri = "/repositories/#{repository_id}/top_containers/search?q=#{identifier}"
+    path = Rails.root.join('spec', 'fixtures', 'archives_space', 'repositories', repository_id.to_s, "identifier_search_#{identifier}.json")
+    cache_path(uri: uri, path: path)
+    stub_request(:get, "https://aspace.test.org/staff/api#{uri}")
+      .to_return(
+        status: 200,
+        body: File.open(path),
+        headers: { "Content-Type": 'application/json' }
+      )
+  end
+
   def stub_top_containers(ead_id:, repository_id:)
     response_body = File.open(Rails.root.join('spec', 'fixtures', 'archives_space', 'repositories', "search_top_containers.json"))
 

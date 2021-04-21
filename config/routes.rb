@@ -40,7 +40,7 @@ Rails.application.routes.draw do
   # Sessions
   get '/absolute-ids', to: 'absolute_ids/sessions#index'
   post '/absolute-ids/sessions/:session_id/synchronize', to: 'absolute_ids/sessions#synchronize', as: 'absolute_ids_synchronize_session'
-  get '/absolute-ids/sessions/:session_id', to: 'absolute_ids/sessions#show_session', as: 'absolute_ids_session_id'
+  get '/absolute-ids/sessions/:session_id', to: 'absolute_ids/sessions#show', as: 'absolute_ids_session_id', defaults: { format: :csv }
   post '/absolute-ids/sessions', to: 'absolute_ids/sessions#create'
 
   # I am not certain that this is needed
