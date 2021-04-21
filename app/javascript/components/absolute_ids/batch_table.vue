@@ -1,6 +1,10 @@
 <template>
   <table border="1px" :class="['lux-data-table']">
-    <caption>{{ caption }}</caption>
+    <caption>
+      {{
+        caption
+      }}
+    </caption>
     <thead>
       <tr>
         <th v-for="(col, index) in parsedColumns" scope="col" nowrap>
@@ -17,8 +21,12 @@
               :icon-name="iconLabel(col.ascending)"
             >
               <lux-icon-ascending v-if="col.ascending"></lux-icon-ascending>
-              <lux-icon-descending v-if="col.ascending === false"></lux-icon-descending>
-              <lux-icon-unsorted v-if="col.ascending === null"></lux-icon-unsorted>
+              <lux-icon-descending
+                v-if="col.ascending === false"
+              ></lux-icon-descending>
+              <lux-icon-unsorted
+                v-if="col.ascending === null"
+              ></lux-icon-unsorted>
             </lux-icon-base>
             {{ displayName(col) }}</input-button
           >
@@ -35,7 +43,7 @@
             { 'lux-data-table-center': isCenter(col.align) },
             { 'lux-data-table-right': isRight(col.align) },
             { 'lux-data-table-number': isNum(col.datatype) },
-            { 'lux-data-table-currency': isCurrency(col.datatype) },
+            { 'lux-data-table-currency': isCurrency(col.datatype) }
           ]"
         >
           <input
@@ -48,7 +56,15 @@
           />
           <span v-else>
             <span v-if="col.datatype === 'constant'">
-              <tag type="tag" :tag-items="[ { name: lineItem[col.name].value, color: lineItem[col.name].color } ]" />
+              <tag
+                type="tag"
+                :tag-items="[
+                  {
+                    name: lineItem[col.name].value,
+                    color: lineItem[col.name].color
+                  }
+                ]"
+              />
             </span>
             <span v-else-if="col.datatype === 'resource'">
               <hyperlink :href="lineItem[col.name].uri">
@@ -59,7 +75,10 @@
               {{ new Date(lineItem[col.name].value).toLocaleString() }}
             </span>
 
-            <hyperlink v-else-if="lineItem[col.name].link" :href="lineItem[col.name].link">
+            <hyperlink
+              v-else-if="lineItem[col.name].link"
+              :href="lineItem[col.name].link"
+            >
               {{ lineItem[col.name].value }}
             </hyperlink>
 
@@ -69,7 +88,6 @@
             </span>
           </span>
         </td>
-
       </tr>
     </tbody>
     <tfoot v-if="summaryLabel">
@@ -82,7 +100,7 @@
             { 'lux-data-table-center': isCenter(col.align) },
             { 'lux-data-table-right': isRight(col.align) },
             { 'lux-data-table-number': isNum(col.datatype) },
-            { 'lux-data-table-currency': isCurrency(col.datatype) },
+            { 'lux-data-table-currency': isCurrency(col.datatype) }
           ]"
         >
           <span>
@@ -95,84 +113,48 @@
 </template>
 
 <script>
-/**
- * Used to display data to end users.
- */
 export default {
-  name: "AbsoluteIdTable",
-  status: "prototype",
-  release: "1.0.0",
+  name: "BatchTable",
   type: "Element",
   data() {
     return {
       rows: this.jsonData,
       parsedColumns: [],
       synchronizing: !this.synchronized
-    }
+    };
   },
   props: {
-    /**
-     * caption provides context for the data that is helpful to users, particularly those who use screenreaders.
-     * `e.g. [name, title, age]`
-     */
     caption: {
       required: true,
-      type: String,
+      type: String
     },
-    /**
-     * summaryLabel provides context to the data values in tfoot element cells.
-     */
     summaryLabel: {
       required: false,
-      type: String,
+      type: String
     },
-    /**
-     * columns define the columns and order for which the data should be displayed.
-     * Columns entries can be simple strings, or they may be more complicated objects
-     * that can define `name`, `display_name`,`align`, `sortable`, and `checkbox` properties.
-     * Sorting on `numeric` or `currency` values requires a column to have
-     * a `datatype='number'` or `datatype='currency'` property.
-     * Sorting on `date` values requires a column to have
-     * a `datatype='date'` property.
-     * Use `checkbox=true` to create a checkbox whose value is the value for that
-     * column value for the row in the table.
-     * `e.g. ['name', 'email', 'age']`
-     */
     columns: {
       required: true,
-      type: Array,
+      type: Array
     },
-    /**
-     * jsonData is supplied via Array with an object representing each row.
-     * Applying links to data cell content can be achieved by supplying an object
-     * that contains a `value` and `link` property. Date sorting uses the JavaScript
-     * `datestring` parameter. Shorthand dates are supported in most browsers, but can be implementation-specific.
-     * (e.g., `{ value: 'content', link: 'https://url.com'}`)
-     * See above example for exact structure.
-     */
     jsonData: {
       required: true,
-      type: Array,
+      type: Array
     },
-
     token: {
       type: String,
       default: null
     },
-
-    synchronized: {
-      type: Boolean,
-      default: true
+    synchronize: {
+      type: Object,
+      required: true
     },
-
     synchronizeAction: {
       type: String,
-      default: '/absolute-ids/synchronize'
+      default: "/absolute-ids/synchronize"
     },
-
     synchronizeMethod: {
       type: String,
-      default: 'POST'
+      default: "POST"
     }
   },
   created: function() {
@@ -180,132 +162,153 @@ export default {
     // names into objects with a name property
     let pCols = this.columns.map(col => {
       if (!this.isObject(col)) {
-        return { name: col.toLowerCase(), ascending: null }
+        return { name: col.toLowerCase(), ascending: null };
       } else {
-        col.name = col.name.toLowerCase()
+        col.name = col.name.toLowerCase();
         if (col.sortable && typeof col.ascending === "undefined") {
-          col.ascending = null
+          col.ascending = null;
         }
-        return col
+        return col;
       }
-    })
-    this.parsedColumns = pCols
+    });
+    this.parsedColumns = pCols;
 
     // Normalize the row data by converting any simple values into
     // objects with the link properties
-    let rowNum = this.jsonData.length
+    let rowNum = this.jsonData.length;
     for (let i = 0; i < rowNum; i++) {
       for (var key in this.jsonData[i]) {
         if (this.jsonData[i].hasOwnProperty(key)) {
           if (!this.isObject(this.jsonData[i][key])) {
-            this.jsonData[i][key] = { value: this.jsonData[i][key], link: null }
+            this.jsonData[i][key] = {
+              value: this.jsonData[i][key],
+              link: null
+            };
           }
         }
       }
     }
-    this.rows = this.jsonData
+    this.rows = this.jsonData;
 
-    if (this.parsedColumns.length > 0 && this.parsedColumns[0].ascending !== null) {
+    if (
+      this.parsedColumns.length > 0 &&
+      this.parsedColumns[0].ascending !== null
+    ) {
       this.sortTable(this.parsedColumns[0]);
     }
   },
   computed: {
-    footerColumns() {
-      let fCols = this.columns
-      fCols.shift()
-      return fCols
+    synchronized() {
+      return this.synchronize.status == "synchronized";
     },
+    footerColumns() {
+      let fCols = this.columns;
+      fCols.shift();
+      return fCols;
+    }
   },
   methods: {
     iconLabel(value) {
       if (value === true) {
-        return "ascending"
+        return "ascending";
       } else if (value === false) {
-        return "descending"
+        return "descending";
       } else if (value === null) {
-        return "unsorted"
+        return "unsorted";
       }
     },
     displayName(col) {
       if (col.hasOwnProperty("display_name")) {
-        return col.display_name
+        return col.display_name;
       } else {
-        return col.name
+        return col.name;
       }
     },
     sortTable(col) {
       if (!col.ascending) {
         if (col.datatype === "number" || col.datatype === "currency") {
-          this.rows.sort((a, b) => a[col.name].value - b[col.name].value)
+          this.rows.sort((a, b) => a[col.name].value - b[col.name].value);
         } else if (col.datatype === "date") {
-          this.rows.sort((a, b) => new Date(a[col.name].value) - new Date(b[col.name].value))
+          this.rows.sort(
+            (a, b) => new Date(a[col.name].value) - new Date(b[col.name].value)
+          );
         } else {
           this.rows.sort(function(a, b) {
-            var textA = a[col.name.toLowerCase()].value.toString().toLowerCase()
-            var textB = b[col.name.toLowerCase()].value.toString().toLowerCase()
-            return textA < textB ? -1 : textA > textB ? 1 : 0
-          })
+            var textA = a[col.name.toLowerCase()].value
+              .toString()
+              .toLowerCase();
+            var textB = b[col.name.toLowerCase()].value
+              .toString()
+              .toLowerCase();
+            return textA < textB ? -1 : textA > textB ? 1 : 0;
+          });
         }
       } else {
         if (col.datatype === "number" || col.datatype === "currency") {
-          this.rows.sort((a, b) => b[col.name].value - a[col.name].value)
+          this.rows.sort((a, b) => b[col.name].value - a[col.name].value);
         } else if (col.datatype === "date") {
-          this.rows.sort((a, b) => new Date(b[col.name].value) - new Date(a[col.name].value))
+          this.rows.sort(
+            (a, b) => new Date(b[col.name].value) - new Date(a[col.name].value)
+          );
         } else {
           this.rows.sort(function(a, b) {
-            var textA = a[col.name.toLowerCase()].value.toString().toLowerCase()
-            var textB = b[col.name.toLowerCase()].value.toString().toLowerCase()
-            return textA < textB ? 1 : textA > textB ? -1 : 0
-          })
+            var textA = a[col.name.toLowerCase()].value
+              .toString()
+              .toLowerCase();
+            var textB = b[col.name.toLowerCase()].value
+              .toString()
+              .toLowerCase();
+            return textA < textB ? 1 : textA > textB ? -1 : 0;
+          });
         }
       }
-      col.ascending = !col.ascending
+      col.ascending = !col.ascending;
 
       // reset other columns ascending prop to null (aka, "unsorted")
       this.parsedColumns = this.parsedColumns.map(function(column) {
         if (col.name != column.name) {
-          column.ascending = null
+          column.ascending = null;
         }
-        return column
-      })
+        return column;
+      });
     },
     isObject(value) {
-      return value && typeof value === "object" && value.constructor === Object
+      return value && typeof value === "object" && value.constructor === Object;
     },
     isCurrency(value) {
-      return value === "currency" ? true : false
+      return value === "currency" ? true : false;
     },
     isNum(value) {
-      return value === "number" ? true : false
+      return value === "number" ? true : false;
     },
     isLeft(value) {
-      return value === "left" ? true : false
+      return value === "left" ? true : false;
     },
     isCenter(value) {
-      return value === "center" ? true : false
+      return value === "center" ? true : false;
     },
     isRight(value) {
-      return value === "right" ? true : false
+      return value === "right" ? true : false;
     },
 
-    postData: async function () {
-      const response = await fetch(this.synchronizeAction, {
-        method: this.synchronizeMethod,
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
+    postData: async function() {
+      const response = await fetch(this.synchronize.action, {
+        method: this.synchronize.method || "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.token}`
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`
         },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer'
+        redirect: "follow",
+        referrerPolicy: "no-referrer"
       });
 
       return response;
     },
 
-    onSynchronizeSubmit: async function (event) {
+    onSynchronizeSubmit: async function(event) {
       event.target.disabled = true;
 
       this.synchronizing = true;
@@ -313,19 +316,18 @@ export default {
 
       event.target.disabled = false;
       if (response.status === 302) {
-        const redirectUrl = response.headers.get('Content-Type');
+        const redirectUrl = response.headers.get("Content-Type");
         window.location.assign(redirectUrl);
       } else {
         window.location.reload();
       }
     }
-
-  },
-}
+  }
+};
 </script>
 
 <style lang="scss" scoped>
-@import "../../../node_modules/lux-design-system/dist/system/system.utils.scss";
+@import "../../../../node_modules/lux-design-system/dist/system/system.utils.scss";
 
 .lux-data-table {
   border-collapse: collapse;
@@ -465,13 +467,15 @@ export default {
 
     /* On mouse-over, add a grey background color */
     input:not([disabled]):hover::before {
-      box-shadow: 0 1px 5px 0 rgba($color-rich-black, 0.07), 0 0 0 1px tint($color-rich-black, 60%);
+      box-shadow: 0 1px 5px 0 rgba($color-rich-black, 0.07),
+        0 0 0 1px tint($color-rich-black, 60%);
     }
 
     input:checked::before {
       transition: box-shadow 0.2s ease;
       background-color: $color-bleu-de-france;
-      box-shadow: inset 0 0 0 1px $color-bleu-de-france, 0 0 0 1px $color-bleu-de-france;
+      box-shadow: inset 0 0 0 1px $color-bleu-de-france,
+        0 0 0 1px $color-bleu-de-france;
       outline: 0;
     }
 
@@ -501,7 +505,8 @@ export default {
     /*Adding focus styles on the outer-box of the fake checkbox*/
     input[type="checkbox"]:focus::before {
       transition: box-shadow $duration-quickly ease;
-      box-shadow: inset 0 0 0 1px $color-bleu-de-france, 0 0 0 1px $color-bleu-de-france;
+      box-shadow: inset 0 0 0 1px $color-bleu-de-france,
+        0 0 0 1px $color-bleu-de-france;
     }
   }
 
@@ -530,22 +535,3 @@ export default {
   }
 }
 </style>
-
-<docs>
-  ```jsx
-  <data-table caption="Staff Emails" summary-label="Average"
-    :columns="[
-      { 'name': 'id', 'display_name': 'Select Items', 'align': 'center', 'checkbox': true },
-      'name',
-      { 'name': 'email', 'display_name': 'Email Address', 'align': 'center', 'sortable': true },
-      { 'name': 'birthday', 'datatype': 'date', 'sortable': true },
-      { 'name': 'age', 'datatype': 'number', 'summary_value': '33', 'sortable': true }
-    ]"
-    :json-data="[
-      {'id': 1,'name': { value: 'foo', link: 'https://library.princeton.edu'},'email': 'foo@xxx.xxx', 'age': 30, 'birthday': 'March 4, 1989' },
-      {'id': 2,'name': 'bar','email': 'bar@xxx.xxx', 'age': 44, 'birthday': 'October 4, 1975' },
-      {'id': 3,'name': 'fez','email': 'fez@xxx.xxx', 'age': 19, 'birthday': 'May 14, 2000' },
-      {'id': 4,'name': 'hey','email': 'hey@xxx.xxx', 'age': 19 , 'birthday': 'May 5, 2000'},
-    ]"/>
-  ```
-</docs>

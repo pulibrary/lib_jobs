@@ -31,9 +31,10 @@ class Ability
     # See the wiki for details:
     # https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities
 
-    can :synchronize, AbsoluteId if user.present? && user.token_valid?
+    can :synchronize, AbsoluteId::Session if user.present? && user.token_valid?
     can :update, AbsoluteId if user.present? && user.token_valid?
-    can :create_batches, AbsoluteId if user.present? && user.token_valid?
+    can :create, AbsoluteId::Session if user.present? && user.token_valid?
+    can :create, AbsoluteId::Batch if user.present? && user.token_valid?
     can :create, AbsoluteId if user.present? && user.token_valid?
     can :get_latest, DataSet if user.present?
   end

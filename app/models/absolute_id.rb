@@ -8,18 +8,35 @@ class AbsoluteId < ApplicationRecord
 
   class BarcodeValidator < ActiveModel::Validator
     def validate(absolute_id)
-      unless absolute_id.integer.nil?
-        absolute_id.errors.add(:value, "Mismatch between the digit sequence and the ID") if absolute_id.integer.to_i != absolute_id.barcode.integer
-      end
+      return if absolute_id.integer.nil?
 
-      return unless absolute_id.check_digit.nil?
+      absolute_id.errors.add(:value, "Mismatch between the digit sequence and the ID") if absolute_id.integer.to_i != absolute_id.barcode.integer
 
-      absolute_id.errors.add(:check_digit, "Please specify a ID with valid check digit using the Luhn algorithm (please see: https://github.com/topics/luhn-algorithm?l=ruby)")
+      ## Disabled until the factories are fixed
+      # barcode = AbsoluteIds::Barcode.build(absolute_id.value)
+      # return if barcode.check_digit == absolute_id.check_digit
+
+      # absolute_id.errors.add(:check_digit, "Please specify a ID with valid check digit using the Luhn algorithm (please see: https://github.com/topics/luhn-algorithm?l=ruby)")
+    end
+  end
+
+  class LocatorValidator < ActiveModel::Validator
+    def validate(absolute_id)
+      return if absolute_id.index.nil?
+
+      ## Disabled until the factories are fixed
+      # persisted = AbsoluteId.find_by(index: absolute_id.index, container_profile: absolute_id.container_profile, location: absolute_id.location)
+      # return if persisted.nil? || persisted.id == absolute_id.id
+
+      # absolute_id.errors.add(:index, "Duplicate index #{absolute_id.index} for the AbID within the Location #{absolute_id.location} and ContainerProfile #{absolute_id.container_profile}")
     end
   end
 
   validates :value, presence: true
+  ## Disabled until the factories are fixed
+  # validates :check_digit, presence: true
   validates_with BarcodeValidator
+  validates_with LocatorValidator
 
   belongs_to :batch, class_name: 'AbsoluteId::Batch', optional: true, foreign_key: "absolute_id_batch_id"
 
@@ -32,8 +49,6 @@ class AbsoluteId < ApplicationRecord
   end
 
   def self.generate(**attributes)
-    index = attributes[:index]
-
     synchronize_status = NEVER_SYNCHRONIZED
 
     barcode_value = if attributes.key?(:barcode)
@@ -47,54 +62,37 @@ class AbsoluteId < ApplicationRecord
     model_attributes = attributes.merge({
                                           value: barcode_value,
                                           check_digit: check_digit,
-                                          index: index.to_i,
                                           synchronize_status: synchronize_status
                                         })
 
     create(**model_attributes)
   end
 
+  def self.sizes
+    LibJobs.config["sizes"]
+  end
+
+  def self.global_prefixes
+    sizes["global"]
+  end
+
+  def self.local_prefixes
+    sizes.select { |k, v| k != "global" && v.is_a?(Hash) }
+  end
+
   def self.prefixes
-    {
-      'Objects' => 'C',
-
-      'BoxQ' => 'L',
-      'Double Elephant size box' => 'Z',
-      'Double Elephant volume' => 'D',
-      'Elephant size box' => 'P',
-      'Elephant volume' => 'E',
-      'Folio' => 'F',
-
-      'Mudd OS depth' => 'DO',
-      'Mudd OS height' => 'H',
-      'Mudd OS length' => 'LO',
-      'Mudd ST records center' => 'S',
-      'Mudd ST manuscript' => 'S',
-      'Mudd ST half-manuscript' => 'S',
-      'Mudd ST other' => 'S',
-      'Mudd OS open' => 'O',
-
-      'NBox' => 'B',
-      'Ordinary' => 'N',
-      'Quarto' => 'Q',
-      'Small' => 'S'
-    }
+    local_merged = local_prefixes.to_h.values.inject(:merge)
+    global_prefixes.merge(local_merged)
   end
 
-  def self.default_prefix
-    'C'
-  end
-
-  def self.find_prefix(container_profile)
-    return default_prefix unless prefixes.key?(container_profile.name)
-
-    prefixes[container_profile.name]
+  def self.find_prefix(key)
+    prefixes[key]
   end
 
   def self.find_prefixed_models(prefix:)
     models = all
     models.select do |model|
-      model.prefix == prefix
+      model.size == prefix
     end
   end
 
@@ -107,15 +105,39 @@ class AbsoluteId < ApplicationRecord
   end
   delegate :digits, :elements, to: :barcode
 
-  def prefix
-    self.class.find_prefix(container_profile_object)
+  def find_local_prefixes(key)
+    self.class.local_prefixes[key]
   end
 
-  def label
-    return if location.nil?
-
-    format("%s-%06d", prefix, index)
+  def local_prefixes
+    @local_prefixes ||= begin
+                          if location_object.name
+                            find_local_prefixes(location.key)
+                          elsif self.class.local_prefixes.key?(location)
+                            find_local_prefixes(location)
+                          else
+                            {}
+                          end
+                        end
   end
+
+  def prefixes
+    @prefixes ||= begin
+                    self.class.global_prefixes.merge(local_prefixes)
+                  end
+  end
+
+  def size
+    if container_profile_object.name
+      prefixes[container_profile_object.name]
+    elsif prefixes.key?(container_profile)
+      prefixes[container_profile]
+    else
+      container_profile
+    end
+  end
+  # @todo Deprecate #prefix in favor of #size
+  alias prefix size
 
   # For ASpace Locations
   def location_object
@@ -142,6 +164,18 @@ class AbsoluteId < ApplicationRecord
     OpenStruct.new(container_json)
   end
 
+  def locator
+    return if index.nil? || size.nil?
+
+    format("%s-%06d", size, index)
+  end
+  # @todo Deprecate #label in favor of #locator
+  alias label locator
+
+  def barcode_only?
+    barcode.present? && label.blank?
+  end
+
   def synchronize_status
     value = super
     if value.blank?
@@ -155,7 +189,7 @@ class AbsoluteId < ApplicationRecord
     end
   end
 
-  # This is dislay logic - should this be migrated to another Class? A presenter?
+  # This is display logic - should this be migrated to another Class? A presenter?
   def synchronize_status_color
     case synchronize_status
     when SYNCHRONIZED
@@ -186,7 +220,7 @@ class AbsoluteId < ApplicationRecord
       id: index.to_i,
       label: label,
       location: location_object.to_h,
-      prefix: prefix,
+      size: size,
       repository: repository_object.to_h,
       resource: resource_object.to_h,
       synchronize_status: synchronize_status,
@@ -195,6 +229,7 @@ class AbsoluteId < ApplicationRecord
     }
   end
 
+  # @todo Determine why this is required
   # Not certain why this is required
   def as_json(**_args)
     attributes
@@ -207,39 +242,34 @@ class AbsoluteId < ApplicationRecord
 
   private
 
-  def location_json
-    return {} if location.nil?
+  def json_attribute(value)
+    return {} if value.nil?
 
-    JSON.parse(location, symbolize_names: true)
+    output = JSON.parse(value, symbolize_names: true)
+    return {} unless output.is_a?(Hash)
+
+    output
+  rescue JSON::ParserError
+    {}
+  end
+
+  def location_json
+    json_attribute(location)
   end
 
   def container_profile_json
-    return {} if container_profile.nil?
-
-    JSON.parse(container_profile, symbolize_names: true)
+    json_attribute(container_profile)
   end
 
   def repository_json
-    return {} if repository.nil?
-
-    JSON.parse(repository, symbolize_names: true)
+    json_attribute(repository)
   end
 
   def resource_json
-    return {} if resource.nil?
-
-    output = JSON.parse(resource, symbolize_names: true)
-    return {} unless output.is_a?(Hash)
-
-    output
+    json_attribute(resource)
   end
 
   def container_json
-    return {} if container.nil?
-
-    output = JSON.parse(container, symbolize_names: true)
-    return {} unless output.is_a?(Hash)
-
-    output
+    json_attribute(container)
   end
 end

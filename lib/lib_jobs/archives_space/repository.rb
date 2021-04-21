@@ -7,9 +7,15 @@ module LibJobs
         AbsoluteId::Repository
       end
 
-      def build_top_container_from(documents:)
-        container_doc = documents.first
-        parsed = JSON.parse(container_doc['json'])
+      def self.model_class_exists?
+        true
+      end
+
+      # Construct a TopContainer object from a SolrDocument
+      # @param document
+      # @return TopContainer
+      def build_top_container_from(document:)
+        parsed = JSON.parse(document['json'])
 
         response_body_json = parsed.transform_keys(&:to_sym)
         response_body_json[:repository] = self
@@ -73,12 +79,63 @@ module LibJobs
         children(resource_class: TopContainer, model_class: top_container_model)
       end
 
-      def search_top_containers(ead_id:, indicator:)
-        resource_refs = client.find_resources_by_ead_id(repository_id: @id, ead_id: ead_id)
-        resource = build_resource_from(refs: resource_refs)
-        resource.search_top_containers(indicator: indicator)
+      # Search for TopContainers
+      # @param barcode
+      # @param indicator
+      # @param collection
+      # @param resource_class
+      # @return [Array<TopContainer>]
+      def search_top_containers_by(barcode: nil, indicator: nil, resource_class: TopContainer)
+        query_params = []
+        query_params << ["q", indicator] unless indicator.nil?
+        query_params << ["q", barcode] unless barcode.nil?
+
+        query = URI.encode_www_form(query_params)
+        response = client.get("/repositories/#{@id}/#{resource_class.name.demodulize.pluralize.underscore}/search?#{query}")
+
+        return [] if response.status.code == "404"
+
+        parsed = JSON.parse(response.body)
+        return [] unless parsed.key?('response') || parsed['response'].key?('docs')
+
+        solr_response = parsed['response']
+        return [] unless solr_response.key?('docs')
+
+        solr_documents = solr_response['docs']
+        solr_documents.map do |document|
+          build_top_container_from(document: document)
+        end
       end
 
+      # Search for TopContainers
+      # @param barcode
+      # @param indicator
+      # @param collection
+      # @param resource_class
+      # @return [Array<TopContainer>]
+      def search_top_container_children_by(collection: nil)
+        query_params = []
+        query_params << ["q", "collection_identifier_u_stext:#{collection}"] unless collection.nil?
+
+        query_params << ["type[]", "top_container"]
+        query_params << ["page", "1"]
+
+        query = URI.encode_www_form(query_params)
+        response = client.get("/repositories/#{@id}/search?#{query}")
+
+        return [] if response.status.code == "404"
+
+        parsed = JSON.parse(response.body)
+        return [] unless parsed.key?('results')
+
+        solr_documents = parsed['results']
+        solr_documents.map do |document|
+          build_top_container_from(document: document)
+        end
+      end
+
+      # Search for Resources using the EAD ID
+      # @param ead_id
       def search_resources(ead_id:)
         resource_refs = find_resources_by_ead_id(ead_id: ead_id)
         build_resource_from(refs: resource_refs)
@@ -119,6 +176,7 @@ module LibJobs
         find_child(uri: uri, resource_class: Resource, model_class: Resource.model_class, cache: cache)
       end
 
+      # This does not have a caching option
       def find_archival_object(resource:, uri:)
         find_child(uri: uri, resource_class: ArchivalObject, model_class: archive_object_model, resource: resource)
       end
@@ -138,11 +196,6 @@ module LibJobs
         find_resource_by(uri: resource_uri, cache: cache)
       end
 
-      # Deprecate
-      def find_top_container(uri:)
-        find_child(uri: uri, resource_class: TopContainer, model_class: TopContainer.model_class)
-      end
-
       def find_top_container_by(uri:)
         find_child(uri: uri, resource_class: TopContainer, model_class: TopContainer.model_class)
       end
@@ -158,8 +211,12 @@ module LibJobs
         resource_class = child.class
 
         response = client.post("/repositories/#{@id}/#{resource_class.name.demodulize.pluralize.underscore}/#{child.id}", child.to_params)
-        Rails.logger.warn(response.body)
-        return nil if response.status.code != "200"
+        if response.status.code == "400"
+          error_message = response.parsed.values.map(&:values).join('. ')
+          raise(UpdateRecordError, error_message)
+        elsif response.status.code != "200"
+          nil
+        end
 
         model_class.uncache(child)
 
@@ -179,6 +236,40 @@ module LibJobs
         return nil if response.status != 200 || !response[:id]
 
         find_resource(id: response[:id])
+      end
+
+      def batch_update_top_containers(containers:, container_profile_uri: nil, location_uri: nil)
+        request_path_base = "/repositories/#{@id}/top_containers/batch"
+        jsonmodel_type = if !container_profile_uri.nil?
+                           "container_profile"
+                         else
+                           "location"
+                         end
+
+        request_params = {
+          'ids[]': containers.map(&:id)
+        }
+
+        request_params[:container_profile_uri] = container_profile_uri unless container_profile_uri.nil?
+
+        request_params[:location_uri] = location_uri unless location_uri.nil?
+
+        query_params = URI.encode_www_form(request_params)
+        request_path = "#{request_path_base}/#{jsonmodel_type}?#{query_params}"
+        response = client.post(request_path, {})
+
+        if response.status.code == "400"
+          error_message = response.parsed.values.map(&:values).join('. ')
+          raise(BatchUpdateRecordError, error_message)
+        elsif response.status.code != "200"
+          []
+        end
+
+        containers.map do |container|
+          container.class.model_class.uncache(container)
+
+          find_child(uri: container.uri.to_s, resource_class: container.class, model_class: container.class.model_class)
+        end
       end
 
       private

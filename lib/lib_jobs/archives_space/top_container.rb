@@ -15,18 +15,20 @@ module LibJobs
         AbsoluteId::TopContainer
       end
 
+      def self.model_class_exists?
+        true
+      end
+
       def initialize(attributes)
         super(attributes)
 
         @resources = @values.resources || []
 
         @active_restrictions = @values.active_restrictions
-        # @barcode = @values.barcode
         @collection = @values.collection
         @exported_to_ils = @values.exported_to_ils
         @ils_holding_id = @values.ils_holding_id
         @ils_item_id = @values.ils_item_id
-        # @indicator = @values.indicator
         @series = @values.series
         @type = @values.type
       end
@@ -36,7 +38,13 @@ module LibJobs
         return [] if locations_values.nil?
 
         locations_values.map do |location_attributes|
-          LibJobs::ArchivesSpace::Location.new(location_attributes[:_resolved])
+          if location_attributes.key?(:ref)
+            client.find_location_by(uri: location_attributes[:ref])
+          elsif location_attributes.key?(:_resolved)
+            LibJobs::ArchivesSpace::Location.new(location_attributes[:_resolved])
+          else
+            raise(ArgumentError, "Failed to construct a #{self.class} object from the arguments #{location_attributes.to_json}")
+          end
         end
       end
 

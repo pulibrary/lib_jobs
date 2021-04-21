@@ -3,20 +3,29 @@
   <% if current_user %>
     <div class="lux">
       <absolute-id-batch-form
-        action="<%= absolute_ids_path %>"
+        action="<%= absolute_ids_url %>"
         token="<%= current_user.token %>"
+        :service="<%=
+          {
+            action: services_archivesspace_url,
+            locations: absolute_ids_locations_url,
+            containerProfiles: absolute_ids_container_profiles_url,
+            repositories: absolute_ids_repositories_url,
+            barcodes: barcodes_url
+          }.to_json
+        %>"
       />
     </div>
   <% end %>
 
-  <% if current_user && @sessions.present? %>
+  <% if current_user && !@sessions.empty? %>
     <% @sessions.each do |session| %>
       <div class="lux absolute-ids-session">
         <absolute-id-batch-table
           header="<%= session.label %>"
           :synchronized="<%= session.synchronized? %>"
           :columns="<%= JSON.generate(table_columns) %>"
-          :session="<%= session.to_json %>"
+          :session="<%= session.as_json %>"
           token="<%= current_user.token %>"
           synchronize-action="<%= synchronize_session_path(session) %>"
           session-report-path="<%= session_id_path(session, format: 'txt') %>"
@@ -30,7 +39,6 @@
     <div>Loading...</div>
     <% unless index_status.blank? %>
       <alert status="info" dismissible>
-      <%= index_status %>
       </alert>
     <% end %>
   </div>

@@ -6,6 +6,10 @@ module LibJobs
         raise(NotImplementedError, "#{self} is an abstract class, and does not have a corresponding ActiveRecord model.")
       end
 
+      def self.model_class_exists?
+        false
+      end
+
       def self.parse_id(attributes)
         uri = attributes[:uri]
         segments = uri.split("/")
@@ -99,7 +103,10 @@ module LibJobs
       end
 
       def find_or_create_model
-        find_model || to_model.save!
+        find_model || begin
+                        to_model.save
+                        to_model
+                      end
       end
 
       private

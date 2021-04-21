@@ -9,6 +9,7 @@ describe LibJobs::ArchivesSpace::Resource do
     { repository: repository }.merge(fixture_values)
   end
   let(:top_container) { instance_double(LibJobs::ArchivesSpace::TopContainer) }
+  let(:top_containers) { [top_container] }
   let(:repository) { instance_double(LibJobs::ArchivesSpace::Repository) }
   let(:fixture_file_path) do
     Rails.root.join('spec', 'fixtures', 'archives_space', 'resource.json')
@@ -18,10 +19,6 @@ describe LibJobs::ArchivesSpace::Resource do
   end
   let(:fixture_values) do
     JSON.parse(fixture_json)
-  end
-
-  before do
-    allow(repository).to receive(:find_top_container).and_return(top_container)
   end
 
   describe '#ead_id' do

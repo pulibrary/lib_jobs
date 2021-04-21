@@ -4,12 +4,12 @@
     <tag
       type="tag"
       :tag-items="[
-                    {
-                      name: textContent,
-                      color: tagColor,
-                      style: 'pill'
-                    }
-                  ]"
+        {
+          name: textContent,
+          color: tagColor,
+          style: 'pill'
+        }
+      ]"
       horizontal="start"
       size="small"
     />
@@ -18,12 +18,12 @@
 
 <script>
 export default {
-  name: 'AbsoluteIdServiceStatus',
-  type: 'Element',
+  name: "AbsoluteIdServiceStatus",
+  type: "Element",
   props: {
     method: {
       type: String,
-      default: 'GET'
+      default: "GET"
     },
     action: {
       type: String,
@@ -38,36 +38,36 @@ export default {
       required: true
     }
   },
-  data: function () {
+  data: function() {
     return {
-      status: 'CONNECTING'
-    }
+      status: "CONNECTING"
+    };
   },
   computed: {
-    tagColor: function () {
-      let output = 'red';
+    tagColor: function() {
+      let output = "red";
 
       switch (this.status) {
-        case 'CONNECTING':
-          output = 'yellow';
+        case "CONNECTING":
+          output = "yellow";
           break;
-        case 'ONLINE':
-          output = 'green';
+        case "ONLINE":
+          output = "green";
           break;
       }
 
       return output;
     },
 
-    textContent: function () {
-      let output = 'Offline';
+    textContent: function() {
+      let output = "Offline";
 
       switch (this.status) {
-        case 'CONNECTING':
-          output = 'Connecting';
+        case "CONNECTING":
+          output = "Connecting";
           break;
-        case 'ONLINE':
-          output = 'Online';
+        case "ONLINE":
+          output = "Online";
           break;
       }
 
@@ -75,44 +75,46 @@ export default {
     }
   },
 
-  mounted: async function () {
-    this.$nextTick(async function () {
+  mounted: async function() {
+    this.$nextTick(async function() {
       const service = await this.getService();
 
-      this.status = 'OFFLINE';
+      this.status = "OFFLINE";
       if (service) {
-        this.status = 'ONLINE';
+        this.status = "ONLINE";
       }
-    })
+    });
   },
 
   methods: {
-    fetchService: async function () {
+    fetchService: async function() {
       let response = null;
 
       try {
         const response = await fetch(this.action, {
           method: this.method,
-          mode: 'cors',
-          cache: 'no-cache',
-          credentials: 'same-origin',
+          mode: "cors",
+          cache: "no-cache",
+          credentials: "same-origin",
           headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${this.token}`
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${this.token}`
           },
-          redirect: 'follow',
-          referrerPolicy: 'no-referrer'
+          redirect: "follow",
+          referrerPolicy: "no-referrer"
         });
 
         return response;
       } catch (error) {
-        console.warn(`Failed to request the status for the service ${this.service}: ${error}`);
+        console.warn(
+          `Failed to request the status for the service ${this.service}: ${error}`
+        );
       }
 
       return;
     },
 
-    getService: async function () {
+    getService: async function() {
       let service = null;
       let response;
 
@@ -122,5 +124,5 @@ export default {
       return service;
     }
   }
-}
+};
 </script>

@@ -128,11 +128,11 @@ module LibJobs
       end
 
       def find_top_containers
-        top_container_nodes = instances.map(&:top_container)
+        repository.search_top_container_children_by(collection: ead_id)
+      end
 
-        child_top_container_nodes = resolve_children.map(&:resolve_top_containers).flatten
-        nodes = top_container_nodes + child_top_container_nodes
-        nodes.uniq.reject(&:nil?)
+      def deprecated_find_top_containers
+        raise(StandardError, "This is deprecated")
       end
     end
   end

@@ -3,6 +3,7 @@
 class AbsoluteIdsController < ApplicationController
   helper_method :index_status, :table_columns
   skip_forgery_protection if: :token_header?
+  include TokenAuthorizedController
 
   def table_columns
     [
@@ -18,26 +19,11 @@ class AbsoluteIdsController < ApplicationController
     ]
   end
 
-  # This should be moved to a separate controller
-  # GET /absolute-ids
-  # GET /absolute-ids.json
-  def index
-    @sessions ||= begin
-                    models = AbsoluteId::Session.where(user: current_user)
-                    models.reverse
-                  end
-
-    respond_to do |format|
-      format.html { render :index }
-      format.json { render json: @sessions }
-    end
-  end
-
   # GET /absolute-ids/:value
   # GET /absolute-ids/:value.json
   # GET /absolute-ids/:value.xml
   def show
-    @absolute_id ||= AbsoluteId.find_by(value: value)
+    @absolute_id ||= AbsoluteId.find_by(value: value_param)
 
     respond_to do |format|
       format.json { render json: @absolute_id }
@@ -45,10 +31,48 @@ class AbsoluteIdsController < ApplicationController
     end
   end
 
+  # POST /absolute-ids
+  # POST /absolute-ids.json
+  def create
+    authorize!(:create, AbsoluteId)
+    @absolute_id = AbsoluteId.generate(**absolute_id_params)
+
+    respond_to do |format|
+      format.html do
+        flash[:absolute_ids] = "Failed to generate a new absolute ID. Please contact the administrator." unless @absolute_id.save
+        redirect_to absolute_ids_path
+      end
+
+      format.json do
+        if @absolute_id.nil?
+          head :found, location: absolute_ids_path(format: :json)
+        else
+          head :found, location: absolute_id_path(value: @absolute_id.value, format: :json)
+        end
+      end
+    end
+  rescue CanCan::AccessDenied
+    warning_message = if current_user_params.nil?
+                        "Denied attempt to create an Absolute ID by the anonymous client #{request.remote_ip}"
+                      else
+                        "Denied attempt to create an Absolute ID by the user ID #{current_user.email}"
+                      end
+
+    Rails.logger.warn(warning_message)
+
+    respond_to do |format|
+      format.html do
+        redirect_to absolute_ids_path
+      end
+
+      format.json { head :forbidden }
+    end
+  end
+
   # This needs to be moved to another controller
   # POST /absolute-ids
   def create_batches
-    authorize! :create_batches, AbsoluteId
+    authorize!(:create_batches, AbsoluteId::Batch)
     @session = ::AbsoluteIdCreateSessionJob.perform_now(session_attributes: session_params, user_id: current_user.id)
 
     respond_to do |format|
@@ -82,147 +106,79 @@ class AbsoluteIdsController < ApplicationController
     raise error
   end
 
-  # POST /absolute-ids/synchronize
-  # POST /absolute-ids/synchronize.json
-  def synchronize
-    authorize! :synchronize, AbsoluteId
-
-    session_id = params[:session_id]
-    @session = AbsoluteId::Session.find_by(user: current_user, id: session_id)
-    @absolute_ids = @session.absolute_ids
-
-    @absolute_ids.each do |absolute_id|
-      ArchivesSpaceSyncJob.perform_now(user_id: current_user.id, model_id: absolute_id.id)
-    end
+  # PATCH /absolute-ids
+  # PATCH /absolute-ids.json
+  def update
+    authorize!(:update, AbsoluteId)
+    @absolute_id = AbsoluteId.create_or_update(**absolute_id_params)
 
     respond_to do |format|
+      format.html do
+        # To be implemented
+      end
+
       format.json do
-        head :found, location: absolute_ids_path(format: :json)
+        head :found, location: absolute_id_path(value: @absolute_id.value, format: :json)
       end
     end
-  end
-
-  # This needs to be moved to another controller
-  def show_session
-    session_id = params[:session_id]
-    @session ||= begin
-                   AbsoluteId::Session.find_by(user: current_user, id: session_id)
-                 end
-
-    if request.format.text?
-      render text: @session.to_txt
-    else
-      respond_to do |format|
-        format.json { render json: @session }
-        format.yaml { render yaml: @session.to_yaml }
-        format.xml { render xml: @session }
-      end
-    end
-  end
-
-  def batches
-    @batches ||= begin
-                   return [] if @session.nil?
-
-                   @session.batches
-                 end
-  end
-
-  def absolute_ids
-    @absolute_ids ||= begin
-                        return [] if @batches.nil?
-
-                        batches.map(&:absolute_ids).flatten
+  rescue CanCan::AccessDenied
+    warning_message = if current_user_params.nil?
+                        "Denied attempt to update the Absolute ID by the anonymous client #{request.remote_ip}"
+                      else
+                        "Denied attempt to update the Absolute ID by the user ID #{current_user_id}"
                       end
-  end
 
-  def index_status
-    "No absolute IDs have been generated yet." if absolute_ids.empty?
+    Rails.logger.warn(warning_message)
+
+    respond_to do |format|
+      format.html do
+        redirect_to absolute_ids_path
+      end
+
+      format.json { head :forbidden }
+    end
   end
 
   private
 
-  def value
+  def value_param
     params[:value]
   end
 
-  def token_header?
-    token_header.present?
-  end
-
-  def current_user_token
-    token_header || current_user_params[:token]
-  end
-
-  def find_user
-    User.find_by(id: current_user_id, token: current_user_token)
-  end
-
-  def current_user
-    return super if !super.nil? || current_user_params.nil?
-
-    @current_user ||= find_user
-  end
-
-  def session_params
-    params.permit(batch: [
-                    :barcode,
-                    :batch_size,
-                    :valid,
-                    absolute_id: [
-                      :barcode,
-                      :container,
-                      container_profile: [
-                        :create_time,
-                        :id,
-                        :lock_version,
-                        :system_mtime,
-                        :uri,
-                        :user_mtime,
-                        :name,
-                        :prefix
-                      ],
-                      location: [
-                        :create_time,
-                        :id,
-                        :lock_version,
-                        :system_mtime,
-                        :uri,
-                        :user_mtime,
-                        :area,
-                        :barcode,
-                        :building,
-                        :classification,
-                        :external_ids,
-                        :floor,
-                        :functions,
-                        :room,
-                        :temporary
-                      ],
-                      repository: [
-                        :create_time,
-                        :id,
-                        :lock_version,
-                        :system_mtime,
-                        :uri,
-                        :user_mtime,
-                        :name,
-                        :repo_code
-                      ],
-                      resource: [
-                        :create_time,
-                        :id,
-                        :lock_version,
-                        :system_mtime,
-                        :uri,
-                        :user_mtime,
-                        :name,
-                        :repo_code
-                      ]
-                    ]
-                  ])
-
-    elements = params.permit!.fetch(:batch, [])
-    elements.map(&:to_h).map(&:deep_dup)
+  def absolute_id_params
+    output = params.permit(
+      absolute_id: [
+        :barcode,
+        location: [
+          :id,
+          :uri,
+          :building
+        ],
+        repository: [
+          :id,
+          :uri,
+          :name,
+          :repo_code
+        ],
+        resource: [
+          :id,
+          :uri,
+          :title
+        ],
+        container: [
+          :id,
+          :uri,
+          :barcode,
+          :indicator
+        ],
+        container_profile: [
+          :id,
+          :name,
+          :uri
+        ]
+      ]
+    )
+    parsed = output.to_h.deep_symbolize_keys
+    parsed.fetch(:absolute_id, {})
   end
 end
