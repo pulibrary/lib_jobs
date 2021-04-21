@@ -1,15 +1,49 @@
 # frozen_string_literal: true
 module ASpaceClientStubbing
   def stub_aspace_source_client(client: nil)
-    source_client = client || stub_aspace_client
+    login_fixture_file_path = Rails.root.join('spec', 'fixtures', 'archives_space', 'login.json')
+    login_fixture = File.read(login_fixture_file_path)
 
-    allow(LibJobs::ArchivesSpace::Client).to receive(:source).and_return(source_client)
-    source_client
+    client ||= LibJobs::ArchivesSpace::Client.source
+    allow(client).to receive(:login).and_return(login_fixture)
+    client
+  end
+  alias stub_aspace_client stub_aspace_source_client
+
+  def stub_aspace_sync_client(client: nil)
+    login_fixture_file_path = Rails.root.join('spec', 'fixtures', 'archives_space', 'login.json')
+    login_fixture = File.read(login_fixture_file_path)
+
+    client ||= LibJobs::ArchivesSpace::Client.sync
+    allow(client).to receive(:login).and_return(login_fixture)
+    client
+  end
+
+  def stub_aspace_location(location_id:, client: nil)
+    client ||= stub_aspace_client
+
+    location_fixture_file_path = Rails.root.join('spec', 'fixtures', 'archives_space', 'location.json')
+    location_fixture = File.read(location_fixture_file_path)
+
+    location_response_status = double
+    location_response = double
+    allow(
+      location_response_status
+    ).to receive(:code).and_return("200")
+    allow(
+      location_response
+    ).to receive(:status).and_return(location_response_status)
+    allow(location_response).to receive(:body).and_return(location_fixture)
+
+    allow(client).to receive(:get).with("/locations/#{location_id}").and_return(location_response)
+    client
   end
 
   def stub_aspace_top_container(repository_id:, top_container_id:, client: nil)
     client ||= stub_aspace_repository(repository_id: repository_id)
 
+    # Implementing support for TopContainer querying
+    # For searching the TopContainers by barcode
     resource_fixture_file_path = Rails.root.join('spec', 'fixtures', 'archives_space', 'top_container.json')
     resource_fixture = File.read(resource_fixture_file_path)
 
@@ -26,6 +60,43 @@ module ASpaceClientStubbing
     allow(client).to receive(:get).with("/repositories/#{repository_id}/top_containers/#{top_container_id}").and_return(resource_response)
 
     stub_aspace_source_client(client: client)
+  end
+
+  def stub_aspace_search_top_containers(repository_id:, barcode: nil, indicator: nil, empty: false, client: nil)
+    client ||= stub_aspace_repository(repository_id: repository_id)
+
+    # Implementing support for TopContainer querying
+    # For searching the TopContainers by barcode
+    top_containers_search_fixture = if empty
+                                      top_containers_search_response = {
+                                        'response' => {
+                                          'docs' => []
+                                        }
+                                      }
+                                      top_containers_search_response.to_json
+                                    else
+                                      top_containers_search_fixture_path = Rails.root.join('spec', 'fixtures', 'archives_space', 'repositories_top_containers_search.json')
+                                      File.read(top_containers_search_fixture_path)
+                                    end
+
+    top_container_response_status = double
+    top_container_response = double
+    allow(top_container_response_status).to receive(:code).and_return("200")
+    allow(top_container_response).to receive(:status).and_return(top_container_response_status)
+    allow(top_container_response).to receive(:body).and_return(top_containers_search_fixture)
+
+    query_param = if !indicator.nil?
+                    [["q", indicator]]
+                  elsif !barcode.nil?
+                    [["q", barcode]]
+                  else
+                    ""
+                  end
+    query = URI.encode_www_form(query_param)
+
+    allow(client).to receive(:get).with("/repositories/#{repository_id}/top_containers/search?#{query}").and_return(top_container_response)
+
+    client
   end
 
   def stub_aspace_archival_object(repository_id:, archival_object_id:, client: nil)
@@ -83,11 +154,17 @@ module ASpaceClientStubbing
       ).to receive(:status).and_return(
         resources_find_results_response_status
       )
-      # allow(resources_find_results_response).to receive(:body).and_return(resources_find_results_fixture)
       allow(resources_find_results_response).to receive(:parsed).and_return(JSON.parse(resources_find_results_fixture))
 
+      # I am uncertain if this is redundant
+      query_params = URI.encode_www_form([["identifier[]", [resource_id].to_json]])
+      query_uri_path = "/repositories/#{repository_id}/find_by_id/resources?#{query_params}"
+      allow(client).to receive(:get).with(query_uri_path).and_return(resources_find_results_response)
+
+      # I am uncertain if this is redundant
       query_params = URI.encode_www_form([["identifier[]", [ead_id].to_json]])
       query_uri_path = "/repositories/#{repository_id}/find_by_id/resources?#{query_params}"
+
       allow(client).to receive(:get).with(query_uri_path).and_return(resources_find_results_response)
     end
 
@@ -108,7 +185,6 @@ module ASpaceClientStubbing
     allow(client).to receive(:get).with("/repositories/#{repository_id}/resources/#{resource_id}").and_return(resource_response)
 
     # Stub the GET response for the child Resources and ArchivalObjects
-    # resource_tree_fixture_file_path = Rails.root.join('spec', 'fixtures', 'archives_space', 'resource_tree.json')
     resource_tree_fixture_file_path = Rails.root.join('spec', 'fixtures', 'archives_space', 'resource_tree_single_child.json')
     resource_tree_fixture = File.read(resource_tree_fixture_file_path)
 
@@ -128,7 +204,6 @@ module ASpaceClientStubbing
     if client.nil?
       default_client = stub_aspace_client
 
-      # client = stub_aspace_resource(repository_id: repository_id, resource_id: '1872', client: default_client)
       client = stub_aspace_resource(repository_id: repository_id, resource_id: '1870', client: default_client)
     end
 
@@ -140,7 +215,6 @@ module ASpaceClientStubbing
     allow(resources_response_status).to receive(:code).and_return("200")
     allow(resources_response).to receive(:status).and_return(resources_response_status)
 
-    # allow(resources_response).to receive(:body).and_return(resources_fixture)
     parsed_response = JSON.parse(resources_fixture)
     response_results = parsed_response["results"]
     one_child_response = {
@@ -166,15 +240,6 @@ module ASpaceClientStubbing
     allow(client).to receive(:get).with("/repositories/#{repository_id}").and_return(repository_response)
 
     stub_aspace_source_client(client: client)
-  end
-
-  def stub_aspace_client
-    login_fixture_file_path = Rails.root.join('spec', 'fixtures', 'archives_space', 'login.json')
-    login_fixture = File.read(login_fixture_file_path)
-
-    client = LibJobs::ArchivesSpace::Client.source
-    allow(client).to receive(:login).and_return(login_fixture)
-    client
   end
 end
 

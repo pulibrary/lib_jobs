@@ -6,6 +6,10 @@ module LibJobs
         AbsoluteId::Resource
       end
 
+      def self.model_class_exists?
+        true
+      end
+
       attr_reader :ead_id
       def initialize(attributes)
         super(attributes)

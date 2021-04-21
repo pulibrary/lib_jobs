@@ -3,57 +3,60 @@
     <grid-container>
       <grid-item columns="lg-12 sm-12">
         <header>{{ header }}</header>
-        <form class="absolute-ids-sync-form" :action="synchronizeAction" :method="synchronizeMethod">
+        <form
+          class="absolute-ids-sync-form"
+          :action="synchronize.action"
+          :method="synchronize.method"
+        >
           <button
             data-v-b7851b04
             :class="synchronizeButtonClasses"
             :disabled="synchronizing"
             @click.prevent="onSynchronizeSubmit"
-          >{{ synchronizeButtonTextContent }}</button>
+          >
+            {{ synchronizeButtonTextContent }}
+          </button>
         </form>
         <a
           data-v-b7851b04
           class="lux-button solid lux-button absolute-ids-session--report"
-          :href="sessionReportPath"
-        >Download Report</a>
+          :href="reportPath"
+          >Download Report</a
+        >
         <a
           data-v-b7851b04
           class="lux-button solid lux-button absolute-ids-session--xml"
-          :href="sessionXmlPath"
-        >Export XML Data</a>
+          :href="xmlPath"
+          >Export XML Data</a
+        >
       </grid-item>
     </grid-container>
 
-    <absolute-id-table
+    <batch-table
       v-for="batch in session.batches"
       :key="batch.id"
+      :token="token"
+      :synchronize="synchronize"
       :caption="batch.label"
       :columns="columns"
-      :json-data="batch.table_data"
-      :token="token"
-      :synchronize-action="synchronizeAction"
+      :json-data="batch.absolute_ids"
     />
   </div>
 </template>
 
 <script>
-import AbsoluteIdTable from './absolute_id_table'
+import BatchTable from "./batch_table";
 
 export default {
-  name: "AbsoluteIdBatchTable",
+  name: "AbsoluteIdSessionTable",
   type: "Element",
   components: {
-    "absolute-id-table": AbsoluteIdTable
+    "batch-table": BatchTable
   },
   props: {
     header: {
       required: true,
-      type: String,
-    },
-
-    synchronized: {
-      type: Boolean,
-      default: false
+      type: String
     },
 
     token: {
@@ -71,86 +74,83 @@ export default {
       type: Object
     },
 
-    synchronized: {
-      type: Boolean,
-      default: false
+    synchronize: {
+      type: Object,
+      required: false
     },
 
-    synchronizing: {
-      type: Boolean,
-      default: false
-    },
-
-    synchronizeAction: {
+    reportPath: {
       type: String,
-      default: '/absolute-ids/synchronize'
+      default: ""
     },
 
-    synchronizeMethod: {
+    xmlPath: {
       type: String,
-      default: 'POST'
-    },
-
-    sessionReportPath: {
-      type: String,
-      default: ''
-    },
-
-    sessionXmlPath: {
-      type: String,
-      default: ''
+      default: ""
     }
   },
+
   data() {
     return {
       rows: this.jsonData,
       parsedColumns: [],
       submitted: false
-    }
+    };
   },
+
   computed: {
+    synchronized: function() {
+      return this.synchronize.status == "synchronized";
+    },
+
+    synchronizing: function() {
+      return this.synchronize.status == "synchronizing";
+    },
+
     synchronizeButtonTextContent: function() {
-      let output = 'Synchronize';
+      let output = "Synchronize";
 
       if (this.synchronizing || this.submitted) {
-        output = 'Synchronizing';
+        output = "Synchronizing";
       } else if (this.synchronized) {
-        output = 'Resynchronize';
+        output = "Resynchronize";
       }
 
       return output;
     },
 
-    synchronizeButtonClasses: function () {
+    synchronizeButtonClasses: function() {
       const values = {
-        'lux-button': true,
-        'solid': true,
-        'absolute-ids-sync-form__submit': true,
-        'absolute-ids-sync-form__submit--finished': this.synchronized && !(this.synchronizing || this.submitted),
-        'absolute-ids-sync-form__submit--in-progress': this.synchronizing || this.submitted
+        "lux-button": true,
+        solid: true,
+        "absolute-ids-sync-form__submit": true,
+        "absolute-ids-sync-form__submit--finished":
+          this.synchronized && !(this.synchronizing || this.submitted),
+        "absolute-ids-sync-form__submit--in-progress":
+          this.synchronizing || this.submitted
       };
 
       return values;
     }
   },
   methods: {
-    postData: async function () {
-      const response = await fetch(this.synchronizeAction, {
-        method: this.synchronizeMethod,
-        mode: 'cors',
-        cache: 'no-cache',
-        credentials: 'same-origin',
+    postData: async function() {
+      const response = await fetch(this.synchronize.action, {
+        method: this.synchronize.method || "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.token}`
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${this.token}`
         },
-        redirect: 'follow',
-        referrerPolicy: 'no-referrer'
+        redirect: "follow",
+        referrerPolicy: "no-referrer"
       });
 
       return response;
     },
-    onSynchronizeSubmit: async function (event) {
+    onSynchronizeSubmit: async function(event) {
       event.target.disabled = true;
 
       this.submitted = true;
@@ -158,18 +158,18 @@ export default {
 
       event.target.disabled = false;
       if (response.status === 302) {
-        const redirectUrl = response.headers.get('Content-Type');
+        const redirectUrl = response.headers.get("Content-Type");
         window.location.assign(redirectUrl);
       } else {
         window.location.reload();
       }
     }
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
-@import "../../../node_modules/lux-design-system/dist/system/system.utils.scss";
+@import "../../../../node_modules/lux-design-system/dist/system/system.utils.scss";
 
 .lux-data-table {
   border-collapse: collapse;
@@ -309,13 +309,15 @@ export default {
 
     /* On mouse-over, add a grey background color */
     input:not([disabled]):hover::before {
-      box-shadow: 0 1px 5px 0 rgba($color-rich-black, 0.07), 0 0 0 1px tint($color-rich-black, 60%);
+      box-shadow: 0 1px 5px 0 rgba($color-rich-black, 0.07),
+        0 0 0 1px tint($color-rich-black, 60%);
     }
 
     input:checked::before {
       transition: box-shadow 0.2s ease;
       background-color: $color-bleu-de-france;
-      box-shadow: inset 0 0 0 1px $color-bleu-de-france, 0 0 0 1px $color-bleu-de-france;
+      box-shadow: inset 0 0 0 1px $color-bleu-de-france,
+        0 0 0 1px $color-bleu-de-france;
       outline: 0;
     }
 
@@ -345,7 +347,8 @@ export default {
     /*Adding focus styles on the outer-box of the fake checkbox*/
     input[type="checkbox"]:focus::before {
       transition: box-shadow $duration-quickly ease;
-      box-shadow: inset 0 0 0 1px $color-bleu-de-france, 0 0 0 1px $color-bleu-de-france;
+      box-shadow: inset 0 0 0 1px $color-bleu-de-france,
+        0 0 0 1px $color-bleu-de-france;
     }
   }
 
@@ -374,22 +377,3 @@ export default {
   }
 }
 </style>
-
-<docs>
-  ```jsx
-  <data-table caption="Staff Emails" summary-label="Average"
-    :columns="[
-      { 'name': 'id', 'display_name': 'Select Items', 'align': 'center', 'checkbox': true },
-      'name',
-      { 'name': 'email', 'display_name': 'Email Address', 'align': 'center', 'sortable': true },
-      { 'name': 'birthday', 'datatype': 'date', 'sortable': true },
-      { 'name': 'age', 'datatype': 'number', 'summary_value': '33', 'sortable': true }
-    ]"
-    :json-data="[
-      {'id': 1,'name': { value: 'foo', link: 'https://library.princeton.edu'},'email': 'foo@xxx.xxx', 'age': 30, 'birthday': 'March 4, 1989' },
-      {'id': 2,'name': 'bar','email': 'bar@xxx.xxx', 'age': 44, 'birthday': 'October 4, 1975' },
-      {'id': 3,'name': 'fez','email': 'fez@xxx.xxx', 'age': 19, 'birthday': 'May 14, 2000' },
-      {'id': 4,'name': 'hey','email': 'hey@xxx.xxx', 'age': 19 , 'birthday': 'May 5, 2000'},
-    ]"/>
-  ```
-</docs>

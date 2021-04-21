@@ -5,6 +5,7 @@ class ArchivesSpaceCacheRepositoryJob < ApplicationJob
   def perform(repository_uri:)
     repository = source_client.find_repository_by(uri: repository_uri)
     Rails.logger.info("Caching repository #{repository.uri}...")
+
     repository.cache
     Rails.logger.info("Cached repository #{repository.uri}")
   end

@@ -2,6 +2,20 @@
 class ArchivesSpaceCacheJob < ApplicationJob
   queue_as :high
 
+  def perform_now
+    source_client.repositories.each do |repository|
+      repository.resources.each do |resource|
+        ArchivesSpaceCacheResourceJob.perform_now(repository_uri: repository.uri, resource_uri: resource.uri)
+      end
+
+      repository.top_containers.each do |top_container|
+        ArchivesSpaceCacheTopContainerJob.perform_now(repository_uri: repository.uri, top_container_uri: top_container.uri)
+      end
+
+      ArchivesSpaceCacheRepositoryJob.perform_now(repository_uri: repository.uri)
+    end
+  end
+
   def perform
     source_client.repositories.each do |repository|
       repository.top_containers.each do |top_container|
