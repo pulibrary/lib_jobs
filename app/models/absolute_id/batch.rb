@@ -8,25 +8,35 @@ class AbsoluteId::Batch < ApplicationRecord
     def rows
       @rows ||= begin
                   @model.absolute_ids.map do |absolute_id|
-                    [
-                      label: absolute_id.label,
-                      user: user.email,
-                      barcode: absolute_id.barcode.value,
-                      location: absolute_id.location_object,
-                      container_profile: absolute_id.container_profile_object,
-                      repository: absolute_id.repository_object,
-                      resource: absolute_id.resource_object,
-                      container: absolute_id.container_object,
-                      status: AbsoluteId::UNSYNCHRONIZED,
-                      synchronized_at: absolute_id.synchronized_at
-                    ]
+                    row_profile = absolute_id.container_profile.is_a?(Hash) && absolute_id.container_profile.present? ? absolute_id.container_profile_object.name : absolute_id.container_profile
+                    row_location = absolute_id.location.is_a?(Hash) && !absolute_id.location_object.empty? ? absolute_id.location_object.area : absolute_id.location
+                    row_repository = absolute_id.repository.is_a?(Hash) && absolute_id.repository.present? ? absolute_id.repository_object.name : absolute_id.repository
+                    row_resource = absolute_id.resource.is_a?(Hash) && absolute_id.resource.present? ? absolute_id.resource_object.title : absolute_id.resource
+                    row_container = absolute_id.container.is_a?(Hash) && absolute_id.container.present? ? absolute_id.container_object.indicator : absolute_id.container
+
+                    CSV::Row.new(
+                      AbsoluteId::Session::CsvPresenter.headers,
+                      [
+                        absolute_id.id,
+                        absolute_id.locator,
+                        @model.user.email,
+                        absolute_id.barcode.value,
+                        row_location,
+                        row_profile,
+                        row_repository,
+                        row_resource,
+                        row_container,
+                        AbsoluteId::UNSYNCHRONIZED,
+                        absolute_id.synchronized_at
+                      ]
+                    )
                   end
                 end
     end
 
     def table
       @table ||= begin
-                   CSV::Table.new(rows)
+                   CSV::Table.new(rows, headers: AbsoluteId::Session::CsvPresenter.headers)
                  end
     end
   end

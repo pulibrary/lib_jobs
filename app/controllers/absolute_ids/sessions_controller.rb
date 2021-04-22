@@ -14,8 +14,8 @@ class AbsoluteIds::SessionsController < ApplicationController
     @sessions = current_sessions
 
     respond_to do |format|
-      format.html { render :index }
       format.json { render json: @sessions }
+      format.html { render :index }
     end
   end
 
@@ -77,10 +77,12 @@ class AbsoluteIds::SessionsController < ApplicationController
 
   def show
     @session = current_session
+    # I am not certain why this is needed
+    return render json: @session if request.headers["Accept"] == 'application/json'
 
     respond_to do |format|
-      format.csv { render csv: @session.to_csv }
-      format.json { render json: @session }
+      format.json { render json: @session } # I am not certain why this is not called
+      format.csv { render plain: @session.to_csv, content_type: 'text/csv' }
       format.yaml { render yaml: @session.to_yaml }
       format.xml { render xml: @session }
     end

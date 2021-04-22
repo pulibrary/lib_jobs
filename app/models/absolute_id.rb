@@ -211,6 +211,26 @@ class AbsoluteId < ApplicationRecord
     !synchronizing.nil? && synchronizing
   end
 
+  def location
+    parsed_attribute(super)
+  end
+
+  def container_profile
+    parsed_attribute(super)
+  end
+
+  def repository
+    parsed_attribute(super)
+  end
+
+  def resource
+    parsed_attribute(super)
+  end
+
+  def container
+    parsed_attribute(super)
+  end
+
   def attributes
     {
       barcode: barcode.attributes,
@@ -243,6 +263,7 @@ class AbsoluteId < ApplicationRecord
   private
 
   def json_attribute(value)
+    return value if value.is_a?(Hash)
     return {} if value.nil?
 
     output = JSON.parse(value, symbolize_names: true)
@@ -251,6 +272,15 @@ class AbsoluteId < ApplicationRecord
     output
   rescue JSON::ParserError
     {}
+  end
+
+  def parsed_attribute(value)
+    return if value.nil?
+
+    parsed = json_attribute(value)
+    return value if parsed.empty?
+
+    parsed
   end
 
   def location_json
