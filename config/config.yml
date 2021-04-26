@@ -44,6 +44,8 @@ defaults: &defaults
       'Mudd OS open': 'O'
       'Mudd Oversize folder': 'C'
 
+  hmac_secret: <%= ENV["HMAC_SECRET"] || 'secret' %>
+
 development:
   <<: *defaults
 

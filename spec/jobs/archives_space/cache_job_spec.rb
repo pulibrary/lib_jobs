@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe ArchivesSpaceCacheJob do
+RSpec.describe ArchivesSpace::CacheJob do
   with_queue_adapter :inline
   it 'creates AR caches of everything it can' do
     stub_aspace_login

@@ -71,6 +71,10 @@ class ApplicationController < ActionController::Base
     @current_user ||= find_user
   end
 
+  def new_session_path(_scope)
+    new_user_session_path
+  end
+
   private
 
   def current_user_params

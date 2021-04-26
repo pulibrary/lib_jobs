@@ -28,6 +28,7 @@ Metrics/AbcSize:
     - 'app/jobs/absolute_ids/create_batch_job.rb'
     - 'app/jobs/absolute_ids/session_synchronize_job.rb'
     - 'lib/lib_jobs/archives_space/repository.rb'
+    - 'app/jobs/absolute_ids/import_job.rb'
 
 Metrics/BlockLength:
   Exclude:
@@ -52,10 +53,11 @@ Metrics/CyclomaticComplexity:
     - 'app/models/absolute_id.rb'
     - 'app/jobs/absolute_id_import_job.rb'
     - 'app/models/ability.rb'
-    - 'app/values/absolute_ids/absolute_id_xml_serializer.rb'
     - 'lib/lib_jobs/archives_space/repository.rb'
     - 'lib/lib_jobs/archives_space/client.rb'
     - 'app/models/absolute_id/batch.rb'
+    - 'app/jobs/absolute_ids/import_job.rb'
+    - 'app/services/absolute_ids/serializers/absolute_id_xml_serializer.rb'
 
 Metrics/MethodLength:
   Exclude:
@@ -70,9 +72,7 @@ Metrics/MethodLength:
     - 'app/jobs/archives_space_sync_job.rb'
     - 'app/models/absolute_id/batch.rb'
     - 'app/models/absolute_id/session.rb'
-    - 'app/values/absolute_ids/absolute_id_xml_serializer.rb'
     - 'app/values/absolute_ids/barcode.rb'
-    - 'app/values/absolute_ids/barcode_xml_serializer.rb'
     - 'lib/lib_jobs/archives_space/client.rb'
     - 'lib/lib_jobs/archives_space/repository.rb'
     - 'lib/lib_jobs/archives_space/resource_child_object.rb'
@@ -95,6 +95,10 @@ Metrics/MethodLength:
     - 'app/jobs/absolute_ids/create_batch_job.rb'
     - 'app/jobs/absolute_ids/create_model_from_aspace_job.rb'
     - 'app/jobs/absolute_ids/session_synchronize_job.rb'
+    - 'app/jobs/absolute_ids/batch_import_job.rb'
+    - 'app/jobs/absolute_ids/import_job.rb'
+    - 'app/services/absolute_ids/serializers/absolute_id_xml_serializer.rb'
+    - 'app/services/absolute_ids/serializers/barcode_xml_serializer.rb'
 
 Metrics/ModuleLength:
   Exclude:
@@ -107,10 +111,11 @@ Metrics/PerceivedComplexity:
     - 'app/models/absolute_id.rb'
     - 'app/jobs/absolute_id_import_job.rb'
     - 'app/models/ability.rb'
-    - 'app/values/absolute_ids/absolute_id_xml_serializer.rb'
     - 'lib/lib_jobs/archives_space/client.rb'
     - 'lib/lib_jobs/archives_space/repository.rb'
     - 'app/models/absolute_id/batch.rb'
+    - 'app/jobs/absolute_ids/import_job.rb'
+    - 'app/services/absolute_ids/serializers/absolute_id_xml_serializer.rb'
 
 RSpec/ExampleLength:
   Max: 100
