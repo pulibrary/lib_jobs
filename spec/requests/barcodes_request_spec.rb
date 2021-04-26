@@ -76,7 +76,7 @@ RSpec.describe "Barcodes", type: :request do
     end
 
     xit "renders an existing absolute identifier" do
-      get "/absolute-ids/#{absolute_id.value}"
+      get "/barcodes/#{absolute_id.value}"
       # Pending
     end
 
@@ -92,7 +92,7 @@ RSpec.describe "Barcodes", type: :request do
       end
 
       it "renders an existing absolute identifier" do
-        get "/absolute-ids/#{absolute_id.value}", headers: headers
+        get "/barcodes/#{absolute_id.value}", headers: headers
 
         expect(response.content_type).to eq("application/json")
         expect(response.body).not_to be_empty
@@ -122,7 +122,7 @@ RSpec.describe "Barcodes", type: :request do
       end
 
       it "renders an existing absolute identifier" do
-        get "/absolute-ids/#{absolute_id.value}", headers: headers
+        get "/barcodes/#{absolute_id.value}", headers: headers
 
         expect(response.content_type).to eq("application/xml")
         expect(response.body).not_to be_empty
@@ -175,7 +175,7 @@ RSpec.describe "Barcodes", type: :request do
     end
   end
 
-  describe "GET /absolute-ids/" do
+  describe "GET /barcodes/" do
     let(:absolute_id1) do
       AbsoluteId.generate
     end
@@ -196,7 +196,7 @@ RSpec.describe "Barcodes", type: :request do
     end
 
     it "renders all the absolute identifiers" do
-      get "/absolute-ids/"
+      get "/barcodes/"
       # Pending
     end
 
@@ -223,7 +223,7 @@ RSpec.describe "Barcodes", type: :request do
       end
 
       it "renders all the absolute identifiers" do
-        get "/absolute-ids/", headers: headers, params: params
+        get "/barcodes/", headers: headers, params: params
 
         expect(response.content_type).to eq("application/json")
         expect(response.body).not_to be_empty

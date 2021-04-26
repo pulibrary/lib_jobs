@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe AbsoluteIdBatchImportJob, type: :job do
+RSpec.describe AbsoluteIds::BatchImportJob, type: :job do
   let(:barcode_entries) do
     [
       ["ID", "B", "Stamp"],

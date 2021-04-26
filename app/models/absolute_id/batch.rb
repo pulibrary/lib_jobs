@@ -93,7 +93,7 @@ class AbsoluteId::Batch < ApplicationRecord
   belongs_to :user, foreign_key: "user_id"
 
   def self.xml_serializer
-    AbsoluteIds::BatchXmlSerializer
+    AbsoluteIds::Serializers::BatchXmlSerializer
   end
 
   # Ensures that the AbIDs are ordered

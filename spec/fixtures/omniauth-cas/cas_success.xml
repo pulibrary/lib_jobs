@@ -1,0 +1,12 @@
+<cas:serviceResponse xmlns:cas='https://fed.princeton.edu/cas'>
+  <cas:authenticationSuccess>
+    <cas:campusid>testuser</cas:campusid>
+    <cas:cn>testuser</cas:cn>
+    <cas:displayname>T. User</cas:displayname>
+    <cas:givenname>Test</cas:givenname>
+    <cas:mail>testuser@princeton.edu</cas:mail>
+    <cas:sn>User</cas:sn>
+    <cas:uid>testuser</cas:uid>
+    <cas:universityid>000000001</cas:universityid>
+  </cas:authenticationSuccess>
+</cas:serviceResponse>

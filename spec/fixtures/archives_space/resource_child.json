@@ -1,0 +1,114 @@
+{
+  "lock_version": 1,
+  "title": "AbID Testing Resource #1",
+  "publish": false,
+  "restrictions": false,
+  "ead_id": "ABID001",
+  "created_by": "wrc3",
+  "last_modified_by": "wrc3",
+  "create_time": "2021-02-25T14:26:18Z",
+  "system_mtime": "2021-03-12T19:14:43Z",
+  "user_mtime": "2021-02-25T14:38:08Z",
+  "suppressed": false,
+  "is_slug_auto": false,
+  "id_0": "ABID001",
+  "level": "collection",
+  "finding_aid_language": "eng",
+  "finding_aid_script": "Latn",
+  "jsonmodel_type": "resource",
+  "external_ids": [],
+  "subjects": [],
+  "linked_events": [],
+  "extents": [{
+    "lock_version": 0,
+    "number": "25",
+    "created_by": "wrc3",
+    "last_modified_by": "wrc3",
+    "create_time": "2021-02-25T14:38:36Z",
+    "system_mtime": "2021-02-25T14:38:36Z",
+    "user_mtime": "2021-02-25T14:38:36Z",
+    "portion": "whole",
+    "extent_type": "boxes",
+    "jsonmodel_type": "extent"
+  }],
+  "lang_materials": [{
+    "lock_version": 0,
+    "created_by": "wrc3",
+    "last_modified_by": "wrc3",
+    "create_time": "2021-02-25T14:38:36Z",
+    "system_mtime": "2021-02-25T14:38:36Z",
+    "user_mtime": "2021-02-25T14:38:36Z",
+    "jsonmodel_type": "lang_material",
+    "notes": [],
+    "language_and_script": {
+      "lock_version": 0,
+      "created_by": "wrc3",
+      "last_modified_by": "wrc3",
+      "create_time": "2021-02-25T14:38:36Z",
+      "system_mtime": "2021-02-25T14:38:36Z",
+      "user_mtime": "2021-02-25T14:38:36Z",
+      "language": "eng",
+      "jsonmodel_type": "language_and_script"
+    }
+  }],
+  "dates": [{
+    "lock_version": 0,
+    "expression": "February 2021",
+    "begin": "2021-02",
+    "created_by": "wrc3",
+    "last_modified_by": "wrc3",
+    "create_time": "2021-02-25T14:38:36Z",
+    "system_mtime": "2021-02-25T14:38:36Z",
+    "user_mtime": "2021-02-25T14:38:36Z",
+    "date_type": "single",
+    "label": "creation",
+    "era": "ce",
+    "calendar": "gregorian",
+    "jsonmodel_type": "date"
+  }],
+  "external_documents": [],
+  "rights_statements": [],
+  "linked_agents": [],
+  "revision_statements": [],
+  "instances": [{
+    "jsonmodel_type": "instance",
+    "is_representative": false,
+    "instance_type": "mixed_materials",
+    "sub_container": {
+      "jsonmodel_type": "sub_container",
+      "top_container": {
+        "ref": "/repositories/2/top_containers/5"
+      },
+      "type_2": "reel",
+      "indicator_2": "874NQ177516",
+      "type_3": "folder",
+      "indicator_3": "LUL337435"
+    }
+  }],
+  "deaccessions": [],
+  "related_accessions": [],
+  "classifications": [],
+  "notes": [],
+  "uri": "/repositories/4/resources/4188",
+  "repository": {
+    "ref": "/repositories/4"
+  },
+  "user_defined": {
+    "lock_version": 0,
+    "boolean_1": false,
+    "boolean_2": false,
+    "boolean_3": false,
+    "created_by": "wrc3",
+    "last_modified_by": "wrc3",
+    "create_time": "2021-02-25T14:38:36Z",
+    "system_mtime": "2021-02-25T14:38:36Z",
+    "user_mtime": "2021-02-25T14:38:36Z",
+    "jsonmodel_type": "user_defined",
+    "repository": {
+      "ref": "/repositories/4"
+    }
+  },
+  "tree": {
+    "ref": "/repositories/4/resources/4188/tree"
+  }
+}

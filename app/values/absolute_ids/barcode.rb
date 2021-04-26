@@ -1,58 +1,6 @@
 # frozen_string_literal: true
 module AbsoluteIds
   class Barcode
-    attr_reader :value, :check_digit
-
-    def initialize(value)
-      raise InvalidBarcodeError, "Barcode values cannot be blank" if value.blank?
-
-      @value = value
-    end
-
-    def +(other)
-      new_integer = integer + other
-      new_value = format("%013d", new_integer)
-      @value = new_value
-      self
-    end
-
-    def check_digit=(new_check_digit)
-      current_digits = if @check_digit.nil?
-                         digits
-                       else
-                         digits[0..-1]
-                       end
-
-      @check_digit = new_check_digit
-
-      new_digits = current_digits + [new_check_digit]
-      new_value = new_digits.map(&:to_s).join
-      @value = new_value
-    end
-
-    # @todo This needs to be fixed
-    def valid?
-      @value.present? && digits.length == 13
-      false
-    end
-
-    def digits
-      return if elements.empty?
-
-      elements.map(&:to_i)
-    end
-
-    def integer
-      output = elements.join.to_s
-      output.to_i
-    end
-    alias to_i integer
-
-    def self.parse_digits(code)
-      parsed = code.scan(/\d/)
-      parsed.map(&:to_i)
-    end
-
     # Luhn algorithm implementation
     # @todo This needs to be fixed
     def self.generate_check_digit(code)
@@ -74,12 +22,38 @@ module AbsoluteIds
       remainder.zero? ? 0 : 10 - remainder
     end
 
-    def self.build(code)
-      value = code[0..13]
-      built = new(value)
-      built.check_digit = code.last.to_i
-      built
+    attr_reader :value, :check_digit
+    def initialize(value)
+      raise InvalidBarcodeError, "Barcode values cannot be blank" if value.blank?
+
+      @value = value
     end
+
+    def +(other)
+      new_integer = integer + other
+      new_value = format("%013d", new_integer)
+      @value = new_value
+      self
+    end
+
+    def digits
+      return if elements.empty?
+
+      elements.map(&:to_i)
+    end
+
+    # @todo This needs to be fixed
+    # This should follow something similar to:
+    #   @value.present? && digits.length == 13
+    def valid?
+      false
+    end
+
+    def integer
+      output = elements.join.to_s
+      output.to_i
+    end
+    alias to_i integer
 
     def elements
       return [] if @value.nil?
