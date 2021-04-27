@@ -11,7 +11,7 @@ RSpec.describe 'Absolute ID Generation' do
     end
   end
 
-  context 'when logged in', js: true do
+  context 'when logged in', js: true, in_browser: true do
     let(:user) { FactoryBot.create(:user) }
 
     it 'can create an absolute ID session' do
@@ -103,10 +103,6 @@ RSpec.describe 'Absolute ID Generation' do
 
       click_link "Download Report"
 
-      # This is broken. I can't figure out how CSV parsing is supposed to work
-      # now, but it goes through several layers and it seems like the CSV API is
-      # maybe not being used right. Will have to talk to product owners about if
-      # their expectations changed here.
       wait_for_download
 
       report = CSV.parse(download_content, headers: true)
