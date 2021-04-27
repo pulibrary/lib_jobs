@@ -15,4 +15,7 @@ RSpec.configure do |config|
   config.before(:each, type: :system, js: true, in_browser: true) do
     driven_by(:selenium_chrome)
   end
+  config.after(:each, type: :system, js: true) do
+    clear_downloads
+  end
 end

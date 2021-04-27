@@ -107,12 +107,14 @@ RSpec.describe 'Absolute ID Generation' do
       # now, but it goes through several layers and it seems like the CSV API is
       # maybe not being used right. Will have to talk to product owners about if
       # their expectations changed here.
-      csv = CSV.new(page.text, headers: true)
-      first_row = csv.first.to_h
+      wait_for_download
+
+      report = CSV.parse(download_content, headers: true)
+      first_row = report.first.to_h
       expect(first_row["Box Number"]).to eq "22"
-      expect(first_row["abID"]).to eq "B-000001"
+      expect(first_row["AbID"]).to eq "B-000001"
       expect(first_row["Barcode"]).to eq "00000000000000"
-      expect(first_row.keys.length).to eq 3
+      expect(report.length).to eq 3
     end
   end
 end

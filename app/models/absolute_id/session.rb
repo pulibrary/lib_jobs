@@ -7,18 +7,23 @@ class AbsoluteId::Session < ApplicationRecord
 
   class CsvPresenter
     def self.headers
-      ["ID", "User", "Barcode", "Location", "Container Profile", "Repository", "Call Number", "Box Number"]
+      [
+        "ID",
+        "AbID",
+        "User",
+        "Barcode",
+        "Location",
+        "Container Profile",
+        "Repository",
+        "Call Number",
+        "Box Number",
+        "Status",
+        "Last Synchronized At"
+      ]
     end
 
     def initialize(model)
       @model = model
-    end
-
-    def rows
-      @rows ||= begin
-                  batch_csv_tables = batches.map(&:csv_table)
-                  batch_csv_tables.map(&:to_a).flatten
-                end
     end
 
     def to_s
@@ -46,9 +51,28 @@ class AbsoluteId::Session < ApplicationRecord
       end
     end
 
+    def rows
+      @rows ||= begin
+                  batch_csv_tables = @model.batches.map(&:csv_table)
+
+                  session_rows = batch_csv_tables.to_a.map do |table|
+                    table.to_a[1..-1]
+                  end
+
+                  output = []
+                  session_rows.each do |batch_rows|
+                    batch_rows.each do |batch_row|
+                      output << CSV::Row.new(self.class.headers, batch_row)
+                    end
+                  end
+
+                  output
+                end
+    end
+
     def table
       @table ||= begin
-                   CSV::Table.new(rows)
+                   CSV::Table.new(rows, headers: self.class.headers)
                  end
     end
   end
@@ -128,6 +152,8 @@ class AbsoluteId::Session < ApplicationRecord
 
   def attributes
     {
+      id: id,
+      label: label,
       batches: batches.to_a.map(&:attributes)
     }
   end

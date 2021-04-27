@@ -4,8 +4,6 @@ require 'rails_helper'
 
 RSpec.describe "AbsoluteIds", type: :request do
   let(:barcode) { '32101103191142' }
-  let(:repository_id) { '4' }
-  let(:resource_id) { 'ABID001' }
   let(:container_profile) do
     {
       create_time: "2021-01-21T20:10:59Z",
@@ -37,6 +35,8 @@ RSpec.describe "AbsoluteIds", type: :request do
       temporary: nil
     }
   end
+  let(:repository_id) { '4' }
+  let(:resource_id) { 'ABID001' }
   let(:resource_fixture_path) do
     Rails.root.join('spec', 'fixtures', 'archives_space', 'resource.json')
   end
@@ -58,10 +58,19 @@ RSpec.describe "AbsoluteIds", type: :request do
       repo_code: "univarchives"
     }
   end
+  let(:container_fixture_path) do
+    Rails.root.join('spec', 'fixtures', 'archives_space', 'top_container.json')
+  end
+  let(:container_fixture) do
+    File.read(container_fixture_path)
+  end
+  let(:container) do
+    JSON.parse(container_fixture)
+  end
   let(:model_attributes) do
     {
       barcode: barcode,
-      container: "1",
+      container: container.to_json,
       location: location.to_json,
       container_profile: container_profile.to_json,
       repository: repository.to_json,
@@ -128,47 +137,51 @@ RSpec.describe "AbsoluteIds", type: :request do
         xml_document = Nokogiri::XML(response.body)
         expect(xml_document.root.name).to eq("absolute_id")
         children = xml_document.root.elements
-        expect(children.length).to eq(10)
+        expect(children.length).to eq(11)
 
         expect(children[0].name).to eq("barcode")
         expect(children[0]['type']).to be nil
         expect(children[0].content).not_to be_empty
 
-        expect(children[1].name).to eq("container_profile")
+        expect(children[1].name).to eq("container")
         expect(children[1]['type']).to be nil
         expect(children[1].content).not_to be_empty
 
-        expect(children[2].name).to eq("created_at")
-        expect(children[2]['type']).to eq("time")
+        expect(children[2].name).to eq("container_profile")
+        expect(children[2]['type']).to be nil
         expect(children[2].content).not_to be_empty
 
-        expect(children[3].name).to eq("id")
-        expect(children[3]['type']).to eq "integer"
-        expect(children[3].content).to eq("0")
+        expect(children[3].name).to eq("created_at")
+        expect(children[3]['type']).to eq("time")
+        expect(children[3].content).not_to be_empty
 
-        expect(children[4].name).to eq("location")
-        expect(children[4]['type']).to be nil
-        expect(children[4].content).not_to be_empty
+        expect(children[4].name).to eq("id")
+        expect(children[4]['type']).to eq "integer"
+        expect(children[4].content).to eq("0")
 
-        expect(children[5].name).to eq("size")
-        expect(children[5]['type']).to eq "string"
-        expect(children[5].content).to eq("P")
+        expect(children[5].name).to eq("location")
+        expect(children[5]['type']).to be nil
+        expect(children[5].content).not_to be_empty
 
-        expect(children[6].name).to eq("repository")
-        expect(children[6]['type']).to be nil
-        expect(children[6].content).not_to be_empty
+        expect(children[6].name).to eq("size")
+        expect(children[6]['type']).to eq "string"
+        expect(children[6].content).to eq("P")
 
-        expect(children[7].name).to eq("resource")
+        expect(children[7].name).to eq("repository")
         expect(children[7]['type']).to be nil
         expect(children[7].content).not_to be_empty
 
-        expect(children[8].name).to eq("synchronize_status")
-        expect(children[8]['type']).to eq "string"
-        expect(children[8].content).to eq("never synchronized")
+        expect(children[8].name).to eq("resource")
+        expect(children[8]['type']).to be nil
+        expect(children[8].content).not_to be_empty
 
-        expect(children[9].name).to eq("updated_at")
-        expect(children[9]['type']).to eq("time")
-        expect(children[9].content).not_to be_empty
+        expect(children[9].name).to eq("synchronize_status")
+        expect(children[9]['type']).to eq "string"
+        expect(children[9].content).to eq("never synchronized")
+
+        expect(children[10].name).to eq("updated_at")
+        expect(children[10]['type']).to eq("time")
+        expect(children[10].content).not_to be_empty
       end
     end
   end
