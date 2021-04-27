@@ -11,7 +11,7 @@ RSpec.describe 'Absolute ID Generation' do
     end
   end
 
-  context 'when logged in', js: true, in_browser: true do
+  context 'when logged in', js: true do
     let(:user) { FactoryBot.create(:user) }
 
     it 'can create an absolute ID session' do
