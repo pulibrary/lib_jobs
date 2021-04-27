@@ -104,8 +104,6 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.7)
-    crack (0.4.5)
-      rexml
     connection_pool (2.2.3)
     crack (0.4.5)
       rexml
