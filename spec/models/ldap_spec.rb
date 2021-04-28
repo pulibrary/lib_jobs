@@ -17,8 +17,8 @@ RSpec.describe Ldap, type: :model do
   # rubocop:disable RSpec/ExampleLength
   describe '#find_by_netid' do
     it 'parses a valid ldap response' do
+      allow(described_class).to receive(:default_connection).and_return(ldap_connection)
       allow(ldap_connection).to receive(:search).with(filter: Net::LDAP::Filter.eq("uid", 'abc123')).and_return(valid_ldap_response)
-      allow(Net::LDAP).to receive(:new).and_return(ldap_connection)
       expect(data[:netid]).to eq('abc123')
       expect(data[:department]).to eq('Library Information Technology')
       expect(data[:address]).to eq('B-1H-1 Firestone Library')
