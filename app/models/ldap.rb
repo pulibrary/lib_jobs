@@ -31,15 +31,18 @@ class Ldap
     end
 
     def default_connection
-      Net::LDAP.new(
-        host: 'ldap.princeton.edu',
-        base: 'o=Princeton University,c=US',
-        port: 636,
-        encryption: {
-          method: :simple_tls,
-          tls_options: OpenSSL::SSL::SSLContext::DEFAULT_PARAMS
-        }
-      )
+      @default_connection ||=
+        begin
+          Net::LDAP.new(
+            host: 'ldap.princeton.edu',
+            base: 'o=Princeton University,c=US',
+            port: 636,
+            encryption: {
+              method: :simple_tls,
+              tls_options: OpenSSL::SSL::SSLContext::DEFAULT_PARAMS
+            }
+          )
+        end
     end
   end
 end
