@@ -29,6 +29,9 @@ html {
     &__content {
       margin-left: 2.1rem;
       margin-right: 2.1rem;
+
+      display: inline-block;
+      min-height: 100%;
     }
 
     &__footer {

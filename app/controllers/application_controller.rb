@@ -50,6 +50,11 @@ class ApplicationController < ActionController::Base
         component: 'Absolute IDs',
         href: absolute_ids_path
       },
+      {
+        name: 'Barcodes',
+        component: 'Barcodes',
+        href: barcodes_path
+      },
       header_user_menu_item
     ]
   end
@@ -89,5 +94,21 @@ class ApplicationController < ActionController::Base
 
   def find_user
     User.find_by(id: current_user_id, token: current_user_token)
+  end
+
+  def cache_expiry
+    1.hour
+  end
+
+  def current_client
+    @current_client ||= begin
+                          source_client = LibJobs::ArchivesSpace::Client.source
+                          source_client.login
+                          source_client
+                        end
+  end
+
+  def json_request?
+    request.content_type == "application/json" && request.path_parameters.key?(:format) && request.path_parameters[:format] != 'json'
   end
 end

@@ -1,0 +1,48 @@
+[
+    {
+        "agent_representation": {
+            "ref": "/agents/corporate_entities/2"
+        },
+        "create_time": "2016-06-27T14:10:41Z",
+        "created_by": "admin",
+        "display_string": "Public Policy Papers (publicpolicy)",
+        "is_slug_auto": false,
+        "jsonmodel_type": "repository",
+        "last_modified_by": "admin",
+        "lock_version": 2,
+        "name": "Public Policy Papers",
+        "oai_is_disabled": false,
+        "oai_sets_available": "[\"888\",\"889\",\"890\",\"891\",\"892\",\"893\",\"894\",\"895\",\"896\",\"897\",\"898\"]",
+        "parent_institution_name": "Princeton University Library.  Department of Rare Books and Special Collections",
+        "publish": true,
+        "repo_code": "publicpolicy",
+        "slug": "public_policy_papers_1",
+        "system_mtime": "2021-01-22T22:19:27Z",
+        "uri": "/repositories/3",
+        "url": "http://www.princeton.edu/mudd",
+        "user_mtime": "2021-01-22T22:19:27Z"
+    },
+    {
+        "agent_representation": {
+            "ref": "/agents/corporate_entities/3"
+        },
+        "create_time": "2016-06-27T14:10:42Z",
+        "created_by": "admin",
+        "display_string": "University Archives (univarchives)",
+        "is_slug_auto": false,
+        "jsonmodel_type": "repository",
+        "last_modified_by": "admin",
+        "lock_version": 1,
+        "name": "University Archives",
+        "oai_is_disabled": false,
+        "oai_sets_available": "[\"888\",\"889\",\"890\",\"891\",\"892\",\"893\",\"894\",\"895\",\"896\",\"897\",\"898\"]",
+        "parent_institution_name": "Princeton University Library.  Department of Rare Books and Special Collections.",
+        "publish": true,
+        "repo_code": "univarchives",
+        "slug": "princeton_university_archives_1",
+        "system_mtime": "2021-01-22T22:20:30Z",
+        "uri": "/repositories/4",
+        "url": "http://www.princeton.edu/mudd",
+        "user_mtime": "2021-01-22T22:20:30Z"
+    }
+]

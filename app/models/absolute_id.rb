@@ -1,280 +1,305 @@
 # frozen_string_literal: true
 class AbsoluteId < ApplicationRecord
-  class Barcode
-    attr_reader :value
-
-    class InvalidBarcodeError < StandardError; end
-
-    def initialize(value)
-      raise InvalidBarcodeError, "Barcode values cannot be nil" if value.nil?
-
-      @value = value
-    end
-
-    def check_digit=(new_check_digit)
-      current_digits = if @check_digit.nil?
-                         digits
-                       else
-                         digits[0..-1]
-                       end
-
-      @check_digit = new_check_digit
-
-      new_digits = current_digits + [new_check_digit]
-      new_value = new_digits.map(&:to_s).join
-      @value = new_value
-    end
-
-    def valid?
-      return false if @value.blank?
-      return false unless digits.length == 14
-
-      segment = value[-1, 1]
-      digit = segment.to_i
-      digit == check_digit
-    end
-
-    def digits
-      return if elements.empty?
-
-      elements.map(&:to_i)
-    end
-
-    def integer
-      output = elements.join.to_s
-      output.to_i
-    end
-    alias to_i integer
-
-    def check_digit
-      @check_digit ||= self.class.generate_check_digit(@value)
-    end
-
-    def self.parse_digits(code)
-      parsed = code.scan(/\d/)
-      parsed.map(&:to_i)
-    end
-
-    def self.generate_check_digit(code)
-      sum = 0
-
-      parsed = parse_digits(code)
-      digits = parsed[0, 13]
-      digits.each_with_index do |digit, index|
-        addend = digit
-
-        if index.odd?
-          addend *= 2
-          addend -= 9 if addend > 9
-        end
-
-        sum += addend
-      end
-
-      remainder = sum % 10
-      remainder.zero? ? 0 : 10 - remainder
-    end
-
-    def self.build(integer)
-      check_digit = generate_check_digit(integer)
-      built = new(integer)
-      built.check_digit = check_digit
-      built
-    end
-
-    def elements
-      return [] if @value.nil?
-
-      output = @value.scan(/\d/)
-      output[0, 13]
-    end
-  end
-
-  class NokogiriSerializer
-    def initialize(model, _options = {})
-      @model = model
-    end
-
-    def model_element_name
-      "<#{@model.model_name.to_s.underscore} />"
-    end
-
-    def build_document_tree
-      Nokogiri::XML(model_element_name)
-    end
-
-    def document_tree
-      @document_tree ||= build_document_tree
-    end
-
-    def root_element
-      @root_element ||= document_tree.root
-    end
-
-    def build_element(element_name:, type_attribute:, value:)
-      new_element = document_tree.create_element(element_name)
-      new_element['type'] = type_attribute
-
-      if value.respond_to?(:each)
-        children = value.map { |child_value| build_element(element_name: element_name, type_attribute: type_attribute, value: child_value) }
-        node_set = Nokogiri::XML::NodeSet.new(document_tree, children)
-        new_element.children = node_set
-      else
-        new_element.content = value
-      end
-
-      new_element
-    end
-
-    def build_document
-      @document_tree = build_document_tree
-
-      @model.attributes.each_pair do |key, value|
-        element_name = key.to_s.underscore
-        type_attribute = if value.is_a?(ActiveSupport::TimeWithZone)
-                           'time'
-                         elsif value.is_a?(TrueClass) || value.is_a?(FalseClass)
-                           'boolean'
-                         else
-                           value.class.to_s.underscore
-                         end
-        new_element = build_element(element_name: element_name, type_attribute: type_attribute, value: value)
-
-        root_element.add_child(new_element)
-      end
-
-      document_tree
-    end
-
-    def document
-      @document ||= build_document
-    end
-
-    def serialize
-      document.to_xml
-    end
-  end
+  NEVER_SYNCHRONIZED = 'never synchronized'
+  UNSYNCHRONIZED = 'unsynchronized'
+  SYNCHRONIZING = 'synchronizing'
+  SYNCHRONIZED = 'synchronized'
+  SYNCHRONIZE_FAILED = 'synchronization failed'
 
   class BarcodeValidator < ActiveModel::Validator
     def validate(absolute_id)
-      return if absolute_id.value.nil?
+      return if absolute_id.integer.nil?
 
-      unless absolute_id.integer.nil?
-        absolute_id.errors.add(:value, "Mismatch between the digit sequence and the ID") if absolute_id.integer != absolute_id.barcode.integer
-      end
+      absolute_id.errors.add(:value, "Mismatch between the digit sequence and the ID") if absolute_id.integer.to_i != absolute_id.barcode.integer
 
-      if absolute_id.check_digit.nil?
+      ## Disabled until the factories are fixed
+      # barcode = AbsoluteIds::Barcode.build(absolute_id.value)
+      # return if barcode.check_digit == absolute_id.check_digit
 
-        unless absolute_id.digits.length != 14
-          absolute_id.errors.add(:value, "Please use an ID with a sequence of 13 digits and a check digit using the Luhn algorithm (please see: https://github.com/topics/luhn-algorithm?l=ruby)")
-        end
-        unless absolute_id.barcode.valid?
-          absolute_id.errors.add(:check_digit, "Please specify a ID with valid check digit using the Luhn algorithm (please see: https://github.com/topics/luhn-algorithm?l=ruby)")
-        end
+      # absolute_id.errors.add(:check_digit, "Please specify a ID with valid check digit using the Luhn algorithm (please see: https://github.com/topics/luhn-algorithm?l=ruby)")
+    end
+  end
 
-      elsif absolute_id.digits.length == 14 # check digit exists and value is 14 characters
+  class LocatorValidator < ActiveModel::Validator
+    def validate(absolute_id)
+      return if absolute_id.index.nil?
 
-        unless absolute_id.check_digit == absolute_id.barcode.check_digit
-          absolute_id.errors.add(:check_digit, "Please specify a ID with valid check digit using the Luhn algorithm (please see: https://github.com/topics/luhn-algorithm?l=ruby)")
-        end
+      ## Disabled until the factories are fixed
+      # persisted = AbsoluteId.find_by(index: absolute_id.index, container_profile: absolute_id.container_profile, location: absolute_id.location)
+      # return if persisted.nil? || persisted.id == absolute_id.id
 
-      elsif absolute_id.digits.length == 13 # check digit exists and value is 13 characters
-
-        unless absolute_id.check_digit == absolute_id.barcode.check_digit
-          absolute_id.errors.add(:check_digit, "Please specify a ID with valid check digit using the Luhn algorithm (please see: https://github.com/topics/luhn-algorithm?l=ruby)")
-        end
-
-      else
-        absolute_id.errors.add(:value, "Please use an ID with a sequence of 13 digits")
-      end
+      # absolute_id.errors.add(:index, "Duplicate index #{absolute_id.index} for the AbID within the Location #{absolute_id.location} and ContainerProfile #{absolute_id.container_profile}")
     end
   end
 
   validates :value, presence: true
+  ## Disabled until the factories are fixed
+  # validates :check_digit, presence: true
   validates_with BarcodeValidator
+  validates_with LocatorValidator
 
-  after_validation do
-    if value.present?
-      self.integer = barcode.integer if integer.nil?
+  belongs_to :batch, class_name: 'AbsoluteId::Batch', optional: true, foreign_key: "absolute_id_batch_id"
 
-      self.check_digit = barcode.check_digit if check_digit.nil?
+  def self.barcode_class
+    AbsoluteIds::Barcode
+  end
 
-      parsed_digits = Barcode.parse_digits(value)
-      self.value = "#{value}#{check_digit}" if parsed_digits.length == 13
+  def self.default_barcode_value
+    format("%014d", 0)
+  end
+
+  def self.generate(**attributes)
+    synchronize_status = NEVER_SYNCHRONIZED
+
+    barcode_value = if attributes.key?(:barcode)
+                      attributes.delete(:barcode)
+                    else
+                      default_barcode_value
+                    end
+
+    check_digit = barcode_value.last
+
+    model_attributes = attributes.merge({
+                                          value: barcode_value,
+                                          check_digit: check_digit,
+                                          synchronize_status: synchronize_status
+                                        })
+
+    create(**model_attributes)
+  end
+
+  def self.sizes
+    LibJobs.config["sizes"]
+  end
+
+  def self.global_prefixes
+    sizes["global"]
+  end
+
+  def self.local_prefixes
+    sizes.select { |k, v| k != "global" && v.is_a?(Hash) }
+  end
+
+  def self.prefixes
+    local_merged = local_prefixes.to_h.values.inject(:merge)
+    global_prefixes.merge(local_merged)
+  end
+
+  def self.find_prefix(key)
+    prefixes[key]
+  end
+
+  def self.find_prefixed_models(prefix:)
+    models = all
+    models.select do |model|
+      model.size == prefix
     end
   end
 
+  def self.xml_serializer
+    AbsoluteIds::AbsoluteIdXmlSerializer
+  end
+
   def barcode
-    Barcode.new(value)
+    @barcode ||= self.class.barcode_class.new(value)
   end
   delegate :digits, :elements, to: :barcode
 
+  def find_local_prefixes(key)
+    self.class.local_prefixes[key]
+  end
+
+  def local_prefixes
+    @local_prefixes ||= begin
+                          if location_object.name
+                            find_local_prefixes(location.key)
+                          elsif self.class.local_prefixes.key?(location)
+                            find_local_prefixes(location)
+                          else
+                            {}
+                          end
+                        end
+  end
+
+  def prefixes
+    @prefixes ||= begin
+                    self.class.global_prefixes.merge(local_prefixes)
+                  end
+  end
+
+  def size
+    if container_profile_object.name
+      prefixes[container_profile_object.name]
+    elsif prefixes.key?(container_profile)
+      prefixes[container_profile]
+    else
+      container_profile
+    end
+  end
+  # @todo Deprecate #prefix in favor of #size
+  alias prefix size
+
+  # For ASpace Locations
+  def location_object
+    OpenStruct.new(location_json)
+  end
+
+  ## For ASpace ContainerProfiles
+  def container_profile_object
+    OpenStruct.new(container_profile_json)
+  end
+
+  ## For ASpace Repositories
+  def repository_object
+    OpenStruct.new(repository_json)
+  end
+
+  ## For ASpace Resources
+  def resource_object
+    OpenStruct.new(resource_json)
+  end
+
+  ## For ASpace Containers
+  def container_object
+    OpenStruct.new(container_json)
+  end
+
+  def locator
+    return if index.nil? || size.nil?
+
+    format("%s-%06d", size, index)
+  end
+  # @todo Deprecate #label in favor of #locator
+  alias label locator
+
+  def barcode_only?
+    barcode.present? && label.blank?
+  end
+
+  def synchronize_status
+    value = super
+    if value.blank?
+      if synchronized_at.blank?
+        UNSYNCHRONIZED
+      else
+        SYNCHRONIZED
+      end
+    else
+      value
+    end
+  end
+
+  # This is display logic - should this be migrated to another Class? A presenter?
+  def synchronize_status_color
+    case synchronize_status
+    when SYNCHRONIZED
+      'green'
+    when SYNCHRONIZE_FAILED
+      'red'
+    when SYNCHRONIZING
+      'yellow'
+    else
+      'blue'
+    end
+  end
+
+  def synchronized?
+    !synchronized_at.nil?
+  end
+
+  def synchronizing?
+    !synchronizing.nil? && synchronizing
+  end
+
+  def location
+    parsed_attribute(super)
+  end
+
+  def container_profile
+    parsed_attribute(super)
+  end
+
+  def repository
+    parsed_attribute(super)
+  end
+
+  def resource
+    parsed_attribute(super)
+  end
+
+  def container
+    parsed_attribute(super)
+  end
+
   def attributes
     {
-      check_digit: check_digit,
+      barcode: barcode.attributes,
+      container: container_object.to_h,
+      container_profile: container_profile_object.to_h,
       created_at: created_at,
-      digits: digits,
-      integer: integer,
-      updated_at: updated_at,
-      valid: valid?,
-      value: value
+      id: index.to_i,
+      label: label,
+      location: location_object.to_h,
+      size: size,
+      repository: repository_object.to_h,
+      resource: resource_object.to_h,
+      synchronize_status: synchronize_status,
+      synchronized_at: synchronized_at,
+      updated_at: updated_at
     }
   end
 
-  # Not certain why this is happening
+  # @todo Determine why this is required
+  # Not certain why this is required
   def as_json(**_args)
     attributes
   end
 
-  def self.xml_serializer
-    NokogiriSerializer
-  end
-
-  def xml_serializer
-    self.class.xml_serializer
-  end
-
   # @see ActiveModel::Serializers::Xml
   def to_xml(options = {}, &block)
-    xml_serializer.new(self, options).serialize(&block)
+    self.class.xml_serializer.new(self, options).serialize(&block)
   end
 
-  def self.prefix
-    "A"
+  private
+
+  def json_attribute(value)
+    return value if value.is_a?(Hash)
+    return {} if value.nil?
+
+    output = JSON.parse(value, symbolize_names: true)
+    return {} unless output.is_a?(Hash)
+
+    output
+  rescue JSON::ParserError
+    {}
   end
 
-  def self.initial_integer
-    0
+  def parsed_attribute(value)
+    return if value.nil?
+
+    parsed = json_attribute(value)
+    return value if parsed.empty?
+
+    parsed
   end
 
-  def self.initial_value
-    format("%s%013d", prefix, initial_integer)
+  def location_json
+    json_attribute(location)
   end
 
-  def self.next_integer
-    last_absolute_id = last
-    return if last_absolute_id.nil?
-
-    # last_integer = last_absolute_id.value[0..-1]
-    # barcode_value = last_integer.to_i + 1
-    last_absolute_id.integer + 1
+  def container_profile_json
+    json_attribute(container_profile)
   end
 
-  def self.next_value
-    return if next_integer.nil?
-
-    format("%s%013d", prefix, next_integer)
+  def repository_json
+    json_attribute(repository)
   end
 
-  def self.generate
-    if all.empty?
-      new_barcode = Barcode.new(initial_value)
-      new_check_digit = new_barcode.check_digit
-      create(value: initial_value, check_digit: new_check_digit)
-    else
-      new_barcode = Barcode.new(next_value)
-      new_check_digit = new_barcode.check_digit
-      create(value: next_value, check_digit: new_check_digit)
-    end
+  def resource_json
+    json_attribute(resource)
+  end
+
+  def container_json
+    json_attribute(container)
   end
 end

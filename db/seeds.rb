@@ -5,7 +5,21 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+#
 
-13.times.each do
-  AbsoluteId.generate
+source_client = LibJobs::ArchivesSpace::Client.source
+Rails.logger.info("Authenticating...")
+source_client.login
+Rails.logger.info("Authenticated")
+
+Rails.logger.info("Caching repositories...")
+source_client.repositories.each do |repository|
+  Rails.logger.info("Cached repository #{repository.uri}...")
+
+  repository.top_containers.each do |top_container|
+    Rails.logger.info("Cached container #{top_container.uri}...")
+  end
 end
+
+source_client.container_profiles
+source_client.locations

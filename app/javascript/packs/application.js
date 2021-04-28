@@ -7,7 +7,6 @@
 // To reference this file, add <%= javascript_pack_tag 'application' %> to the appropriate
 // layout file, like app/views/layouts/application.html.erb
 
-
 // Uncomment to copy all static images under ../images to the output folder and reference
 // them with the image_pack_tag helper in views (e.g <%= image_pack_tag 'rails.png' %>)
 // or the `imagePath` JavaScript helper below.
@@ -15,24 +14,26 @@
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 
-import 'core-js/stable'
-import 'regenerator-runtime/runtime'
+import "core-js/stable";
+import "regenerator-runtime/runtime";
 
-import Vue from 'vue/dist/vue.esm'
-import Vuex from "vuex"
-import system from 'lux-design-system'
-import "lux-design-system/dist/system/system.css"
-import "lux-design-system/dist/system/tokens/tokens.scss"
+import Vue from "vue/dist/vue.esm";
+import Vuex from "vuex";
+import system from "lux-design-system";
+import "lux-design-system/dist/system/system.css";
+import "lux-design-system/dist/system/tokens/tokens.scss";
 
-import AbsoluteIdsForm from '../components/absolute_ids_form'
+import AbsoluteIdSessionForm from "../components/absolute_ids/session_form";
+import AbsoluteIdSessionTable from "../components/absolute_ids/session_table";
 
-Vue.use(system)
-var elements = document.getElementsByClassName("lux")
+Vue.use(system);
+var elements = document.getElementsByClassName("lux");
 for (var i = 0; i < elements.length; i++) {
   new Vue({
     el: elements[i],
     components: {
-      'absolute-ids-form': AbsoluteIdsForm
+      "absolute-id-session-form": AbsoluteIdSessionForm,
+      "absolute-id-session-table": AbsoluteIdSessionTable
     }
-  })
+  });
 }

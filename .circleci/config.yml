@@ -10,6 +10,12 @@ executors:
           BUNDLE_RETRY: 3
           BUNDLE_PATH: vendor/bundle
           RAILS_ENV: test
+          lando_libjobs_database_creds_user: "libjobs"
+      - image: postgres:10.6-alpine
+        environment:
+          POSTGRES_USER: libjobs
+          POSTGRES_DB: libjobs_test
+          POSTGRES_HOST_AUTH_METHOD: trust
     working_directory: ~/project
 
 commands:
@@ -93,7 +99,7 @@ jobs:
       - attach_workspace:
           at: '~/project'
       - setup-bundler
-
+      - setup-node
       - run:
           name: Database setup
           command: |
@@ -107,6 +113,16 @@ jobs:
             bundle list
             bundle exec rspec
 
+      # Save coverage artifacts
+      - store_artifacts:
+          path: ~/project/coverage
+          destination: coverage
+
+      # Save screenshot artifacts
+      - store_artifacts:
+          path: ~/project/tmp/screenshots
+          destination: screenshots
+
       - persist_to_workspace:
           root: '~/project'
           paths: '*'
@@ -119,6 +135,25 @@ jobs:
       - setup-bundler
       - run: bundle exec rubocop
 
+  prettier-eslint:
+    executor: lib-jobs-executor
+    steps:
+      - attach_workspace:
+          at: '~/project'
+      - setup-bundler
+      - run: yarn run lint
+
+  jest:
+    executor: lib-jobs-executor
+    steps:
+      - attach_workspace:
+          at: '~/project'
+      - setup-bundler
+      - run: yarn run jest
+      - persist_to_workspace:
+          root: '~/project'
+          paths: '*'
+
 workflows:
   build_accept:
     jobs:
@@ -126,6 +161,12 @@ workflows:
       - rubocop:
          requires:
           - build
+      - prettier-eslint:
+         requires:
+          - build
       - test:
+         requires:
+          - build
+      - jest:
          requires:
           - build

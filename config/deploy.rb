@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+# config valid for current version and patch releases of Capistrano
 
 set :application, "lib-jobs"
 set :repo_url, "https://github.com/pulibrary/lib_jobs.git"
@@ -37,3 +38,32 @@ set :deploy_to, "/opt/lib-jobs"
 
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
+
+namespace :deploy do
+  after :finishing, :aspace_cache do
+    on roles(:app), in: :sequence, wait: 5 do
+      within release_path do
+        # There may be reason to insert Rake tasks for clearing Sidekiq queues here
+      end
+    end
+  end
+end
+
+namespace :sidekiq do
+  task :quiet do
+    on roles(:worker) do
+      # rubocop:disable Rails/Output
+      puts capture("kill -USR1 $(sudo initctl status lib-jobs-workers | grep /running | awk '{print $NF}') || :")
+      # rubocop:enable Rails/Output
+    end
+  end
+  task :restart do
+    on roles(:worker) do
+      execute :sudo, :service, "lib-jobs-workers", :restart
+    end
+  end
+end
+
+after "deploy:reverted", "sidekiq:restart"
+after "deploy:starting", "sidekiq:quiet"
+after "deploy:published", "sidekiq:restart"
