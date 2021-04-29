@@ -44,6 +44,14 @@ defaults: &defaults
       'Mudd OS open': 'O'
       'Mudd Oversize folder': 'C'
 
+  repositories:
+    classifiers:
+      'ctsn': 'cotsen'
+      'ex': 'rarebooks' # Firestone Library, Vault, Rare Books
+      'hsvm': 'mss' # Firestone, High Security Vault, Manuscripts
+      'mss': 'mss' # Firestone Library, Vault, Manuscripts
+      'rcpxm': 'mss' # ReCAP, Manuscripts
+
   hmac_secret: <%= ENV["HMAC_SECRET"] || 'secret' %>
 
 development:

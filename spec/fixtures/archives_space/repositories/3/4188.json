@@ -1,0 +1,106 @@
+{
+    "classifications": [],
+    "create_time": "2021-02-25T14:26:18Z",
+    "created_by": "wrc3",
+    "dates": [
+        {
+            "begin": "2021-02",
+            "calendar": "gregorian",
+            "create_time": "2021-02-25T14:38:36Z",
+            "created_by": "wrc3",
+            "date_type": "single",
+            "era": "ce",
+            "expression": "February 2021",
+            "jsonmodel_type": "date",
+            "label": "creation",
+            "last_modified_by": "wrc3",
+            "lock_version": 0,
+            "system_mtime": "2021-02-25T14:38:36Z",
+            "user_mtime": "2021-02-25T14:38:36Z"
+        }
+    ],
+    "deaccessions": [],
+    "ead_id": "ABID001",
+    "extents": [
+        {
+            "create_time": "2021-02-25T14:38:36Z",
+            "created_by": "wrc3",
+            "extent_type": "boxes",
+            "jsonmodel_type": "extent",
+            "last_modified_by": "wrc3",
+            "lock_version": 0,
+            "number": "25",
+            "portion": "whole",
+            "system_mtime": "2021-02-25T14:38:36Z",
+            "user_mtime": "2021-02-25T14:38:36Z"
+        }
+    ],
+    "external_documents": [],
+    "external_ids": [],
+    "finding_aid_language": "eng",
+    "finding_aid_script": "Latn",
+    "id_0": "ABID001",
+    "instances": [],
+    "is_slug_auto": false,
+    "jsonmodel_type": "resource",
+    "lang_materials": [
+        {
+            "create_time": "2021-02-25T14:38:36Z",
+            "created_by": "wrc3",
+            "jsonmodel_type": "lang_material",
+            "language_and_script": {
+                "create_time": "2021-02-25T14:38:36Z",
+                "created_by": "wrc3",
+                "jsonmodel_type": "language_and_script",
+                "language": "eng",
+                "last_modified_by": "wrc3",
+                "lock_version": 0,
+                "system_mtime": "2021-02-25T14:38:36Z",
+                "user_mtime": "2021-02-25T14:38:36Z"
+            },
+            "last_modified_by": "wrc3",
+            "lock_version": 0,
+            "notes": [],
+            "system_mtime": "2021-02-25T14:38:36Z",
+            "user_mtime": "2021-02-25T14:38:36Z"
+        }
+    ],
+    "last_modified_by": "wrc3",
+    "level": "collection",
+    "linked_agents": [],
+    "linked_events": [],
+    "lock_version": 1,
+    "notes": [],
+    "publish": false,
+    "related_accessions": [],
+    "repository": {
+        "ref": "/repositories/4"
+    },
+    "restrictions": false,
+    "revision_statements": [],
+    "rights_statements": [],
+    "subjects": [],
+    "suppressed": false,
+    "system_mtime": "2021-03-12T19:14:43Z",
+    "title": "AbID Testing Resource #1",
+    "tree": {
+        "ref": "/repositories/4/resources/4188/tree"
+    },
+    "uri": "/repositories/4/resources/4188",
+    "user_defined": {
+        "boolean_1": false,
+        "boolean_2": false,
+        "boolean_3": false,
+        "create_time": "2021-02-25T14:38:36Z",
+        "created_by": "wrc3",
+        "jsonmodel_type": "user_defined",
+        "last_modified_by": "wrc3",
+        "lock_version": 0,
+        "repository": {
+            "ref": "/repositories/4"
+        },
+        "system_mtime": "2021-02-25T14:38:36Z",
+        "user_mtime": "2021-02-25T14:38:36Z"
+    },
+    "user_mtime": "2021-02-25T14:38:08Z"
+}

@@ -97,9 +97,13 @@ module LibJobs
         find_child(uri: uri, resource_class: Repository, model_class: Repository.model_class, id: id)
       end
 
-      def select_repositories_by(repo_code:)
+      def select_repositories_by(repo_code: nil, classification: nil)
         output = repositories.select do |repository|
-          repository.repo_code == repo_code
+          if classification.nil?
+            repository.classification == classification
+          elsif repo_code.nil?
+            repository.repo_code == repo_code
+          end
         end
         output.to_a
       end

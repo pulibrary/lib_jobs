@@ -31,6 +31,18 @@ module LibJobs
         @name = attributes[:name]
       end
 
+      def self.configuration
+        LibJobs.config[:repositories]
+      end
+
+      def self.find_classification_by(repo_code:)
+        configuration[repo_code]
+      end
+
+      def classification
+        self.class.find_classification_by(repo_code: repo_code)
+      end
+
       def attributes
         super.merge({
                       name: name,

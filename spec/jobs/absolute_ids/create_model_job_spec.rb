@@ -2,10 +2,11 @@
 require 'rails_helper'
 
 RSpec.describe AbsoluteIds::CreateModelJob, type: :job do
+  let(:user) do
+    create(:user)
+  end
+
   describe '.polymorphic_perform_now' do
-    let(:user) do
-      create(:user)
-    end
     let(:container_profile) do
       {
         create_time: "2021-01-21T20:10:59Z",
@@ -71,21 +72,12 @@ RSpec.describe AbsoluteIds::CreateModelJob, type: :job do
       end
 
       before do
-        # allow(LibJobs::ArchivesSpace::Client).to receive(:source).and_return(source_client)
         stub_aspace_login
-        # stub_repository_top_containers(repository_id: repository_id)
-        # 23640
-        # stub_top_containers(ead_id: 'AC001', repository_id: 3)
-        # stub_resources(repository_id: 3)
-        # stub_resources(repository_id: repository_id)
-
         stub_location(location_id: 23_640)
         stub_top_containers(ead_id: ead_id, repository_id: repository_id)
         stub_resource(resource_id: resource_id, repository_id: repository_id)
         stub_resource_find_by_id(repository_id: repository_id, identifier: ead_id, resource_id: resource_id)
         stub_repository(repository_id: repository_id)
-
-        # stub_container_profiles
 
         described_class.polymorphic_perform_now(properties: properties, user_id: user.id)
       end
@@ -168,6 +160,119 @@ RSpec.describe AbsoluteIds::CreateModelJob, type: :job do
         expect(AbsoluteId.last.container_object).to be_an(OpenStruct)
         expect(AbsoluteId.last.container_object.to_h).to be_empty
       end
+    end
+
+    context 'when performing the job asynchronously' do
+      let(:container_profile) { 'B' }
+      let(:location) { 'mss' }
+      let(:repository) { '' }
+      let(:properties) do
+        {
+          barcode: "32101103191159",
+          container: "1",
+          container_profile: container_profile,
+          location: location,
+          repository: repository,
+          resource: "10915154",
+          source: 'marc',
+          index: 0
+        }
+      end
+
+      before do
+        described_class.polymorphic_perform_now(properties: properties, user_id: user.id)
+      end
+
+      it 'created and persists a new AbsoluteId record' do
+        expect(AbsoluteId.all).not_to be_empty
+        expect(AbsoluteId.last.value).to eq('32101103191159')
+        expect(AbsoluteId.last.label).to eq('B-000001')
+
+        expect(AbsoluteId.last.container_profile).not_to be_empty
+        expect(AbsoluteId.last.container_profile).to eq(container_profile)
+        expect(AbsoluteId.last.container_profile_object).not_to be_nil
+        expect(AbsoluteId.last.container_profile_object.to_h).to be_empty
+
+        expect(AbsoluteId.last.location).to eq(location)
+        expect(AbsoluteId.last.location_object).not_to be_nil
+        expect(AbsoluteId.last.location_object.to_h).to be_empty
+
+        expect(AbsoluteId.last.repository).to eq(repository)
+        expect(AbsoluteId.last.repository_object).not_to be_nil
+        expect(AbsoluteId.last.repository_object.to_h).to be_empty
+
+        expect(AbsoluteId.last.resource).to eq('10915154')
+        expect(AbsoluteId.last.resource_object).to be_an(OpenStruct)
+        expect(AbsoluteId.last.resource_object.to_h).to be_empty
+        expect(AbsoluteId.last.container).to eq('1')
+        expect(AbsoluteId.last.container_object).to be_an(OpenStruct)
+        expect(AbsoluteId.last.container_object.to_h).to be_empty
+      end
+    end
+
+    context 'when specifying an unsupported source' do
+      let(:properties) do
+        {
+          barcode: "32101103191142",
+          container: "13",
+          container_profile: container_profile,
+          location: location,
+          repository: repository,
+          resource: "ABID001",
+          source: 'invalid',
+          index: 0
+        }
+      end
+
+      it 'raises an error' do
+        expect do
+          described_class.polymorphic_perform_now(
+            properties: properties,
+            user_id: user.id
+          )
+        end.to raise_error(NotImplementedError, 'Unsupported or nil source provided for AbsoluteIds::CreateModelJob: invalid')
+      end
+    end
+  end
+
+  describe '.polymorphic_perform_later' do
+    let(:container_profile) { 'B' }
+    let(:location) { 'mss' }
+    let(:repository) { '' }
+    let(:properties) do
+      {
+        barcode: "32101103191159",
+        container: "1",
+        container_profile: container_profile,
+        location: location,
+        repository: repository,
+        resource: "10915154",
+        source: 'marc',
+        index: 0
+      }
+    end
+
+    before do
+      allow(AbsoluteIds::CreateModelFromMarcJob).to receive(:perform_later)
+
+      described_class.polymorphic_perform_later(properties: properties, user_id: user.id)
+    end
+
+    it 'created and persists a new AbsoluteId record' do
+      expect(AbsoluteIds::CreateModelFromMarcJob).to have_received(:perform_later).with(
+        {
+          properties: {
+            barcode: "32101103191159",
+            container: "1",
+            container_profile: "B",
+            index: 0,
+            location: "mss",
+            repository: "",
+            resource: "10915154"
+          },
+          user_id: user.id
+        }
+      )
     end
   end
 end

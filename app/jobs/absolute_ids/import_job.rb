@@ -2,6 +2,11 @@
 
 module AbsoluteIds
   class ImportJob < ApplicationJob
+    def resolve_top_container(aspace_resource:, indicator:)
+      top_containers = aspace_resource.top_containers.select { |c| c.indicator == indicator || c.indicator =~ /(?:[bB]ox)\s#{indicator}/ }
+      top_containers.first
+    end
+
     def perform(sequence_entry)
       prefix = sequence_entry[:prefix]
       index = sequence_entry[:index]
@@ -85,17 +90,18 @@ module AbsoluteIds
         imported_attributes[:resource] = ead_resource.to_json
 
         # Container
-        top_containers = repository.select_top_containers_by(barcode: barcode)
-        top_container = top_containers.first
+        top_container = resolve_top_container(aspace_resource: resource, indicator: container_indicator)
 
-        raise(ArgumentError, "Failed to find the Top Container resource for #{barcode}") if top_container.nil?
+        if !top_container.nil?
+          top_container_resource = top_container.to_h
+          top_container_resource.delete(:create_time)
+          top_container_resource.delete(:system_mtime)
+          top_container_resource.delete(:user_mtime)
 
-        top_container_resource = top_container.to_h
-        top_container_resource.delete(:create_time)
-        top_container_resource.delete(:system_mtime)
-        top_container_resource.delete(:user_mtime)
-
-        imported_attributes[:container] = top_container_resource.to_json
+          imported_attributes[:container] = top_container_resource.to_json
+        else
+          imported_attributes[:container] = container_indicator
+        end
       else
         # Set the legacy repository for a legacy value
         imported_attributes[:repository] = repo_code

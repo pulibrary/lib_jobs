@@ -16,9 +16,9 @@ module LibJobs
                           return unless client
 
                           if @repository_id
-                            client.find_repository(id: @repository_id)
+                            client.find_repository_by(id: @repository_id)
                           else
-                            client.find_repository(uri: @repository_uri)
+                            client.find_repository_by(uri: @repository_uri)
                           end
                         end
       end
