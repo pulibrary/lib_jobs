@@ -97,7 +97,7 @@ class AbsoluteId < ApplicationRecord
   end
 
   def self.xml_serializer
-    AbsoluteIds::AbsoluteIdXmlSerializer
+    AbsoluteIds::Serializers::AbsoluteIdXmlSerializer
   end
 
   def barcode

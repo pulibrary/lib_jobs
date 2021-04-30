@@ -24,9 +24,7 @@ module LibJobs
       end
 
       def search_top_containers_by(index:, cache: true)
-        resolved = if !cache
-                     resolve_top_containers
-                   elsif top_containers.empty?
+        resolved = if !cache || top_containers.empty?
                      resolve_top_containers
                    else
                      top_containers
@@ -44,51 +42,22 @@ module LibJobs
       end
 
       def barcodes=(updated)
-        bulk_values = top_containers.map do |top_container|
+        bulk_values = top_containers.zip(updated).map do |values|
+          top_container = values.first
+          updated = values.last
+
           {
-            top_container.id => updated.barcode.value
+            top_container.id => updated.to_s
           }
         end
 
         repository.bulk_update_barcodes(bulk_values)
+        @top_containers = nil
       end
 
       def update
         top_containers.each(&:update)
         super
-      end
-
-      private
-
-      def request_tree_root
-        response = client.get("/repositories/#{repository.id}/resources/#{@id}/tree/root")
-        return if response.status.code == "404"
-
-        response.parsed
-      end
-
-      def request_tree_node(node_uri)
-        response = client.get("/repositories/#{repository.id}/resources/#{@id}/tree/node?node_uri=#{node_uri}")
-        return if response.status.code == "404"
-
-        response.parsed
-      end
-
-      def find_children
-        child_nodes = find_root_children
-        descendent_nodes = child_nodes.map(&:resolve_children)
-        child_nodes + descendent_nodes.flatten
-      end
-
-      # This does *not* recurse!
-      def find_top_containers
-        # Fix this
-        super
-
-        # response = client.get("/repositories/#{repository.id}/resources/#{@id}/top_containers")
-        # return nil if response.status == 404
-
-        # parsed = JSON.parse(response.body)
       end
     end
   end

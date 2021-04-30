@@ -18,24 +18,6 @@ module LibJobs
                       ref_id: ref_id
                     })
       end
-
-      private
-
-      def request_tree_root
-        response = client.get("/repositories/#{repository.id}/resources/#{resource.id}/tree/node?node_uri=#{uri}")
-        return if response.status.code == "404"
-
-        response.parsed
-      rescue StandardError => error
-        Rails.logger.warn("Failed to retrieve the tree root node data for #{uri}: #{error}")
-        nil
-      end
-
-      def find_children
-        child_nodes = find_root_children
-        descendent_nodes = child_nodes.map(&:resolve_children)
-        child_nodes + descendent_nodes.flatten
-      end
     end
   end
 end

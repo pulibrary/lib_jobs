@@ -110,7 +110,7 @@ class AbsoluteId::Session < ApplicationRecord
   end
 
   def self.xml_serializer
-    AbsoluteIds::SessionXmlSerializer
+    AbsoluteIds::Serializers::SessionXmlSerializer
   end
 
   def label
