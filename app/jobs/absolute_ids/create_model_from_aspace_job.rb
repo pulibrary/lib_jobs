@@ -25,15 +25,6 @@ module AbsoluteIds
       properties.to_json
     end
 
-    def transform_repository_properties(properties)
-      repository_resource = JSON.parse(properties.to_json)
-      repository_resource.delete(:create_time)
-      repository_resource.delete(:system_mtime)
-      repository_resource.delete(:user_mtime)
-
-      repository_resource.to_json
-    end
-
     def build_resource(properties)
       ead_resource = JSON.parse(properties.to_json)
       ead_resource.delete(:create_time)
@@ -75,7 +66,7 @@ module AbsoluteIds
     # Resolve the Repository
     def resolve_repository(**properties)
       repository_uri = properties[:uri]
-      current_client.find_repository(uri: repository_uri)
+      current_client.find_repository_by(uri: repository_uri)
     end
 
     # Build the repository attributes
@@ -119,7 +110,7 @@ module AbsoluteIds
 
       transformed
     rescue Errno::ECONNREFUSED => connection_error
-      Rails.logger.warn("Failed to connect to the ArchivesSpace REST API: #{error}")
+      Rails.logger.warn("Failed to connect to the ArchivesSpace REST API: #{connection_error}")
       raise connection_error
     end
   end

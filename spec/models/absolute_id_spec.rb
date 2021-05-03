@@ -35,7 +35,7 @@ RSpec.describe AbsoluteId, type: :model do
       functions: [],
       room: nil,
       temporary: nil
-    }
+    }.to_json
   end
   let(:resource_fixture_path) do
     Rails.root.join('spec', 'fixtures', 'archives_space', 'resource.json')
@@ -58,16 +58,20 @@ RSpec.describe AbsoluteId, type: :model do
       repo_code: "univarchives"
     }
   end
+  let(:synchronize_status) { 'never synchronized' }
+  let(:synchronized_at) { nil }
   let(:model_attributes) do
     {
       value: barcode,
       check_digit: check_digit,
       container: "1",
-      location: location.to_json,
+      location: location,
       container_profile: container_profile.to_json,
       repository: repository.to_json,
       resource: resource.to_json,
-      index: 0
+      index: 0,
+      synchronize_status: synchronize_status,
+      synchronized_at: synchronized_at
     }
   end
   let(:absolute_id) do
@@ -106,6 +110,104 @@ RSpec.describe AbsoluteId, type: :model do
         expect(absolute_id).not_to be_valid
         expect(absolute_id.errors.full_messages.length).to eq(1)
         expect(absolute_id.errors.full_messages.first).to include('Duplicate index 0 for the AbID')
+      end
+    end
+  end
+
+  describe '#synchronize_status' do
+    context 'when the synchronize_status attribute is blank' do
+      let(:synchronize_status) { nil }
+
+      context 'when the last synchronization time attribute is blank' do
+        let(:synchronized_at) { nil }
+
+        it 'returns unsynchronized' do
+          expect(absolute_id.synchronize_status).to eq('unsynchronized')
+        end
+      end
+
+      context 'when the last synchronization time attribute is present' do
+        let(:synchronized_at) { DateTime.current }
+
+        it 'returns synchronized' do
+          expect(absolute_id.synchronize_status).to eq('synchronized')
+        end
+      end
+    end
+  end
+
+  describe '#synchronize_status_color' do
+    context 'when the last synchronization attempt failed' do
+      let(:synchronize_status) { 'synchronization failed' }
+
+      it 'returns the color red' do
+        expect(absolute_id.synchronize_status_color).to eq('red')
+      end
+    end
+
+    context 'when the last synchronization attempt has not finished' do
+      let(:synchronize_status) { 'synchronizing' }
+
+      it 'returns the color yellow' do
+        expect(absolute_id.synchronize_status_color).to eq('yellow')
+      end
+    end
+  end
+
+  describe '#local_prefixes' do
+    let(:location) do
+      {
+        "building": "Seeley G. Mudd Manuscript Library",
+        "classification": "mudd",
+        "create_time": "2021-01-22T22:29:47Z",
+        "created_by": "admin",
+        "external_ids": [],
+        "functions": [],
+        "jsonmodel_type": "location",
+        "last_modified_by": "admin",
+        "lock_version": 0,
+        "system_mtime": "2021-01-22T22:29:47Z",
+        "title": "Seeley G. Mudd Manuscript Library [mudd]",
+        "uri": "/locations/23649",
+        "user_mtime": "2021-01-22T22:29:47Z"
+      }.to_json
+    end
+
+    it 'accesses the location prefixes' do
+      expect(absolute_id.local_prefixes).to be_a(Hash)
+      expect(absolute_id.local_prefixes).to include(
+        "Mudd OS Extra height" => "XH",
+        "Mudd OS Extra height, depth" => "XHD",
+        "Mudd OS depth" => "DO",
+        "Mudd OS height" => "H",
+        "Mudd OS length" => "LO",
+        "Mudd OS open" => "O",
+        "Mudd Oversize folder" => "C",
+        "Mudd ST half-manuscript" => "S",
+        "Mudd ST manuscript" => "S",
+        "Mudd ST other" => "S",
+        "Mudd ST records center" => "S"
+      )
+    end
+
+    context 'when the location attribute is a String' do
+      let(:location) { 'mudd' }
+
+      it 'accesses the location prefixes' do
+        expect(absolute_id.local_prefixes).to be_a(Hash)
+        expect(absolute_id.local_prefixes).to include(
+          "Mudd OS Extra height" => "XH",
+          "Mudd OS Extra height, depth" => "XHD",
+          "Mudd OS depth" => "DO",
+          "Mudd OS height" => "H",
+          "Mudd OS length" => "LO",
+          "Mudd OS open" => "O",
+          "Mudd Oversize folder" => "C",
+          "Mudd ST half-manuscript" => "S",
+          "Mudd ST manuscript" => "S",
+          "Mudd ST other" => "S",
+          "Mudd ST records center" => "S"
+        )
       end
     end
   end

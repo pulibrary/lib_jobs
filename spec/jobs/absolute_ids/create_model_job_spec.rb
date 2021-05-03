@@ -234,6 +234,40 @@ RSpec.describe AbsoluteIds::CreateModelJob, type: :job do
         end.to raise_error(NotImplementedError, 'Unsupported or nil source provided for AbsoluteIds::CreateModelJob: invalid')
       end
     end
+
+    context 'when encountering connection errors' do
+      let(:properties) do
+        {
+          barcode: "32101103191142",
+          container: "13",
+          container_profile: container_profile,
+          location: location,
+          repository: repository,
+          resource: "ABID001",
+          source: 'aspace',
+          index: 0
+        }
+      end
+      let(:repository_id) { '4' }
+      let(:ead_id) { 'ABID001' }
+      let(:resource_id) { '4188' }
+      let(:source_client) do
+        stub_aspace_resource(repository_id: repository_id, resource_id: resource_id, ead_id: ead_id)
+      end
+
+      before do
+        allow(LibJobs::ArchivesSpace::Client).to receive(:source).and_raise(Errno::ECONNREFUSED)
+      end
+
+      it 'raises an error' do
+        expect do
+          described_class.polymorphic_perform_now(
+            properties: properties,
+            user_id: user.id
+          )
+        end.to raise_error(Errno::ECONNREFUSED, 'Connection refused')
+      end
+    end
   end
 
   describe '.polymorphic_perform_later' do

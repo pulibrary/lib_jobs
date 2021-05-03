@@ -194,6 +194,25 @@ module LibJobs
         end
       end
 
+      def update_child(child:, model_class:)
+        resource_class = child.class
+
+        child_uri = "/repositories/#{@id}/#{resource_class.name.demodulize.pluralize.underscore}/#{child.id}"
+        response = client.post(child_uri, child.to_params)
+
+        if response.status.code == "404"
+          error_message = "Resource not found for #{child_uri}"
+          raise(UpdateRecordError, error_message)
+        elsif response.status.code != "200"
+          error_message = response.parsed.values.map(&:values).join('. ')
+          raise(UpdateRecordError, error_message)
+        end
+
+        model_class.uncache(child)
+
+        find_child(uri: child.uri.to_s, resource_class: resource_class, model_class: model_class)
+      end
+
       private
 
       def children(resource_class:, model_class:)
@@ -257,22 +276,6 @@ module LibJobs
         else
           find_resource(resource: resource, uri: uri)
         end
-      end
-
-      def update_child(child:, model_class:)
-        resource_class = child.class
-
-        response = client.post("/repositories/#{@id}/#{resource_class.name.demodulize.pluralize.underscore}/#{child.id}", child.to_params)
-        if response.status.code == "400"
-          error_message = response.parsed.values.map(&:values).join('. ')
-          raise(UpdateRecordError, error_message)
-        elsif response.status.code != "200"
-          nil
-        end
-
-        model_class.uncache(child)
-
-        find_child(uri: child.uri.to_s, resource_class: resource_class, model_class: model_class)
       end
     end
   end

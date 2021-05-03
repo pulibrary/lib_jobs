@@ -26,11 +26,6 @@ module LibJobs
                                       @repository.find_top_container_by(uri: top_container_uri)
                                     end
       end
-
-      def top_container=(updated)
-        @top_container_resource = updated
-        @values.to_h[:top_container] = { ref: @top_container_resource.id }
-      end
     end
   end
 end

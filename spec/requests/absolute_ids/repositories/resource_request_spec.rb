@@ -144,16 +144,15 @@ RSpec.describe "AbsoluteIds::Repositories::Resources", type: :request do
         end
 
         it "returns an empty JSON array and logs an error" do
-          get "/absolute-ids/repositories/#{repository_id}/resources/", headers: headers
+          get "/absolute-ids/repositories/#{repository_id}/resources/#{id}", headers: headers
 
           expect(response.content_type).to eq("application/json")
           expect(response.body).not_to be_empty
           json_response = JSON.parse(response.body)
 
-          expect(json_response).to be_an(Array)
-          expect(json_response).to be_empty
+          expect(json_response).to be nil
 
-          expect(logger).to have_received(:warn).with('Failed to resolve the resources for the repository 4: StandardError')
+          expect(logger).to have_received(:warn).with("Failed to resolve the resource #{id} for the repository #{repository_id}: StandardError")
         end
       end
     end

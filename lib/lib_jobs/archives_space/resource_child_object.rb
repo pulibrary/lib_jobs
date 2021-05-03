@@ -23,12 +23,6 @@ module LibJobs
         end
       end
 
-      def instances=(updated)
-        @instances = nil
-        @instance_properties = updated
-        instances
-      end
-
       def attributes
         super.merge({
                       title: title,

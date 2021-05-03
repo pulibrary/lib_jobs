@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+<absolute_id>
+  <barcode>
+    <digits>
+      <digits type="integer">3</digits>
+      <digits type="integer">2</digits>
+      <digits type="integer">1</digits>
+      <digits type="integer">0</digits>
+      <digits type="integer">1</digits>
+      <digits type="integer">1</digits>
+      <digits type="integer">0</digits>
+      <digits type="integer">3</digits>
+      <digits type="integer">1</digits>
+      <digits type="integer">9</digits>
+      <digits type="integer">1</digits>
+      <digits type="integer">1</digits>
+      <digits type="integer">4</digits>
+    </digits>
+    <integer type="integer">3210110319114</integer>
+    <value type="string">32101103191142</value>
+  </barcode>
+  <container>
+    <lock_version type="integer">4</lock_version>
+    <indicator type="string">12</indicator>
+    <created_by type="string">wrc3</created_by>
+    <last_modified_by type="string">pulfalight_system</last_modified_by>
+    <create_time type="string">2021-02-25T14:40:10Z</create_time>
+    <system_mtime type="string">2021-03-10T15:43:35Z</system_mtime>
+    <user_mtime type="string">2021-03-10T15:43:35Z</user_mtime>
+    <type type="string">box</type>
+    <jsonmodel_type type="string">top_container</jsonmodel_type>
+    <collection>
+      <collection>
+        <ref type="string">/repositories/4/resources/4188</ref>
+        <identifier type="string">ABID001</identifier>
+        <display_string type="string">AbID Testing Resource #1</display_string>
+      </collection>
+    </collection>
+    <uri type="string">/repositories/4/top_containers/118091</uri>
+    <repository>
+      <ref type="string">/repositories/4</ref>
+    </repository>
+    <display_string type="string">Box 12</display_string>
+    <long_display_string type="string">Box 12, ABID001, AbID Testing Resource #1</long_display_string>
+  </container>
+  <container_profile>
+    <create_time type="string">2021-01-21T20:10:59Z</create_time>
+    <id type="string">2</id>
+    <lock_version type="integer">873</lock_version>
+    <system_mtime type="string">2021-01-25T05:10:46Z</system_mtime>
+    <uri type="string">/container_profiles/2</uri>
+    <user_mtime type="string">2021-01-21T20:10:59Z</user_mtime>
+    <name type="string">Elephant size box</name>
+    <size type="string">P</size>
+  </container_profile>
+  <created_at type="time">2021-05-05 20:47:38 UTC</created_at>
+  <id type="integer">0</id>
+  <label type="string">P-000000</label>
+  <location>
+    <create_time type="string">2021-01-22T22:29:46Z</create_time>
+    <id type="string">23640</id>
+    <lock_version type="integer">0</lock_version>
+    <system_mtime type="string">2021-01-22T22:29:47Z</system_mtime>
+    <uri type="string">/locations/23640</uri>
+    <user_mtime type="string">2021-01-22T22:29:46Z</user_mtime>
+    <area type="string">Annex B</area>
+    <building type="string">Annex</building>
+    <classification type="string">anxb</classification>
+  </location>
+  <size type="string">P</size>
+  <repository>
+    <create_time type="string">2016-06-27T14:10:42Z</create_time>
+    <id type="string">4</id>
+    <lock_version type="integer">1</lock_version>
+    <system_mtime type="string">2021-01-22T22:20:30Z</system_mtime>
+    <uri type="string">/repositories/4</uri>
+    <user_mtime type="string">2021-01-22T22:20:30Z</user_mtime>
+    <name type="string">University Archives</name>
+    <repo_code type="string">univarchives</repo_code>
+  </repository>
+  <resource>
+    <lock_version type="integer">1</lock_version>
+    <title type="string">AbID Testing Resource #1</title>
+    <ead_id type="string">ABID001</ead_id>
+    <created_by type="string">wrc3</created_by>
+    <last_modified_by type="string">wrc3</last_modified_by>
+    <create_time type="string">2021-02-25T14:26:18Z</create_time>
+    <system_mtime type="string">2021-03-12T19:14:43Z</system_mtime>
+    <user_mtime type="string">2021-02-25T14:38:08Z</user_mtime>
+    <id_0 type="string">ABID001</id_0>
+    <level type="string">collection</level>
+    <finding_aid_language type="string">eng</finding_aid_language>
+    <finding_aid_script type="string">Latn</finding_aid_script>
+    <jsonmodel_type type="string">resource</jsonmodel_type>
+    <extents>
+      <extents>
+        <lock_version type="integer">0</lock_version>
+        <number type="string">25</number>
+        <created_by type="string">wrc3</created_by>
+        <last_modified_by type="string">wrc3</last_modified_by>
+        <create_time type="string">2021-02-25T14:38:36Z</create_time>
+        <system_mtime type="string">2021-02-25T14:38:36Z</system_mtime>
+        <user_mtime type="string">2021-02-25T14:38:36Z</user_mtime>
+        <portion type="string">whole</portion>
+        <extent_type type="string">boxes</extent_type>
+        <jsonmodel_type type="string">extent</jsonmodel_type>
+      </extents>
+    </extents>
+    <lang_materials>
+      <lang_materials>
+        <lock_version type="integer">0</lock_version>
+        <created_by type="string">wrc3</created_by>
+        <last_modified_by type="string">wrc3</last_modified_by>
+        <create_time type="string">2021-02-25T14:38:36Z</create_time>
+        <system_mtime type="string">2021-02-25T14:38:36Z</system_mtime>
+        <user_mtime type="string">2021-02-25T14:38:36Z</user_mtime>
+        <jsonmodel_type type="string">lang_material</jsonmodel_type>
+        <language_and_script>
+          <lock_version type="integer">0</lock_version>
+          <created_by type="string">wrc3</created_by>
+          <last_modified_by type="string">wrc3</last_modified_by>
+          <create_time type="string">2021-02-25T14:38:36Z</create_time>
+          <system_mtime type="string">2021-02-25T14:38:36Z</system_mtime>
+          <user_mtime type="string">2021-02-25T14:38:36Z</user_mtime>
+          <language type="string">eng</language>
+          <jsonmodel_type type="string">language_and_script</jsonmodel_type>
+        </language_and_script>
+      </lang_materials>
+    </lang_materials>
+    <dates>
+      <dates>
+        <lock_version type="integer">0</lock_version>
+        <expression type="string">February 2021</expression>
+        <begin type="string">2021-02</begin>
+        <created_by type="string">wrc3</created_by>
+        <last_modified_by type="string">wrc3</last_modified_by>
+        <create_time type="string">2021-02-25T14:38:36Z</create_time>
+        <system_mtime type="string">2021-02-25T14:38:36Z</system_mtime>
+        <user_mtime type="string">2021-02-25T14:38:36Z</user_mtime>
+        <date_type type="string">single</date_type>
+        <label type="string">creation</label>
+        <era type="string">ce</era>
+        <calendar type="string">gregorian</calendar>
+        <jsonmodel_type type="string">date</jsonmodel_type>
+      </dates>
+    </dates>
+    <uri type="string">/repositories/4/resources/4188</uri>
+    <repository>
+      <ref type="string">/repositories/4</ref>
+    </repository>
+    <user_defined>
+      <lock_version type="integer">0</lock_version>
+      <created_by type="string">wrc3</created_by>
+      <last_modified_by type="string">wrc3</last_modified_by>
+      <create_time type="string">2021-02-25T14:38:36Z</create_time>
+      <system_mtime type="string">2021-02-25T14:38:36Z</system_mtime>
+      <user_mtime type="string">2021-02-25T14:38:36Z</user_mtime>
+      <jsonmodel_type type="string">user_defined</jsonmodel_type>
+      <repository>
+        <ref type="string">/repositories/4</ref>
+      </repository>
+    </user_defined>
+    <tree>
+      <ref type="string">/repositories/4/resources/4188/tree</ref>
+    </tree>
+  </resource>
+  <synchronize_status type="string">never synchronized</synchronize_status>
+  <updated_at type="time">2021-05-05 20:47:38 UTC</updated_at>
+</absolute_id>

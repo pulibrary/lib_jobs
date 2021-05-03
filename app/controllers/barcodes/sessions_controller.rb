@@ -15,8 +15,4 @@ class Barcodes::SessionsController < AbsoluteIds::SessionsController
                             models.reverse
                           end
   end
-
-  def session_id
-    params[:session_id]
-  end
 end

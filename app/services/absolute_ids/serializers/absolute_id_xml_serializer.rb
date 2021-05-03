@@ -10,12 +10,6 @@ module AbsoluteIds
         enum_value.each do |value|
           type_attribute = if value.is_a?(Hash)
                              'hash'
-                           elsif value.is_a?(TrueClass) || value.is_a?(FalseClass)
-                             'boolean'
-                           elsif value.is_a?(NilClass)
-                             nil
-                           elsif value.is_a?(ActiveSupport::TimeWithZone)
-                             'time'
                            else
                              value.class.to_s.underscore
                            end
@@ -38,8 +32,6 @@ module AbsoluteIds
                              'boolean'
                            elsif value.is_a?(NilClass)
                              nil
-                           elsif value.is_a?(ActiveSupport::TimeWithZone)
-                             'time'
                            else
                              value.class.to_s.underscore
                            end
@@ -64,14 +56,7 @@ module AbsoluteIds
 
         new_element = document_tree.create_element(element_name)
         new_element['type'] = type_attribute unless type_attribute.nil?
-
-        if value.respond_to?(:each)
-          children = value.map { |child_value| build_element(element_name: element_name, type_attribute: type_attribute, value: child_value) }
-          node_set = Nokogiri::XML::NodeSet.new(document_tree, children)
-          new_element.children = node_set
-        else
-          new_element.content = value
-        end
+        new_element.content = value
 
         new_element
       end
@@ -84,8 +69,6 @@ module AbsoluteIds
 
           type_attribute = if value.is_a?(Hash)
                              'hash'
-                           elsif value.is_a?(TrueClass) || value.is_a?(FalseClass)
-                             'boolean'
                            elsif value.is_a?(NilClass)
                              nil
                            elsif value.is_a?(ActiveSupport::TimeWithZone)

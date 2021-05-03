@@ -100,19 +100,11 @@ class ApplicationController < ActionController::Base
     User.find_by(id: current_user_id, token: current_user_token)
   end
 
-  def cache_expiry
-    1.hour
-  end
-
   def current_client
     @current_client ||= begin
                           source_client = LibJobs::ArchivesSpace::Client.source
                           source_client.login
                           source_client
                         end
-  end
-
-  def json_request?
-    request.content_type == "application/json" && request.path_parameters.key?(:format) && request.path_parameters[:format] != 'json'
   end
 end

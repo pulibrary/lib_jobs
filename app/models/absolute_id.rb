@@ -90,13 +90,6 @@ class AbsoluteId < ApplicationRecord
     prefixes[key]
   end
 
-  def self.find_prefixed_models(prefix:)
-    models = all
-    models.select do |model|
-      model.size == prefix
-    end
-  end
-
   def self.xml_serializer
     AbsoluteIds::Serializers::AbsoluteIdXmlSerializer
   end
@@ -123,7 +116,7 @@ class AbsoluteId < ApplicationRecord
   end
 
   def local_prefixes
-    @local_prefixes ||= self.class.local_prefixes.fetch(location_key, {})
+    @local_prefixes ||= find_local_prefixes(prefix_key) || {}
   end
 
   def prefixes
@@ -133,6 +126,8 @@ class AbsoluteId < ApplicationRecord
   end
 
   def size
+    return container_profile_object.prefix if container_profile_object.prefix
+
     if container_profile_object.name
       prefixes[container_profile_object.name]
     elsif prefixes.key?(container_profile)
@@ -266,6 +261,10 @@ class AbsoluteId < ApplicationRecord
   end
 
   private
+
+  def prefix_key
+    location_object.classification || location
+  end
 
   def json_attribute(value)
     return value if value.is_a?(Hash)

@@ -36,10 +36,6 @@ class AbsoluteIds::SessionsController < ApplicationController
     Rails.logger.warn(warning_message)
 
     respond_to do |format|
-      format.html do
-        redirect_to absolute_ids_path
-      end
-
       format.json { head :forbidden }
     end
   end
@@ -82,22 +78,6 @@ class AbsoluteIds::SessionsController < ApplicationController
     @session ||= begin
                    AbsoluteId::Session.find_by(user: current_user, id: session_id)
                  end
-  end
-
-  def batches
-    @batches ||= begin
-                   return [] if @session.nil?
-
-                   @session.batches
-                 end
-  end
-
-  def absolute_ids
-    @absolute_ids ||= begin
-                        return [] if @batches.nil?
-
-                        batches.map(&:absolute_ids).flatten
-                      end
   end
 
   def session_id

@@ -42,12 +42,8 @@ class AbsoluteIds::Repositories::ResourcesController < ApplicationController
       @resource = nil
     end
 
-    if json_request?
-      render json: @resource
-    else
-      respond_to do |format|
-        format.json { render json: @resource }
-      end
+    respond_to do |format|
+      format.json { render json: @resource }
     end
   end
 
@@ -55,10 +51,6 @@ class AbsoluteIds::Repositories::ResourcesController < ApplicationController
 
   def ead_id
     params[:eadId]
-  end
-
-  def resource_param
-    params[:resource_param]
   end
 
   def repository_id

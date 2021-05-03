@@ -78,7 +78,7 @@ module LibJobs
 
       def base_uri
         @base_uri ||= if @client.nil?
-                        LibJobs::ArchivesSpace::Configuration.source.base_uri
+                        LibJobs::ArchivesSpace::Configuration.source["base_uri"]
                       else
                         client.config.base_uri
                       end

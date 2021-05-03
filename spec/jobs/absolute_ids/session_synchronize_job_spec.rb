@@ -291,5 +291,24 @@ RSpec.describe AbsoluteIds::SessionSynchronizeJob, type: :job do
         expect(updated.synchronize_status).to eq('synchronization failed')
       end
     end
+
+    context 'when encountering an error updating a TopContainer' do
+      let(:logger) { instance_double(ActiveSupport::Logger) }
+      let(:updated) { absolute_id.reload }
+
+      before do
+        stub_request(:post, "#{sync_client.base_uri}/repositories/4/top_containers/118091").to_raise(LibJobs::ArchivesSpace::UpdateRecordError)
+
+        allow(logger).to receive(:warn)
+        allow(Rails).to receive(:logger).and_return(logger)
+      end
+
+      it 'raises an error and logs a warning' do
+        described_class.perform_now(user_id: user.id, model_id: absolute_id.id)
+
+        expect(logger).to have_received(:warn).with(/Warning: Failed to synchronize #{updated.label}: /)
+        expect(updated.synchronize_status).to eq('synchronization failed')
+      end
+    end
   end
 end

@@ -18,6 +18,16 @@ module LibJobs
                       ref_id: ref_id
                     })
       end
+
+      def resource
+        if super.is_a?(Hash)
+          Resource.new(client: client, repository: repository, **super)
+        else
+          super
+        end
+      end
+
+      delegate :ead_id, to: :resource
     end
   end
 end

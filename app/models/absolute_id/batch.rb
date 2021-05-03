@@ -123,12 +123,12 @@ class AbsoluteId::Batch < ApplicationRecord
 
     if values.include?(AbsoluteId::SYNCHRONIZE_FAILED)
       AbsoluteId::SYNCHRONIZE_FAILED
+    elsif values.include?(AbsoluteId::SYNCHRONIZING)
+      AbsoluteId::SYNCHRONIZING
     elsif values.include?(AbsoluteId::NEVER_SYNCHRONIZED)
       AbsoluteId::NEVER_SYNCHRONIZED
     elsif values.include?(AbsoluteId::UNSYNCHRONIZED)
       AbsoluteId::UNSYNCHRONIZED
-    elsif values.include?(AbsoluteId::SYNCHRONIZING)
-      AbsoluteId::SYNCHRONIZING
     else
       AbsoluteId::SYNCHRONIZED
     end

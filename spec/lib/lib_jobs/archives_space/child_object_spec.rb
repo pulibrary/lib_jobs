@@ -75,7 +75,25 @@ describe LibJobs::ArchivesSpace::ChildObject do
   end
 
   describe '#update' do
-    it '' do
+    before do
+      allow(repository).to receive(:update_child)
+    end
+
+    it 'delegates the update request to the parent Repository object' do
+      child_object.update
+      expect(repository).to have_received(:update_child).with(child: child_object, model_class: described_class)
+    end
+
+    context 'when the Repository Object is a nil value' do
+      let(:repository) { nil }
+
+      before do
+        allow(client).to receive(:find_repository_by).and_return(nil)
+      end
+
+      it 'returns a nil value' do
+        expect(child_object.update).to be nil
+      end
     end
   end
 end
