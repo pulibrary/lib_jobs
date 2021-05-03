@@ -295,11 +295,6 @@ RSpec.describe "AbsoluteIds::Session", type: :request do
   end
 
   describe "POST /absolute-ids/sessions" do
-    xit "renders all the absolute identifiers" do
-      post "/absolute-ids/sessions"
-      # Pending
-    end
-
     context "when requesting a JSON representation" do
       let(:headers) do
         {
@@ -469,6 +464,65 @@ RSpec.describe "AbsoluteIds::Session", type: :request do
             expect(AbsoluteId.last.location).to eq(location)
             expect(AbsoluteId.last.container_profile).to eq(container_profile)
             expect(AbsoluteId.last.repository).to eq(repository)
+          end
+        end
+
+        context "when the client passes invalid parameters" do
+          let(:headers) do
+            {
+              "Accept" => "application/json",
+              "Authorization" => "Bearer #{user.token}"
+            }
+          end
+          let(:barcode) { '32101103191159' }
+          let(:container_profile) do
+            "Elephant size box"
+          end
+          let(:location) do
+            "Annex B"
+          end
+          let(:repository) do
+            "University Archives"
+          end
+          let(:resource_id) { '4188' }
+          let(:container) { '13' }
+          let(:source) { 'aspace' }
+          let(:params) do
+            {
+              user: {
+                id: user.id
+              },
+              batches: [
+                absolute_id: {
+                  barcode: barcode,
+                  container: container,
+                  container_profile: container_profile,
+                  location: location,
+                  repository: repository,
+                  resource: resource_id
+                },
+                barcodes: [
+                  'invalid'
+                ],
+                batch_size: 1,
+                source: source,
+                valid: false
+              ]
+            }
+          end
+          let(:logger) { instance_double(ActiveSupport::Logger) }
+
+          before do
+            allow(logger).to receive(:warn)
+            allow(logger).to receive(:info)
+            allow(Rails).to receive(:logger).and_return(logger)
+          end
+
+          it "returns an error response status and logs the error" do
+            post "/absolute-ids/sessions", headers: headers, params: params
+
+            expect(response.status).to eq(302)
+            expect(logger).to have_received(:warn).with(/Failed to create the Absolute ID/)
           end
         end
       end

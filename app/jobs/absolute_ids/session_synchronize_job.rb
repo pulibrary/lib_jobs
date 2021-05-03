@@ -7,28 +7,6 @@ module AbsoluteIds
     class DuplicateIndicatorError < SynchronizeError; end
 
     class ClientMapper
-      def self.root_config_file_path
-        Rails.root.join('config', 'archives_space', 'mapper')
-      end
-
-      def self.sync_config_file_path
-        root_config_file_path.join('sync.yml')
-      end
-
-      def self.sync_config_erb
-        io_stream = IO.read(sync_config_file_path)
-        erb_document = ERB.new(io_stream)
-        erb_document.result(binding)
-      end
-
-      def self.sync_config
-        parsed = YAML.safe_load(sync_config_erb)
-        OpenStruct.new(**parsed.symbolize_keys)
-      rescue StandardError, SyntaxError => e
-        raise("#{yaml_file_path} was found, but could not be parsed: \n#{e.inspect}")
-      end
-
-      # This is not used
       def source_client
         @source_client ||= begin
                             client = LibJobs::ArchivesSpace::Client.source
@@ -76,14 +54,6 @@ module AbsoluteIds
       (return if top_resource_ids.include?(container_id) || top_resources.empty?)
 
       raise(DuplicateIndicatorError, "The Absolute ID #{absolute_id.label} is not unique")
-    end
-
-    def update_container_profile(uri: container.id, container_profile_uri: container_profile.uri)
-      # batch_update_top_containers(containers:, container_profile_uri: nil, location_uri: nil)
-    end
-
-    def update_location(uri: container.id, location_uri: location.uri)
-      # batch_update_top_containers(containers:, container_profile_uri: nil, location_uri: nil)
     end
 
     # Update the TopContainer
@@ -167,10 +137,6 @@ module AbsoluteIds
     end
 
     private
-
-    def user
-      @user ||= User.find(@user_id)
-    end
 
     def absolute_id
       @absolute_id ||= AbsoluteId.find_by(id: @model_id)

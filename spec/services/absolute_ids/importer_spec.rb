@@ -36,30 +36,28 @@ RSpec.describe AbsoluteIds::Importer do
       expect(AbsoluteId.first.container_profile).to be_a(Hash)
       expect(AbsoluteId.first.container_profile).to include(id: "3", lock_version: 92_585, uri: "/container_profiles/3", name: "NBox", prefix: nil)
 
-      # expect(AbsoluteId.first.repository).to eq("ctsn")
-      expect(AbsoluteId.first.repository).to be_a(Hash)
-      expect(AbsoluteId.first.repository).to include(
-        id: "3",
-        lock_version: 2,
-        name: "Public Policy Papers",
-        repo_code: "publicpolicy",
-        uri: "/repositories/3"
+      # expect(AbsoluteId.first.repository).to be_a(Hash)
+      # expect(AbsoluteId.first.repository).to include(
+      #  id: "3",
+      #  lock_version: 2,
+      #  name: "Public Policy Papers",
+      #  repo_code: "publicpolicy",
+      #  uri: "/repositories/3"
+      # )
+      expect(AbsoluteId.first.repository).to eq("ctsn")
 
-      )
-
-      # expect(AbsoluteId.first.resource).to eq("Pams / NR / Chinese")
-      expect(AbsoluteId.first.resource).to be_a(Hash)
-      expect(AbsoluteId.first.resource).to include(
-        ead_id: "ABID001",
-        id: "4188",
-        instances: [],
-        level: "collection",
-        lock_version: 1,
-        title: "AbID Testing Resource #1",
-        top_containers: nil,
-        uri: "/repositories/3/resources/4188"
-
-      )
+      # expect(AbsoluteId.first.resource).to be_a(Hash)
+      # expect(AbsoluteId.first.resource).to include(
+      #  ead_id: "ABID001",
+      #  id: "4188",
+      #  instances: [],
+      #  level: "collection",
+      #  lock_version: 1,
+      #  title: "AbID Testing Resource #1",
+      #  top_containers: nil,
+      #  uri: "/repositories/3/resources/4188"
+      # )
+      expect(AbsoluteId.first.resource).to eq("Pams / NR / Chinese")
 
       expect(AbsoluteId.first.container).to eq("1")
 
@@ -67,20 +65,22 @@ RSpec.describe AbsoluteIds::Importer do
       expect(AbsoluteId.last.location).to eq("ctsn")
       expect(AbsoluteId.last.container_profile).to be_a(Hash)
       expect(AbsoluteId.last.container_profile).to include(id: "3", lock_version: 92_585, uri: "/container_profiles/3", name: "NBox", prefix: nil)
-      expect(AbsoluteId.last.repository).to include(
-              id: "3",
-              lock_version: 2,
-              name: "Public Policy Papers",
-              repo_code: "publicpolicy",
-              uri: "/repositories/3"
 
-            )
+      # expect(AbsoluteId.last.repository).to be_a(Hash)
+      # expect(AbsoluteId.last.repository).to include(
+      #  id: "3",
+      #  lock_version: 2,
+      #  name: "Public Policy Papers",
+      #  repo_code: "publicpolicy",
+      #  uri: "/repositories/3"
+      # )
+      expect(AbsoluteId.last.repository).to eq("ctsn")
 
-      # expect(AbsoluteId.last.resource).to eq("Pams / NR / Chinese")
-      expect(AbsoluteId.last.resource).to be_a(Hash)
-      expect(AbsoluteId.last.resource).to include(
-               id: "4188"
-             )
+      # expect(AbsoluteId.last.resource).to be_a(Hash)
+      # expect(AbsoluteId.last.resource).to include(
+      #  id: "4188"
+      # )
+      expect(AbsoluteId.last.resource).to eq("Pams / NR / Chinese")
 
       expect(AbsoluteId.last.container).to eq("2")
     end
