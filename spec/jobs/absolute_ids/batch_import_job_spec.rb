@@ -32,7 +32,7 @@ RSpec.describe AbsoluteIds::BatchImportJob, type: :job do
     ]
   end
   let(:container_profile_id) { '2' }
-  let(:repository_id) { '4' }
+  let(:repository_id) { '3' }
   let(:ead_id) { 'ABID001' }
   let(:resource_id) { '4188' }
 
@@ -42,6 +42,10 @@ RSpec.describe AbsoluteIds::BatchImportJob, type: :job do
     stub_locations
     stub_repositories
     stub_resource(repository_id: repository_id, resource_id: resource_id)
+
+    stub_location(location_id: '23640')
+    stub_top_containers(ead_id: 'ABID001', repository_id: repository_id)
+    stub_resource_find_by_id(repository_id: repository_id, resource_id: resource_id, identifier: 'Pams / NR / Chinese')
   end
 
   describe '.perform' do

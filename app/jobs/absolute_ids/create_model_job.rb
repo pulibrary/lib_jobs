@@ -9,34 +9,29 @@ module AbsoluteIds
       CreateModelFromMarcJob
     end
 
-    def self.polymorphic_perform_now(**args)
+    def self.polymorphic_perform(method, **args)
       properties = args[:properties]
       source = properties.delete(:source)
       args[:properties] = properties
 
+      method_name = "perform_#{method}".to_sym
+
       case source
       when 'aspace'
-        aspace_source_job.perform_now(**args)
+        aspace_source_job.send(method_name, **args)
       when 'marc'
-        marc_source_job.perform_now(**args)
+        marc_source_job.send(method_name, **args)
       else
         raise(NotImplementedError, "Unsupported or nil source provided for #{self}: #{source}")
       end
     end
 
-    def self.polymorphic_perform_later(**args)
-      properties = args[:properties]
-      source = properties.delete(:source)
-      args[:properties] = properties
+    def self.polymorphic_perform_now(**args)
+      polymorphic_perform(:now, **args)
+    end
 
-      case source
-      when 'aspace'
-        aspace_source_job.perform_later(**args)
-      when 'marc'
-        marc_source_job.perform_later(**args)
-      else
-        raise(NotImplementedError, "Unsupported or nil source provided for #{self}: #{source}")
-      end
+    def self.polymorphic_perform_later(**args)
+      polymorphic_perform(:later, **args)
     end
 
     private

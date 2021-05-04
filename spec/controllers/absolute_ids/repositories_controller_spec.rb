@@ -11,7 +11,7 @@ RSpec.describe AbsoluteIds::RepositoriesController do
       get :index, format: :json
 
       json = JSON.parse(response.body)
-      expect(json.length).to eq 2
+      expect(json.length).to eq(3)
       expect(json[0]).to eq(
         {
           'create_time' => '2016-06-27T14:10:41Z',
