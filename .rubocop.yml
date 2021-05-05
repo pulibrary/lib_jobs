@@ -99,6 +99,7 @@ Metrics/MethodLength:
     - 'app/jobs/absolute_ids/import_job.rb'
     - 'app/services/absolute_ids/serializers/absolute_id_xml_serializer.rb'
     - 'app/services/absolute_ids/serializers/barcode_xml_serializer.rb'
+    - 'app/jobs/absolute_ids/create_model_job.rb'
 
 Metrics/ModuleLength:
   Exclude:
