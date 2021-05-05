@@ -29,6 +29,15 @@ module LibJobs
         @temporary = attributes[:temporary]
       end
 
+      def pool_key
+        case classification
+        when "mudd", "prnc", "rcpph", "oo", "sc", "sls"
+          "mudd"
+        else
+          "global"
+        end
+      end
+
       def attributes
         super.merge({
                       area: area,

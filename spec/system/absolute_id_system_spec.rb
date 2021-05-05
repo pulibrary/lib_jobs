@@ -26,7 +26,7 @@ RSpec.describe 'Absolute ID Generation' do
       stub_location(location_id: "23640")
     end
 
-    it 'increments the index appropriately', in_browser: true do
+    it 'increments the index appropriately' do
       # If there's S-00001 in mss and I make a small box in hsvm, it creates
       # S-00002
       mss_identifier = "23648"
@@ -72,6 +72,7 @@ RSpec.describe 'Absolute ID Generation' do
       end
 
       expect(AbsoluteId.last.label).to eq "S-000001"
+      expect(AbsoluteId.last.pool_identifier).to eq "global-S"
 
       # Create an HSVM AbID
       fill_in 'Barcode', with: '00000000000018'
@@ -117,7 +118,7 @@ RSpec.describe 'Absolute ID Generation' do
       end
 
       expect(AbsoluteId.all.size).to eq 3
-      binding.pry
+      expect(AbsoluteId.last.label).to eq "S-000001"
     end
 
     it 'can create an absolute ID session' do

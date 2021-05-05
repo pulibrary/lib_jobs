@@ -12,7 +12,7 @@ RSpec.describe AbsoluteIds::ContainerProfilesController do
 
       expect(response).to be_success
       json = JSON.parse(response.body)
-      expect(json.length).to eq 13
+      expect(json.length).to eq 20
       container_profile = json[0]
       expect(container_profile["create_time"]).to be_present
       expect(container_profile["id"]).to eq "2"

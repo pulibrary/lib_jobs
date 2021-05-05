@@ -37,11 +37,20 @@ module AbsoluteIds
     private
 
     def build_model_index(**model_attributes)
-      location = model_attributes[:location]
-      container_profile = model_attributes[:container_profile]
+      pool_key = nil
+      prefix = nil
+      begin
+        location = LibJobs::ArchivesSpace::Location.new(JSON.parse(model_attributes[:location], symbolize_names: true))
+        pool_key = location.pool_key
+        container_profile = JSON.parse(model_attributes[:container_profile], symbolize_names: true)
+        prefix = container_profile[:prefix] || "unknown"
+      rescue JSON::ParserError
+        pool_key = "global"
+        prefix = "other"
+      end
       index = model_attributes[:index]
 
-      persisted = AbsoluteId.where(location: location, container_profile: container_profile)
+      persisted = AbsoluteId.where(pool_identifier: "#{pool_key}-#{prefix}").order(index: :desc)
       persisted_with_index = persisted.where.not(index: nil)
       if !persisted_with_index.empty?
         persisted_with_index.last.index.to_i + 1

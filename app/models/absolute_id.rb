@@ -39,6 +39,7 @@ class AbsoluteId < ApplicationRecord
   validates_with LocatorValidator
 
   belongs_to :batch, class_name: 'AbsoluteId::Batch', optional: true, foreign_key: "absolute_id_batch_id"
+  before_save :populate_pool_identifier
 
   def self.barcode_class
     AbsoluteIds::Barcode
@@ -109,16 +110,20 @@ class AbsoluteId < ApplicationRecord
     self.class.local_prefixes[key]
   end
 
+  def populate_pool_identifier
+    self.pool_identifier = "#{location_key}-#{prefix}"
+  end
+
+  def location_key
+    if location_json.present?
+      LibJobs::ArchivesSpace::Location.new(location_json).pool_key
+    else
+      "global"
+    end
+  end
+
   def local_prefixes
-    @local_prefixes ||= begin
-                          if location_object.name
-                            find_local_prefixes(location.key)
-                          elsif self.class.local_prefixes.key?(location)
-                            find_local_prefixes(location)
-                          else
-                            {}
-                          end
-                        end
+    @local_prefixes ||= self.class.local_prefixes.fetch(location_key, {})
   end
 
   def prefixes
