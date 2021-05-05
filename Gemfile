@@ -85,7 +85,7 @@ gem "devise", ">= 4.6.0"
 gem 'foreman'
 gem 'jwt'
 gem 'net-sftp'
-gem 'nokogiri', "~> 1.10"
+gem 'nokogiri', "~> 1.11"
 gem "omniauth", "~> 1.9"
 gem 'omniauth-cas'
 gem 'pg'
