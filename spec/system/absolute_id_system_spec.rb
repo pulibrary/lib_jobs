@@ -13,8 +13,7 @@ RSpec.describe 'Absolute ID Generation' do
 
   context 'when logged in', js: true do
     let(:user) { FactoryBot.create(:user) }
-
-    it 'can create an absolute ID session' do
+    before do
       sign_in user
       stub_aspace_login
       stub_locations
@@ -23,11 +22,109 @@ RSpec.describe 'Absolute ID Generation' do
       stub_repository(repository_id: 4)
       stub_resource_find_by_id(repository_id: 4, identifier: 'ABID001', resource_id: '4188')
       stub_resource(resource_id: '4188', repository_id: 4)
+      stub_top_containers(ead_id: "ABID001", repository_id: 4)
+      stub_location(location_id: "23640")
+    end
+
+    it 'increments the index appropriately', in_browser: true do
+      # If there's S-00001 in mss and I make a small box in hsvm, it creates
+      # S-00002
+      mss_identifier = "23648"
+      hsvm_identifier = "23647"
+      rcpph_identifier = "23652"
+      stub_location(location_id: mss_identifier) # mss
+      stub_location(location_id: hsvm_identifier) # hsvm
+      stub_location(location_id: rcpph_identifier) # hsvm
+      # First Barcode
+      stub_barcode_search(repository_id: 4, identifier: '00000000000000')
+      stub_barcode_search(repository_id: 4, identifier: 'B-000001')
+      stub_top_container(repository_id: 4, top_container_id: '118112')
+      # Second Barcode
+      stub_barcode_search(repository_id: 4, identifier: '00000000000018')
+      stub_barcode_search(repository_id: 4, identifier: 'B-000002')
+      stub_top_container(repository_id: 4, top_container_id: '118113')
+
+      # Third Barcode
+      stub_barcode_search(repository_id: 4, identifier: '00000000000026')
+      stub_barcode_search(repository_id: 4, identifier: 'B-000003')
+      stub_top_container(repository_id: 4, top_container_id: '118114')
+
+      visit '/absolute-ids'
+
+      # Create an MSS AbID
+      fill_in 'Barcode', with: '0000000000000'
+      expect(find_field('Barcode', disabled: true).value).to eq '00000000000000'
+      fill_in 'Location', with: 'Manuscripts (mss)'
+      fill_in 'Container Profile', with: 'Small (S)'
+      fill_in 'Repository', with: 'University Archives'
+      fill_in 'Call Number', with: 'ABID001'
+      fill_in 'Starting Box Number', with: '22'
+      # Have to unfocus starting box number to enable ending box number.
+      find('body').click
+      fill_in 'Ending Box Number', with: '22'
+      find('body').click
+      expect(page).to have_content 'Barcode is valid'
+      click_button 'Generate'
+
+      expect(page).to have_content "Generating" # Increase wait time - processing takes ~ 18 seconds for this request.
+      Capybara.using_wait_time 30 do
+        expect(page).to have_button "Generate"
+      end
+
+      expect(AbsoluteId.last.label).to eq "S-000001"
+
+      # Create an HSVM AbID
+      fill_in 'Barcode', with: '00000000000018'
+      expect(find_field('Barcode', disabled: true).value).to eq '00000000000018'
+      fill_in 'Location', with: 'Manuscripts (hsvm)'
+      fill_in 'Container Profile', with: 'Small (S)'
+      fill_in 'Repository', with: 'University Archives'
+      fill_in 'Call Number', with: 'ABID001'
+      fill_in 'Starting Box Number', with: '23'
+      find('body').click
+      fill_in 'Ending Box Number', with: '23'
+      find('body').click
+      expect(page).to have_content 'Barcode is valid'
+      click_button 'Generate'
+
+      expect(page).to have_content "Generating" # Increase wait time - processing takes ~ 18 seconds for this request.
+      Capybara.using_wait_time 30 do
+        expect(page).to have_button "Generate"
+      end
+
+      expect(AbsoluteId.last.label).to eq "S-000002"
+      expect(AbsoluteId.last.location).not_to eq "null"
+
+      # Mudd items have an S identifier but their own stream. Ensure it restarts
+      # the count.
+      # Create an RCPPH item.
+      fill_in 'Barcode', with: '00000000000026'
+      expect(find_field('Barcode', disabled: true).value).to eq '00000000000026'
+      fill_in 'Location', with: 'Mudd Library (rcpph)'
+      fill_in 'Container Profile', with: 'Mudd ST manuscript (S)'
+      fill_in 'Repository', with: 'University Archives'
+      fill_in 'Call Number', with: 'ABID001'
+      fill_in 'Starting Box Number', with: '24'
+      find('body').click
+      fill_in 'Ending Box Number', with: '24'
+      find('body').click
+      expect(page).to have_content 'Barcode is valid'
+      click_button 'Generate'
+
+      expect(page).to have_content "Generating" # Increase wait time - processing takes ~ 18 seconds for this request.
+      Capybara.using_wait_time 30 do
+        expect(page).to have_button "Generate"
+      end
+
+      expect(AbsoluteId.all.size).to eq 3
+      binding.pry
+    end
+
+    it 'can create an absolute ID session' do
       # I suspect AbIDs don't actually need all this location info, and probably
       # just needs the location URI
       stub_location(location_id: "23641")
       stub_location(location_id: "23640")
-      stub_top_containers(ead_id: "ABID001", repository_id: 4)
       # First Barcode
       stub_barcode_search(repository_id: 4, identifier: '00000000000000')
       stub_barcode_search(repository_id: 4, identifier: 'B-000001')
