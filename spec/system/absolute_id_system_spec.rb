@@ -27,8 +27,9 @@ RSpec.describe 'Absolute ID Generation' do
     end
 
     it 'increments the index appropriately' do
-      # If there's S-00001 in mss and I make a small box in hsvm, it creates
-      # S-00002
+      # If there's S-00242 in mss and I make a small box in hsvm, it creates
+      # S-00243
+      # NOTE: It starts at S-00242 because the old database ended at S-00241
       mss_identifier = "23648"
       hsvm_identifier = "23647"
       rcpph_identifier = "23652"
@@ -71,7 +72,7 @@ RSpec.describe 'Absolute ID Generation' do
         expect(page).to have_button "Generate"
       end
 
-      expect(AbsoluteId.last.label).to eq "S-000001"
+      expect(AbsoluteId.last.label).to eq "S-000242"
       expect(AbsoluteId.last.pool_identifier).to eq "global-S"
 
       # Create an HSVM AbID
@@ -93,7 +94,7 @@ RSpec.describe 'Absolute ID Generation' do
         expect(page).to have_button "Generate"
       end
 
-      expect(AbsoluteId.last.label).to eq "S-000002"
+      expect(AbsoluteId.last.label).to eq "S-000243"
       expect(AbsoluteId.last.location).not_to eq "null"
 
       # Mudd items have an S identifier but their own stream. Ensure it restarts
@@ -128,20 +129,20 @@ RSpec.describe 'Absolute ID Generation' do
       stub_location(location_id: "23640")
       # First Barcode
       stub_barcode_search(repository_id: 4, identifier: '00000000000000')
-      stub_barcode_search(repository_id: 4, identifier: 'B-000001')
+      stub_barcode_search(repository_id: 4, identifier: 'B-001556')
 
       stub_top_container(repository_id: 4, top_container_id: '118112')
       stub_batch_update_container_profile(uri: "/container_profiles/3", top_container_ids: "118112", repository_id: 4)
       stub_batch_update_location(uri: "/locations/23641", top_container_ids: "118112", repository_id: 4)
       # Second Barcode
       stub_barcode_search(repository_id: 4, identifier: '00000000000018')
-      stub_barcode_search(repository_id: 4, identifier: 'B-000002')
+      stub_barcode_search(repository_id: 4, identifier: 'B-001557')
       stub_top_container(repository_id: 4, top_container_id: '118113')
       stub_batch_update_container_profile(uri: "/container_profiles/3", top_container_ids: "118113", repository_id: 4)
       stub_batch_update_location(uri: "/locations/23641", top_container_ids: "118113", repository_id: 4)
       # Third Barcode
       stub_barcode_search(repository_id: 4, identifier: '00000000000026')
-      stub_barcode_search(repository_id: 4, identifier: 'B-000003')
+      stub_barcode_search(repository_id: 4, identifier: 'B-001558')
       stub_top_container(repository_id: 4, top_container_id: '118114')
       stub_batch_update_container_profile(uri: "/container_profiles/3", top_container_ids: "118114", repository_id: 4)
       stub_batch_update_location(uri: "/locations/23641", top_container_ids: "118114", repository_id: 4)
@@ -206,7 +207,7 @@ RSpec.describe 'Absolute ID Generation' do
       report = CSV.parse(download_content, headers: true)
       first_row = report.first.to_h
       expect(first_row["Box Number"]).to eq "22"
-      expect(first_row["AbID"]).to eq "B-000001"
+      expect(first_row["AbID"]).to eq "B-001556"
       expect(first_row["Barcode"]).to eq "00000000000000"
       expect(report.length).to eq 3
     end

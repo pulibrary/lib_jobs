@@ -86,7 +86,7 @@ RSpec.describe AbsoluteIds::CreateModelJob, type: :job do
         expect(AbsoluteId.all).not_to be_empty
         expect(AbsoluteId.last.value).to eq('32101103191142')
 
-        expect(AbsoluteId.last.label).to include('P-00000')
+        expect(AbsoluteId.last.label).to include('P-000153')
         expect(AbsoluteId.last.container_profile).not_to be_empty
         expect(AbsoluteId.last.container_profile_object).not_to be_nil
         expect(AbsoluteId.last.container_profile_object.id).to eq('2')
