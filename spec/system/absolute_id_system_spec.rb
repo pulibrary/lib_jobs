@@ -210,6 +210,7 @@ RSpec.describe 'Absolute ID Generation' do
       expect(first_row["AbID"]).to eq "B-001556"
       expect(first_row["Barcode"]).to eq "00000000000000"
       expect(report.length).to eq 3
+      expect(report.each.to_a.last.to_h["AbID"]).to eq "B-001558"
     end
   end
 end

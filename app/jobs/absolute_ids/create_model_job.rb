@@ -53,7 +53,7 @@ module AbsoluteIds
       persisted = AbsoluteId.where(pool_identifier: "#{pool_key}-#{prefix}").order(index: :desc)
       persisted_with_index = persisted.where.not(index: nil)
       if !persisted_with_index.empty?
-        persisted_with_index.last.index.to_i + 1
+        persisted_with_index.first.index.to_i + 1
       elsif index.zero?
         starting_index(pool_key, prefix)
       end
