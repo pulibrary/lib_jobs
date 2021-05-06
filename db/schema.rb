@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_10_052155) do
+ActiveRecord::Schema.define(version: 2021_05_05_220209) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -94,7 +94,9 @@ ActiveRecord::Schema.define(version: 2021_03_10_052155) do
     t.datetime "synchronized_at"
     t.boolean "synchronizing"
     t.string "synchronize_status"
+    t.string "pool_identifier"
     t.index ["absolute_id_batch_id"], name: "index_absolute_ids_on_absolute_id_batch_id"
+    t.index ["pool_identifier"], name: "index_absolute_ids_on_pool_identifier"
   end
 
   create_table "archival_objects_top_containers", id: false, force: :cascade do |t|
