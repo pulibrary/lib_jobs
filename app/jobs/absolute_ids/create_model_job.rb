@@ -55,8 +55,28 @@ module AbsoluteIds
       if !persisted_with_index.empty?
         persisted_with_index.last.index.to_i + 1
       elsif index.zero?
-        1
+        starting_index(pool_key, prefix)
       end
+    end
+
+    # These starting indexes are pulled from the sequence table from the old
+    # ABID application.
+    def starting_index(pool_key, prefix)
+      starting_indexes.fetch("#{pool_key}-#{prefix}", 1)
+    end
+
+    def starting_indexes
+      {
+        "global-S" => 242,
+        "global-Z" => 34,
+        "global-Q" => 973,
+        "global-P" => 153,
+        "global-N" => 2504,
+        "global-L" => 30,
+        "global-F" => 183,
+        "global-E" => 111,
+        "global-B" => 1556
+      }
     end
 
     # Build and persist the AbId
