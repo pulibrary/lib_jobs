@@ -34,7 +34,7 @@ class AlmaXmlInvoiceList
   end
 
   def onbase_report
-    CSV.generate do |csv|
+    CSV.generate(force_quotes: true) do |csv|
       csv << ["Lib Vendor Invoice Date", "Invoice No", "Vendor Code", "Invoice Amount", "Voucher ID"]
       valid_invoices.each do |invoice|
         csv << [invoice.invoice_date, invoice.id, invoice.vendor_id, invoice.total_invoice_amount, invoice.voucher_id]

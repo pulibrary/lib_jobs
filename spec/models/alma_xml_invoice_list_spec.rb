@@ -13,8 +13,9 @@ RSpec.describe AlmaXmlInvoiceList, type: :model do
   let(:xml_file) { File.new(Rails.root.join('spec', 'fixtures', 'invoice_export_202118300518.xml')) }
   let(:invoice_errors) do
     "Invalid vendor_id: vendor_id can not be blank,"\
-    " Invalid primary fund: can not be blank,"\
-    " Invalid primary department: can not be blank,"\
+    " Line Item Invalid: No fund lists exists," \
+    " Line Item Invalid: primary fund can not be blank,"\
+    " Line Item Invalid: primary department can not be blank,"\
     " Invalid reporting code: must be numeric and can not be blank"
   end
 
@@ -50,7 +51,8 @@ RSpec.describe AlmaXmlInvoiceList, type: :model do
 
   describe "#onbase_report" do
     it "generates the correct csv" do
-      expect(alma_invoice_list.onbase_report).to eq("Lib Vendor Invoice Date,Invoice No,Vendor Code,Invoice Amount,Voucher ID\n2021-03-30,PO-9999,111222333,1319.05,A1222333\n")
+      expect(alma_invoice_list.onbase_report).to eq("\"Lib Vendor Invoice Date\",\"Invoice No\",\"Vendor Code\",\"Invoice Amount\",\"Voucher ID\"\n" \
+                                                    "\"2021-03-30\",\"PO-9999\",\"111222333\",\"1319.05\",\"A1222333\"\n")
     end
   end
 
@@ -89,7 +91,7 @@ RSpec.describe AlmaXmlInvoiceList, type: :model do
 
     describe "#onbase_report" do
       it "generates the correct csv" do
-        expect(alma_invoice_list.onbase_report).to eq("Lib Vendor Invoice Date,Invoice No,Vendor Code,Invoice Amount,Voucher ID\n")
+        expect(alma_invoice_list.onbase_report).to eq("\"Lib Vendor Invoice Date\",\"Invoice No\",\"Vendor Code\",\"Invoice Amount\",\"Voucher ID\"\n")
       end
     end
 
@@ -131,7 +133,8 @@ RSpec.describe AlmaXmlInvoiceList, type: :model do
 
     describe "#onbase_report" do
       it "generates the correct csv" do
-        expect(alma_invoice_list.onbase_report).to eq("Lib Vendor Invoice Date,Invoice No,Vendor Code,Invoice Amount,Voucher ID\n2021-03-30,PO-9999,111222333,1319.05,A1222333\n")
+        expect(alma_invoice_list.onbase_report).to eq("\"Lib Vendor Invoice Date\",\"Invoice No\",\"Vendor Code\",\"Invoice Amount\",\"Voucher ID\"\n" \
+                                                      "\"2021-03-30\",\"PO-9999\",\"111222333\",\"1319.05\",\"A1222333\"\n")
       end
     end
 

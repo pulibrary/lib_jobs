@@ -3,7 +3,7 @@
 class AlmaXmlFundList
   attr_reader :fund_list
 
-  delegate :select, :each, to: :fund_list
+  delegate :select, :count, :each, :blank?, to: :fund_list
 
   def initialize(line_item:)
     @fund_list = parse_fund_list(line_item)
