@@ -27,8 +27,8 @@ RSpec.describe VoucherFeed, type: :model do
       expect(data_set.report_time).to eq(Time.zone.now.midnight)
       data = File.read("/tmp/alma_voucher_#{today}.XML")
       expect(data).to eq(File.open(Rails.root.join('spec', 'fixtures', 'finance_invoice.xml')).read)
-      data = File.read("/tmp/Libary Invoice Keyword Update_#{onbase_today}.csv")
-      expect(data).to eq("Lib Vendor Invoice Date,Invoice No,Vendor Code,Invoice Amount,Voucher ID\n2021-03-30,PO-9999,111222333,1319.05,A1222333\n")
+      data = File.read("/tmp/Library Invoice Keyword Update_#{onbase_today}.csv")
+      expect(data).to eq("\"Lib Vendor Invoice Date\",\"Invoice No\",\"Vendor Code\",\"Invoice Amount\",\"Voucher ID\"\n\"2021-03-30\",\"PO-9999\",\"111222333\",\"1319.05\",\"A1222333\"\n")
     end
   end
 end

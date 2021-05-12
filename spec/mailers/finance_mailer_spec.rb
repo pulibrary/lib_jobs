@@ -19,8 +19,8 @@ RSpec.describe FinanceMailer, type: :mailer do
 
   it "renders the headers" do
     expect(mail.subject).to eq("Alma to Peoplesoft Voucher Feed Results")
-    expect(mail.to).to eq(["person@example.com"])
-    expect(mail.from).to eq(["from@example.com"])
+    expect(mail.to).to eq(["cac9@princeton.edu", "mzelesky@princeton.edu", "pdiskin@princeton.edu"])
+    expect(mail.from).to eq(["lib-jobs@princeton.edu"])
   end
 
   it "renders the body" do

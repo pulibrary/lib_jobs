@@ -96,19 +96,25 @@ class AlmaXmlInvoice
   def validate_invoice
     @errors = []
     errors << "Invalid vendor_id: vendor_id can not be blank" if vendor_id.blank?
-    validate_fund_list
+    validate_fund_list_no_funds
+    validate_fund_list_blank_funds
+    validate_fund_list_blank_dept
     validate_reporting_code
   end
 
-  def validate_fund_list
-    blank_funds = []
-    blank_dept = []
-    line_items.select do |line|
-      blank_funds.push(line[:fund_list].select { |fund| fund[:prime_fund].blank? })
-      blank_dept.push(line[:fund_list].select { |fund| fund[:prime_dept].blank? })
-    end
-    errors << "Invalid primary fund: can not be blank" if blank_funds.flatten.size.positive?
-    errors << "Invalid primary department: can not be blank" if blank_dept.flatten.size.positive?
+  def validate_fund_list_blank_funds
+    blank_funds = line_items.select { |line| line[:fund_list].count { |fund| fund[:prime_fund].blank? }.positive? }
+    errors << "Line Item Invalid: primary fund can not be blank" if blank_funds.flatten.size.positive?
+  end
+
+  def validate_fund_list_no_funds
+    no_funds = line_items.select { |line| line[:fund_list].blank? }
+    errors << "Line Item Invalid: No fund lists exists" if no_funds.flatten.size.positive?
+  end
+
+  def validate_fund_list_blank_dept
+    blank_dept = line_items.select { |line| line[:fund_list].count { |fund| fund[:prime_dept].blank? }.positive? }
+    errors << "Line Item Invalid: primary department can not be blank" if blank_dept.flatten.size.positive?
   end
 
   def validate_reporting_code

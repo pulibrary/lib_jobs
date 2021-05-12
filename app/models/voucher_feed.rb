@@ -25,7 +25,7 @@ class VoucherFeed < LibJob
     build_onbase_report
     # send emails here.  The emailed file should.  Nicely formatted table in the email, one for errors & one for valid lines
     # need the US Currency (total_local_amount), also need currency & original amount
-    # There is another file that needs to be made for onbase  - Mark will send an example "Libary Invoice Keyword Update_20210427.csv" (need format)
+    # There is another file that needs to be made for onbase  - Mark will send an example "Library Invoice Keyword Update_20210427.csv" (need format)
     # this is the same data that should be in the email except for the currency).  Onbase file only includes successes and email gets two tables onbase and errors.
     # needs to be the original currency (total_invoice_amount)
 
@@ -91,6 +91,6 @@ class VoucherFeed < LibJob
 
   def onbase_output_filename
     date = Time.zone.now.strftime("%Y%m%d")
-    "Libary Invoice Keyword Update_#{date}.csv"
+    "Library Invoice Keyword Update_#{date}.csv"
   end
 end
