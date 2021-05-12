@@ -161,13 +161,14 @@ RSpec.describe "Barcodes::Session", type: :request do
         context "and requests multiple batches of AbIDs linked to ArchivesSpace records" do
           let(:source) { 'aspace' }
           let(:barcode) { '32101103191142' }
-          let(:container) { '13' }
+          let(:container) { '23' }
           let(:source_client) do
             stub_aspace_resource(repository_id: repository_id, resource_id: resource_id, ead_id: ead_id)
           end
 
           before do
             stub_location(location_id: 23_640)
+            stub_top_container_search(repository_id: 4, ead_id: "ABID001", indicator: "23")
             stub_top_containers(ead_id: 'ABID001', repository_id: 4)
             stub_resource_find_by_id(repository_id: 4, identifier: '4188', resource_id: 4188)
             stub_resource(resource_id: 4188, repository_id: 4)

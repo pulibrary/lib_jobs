@@ -427,6 +427,7 @@ RSpec.describe "AbsoluteIds::Session", type: :request do
           let(:client) do
             stub_aspace_resource(repository_id: repository_id, resource_id: resource_id, ead_id: ead_id)
           end
+          let(:container) { '23' }
 
           before do
             stub_location(location_id: '23640')
@@ -434,6 +435,7 @@ RSpec.describe "AbsoluteIds::Session", type: :request do
             stub_resource_find_by_id(repository_id: repository_id, identifier: '4188', resource_id: resource_id)
             stub_repository(repository_id: repository_id)
             stub_resource(repository_id: repository_id, resource_id: resource_id)
+            stub_top_container_search(repository_id: 4, ead_id: "ABID001", indicator: "23")
             stub_aspace_login
           end
 

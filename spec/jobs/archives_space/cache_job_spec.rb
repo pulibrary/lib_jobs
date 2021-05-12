@@ -14,7 +14,7 @@ RSpec.describe ArchivesSpace::CacheJob do
     # any cache at all.
 
     stub_repository_top_containers(repository_id: 3)
-    # stub_location(location_id: 23652)
+    stub_location(location_id: 23_652)
     stub_location(location_id: 23_640)
 
     stub_top_containers(ead_id: 'AC001', repository_id: 3)
@@ -35,6 +35,6 @@ RSpec.describe ArchivesSpace::CacheJob do
     expect(AbsoluteId::Repository.all.size).to eq(3)
     # This number is way too small - it's only one page of one repository.
     # Do we need to cache these even?
-    expect(AbsoluteId::TopContainer.all.size).to eq 50
+    expect(AbsoluteId::TopContainer.all.size).to eq 250
   end
 end
