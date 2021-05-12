@@ -1,0 +1,12 @@
+Alma to Peoplesoft Voucher Feed Results <%= Time.zone.now.strftime('%m/%d/%Y') %>
+<% if @alma_xml_invoice_list.errors.blank? %>
+No errors were found with the invoices
+<% else %>
+Errors
+-------
+<%= @alma_xml_invoice_list.status_report(cvs_invoices: @alma_xml_invoice_list.error_invoices) %>
+<% end %>
+
+Processed Invoices
+------------------
+<%= @alma_xml_invoice_list.status_report %>

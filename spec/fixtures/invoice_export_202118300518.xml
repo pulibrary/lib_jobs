@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<payment_data xmlns="http://com/exlibris/repository/acq/invoice/xmlbeans">
+  <invoice_list>
+    <invoice>
+      <invoice_number>PO-9999</invoice_number>
+      <invoice_owner>Technical Services</invoice_owner>
+      <approved_by>Smith Sally</approved_by>
+      <invoice_amount>
+        <currency>USD</currency>
+        <sum>1319.05</sum>
+      </invoice_amount>
+      <vendor_code>XXX</vendor_code>
+      <vendor_name>XXX Library Services</vendor_name>
+      <vendor_additional_code>L9999</vendor_additional_code>
+      <vendor_FinancialSys_Code>111222333</vendor_FinancialSys_Code>
+      <vendor_liable_for_vat>false</vendor_liable_for_vat>
+      <vendor_national_tax_id>99-1234567</vendor_national_tax_id>
+      <vendor_payment_address_list>
+        <payment_address preferred="true">
+          <line1>Returns Dept.</line1>
+          <line2>999 Maple St.</line2>
+          <city>Contoocook</city>
+          <postalCode>03229-3374</postalCode>
+          <stateProvince>NH</stateProvince>
+          <types>
+            <type>Billing</type>
+            <type>Shipping</type>
+            <type>Order</type>
+            <type>Claim</type>
+            <type>Payment</type>
+            <type>Returns</type>
+          </types>
+        </payment_address>
+        <payment_address preferred="false">
+          <line1>P.O. Box 99999</line1>
+          <city>Princeton</city>
+          <note>Epay - Do not update address | person@example.com - submission email Epay</note>
+          <postalCode>08550</postalCode>
+          <stateProvince>NJ</stateProvince>
+          <types>
+            <type>Billing</type>
+            <type>Shipping</type>
+            <type>Order</type>
+            <type>Claim</type>
+            <type>Payment</type>
+            <type>Returns</type>
+          </types>
+        </payment_address>
+        <payment_address preferred="false">
+          <line1>Order Department</line1>
+          <line2>999 Example Street</line2>
+          <city>State College</city>
+          <postalCode>16803-3374</postalCode>
+          <stateProvince>PA</stateProvince>
+          <types>
+            <type>Billing</type>
+            <type>Shipping</type>
+            <type>Order</type>
+            <type>Claim</type>
+            <type>Payment</type>
+            <type>Returns</type>
+          </types>
+        </payment_address>
+        <payment_address preferred="false">
+          <line1>W-999999</line1>
+          <line2>PO Box 9999</line2>
+          <city>Philadelphia</city>
+          <postalCode>19175-0481</postalCode>
+          <stateProvince>PA</stateProvince>
+          <types>
+            <type>Billing</type>
+            <type>Shipping</type>
+            <type>Order</type>
+            <type>Claim</type>
+            <type>Payment</type>
+            <type>Returns</type>
+          </types>
+        </payment_address>
+      </vendor_payment_address_list>
+      <vendor_account_code>1111-99</vendor_account_code>
+      <unique_identifier>1112223334445555</unique_identifier>
+      <invoice_date>03/30/2021</invoice_date>
+      <payment_method>ACCOUNTINGDEPARTMENT</payment_method>
+      <number_of_attachments>0</number_of_attachments>
+      <invoice_ownered_entity>
+        <createdBy>999999999</createdBy>
+        <creationDate>20210330</creationDate>
+        <customerId>1111</customerId>
+        <institutionId>2222</institutionId>
+        <modifiedBy>999999999</modifiedBy>
+      </invoice_ownered_entity>
+      <vat_info>
+        <expended_from_fund_ind>true</expended_from_fund_ind>
+        <inclusive_ind>true</inclusive_ind>
+        <vat_amount>0.0</vat_amount>
+        <vat_percentage>0.0</vat_percentage>
+        <vat_type>INCLUSIVE</vat_type>
+        <vat_in_invoice_line_level>false</vat_in_invoice_line_level>
+      </vat_info>
+      <invoice_line_list>
+        <invoice_line>
+          <line_number>1</line_number>
+          <line_type>REGULAR</line_type>
+          <quantity>1</quantity>
+          <reporting_code>1234</reporting_code>
+          <total_price>17.0</total_price>
+          <price>17.0</price>
+          <po_line_info>
+            <fully_Invoiced_ind>true</fully_Invoiced_ind>
+            <po_line_owner>Technical Services</po_line_owner>
+            <mms_record_id>11122233344455566</mms_record_id>
+            <meta_data_values>
+              <acqterms_identifier>1111111111111</acqterms_identifier>
+              <acqterms_identifierType>ISBN</acqterms_identifierType>
+              <creator>Doe, Jane.</creator>
+              <date>20190103.</date>
+              <publisher>Rubedo Press,</publisher>
+            </meta_data_values>
+            <po_line_number>POL-999</po_line_number>
+            <po_line_price>17.0</po_line_price>
+            <po_line_title>A Book we Wanted</po_line_title>
+          </po_line_info>
+          <fund_info_list>
+            <fund_info>
+              <amount>
+                <currency>USD</currency>
+                <sum>17</sum>
+              </amount>
+              <local_amount>
+                <currency>USD</currency>
+                <sum>17</sum>
+              </local_amount>
+              <code>E9999-Stuff-no program</code>
+              <name>Library General Acquisitions</name>
+              <fiscal_period>FY-2021</fiscal_period>
+              <external_id>44444|E9999</external_id>
+              <type>ALLOCATED</type>
+              <fund_type>4</fund_type>
+              <fund_type_desc>General</fund_type_desc>
+              <ledger_code>E999-STF</ledger_code>
+              <ledger_name>Stuff</ledger_name>
+            </fund_info>
+          </fund_info_list>
+        </invoice_line>
+        <invoice_line>
+          <line_number>2</line_number>
+          <line_type>REGULAR</line_type>
+          <quantity>1</quantity>
+          <reporting_code>1234</reporting_code>
+          <total_price>107.94</total_price>
+          <price>107.94</price>
+          <po_line_info>
+            <fully_Invoiced_ind>true</fully_Invoiced_ind>
+            <po_line_owner>Technical Services</po_line_owner>
+            <mms_record_id>22233344455566677</mms_record_id>
+            <meta_data_values>
+              <acqterms_identifier>2222222222222</acqterms_identifier>
+              <acqterms_identifierType>ISBN</acqterms_identifierType>
+              <acqterms_place>[S.l.] :</acqterms_place>
+              <date>2021.</date>
+              <publisher>DE GRUYTER,</publisher>
+            </meta_data_values>
+            <po_line_number>POL-888</po_line_number>
+            <po_line_price>107.94</po_line_price>
+            <po_line_title>Another book we want.</po_line_title>
+          </po_line_info>
+          <fund_info_list>
+            <fund_info>
+              <amount>
+                <currency>USD</currency>
+                <sum>107.94</sum>
+              </amount>
+              <local_amount>
+                <currency>USD</currency>
+                <sum>107.94</sum>
+              </local_amount>
+              <code>E9999-Stuff-no program</code>
+              <name>Library General Acquisitions</name>
+              <fiscal_period>FY-2021</fiscal_period>
+              <external_id>44444|E9999</external_id>
+              <type>ALLOCATED</type>
+              <fund_type>4</fund_type>
+              <fund_type_desc>General</fund_type_desc>
+              <ledger_code>E999-STF</ledger_code>
+              <ledger_name>Stuff</ledger_name>
+            </fund_info>
+          </fund_info_list>
+        </invoice_line>
+      </invoice_line_list>
+    </invoice>
+  </invoice_list>
+</payment_data>

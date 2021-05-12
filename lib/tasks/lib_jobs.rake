@@ -22,6 +22,12 @@ namespace :lib_jobs do
     feed.run
   end
 
+  desc "generate the voucher feed"
+  task voucher_feed: [:environment] do
+    feed = VoucherFeed.new
+    feed.run
+  end
+
   namespace :absolute_ids do
     namespace :aspace do
       desc "caches ArchivesSpace resources"
