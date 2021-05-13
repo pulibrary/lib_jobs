@@ -26,31 +26,6 @@ class AbsoluteId::Session < ApplicationRecord
       @model = model
     end
 
-    def to_s
-      CSV.generate(col_sep: ",") do |csv|
-        csv << self.class.headers
-
-        rows.each do |entry|
-          location = "#{entry.location.building} (#{entry.location.uri})"
-          container_profile = "#{entry.container_profile.name} (#{entry.container_profile.uri})"
-          repository = "#{entry.repository.name} (#{entry.repository.uri})"
-          resource = "#{entry.resource.title} (#{entry.resource.uri})"
-          container = "#{entry.container.indicator} (#{entry.container.uri})"
-
-          csv << [
-            entry.label,
-            entry.user,
-            entry.barcode,
-            location,
-            container_profile,
-            repository,
-            resource,
-            container
-          ]
-        end
-      end
-    end
-
     def rows
       @rows ||= begin
                   batch_csv_tables = @model.batches.map(&:csv_table)
@@ -161,10 +136,6 @@ class AbsoluteId::Session < ApplicationRecord
   # @todo Determine why this is needed
   def as_json(_options = nil)
     attributes
-  end
-
-  def to_yaml
-    YAML.dump(attributes)
   end
 
   def csv_table

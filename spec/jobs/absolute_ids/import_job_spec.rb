@@ -77,14 +77,16 @@ RSpec.describe AbsoluteIds::ImportJob, type: :job do
       stub_locations
       stub_container_profiles
 
-      # stub_resource_find_by_id(repository_id: '3', identifier: ead_id, resource_id: '4')
-
       stub_top_containers(ead_id: 'ABID001', repository_id: repository_id)
       stub_top_container(repository_id: 4, top_container_id: '118112')
 
-      #
       stub_location(location_id: 23_640)
       stub_top_containers(ead_id: ead_id, repository_id: repository_id)
+
+      stub_top_containers(ead_id: 'ABID001', repository_id: '5')
+      stub_resource_find_by_id(repository_id: '5', identifier: ead_id, resource_id: resource_id)
+      stub_resource(resource_id: resource_id, repository_id: '5')
+
       stub_resource(resource_id: resource_id, repository_id: repository_id)
       stub_resource_find_by_id(repository_id: repository_id, identifier: ead_id, resource_id: resource_id)
       stub_repository(repository_id: repository_id)
@@ -118,15 +120,17 @@ RSpec.describe AbsoluteIds::ImportJob, type: :job do
       )
       expect(AbsoluteId.last.repository).to include(
         {
-          id: "3",
-          uri: "/repositories/3"
+          id: "5",
+          uri: "/repositories/5"
         }
       )
       expect(AbsoluteId.last.resource).to include(
         {
           id: "4188",
+          ead_id: "ABID001",
+          instances: [],
           lock_version: 1,
-          uri: "/repositories/3/resources/4188",
+          uri: "/repositories/5/resources/4188",
           title: "AbID Testing Resource #1",
           level: "collection"
         }

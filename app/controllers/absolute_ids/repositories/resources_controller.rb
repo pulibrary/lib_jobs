@@ -21,7 +21,7 @@ class AbsoluteIds::Repositories::ResourcesController < ApplicationController
   # GET /absolute-ids/repositories/:repository_id/resources/:resource_id.json
   def show
     begin
-      @resource ||= current_repository.find_resource(id: resource_id)
+      @resource ||= current_repository.find_resource_by(id: resource_id)
     rescue StandardError => error
       Rails.logger.warn("Failed to resolve the resource #{resource_id} for the repository #{repository_id}: #{error}")
       @resource = nil

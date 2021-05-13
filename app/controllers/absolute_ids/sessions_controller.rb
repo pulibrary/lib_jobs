@@ -26,20 +26,12 @@ class AbsoluteIds::SessionsController < ApplicationController
     @session = self.class.create_session_job.perform_now(session_attributes: session_params, user_id: current_user.id)
 
     respond_to do |format|
-      format.html do
-        redirect_to absolute_ids_path
-      end
-
       format.json do
         head :found, location: absolute_ids_path(format: :json)
       end
     end
   rescue CanCan::AccessDenied
-    warning_message = if current_user_params.nil? || current_user.nil?
-                        "Denied attempt to create batches of Absolute IDs by the anonymous client #{request.remote_ip}"
-                      else
-                        "Denied attempt to create batches of Absolute IDs by the user ID #{current_user.id}"
-                      end
+    warning_message = ("Denied attempt to create batches of Absolute IDs by the anonymous client #{request.remote_ip}" if current_user_params.nil? || current_user.nil?)
 
     Rails.logger.warn(warning_message)
 
@@ -50,10 +42,6 @@ class AbsoluteIds::SessionsController < ApplicationController
 
       format.json { head :forbidden }
     end
-  rescue ArgumentError => error
-    Rails.logger.warn("Failed to create batches of new Absolute IDs with invalid parameters.")
-    Rails.logger.warn(JSON.generate(session_params))
-    raise error
   end
 
   # POST /absolute-ids/sessions/synchronize
