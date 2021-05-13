@@ -63,8 +63,10 @@ module AbsoluteIds
     def resolve_top_container(aspace_resource:, indicator:, index:)
       current_indicator = (indicator.to_i + index).to_s
 
-      top_containers = aspace_resource.top_containers.select { |c| c.indicator == current_indicator || c.indicator =~ /(?:[bB]ox)\s#{current_indicator}/ }
-      top_container = top_containers.first
+      # Sometimes when we get here the ead_id isn't populated in the resource. I
+      # can't figure out why.
+      ead_id = aspace_resource.ead_id || aspace_resource.top_containers[0].collection[0][:identifier]
+      top_container = current_client.find_top_container(indicator: current_indicator, ead_id: ead_id, repository_id: aspace_resource.repository.id)
 
       raise(ArgumentError, "Failed to resolve the container for indicator #{current_indicator} linked to the resource #{aspace_resource.id}") if top_container.nil?
       top_container

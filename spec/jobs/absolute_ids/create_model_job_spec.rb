@@ -55,7 +55,7 @@ RSpec.describe AbsoluteIds::CreateModelJob, type: :job do
       let(:properties) do
         {
           barcode: "32101103191142",
-          container: "13",
+          container: "23",
           container_profile: container_profile,
           location: location,
           repository: repository,
@@ -78,6 +78,7 @@ RSpec.describe AbsoluteIds::CreateModelJob, type: :job do
         stub_resource(resource_id: resource_id, repository_id: repository_id)
         stub_resource_find_by_id(repository_id: repository_id, identifier: ead_id, resource_id: resource_id)
         stub_repository(repository_id: repository_id)
+        stub_top_container_search(repository_id: 4, ead_id: "ABID001", indicator: "23")
 
         described_class.polymorphic_perform_now(properties: properties, user_id: user.id)
       end
@@ -108,8 +109,8 @@ RSpec.describe AbsoluteIds::CreateModelJob, type: :job do
 
         expect(AbsoluteId.last.container).not_to be_empty
         expect(AbsoluteId.last.container_object).not_to be_nil
-        expect(AbsoluteId.last.container_object.id).to eq('118103')
-        expect(AbsoluteId.last.container_object.uri).to eq("/repositories/4/top_containers/118103")
+        expect(AbsoluteId.last.container_object.id).to eq('118113')
+        expect(AbsoluteId.last.container_object.uri).to eq("/repositories/4/top_containers/118113")
         expect(AbsoluteId.last.container_object.type).to eq("box")
       end
     end

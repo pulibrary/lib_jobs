@@ -1,0 +1,1582 @@
+{
+    "facets": {
+        "facet_dates": {},
+        "facet_fields": {},
+        "facet_intervals": {},
+        "facet_queries": {},
+        "facet_ranges": {}
+    },
+    "first_page": 1,
+    "last_page": 2,
+    "offset_first": 1,
+    "offset_last": 30,
+    "page_size": 30,
+    "results": [
+        {
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "create_time": "2021-05-07T19:39:57Z",
+            "created_by": "wrc3",
+            "display_string": "Box 26",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                false
+            ],
+            "id": "/repositories/4/top_containers/118346",
+            "indicator_u_icusort": "26",
+            "json": "{\"lock_version\":1,\"indicator\":\"26\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-05-07T19:39:57Z\",\"system_mtime\":\"2021-05-07T19:41:22Z\",\"user_mtime\":\"2021-05-07T19:39:57Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118346\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box 26\",\"long_display_string\":\"Box 26, ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "wrc3",
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-07T19:41:22Z",
+            "title": "Box 26, ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box 26",
+            "top_container_u_typeahead_utext": "box26",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118346",
+            "user_mtime": "2021-05-07T19:39:57Z"
+        },
+        {
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "create_time": "2021-05-07T19:39:57Z",
+            "created_by": "wrc3",
+            "display_string": "Box 28",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                false
+            ],
+            "id": "/repositories/4/top_containers/118348",
+            "indicator_u_icusort": "28",
+            "json": "{\"lock_version\":1,\"indicator\":\"28\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-05-07T19:39:57Z\",\"system_mtime\":\"2021-05-07T19:41:22Z\",\"user_mtime\":\"2021-05-07T19:39:57Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118348\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box 28\",\"long_display_string\":\"Box 28, ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "wrc3",
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-07T19:41:22Z",
+            "title": "Box 28, ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box 28",
+            "top_container_u_typeahead_utext": "box28",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118348",
+            "user_mtime": "2021-05-07T19:39:57Z"
+        },
+        {
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "create_time": "2021-05-07T19:39:57Z",
+            "created_by": "wrc3",
+            "display_string": "Box 29",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                false
+            ],
+            "id": "/repositories/4/top_containers/118349",
+            "indicator_u_icusort": "29",
+            "json": "{\"lock_version\":1,\"indicator\":\"29\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-05-07T19:39:57Z\",\"system_mtime\":\"2021-05-07T19:41:22Z\",\"user_mtime\":\"2021-05-07T19:39:57Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118349\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box 29\",\"long_display_string\":\"Box 29, ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "wrc3",
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-07T19:41:22Z",
+            "title": "Box 29, ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box 29",
+            "top_container_u_typeahead_utext": "box29",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118349",
+            "user_mtime": "2021-05-07T19:39:57Z"
+        },
+        {
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "create_time": "2021-05-07T19:39:57Z",
+            "created_by": "wrc3",
+            "display_string": "Box 30",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                false
+            ],
+            "id": "/repositories/4/top_containers/118350",
+            "indicator_u_icusort": "30",
+            "json": "{\"lock_version\":1,\"indicator\":\"30\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-05-07T19:39:57Z\",\"system_mtime\":\"2021-05-07T19:41:22Z\",\"user_mtime\":\"2021-05-07T19:39:57Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118350\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box 30\",\"long_display_string\":\"Box 30, ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "wrc3",
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-07T19:41:22Z",
+            "title": "Box 30, ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box 30",
+            "top_container_u_typeahead_utext": "box30",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118350",
+            "user_mtime": "2021-05-07T19:39:57Z"
+        },
+        {
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "create_time": "2021-05-07T19:39:58Z",
+            "created_by": "wrc3",
+            "display_string": "Box 31",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                false
+            ],
+            "id": "/repositories/4/top_containers/118351",
+            "indicator_u_icusort": "31",
+            "json": "{\"lock_version\":1,\"indicator\":\"31\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-05-07T19:39:58Z\",\"system_mtime\":\"2021-05-07T19:41:22Z\",\"user_mtime\":\"2021-05-07T19:39:58Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118351\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box 31\",\"long_display_string\":\"Box 31, ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "wrc3",
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-07T19:41:22Z",
+            "title": "Box 31, ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box 31",
+            "top_container_u_typeahead_utext": "box31",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118351",
+            "user_mtime": "2021-05-07T19:39:58Z"
+        },
+        {
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "create_time": "2021-05-07T19:39:58Z",
+            "created_by": "wrc3",
+            "display_string": "Box 32",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                false
+            ],
+            "id": "/repositories/4/top_containers/118352",
+            "indicator_u_icusort": "32",
+            "json": "{\"lock_version\":1,\"indicator\":\"32\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-05-07T19:39:58Z\",\"system_mtime\":\"2021-05-07T19:41:22Z\",\"user_mtime\":\"2021-05-07T19:39:58Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118352\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box 32\",\"long_display_string\":\"Box 32, ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "wrc3",
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-07T19:41:22Z",
+            "title": "Box 32, ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box 32",
+            "top_container_u_typeahead_utext": "box32",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118352",
+            "user_mtime": "2021-05-07T19:39:58Z"
+        },
+        {
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "create_time": "2021-05-07T19:39:58Z",
+            "created_by": "wrc3",
+            "display_string": "Box 33",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                false
+            ],
+            "id": "/repositories/4/top_containers/118353",
+            "indicator_u_icusort": "33",
+            "json": "{\"lock_version\":1,\"indicator\":\"33\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-05-07T19:39:58Z\",\"system_mtime\":\"2021-05-07T19:41:22Z\",\"user_mtime\":\"2021-05-07T19:39:58Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118353\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box 33\",\"long_display_string\":\"Box 33, ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "wrc3",
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-07T19:41:22Z",
+            "title": "Box 33, ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box 33",
+            "top_container_u_typeahead_utext": "box33",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118353",
+            "user_mtime": "2021-05-07T19:39:58Z"
+        },
+        {
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "create_time": "2021-05-07T19:39:58Z",
+            "created_by": "wrc3",
+            "display_string": "Box 34",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                false
+            ],
+            "id": "/repositories/4/top_containers/118354",
+            "indicator_u_icusort": "34",
+            "json": "{\"lock_version\":1,\"indicator\":\"34\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-05-07T19:39:58Z\",\"system_mtime\":\"2021-05-07T19:41:22Z\",\"user_mtime\":\"2021-05-07T19:39:58Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118354\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box 34\",\"long_display_string\":\"Box 34, ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "wrc3",
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-07T19:41:22Z",
+            "title": "Box 34, ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box 34",
+            "top_container_u_typeahead_utext": "box34",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118354",
+            "user_mtime": "2021-05-07T19:39:58Z"
+        },
+        {
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "create_time": "2021-05-07T19:39:58Z",
+            "created_by": "wrc3",
+            "display_string": "Box 35",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                false
+            ],
+            "id": "/repositories/4/top_containers/118355",
+            "indicator_u_icusort": "35",
+            "json": "{\"lock_version\":1,\"indicator\":\"35\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-05-07T19:39:58Z\",\"system_mtime\":\"2021-05-07T19:41:22Z\",\"user_mtime\":\"2021-05-07T19:39:58Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118355\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box 35\",\"long_display_string\":\"Box 35, ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "wrc3",
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-07T19:41:22Z",
+            "title": "Box 35, ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box 35",
+            "top_container_u_typeahead_utext": "box35",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118355",
+            "user_mtime": "2021-05-07T19:39:58Z"
+        },
+        {
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "create_time": "2021-05-07T19:39:58Z",
+            "created_by": "wrc3",
+            "display_string": "Box 36",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                false
+            ],
+            "id": "/repositories/4/top_containers/118356",
+            "indicator_u_icusort": "36",
+            "json": "{\"lock_version\":1,\"indicator\":\"36\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-05-07T19:39:58Z\",\"system_mtime\":\"2021-05-07T19:41:22Z\",\"user_mtime\":\"2021-05-07T19:39:58Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118356\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box 36\",\"long_display_string\":\"Box 36, ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "wrc3",
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-07T19:41:22Z",
+            "title": "Box 36, ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box 36",
+            "top_container_u_typeahead_utext": "box36",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118356",
+            "user_mtime": "2021-05-07T19:39:58Z"
+        },
+        {
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "create_time": "2021-05-07T19:39:59Z",
+            "created_by": "wrc3",
+            "display_string": "Box 37",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                false
+            ],
+            "id": "/repositories/4/top_containers/118357",
+            "indicator_u_icusort": "37",
+            "json": "{\"lock_version\":1,\"indicator\":\"37\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-05-07T19:39:59Z\",\"system_mtime\":\"2021-05-07T19:41:22Z\",\"user_mtime\":\"2021-05-07T19:39:59Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118357\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box 37\",\"long_display_string\":\"Box 37, ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "wrc3",
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-07T19:41:22Z",
+            "title": "Box 37, ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box 37",
+            "top_container_u_typeahead_utext": "box37",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118357",
+            "user_mtime": "2021-05-07T19:39:59Z"
+        },
+        {
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "create_time": "2021-05-07T19:39:59Z",
+            "created_by": "wrc3",
+            "display_string": "Box 38",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                false
+            ],
+            "id": "/repositories/4/top_containers/118358",
+            "indicator_u_icusort": "38",
+            "json": "{\"lock_version\":1,\"indicator\":\"38\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-05-07T19:39:59Z\",\"system_mtime\":\"2021-05-07T19:41:22Z\",\"user_mtime\":\"2021-05-07T19:39:59Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118358\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box 38\",\"long_display_string\":\"Box 38, ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "wrc3",
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-07T19:41:22Z",
+            "title": "Box 38, ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box 38",
+            "top_container_u_typeahead_utext": "box38",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118358",
+            "user_mtime": "2021-05-07T19:39:59Z"
+        },
+        {
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "create_time": "2021-05-07T19:39:59Z",
+            "created_by": "wrc3",
+            "display_string": "Box 39",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                false
+            ],
+            "id": "/repositories/4/top_containers/118359",
+            "indicator_u_icusort": "39",
+            "json": "{\"lock_version\":1,\"indicator\":\"39\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-05-07T19:39:59Z\",\"system_mtime\":\"2021-05-07T19:41:22Z\",\"user_mtime\":\"2021-05-07T19:39:59Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118359\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box 39\",\"long_display_string\":\"Box 39, ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "wrc3",
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-07T19:41:22Z",
+            "title": "Box 39, ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box 39",
+            "top_container_u_typeahead_utext": "box39",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118359",
+            "user_mtime": "2021-05-07T19:39:59Z"
+        },
+        {
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "create_time": "2021-05-07T19:39:55Z",
+            "created_by": "wrc3",
+            "display_string": "Box 16",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                false
+            ],
+            "id": "/repositories/4/top_containers/118336",
+            "indicator_u_icusort": "16",
+            "json": "{\"lock_version\":1,\"indicator\":\"16\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-05-07T19:39:55Z\",\"system_mtime\":\"2021-05-07T19:41:22Z\",\"user_mtime\":\"2021-05-07T19:39:55Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118336\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box 16\",\"long_display_string\":\"Box 16, ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "wrc3",
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-07T19:41:22Z",
+            "title": "Box 16, ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box 16",
+            "top_container_u_typeahead_utext": "box16",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118336",
+            "user_mtime": "2021-05-07T19:39:55Z"
+        },
+        {
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "create_time": "2021-05-07T19:39:55Z",
+            "created_by": "wrc3",
+            "display_string": "Box 17",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                false
+            ],
+            "id": "/repositories/4/top_containers/118337",
+            "indicator_u_icusort": "17",
+            "json": "{\"lock_version\":1,\"indicator\":\"17\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-05-07T19:39:55Z\",\"system_mtime\":\"2021-05-07T19:41:22Z\",\"user_mtime\":\"2021-05-07T19:39:55Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118337\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box 17\",\"long_display_string\":\"Box 17, ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "wrc3",
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-07T19:41:22Z",
+            "title": "Box 17, ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box 17",
+            "top_container_u_typeahead_utext": "box17",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118337",
+            "user_mtime": "2021-05-07T19:39:55Z"
+        },
+        {
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "create_time": "2021-05-07T19:39:55Z",
+            "created_by": "wrc3",
+            "display_string": "Box 18",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                false
+            ],
+            "id": "/repositories/4/top_containers/118338",
+            "indicator_u_icusort": "18",
+            "json": "{\"lock_version\":1,\"indicator\":\"18\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-05-07T19:39:55Z\",\"system_mtime\":\"2021-05-07T19:41:22Z\",\"user_mtime\":\"2021-05-07T19:39:55Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118338\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box 18\",\"long_display_string\":\"Box 18, ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "wrc3",
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-07T19:41:22Z",
+            "title": "Box 18, ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box 18",
+            "top_container_u_typeahead_utext": "box18",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118338",
+            "user_mtime": "2021-05-07T19:39:55Z"
+        },
+        {
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "create_time": "2021-05-07T19:39:55Z",
+            "created_by": "wrc3",
+            "display_string": "Box 19",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                false
+            ],
+            "id": "/repositories/4/top_containers/118339",
+            "indicator_u_icusort": "19",
+            "json": "{\"lock_version\":1,\"indicator\":\"19\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-05-07T19:39:55Z\",\"system_mtime\":\"2021-05-07T19:41:22Z\",\"user_mtime\":\"2021-05-07T19:39:55Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118339\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box 19\",\"long_display_string\":\"Box 19, ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "wrc3",
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-07T19:41:22Z",
+            "title": "Box 19, ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box 19",
+            "top_container_u_typeahead_utext": "box19",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118339",
+            "user_mtime": "2021-05-07T19:39:55Z"
+        },
+        {
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "create_time": "2021-05-07T19:39:55Z",
+            "created_by": "wrc3",
+            "display_string": "Box 20",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                false
+            ],
+            "id": "/repositories/4/top_containers/118340",
+            "indicator_u_icusort": "20",
+            "json": "{\"lock_version\":1,\"indicator\":\"20\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-05-07T19:39:55Z\",\"system_mtime\":\"2021-05-07T19:41:22Z\",\"user_mtime\":\"2021-05-07T19:39:55Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118340\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box 20\",\"long_display_string\":\"Box 20, ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "wrc3",
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-07T19:41:22Z",
+            "title": "Box 20, ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box 20",
+            "top_container_u_typeahead_utext": "box20",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118340",
+            "user_mtime": "2021-05-07T19:39:55Z"
+        },
+        {
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "create_time": "2021-05-07T19:39:56Z",
+            "created_by": "wrc3",
+            "display_string": "Box 21",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                false
+            ],
+            "id": "/repositories/4/top_containers/118341",
+            "indicator_u_icusort": "21",
+            "json": "{\"lock_version\":1,\"indicator\":\"21\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-05-07T19:39:56Z\",\"system_mtime\":\"2021-05-07T19:41:22Z\",\"user_mtime\":\"2021-05-07T19:39:56Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118341\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box 21\",\"long_display_string\":\"Box 21, ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "wrc3",
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-07T19:41:22Z",
+            "title": "Box 21, ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box 21",
+            "top_container_u_typeahead_utext": "box21",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118341",
+            "user_mtime": "2021-05-07T19:39:56Z"
+        },
+        {
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "create_time": "2021-05-07T19:39:56Z",
+            "created_by": "wrc3",
+            "display_string": "Box 22",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                false
+            ],
+            "id": "/repositories/4/top_containers/118342",
+            "indicator_u_icusort": "22",
+            "json": "{\"lock_version\":1,\"indicator\":\"22\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-05-07T19:39:56Z\",\"system_mtime\":\"2021-05-07T19:41:22Z\",\"user_mtime\":\"2021-05-07T19:39:56Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118342\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box 22\",\"long_display_string\":\"Box 22, ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "wrc3",
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-07T19:41:22Z",
+            "title": "Box 22, ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box 22",
+            "top_container_u_typeahead_utext": "box22",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118342",
+            "user_mtime": "2021-05-07T19:39:56Z"
+        },
+        {
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "create_time": "2021-05-07T19:39:56Z",
+            "created_by": "wrc3",
+            "display_string": "Box 23",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                false
+            ],
+            "id": "/repositories/4/top_containers/118343",
+            "indicator_u_icusort": "23",
+            "json": "{\"lock_version\":1,\"indicator\":\"23\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-05-07T19:39:56Z\",\"system_mtime\":\"2021-05-07T19:41:22Z\",\"user_mtime\":\"2021-05-07T19:39:56Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118343\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box 23\",\"long_display_string\":\"Box 23, ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "wrc3",
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-07T19:41:22Z",
+            "title": "Box 23, ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box 23",
+            "top_container_u_typeahead_utext": "box23",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118343",
+            "user_mtime": "2021-05-07T19:39:56Z"
+        },
+        {
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "create_time": "2021-05-07T19:39:56Z",
+            "created_by": "wrc3",
+            "display_string": "Box 24",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                false
+            ],
+            "id": "/repositories/4/top_containers/118344",
+            "indicator_u_icusort": "24",
+            "json": "{\"lock_version\":1,\"indicator\":\"24\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-05-07T19:39:56Z\",\"system_mtime\":\"2021-05-07T19:41:22Z\",\"user_mtime\":\"2021-05-07T19:39:56Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118344\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box 24\",\"long_display_string\":\"Box 24, ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "wrc3",
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-07T19:41:22Z",
+            "title": "Box 24, ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box 24",
+            "top_container_u_typeahead_utext": "box24",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118344",
+            "user_mtime": "2021-05-07T19:39:56Z"
+        },
+        {
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "create_time": "2021-05-07T19:39:56Z",
+            "created_by": "wrc3",
+            "display_string": "Box 25",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                false
+            ],
+            "id": "/repositories/4/top_containers/118345",
+            "indicator_u_icusort": "25",
+            "json": "{\"lock_version\":1,\"indicator\":\"25\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-05-07T19:39:56Z\",\"system_mtime\":\"2021-05-07T19:41:22Z\",\"user_mtime\":\"2021-05-07T19:39:56Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118345\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box 25\",\"long_display_string\":\"Box 25, ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "wrc3",
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-07T19:41:22Z",
+            "title": "Box 25, ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box 25",
+            "top_container_u_typeahead_utext": "box25",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118345",
+            "user_mtime": "2021-05-07T19:39:56Z"
+        },
+        {
+            "barcode_u_icusort": "32101113343220",
+            "barcode_u_sstr": [
+                "32101113343220"
+            ],
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "container_profile_display_string_u_sstr": [
+                "Mudd ST records center [15d, 10h, 12w inches] extent measured by width"
+            ],
+            "container_profile_uri_u_sstr": [
+                "/container_profiles/20"
+            ],
+            "create_time": "2021-05-07T19:39:54Z",
+            "created_by": "wrc3",
+            "display_string": "Box S-000022: [Barcode: 32101113343220]",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                true
+            ],
+            "id": "/repositories/4/top_containers/118331",
+            "indicator_u_icusort": "S-000022",
+            "json": "{\"lock_version\":2,\"barcode\":\"32101113343220\",\"indicator\":\"S-000022\",\"created_by\":\"wrc3\",\"last_modified_by\":\"pulfalight_system\",\"create_time\":\"2021-05-07T19:39:54Z\",\"system_mtime\":\"2021-05-10T15:29:53Z\",\"user_mtime\":\"2021-05-10T15:29:51Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[{\"jsonmodel_type\":\"container_location\",\"status\":\"current\",\"start_date\":\"2021-05-10\",\"system_mtime\":\"2021-05-10 15:29:53 UTC\",\"user_mtime\":\"2021-05-10 15:29:53 UTC\",\"ref\":\"/locations/23649\",\"_resolved\":{\"lock_version\":0,\"building\":\"Seeley G. Mudd Manuscript Library\",\"title\":\"Seeley G. Mudd Manuscript Library [mudd]\",\"classification\":\"mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:29:47Z\",\"system_mtime\":\"2021-01-22T22:29:47Z\",\"user_mtime\":\"2021-01-22T22:29:47Z\",\"jsonmodel_type\":\"location\",\"external_ids\":[],\"functions\":[],\"uri\":\"/locations/23649\"}}],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118331\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"container_profile\":{\"ref\":\"/container_profiles/20\",\"_resolved\":{\"lock_version\":0,\"name\":\"Mudd ST records center\",\"extent_dimension\":\"width\",\"height\":\"10\",\"width\":\"12\",\"depth\":\"15\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-04-28T18:27:11Z\",\"system_mtime\":\"2021-04-28T18:27:11Z\",\"user_mtime\":\"2021-04-28T18:27:11Z\",\"dimension_units\":\"inches\",\"jsonmodel_type\":\"container_profile\",\"uri\":\"/container_profiles/20\",\"display_string\":\"Mudd ST records center [15d, 10h, 12w inches] extent measured by width\"}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box S-000022: [Barcode: 32101113343220]\",\"long_display_string\":\"Box S-000022 [Barcode: 32101113343220], Mudd ST records center, Seeley G. Mudd Manuscript Library [mudd], ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "pulfalight_system",
+            "location_display_string_u_sstr": [
+                "Seeley G. Mudd Manuscript Library [mudd]"
+            ],
+            "location_uri_u_sstr": [
+                "/locations/23649"
+            ],
+            "location_uris": [
+                "/locations/23649"
+            ],
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-10T15:29:53Z",
+            "title": "Box S-000022 [Barcode: 32101113343220], Mudd ST records center, Seeley G. Mudd Manuscript Library [mudd], ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box S-000022: [Barcode: 32101113343220]",
+            "top_container_u_typeahead_utext": "boxs000022barcode32101113343220",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118331",
+            "user_mtime": "2021-05-10T15:29:51Z"
+        },
+        {
+            "barcode_u_icusort": "32101113343238",
+            "barcode_u_sstr": [
+                "32101113343238"
+            ],
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "container_profile_display_string_u_sstr": [
+                "Mudd ST other [15.25d, 10.25h, 30w inches] extent measured by width"
+            ],
+            "container_profile_uri_u_sstr": [
+                "/container_profiles/19"
+            ],
+            "create_time": "2021-05-07T19:39:54Z",
+            "created_by": "wrc3",
+            "display_string": "Box S-000023: [Barcode: 32101113343238]",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                true
+            ],
+            "id": "/repositories/4/top_containers/118332",
+            "indicator_u_icusort": "S-000023",
+            "json": "{\"lock_version\":2,\"barcode\":\"32101113343238\",\"indicator\":\"S-000023\",\"created_by\":\"wrc3\",\"last_modified_by\":\"pulfalight_system\",\"create_time\":\"2021-05-07T19:39:54Z\",\"system_mtime\":\"2021-05-10T15:29:59Z\",\"user_mtime\":\"2021-05-10T15:29:57Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[{\"jsonmodel_type\":\"container_location\",\"status\":\"current\",\"start_date\":\"2021-05-10\",\"system_mtime\":\"2021-05-10 15:29:59 UTC\",\"user_mtime\":\"2021-05-10 15:29:59 UTC\",\"ref\":\"/locations/23649\",\"_resolved\":{\"lock_version\":0,\"building\":\"Seeley G. Mudd Manuscript Library\",\"title\":\"Seeley G. Mudd Manuscript Library [mudd]\",\"classification\":\"mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:29:47Z\",\"system_mtime\":\"2021-01-22T22:29:47Z\",\"user_mtime\":\"2021-01-22T22:29:47Z\",\"jsonmodel_type\":\"location\",\"external_ids\":[],\"functions\":[],\"uri\":\"/locations/23649\"}}],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118332\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"container_profile\":{\"ref\":\"/container_profiles/19\",\"_resolved\":{\"lock_version\":0,\"name\":\"Mudd ST other\",\"extent_dimension\":\"width\",\"height\":\"10.25\",\"width\":\"30\",\"depth\":\"15.25\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-04-28T18:26:16Z\",\"system_mtime\":\"2021-04-28T18:26:16Z\",\"user_mtime\":\"2021-04-28T18:26:16Z\",\"dimension_units\":\"inches\",\"jsonmodel_type\":\"container_profile\",\"uri\":\"/container_profiles/19\",\"display_string\":\"Mudd ST other [15.25d, 10.25h, 30w inches] extent measured by width\"}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box S-000023: [Barcode: 32101113343238]\",\"long_display_string\":\"Box S-000023 [Barcode: 32101113343238], Mudd ST other, Seeley G. Mudd Manuscript Library [mudd], ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "pulfalight_system",
+            "location_display_string_u_sstr": [
+                "Seeley G. Mudd Manuscript Library [mudd]"
+            ],
+            "location_uri_u_sstr": [
+                "/locations/23649"
+            ],
+            "location_uris": [
+                "/locations/23649"
+            ],
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-10T15:29:59Z",
+            "title": "Box S-000023 [Barcode: 32101113343238], Mudd ST other, Seeley G. Mudd Manuscript Library [mudd], ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box S-000023: [Barcode: 32101113343238]",
+            "top_container_u_typeahead_utext": "boxs000023barcode32101113343238",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118332",
+            "user_mtime": "2021-05-10T15:29:57Z"
+        },
+        {
+            "barcode_u_icusort": "32101113343246",
+            "barcode_u_sstr": [
+                "32101113343246"
+            ],
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "container_profile_display_string_u_sstr": [
+                "Mudd ST other [15.25d, 10.25h, 30w inches] extent measured by width"
+            ],
+            "container_profile_uri_u_sstr": [
+                "/container_profiles/19"
+            ],
+            "create_time": "2021-05-07T19:39:54Z",
+            "created_by": "wrc3",
+            "display_string": "Box S-000024: [Barcode: 32101113343246]",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                true
+            ],
+            "id": "/repositories/4/top_containers/118333",
+            "indicator_u_icusort": "S-000024",
+            "json": "{\"lock_version\":2,\"barcode\":\"32101113343246\",\"indicator\":\"S-000024\",\"created_by\":\"wrc3\",\"last_modified_by\":\"pulfalight_system\",\"create_time\":\"2021-05-07T19:39:54Z\",\"system_mtime\":\"2021-05-10T15:30:04Z\",\"user_mtime\":\"2021-05-10T15:30:02Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[{\"jsonmodel_type\":\"container_location\",\"status\":\"current\",\"start_date\":\"2021-05-10\",\"system_mtime\":\"2021-05-10 15:30:04 UTC\",\"user_mtime\":\"2021-05-10 15:30:04 UTC\",\"ref\":\"/locations/23649\",\"_resolved\":{\"lock_version\":0,\"building\":\"Seeley G. Mudd Manuscript Library\",\"title\":\"Seeley G. Mudd Manuscript Library [mudd]\",\"classification\":\"mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:29:47Z\",\"system_mtime\":\"2021-01-22T22:29:47Z\",\"user_mtime\":\"2021-01-22T22:29:47Z\",\"jsonmodel_type\":\"location\",\"external_ids\":[],\"functions\":[],\"uri\":\"/locations/23649\"}}],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118333\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"container_profile\":{\"ref\":\"/container_profiles/19\",\"_resolved\":{\"lock_version\":0,\"name\":\"Mudd ST other\",\"extent_dimension\":\"width\",\"height\":\"10.25\",\"width\":\"30\",\"depth\":\"15.25\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-04-28T18:26:16Z\",\"system_mtime\":\"2021-04-28T18:26:16Z\",\"user_mtime\":\"2021-04-28T18:26:16Z\",\"dimension_units\":\"inches\",\"jsonmodel_type\":\"container_profile\",\"uri\":\"/container_profiles/19\",\"display_string\":\"Mudd ST other [15.25d, 10.25h, 30w inches] extent measured by width\"}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box S-000024: [Barcode: 32101113343246]\",\"long_display_string\":\"Box S-000024 [Barcode: 32101113343246], Mudd ST other, Seeley G. Mudd Manuscript Library [mudd], ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "pulfalight_system",
+            "location_display_string_u_sstr": [
+                "Seeley G. Mudd Manuscript Library [mudd]"
+            ],
+            "location_uri_u_sstr": [
+                "/locations/23649"
+            ],
+            "location_uris": [
+                "/locations/23649"
+            ],
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-10T15:30:04Z",
+            "title": "Box S-000024 [Barcode: 32101113343246], Mudd ST other, Seeley G. Mudd Manuscript Library [mudd], ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box S-000024: [Barcode: 32101113343246]",
+            "top_container_u_typeahead_utext": "boxs000024barcode32101113343246",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118333",
+            "user_mtime": "2021-05-10T15:30:02Z"
+        },
+        {
+            "barcode_u_icusort": "32101113343253",
+            "barcode_u_sstr": [
+                "32101113343253"
+            ],
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "container_profile_display_string_u_sstr": [
+                "Mudd ST half-manuscript [15.25d, 10.25h, 2.5w inches] extent measured by width"
+            ],
+            "container_profile_uri_u_sstr": [
+                "/container_profiles/17"
+            ],
+            "create_time": "2021-05-07T19:39:54Z",
+            "created_by": "wrc3",
+            "display_string": "Box S-000025: [Barcode: 32101113343253]",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                true
+            ],
+            "id": "/repositories/4/top_containers/118334",
+            "indicator_u_icusort": "S-000025",
+            "json": "{\"lock_version\":2,\"barcode\":\"32101113343253\",\"indicator\":\"S-000025\",\"created_by\":\"wrc3\",\"last_modified_by\":\"pulfalight_system\",\"create_time\":\"2021-05-07T19:39:54Z\",\"system_mtime\":\"2021-05-10T15:30:09Z\",\"user_mtime\":\"2021-05-10T15:30:07Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[{\"jsonmodel_type\":\"container_location\",\"status\":\"current\",\"start_date\":\"2021-05-10\",\"system_mtime\":\"2021-05-10 15:30:09 UTC\",\"user_mtime\":\"2021-05-10 15:30:09 UTC\",\"ref\":\"/locations/23649\",\"_resolved\":{\"lock_version\":0,\"building\":\"Seeley G. Mudd Manuscript Library\",\"title\":\"Seeley G. Mudd Manuscript Library [mudd]\",\"classification\":\"mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:29:47Z\",\"system_mtime\":\"2021-01-22T22:29:47Z\",\"user_mtime\":\"2021-01-22T22:29:47Z\",\"jsonmodel_type\":\"location\",\"external_ids\":[],\"functions\":[],\"uri\":\"/locations/23649\"}}],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118334\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"container_profile\":{\"ref\":\"/container_profiles/17\",\"_resolved\":{\"lock_version\":0,\"name\":\"Mudd ST half-manuscript\",\"extent_dimension\":\"width\",\"height\":\"10.25\",\"width\":\"2.5\",\"depth\":\"15.25\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-04-28T18:25:06Z\",\"system_mtime\":\"2021-04-28T18:25:06Z\",\"user_mtime\":\"2021-04-28T18:25:06Z\",\"dimension_units\":\"inches\",\"jsonmodel_type\":\"container_profile\",\"uri\":\"/container_profiles/17\",\"display_string\":\"Mudd ST half-manuscript [15.25d, 10.25h, 2.5w inches] extent measured by width\"}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box S-000025: [Barcode: 32101113343253]\",\"long_display_string\":\"Box S-000025 [Barcode: 32101113343253], Mudd ST half-manuscript, Seeley G. Mudd Manuscript Library [mudd], ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "pulfalight_system",
+            "location_display_string_u_sstr": [
+                "Seeley G. Mudd Manuscript Library [mudd]"
+            ],
+            "location_uri_u_sstr": [
+                "/locations/23649"
+            ],
+            "location_uris": [
+                "/locations/23649"
+            ],
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-10T15:30:09Z",
+            "title": "Box S-000025 [Barcode: 32101113343253], Mudd ST half-manuscript, Seeley G. Mudd Manuscript Library [mudd], ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box S-000025: [Barcode: 32101113343253]",
+            "top_container_u_typeahead_utext": "boxs000025barcode32101113343253",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118334",
+            "user_mtime": "2021-05-10T15:30:07Z"
+        },
+        {
+            "barcode_u_icusort": "32101113343261",
+            "barcode_u_sstr": [
+                "32101113343261"
+            ],
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "container_profile_display_string_u_sstr": [
+                "Mudd ST half-manuscript [15.25d, 10.25h, 2.5w inches] extent measured by width"
+            ],
+            "container_profile_uri_u_sstr": [
+                "/container_profiles/17"
+            ],
+            "create_time": "2021-05-07T19:39:55Z",
+            "created_by": "wrc3",
+            "display_string": "Box S-000026: [Barcode: 32101113343261]",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                true
+            ],
+            "id": "/repositories/4/top_containers/118335",
+            "indicator_u_icusort": "S-000026",
+            "json": "{\"lock_version\":2,\"barcode\":\"32101113343261\",\"indicator\":\"S-000026\",\"created_by\":\"wrc3\",\"last_modified_by\":\"pulfalight_system\",\"create_time\":\"2021-05-07T19:39:55Z\",\"system_mtime\":\"2021-05-10T15:30:13Z\",\"user_mtime\":\"2021-05-10T15:30:12Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[{\"jsonmodel_type\":\"container_location\",\"status\":\"current\",\"start_date\":\"2021-05-10\",\"system_mtime\":\"2021-05-10 15:30:13 UTC\",\"user_mtime\":\"2021-05-10 15:30:13 UTC\",\"ref\":\"/locations/23649\",\"_resolved\":{\"lock_version\":0,\"building\":\"Seeley G. Mudd Manuscript Library\",\"title\":\"Seeley G. Mudd Manuscript Library [mudd]\",\"classification\":\"mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:29:47Z\",\"system_mtime\":\"2021-01-22T22:29:47Z\",\"user_mtime\":\"2021-01-22T22:29:47Z\",\"jsonmodel_type\":\"location\",\"external_ids\":[],\"functions\":[],\"uri\":\"/locations/23649\"}}],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118335\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"container_profile\":{\"ref\":\"/container_profiles/17\",\"_resolved\":{\"lock_version\":0,\"name\":\"Mudd ST half-manuscript\",\"extent_dimension\":\"width\",\"height\":\"10.25\",\"width\":\"2.5\",\"depth\":\"15.25\",\"created_by\":\"wrc3\",\"last_modified_by\":\"wrc3\",\"create_time\":\"2021-04-28T18:25:06Z\",\"system_mtime\":\"2021-04-28T18:25:06Z\",\"user_mtime\":\"2021-04-28T18:25:06Z\",\"dimension_units\":\"inches\",\"jsonmodel_type\":\"container_profile\",\"uri\":\"/container_profiles/17\",\"display_string\":\"Mudd ST half-manuscript [15.25d, 10.25h, 2.5w inches] extent measured by width\"}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box S-000026: [Barcode: 32101113343261]\",\"long_display_string\":\"Box S-000026 [Barcode: 32101113343261], Mudd ST half-manuscript, Seeley G. Mudd Manuscript Library [mudd], ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "pulfalight_system",
+            "location_display_string_u_sstr": [
+                "Seeley G. Mudd Manuscript Library [mudd]"
+            ],
+            "location_uri_u_sstr": [
+                "/locations/23649"
+            ],
+            "location_uris": [
+                "/locations/23649"
+            ],
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-10T15:30:13Z",
+            "title": "Box S-000026 [Barcode: 32101113343261], Mudd ST half-manuscript, Seeley G. Mudd Manuscript Library [mudd], ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box S-000026: [Barcode: 32101113343261]",
+            "top_container_u_typeahead_utext": "boxs000026barcode32101113343261",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118335",
+            "user_mtime": "2021-05-10T15:30:12Z"
+        },
+        {
+            "barcode_u_icusort": "32101113343188",
+            "barcode_u_sstr": [
+                "32101113343188"
+            ],
+            "collection_display_string_u_sstr": [
+                "AbID Testing Resource #3"
+            ],
+            "collection_identifier_stored_u_sstr": [
+                "ABID003"
+            ],
+            "collection_identifier_u_stext": [
+                "ABID003",
+                "ABID 003"
+            ],
+            "collection_uri_u_sstr": [
+                "/repositories/4/resources/4190"
+            ],
+            "container_profile_display_string_u_sstr": [
+                "Mudd OS depth [16d, 11.75h, 70w inches] extent measured by width"
+            ],
+            "container_profile_uri_u_sstr": [
+                "/container_profiles/13"
+            ],
+            "create_time": "2021-05-07T19:39:53Z",
+            "created_by": "wrc3",
+            "display_string": "Box DO-000001: [Barcode: 32101113343188]",
+            "empty_u_sbool": [
+                false
+            ],
+            "exported_u_sbool": [
+                false
+            ],
+            "has_location_u_sbool": [
+                true
+            ],
+            "id": "/repositories/4/top_containers/118326",
+            "indicator_u_icusort": "DO-000001",
+            "json": "{\"lock_version\":2,\"barcode\":\"32101113343188\",\"indicator\":\"DO-000001\",\"created_by\":\"wrc3\",\"last_modified_by\":\"pulfalight_system\",\"create_time\":\"2021-05-07T19:39:53Z\",\"system_mtime\":\"2021-05-10T15:24:56Z\",\"user_mtime\":\"2021-05-10T15:24:54Z\",\"type\":\"box\",\"jsonmodel_type\":\"top_container\",\"active_restrictions\":[],\"container_locations\":[{\"jsonmodel_type\":\"container_location\",\"status\":\"current\",\"start_date\":\"2021-05-10\",\"system_mtime\":\"2021-05-10 15:24:56 UTC\",\"user_mtime\":\"2021-05-10 15:24:56 UTC\",\"ref\":\"/locations/23649\",\"_resolved\":{\"lock_version\":0,\"building\":\"Seeley G. Mudd Manuscript Library\",\"title\":\"Seeley G. Mudd Manuscript Library [mudd]\",\"classification\":\"mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:29:47Z\",\"system_mtime\":\"2021-01-22T22:29:47Z\",\"user_mtime\":\"2021-01-22T22:29:47Z\",\"jsonmodel_type\":\"location\",\"external_ids\":[],\"functions\":[],\"uri\":\"/locations/23649\"}}],\"series\":[],\"collection\":[{\"ref\":\"/repositories/4/resources/4190\",\"identifier\":\"ABID003\",\"display_string\":\"AbID Testing Resource #3\"}],\"uri\":\"/repositories/4/top_containers/118326\",\"repository\":{\"ref\":\"/repositories/4\",\"_resolved\":{\"lock_version\":1,\"repo_code\":\"univarchives\",\"name\":\"University Archives\",\"parent_institution_name\":\"Princeton University Library.  Department of Rare Books and Special Collections.\",\"url\":\"http://www.princeton.edu/mudd\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-22T22:20:30Z\",\"user_mtime\":\"2021-01-22T22:20:30Z\",\"publish\":true,\"oai_is_disabled\":false,\"oai_sets_available\":\"[\\\"888\\\",\\\"889\\\",\\\"890\\\",\\\"891\\\",\\\"892\\\",\\\"893\\\",\\\"894\\\",\\\"895\\\",\\\"896\\\",\\\"897\\\",\\\"898\\\"]\",\"slug\":\"princeton_university_archives_1\",\"is_slug_auto\":false,\"jsonmodel_type\":\"repository\",\"uri\":\"/repositories/4\",\"display_string\":\"University Archives (univarchives)\",\"agent_representation\":{\"ref\":\"/agents/corporate_entities/3\",\"_resolved\":{\"lock_version\":7247,\"publish\":false,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2016-06-27T14:10:42Z\",\"system_mtime\":\"2021-01-25T20:40:46Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"is_slug_auto\":false,\"jsonmodel_type\":\"agent_corporate_entity\",\"agent_contacts\":[{\"lock_version\":0,\"name\":\"Princeton University Archives\",\"address_1\":\"Seeley G. Mudd Manuscript Library\",\"address_2\":\"65 Olden Street\",\"city\":\"Princeton\",\"country\":\"USA\",\"post_code\":\"08540\",\"email\":\"mudd@princeton.edu\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"jsonmodel_type\":\"agent_contact\",\"telephones\":[{\"number\":\"609-258-6345\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"business\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/728\"},{\"number\":\"609-258-3385\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"number_type\":\"fax\",\"jsonmodel_type\":\"telephone\",\"uri\":\"/telephone/729\"}]}],\"linked_agent_roles\":[\"creator\",\"source\"],\"external_documents\":[],\"notes\":[],\"used_within_repositories\":[],\"used_within_published_repositories\":[],\"dates_of_existence\":[],\"names\":[{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]}],\"related_agents\":[],\"uri\":\"/agents/corporate_entities/3\",\"agent_type\":\"agent_corporate_entity\",\"is_linked_to_published_record\":false,\"display_name\":{\"lock_version\":0,\"primary_name\":\"University Archives\",\"sort_name\":\"University Archives\",\"sort_name_auto_generate\":true,\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-22T22:20:29Z\",\"system_mtime\":\"2021-01-22T22:20:29Z\",\"user_mtime\":\"2021-01-22T22:20:29Z\",\"authorized\":true,\"is_display_name\":true,\"source\":\"local\",\"jsonmodel_type\":\"name_corporate_entity\",\"use_dates\":[]},\"title\":\"University Archives\"}}}},\"container_profile\":{\"ref\":\"/container_profiles/13\",\"_resolved\":{\"lock_version\":447,\"name\":\"Mudd OS depth\",\"extent_dimension\":\"width\",\"height\":\"11.75\",\"width\":\"70\",\"depth\":\"16\",\"created_by\":\"admin\",\"last_modified_by\":\"admin\",\"create_time\":\"2021-01-21T20:11:03Z\",\"system_mtime\":\"2021-01-25T05:27:19Z\",\"user_mtime\":\"2021-01-21T20:11:03Z\",\"dimension_units\":\"inches\",\"jsonmodel_type\":\"container_profile\",\"uri\":\"/container_profiles/13\",\"display_string\":\"Mudd OS depth [16d, 11.75h, 70w inches] extent measured by width\"}},\"restricted\":false,\"is_linked_to_published_record\":false,\"display_string\":\"Box DO-000001: [Barcode: 32101113343188]\",\"long_display_string\":\"Box DO-000001 [Barcode: 32101113343188], Mudd OS depth, Seeley G. Mudd Manuscript Library [mudd], ABID003, AbID Testing Resource #3\"}",
+            "jsonmodel_type": "top_container",
+            "last_modified_by": "pulfalight_system",
+            "location_display_string_u_sstr": [
+                "Seeley G. Mudd Manuscript Library [mudd]"
+            ],
+            "location_uri_u_sstr": [
+                "/locations/23649"
+            ],
+            "location_uris": [
+                "/locations/23649"
+            ],
+            "primary_type": "top_container",
+            "publish": false,
+            "repository": "/repositories/4",
+            "suppressed": false,
+            "system_generated": false,
+            "system_mtime": "2021-05-10T15:24:56Z",
+            "title": "Box DO-000001 [Barcode: 32101113343188], Mudd OS depth, Seeley G. Mudd Manuscript Library [mudd], ABID003, AbID Testing Resource #3",
+            "top_container_u_icusort": "Box DO-000001: [Barcode: 32101113343188]",
+            "top_container_u_typeahead_utext": "boxdo000001barcode32101113343188",
+            "type_enum_s": [
+                "box"
+            ],
+            "type_u_ssort": "box",
+            "types": [
+                "top_container"
+            ],
+            "uri": "/repositories/4/top_containers/118326",
+            "user_mtime": "2021-05-10T15:24:54Z"
+        }
+    ],
+    "this_page": 1,
+    "total_hits": 40
+}

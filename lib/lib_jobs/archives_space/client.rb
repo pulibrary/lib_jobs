@@ -69,6 +69,21 @@ module LibJobs
         response.parsed['resources']
       end
 
+      def find_top_container(repository_id:, indicator:, ead_id:)
+        query_params = []
+        query_params << ["q", "collection_identifier_u_stext:#{ead_id} indicator_u_icusort:#{indicator}"]
+
+        query_params << ["type[]", "top_container"]
+        query_params << ["page", "1"]
+
+        query = URI.encode_www_form(query_params)
+        response = get("/repositories/#{repository_id}/search?#{query}")
+        json = JSON.parse(response.parsed["results"][0]["json"], symbolize_names: true)
+        TopContainer.new(json)
+      rescue
+        nil
+      end
+
       def build_repository(repository_json)
         repository_attributes = repository_json.symbolize_keys.merge(client: self)
         Repository.new(repository_attributes)

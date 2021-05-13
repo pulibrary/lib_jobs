@@ -22,17 +22,17 @@ module AspaceStubbing
 
     stub_request(:post, "https://aspace.test.org/staff/api/repositories/#{repository_id}/top_containers/batch/container_profile?container_profile_uri=#{uri}&ids%5B%5D=#{top_container_ids}")
       .with(
-      body: "{}",
-      headers: {
-        'Content-Length' => 'nnnn',
-        'Content-Type' => 'application/json'
-      }
-    )
+        body: '{}',
+        headers: {
+          'Content-Length' => 'nnnn',
+          'Content-Type' => 'application/json'
+        }
+      )
       .to_return(
-      status: 200,
-      body: JSON.generate(response_body),
-      headers: { "Content-Type": 'application/json' }
-    )
+        status: 200,
+        body: JSON.generate(response_body),
+        headers: { "Content-Type": 'application/json' }
+      )
   end
 
   def stub_batch_update_location(uri:, top_container_ids:, repository_id:)
@@ -43,17 +43,17 @@ module AspaceStubbing
 
     stub_request(:post, "https://aspace.test.org/staff/api/repositories/#{repository_id}/top_containers/batch/location?location_uri=#{uri}&ids%5B%5D=#{top_container_ids}")
       .with(
-      body: "{}",
-      headers: {
-        'Content-Length' => 'nnnn',
-        'Content-Type' => 'application/json'
-      }
-    )
+        body: '{}',
+        headers: {
+          'Content-Length' => 'nnnn',
+          'Content-Type' => 'application/json'
+        }
+      )
       .to_return(
-      status: 200,
-      body: JSON.generate(response_body),
-      headers: { "Content-Type": 'application/json' }
-    )
+        status: 200,
+        body: JSON.generate(response_body),
+        headers: { "Content-Type": 'application/json' }
+      )
   end
 
   def stub_locations
@@ -128,16 +128,20 @@ module AspaceStubbing
   end
 
   def stub_resource(resource_id:, repository_id:)
-    stub_request(:get, "https://aspace.test.org/staff/api/repositories/#{repository_id}/resources/#{resource_id}")
+    path = Rails.root.join('spec', 'fixtures', 'archives_space', 'repositories', repository_id.to_s, "#{resource_id}.json")
+    uri = "/repositories/#{repository_id}/resources/#{resource_id}"
+
+    cache_path(path: path, uri: uri)
+    stub_request(:get, "https://aspace.test.org/staff/api#{uri}")
       .to_return(
         status: 200,
-        body: File.open(Rails.root.join('spec', 'fixtures', 'archives_space', 'repositories', repository_id.to_s, "#{resource_id}.json")),
+        body: File.open(path),
         headers: { "Content-Type": 'application/json' }
       )
   end
 
   def stub_search_repository_children(repository_id:, type: 'top_container')
-    response_body = File.open(Rails.root.join('spec', 'fixtures', 'archives_space', 'repositories', "search_top_containers.json"))
+    response_body = File.open(Rails.root.join('spec', 'fixtures', 'archives_space', 'repositories', 'search_top_containers_ABID001.json'))
 
     stub_request(:get, "https://aspace.test.org/staff/api/repositories/#{repository_id}/search?type%5B%5D=#{type}&page=1")
       .to_return(
@@ -160,9 +164,26 @@ module AspaceStubbing
   end
 
   def stub_top_containers(ead_id:, repository_id:)
-    response_body = File.open(Rails.root.join('spec', 'fixtures', 'archives_space', 'repositories', "search_top_containers.json"))
+    uri = "/repositories/#{repository_id}/search?page=1&q=collection_identifier_u_stext:#{ead_id}&type%5B%5D=top_container"
+    path = Rails.root.join('spec', 'fixtures', 'archives_space', 'repositories', "search_top_containers_#{ead_id}.json")
+    cache_path(uri: uri, path: path)
+    response_body = File.open(path)
 
-    stub_request(:get, "https://aspace.test.org/staff/api/repositories/#{repository_id}/search?page=1&q=collection_identifier_u_stext:#{ead_id}&type%5B%5D=top_container")
+    stub_request(:get, "https://aspace.test.org/staff/api#{uri}")
+      .to_return(
+        status: 200,
+        body: response_body,
+        headers: { "Content-Type": 'application/json' }
+      )
+  end
+
+  def stub_top_container_search(ead_id:, repository_id:, indicator:)
+    uri = "/repositories/#{repository_id}/search?page=1&q=collection_identifier_u_stext:#{ead_id}%20indicator_u_icusort:#{indicator}&type%5B%5D=top_container"
+    path = Rails.root.join("spec", "fixtures", "archives_space", "repositories", "find_top_container_#{indicator}_#{ead_id}.json")
+    cache_path(uri: uri, path: path)
+    response_body = File.open(path)
+
+    stub_request(:get, "https://aspace.test.org/staff/api#{uri}")
       .to_return(
         status: 200,
         body: response_body,
@@ -175,13 +196,13 @@ module AspaceStubbing
     resources_fixture = File.read(resources_fixture_file_path)
 
     parsed_response = JSON.parse(resources_fixture)
-    response_results = parsed_response["results"]
+    response_results = parsed_response['results']
     one_child_response = {
-      "first_page" => parsed_response["first_page"],
-      "last_page" => parsed_response["last_page"],
-      "this_page" => parsed_response["this_page"],
-      "total" => parsed_response["total"],
-      "results" => [response_results.first]
+      'first_page' => parsed_response['first_page'],
+      'last_page' => parsed_response['last_page'],
+      'this_page' => parsed_response['this_page'],
+      'total' => parsed_response['total'],
+      'results' => [response_results.first]
     }
 
     stub_request(:get, "https://aspace.test.org/staff/api/repositories/#{repository_id}/resources?page=1&page_size=100000")

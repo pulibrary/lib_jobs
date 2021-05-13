@@ -40,15 +40,18 @@ RSpec.describe 'Absolute ID Generation' do
       stub_barcode_search(repository_id: 4, identifier: '00000000000000')
       stub_barcode_search(repository_id: 4, identifier: 'B-000001')
       stub_top_container(repository_id: 4, top_container_id: '118112')
+      stub_top_container_search(repository_id: 4, ead_id: "ABID001", indicator: "22")
       # Second Barcode
       stub_barcode_search(repository_id: 4, identifier: '00000000000018')
       stub_barcode_search(repository_id: 4, identifier: 'B-000002')
       stub_top_container(repository_id: 4, top_container_id: '118113')
+      stub_top_container_search(repository_id: 4, ead_id: "ABID001", indicator: "23")
 
       # Third Barcode
       stub_barcode_search(repository_id: 4, identifier: '00000000000026')
       stub_barcode_search(repository_id: 4, identifier: 'B-000003')
       stub_top_container(repository_id: 4, top_container_id: '118114')
+      stub_top_container_search(repository_id: 4, ead_id: "ABID001", indicator: "24")
 
       visit '/absolute-ids'
 
@@ -122,6 +125,41 @@ RSpec.describe 'Absolute ID Generation' do
       expect(AbsoluteId.last.label).to eq "S-000001"
     end
 
+    it "can find deeply paged top containers" do
+      stub_resource_find_by_id(repository_id: 4, identifier: 'ABID003', resource_id: '4190')
+      stub_resource(resource_id: '4190', repository_id: 4)
+      stub_top_containers(ead_id: "ABID003", repository_id: 4)
+      stub_location(location_id: "23641")
+      stub_location(location_id: "23649")
+      # First Barcode
+      stub_barcode_search(repository_id: 4, identifier: '00000000000000')
+      stub_top_container(repository_id: 4, top_container_id: '118347')
+      stub_top_container_search(repository_id: 4, ead_id: "ABID003", indicator: "27")
+
+      visit '/absolute-ids'
+
+      # Fill in barcode with a valid untaken barcode
+      fill_in 'Barcode', with: '0000000000000'
+      fill_in 'Location', with: 'East Asian Library (ea)'
+      fill_in 'Container Profile', with: 'NBox (B)'
+      fill_in 'Repository', with: 'University Archives'
+      fill_in 'Call Number', with: 'ABID003'
+      fill_in 'Starting Box Number', with: '27'
+      # Have to unfocus starting box number to enable ending box number.
+      find('body').click
+      fill_in 'Ending Box Number', with: '27'
+      find('body').click
+      expect(page).to have_content 'Barcode is valid'
+      click_button 'Generate'
+
+      expect(page).to have_content "Generating" # Increase wait time - processing takes ~ 18 seconds for this request.
+      Capybara.using_wait_time 30 do
+        expect(page).to have_button "Generate"
+      end
+
+      expect(page).to have_button "Synchronize"
+    end
+
     it 'can create an absolute ID session' do
       # I suspect AbIDs don't actually need all this location info, and probably
       # just needs the location URI
@@ -134,18 +172,21 @@ RSpec.describe 'Absolute ID Generation' do
       stub_top_container(repository_id: 4, top_container_id: '118112')
       stub_batch_update_container_profile(uri: "/container_profiles/3", top_container_ids: "118112", repository_id: 4)
       stub_batch_update_location(uri: "/locations/23641", top_container_ids: "118112", repository_id: 4)
+      stub_top_container_search(repository_id: 4, ead_id: "ABID001", indicator: "22")
       # Second Barcode
       stub_barcode_search(repository_id: 4, identifier: '00000000000018')
       stub_barcode_search(repository_id: 4, identifier: 'B-001557')
       stub_top_container(repository_id: 4, top_container_id: '118113')
       stub_batch_update_container_profile(uri: "/container_profiles/3", top_container_ids: "118113", repository_id: 4)
       stub_batch_update_location(uri: "/locations/23641", top_container_ids: "118113", repository_id: 4)
+      stub_top_container_search(repository_id: 4, ead_id: "ABID001", indicator: "23")
       # Third Barcode
       stub_barcode_search(repository_id: 4, identifier: '00000000000026')
       stub_barcode_search(repository_id: 4, identifier: 'B-001558')
       stub_top_container(repository_id: 4, top_container_id: '118114')
       stub_batch_update_container_profile(uri: "/container_profiles/3", top_container_ids: "118114", repository_id: 4)
       stub_batch_update_location(uri: "/locations/23641", top_container_ids: "118114", repository_id: 4)
+      stub_top_container_search(repository_id: 4, ead_id: "ABID001", indicator: "24")
 
       visit '/absolute-ids'
 
