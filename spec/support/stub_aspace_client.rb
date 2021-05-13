@@ -67,18 +67,21 @@ module ASpaceClientStubbing
 
     # Implementing support for TopContainer querying
     # For searching the TopContainers by barcode
-    top_containers_search_fixture = if empty
-                                      top_containers_search_response = {
-                                        'response' => {
-                                          'docs' => []
-                                        }
-                                      }
-                                      top_containers_search_response.to_json
-                                    else
-                                      top_containers_search_fixture_path = Rails.root.join('spec', 'fixtures', 'archives_space', 'repositories_top_containers_search.json')
-                                      File.read(top_containers_search_fixture_path)
-                                    end
-
+    top_containers_search_fixture =
+      if empty == "orphan"
+        top_containers_search_fixture_path = Rails.root.join('spec', 'fixtures', 'archives_space', 'repositories_top_containers_search_orphan.json')
+        File.read(top_containers_search_fixture_path)
+      elsif empty
+        top_containers_search_response = {
+          'response' => {
+            'docs' => []
+          }
+        }
+        top_containers_search_response.to_json
+      else
+        top_containers_search_fixture_path = Rails.root.join('spec', 'fixtures', 'archives_space', 'repositories_top_containers_search.json')
+        File.read(top_containers_search_fixture_path)
+      end
     top_container_response_status = double
     top_container_response = double
     allow(top_container_response_status).to receive(:code).and_return("200")

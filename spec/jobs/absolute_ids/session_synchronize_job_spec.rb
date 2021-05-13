@@ -258,6 +258,19 @@ RSpec.describe AbsoluteIds::SessionSynchronizeJob, type: :job do
 
         expect(logger).to have_received(:warn).with("Warning: Failed to synchronize #{absolute_id.label}: Barcode #{absolute_id.barcode.value} is already used in ArchivesSpace.")
       end
+      context "when there's an orphaned TopContainer with the same barcode" do
+        let(:barcode_unique) { "orphan" }
+        it "updates just fine" do
+          described_class.perform_now(user_id: user.id, model_id: absolute_id.id)
+
+          expect(a_request(:post, "#{sync_client.base_uri}/repositories/4/top_containers/118091").with(
+            body: post_params,
+            headers: {
+              'Content-Type' => 'application/json'
+            }
+          )).to have_been_made
+        end
+      end
     end
 
     context 'when encountering an error updating a TopContainer' do

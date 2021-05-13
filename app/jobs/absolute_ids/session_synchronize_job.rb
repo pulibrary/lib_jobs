@@ -34,7 +34,9 @@ module AbsoluteIds
     # @param repository
     # @return [Array<TopContainer>]
     def validate_unique_barcode(barcode:, repository:, container_id:)
-      top_resources = repository.search_top_containers_by(barcode: barcode.value)
+      top_resources = repository.search_top_containers_by(barcode: barcode.value).select do |container|
+        container.collection.present?
+      end
       top_resource_ids = top_resources.map(&:id)
 
       (return if top_resource_ids.include?(container_id) || top_resources.empty?)
