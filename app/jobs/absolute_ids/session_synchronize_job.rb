@@ -42,20 +42,6 @@ module AbsoluteIds
       raise(DuplicateBarcodeError, "The barcode #{barcode.value} is not unique")
     end
 
-    # Ensure that the indicator is unique
-    # @param barcode
-    # @param indicator
-    # @param repository
-    # @return [Array<TopContainer>]
-    def validate_unique_indicator(indicator:, repository:, container_id:)
-      top_resources = repository.search_top_containers_by(indicator: indicator)
-      top_resource_ids = top_resources.map(&:id)
-
-      (return if top_resource_ids.include?(container_id) || top_resources.empty?)
-
-      raise(DuplicateIndicatorError, "The Absolute ID #{absolute_id.label} is not unique")
-    end
-
     # Update the TopContainer
     # @param uri
     # @param barcode
@@ -81,7 +67,6 @@ module AbsoluteIds
 
       # Verify that the AbID and barcode are unique for the TopContainer
       validate_unique_barcode(barcode: barcode, repository: sync_repository, container_id: sync_container.id)
-      validate_unique_indicator(indicator: indicator, repository: sync_repository, container_id: sync_container.id)
 
       updated = sync_container.update(barcode: barcode.value, indicator: indicator, container_locations: updated_locations)
       Rails.logger.warn("Failed to update the TopContainer: #{sync_container.uri}") if updated.nil?

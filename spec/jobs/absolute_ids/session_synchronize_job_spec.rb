@@ -260,29 +260,6 @@ RSpec.describe AbsoluteIds::SessionSynchronizeJob, type: :job do
       end
     end
 
-    context 'when a TopContainer has already using an existing AbID' do
-      let(:logger) { instance_double(ActiveSupport::Logger) }
-      let(:indicator_unique) { false }
-
-      before do
-        allow(logger).to receive(:warn)
-        allow(Rails).to receive(:logger).and_return(logger)
-      end
-
-      it 'fails to update the ArchivesSpace TopContainer and raises an error' do
-        described_class.perform_now(user_id: user.id, model_id: absolute_id.id)
-
-        expect(a_request(:post, "#{sync_client.base_uri}/repositories/4/top_containers/118091").with(
-          body: post_params,
-          headers: {
-            'Content-Type' => 'application/json'
-          }
-        )).not_to have_been_made
-
-        expect(logger).to have_received(:warn).with("Warning: Failed to synchronize #{absolute_id.label}: The Absolute ID #{absolute_id.label} is not unique")
-      end
-    end
-
     context 'when encountering an error updating a TopContainer' do
       let(:logger) { instance_double(ActiveSupport::Logger) }
       let(:updated) { absolute_id.reload }
