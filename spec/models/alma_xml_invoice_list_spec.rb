@@ -51,8 +51,7 @@ RSpec.describe AlmaXmlInvoiceList, type: :model do
 
   describe "#onbase_report" do
     it "generates the correct csv" do
-      expect(alma_invoice_list.onbase_report).to eq("\"Lib Vendor Invoice Date\",\"Invoice No\",\"Vendor Code\",\"Invoice Amount\",\"Voucher ID\"\n" \
-                                                    "\"2021-03-30\",\"PO-9999\",\"111222333\",\"1319.05\",\"A1222333\"\n")
+      expect(alma_invoice_list.onbase_report).to eq("\"2021-03-30\",\"PO-9999\",\"111222333\",\"1319.05\",\"A1222333\"\n")
     end
   end
 
@@ -91,7 +90,7 @@ RSpec.describe AlmaXmlInvoiceList, type: :model do
 
     describe "#onbase_report" do
       it "generates the correct csv" do
-        expect(alma_invoice_list.onbase_report).to eq("\"Lib Vendor Invoice Date\",\"Invoice No\",\"Vendor Code\",\"Invoice Amount\",\"Voucher ID\"\n")
+        expect(alma_invoice_list.onbase_report).to eq("")
       end
     end
 
@@ -133,8 +132,7 @@ RSpec.describe AlmaXmlInvoiceList, type: :model do
 
     describe "#onbase_report" do
       it "generates the correct csv" do
-        expect(alma_invoice_list.onbase_report).to eq("\"Lib Vendor Invoice Date\",\"Invoice No\",\"Vendor Code\",\"Invoice Amount\",\"Voucher ID\"\n" \
-                                                      "\"2021-03-30\",\"PO-9999\",\"111222333\",\"1319.05\",\"A1222333\"\n")
+        expect(alma_invoice_list.onbase_report).to eq("\"2021-03-30\",\"PO-9999\",\"111222333\",\"1319.05\",\"A1222333\"\n")
       end
     end
 
