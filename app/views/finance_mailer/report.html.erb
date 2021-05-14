@@ -4,9 +4,9 @@
 <% else %>
    <h2>Errors</h2>
    <table>
-     <tr><th>Lib Vendor Invoice Date</th><th>Invoice No</th><th>Vendor Code</th><th>Invoice Amount</th><th>Invoice Curency</th><th>Local Amount</th><th>Voucher ID</th><th>Errors</th></tr>
+     <tr><th>Lib Vendor Invoice Date</th><th>Invoice No</th><th>Vendor Code</th><th>Vendor Id</th><th>Invoice Amount</th><th>Invoice Curency</th><th>Local Amount</th><th>Voucher ID</th><th>Errors</th></tr>
    <% @alma_xml_invoice_list.error_invoices.each do |invoice| %>
-     <tr><td><%= invoice.invoice_date%></td><td><%=invoice.id%></td><td><%=invoice.vendor_id%></td><td><%=invoice.total_invoice_amount%></td><td><%=invoice.invoice_currency%></td><td><%=invoice.invoice_local_amount_total%></td><td><%=invoice.voucher_id%></td><td><%=invoice.errors.join(', ')%></td></tr>
+     <tr><td><%= invoice.invoice_date%></td><td><%=invoice.id%></td><td><%=invoice.vendor_code%></td><td><%=invoice.vendor_id%></td><td><%=invoice.total_invoice_amount%></td><td><%=invoice.invoice_currency%></td><td><%=invoice.invoice_local_amount_total%></td><td><%=invoice.voucher_id%></td><td><%=invoice.errors.join(', ')%></td></tr>
    <% end %>
    </table>
 
@@ -14,8 +14,8 @@
 
    <h2>Processed Invoices</h2>
    <table>
-     <tr><th>Lib Vendor Invoice Date</th><th>Invoice No</th><th>Vendor Code</th><th>Invoice Amount</th><th>Invoice Curency</th><th>Local Amount</th><th>Voucher ID</th></tr>
+     <tr><th>Lib Vendor Invoice Date</th><th>Invoice No</th><th>Vendor Code</th><th>Vendor Id</th><th>Invoice Amount</th><th>Invoice Curency</th><th>Local Amount</th><th>Voucher ID</th></tr>
    <% @alma_xml_invoice_list.valid_invoices.each do |invoice| %>
-     <tr><td><%= invoice.invoice_date%></td><td><%=invoice.id%></td><td><%=invoice.vendor_id%></td><td><%=invoice.total_invoice_amount%></td><td><%=invoice.invoice_currency%></td><td><%=invoice.invoice_local_amount_total%></td><td><%=invoice.voucher_id%></td></tr>
+     <tr><td><%= invoice.invoice_date%></td><td><%=invoice.id%></td><td><%=invoice.vendor_code%></td><td><%=invoice.vendor_id%></td><td><%=invoice.total_invoice_amount%></td><td><%=invoice.invoice_currency%></td><td><%=invoice.invoice_local_amount_total%></td><td><%=invoice.voucher_id%></td></tr>
    <% end %>
    </table>
