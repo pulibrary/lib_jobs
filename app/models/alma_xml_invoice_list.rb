@@ -25,9 +25,9 @@ class AlmaXmlInvoiceList
 
   def status_report(cvs_invoices: invoices)
     CSV.generate do |csv|
-      csv << ["Lib Vendor Invoice Date", "Invoice No", "Vendor Code", "Invoice Amount", "Invoice Curency", "Local Amount", "Voucher ID", "Errors"]
+      csv << ["Lib Vendor Invoice Date", "Invoice No", "Vendor Code", "Vendor Id", "Invoice Amount", "Invoice Curency", "Local Amount", "Voucher ID", "Errors"]
       cvs_invoices.each do |invoice|
-        csv << [invoice.invoice_date, invoice.id, invoice.vendor_id, invoice.total_invoice_amount,
+        csv << [invoice.invoice_date, invoice.id, invoice.vendor_code, invoice.vendor_id, invoice.total_invoice_amount,
                 invoice.invoice_currency, invoice.invoice_local_amount_total, invoice.voucher_id, invoice.errors.join(', ')]
       end
     end
@@ -36,7 +36,7 @@ class AlmaXmlInvoiceList
   def onbase_report
     CSV.generate(force_quotes: true) do |csv|
       valid_invoices.each do |invoice|
-        csv << [invoice.invoice_date, invoice.id, invoice.vendor_id, invoice.total_invoice_amount, invoice.voucher_id]
+        csv << [invoice.invoice_date, invoice.id, invoice.vendor_code, invoice.total_invoice_amount, invoice.voucher_id]
       end
     end
   end

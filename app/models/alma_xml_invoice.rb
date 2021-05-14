@@ -68,6 +68,10 @@ class AlmaXmlInvoice
                      end
   end
 
+  def vendor_code
+    @vendor_code ||= xml_invoice.at_xpath('xmlns:vendor_code')&.text
+  end
+
   def vendor_id
     @vendor_id ||= xml_invoice.at_xpath('xmlns:vendor_FinancialSys_Code')&.text
   end
