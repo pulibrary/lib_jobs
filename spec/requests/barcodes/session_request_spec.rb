@@ -74,7 +74,7 @@ RSpec.describe "Barcodes::Session", type: :request do
               container_profile: container_profile,
               location: location,
               repository: repository,
-              resource: resource_id
+              resource: ead_id
             },
             barcodes: [
               barcode
@@ -170,7 +170,7 @@ RSpec.describe "Barcodes::Session", type: :request do
             stub_location(location_id: 23_640)
             stub_top_container_search(repository_id: 4, ead_id: "ABID001", indicator: "23")
             stub_top_containers(ead_id: 'ABID001', repository_id: 4)
-            stub_resource_find_by_id(repository_id: 4, identifier: '4188', resource_id: 4188)
+            stub_resource_find_by_id(repository_id: 4, identifier: 'ABID001', resource_id: 4188)
             stub_resource(resource_id: 4188, repository_id: 4)
 
             stub_repository(repository_id: 4)

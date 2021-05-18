@@ -360,7 +360,7 @@ RSpec.describe "AbsoluteIds::Session", type: :request do
               container_profile: container_profile,
               location: location,
               repository: repository,
-              resource: resource_id
+              resource: ead_id
             },
             barcodes: [
               barcode
@@ -427,7 +427,7 @@ RSpec.describe "AbsoluteIds::Session", type: :request do
           before do
             stub_location(location_id: '23640')
             stub_top_containers(ead_id: 'ABID001', repository_id: repository_id)
-            stub_resource_find_by_id(repository_id: repository_id, identifier: '4188', resource_id: resource_id)
+            stub_resource_find_by_id(repository_id: repository_id, identifier: 'ABID001', resource_id: resource_id)
             stub_repository(repository_id: repository_id)
             stub_resource(repository_id: repository_id, resource_id: resource_id)
             stub_top_container_search(repository_id: 4, ead_id: "ABID001", indicator: "23")
