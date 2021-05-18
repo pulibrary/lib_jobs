@@ -60,12 +60,8 @@ module AbsoluteIds
       aspace_resource
     end
 
-    def resolve_top_container(aspace_resource:, indicator:, index:)
+    def resolve_top_container(aspace_resource:, indicator:, index:, ead_id:)
       current_indicator = (indicator.to_i + index).to_s
-
-      # Sometimes when we get here the ead_id isn't populated in the resource. I
-      # can't figure out why.
-      ead_id = aspace_resource.ead_id || aspace_resource.top_containers[0].collection[0][:identifier]
       top_container = current_client.find_top_container(indicator: current_indicator, ead_id: ead_id, repository_id: aspace_resource.repository.id)
 
       raise(ArgumentError, "Failed to resolve the container for indicator #{current_indicator} linked to the resource #{aspace_resource.id}") if top_container.nil?
@@ -112,7 +108,7 @@ module AbsoluteIds
       transformed[:resource] = build_resource(aspace_resource)
 
       # Resolve the TopContainer
-      top_container = resolve_top_container(aspace_resource: aspace_resource, indicator: properties[:container], index: properties[:index])
+      top_container = resolve_top_container(aspace_resource: aspace_resource, indicator: properties[:container], index: properties[:index], ead_id: properties[:resource])
 
       # Build the container attributes
       transformed[:container] = build_container(top_container)
