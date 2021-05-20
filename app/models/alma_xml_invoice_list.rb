@@ -3,6 +3,8 @@
 class AlmaXmlInvoiceList
   attr_reader :xml_file, :invoices, :sftp_locations, :ftp_host, :ftp_username, :ftp_password, :file_pattern, :input_ftp_base_dir
 
+  delegate :empty?, to: :invoices
+
   def initialize(input_ftp_base_dir: ENV["VOUCHER_FEED_INPUT_FTP"] || '/alma/invoices', file_pattern: '\.xml$',
                  ftp_host: ENV['SFTP_HOST'], ftp_username: ENV['SFTP_USERNAME'], ftp_password: ENV['SFTP_PASSWORD'])
     @input_ftp_base_dir = input_ftp_base_dir
@@ -24,6 +26,7 @@ class AlmaXmlInvoiceList
   end
 
   def status_report(cvs_invoices: invoices)
+    return "" if empty?
     CSV.generate do |csv|
       csv << ["Lib Vendor Invoice Date", "Invoice No", "Vendor Code", "Vendor Id", "Invoice Amount", "Invoice Curency", "Local Amount", "Voucher ID", "Errors"]
       cvs_invoices.each do |invoice|

@@ -7,6 +7,10 @@ Errors
 <%= @alma_xml_invoice_list.status_report(cvs_invoices: @alma_xml_invoice_list.error_invoices) %>
 <% end %>
 
+<% if @alma_xml_invoice_list.empty? %>
+No invoices available to process
+<% else %>
 Processed Invoices
 ------------------
 <%= @alma_xml_invoice_list.status_report %>
+<% end %>
