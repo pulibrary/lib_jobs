@@ -37,6 +37,7 @@ class VoucherFeed < LibJob
   end
 
   def build_onbase_report
+    return if alma_xml_invoice_list.empty?
     full_path = File.join(onbase_output_base_dir, onbase_output_filename)
     File.open(full_path, "w") do |file|
       file.write alma_xml_invoice_list.onbase_report
@@ -45,6 +46,7 @@ class VoucherFeed < LibJob
   end
 
   def build_peoplesoft_report
+    return if alma_xml_invoice_list.empty?
     builder = Nokogiri::XML::Builder.new do |xml|
       finance_invoice = FinanceXmlInvoice.new(xml: xml, alma_invoice_list: alma_xml_invoice_list)
       finance_invoice.convert

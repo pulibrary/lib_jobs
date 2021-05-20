@@ -2,7 +2,7 @@
 require "rails_helper"
 
 RSpec.describe FinanceMailer, type: :mailer do
-  let(:alma_xml_invoice_list) { instance_double("AlmaXMLInvoiceList", errors: errors, error_invoices: error_invoices, valid_invoices: valid_invoices) }
+  let(:alma_xml_invoice_list) { instance_double("AlmaXMLInvoiceList", errors: errors, error_invoices: error_invoices, valid_invoices: valid_invoices, empty?: false) }
   let(:errors) { [] }
   let(:error_invoices) { [] }
   let(:valid_invoices) do
@@ -60,6 +60,19 @@ RSpec.describe FinanceMailer, type: :mailer do
       expect(mail.text_part.body.encoded).to include("Alma to Peoplesoft Voucher Feed Results")
       expect(mail.text_part.body.encoded).to include("Errors")
       expect(mail.text_part.body.encoded).to include("The csv error report")
+    end
+  end
+
+  context "without invoices" do
+    let(:alma_xml_invoice_list) { instance_double("AlmaXMLInvoiceList", empty?: true, errors: []) }
+
+    it "renders the body" do
+      expect(mail.html_part.body.encoded).to include("Alma to Peoplesoft Voucher Feed Results")
+      expect(mail.html_part.body.encoded).to include("<h2>No errors were found with the invoices</h2>")
+      expect(mail.html_part.body.encoded).to include("<h2>No invoices available to process</h2>")
+      expect(mail.text_part.body.encoded).to include("Alma to Peoplesoft Voucher Feed Results")
+      expect(mail.text_part.body.encoded).to include("No errors were found with the invoices")
+      expect(mail.text_part.body.encoded).to include("No invoices available to process")
     end
   end
 end
