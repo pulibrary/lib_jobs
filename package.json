@@ -36,6 +36,6 @@
     "prettier-format": "prettier --write app/javascript/**/*{vue,js} .*js .*json",
     "lint": "prettier-eslint --eslint-config-path .eslintrc.js --config .prettierrc.json app/javascript/**/*{js,vue} .*js .*json",
     "format": "prettier-eslint --write --eslint-config-path .eslintrc.js --config .prettierrc.json app/javascript/**/*{js,vue} .*js .*json",
-    "jest": "jest --config jest.config.js --coverage"
+    "jest": "jest --config jest.config.js --coverage --passWithNoTests"
   }
 }
