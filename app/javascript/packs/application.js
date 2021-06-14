@@ -23,17 +23,12 @@ import system from "lux-design-system";
 import "lux-design-system/dist/system/system.css";
 import "lux-design-system/dist/system/tokens/tokens.scss";
 
-import AbsoluteIdSessionForm from "../components/absolute_ids/session_form";
-import AbsoluteIdSessionTable from "../components/absolute_ids/session_table";
-
 Vue.use(system);
 var elements = document.getElementsByClassName("lux");
 for (var i = 0; i < elements.length; i++) {
   new Vue({
     el: elements[i],
     components: {
-      "absolute-id-session-form": AbsoluteIdSessionForm,
-      "absolute-id-session-table": AbsoluteIdSessionTable
     }
   });
 }
