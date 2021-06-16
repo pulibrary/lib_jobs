@@ -3,18 +3,18 @@ class StaffDirectoryController < ApplicationController
   class_attribute :finance_report, default: {}
 
   def index
-    finance_report = FinanceReport.new
-    hr_report = HrStaffReport.new
-    generator = StaffDirectoryGenerator.new(finance_report: finance_report, hr_report: hr_report)
+    finance_report = WebStaff::FinanceReport.new
+    hr_report = WebStaff::HrStaffReport.new
+    generator = WebStaff::StaffDirectoryGenerator.new(finance_report: finance_report, hr_report: hr_report)
     respond_to do |format|
       format.csv { send_data generator.today, filename: "staff-directory.csv" }
     end
   end
 
   def removed
-    today_report = File.new(StaffDirectoryGenerator.report_filename)
-    yesterday_report = File.new(StaffDirectoryGenerator.yesterday_filename)
-    differ = StaffDirectoryDifference.new(new_report: today_report, old_report: yesterday_report)
+    today_report = File.new(WebStaff::StaffDirectoryGenerator.report_filename)
+    yesterday_report = File.new(WebStaff::StaffDirectoryGenerator.yesterday_filename)
+    differ = WebStaff::StaffDirectoryDifference.new(new_report: today_report, old_report: yesterday_report)
     respond_to do |format|
       format.text { send_data differ.ids.join(","), filename: "removed-staff.txt" }
     end

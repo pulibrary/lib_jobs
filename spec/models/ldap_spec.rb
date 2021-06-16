@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Ldap, type: :model do
+RSpec.describe WebStaff::Ldap, type: :model do
   subject(:data) { described_class.find_by_netid('abc123') }
   let(:ldap_connection) { Net::LDAP.new }
   let(:valid_ldap_response) do

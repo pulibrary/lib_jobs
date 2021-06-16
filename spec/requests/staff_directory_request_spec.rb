@@ -2,19 +2,19 @@
 require 'rails_helper'
 
 RSpec.describe "StaffDirectories", type: :request do
-  let(:adapter) { instance_double(FinanceReportTinyTdsAdapter) }
-  let(:finance_report) { instance_double(FinanceReport) }
-  let(:hr_report) { instance_double(HrStaffReport) }
-  let(:generator) { instance_double(StaffDirectoryGenerator, today: 'abc') }
+  let(:adapter) { instance_double(WebStaff::FinanceReportTinyTdsAdapter) }
+  let(:finance_report) { instance_double(WebStaff::FinanceReport) }
+  let(:hr_report) { instance_double(WebStaff::HrStaffReport) }
+  let(:generator) { instance_double(WebStaff::StaffDirectoryGenerator, today: 'abc') }
   let(:new_report) { instance_double(File) }
   let(:old_report) { instance_double(File) }
-  let(:staff_difference) { instance_double(StaffDirectoryDifference, ids: ['fouid', 'otherid']) }
+  let(:staff_difference) { instance_double(WebStaff::StaffDirectoryDifference, ids: ['fouid', 'otherid']) }
 
   describe "staff-directory" do
     before do
-      allow(FinanceReport).to receive(:new).and_return(finance_report)
-      allow(HrStaffReport).to receive(:new).and_return(hr_report)
-      allow(StaffDirectoryGenerator).to receive(:new).with(finance_report: finance_report, hr_report: hr_report).and_return(generator)
+      allow(WebStaff::FinanceReport).to receive(:new).and_return(finance_report)
+      allow(WebStaff::HrStaffReport).to receive(:new).and_return(hr_report)
+      allow(WebStaff::StaffDirectoryGenerator).to receive(:new).with(finance_report: finance_report, hr_report: hr_report).and_return(generator)
     end
     it "returns the staff directory" do
       get "/staff-directory.csv"
@@ -24,7 +24,7 @@ RSpec.describe "StaffDirectories", type: :request do
 
   describe "removed-staff" do
     before do
-      allow(StaffDirectoryDifference).to receive(:new).and_return(staff_difference)
+      allow(WebStaff::StaffDirectoryDifference).to receive(:new).and_return(staff_difference)
       allow(File).to receive(:new).and_return(new_report, old_report)
     end
     it "returns the staff directory" do

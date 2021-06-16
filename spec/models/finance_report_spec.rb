@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe FinanceReport, type: :model do
+RSpec.describe WebStaff::FinanceReport, type: :model do
   let(:employee_id) { '999999999' }
   let(:db_results) do
     [{ 'idStaff' => 111, 'PUID' => '999999999', 'lName' => 'Smith', 'fName' => 'Jane', 'mName' => 'A', 'nName' => 'Janey', 'Email' => 'smith@princeton.edu', 'Active' => true,
@@ -16,7 +16,7 @@ RSpec.describe FinanceReport, type: :model do
        'UnitSort' => 10_000, 'DeptSort' => 10, 'Title' => 'The Great Assistant', 'LongTitle' => 'The Great Assistant Is Longer', 'Department' => 'Lib-Research Coll & Presr',
        'Division' => 'Division from DB', 'Section' => 'section from DB', 'Unit' => nil, 'LocationCode' => nil, 'ID_Building' => 19, 'Building' => 'Firestone' }]
   end
-  let(:finance_adapter) { instance_double(FinanceReportTinyTdsAdapter, execute_staff_query: db_results) }
+  let(:finance_adapter) { instance_double(WebStaff::FinanceReportTinyTdsAdapter, execute_staff_query: db_results) }
   let(:generator) { described_class.new(finance_adapter: finance_adapter) }
   let(:report) do
     { 'idStaff' => 111, 'PUID' => '999999999', 'NetID' => 'fouid', 'Phone' => '111-222-333', "Name" => 'Smith, Jane', 'lastName' => 'Smith', 'firstName' => 'Jane', 'middleName' => 'A',
@@ -34,13 +34,13 @@ RSpec.describe FinanceReport, type: :model do
     let(:generator) { described_class.new }
 
     it "uses the default adapter" do
-      allow(FinanceReportTinyTdsAdapter).to receive(:new).with(dbhost: 'finance_db_host', dbport: 1433, dbuser: 'finance_db_user', dbpass: 'finance_db_password').and_return(finance_adapter)
+      allow(WebStaff::FinanceReportTinyTdsAdapter).to receive(:new).with(dbhost: 'finance_db_host', dbport: 1433, dbuser: 'finance_db_user', dbpass: 'finance_db_password').and_return(finance_adapter)
       expect(generator.report(employee_id: employee_id)).to eq(report)
     end
   end
 
   context "a missing employee" do
-    let(:finance_adapter) { instance_double(FinanceReportTinyTdsAdapter, execute_staff_query: []) }
+    let(:finance_adapter) { instance_double(WebStaff::FinanceReportTinyTdsAdapter, execute_staff_query: []) }
 
     it "returns an empty hash" do
       expect(generator.report(employee_id: employee_id)).to eq({ "idStaff" => nil, "PUID" => nil, "NetID" => nil, "Phone" => nil, "Name" => nil, "lastName" => nil, "firstName" => nil,
