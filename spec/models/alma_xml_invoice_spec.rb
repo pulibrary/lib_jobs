@@ -106,7 +106,6 @@ RSpec.describe PeoplesoftVoucher::AlmaXmlInvoice, type: :model do
       it "is not valid" do
         expect(alma_invoice.valid?).to be_falsey
         expect(alma_invoice.errors).to contain_exactly("Invalid vendor_id: vendor_id can not be blank",
-                                                       "Line Item Invalid: No fund lists exists",
                                                        "Line Item Invalid: primary fund can not be blank",
                                                        "Line Item Invalid: primary department can not be blank",
                                                        "Invalid reporting code: must be numeric and can not be blank")

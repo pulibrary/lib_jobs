@@ -13,7 +13,6 @@ RSpec.describe PeoplesoftVoucher::AlmaXmlInvoiceList, type: :model do
   let(:xml_file) { File.new(Rails.root.join('spec', 'fixtures', 'invoice_export_202118300518.xml')) }
   let(:invoice_errors) do
     "Invalid vendor_id: vendor_id can not be blank,"\
-    " Line Item Invalid: No fund lists exists," \
     " Line Item Invalid: primary fund can not be blank,"\
     " Line Item Invalid: primary department can not be blank,"\
     " Invalid reporting code: must be numeric and can not be blank"

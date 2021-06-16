@@ -192,6 +192,27 @@
           <quantity>0</quantity>
           <total_price>0.0</total_price>
           <price>0.0</price>
+          <fund_info_list>
+            <fund_info>
+              <amount>
+                <currency>GBP</currency>
+                <sum>0.0</sum>
+              </amount>
+              <local_amount>
+                <currency>USD</currency>
+                <sum>0.0</sum>
+              </local_amount>
+              <code>E9999-Stuff-no program</code>
+              <name>Library General Acquisitions</name>
+              <fiscal_period>FY-2021</fiscal_period>
+              <external_id>44444|E9999</external_id>
+              <type>ALLOCATED</type>
+              <fund_type>4</fund_type>
+              <fund_type_desc>General</fund_type_desc>
+              <ledger_code>E999-STF</ledger_code>
+              <ledger_name>Stuff</ledger_name>
+            </fund_info>
+          </fund_info_list>
         </invoice_line>
         <invoice_line>
           <line_number>999992</line_number>
