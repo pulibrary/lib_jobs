@@ -150,16 +150,16 @@ module PeoplesoftVoucher
 
     def get_alma_po_info(line_item)
       hash = {}
-      raw_title = line_item.at_xpath('xmlns:po_line_info/xmlns:po_line_title')
-      title = raw_title ? raw_title.text.unicode_normalize(:nfd) : 'adjustment'
+      raw_title = line_item.at_xpath('xmlns:po_line_info/xmlns:po_line_title')&.text
+      title = raw_title&.unicode_normalize(:nfd) || 'adjustment'
       title = title.encode('ISO-8859-1', invalid: :replace, undef: :replace, replace: '')
       hash[:title] = title[0..253]
-      po_line_number = line_item.at_xpath('xmlns:po_line_info/xmlns:po_line_number')
-      hash[:po_line_number] = po_line_number ? po_line_number.text : ''
-      bib_id = line_item.at_xpath('xmlns:po_line_info/xmlns:mms_record_id')
-      hash[:bib_id] = bib_id ? bib_id.text : ''
-      vendor_ref_num = line_item.at_xpath('xmlns:po_line_info/xmlns:vendor_reference_number')
-      hash[:vendor_ref_num] = vendor_ref_num ? vendor_ref_num.text : ''
+      po_line_number = line_item.at_xpath('xmlns:po_line_info/xmlns:po_line_number')&.text
+      hash[:po_line_number] = po_line_number || ''
+      bib_id = line_item.at_xpath('xmlns:po_line_info/xmlns:mms_record_id')&.text
+      hash[:bib_id] = bib_id || ''
+      vendor_ref_num = line_item.at_xpath('xmlns:po_line_info/xmlns:vendor_reference_number')&.text
+      hash[:vendor_ref_num] = vendor_ref_num || ''
       hash
     end
 
