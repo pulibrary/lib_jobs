@@ -101,7 +101,6 @@ module PeoplesoftVoucher
     def validate_invoice
       @errors = []
       errors << "Invalid vendor_id: vendor_id can not be blank" if vendor_id.blank?
-      validate_fund_list_no_funds
       validate_fund_list_blank_funds
       validate_fund_list_blank_dept
       validate_reporting_code
@@ -110,11 +109,6 @@ module PeoplesoftVoucher
     def validate_fund_list_blank_funds
       blank_funds = line_items.select { |line| line[:fund_list].count { |fund| fund[:prime_fund].blank? }.positive? }
       errors << "Line Item Invalid: primary fund can not be blank" if blank_funds.flatten.size.positive?
-    end
-
-    def validate_fund_list_no_funds
-      no_funds = line_items.select { |line| line[:fund_list].blank? }
-      errors << "Line Item Invalid: No fund lists exists" if no_funds.flatten.size.positive?
     end
 
     def validate_fund_list_blank_dept
@@ -134,7 +128,7 @@ module PeoplesoftVoucher
       line_items = []
       xml_invoice.xpath('xmlns:invoice_line_list/xmlns:invoice_line').each do |line_item|
         line_info = parse_alma_line_item(line_item)
-        line_items << line_info
+        line_items << line_info if line_info[:fund_list].present?
       end
       line_items
     end

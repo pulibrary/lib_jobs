@@ -186,6 +186,13 @@
             </fund_info>
           </fund_info_list>
         </invoice_line>
+        <invoice_line>
+          <line_number>999992</line_number>
+          <line_type>DISCOUNT</line_type>
+          <quantity>0</quantity>
+          <total_price>0.0</total_price>
+          <price>0.0</price>
+        </invoice_line>
       </invoice_line_list>
     </invoice>
   </invoice_list>
