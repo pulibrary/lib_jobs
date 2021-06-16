@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require "rails_helper"
 
-RSpec.describe OitPersonFeed do
+RSpec.describe AlmaPeople::OitPersonFeed do
   subject(:feed) { described_class.new(base_url: 'https://example.com', path: '/person_feed', access_token: token) }
   let(:token) { instance_double("AccessToken") }
 

@@ -2,29 +2,29 @@
 namespace :lib_jobs do
   desc "generate the daily staff report"
   task generate_staff_report: [:environment] do
-    generator = StaffDirectoryGenerator.new(finance_report: FinanceReport.new, hr_report: HrStaffReport.new)
+    generator = WebStaff::StaffDirectoryGenerator.new(finance_report: WebStaff::FinanceReport.new, hr_report: WebStaff::HrStaffReport.new)
     generator.today
-    today_report = File.new(StaffDirectoryGenerator.report_filename)
-    yesterday_report = File.new(StaffDirectoryGenerator.yesterday_filename)
-    differ = StaffDirectoryDifference.new(new_report: today_report, old_report: yesterday_report)
+    today_report = File.new(WebStaff::StaffDirectoryGenerator.report_filename)
+    yesterday_report = File.new(WebStaff::StaffDirectoryGenerator.yesterday_filename)
+    differ = WebStaff::StaffDirectoryDifference.new(new_report: today_report, old_report: yesterday_report)
     differ.ids
   end
 
   desc "generate the daily alma people feed"
   task alma_daily_people_feed: [:environment] do
-    feed = AlmaPersonFeed.new
+    feed = AlmaPeople::AlmaPersonFeed.new
     feed.run
   end
 
   desc "generate the full alma people feed"
   task alma_full_people_feed: [:environment] do
-    feed = AlmaPersonFeed.new(begin_date: nil, end_date: nil)
+    feed = AlmaPeople::AlmaPersonFeed.new(begin_date: nil, end_date: nil)
     feed.run
   end
 
   desc "generate the voucher feed"
   task voucher_feed: [:environment] do
-    feed = VoucherFeed.new
+    feed = PeoplesoftVoucher::VoucherFeed.new
     feed.run
   end
 

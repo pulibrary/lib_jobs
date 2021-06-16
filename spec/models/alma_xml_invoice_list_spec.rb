@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe AlmaXmlInvoiceList, type: :model do
+RSpec.describe PeoplesoftVoucher::AlmaXmlInvoiceList, type: :model do
   subject(:alma_invoice_list) { described_class.new }
 
   let(:sftp_entry1) { instance_double("Net::SFTP::Protocol::V01::Name", name: "abc.xml") }

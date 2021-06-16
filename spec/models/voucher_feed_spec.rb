@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe VoucherFeed, type: :model do
+RSpec.describe PeoplesoftVoucher::VoucherFeed, type: :model do
   let(:today) { Time.zone.now.strftime("%m%d%Y") }
   let(:onbase_today) { Time.zone.now .strftime("%Y%m%d") }
   let(:sftp_entry1) { instance_double("Net::SFTP::Protocol::V01::Name", name: "abc.xml") }

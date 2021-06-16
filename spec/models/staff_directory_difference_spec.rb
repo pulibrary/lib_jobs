@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe StaffDirectoryDifference, type: :model do
+RSpec.describe WebStaff::StaffDirectoryDifference, type: :model do
   # these are actual lines in the file, so lets ignore rubocop an keep them together
   # rubocop:disable Layout/LineLength
   let(:report_header)  { '"idStaff","PUID","NetID","Phone","Name","lastName","firstName","middleName","nickName","Title","LibraryTitle","LongTitle","Email","Section","Division","Department","StartDate","StaffSort","UnitSort","DeptSort","Unit","DivSect","FireWarden","BackupFireWarden","FireWardenNotes","Office","Building"' }

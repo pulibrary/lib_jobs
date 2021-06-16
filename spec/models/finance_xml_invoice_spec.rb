@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe FinanceXmlInvoice, type: :model do
+RSpec.describe PeoplesoftVoucher::FinanceXmlInvoice, type: :model do
   describe "#run" do
     let(:sftp_entry) { instance_double("Net::SFTP::Protocol::V01::Name", name: "abc.xml") }
     let(:sftp_session) { instance_double("Net::SFTP::Session", dir: sftp_dir) }
     let(:sftp_dir) { instance_double("Net::SFTP::Operations::Dir") }
-    let(:alma_invoice_list) { AlmaXmlInvoiceList.new }
+    let(:alma_invoice_list) { PeoplesoftVoucher::AlmaXmlInvoiceList.new }
 
     let(:finance_xml) do
       File.open(Rails.root.join('spec', 'fixtures', 'finance_invoice.xml')).read

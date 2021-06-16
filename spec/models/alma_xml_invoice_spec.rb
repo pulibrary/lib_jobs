@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe AlmaXmlInvoice, type: :model do
+RSpec.describe PeoplesoftVoucher::AlmaXmlInvoice, type: :model do
   subject(:alma_invoice) { described_class.new(xml_invoice: invoices.first) }
 
   let(:invoices) do

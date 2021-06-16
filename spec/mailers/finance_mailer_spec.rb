@@ -2,14 +2,14 @@
 require "rails_helper"
 
 RSpec.describe FinanceMailer, type: :mailer do
-  let(:alma_xml_invoice_list) { instance_double("AlmaXMLInvoiceList", errors: errors, error_invoices: error_invoices, valid_invoices: valid_invoices, empty?: false) }
+  let(:alma_xml_invoice_list) { instance_double("PeoplesoftVoucher::AlmaXMLInvoiceList", errors: errors, error_invoices: error_invoices, valid_invoices: valid_invoices, empty?: false) }
   let(:errors) { [] }
   let(:error_invoices) { [] }
   let(:valid_invoices) do
-    [instance_double("AlmaXmlInvoice", errors: [], invoice_date: "2021-12-25", id: 'invoice11', vendor_id: '123', vendor_code: "ABC", total_invoice_amount: '150.00',
-                                       invoice_currency: 'USD', invoice_local_amount_total: '150.00', voucher_id: 'voucher11'),
-     instance_double("AlmaXmlInvoice", errors: [], invoice_date: "2021-12-25", id: 'invoice12', vendor_id: '456', vendor_code: "DEF", total_invoice_amount: '170.00',
-                                       invoice_currency: 'EUR', invoice_local_amount_total: '204.37', voucher_id: 'voucher12')]
+    [instance_double("PeoplesoftVoucher::AlmaXmlInvoice", errors: [], invoice_date: "2021-12-25", id: 'invoice11', vendor_id: '123', vendor_code: "ABC", total_invoice_amount: '150.00',
+                                                          invoice_currency: 'USD', invoice_local_amount_total: '150.00', voucher_id: 'voucher11'),
+     instance_double("PeoplesoftVoucher::AlmaXmlInvoice", errors: [], invoice_date: "2021-12-25", id: 'invoice12', vendor_id: '456', vendor_code: "DEF", total_invoice_amount: '170.00',
+                                                          invoice_currency: 'EUR', invoice_local_amount_total: '204.37', voucher_id: 'voucher12')]
   end
   let(:mail) { described_class.report(alma_xml_invoice_list: alma_xml_invoice_list) }
 
@@ -38,10 +38,10 @@ RSpec.describe FinanceMailer, type: :mailer do
   context "with errors" do
     let(:errors) { ["error"] }
     let(:error_invoices) do
-      [instance_double("AlmaXmlInvoice", errors: ["Bad Invoice"], invoice_date: "2021-12-25", id: 'invoice1', vendor_id: '123', vendor_code: 'ABC', total_invoice_amount: '150.00',
-                                         invoice_currency: 'USD', invoice_local_amount_total: '150.00', voucher_id: 'voucher1'),
-       instance_double("AlmaXmlInvoice", errors: ["Bad Invoice", "Bad Line Item"], invoice_date: "2021-12-25", id: 'invoice2', vendor_id: '345', vendor_code: 'DEF', total_invoice_amount: '170.00',
-                                         invoice_currency: 'EUR', invoice_local_amount_total: '204.37', voucher_id: 'voucher2')]
+      [instance_double("PeoplesoftVoucher::AlmaXmlInvoice", errors: ["Bad Invoice"], invoice_date: "2021-12-25", id: 'invoice1', vendor_id: '123', vendor_code: 'ABC', total_invoice_amount: '150.00',
+                                                            invoice_currency: 'USD', invoice_local_amount_total: '150.00', voucher_id: 'voucher1'),
+       instance_double("PeoplesoftVoucher::AlmaXmlInvoice", errors: ["Bad Invoice", "Bad Line Item"], invoice_date: "2021-12-25", id: 'invoice2', vendor_id: '345', vendor_code: 'DEF',
+                                                            total_invoice_amount: '170.00', invoice_currency: 'EUR', invoice_local_amount_total: '204.37', voucher_id: 'voucher2')]
     end
 
     before do
@@ -64,7 +64,7 @@ RSpec.describe FinanceMailer, type: :mailer do
   end
 
   context "without invoices" do
-    let(:alma_xml_invoice_list) { instance_double("AlmaXMLInvoiceList", empty?: true, errors: []) }
+    let(:alma_xml_invoice_list) { instance_double("PeoplesoftVoucher::AlmaXMLInvoiceList", empty?: true, errors: []) }
 
     it "renders the body" do
       expect(mail.html_part.body.encoded).to include("Alma to Peoplesoft Voucher Feed Results")

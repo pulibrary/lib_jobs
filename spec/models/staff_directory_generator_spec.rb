@@ -1,13 +1,13 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe StaffDirectoryGenerator, type: :model do
+RSpec.describe WebStaff::StaffDirectoryGenerator, type: :model do
   let(:heading_line) { "Department Number\tDepartment Name\tBsns Unit\tEID\tNet ID\tLast Name\tFirst Name\tMiddle Name\tPaid\tReg/Temp - Description\tPos #\tTitle\tAbsence Manager\tManager Net ID" }
   let(:user1_line) { "90009\tTest Department\tPUHRS\t999999999\ttesti\tTest\tI\tam\tBiw\tR=BenElig\t000000000\tLibrary Office Assistant I\tManager, I Am.\timanager" }
   let(:user2_line) { "90009\tTest Department\tPUHRS\t999999998\ttestii\tTest\tII\tam\tBiw\tR=BenElig\t000000000\tLibrary Office Assistant II\tManager, I Am.\timanager" }
   let(:user3_line) { "90009\tTest Department\tPUHRS\t999999997\ttestiii\tTest\tIII\tam\tBiw\tR=BenElig\t000000000\tLibrary Office Assistant III\tManager, I Am.\timanager" }
   let(:hr_data) { "#{heading_line}\n#{user1_line}\n#{user2_line}\n#{user3_line}" }
-  let(:hr_report) { HrStaffReport.new(hr_data: hr_data) }
+  let(:hr_report) { WebStaff::HrStaffReport.new(hr_data: hr_data) }
 
   let(:finance_report1) do
     { 'idStaff' => 111, 'PUID' => '999999999', 'NetID' => 'testi', 'Phone' => '111-222-333', "Name" => 'Am, Test', 'lastName' => 'Am', 'firstName' => 'Test', 'middleName' => 'I',
@@ -32,7 +32,7 @@ RSpec.describe StaffDirectoryGenerator, type: :model do
     new_result['PUID'] = '999999997'
     new_result
   end
-  let(:finance_report) { instance_double(FinanceReport) }
+  let(:finance_report) { instance_double(WebStaff::FinanceReport) }
 
   # these are actual lines in the file, so lets ignore rubocop an keep them together
   # rubocop:disable Layout/LineLength
@@ -51,10 +51,11 @@ RSpec.describe StaffDirectoryGenerator, type: :model do
   let(:generator) { described_class.new(finance_report: finance_report, hr_report: hr_report) }
 
   before do
-    allow(Ldap).to receive(:find_by_netid).with('testi').and_return({ email: 'testi@princeton.edu', address: 'B-1H-1 Firestone', telephone: '111-222-3333', title: "The Great LDAP Assistant" })
-    allow(Ldap).to receive(:find_by_netid).with('testii').and_return({ email: 'testii@princeton.edu', address: '223A 693 Alexander Road',
-                                                                       telephone: '222-333-4444', title: "The Great LDAP Assistant" })
-    allow(Ldap).to receive(:find_by_netid).with('testiii').and_return({ email: 'testiii@princeton.edu', telephone: '333-444-5555', title: "The Great LDAP Assistant" })
+    allow(WebStaff::Ldap).to receive(:find_by_netid).with('testi').and_return({ email: 'testi@princeton.edu', address: 'B-1H-1 Firestone', telephone: '111-222-3333',
+                                                                                title: "The Great LDAP Assistant" })
+    allow(WebStaff::Ldap).to receive(:find_by_netid).with('testii').and_return({ email: 'testii@princeton.edu', address: '223A 693 Alexander Road',
+                                                                                 telephone: '222-333-4444', title: "The Great LDAP Assistant" })
+    allow(WebStaff::Ldap).to receive(:find_by_netid).with('testiii').and_return({ email: 'testiii@princeton.edu', telephone: '333-444-5555', title: "The Great LDAP Assistant" })
   end
 
   after do

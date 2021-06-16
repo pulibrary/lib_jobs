@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe AlmaPersonFeed, type: :model do
+RSpec.describe AlmaPeople::AlmaPersonFeed, type: :model do
   subject(:alma_person_feed) { described_class.new(oit_person_feed: oit_person_feed, output_base_dir: '/tmp') }
-  let(:oit_person_feed) { instance_double("OitPersonFeed") }
+  let(:oit_person_feed) { instance_double("AlmaPeople::OitPersonFeed") }
 
   let(:yesterday) { (Time.zone.now - 1.day).strftime("%Y-%m-%d") }
   let(:today) { Time.zone.now.strftime("%Y-%m-%d") }
