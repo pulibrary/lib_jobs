@@ -13,23 +13,6 @@ Layout/LineLength:
     - 'spec/support/stub_aspace_client.rb'
     - 'spec/support/stub_aspace.rb'
 
-Metrics/AbcSize:
-  Exclude:
-    - 'app/controllers/absolute_ids_controller.rb'
-    - 'app/models/absolute_id.rb'
-    - 'app/jobs/absolute_id_import_job.rb'
-    - 'app/jobs/archives_space_sync_job.rb'
-    - 'app/models/absolute_id/batch.rb'
-    - 'app/models/absolute_id/session.rb'
-    - 'spec/support/stub_aspace_client.rb'
-    - 'app/jobs/absolute_id_create_aspace_source_record_job.rb'
-    - 'app/jobs/absolute_id_create_record_job.rb'
-    - 'app/controllers/absolute_ids/sessions_controller.rb'
-    - 'app/jobs/absolute_ids/create_batch_job.rb'
-    - 'app/jobs/absolute_ids/session_synchronize_job.rb'
-    - 'lib/lib_jobs/archives_space/repository.rb'
-    - 'app/jobs/absolute_ids/import_job.rb'
-
 Metrics/BlockLength:
   Exclude:
     - 'config/routes.rb'
@@ -40,91 +23,22 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   Exclude:
     - 'app/models/staff_directory_generator.rb'
-    - 'app/controllers/absolute_ids_controller.rb'
-    - 'app/models/absolute_id.rb'
-    - 'lib/lib_jobs/archives_space/client.rb'
-    - 'lib/lib_jobs/archives_space/repository.rb'
-    - 'lib/lib_jobs/archives_space/resource_child_object.rb'
-    - 'app/jobs/absolute_id_create_record_job.rb'
-    - 'app/controllers/absolute_ids/sessions_controller.rb'
 
 Metrics/CyclomaticComplexity:
   Exclude:
-    - 'app/models/absolute_id.rb'
-    - 'app/jobs/absolute_id_import_job.rb'
     - 'app/models/ability.rb'
-    - 'lib/lib_jobs/archives_space/repository.rb'
-    - 'lib/lib_jobs/archives_space/client.rb'
-    - 'app/models/absolute_id/batch.rb'
-    - 'app/jobs/absolute_ids/import_job.rb'
-    - 'app/services/absolute_ids/serializers/absolute_id_xml_serializer.rb'
 
 Metrics/MethodLength:
   Exclude:
     - 'app/controllers/application_controller.rb'
-    - 'app/controllers/absolute_ids_controller.rb'
-    - 'app/models/absolute_id.rb'
-    - 'app/controllers/absolute_ids/repositories/containers_controller.rb'
-    - 'app/jobs/absolute_id_batch_import_job.rb'
-    - 'app/jobs/absolute_id_create_batch_job.rb'
-    - 'app/jobs/absolute_id_import_job.rb'
-    - 'app/jobs/archives_space_cache_job.rb'
-    - 'app/jobs/archives_space_sync_job.rb'
-    - 'app/models/absolute_id/batch.rb'
-    - 'app/models/absolute_id/session.rb'
-    - 'app/values/absolute_ids/barcode.rb'
-    - 'lib/lib_jobs/archives_space/client.rb'
-    - 'lib/lib_jobs/archives_space/repository.rb'
-    - 'lib/lib_jobs/archives_space/resource_child_object.rb'
-    - 'spec/support/stub_aspace_client.rb'
-    - 'spec/support/stub_aspace.rb'
-    - 'app/jobs/absolute_id_create_aspace_source_record_job.rb'
-    - 'app/jobs/absolute_id_create_marc_source_record_job.rb'
-    - 'app/jobs/absolute_id_create_record_job.rb'
-    - 'app/controllers/absolute_ids/sessions_controller.rb'
-    - 'app/jobs/absolute_ids/create_batch_job.rb'
-    - 'app/jobs/absolute_ids/create_model_from_aspace_job.rb'
-    - 'app/controllers/absolute_ids/sessions_controller.rb'
-    - 'app/jobs/absolute_ids/create_batch_job.rb'
-    - 'app/jobs/absolute_ids/create_model_from_aspace_job.rb'
-    - 'app/jobs/absolute_ids/session_synchronize_job.rb'
-    - 'app/jobs/absolute_id_create_aspace_source_record_job.rb'
-    - 'app/jobs/absolute_id_create_marc_source_record_job.rb'
-    - 'app/jobs/absolute_id_create_record_job.rb'
-    - 'app/controllers/absolute_ids/sessions_controller.rb'
-    - 'app/jobs/absolute_ids/create_batch_job.rb'
-    - 'app/jobs/absolute_ids/create_model_from_aspace_job.rb'
-    - 'app/jobs/absolute_ids/session_synchronize_job.rb'
-    - 'app/jobs/absolute_ids/batch_import_job.rb'
-    - 'app/jobs/absolute_ids/import_job.rb'
-    - 'app/services/absolute_ids/serializers/absolute_id_xml_serializer.rb'
-    - 'app/services/absolute_ids/serializers/barcode_xml_serializer.rb'
-    - 'app/jobs/absolute_ids/create_model_job.rb'
-
-Metrics/ModuleLength:
-  Exclude:
-    - 'spec/support/stub_aspace_client.rb'
-    - 'spec/support/stub_aspace.rb'
 
 Metrics/PerceivedComplexity:
   Exclude:
-    - 'app/controllers/absolute_ids_controller.rb'
-    - 'app/models/absolute_id.rb'
-    - 'app/jobs/absolute_id_import_job.rb'
     - 'app/models/ability.rb'
-    - 'lib/lib_jobs/archives_space/client.rb'
-    - 'lib/lib_jobs/archives_space/repository.rb'
-    - 'app/models/absolute_id/batch.rb'
-    - 'app/jobs/absolute_ids/import_job.rb'
-    - 'app/services/absolute_ids/serializers/absolute_id_xml_serializer.rb'
 
 RSpec/ExampleLength:
   Max: 100
-  Exclude:
-    - 'spec/requests/absolute_id_request_spec.rb'
-    - 'spec/requests/absolute_ids/repositories/resource_request_spec.rb'
 
 RSpec/DescribeClass:
   Exclude:
     - 'spec/system/**/*'
-    - 'spec/jobs/absolute_id_create_record_job_spec.rb'
