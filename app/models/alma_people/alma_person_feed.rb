@@ -48,8 +48,8 @@ module AlmaPeople
       Zip::File.open(filename + '.zip', Zip::File::CREATE) do |zipfile|
         zipfile.add(File.basename(filename), filename)
       end
-      Net::SFTP.start(ENV['SFTP_HOST'], ENV['SFTP_USERNAME'], { password: ENV['SFTP_PASSWORD'] }) do |sftp|
-        sftp.upload!(filename + '.zip', "/alma/people/#{File.basename(filename)}.zip")
+      Net::SFTP.start(Rails.application.config.alma_ftp.host, Rails.application.config.alma_ftp.username, { password: Rails.application.config.alma_ftp.password }) do |sftp|
+        sftp.upload!(filename + '.zip', File.join(Rails.application.config.alma_ftp.person_feed_path, "#{File.basename(filename)}.zip"))
       end
     end
 

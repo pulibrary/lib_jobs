@@ -2,24 +2,21 @@
 # access alma xml invoice list and make it accessible for processing
 module PeoplesoftVoucher
   class AlmaXmlInvoiceList
-    attr_reader :xml_file, :invoices, :sftp_locations, :ftp_host, :ftp_username, :ftp_password, :file_pattern, :input_ftp_base_dir
+    attr_reader :xml_file, :invoices, :sftp_locations, :alma_sftp, :file_pattern, :input_ftp_base_dir
 
     delegate :empty?, to: :invoices
 
-    def initialize(input_ftp_base_dir: ENV["VOUCHER_FEED_INPUT_FTP"] || '/alma/invoices', file_pattern: '\.xml$',
-                   ftp_host: ENV['SFTP_HOST'], ftp_username: ENV['SFTP_USERNAME'], ftp_password: ENV['SFTP_PASSWORD'])
+    def initialize(input_ftp_base_dir: Rails.application.config.alma_ftp.voucher_feed_path, file_pattern: '\.xml$', alma_sftp: AlmaSftp.new)
       @input_ftp_base_dir = input_ftp_base_dir
       @file_pattern = file_pattern
-      @ftp_host = ftp_host
-      @ftp_username = ftp_username
-      @ftp_password = ftp_password
+      @alma_sftp = alma_sftp
       @sftp_locations = []
       @invoices = []
       download_invoices
     end
 
     def mark_files_as_processed
-      Net::SFTP.start(ftp_host, ftp_username, { password: ftp_password }) do |sftp|
+      alma_sftp.start do |sftp|
         sftp_locations.each do |location|
           sftp.rename(location, "#{location}.processed")
         end
@@ -62,7 +59,7 @@ module PeoplesoftVoucher
     private
 
     def download_invoices
-      Net::SFTP.start(ftp_host, ftp_username, { password: ftp_password }) do |sftp|
+      alma_sftp.start do |sftp|
         sftp.dir.foreach(input_ftp_base_dir) do |entry|
           next unless /#{file_pattern}/.match?(entry.name)
           filename = File.join(input_ftp_base_dir, entry.name)

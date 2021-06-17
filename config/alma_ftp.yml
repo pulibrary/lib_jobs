@@ -1,0 +1,19 @@
+default: &default
+  host: <%= ENV['SFTP_HOST'] || 'localhost2' %>
+  username: <%= ENV['SFTP_USERNAME'] || 'alma' %>
+  password: <%= ENV['SFTP_PASSWORD'] || 'change_me' %>
+  voucher_feed_path: <%= ENV["VOUCHER_FEED_INPUT_FTP"] || '/alma/invoices' %>
+  person_feed_path: <%= ENV["ALMA_PERSON_FEED_OUTPUT_FTP"] || '/alma/people' %>
+  fund_adjustment_path: <%= ENV["ALMA_FUND_ADJUSTMENT_OUTPUT_FTP"] || '/alma/fund_adjustment' %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+staging: &staging
+  <<: *default
+
+production:
+  <<: *staging

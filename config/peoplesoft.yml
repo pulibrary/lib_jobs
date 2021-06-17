@@ -1,0 +1,16 @@
+default: &default
+  voucher_feed_output_path: <%= ENV["VOUCHER_FEED_PEOPLESOFT_OUTPUT_DIR"] || '/tmp' %>
+  fund_adjustment_input_path: <%= ENV["FUND_ADJUSTMENT_PEOPLESOFT_INPUT_DIR"] || '/tmp' %>
+  fund_adjustment_input_file_pattern: <%= ENV["FUND_ADJUSTMENT_PEOPLESOFT_INPUT_FILE_PATTERN"] || '\*.csv' %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+staging: &staging
+  <<: *default
+
+production:
+  <<: *staging
