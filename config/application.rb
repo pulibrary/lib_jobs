@@ -37,6 +37,9 @@ module IlsApps
 
     config.cache_store = :memory_store, { size: 64.megabytes }
     config.active_job.queue_adapter = :sidekiq
+
+    config.alma_ftp = config_for(:alma_ftp)
+    config.peoplesoft = config_for(:peoplesoft)
   end
 end
 

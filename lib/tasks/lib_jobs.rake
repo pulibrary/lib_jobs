@@ -28,6 +28,12 @@ namespace :lib_jobs do
     feed.run
   end
 
+  desc "generate the voucher feed"
+  task alma_fund_adjustment: [:environment] do
+    transfer = AlmaFundAdjustment::FileTransfer.new
+    transfer.run
+  end
+
   desc "Clean dead Sidekiq Queues."
   task :dead_queues, [] => [:environment] do |_t, _args|
     CleanDeadQueuesJob.set(queue: :low).perform_later

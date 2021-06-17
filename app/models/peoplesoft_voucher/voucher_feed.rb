@@ -6,7 +6,7 @@ module PeoplesoftVoucher
     # all outputs are samba shares
     # the inputs
     def initialize(alma_xml_invoice_list: PeoplesoftVoucher::AlmaXmlInvoiceList.new, onbase_output_base_dir: ENV["VOUCHER_FEED_ONBASE_OUTPUT_DIR"] || '/tmp',
-                   peoplesoft_output_base_dir: ENV["VOUCHER_FEED_PEOPLESOFT_OUTPUT_DIR"] || '/tmp')
+                   peoplesoft_output_base_dir: Rails.application.config.peoplesoft.voucher_feed_output_path)
       super(category: "VoucherFeed")
       @finance_invoices = []
       @alma_xml_invoice_list = alma_xml_invoice_list
