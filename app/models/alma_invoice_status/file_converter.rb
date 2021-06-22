@@ -8,7 +8,7 @@ module AlmaInvoiceStatus
 
     # inputs is an Finance samba share
     # the output is the alma ftp server
-    def initialize(peoplesoft_input_base_dir: Rails.application.config.peoplesoft.fund_adjustment_input_path,
+    def initialize(peoplesoft_input_base_dir: Rails.application.config.peoplesoft.invoice_status_input_path,
                    peoplesoft_input_file_pattern: Rails.application.config.peoplesoft.invoice_status_input_file_pattern,
                    alma_sftp: AlmaSftp.new, invoice_status_path: Rails.application.config.alma_ftp.invoice_status_path,
                    output_base_dir: Rails.application.config.alma_ftp.invoice_status_local_path)
