@@ -10,17 +10,18 @@ RSpec.describe PeoplesoftVoucher::AlmaXmlInvoiceList, type: :model do
   let(:sftp_session) { instance_double("Net::SFTP::Session", dir: sftp_dir) }
   let(:sftp_dir) { instance_double("Net::SFTP::Operations::Dir") }
 
-  let(:xml_file) { File.new(Rails.root.join('spec', 'fixtures', 'invoice_export_202118300518.xml')) }
   let(:invoice_errors) do
     "Invalid vendor_id: vendor_id can not be blank,"\
     " Line Item Invalid: primary fund can not be blank,"\
     " Line Item Invalid: primary department can not be blank,"\
-    " Invalid reporting code: must be numeric and can not be blank"
+    " Invalid reporting code: must be numeric and can not be blank,"\
+    " Invalid invoice date: must be between four years old and one month into the future"
   end
 
   before do
     allow(sftp_dir).to receive(:foreach).and_yield(sftp_entry1).and_yield(sftp_entry2)
     # only 1 & 3 should get downloaded
+    pin_time_to_valid_invoice_list
     allow(sftp_session).to receive(:download!).with("/alma/invoices/abc.xml").and_return(Rails.root.join('spec', 'fixtures', 'invoice_export_202118300518.xml').read)
     allow(sftp_session).to receive(:download!).with("/alma/invoices/123.xml").and_return(Rails.root.join('spec', 'fixtures', 'invalid_invoice.xml').read)
     allow(sftp_session).to receive(:rename).with("/alma/invoices/123.xml", "/alma/invoices/123.xml.processed")
@@ -96,7 +97,7 @@ RSpec.describe PeoplesoftVoucher::AlmaXmlInvoiceList, type: :model do
     describe "#status_report" do
       it "generates the correct csv" do
         expect(alma_invoice_list.status_report).to eq("Lib Vendor Invoice Date,Invoice No,Vendor Code,Vendor Id,Invoice Amount,Invoice Curency,Local Amount,Voucher ID,Errors\n"\
-                                                      "2021-03-30,PO-9999,XXX,\"\",1319.05,GBP,176.66,A1222333,\"#{invoice_errors}\"\n")
+                                                      "1996-03-30,PO-9999,XXX,\"\",1319.05,GBP,176.66,A1222333,\"#{invoice_errors}\"\n")
       end
     end
   end
@@ -139,7 +140,7 @@ RSpec.describe PeoplesoftVoucher::AlmaXmlInvoiceList, type: :model do
       it "generates the correct csv" do
         expect(alma_invoice_list.status_report).to eq("Lib Vendor Invoice Date,Invoice No,Vendor Code,Vendor Id,Invoice Amount,Invoice Curency,Local Amount,Voucher ID,Errors\n"\
                                                       "2021-03-30,PO-9999,XXX,111222333,1319.05,USD,124.94,A1222333,\"\"\n"\
-                                                      "2021-03-30,PO-9999,XXX,\"\",1319.05,GBP,176.66,A1222333,\"#{invoice_errors}\"\n")
+                                                      "1996-03-30,PO-9999,XXX,\"\",1319.05,GBP,176.66,A1222333,\"#{invoice_errors}\"\n")
       end
     end
   end

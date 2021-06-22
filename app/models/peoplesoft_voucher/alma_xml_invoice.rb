@@ -59,7 +59,7 @@ module PeoplesoftVoucher
     end
 
     def unique_identifier
-      @unique_identifier ||= xml_invoice.at_xpath('xmlns:unique_identifier').text
+      @unique_identifier ||= xml_invoice.at_xpath('xmlns:unique_identifier')&.text
     end
 
     def invoice_date
@@ -104,6 +104,7 @@ module PeoplesoftVoucher
       validate_fund_list_blank_funds
       validate_fund_list_blank_dept
       validate_reporting_code
+      validate_invoice_date
     end
 
     def validate_fund_list_blank_funds
@@ -121,6 +122,13 @@ module PeoplesoftVoucher
         line[:reporting_code] =~ /[^0-9]/ || line[:reporting_code].blank?
       end
       errors << "Invalid reporting code: must be numeric and can not be blank" if reporting_fund_errors.size.positive?
+    end
+
+    def validate_invoice_date
+      parsed_invoice_date = Time.zone.parse(invoice_date)
+      current_date = Time.zone.now
+      invalid_date = ((current_date - parsed_invoice_date) > (365 * 4).days.to_f) || ((parsed_invoice_date - current_date) > 31.days.to_f)
+      errors << "Invalid invoice date: must be between four years old and one month into the future" if invalid_date
     end
 
     # @returns [Array] of all the line item metadata as a hash
