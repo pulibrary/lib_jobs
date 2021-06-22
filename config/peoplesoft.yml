@@ -2,7 +2,7 @@ default: &default
   voucher_feed_output_path: <%= ENV["VOUCHER_FEED_PEOPLESOFT_OUTPUT_DIR"] || '/tmp' %>
   fund_adjustment_input_path: <%= ENV["FUND_ADJUSTMENT_PEOPLESOFT_INPUT_DIR"] || '/tmp' %>
   fund_adjustment_input_file_pattern: <%= ENV["FUND_ADJUSTMENT_PEOPLESOFT_INPUT_FILE_PATTERN"] || '\*.csv' %>
-  invoice_status_input_file_pattern: <%= ENV["INVOICE_STATUS_PEOPLESOFT_INPUT_FILE_PATTERN"] || '\*.csv' %>
+  invoice_status_input_file_pattern: <%= ENV["INVOICE_STATUS_PEOPLESOFT_INPUT_FILE_PATTERN"] || '\*.xml' %>
   invoice_status_input_path: <%= ENV["INVOICE_STATUS_PEOPLESOFT_INPUT_DIR"] || '/tmp' %>
 
 development:
