@@ -59,34 +59,6 @@ module PeoplesoftVoucher
       full_path
     end
 
-    # def mark_files_as_processed
-    #   Net::SFTP.start(ftp_host, ftp_username, { password: ftp_password }) do |sftp|
-    #     alma_invoice_list.sftp_locations.each do |location|
-    #       sftp.rename(location, "#{location}.processed")
-    #     end
-    #   end
-    # end
-
-    # def alma_invoice_list
-    #   @alma_invoice_list ||= begin
-    #                            list = nil
-    #                            Net::SFTP.start(ftp_host, ftp_username, { password: ftp_password }) do |sftp|
-    #                              sftp.dir.foreach(input_ftp_base_dir) do |entry|
-    #                                next unless /#{file_pattern}/.match?(entry.name)
-    #                                filename = File.join(input_ftp_base_dir, entry.name)
-    #                                data = sftp.download!(filename)
-    #                                current_list = PeoplesoftVoucher::AlmaXmlInvoiceList.new(xml_file: StringIO.new(data), sftp_location: filename)
-    #                                if list.blank?
-    #                                  list = current_list
-    #                                else
-    #                                  list.merge(current_list)
-    #                                end
-    #                              end
-    #                            end
-    #                            list
-    #                          end
-    # end
-
     def output_filename
       date = Time.zone.now.strftime("%m%d%Y")
       "alma_voucher_#{date}.XML"

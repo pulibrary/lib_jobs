@@ -28,10 +28,16 @@ namespace :lib_jobs do
     feed.run
   end
 
-  desc "generate the voucher feed"
+  desc "move the alma fund adjustment files"
   task alma_fund_adjustment: [:environment] do
     transfer = AlmaFundAdjustment::FileTransfer.new
     transfer.run
+  end
+
+  desc "generate the alma invoice status updates"
+  task alma_invoice_status_updates: [:environment] do
+    convert = AlmaInvoiceStatus::FileConverter.new
+    convert.run
   end
 
   desc "Clean dead Sidekiq Queues."
