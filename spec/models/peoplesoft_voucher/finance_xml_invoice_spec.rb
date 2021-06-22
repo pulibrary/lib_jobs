@@ -6,7 +6,10 @@ RSpec.describe PeoplesoftVoucher::FinanceXmlInvoice, type: :model do
     let(:sftp_entry) { instance_double("Net::SFTP::Protocol::V01::Name", name: "abc.xml") }
     let(:sftp_session) { instance_double("Net::SFTP::Session", dir: sftp_dir) }
     let(:sftp_dir) { instance_double("Net::SFTP::Operations::Dir") }
-    let(:alma_invoice_list) { PeoplesoftVoucher::AlmaXmlInvoiceList.new }
+    let(:alma_invoice_list) do
+      pin_time_to_valid_invoice_list
+      PeoplesoftVoucher::AlmaXmlInvoiceList.new
+    end
 
     let(:finance_xml) do
       File.open(Rails.root.join('spec', 'fixtures', 'finance_invoice.xml')).read

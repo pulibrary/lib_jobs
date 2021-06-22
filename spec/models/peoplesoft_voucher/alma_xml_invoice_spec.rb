@@ -2,7 +2,10 @@
 require 'rails_helper'
 
 RSpec.describe PeoplesoftVoucher::AlmaXmlInvoice, type: :model do
-  subject(:alma_invoice) { described_class.new(xml_invoice: invoices.first) }
+  subject(:alma_invoice) do
+    pin_time_to_valid_invoice_list
+    described_class.new(xml_invoice: invoices.first)
+  end
 
   let(:invoices) do
     doc = Nokogiri::XML(xml_file)
@@ -76,21 +79,7 @@ RSpec.describe PeoplesoftVoucher::AlmaXmlInvoice, type: :model do
       let(:xml_file) { File.new(Rails.root.join('spec', 'fixtures', 'invalid_invoice.xml')) }
 
       it "returns the invoice date" do
-        expect(alma_invoice.invoice_date).to eq('2021-03-30')
-      end
-    end
-  end
-
-  describe "#invoice_date" do
-    it "returns the invoice date" do
-      expect(alma_invoice.invoice_date).to eq('2021-03-30')
-    end
-
-    context "invalid invoice" do
-      let(:xml_file) { File.new(Rails.root.join('spec', 'fixtures', 'invalid_invoice.xml')) }
-
-      it "returns the invoice date" do
-        expect(alma_invoice.invoice_date).to eq('2021-03-30')
+        expect(alma_invoice.invoice_date).to eq('1996-03-30')
       end
     end
   end
@@ -108,7 +97,8 @@ RSpec.describe PeoplesoftVoucher::AlmaXmlInvoice, type: :model do
         expect(alma_invoice.errors).to contain_exactly("Invalid vendor_id: vendor_id can not be blank",
                                                        "Line Item Invalid: primary fund can not be blank",
                                                        "Line Item Invalid: primary department can not be blank",
-                                                       "Invalid reporting code: must be numeric and can not be blank")
+                                                       "Invalid reporting code: must be numeric and can not be blank",
+                                                       "Invalid invoice date: must be between four years old and one month into the future")
       end
     end
   end
