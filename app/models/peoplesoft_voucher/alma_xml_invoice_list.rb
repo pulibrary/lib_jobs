@@ -4,7 +4,7 @@ module PeoplesoftVoucher
   class AlmaXmlInvoiceList
     attr_reader :xml_file, :invoices, :sftp_locations, :alma_sftp, :file_pattern, :input_ftp_base_dir
 
-    delegate :empty?, to: :invoices
+    delegate :empty?, to: :valid_invoices
 
     def initialize(input_ftp_base_dir: Rails.application.config.alma_ftp.voucher_feed_path, file_pattern: '\.xml$', alma_sftp: AlmaSftp.new)
       @input_ftp_base_dir = input_ftp_base_dir
@@ -24,7 +24,7 @@ module PeoplesoftVoucher
     end
 
     def status_report(cvs_invoices: invoices)
-      return "" if empty?
+      return "" if invoices.empty?
       CSV.generate do |csv|
         csv << ["Lib Vendor Invoice Date", "Invoice No", "Vendor Code", "Vendor Id", "Invoice Amount", "Invoice Curency", "Local Amount", "Voucher ID", "Errors"]
         cvs_invoices.each do |invoice|

@@ -28,9 +28,7 @@ module PeoplesoftVoucher
     private
 
     def build_peoplesoft_invoices
-      invoice_list.invoices.each do |invoice|
-        next unless invoice.valid?
-
+      invoice_list.valid_invoices.each do |invoice|
         voucher_id = invoice.voucher_id
 
         xml.transaction do
