@@ -61,7 +61,7 @@ module AlmaPeople
 
     def create_addresses
       xml.addresses do
-        if ["UGRD", "SENR", "GRAD"].include?(person["PVPATRONGROUP"])
+        if ["UGRD", "SENR"].include?(person["PVPATRONGROUP"])
           create_address(type: "school", preferred: true, line1: person["DORM_ADDRESS1"], line2: person["DORM_ADDRESS2"], line3: person["DORM_ADDRESS3"],
                          line4: person["DORM_ADDRESS4"], city: person["DORM_CITY"], state: person["DORM_STATE"], country: person["DORM_COUNTRY"], postal: person["DORM_postal"])
           create_address(type: "home", preferred: person["DORM_ADDRESS1"].blank?, line1: person["PERM_ADDRESS1"], line2: person["PERM_ADDRESS2"], line3: person["PERM_ADDRESS3"],
