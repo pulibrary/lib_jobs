@@ -1,0 +1,7 @@
+<h1>Duplicate Transactions from Peoplesoft were Encountered</h1>
+<table>
+    <tr><th>Transaction No</th></tr>
+  <% @duplicate_ids.each do |id| %>
+    <tr><td><%= id %></td></tr>
+  <% end %>
+</table>

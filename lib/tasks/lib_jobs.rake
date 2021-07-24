@@ -30,8 +30,11 @@ namespace :lib_jobs do
 
   desc "move the alma fund adjustment files"
   task alma_fund_adjustment: [:environment] do
-    transfer = AlmaFundAdjustment::FileTransfer.new
-    transfer.run
+    check = AlmaFundAdjustment::AdjustmentCheck.new
+    if check.run
+      transfer = AlmaFundAdjustment::FileTransfer.new
+      transfer.run
+    end
   end
 
   desc "generate the alma invoice status updates"
