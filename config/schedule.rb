@@ -7,3 +7,8 @@ env :PATH, ENV["PATH"]
 every 1.day, at: '11:05 am' do
   rake "lib_jobs:generate_staff_report"
 end
+
+# Run on production at 8:00 pm EST or 7:00 pm EDT
+every 1.day, at: '12:00 pm', roles: [:prod] do
+  rake "lib_jobs:alma_fund_adjustment"
+end
