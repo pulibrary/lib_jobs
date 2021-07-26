@@ -12,3 +12,8 @@ end
 every 1.day, at: '12:00 pm', roles: [:prod] do
   rake "lib_jobs:alma_fund_adjustment"
 end
+
+# Run on production at 8:45 pm EST or 7:45 pm EDT (after the daily report is generated at 7:30 pm)
+every 1.day, at: '12:45 pm', roles: [:prod] do
+  rake "lib_jobs:alma_daily_people_feed"
+end
