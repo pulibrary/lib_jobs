@@ -17,3 +17,13 @@ end
 every 1.day, at: '12:45 pm', roles: [:prod] do
   rake "lib_jobs:alma_daily_people_feed"
 end
+
+# Run on production at 10:00 pm EST or 9:00 pm EDT
+every 1.day, at: '2:00 am', roles: [:prod] do
+  rake " lib_jobs:voucher_feed"
+end
+
+# Run on production at 10:30 pm EST or 9:30 pm EDT
+every 1.day, at: '2:30 am', roles: [:prod] do
+  rake " lib_jobs:alma_invoice_status_updates"
+end
