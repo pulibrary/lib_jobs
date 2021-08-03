@@ -1,76 +1,19 @@
 ---
 defaults: &defaults
-  archivesspace:
-    source:
-      base_uri: <%= ENV["ASPACE_URL"] %>
-      username: <%= ENV["ASPACE_USER"] || 'admin' %>
-      password: <%= ENV["ASPACE_PASSWORD"] || 'secret' %>
-
-      page_size: <%= ENV["ASPACE_PAGE_SIZE"] || '50' %>
-      throttle: <%= ENV["ASPACE_THROTTLE"] || '0' %>
-      verify_ssl: <%= ENV["ASPACE_VERIFY_SSL"] && ENV["ASPACE_VERIFY_SSL"].strip.downcase == 'true' || false %>
-    sync:
-      base_uri: <%= ENV["ASPACE_URL"] %>
-      username: <%= ENV["ASPACE_USER"] || 'admin' %>
-      password: <%= ENV["ASPACE_PASSWORD"] || 'secret' %>
-
-      page_size: <%= ENV["ASPACE_PAGE_SIZE"] || '50' %>
-      throttle: <%= ENV["ASPACE_THROTTLE"] || '0' %>
-      verify_ssl: <%= ENV["ASPACE_VERIFY_SSL"] && ENV["ASPACE_VERIFY_SSL"].strip.downcase == 'true' || false %>
-
-  sizes:
-    global:
-      'Objects': 'C'
-      'BoxQ': 'L'
-      'Double Elephant size box': 'Z'
-      'Double Elephant volume': 'D'
-      'Elephant size box': 'P'
-      'Elephant volume': 'E'
-      'Folio': 'F'
-      'NBox': 'B'
-      'Ordinary': 'N'
-      'Quarto': 'Q'
-      'Small': 'S'
-    mudd:
-      'Mudd OS depth': 'DO'
-      'Mudd OS height': 'H'
-      'Mudd OS length': 'LO'
-      'Mudd OS Extra height': 'XH'
-      'Mudd OS Extra height, depth': 'XHD'
-      'Mudd ST records center': 'S'
-      'Mudd ST manuscript': 'S'
-      'Mudd ST half-manuscript': 'S'
-      'Mudd ST other': 'S'
-      'Mudd OS open': 'O'
-      'Mudd Oversize folder': 'C'
-
-  repositories:
-    classifiers:
-      'ctsn': 'cotsen'
-      'ex': 'rarebooks' # Firestone Library, Vault, Rare Books
-      'hsvm': 'mss' # Firestone, High Security Vault, Manuscripts
-      'mss': 'mss' # Firestone Library, Vault, Manuscripts
-      'rcpxm': 'mss' # ReCAP, Manuscripts
 
   hmac_secret: <%= ENV["HMAC_SECRET"] || 'secret' %>
+
+  voucher_feed_recipients: "cac9@princeton.edu, mzelesky@princeton.edu, pdiskin@princeton.edu"
 
 development:
   <<: *defaults
 
 test:
   <<: *defaults
-  archivesspace:
-    source:
-      username: "test"
-      password: "password"
-      base_uri: "https://aspace.test.org/staff/api"
-    sync:
-      username: "test"
-      password: "password"
-      base_uri: "https://aspace.test.org/staff/api"
 
 production:
   <<: *defaults
+  voucher_feed_recipients: "dconte@princeton.edu, sregan@princeton.edu, dmnodine@princeton.edu, cac9@princeton.edu, mzelesky@princeton.edu, pdiskin@princeton.edu"
 
 staging:
   <<: *defaults

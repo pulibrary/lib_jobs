@@ -18,11 +18,6 @@ module IlsApps
       OpenStruct.new(build)
     end
 
-    def archivesspace_config_for(*args)
-      build = config_for(*args)
-      LibJobs::ArchivesSpace::Configuration.new(build.to_h)
-    end
-
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
