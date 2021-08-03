@@ -1,7 +1,9 @@
 ---
 defaults: &defaults
-  
+
   hmac_secret: <%= ENV["HMAC_SECRET"] || 'secret' %>
+
+  voucher_feed_recipients: "cac9@princeton.edu, mzelesky@princeton.edu, pdiskin@princeton.edu"
 
 development:
   <<: *defaults
@@ -11,6 +13,7 @@ test:
 
 production:
   <<: *defaults
+  voucher_feed_recipients: "dconte@princeton.edu, sregan@princeton.edu, dmnodine@princeton.edu, cac9@princeton.edu, mzelesky@princeton.edu, pdiskin@princeton.edu"
 
 staging:
   <<: *defaults
