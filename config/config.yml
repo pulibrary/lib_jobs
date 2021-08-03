@@ -1,23 +1,5 @@
 ---
 defaults: &defaults
-  archivesspace:
-    source:
-      base_uri: <%= ENV["ASPACE_URL"] %>
-      username: <%= ENV["ASPACE_USER"] || 'admin' %>
-      password: <%= ENV["ASPACE_PASSWORD"] || 'secret' %>
-
-      page_size: <%= ENV["ASPACE_PAGE_SIZE"] || '50' %>
-      throttle: <%= ENV["ASPACE_THROTTLE"] || '0' %>
-      verify_ssl: <%= ENV["ASPACE_VERIFY_SSL"] && ENV["ASPACE_VERIFY_SSL"].strip.downcase == 'true' || false %>
-    sync:
-      base_uri: <%= ENV["ASPACE_URL"] %>
-      username: <%= ENV["ASPACE_USER"] || 'admin' %>
-      password: <%= ENV["ASPACE_PASSWORD"] || 'secret' %>
-
-      page_size: <%= ENV["ASPACE_PAGE_SIZE"] || '50' %>
-      throttle: <%= ENV["ASPACE_THROTTLE"] || '0' %>
-      verify_ssl: <%= ENV["ASPACE_VERIFY_SSL"] && ENV["ASPACE_VERIFY_SSL"].strip.downcase == 'true' || false %>
-
   sizes:
     global:
       'Objects': 'C'
@@ -59,15 +41,6 @@ development:
 
 test:
   <<: *defaults
-  archivesspace:
-    source:
-      username: "test"
-      password: "password"
-      base_uri: "https://aspace.test.org/staff/api"
-    sync:
-      username: "test"
-      password: "password"
-      base_uri: "https://aspace.test.org/staff/api"
 
 production:
   <<: *defaults
