@@ -88,7 +88,7 @@ module PeoplesoftVoucher
     def invoice_create_date
       @inv_create_date ||= begin
                             inv_create_date = xml_invoice.at_xpath('xmlns:invoice_ownered_entity/xmlns:creationDate').text
-                            inv_create_date.gsub(/^([0-9]{4})([0-9]{2})([0-9]{2})$/, '\1-\2-\3')
+                            inv_create_date.gsub(/^([0-9]{2}).([0-9]{2}).([0-9]{4})$/, '\3-\1-\2')
                           end
     end
 
@@ -172,6 +172,7 @@ module PeoplesoftVoucher
     end
 
     ### Reporting code is used for the entire invoice line instead of each payment
+    # rubocop:disable Metrics/MethodLength
     def parse_alma_line_item(line_item)
       line_item_hash = {}
       line_item_hash[:inv_line_number] = line_item.at_xpath('xmlns:line_number').text
@@ -179,6 +180,7 @@ module PeoplesoftVoucher
       line_item_hash[:fund_list] = PeoplesoftVoucher::AlmaXmlFundList.new(line_item: line_item)
       line_item_hash[:currencies] = line_item_hash[:fund_list].currency_codes
       line_item_hash[:total_local_amount] = line_item_hash[:fund_list].total_local_amount
+      line_item_hash[:total_local_amount_str] = line_item_hash[:fund_list].total_local_amount_str
       line_item_hash[:total_original_amount] = line_item_hash[:fund_list].total_original_amount
       line_item_hash[:inv_line_note] = line_item.at_xpath('xmlns:note')&.text
       po_info = get_alma_po_info(line_item)
@@ -188,6 +190,7 @@ module PeoplesoftVoucher
       line_item_hash[:bib_id] = po_info[:bib_id]
       line_item_hash
     end
+    # rubocop:enable Metrics/MethodLength
   end
   # rubocop:enable Metrics/ClassLength
 end

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 # access alma xml invoice list and make it accessible for processing
+require 'csv'
+
 module PeoplesoftVoucher
   class AlmaXmlInvoiceList
     attr_reader :xml_file, :invoices, :sftp_locations, :alma_sftp, :file_pattern, :input_ftp_base_dir

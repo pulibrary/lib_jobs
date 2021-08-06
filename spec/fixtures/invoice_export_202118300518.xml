@@ -84,7 +84,7 @@
       <number_of_attachments>0</number_of_attachments>
       <invoice_ownered_entity>
         <createdBy>999999999</createdBy>
-        <creationDate>20210330</creationDate>
+        <creationDate>03/30/2021</creationDate>
         <customerId>1111</customerId>
         <institutionId>2222</institutionId>
         <modifiedBy>999999999</modifiedBy>
@@ -124,11 +124,11 @@
             <fund_info>
               <amount>
                 <currency>USD</currency>
-                <sum>17</sum>
+                <sum>12</sum>
               </amount>
               <local_amount>
                 <currency>USD</currency>
-                <sum>17</sum>
+                <sum>12</sum>
               </local_amount>
               <code>E9999-Stuff-no program</code>
               <name>Library General Acquisitions</name>
@@ -139,6 +139,25 @@
               <fund_type_desc>General</fund_type_desc>
               <ledger_code>E999-STF</ledger_code>
               <ledger_name>Stuff</ledger_name>
+            </fund_info>
+            <fund_info>
+              <amount>
+                <currency>USD</currency>
+                <sum>5</sum>
+              </amount>
+              <local_amount>
+                <currency>USD</currency>
+                <sum>5</sum>
+              </local_amount>
+              <code>E9998-Stuff-no program</code>
+              <name>Library General Acquisitions</name>
+              <fiscal_period>FY-2021</fiscal_period>
+              <external_id>44444|E9998</external_id>
+              <type>ALLOCATED</type>
+              <fund_type>4</fund_type>
+              <fund_type_desc>General</fund_type_desc>
+              <ledger_code>E998-STF</ledger_code>
+              <ledger_name>Stuff1</ledger_name>
             </fund_info>
           </fund_info_list>
         </invoice_line>

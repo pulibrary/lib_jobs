@@ -398,8 +398,20 @@
             <business_unit_gl>PRINU</business_unit_gl>
             <account>1234</account>
             <deptid>44444</deptid>
-            <merchandise_amt>17.00</merchandise_amt>
+            <merchandise_amt>12.00</merchandise_amt>
             <fund_code>E9999</fund_code>
+            <program_code/>
+            <voucher_id>A1222333</voucher_id>
+          </vchr_dist_stg>
+          <vchr_dist_stg class="r">
+            <business_unit>PRINU</business_unit>
+            <voucher_line_num>1</voucher_line_num>
+            <distrib_line_num>2</distrib_line_num>
+            <business_unit_gl>PRINU</business_unit_gl>
+            <account>1234</account>
+            <deptid>44444</deptid>
+            <merchandise_amt>5.00</merchandise_amt>
+            <fund_code>E9998</fund_code>
             <program_code/>
             <voucher_id>A1222333</voucher_id>
           </vchr_dist_stg>
