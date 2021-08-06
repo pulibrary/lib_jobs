@@ -4,19 +4,27 @@ module PeoplesoftVoucher
   class AlmaXmlFundList
     attr_reader :fund_list
 
-    delegate :select, :count, :each, :blank?, to: :fund_list
+    delegate :select, :count, :each_with_index, :blank?, to: :fund_list
 
     def initialize(line_item:)
       @fund_list = parse_fund_list(line_item)
     end
 
     def total_local_amount
-      total = BigDecimal('0')
-      fund_list.each do |fund|
-        amount = BigDecimal(fund[:usd_amount])
-        total += amount
-      end
-      total
+      @total_local ||=
+        begin
+            total = BigDecimal('0')
+            fund_list.each do |fund|
+              amount = BigDecimal(fund[:usd_amount])
+              total += amount
+            end
+            total
+          end
+    end
+
+    def total_local_amount_str
+      @total_local_str ||= format("%.2f", total_local_amount)
+      @total_local_str
     end
 
     def total_original_amount

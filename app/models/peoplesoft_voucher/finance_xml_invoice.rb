@@ -44,32 +44,33 @@ module PeoplesoftVoucher
     def build_invoice(invoice:, voucher_id:)
       invoice.line_items.each_with_index do |line_item, line_idx|
         line_no = (line_idx + 1).to_s
-        line_item[:fund_list].each do |fund|
-          build_voucher(line_no: line_no, line_item: line_item, fund: fund, voucher_id: voucher_id)
-        end
+        build_voucher(line_no: line_no, line_item: line_item, voucher_id: voucher_id)
       end
     end
 
-    def build_voucher(line_no:, line_item:, fund:, voucher_id:)
+    def build_voucher(line_no:, line_item:, voucher_id:)
       xml.vchr_line_stg(class: 'r') do
         xml.business_unit "PRINU"
         xml.voucher_line_num line_no
         xml.descr (line_item[:po_line_number]).to_s
-        xml.merchandise_amt (fund[:usd_amount]).to_s
+        xml.merchandise_amt line_item[:total_local_amount_str]
         xml.business_unit_gl "PRINU"
         xml.voucher_id voucher_id
         xml.descr254_mixed (line_item[:title]).to_s
-        build_voucher_distribution(line_no: line_no, line_item: line_item, fund: fund, voucher_id: voucher_id)
+        line_item[:fund_list].each_with_index do |fund, fund_idex|
+          fund_no = (fund_idex + 1).to_s
+          build_voucher_distribution(line_no: line_no, line_item: line_item, fund: fund, voucher_id: voucher_id, fund_no: fund_no)
+        end
       end
     end
 
     # I believe the xml build is messing with the ABC size here
     # rubocop:disable Metrics/AbcSize
-    def build_voucher_distribution(line_no:, line_item:, fund:, voucher_id:)
+    def build_voucher_distribution(line_no:, line_item:, fund:, voucher_id:, fund_no:)
       xml.vchr_dist_stg(class: 'r') do
         xml.business_unit "PRINU"
         xml.voucher_line_num line_no
-        xml.distrib_line_num "1"
+        xml.distrib_line_num fund_no
         xml.business_unit_gl "PRINU"
         xml.account (line_item[:reporting_code]).to_s
         xml.deptid (fund[:prime_dept]).to_s
