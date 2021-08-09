@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require 'csv'
+
 module WebStaff
   class StaffDirectoryGenerator < LibJob
     def self.report_filename(date: Time.zone.today)

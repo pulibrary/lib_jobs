@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require 'csv'
+
 module AlmaFundAdjustment
   class AdjustmentCheck
     attr_reader :peoplesoft_input_base_dir, :peoplesoft_input_file_pattern
