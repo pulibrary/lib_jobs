@@ -91,5 +91,24 @@ RSpec.describe AlmaPeople::AlmaXmlPerson, type: :model do
         expect(builder.to_xml).to eq(alma_xml)
       end
     end
+
+    context "alma person query" do
+      let(:alma_person_query) { AlmaPeople::AlmaQueryPersonCSV.new(csv_file: Rails.root.join("spec", "fixtures", 'alma_users_future_exp_no_netid_test.csv')).get_json.first }
+      let(:alma_xml) do
+        "<?xml version=\"1.0\"?>\n<user>\n  <expiry_date>2014-01-31</expiry_date>\n  <purge_date>2014-01-31</purge_date>\n  <user_group>SENR</user_group>\n  <primary_id>/1/243166d</primary_id>\n"\
+        "  <first_name>/1/2D Fleh</first_name>\n  <last_name>middle</last_name>\n  <middle_name>Lehs 11/1/</middle_name>\n"\
+        "  <user_identifiers>\n    <user_identifier segment_type=\"External\">\n      <value>999111000</value>\n      <id_type desc=\"Barcode\">BARCODE</id_type>\n"\
+        "      <status>ACTIVE</status>\n    </user_identifier>\n    <user_identifier segment_type=\"External\">\n      <value>lehs</value>\n      <id_type desc=\"NetID\">NET_ID</id_type>\n"\
+        "      <status>ACTIVE</status>\n    </user_identifier>\n  </user_identifiers>\n</user>\n"
+      end
+
+      it "generates xml " do
+        builder = Nokogiri::XML::Builder.new do |xml|
+          alma_person = described_class.new(xml: xml, person: alma_person_query)
+          alma_person.convert
+        end
+        expect(builder.to_xml).to eq(alma_xml)
+      end
+    end
   end
 end

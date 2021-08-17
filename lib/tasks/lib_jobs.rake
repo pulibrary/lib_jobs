@@ -47,4 +47,15 @@ namespace :lib_jobs do
   task :dead_queues, [] => [:environment] do |_t, _args|
     CleanDeadQueuesJob.set(queue: :low).perform_later
   end
+
+  desc "generate an alma people feed for a csv file"
+  task alma_csv_person_update: [:environment] do
+    if ENV["CSV_PERSON_FILE"].blank?
+      puts "You must specify a file to process: CSV_PERSON_FILE=abc.csv bundle exec rake lib_jobs:alma_csv_person_update"
+    else
+      alma_person_query = AlmaPeople::AlmaQueryPersonCSV.new(csv_file: ENV["CSV_PERSON_FILE"])
+      feed = AlmaPeople::AlmaPersonFeed.new(oit_person_feed: alma_person_query)
+      feed.run
+    end
+  end
 end
