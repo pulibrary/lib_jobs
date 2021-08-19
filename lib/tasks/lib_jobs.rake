@@ -47,4 +47,16 @@ namespace :lib_jobs do
   task :dead_queues, [] => [:environment] do |_t, _args|
     CleanDeadQueuesJob.set(queue: :low).perform_later
   end
+
+  desc "check staff titles"
+  task staff_titles: [:environment] do
+    finance_report = WebStaff::FinanceReport.new
+    hr_report = WebStaff::HrStaffReport.new
+    non_match = []
+    hr_report.each do |person|
+      finance_data = finance_report.report(employee_id: person["EID"])
+      non_match << {finance: finance_data, oit:  person} if person["Title"] != finance_data["Title"]
+    end
+    puts "Out of #{hr_report.people.count} #{non_match.count} titles do not match"
+  end
 end
