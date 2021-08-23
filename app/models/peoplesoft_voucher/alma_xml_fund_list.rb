@@ -2,6 +2,8 @@
 # access alma xml fund list and make it accessible for processing
 module PeoplesoftVoucher
   class AlmaXmlFundList
+    include ActionView::Helpers::NumberHelper
+
     attr_reader :fund_list
 
     delegate :select, :count, :each_with_index, :blank?, to: :fund_list
@@ -15,6 +17,7 @@ module PeoplesoftVoucher
         begin
             total = BigDecimal('0')
             fund_list.each do |fund|
+              byebug if fund[:usd_amount].nil?
               amount = BigDecimal(fund[:usd_amount])
               total += amount
             end
@@ -53,6 +56,7 @@ module PeoplesoftVoucher
         hash[:original_amount] = fund.at_xpath('xmlns:amount/xmlns:sum').text
         hash[:original_currency] = fund.at_xpath('xmlns:amount/xmlns:currency').text
         usd_amount = fund.at_xpath('xmlns:local_amount/xmlns:sum').text
+        byebug if usd_amount == "-285"
         hash[:usd_amount] = format_usd_amount(usd_amount)
         hash = process_chartstring(chartstring: fund.at_xpath('xmlns:external_id'), hash: hash)
         hash[:ledger] = fund.at_xpath('xmlns:ledger_code').text
@@ -63,14 +67,7 @@ module PeoplesoftVoucher
     end
 
     def format_usd_amount(amount_string)
-      case amount_string
-      when /^[0-9]+\.[0-9]{2}$/
-        amount_string
-      when /^[0-9]+\.[0-9]$/
-        amount_string + '0'
-      when /^[0-9]+$/
-        amount_string + '.00'
-      end
+      number_to_currency(amount_string.to_f, unit: "", delimiter: "")
     end
 
     def process_chartstring(chartstring:, hash:)
