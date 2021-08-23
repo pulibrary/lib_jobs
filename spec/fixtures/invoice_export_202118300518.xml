@@ -206,11 +206,62 @@
           </fund_info_list>
         </invoice_line>
         <invoice_line>
+          <line_number>999991</line_number>
+          <line_type>SHIPMENT</line_type>
+          <quantity>0</quantity>
+          <reporting_code>3456</reporting_code>
+          <total_price>285.0</total_price>
+          <price>285.0</price>
+          <fund_info_list>
+            <fund_info>
+              <amount>
+                <currency>USD</currency>
+                <sum>285</sum>
+              </amount>
+              <local_amount>
+                <currency>USD</currency>
+                <sum>285</sum>
+              </local_amount>
+              <code>E9998-Stuff-no program</code>
+              <name>Library Special Acquisitions</name>
+              <fiscal_period>FY-2022</fiscal_period>
+              <external_id>44555|E9998</external_id>
+              <type>ALLOCATED</type>
+              <fund_type>11</fund_type>
+              <fund_type_desc>Special</fund_type_desc>
+              <ledger_code>E999-SPC</ledger_code>
+              <ledger_name>Special</ledger_name>
+            </fund_info>
+          </fund_info_list>
+        </invoice_line>
+        <invoice_line>
           <line_number>999992</line_number>
           <line_type>DISCOUNT</line_type>
           <quantity>0</quantity>
-          <total_price>0.0</total_price>
-          <price>0.0</price>
+          <reporting_code>2345</reporting_code>
+          <total_price>285.0</total_price>
+          <price>285.0</price>
+          <fund_info_list>
+            <fund_info>
+              <amount>
+                <currency>USD</currency>
+                <sum>-285</sum>
+              </amount>
+              <local_amount>
+                <currency>USD</currency>
+                <sum>-285</sum>
+              </local_amount>
+              <code>E9999-Stuff-no program</code>
+              <name>Library Special Acquisitions</name>
+              <fiscal_period>FY-2022</fiscal_period>
+              <external_id>44444|E9999</external_id>
+              <type>ALLOCATED</type>
+              <fund_type>11</fund_type>
+              <fund_type_desc>Special</fund_type_desc>
+              <ledger_code>E999-SPC</ledger_code>
+              <ledger_name>Special</ledger_name>
+            </fund_info>
+          </fund_info_list>
         </invoice_line>
       </invoice_line_list>
     </invoice>
