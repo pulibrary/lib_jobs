@@ -64,11 +64,11 @@ module PeoplesoftVoucher
 
     def format_usd_amount(amount_string)
       case amount_string
-      when /^[0-9]+\.[0-9]{2}$/
+      when /^\-?[0-9]+\.[0-9]{2}$/
         amount_string
-      when /^[0-9]+\.[0-9]$/
+      when /^\-?[0-9]+\.[0-9]$/
         amount_string + '0'
-      when /^[0-9]+$/
+      when /^\-?[0-9]+$/
         amount_string + '.00'
       end
     end
