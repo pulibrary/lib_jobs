@@ -24,7 +24,7 @@ module AlmaInvoiceStatus
         payment_date: safe_lookup(row, 'PAYMENT_VOUCHER_DATE'),
         voucher_id: safe_lookup(row, 'VOUCHER_ID'),
         currency: safe_lookup(row, 'CURRENCY_PYMNT'),
-        payment_amount: safe_lookup(row, 'PYMNT_AMT'),
+        payment_amount: safe_lookup(row, 'PAID_AMT'),
         message: safe_lookup(row, 'PYMNT_MESSAGE') }
     end
 
