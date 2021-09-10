@@ -19,15 +19,15 @@ module AlmaPeople
 
     def convert
       xml.user do
-        xml.expiry_date person["PATRON_EXPIRATION_DATE"]
-        xml.purge_date person["PATRON_PURGE_DATE"]
+        xml.expiry_date person["PATRON_EXPIRATION_DATE"] if person["PATRON_EXPIRATION_DATE"].present?
+        xml.purge_date person["PATRON_PURGE_DATE"] if person["PATRON_PURGE_DATE"].present?
         create_status(status_flag: person["ELIGIBLE_INELIGIBLE"])
         create_user_statistics(statistic_category: person["PVSTATCATEGORY"])
         xml.user_group person["PVPATRONGROUP"]
         xml.primary_id person["EMPLID"]
-        xml.first_name person["PRF_OR_PRI_FIRST_NAM"] # _NAM is not a typo
-        xml.last_name person["PRF_OR_PRI_LAST_NAME"]
-        xml.middle_name person["PRF_OR_PRI_MIDDLE_NAME"]
+        xml.first_name person["PRF_OR_PRI_FIRST_NAM"] if person["PRF_OR_PRI_FIRST_NAM"].present? # _NAM is not a typo
+        xml.last_name person["PRF_OR_PRI_LAST_NAME"] if person["PRF_OR_PRI_LAST_NAME"].present?
+        xml.middle_name person["PRF_OR_PRI_MIDDLE_NAME"] if person["PRF_OR_PRI_MIDDLE_NAME"].present?
         create_contact_information
         create_identifiers
       end
@@ -36,6 +36,7 @@ module AlmaPeople
     private
 
     def create_status(status_flag:)
+      return if status_flag.blank?
       if status_flag == "E"
         xml.status 'ACTIVE'
       else
@@ -44,6 +45,7 @@ module AlmaPeople
     end
 
     def create_user_statistics(statistic_category:)
+      return if statistic_category.blank?
       xml.user_statistics do
         xml.user_statistic(segment_type: "External") do
           xml.statistic_category(desc: statistic_category) { xml.text statistic_category }
@@ -52,6 +54,7 @@ module AlmaPeople
     end
 
     def create_contact_information
+      return if person["CAMP_EMAIL"].blank? && person["HOME_EMAIL"].blank?
       xml.contact_info do
         create_addresses
         create_emails
@@ -95,7 +98,7 @@ module AlmaPeople
 
     def create_identifiers
       xml.user_identifiers do
-        create_identifier(type: "BARCODE", id: person["PU_BARCODE"], description: 'Barcode')
+        create_identifier(type: "BARCODE", id: person["PU_BARCODE"], description: 'Barcode') if person["PU_BARCODE"].present?
         create_identifier(type: "NET_ID", id: person["CAMPUS_ID"], description: 'NetID')
       end
     end
