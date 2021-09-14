@@ -23,12 +23,12 @@ RSpec.describe PeoplesoftVoucher::VoucherFeed, type: :model do
       data_set = DataSet.last
       expect(data_set.category).to eq("VoucherFeed")
       expect(data_set.data).to eq("Lib Vendor Invoice Date,Invoice No,Vendor Code,Vendor Id,Invoice Amount,Invoice Curency,Local Amount,Voucher ID,Errors\n"\
-                                  "2021-03-30,PO-9999,XXX,111222333,1319.05,USD,124.94,A1222333,\"\"\n")
+                                  "2021-03-30,PO-9999,XXX,111222333,1319.05,USD,124.94,A0K7QUIS,\"\"\n")
       expect(data_set.report_time).to eq(Time.zone.now.midnight)
       data = File.read("/tmp/alma_voucher_#{today}.XML")
       expect(data).to eq(File.open(Rails.root.join('spec', 'fixtures', 'finance_invoice.xml')).read)
       data = File.read("/tmp/Library Invoice Keyword Update_#{onbase_today}.csv")
-      expect(data).to eq("\"2021-03-30\",\"PO-9999\",\"XXX\",\"1319.05\",\"A1222333\"\n")
+      expect(data).to eq("\"2021-03-30\",\"PO-9999\",\"XXX\",\"1319.05\",\"A0K7QUIS\"\n")
       File.delete("/tmp/alma_voucher_#{today}.XML")
       File.delete("/tmp/Library Invoice Keyword Update_#{onbase_today}.csv")
       confirm_email = ActionMailer::Base.deliveries.last
@@ -71,13 +71,13 @@ RSpec.describe PeoplesoftVoucher::VoucherFeed, type: :model do
                        "Invalid reporting code: must be numeric and can not be blank, Invalid invoice date: must be between four years old and one month into the future"
       expect(data_set.category).to eq("VoucherFeed")
       expect(data_set.data).to eq("Lib Vendor Invoice Date,Invoice No,Vendor Code,Vendor Id,Invoice Amount,Invoice Curency,Local Amount,Voucher ID,Errors\n"\
-                                  "1996-03-30,PO-9999,XXX,\"\",1319.05,GBP,176.66,A1222333,\"#{invoice_errors}\"\n")
+                                  "1996-03-30,PO-9999,XXX,\"\",1319.05,GBP,176.66,A0K7QUIS,\"#{invoice_errors}\"\n")
       expect(data_set.report_time).to eq(Time.zone.now.midnight)
       expect(File.exist?("/tmp/alma_voucher_#{today}.XML")).to be_falsey
       expect(File.exist?("/tmp/Library Invoice Keyword Update_#{onbase_today}.csv")).to be_falsey
       confirm_email = ActionMailer::Base.deliveries.last
       expect(confirm_email.subject).to eq("Alma to Peoplesoft Voucher Feed Results")
-      expect(confirm_email.html_part.body.to_s).to include("1996-03-30</td><td>PO-9999</td><td>XXX</td><td></td><td>1319.05</td><td>GBP</td><td>176.66</td><td>A1222333</td>"\
+      expect(confirm_email.html_part.body.to_s).to include("1996-03-30</td><td>PO-9999</td><td>XXX</td><td></td><td>1319.05</td><td>GBP</td><td>176.66</td><td>A0K7QUIS</td>"\
                                                            "<td>#{invoice_errors}</td>")
       expect(confirm_email.html_part.body.to_s).to include("No invoices available to process")
     end
