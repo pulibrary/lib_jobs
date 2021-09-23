@@ -2,7 +2,7 @@
   "name": "lib_jobs",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "5.2.1",
+    "@rails/webpacker": "5.4.3",
     "@vue/cli-plugin-babel": "^4.5.12",
     "babel-core": "^6.26.3",
     "lux-design-system": "^2.0.4",
