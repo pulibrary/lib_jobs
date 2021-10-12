@@ -26,7 +26,8 @@ module AlmaFundAdjustment
     def process_file(file)
       status = true
       data = ::CSV.read(file, headers: true)
-      ids = data.map { |row| "#{row['TRANSACTION_REFERENCE_NUMBER']}-#{row['TRANSACTION_NOTE']}" }
+      adjustments = data.map { |row| FundAdjustment.new(row) }
+      ids = adjustments.map(&:unique_id)
       already_processed = ids.select { |id| PeoplesoftTransaction.where(transaction_id: id).count.positive? }
       if already_processed.count.positive?
         TransactionErrorMailer.report(duplicate_ids: already_processed).deliver
