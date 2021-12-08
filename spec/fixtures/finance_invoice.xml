@@ -366,7 +366,7 @@
     <transaction>
       <vchr_hdr_stg class="R">
         <business_unit>PRINU</business_unit>
-        <voucher_id>A0K7QUIS</voucher_id>
+        <voucher_id>A020RVUO</voucher_id>
         <voucher_style>REG</voucher_style>
         <invoice_id>PO-9999</invoice_id>
         <invoice_dt>2021-03-30</invoice_dt>
@@ -381,7 +381,7 @@
         <vchr_pymt_stg class="R">
           <business_unit>PRINU</business_unit>
           <pymnt_cnt>1</pymnt_cnt>
-          <voucher_id>A0K7QUIS</voucher_id>
+          <voucher_id>A020RVUO</voucher_id>
         </vchr_pymt_stg>
         <vchr_line_stg class="r">
           <business_unit>PRINU</business_unit>
@@ -389,7 +389,7 @@
           <descr>POL-999</descr>
           <merchandise_amt>17.00</merchandise_amt>
           <business_unit_gl>PRINU</business_unit_gl>
-          <voucher_id>A0K7QUIS</voucher_id>
+          <voucher_id>A020RVUO</voucher_id>
           <descr254_mixed>A Book we Wanted</descr254_mixed>
           <vchr_dist_stg class="r">
             <business_unit>PRINU</business_unit>
@@ -401,7 +401,7 @@
             <merchandise_amt>12.00</merchandise_amt>
             <fund_code>E9999</fund_code>
             <program_code/>
-            <voucher_id>A0K7QUIS</voucher_id>
+            <voucher_id>A020RVUO</voucher_id>
           </vchr_dist_stg>
           <vchr_dist_stg class="r">
             <business_unit>PRINU</business_unit>
@@ -413,7 +413,7 @@
             <merchandise_amt>5.00</merchandise_amt>
             <fund_code>E9998</fund_code>
             <program_code/>
-            <voucher_id>A0K7QUIS</voucher_id>
+            <voucher_id>A020RVUO</voucher_id>
           </vchr_dist_stg>
         </vchr_line_stg>
         <vchr_line_stg class="r">
@@ -422,7 +422,7 @@
           <descr>POL-888</descr>
           <merchandise_amt>107.94</merchandise_amt>
           <business_unit_gl>PRINU</business_unit_gl>
-          <voucher_id>A0K7QUIS</voucher_id>
+          <voucher_id>A020RVUO</voucher_id>
           <descr254_mixed>Another book we want.</descr254_mixed>
           <vchr_dist_stg class="r">
             <business_unit>PRINU</business_unit>
@@ -434,7 +434,7 @@
             <merchandise_amt>107.94</merchandise_amt>
             <fund_code>E9999</fund_code>
             <program_code/>
-            <voucher_id>A0K7QUIS</voucher_id>
+            <voucher_id>A020RVUO</voucher_id>
           </vchr_dist_stg>
         </vchr_line_stg>
         <vchr_line_stg class="r">
@@ -443,7 +443,7 @@
           <descr/>
           <merchandise_amt>285.00</merchandise_amt>
           <business_unit_gl>PRINU</business_unit_gl>
-          <voucher_id>A0K7QUIS</voucher_id>
+          <voucher_id>A020RVUO</voucher_id>
           <descr254_mixed>adjustment</descr254_mixed>
           <vchr_dist_stg class="r">
             <business_unit>PRINU</business_unit>
@@ -455,7 +455,7 @@
             <merchandise_amt>285.00</merchandise_amt>
             <fund_code>E9998</fund_code>
             <program_code/>
-            <voucher_id>A0K7QUIS</voucher_id>
+            <voucher_id>A020RVUO</voucher_id>
           </vchr_dist_stg>
         </vchr_line_stg>
         <vchr_line_stg class="r">
@@ -464,7 +464,7 @@
           <descr/>
           <merchandise_amt>-285.00</merchandise_amt>
           <business_unit_gl>PRINU</business_unit_gl>
-          <voucher_id>A0K7QUIS</voucher_id>
+          <voucher_id>A020RVUO</voucher_id>
           <descr254_mixed>adjustment</descr254_mixed>
           <vchr_dist_stg class="r">
             <business_unit>PRINU</business_unit>
@@ -476,7 +476,7 @@
             <merchandise_amt>-285.00</merchandise_amt>
             <fund_code>E9999</fund_code>
             <program_code/>
-            <voucher_id>A0K7QUIS</voucher_id>
+            <voucher_id>A020RVUO</voucher_id>
           </vchr_dist_stg>
         </vchr_line_stg>
       </vchr_hdr_stg>

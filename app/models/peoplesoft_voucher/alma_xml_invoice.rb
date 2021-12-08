@@ -17,7 +17,7 @@ module PeoplesoftVoucher
 
     def voucher_id
       @voucher_id ||= begin
-                        id_number_string = unique_identifier[2..-5]
+                        id_number_string = unique_identifier[2..-6]
                         id = id_number_string.to_i
                         "A#{id.to_s(36).rjust(7, '0')}".upcase
                       end

@@ -16,14 +16,14 @@ RSpec.describe PeoplesoftVoucher::AlmaXmlInvoice, type: :model do
 
   describe "#voucher_id" do
     it "returns the id" do
-      expect(alma_invoice.voucher_id).to eq('A0K7QUIS')
+      expect(alma_invoice.voucher_id).to eq('A020RVUO')
     end
 
     context "invalid invoice" do
       let(:xml_file) { File.new(Rails.root.join('spec', 'fixtures', 'invalid_invoice.xml')) }
 
       it "returns the id" do
-        expect(alma_invoice.voucher_id).to eq('A0K7QUIS')
+        expect(alma_invoice.voucher_id).to eq('A020RVUO')
       end
     end
   end
