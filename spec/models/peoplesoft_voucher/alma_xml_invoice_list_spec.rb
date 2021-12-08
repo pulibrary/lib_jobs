@@ -51,14 +51,14 @@ RSpec.describe PeoplesoftVoucher::AlmaXmlInvoiceList, type: :model do
 
   describe "#onbase_report" do
     it "generates the correct csv" do
-      expect(alma_invoice_list.onbase_report).to eq("\"2021-03-30\",\"PO-9999\",\"XXX\",\"1319.05\",\"A0K7QUIS\"\n")
+      expect(alma_invoice_list.onbase_report).to eq("\"2021-03-30\",\"PO-9999\",\"XXX\",\"1319.05\",\"A020RVUO\"\n")
     end
   end
 
   describe "#status_report" do
     it "generates the correct csv" do
       expect(alma_invoice_list.status_report).to eq("Lib Vendor Invoice Date,Invoice No,Vendor Code,Vendor Id,Invoice Amount,Invoice Curency,Local Amount,Voucher ID,Errors\n"\
-                                                    "2021-03-30,PO-9999,XXX,111222333,1319.05,USD,124.94,A0K7QUIS,\"\"\n")
+                                                    "2021-03-30,PO-9999,XXX,111222333,1319.05,USD,124.94,A020RVUO,\"\"\n")
     end
   end
 
@@ -97,7 +97,7 @@ RSpec.describe PeoplesoftVoucher::AlmaXmlInvoiceList, type: :model do
     describe "#status_report" do
       it "generates the correct csv" do
         expect(alma_invoice_list.status_report).to eq("Lib Vendor Invoice Date,Invoice No,Vendor Code,Vendor Id,Invoice Amount,Invoice Curency,Local Amount,Voucher ID,Errors\n"\
-                                                      "1996-03-30,PO-9999,XXX,\"\",1319.05,GBP,176.66,A0K7QUIS,\"#{invoice_errors}\"\n")
+                                                      "1996-03-30,PO-9999,XXX,\"\",1319.05,GBP,176.66,A020RVUO,\"#{invoice_errors}\"\n")
       end
     end
   end
@@ -132,15 +132,15 @@ RSpec.describe PeoplesoftVoucher::AlmaXmlInvoiceList, type: :model do
 
     describe "#onbase_report" do
       it "generates the correct csv" do
-        expect(alma_invoice_list.onbase_report).to eq("\"2021-03-30\",\"PO-9999\",\"XXX\",\"1319.05\",\"A0K7QUIS\"\n")
+        expect(alma_invoice_list.onbase_report).to eq("\"2021-03-30\",\"PO-9999\",\"XXX\",\"1319.05\",\"A020RVUO\"\n")
       end
     end
 
     describe "#status_report" do
       it "generates the correct csv" do
         expect(alma_invoice_list.status_report).to eq("Lib Vendor Invoice Date,Invoice No,Vendor Code,Vendor Id,Invoice Amount,Invoice Curency,Local Amount,Voucher ID,Errors\n"\
-                                                      "2021-03-30,PO-9999,XXX,111222333,1319.05,USD,124.94,A0K7QUIS,\"\"\n"\
-                                                      "1996-03-30,PO-9999,XXX,\"\",1319.05,GBP,176.66,A0K7QUIS,\"#{invoice_errors}\"\n")
+                                                      "2021-03-30,PO-9999,XXX,111222333,1319.05,USD,124.94,A020RVUO,\"\"\n"\
+                                                      "1996-03-30,PO-9999,XXX,\"\",1319.05,GBP,176.66,A020RVUO,\"#{invoice_errors}\"\n")
       end
     end
   end
