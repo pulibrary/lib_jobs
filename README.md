@@ -20,13 +20,19 @@
   * FTP files
 
 ## Prerequisites
-- Ruby (2.6.6 or later 2.6.z releases)
+- Ruby (2.7.5 or later)
+- Postgres
+  ```
+  brew install postgres
+  brew services start postgresql
+  ```
 
 ## Getting Started
 
 ```bash
 bundle install
 yarn install
+bundle exec rake db:create db:migrate
 bundle exec rake servers:start
 bundle exec foreman start
 bundle exec rails db:seed
