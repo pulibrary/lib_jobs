@@ -1,9 +1,11 @@
 ---
 version: 2.1
+orbs:
+  browser-tools: circleci/browser-tools@1.2.4
 executors:
   lib-jobs-executor:
     docker:
-      - image: circleci/ruby:2.6.6-node-browsers
+      - image: cimg/ruby:2.7.5-browsers
         environment:
           BUNDLER_VERSION: 2.0.1
           BUNDLE_JOBS: 3
@@ -100,6 +102,15 @@ jobs:
           at: '~/project'
       - setup-bundler
       - setup-node
+      - browser-tools/install-browser-tools
+      - run:
+          command: |
+            google-chrome --version
+            firefox --version
+            geckodriver --version
+            chromedriver --version
+            java -jar /usr/local/bin/selenium.jar --version
+          name: Check install
       - run:
           name: Database setup
           command: |
