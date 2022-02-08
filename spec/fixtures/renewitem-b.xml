@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ns1:NCIPMessage xmlns:ns1="http://www.niso.org/2008/ncip" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ns1:version="http://www.niso.org/schemas/ncip/v2_0/imp1/xsd/ncip_v2_0.xsd">
+ <ns1:RenewItem>
+  <ns1:InitiationHeader>
+   <ns1:FromAgencyId>
+    <ns1:AgencyId>01PRI_INST</ns1:AgencyId>
+   </ns1:FromAgencyId>
+   <ns1:ToAgencyId>
+    <ns1:AgencyId>01PRI_INST</ns1:AgencyId>
+   </ns1:ToAgencyId>
+   <ns1:ApplicationProfileType>BD</ns1:ApplicationProfileType>
+  </ns1:InitiationHeader>
+  <ns1:UserId>
+   <ns1:UserIdentifierValue>22101xxxxxxxxx</ns1:UserIdentifierValue>
+  </ns1:UserId>
+  <ns1:ItemId>
+   <ns1:ItemIdentifierValue>3210xxxxxxxxx</ns1:ItemIdentifierValue>
+  </ns1:ItemId>
+  <ns1:DesiredDateDue>2022-03-18T16:17:03.291Z</ns1:DesiredDateDue>
+ </ns1:RenewItem>
+</ns1:NCIPMessage>
