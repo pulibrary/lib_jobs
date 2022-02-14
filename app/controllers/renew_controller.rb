@@ -10,4 +10,8 @@ class RenewController < ApplicationController
       format.xml { send_data renew_item.response }
     end
   end
+
+  def get
+    Rails.logger.warn("Got a Renew request\n#{request.inspect}\n")
+  end
 end

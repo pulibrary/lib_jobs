@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get '/removed-staff', to: 'staff_directory#removed', defaults: { format: 'text' }
 
   post '/ncip-renew', to: 'renew#index', defaults: { format: 'xml' }
+  get '/ncip-renew', to: 'renew#get', defaults: { format: 'xml' }
 
   authenticate :user do
     mount Sidekiq::Web => "/sidekiq"
