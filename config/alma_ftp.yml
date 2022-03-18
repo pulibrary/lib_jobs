@@ -7,6 +7,7 @@ default: &default
   fund_adjustment_path: <%= ENV["ALMA_FUND_ADJUSTMENT_OUTPUT_FTP"] || '/alma/fund_adjustment' %>
   invoice_status_path: <%= ENV["ALMA_INVOICE_STATUS_OUTPUT_FTP"] || '/alma/invoice_status' %>
   invoice_status_local_path: <%= ENV["ALMA_INVOICE_STATUS_LOCAL_DIR"] || '/tmp' %>
+  pod_output_path: <%= ENV["ALMA_POD_OUTPUT_DIR"] || '/alma/pod' %>
 
 development:
   <<: *default
