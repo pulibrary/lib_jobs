@@ -25,5 +25,4 @@ class Tarball
     z.close
     Gem::Package::TarReader.new unzipped
   end
-  
 end
