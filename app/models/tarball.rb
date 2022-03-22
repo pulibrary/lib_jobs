@@ -3,8 +3,9 @@
 require 'rubygems/package'
 require 'zlib'
 
-# take a .tar.gz file (File object) and write its contents
-# to disk or stream it in memory
+# take some .tar.gz IO (File, Net::SFTP::Operations::File, StringIO,
+# or similar) and make its uncompressed contents available as an
+# array of IO objects
 class Tarball
   def initialize(file)
     @file = file
@@ -20,9 +21,7 @@ class Tarball
   private
 
   def untar
-    z = Zlib::GzipReader.new(@file)
-    unzipped = StringIO.new(z.read)
-    z.close
+    unzipped = Zlib::GzipReader.new(@file)
     Gem::Package::TarReader.new unzipped
   end
 end
