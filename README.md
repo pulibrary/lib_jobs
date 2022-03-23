@@ -3,7 +3,7 @@
 ## Connects to
   * SFX
   * Voyager
-  * Future Alama File integration
+  * Future Alma File integration
 
 ## Access Databases
   * Oracle
