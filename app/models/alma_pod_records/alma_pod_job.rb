@@ -4,13 +4,15 @@ module AlmaPodRecords
     attr_reader :documents
 
     def initialize(incoming_file_list: nil, file_pattern: '\.tar\.gz$', since: nil)
+      super(category: 'AlmaPodRecords')
       since ||= Rails.application.config.pod.days_to_fetch.days.ago
       @file_list = incoming_file_list || AlmaPodFileList.new(file_pattern: file_pattern, since: since)
       clean_documents
     end
 
-    def run
+    def handle(data_set:)
       write_files
+      data_set
     end
 
     def write_files
