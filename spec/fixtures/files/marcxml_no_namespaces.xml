@@ -1,0 +1,667 @@
+<collection>
+    <record>
+      <leader>02823cam a2200385Ia 4500</leader>
+      <controlfield tag="005">20201005171950.0</controlfield>
+      <controlfield tag="008">141211s2011    mr ab    b    001 0 fre c</controlfield>
+      <controlfield tag="001">9989034293506421</controlfield>
+      <datafield tag="035" ind1=" " ind2=" ">
+        <subfield code="a">(OCoLC)ocn813285897</subfield>
+        <subfield code="0">(uri) http://www.worldcat.org/oclc/813285897</subfield>
+      </datafield>
+      <datafield tag="035" ind1=" " ind2=" ">
+        <subfield code="a">8903429</subfield>
+      </datafield>
+      <datafield tag="035" ind1=" " ind2=" ">
+        <subfield code="a">(OCoLC)813285897</subfield>
+        <subfield code="0">(uri) http://www.worldcat.org/oclc/813285897</subfield>
+      </datafield>
+      <datafield tag="035" ind1=" " ind2=" ">
+        <subfield code="a">(NjP)8903429-princetondb</subfield>
+      </datafield>
+      <datafield tag="040" ind1=" " ind2=" ">
+        <subfield code="a">ALAUL</subfield>
+        <subfield code="b">eng</subfield>
+        <subfield code="c">ALAUL</subfield>
+        <subfield code="d">MEAUC</subfield>
+        <subfield code="d">OCLCF</subfield>
+        <subfield code="d">OCLCO</subfield>
+      </datafield>
+      <datafield tag="020" ind1=" " ind2=" ">
+        <subfield code="a">9789954304471 (hbk.)</subfield>
+        <subfield code="0">(uri) http://www.isbnsearch.org/isbn/9789954304471</subfield>
+      </datafield>
+      <datafield tag="020" ind1=" " ind2=" ">
+        <subfield code="a">9954304479 (hbk.)</subfield>
+        <subfield code="0">(uri) http://www.isbnsearch.org/isbn/9954304479</subfield>
+      </datafield>
+      <datafield tag="043" ind1=" " ind2=" ">
+        <subfield code="a">f-mr---</subfield>
+      </datafield>
+      <datafield tag="050" ind1=" " ind2="4">
+        <subfield code="a">DT313.8</subfield>
+        <subfield code="b">.T372 2011</subfield>
+      </datafield>
+      <datafield tag="245" ind1="0" ind2="0">
+        <subfield code="a">Histoire du Maroc :</subfield>
+        <subfield code="b">réactualisation et synthèse /</subfield>
+        <subfield code="c">présentation et direction Mohamed Kably.</subfield>
+      </datafield>
+      <datafield tag="260" ind1=" " ind2=" ">
+        <subfield code="a">Rabat :</subfield>
+        <subfield code="b">Institut Royal pour la Recherche sur l'Histoire du Maroc,</subfield>
+        <subfield code="c">c2011.</subfield>
+      </datafield>
+      <datafield tag="300" ind1=" " ind2=" ">
+        <subfield code="a">841 p. :</subfield>
+        <subfield code="b">ill., maps (chiefly col.) ;</subfield>
+        <subfield code="c">27 cm.</subfield>
+      </datafield>
+      <datafield tag="490" ind1="0" ind2=" ">
+        <subfield code="a">Publications de l'Institut Royal pour la Recherche sur l'Histoire du Maroc</subfield>
+      </datafield>
+      <datafield tag="500" ind1=" " ind2=" ">
+        <subfield code="a">Includes glossary.</subfield>
+      </datafield>
+      <datafield tag="504" ind1=" " ind2=" ">
+        <subfield code="a">Includes bibliographical references and index.</subfield>
+      </datafield>
+      <datafield tag="505" ind1="0" ind2=" ">
+        <subfield code="a">Introduction générale ---- I. Le Maroc : de la dynamique naturelle à la construction territoriale --- II. Le Maroc : des origines préhistoriques au VIIIe siècle av. J.C. --- III. Le Maroc et la Méditerranée avant lʹIslam --- IV. Evolution politique du Maroc médiéval --- V. Le Maroc médiéval : société et civilisation --- VI. Le XVe siècle : un siècle tournant --- VII. Crises et tentatives de redressement (Xe--XIIe--XVIe--XVIIIe s.) --- VIII. Le long XIXe siècle : pénétration étrangère, reformes et crise (1204-1330/ 1790-1912) --- IX. Le Protectorat : conquête, résistance et mutations --- X. Le Maroc indépendant ---- Conclusion générale.</subfield>
+      </datafield>
+      <datafield tag="520" ind1=" " ind2=" ">
+        <subfield code="a">Le présent ouvrage constitue un essai de synthèse de lʹHistoire du Maroc. Sʹappuyant sur les acquis de recherches aussi récentes que remarquables, il procède dʹune approche pluridisciplinaire impliquant, à côté dʹune majorité dʹhistoriens, des chercheurs appartenant à différentes disciplines. De sorte quʹen embrassant ainsi une pluralité de champs scientifiques, il aura entrepris de cerner les zones dʹombre et dʹen éclairer sans doute un certain nombre, avec pour souci majeur dʹinviter à lʹinterrogation et de proposer ce faisant un projet de relecture cohérent. -- Publisher description.</subfield>
+      </datafield>
+      <datafield tag="651" ind1=" " ind2="0">
+        <subfield code="a">Morocco</subfield>
+        <subfield code="x">Historiography.</subfield>
+        <subfield code="0">(uri) http://id.loc.gov/authorities/names/n79069715</subfield>
+        <subfield code="0">(uri) http://viaf.org/viaf/sourceID/LC|n79069715</subfield>
+      </datafield>
+      <datafield tag="651" ind1=" " ind2="0">
+        <subfield code="a">Morocco</subfield>
+        <subfield code="x">History.</subfield>
+        <subfield code="0">http://id.loc.gov/authorities/subjects/sh85087328</subfield>
+        <subfield code="0">(uri) http://id.loc.gov/authorities/subjects/sh85087328</subfield>
+      </datafield>
+      <datafield tag="650" ind1=" " ind2="7">
+        <subfield code="a">Historiography.</subfield>
+        <subfield code="2">fast</subfield>
+        <subfield code="0">(OCoLC)fst00958221</subfield>
+        <subfield code="0">(uri) http://id.worldcat.org/fast/fst00958221</subfield>
+      </datafield>
+      <datafield tag="651" ind1=" " ind2="7">
+        <subfield code="a">Morocco.</subfield>
+        <subfield code="2">fast</subfield>
+        <subfield code="0">(OCoLC)fst01205592</subfield>
+        <subfield code="0">(uri) http://id.worldcat.org/fast/fst01205592</subfield>
+      </datafield>
+      <datafield tag="653" ind1=" " ind2=" ">
+        <subfield code="a">General history of Morocco.</subfield>
+      </datafield>
+      <datafield tag="655" ind1=" " ind2="7">
+        <subfield code="a">History.</subfield>
+        <subfield code="2">fast</subfield>
+        <subfield code="0">(OCoLC)fst01411628</subfield>
+        <subfield code="0">(uri) http://id.worldcat.org/fast/fst01411628</subfield>
+      </datafield>
+      <datafield tag="700" ind1="1" ind2=" ">
+        <subfield code="a">Kably, Mohammed.</subfield>
+        <subfield code="0">http://id.loc.gov/authorities/names/n87107269</subfield>
+        <subfield code="0">(uri) http://id.loc.gov/authorities/names/n87107269</subfield>
+        <subfield code="0">(uri) http://viaf.org/viaf/sourceID/LC|n87107269</subfield>
+      </datafield>
+      <datafield tag="710" ind1="1" ind2=" ">
+        <subfield code="a">Morocco.</subfield>
+        <subfield code="b">Institut Royal pour la Recherche sur l'Histoire du Maroc.</subfield>
+      </datafield>
+      <datafield tag="904" ind1=" " ind2=" ">
+        <subfield code="a">se</subfield>
+        <subfield code="b">a</subfield>
+        <subfield code="h">m</subfield>
+        <subfield code="c">b</subfield>
+        <subfield code="e">20150120</subfield>
+      </datafield>
+      <datafield tag="999" ind1=" " ind2=" ">
+        <subfield code="a">8903429</subfield>
+      </datafield>
+      <datafield tag="902" ind1=" " ind2=" ">
+        <subfield code="a">se</subfield>
+        <subfield code="b">m</subfield>
+        <subfield code="6">a</subfield>
+        <subfield code="7">m</subfield>
+        <subfield code="d">v</subfield>
+        <subfield code="f">1</subfield>
+        <subfield code="e">20150121</subfield>
+      </datafield>
+      <datafield tag="950" ind1=" " ind2=" ">
+        <subfield code="c">2021-08-01 08:49:15 US/Eastern</subfield>
+        <subfield code="b">2021-07-13 06:00:03 US/Eastern</subfield>
+        <subfield code="a">false</subfield>
+      </datafield>
+      <datafield tag="852" ind1="0" ind2=" ">
+        <subfield code="b">recap</subfield>
+        <subfield code="c">pa</subfield>
+        <subfield code="h">DT313.8</subfield>
+        <subfield code="i">.T372 2011</subfield>
+        <subfield code="8">22714432190006421</subfield>
+      </datafield>
+      <datafield tag="952" ind1=" " ind2=" ">
+        <subfield code="a">2021-07-13 10:00:03</subfield>
+        <subfield code="8">22714432190006421</subfield>
+        <subfield code="b">ReCAP</subfield>
+        <subfield code="c">rcppa: RECAP</subfield>
+        <subfield code="e">false</subfield>
+      </datafield>
+      <datafield tag="876" ind1=" " ind2=" ">
+        <subfield code="0">22714432190006421</subfield>
+        <subfield code="a">23714432160006421</subfield>
+        <subfield code="j">1</subfield>
+        <subfield code="z">pa</subfield>
+        <subfield code="d">2021-07-13 10:00:03</subfield>
+        <subfield code="p">32101070487788</subfield>
+        <subfield code="t">1</subfield>
+        <subfield code="y">recap</subfield>
+      </datafield>
+    </record>
+    <record>
+      <leader>02004cam a2200457 i 4500</leader>
+      <controlfield tag="005">20201005171950.0</controlfield>
+      <controlfield tag="008">141211t20132013mr a     b    000 0 fre c</controlfield>
+      <controlfield tag="001">9989034313506421</controlfield>
+      <datafield tag="035" ind1=" " ind2=" ">
+        <subfield code="a">8903431</subfield>
+      </datafield>
+      <datafield tag="035" ind1=" " ind2=" ">
+        <subfield code="a">(OCoLC)ocn855993800</subfield>
+        <subfield code="0">(uri) http://www.worldcat.org/oclc/855993800</subfield>
+      </datafield>
+      <datafield tag="035" ind1=" " ind2=" ">
+        <subfield code="a">(NjP)8903431-princetondb</subfield>
+      </datafield>
+      <datafield tag="040" ind1=" " ind2=" ">
+        <subfield code="a">AUXAM</subfield>
+        <subfield code="b">eng</subfield>
+        <subfield code="e">rda</subfield>
+        <subfield code="c">AUXAM</subfield>
+        <subfield code="d">OCLCQ</subfield>
+        <subfield code="d">TZT</subfield>
+        <subfield code="d">OCLCQ</subfield>
+        <subfield code="d">OCLCO</subfield>
+        <subfield code="d">OCLCF</subfield>
+        <subfield code="d">OSU</subfield>
+      </datafield>
+      <datafield tag="020" ind1=" " ind2=" ">
+        <subfield code="a">9789954104293 (pbk.)</subfield>
+        <subfield code="0">(uri) http://www.isbnsearch.org/isbn/9789954104293</subfield>
+      </datafield>
+      <datafield tag="020" ind1=" " ind2=" ">
+        <subfield code="a">9954104291 (pbk.)</subfield>
+        <subfield code="0">(uri) http://www.isbnsearch.org/isbn/9954104291</subfield>
+      </datafield>
+      <datafield tag="042" ind1=" " ind2=" ">
+        <subfield code="a">pcc</subfield>
+      </datafield>
+      <datafield tag="043" ind1=" " ind2=" ">
+        <subfield code="a">f-mr---</subfield>
+      </datafield>
+      <datafield tag="050" ind1="1" ind2="4">
+        <subfield code="a">GN</subfield>
+      </datafield>
+      <datafield tag="050" ind1=" " ind2="4">
+        <subfield code="a">BP64.M6</subfield>
+        <subfield code="b">A993 2013</subfield>
+      </datafield>
+      <datafield tag="082" ind1="1" ind2="4">
+        <subfield code="a">306</subfield>
+      </datafield>
+      <datafield tag="100" ind1="1" ind2=" ">
+        <subfield code="a">ʻAyyādī, Muḥammad,</subfield>
+        <subfield code="e">author.</subfield>
+        <subfield code="0">http://id.loc.gov/authorities/names/no2001070256</subfield>
+      </datafield>
+      <datafield tag="245" ind1="1" ind2="2">
+        <subfield code="a">L'Islam au quotidien :</subfield>
+        <subfield code="b">enquête sur les valeurs et les pratiques religieuses au Maroc /</subfield>
+        <subfield code="c">Mohammed El-Ayadi, Hassan Rachik, Mohamed Tozy.</subfield>
+      </datafield>
+      <datafield tag="264" ind1=" " ind2="1">
+        <subfield code="a">Casablanca :</subfield>
+        <subfield code="b">Croisée des chemins,</subfield>
+        <subfield code="c">[2013]</subfield>
+      </datafield>
+      <datafield tag="264" ind1=" " ind2="4">
+        <subfield code="c">©2013</subfield>
+      </datafield>
+      <datafield tag="300" ind1=" " ind2=" ">
+        <subfield code="a">347 pages :</subfield>
+        <subfield code="b">illustrations ;</subfield>
+        <subfield code="c">23 cm</subfield>
+      </datafield>
+      <datafield tag="336" ind1=" " ind2=" ">
+        <subfield code="a">text</subfield>
+        <subfield code="b">txt</subfield>
+        <subfield code="2">rdacontent</subfield>
+      </datafield>
+      <datafield tag="337" ind1=" " ind2=" ">
+        <subfield code="a">unmediated</subfield>
+        <subfield code="b">n</subfield>
+        <subfield code="2">rdamedia</subfield>
+      </datafield>
+      <datafield tag="338" ind1=" " ind2=" ">
+        <subfield code="a">volume</subfield>
+        <subfield code="b">nc</subfield>
+        <subfield code="2">rdacarrier</subfield>
+      </datafield>
+      <datafield tag="500" ind1=" " ind2=" ">
+        <subfield code="a">"L'enquête sur les valeurs et les pratiques religieuses au Maroc qui s'est déroulée en 2006 a pu être réalisée grâce au soutien de la Fondation Friedrich Ebert"--Title page verso.</subfield>
+      </datafield>
+      <datafield tag="504" ind1=" " ind2=" ">
+        <subfield code="a">Includes bibliographical references (pages 327-336).</subfield>
+      </datafield>
+      <datafield tag="650" ind1=" " ind2="0">
+        <subfield code="a">Islam</subfield>
+        <subfield code="z">Morocco.</subfield>
+        <subfield code="0">http://id.loc.gov/authorities/subjects/sh2009127630</subfield>
+        <subfield code="0">(uri) http://id.loc.gov/authorities/subjects/sh2009127630</subfield>
+      </datafield>
+      <datafield tag="651" ind1=" " ind2="0">
+        <subfield code="a">Morocco</subfield>
+        <subfield code="x">Religious life and customs.</subfield>
+        <subfield code="0">(uri) http://id.loc.gov/authorities/names/n79069715</subfield>
+        <subfield code="0">(uri) http://viaf.org/viaf/sourceID/LC|n79069715</subfield>
+      </datafield>
+      <datafield tag="650" ind1=" " ind2="0">
+        <subfield code="a">Islam</subfield>
+        <subfield code="x">Social aspects</subfield>
+        <subfield code="z">Morocco.</subfield>
+        <subfield code="0">(uri) http://id.loc.gov/authorities/subjects/sh85068390</subfield>
+      </datafield>
+      <datafield tag="650" ind1=" " ind2="0">
+        <subfield code="a">Islam</subfield>
+        <subfield code="z">Morocco</subfield>
+        <subfield code="x">Customs and practices.</subfield>
+        <subfield code="0">(uri) http://id.loc.gov/authorities/subjects/sh85068390</subfield>
+      </datafield>
+      <datafield tag="650" ind1=" " ind2="7">
+        <subfield code="a">Islam.</subfield>
+        <subfield code="2">fast</subfield>
+        <subfield code="0">(OCoLC)fst00979776</subfield>
+        <subfield code="0">(uri) http://id.worldcat.org/fast/fst00979776</subfield>
+      </datafield>
+      <datafield tag="650" ind1=" " ind2="7">
+        <subfield code="a">Islam</subfield>
+        <subfield code="x">Customs and practices.</subfield>
+        <subfield code="2">fast</subfield>
+        <subfield code="0">(OCoLC)fst00979785</subfield>
+        <subfield code="0">(uri) http://id.worldcat.org/fast/fst00979785</subfield>
+      </datafield>
+      <datafield tag="650" ind1=" " ind2="7">
+        <subfield code="a">Islam</subfield>
+        <subfield code="x">Social aspects.</subfield>
+        <subfield code="2">fast</subfield>
+        <subfield code="0">(OCoLC)fst00979847</subfield>
+        <subfield code="0">(uri) http://id.worldcat.org/fast/fst00979847</subfield>
+      </datafield>
+      <datafield tag="651" ind1=" " ind2="7">
+        <subfield code="a">Morocco.</subfield>
+        <subfield code="2">fast</subfield>
+        <subfield code="0">(OCoLC)fst01205592</subfield>
+        <subfield code="0">(uri) http://id.worldcat.org/fast/fst01205592</subfield>
+      </datafield>
+      <datafield tag="700" ind1="1" ind2=" ">
+        <subfield code="a">Rachik, Hassan,</subfield>
+        <subfield code="e">author.</subfield>
+        <subfield code="0">http://id.loc.gov/authorities/names/n91105858</subfield>
+        <subfield code="0">(uri) http://id.loc.gov/authorities/names/n91105858</subfield>
+        <subfield code="0">(uri) http://viaf.org/viaf/sourceID/LC|n91105858</subfield>
+      </datafield>
+      <datafield tag="700" ind1="1" ind2=" ">
+        <subfield code="a">Tozy, Mohamed,</subfield>
+        <subfield code="e">author.</subfield>
+        <subfield code="0">http://id.loc.gov/authorities/names/no2001036884</subfield>
+        <subfield code="0">(uri) http://id.loc.gov/authorities/names/no2001036884</subfield>
+        <subfield code="0">(uri) http://viaf.org/viaf/sourceID/LC|no2001036884</subfield>
+      </datafield>
+      <datafield tag="904" ind1=" " ind2=" ">
+        <subfield code="a">se</subfield>
+        <subfield code="b">a</subfield>
+        <subfield code="h">m</subfield>
+        <subfield code="c">b</subfield>
+        <subfield code="e">20150121</subfield>
+      </datafield>
+      <datafield tag="999" ind1=" " ind2=" ">
+        <subfield code="a">8903431</subfield>
+      </datafield>
+      <datafield tag="902" ind1=" " ind2=" ">
+        <subfield code="a">se</subfield>
+        <subfield code="b">l</subfield>
+        <subfield code="6">a</subfield>
+        <subfield code="7">m</subfield>
+        <subfield code="d">v</subfield>
+        <subfield code="f">1</subfield>
+        <subfield code="e">20150121</subfield>
+      </datafield>
+      <datafield tag="950" ind1=" " ind2=" ">
+        <subfield code="c">2021-08-03 10:41:38 US/Eastern</subfield>
+        <subfield code="b">2021-07-13 05:59:57 US/Eastern</subfield>
+        <subfield code="a">false</subfield>
+      </datafield>
+      <datafield tag="852" ind1="0" ind2=" ">
+        <subfield code="b">recap</subfield>
+        <subfield code="c">pa</subfield>
+        <subfield code="h">BP64.M6</subfield>
+        <subfield code="i">A993 2013</subfield>
+        <subfield code="8">22714404960006421</subfield>
+      </datafield>
+      <datafield tag="952" ind1=" " ind2=" ">
+        <subfield code="a">2021-07-13 09:59:57</subfield>
+        <subfield code="8">22714404960006421</subfield>
+        <subfield code="b">ReCAP</subfield>
+        <subfield code="c">rcppa: RECAP</subfield>
+        <subfield code="e">false</subfield>
+      </datafield>
+      <datafield tag="876" ind1=" " ind2=" ">
+        <subfield code="0">22714404960006421</subfield>
+        <subfield code="a">23714404930006421</subfield>
+        <subfield code="j">1</subfield>
+        <subfield code="z">pa</subfield>
+        <subfield code="d">2021-07-13 09:59:57</subfield>
+        <subfield code="p">32101070487804</subfield>
+        <subfield code="t">1</subfield>
+        <subfield code="y">recap</subfield>
+      </datafield>
+    </record>
+    <record>
+      <leader>01333cam a2200361 i 4500</leader>
+      <controlfield tag="005">20201005171950.0</controlfield>
+      <controlfield tag="008">141211s2014    mr            000 m fre d</controlfield>
+      <controlfield tag="001">9989034323506421</controlfield>
+      <datafield tag="035" ind1=" " ind2=" ">
+        <subfield code="a">(OCoLC)ocn901364075</subfield>
+        <subfield code="0">(uri) http://www.worldcat.org/oclc/901364075</subfield>
+      </datafield>
+      <datafield tag="035" ind1=" " ind2=" ">
+        <subfield code="a">8903432</subfield>
+      </datafield>
+      <datafield tag="035" ind1=" " ind2=" ">
+        <subfield code="a">(OCoLC)901364075</subfield>
+        <subfield code="0">(uri) http://www.worldcat.org/oclc/901364075</subfield>
+      </datafield>
+      <datafield tag="035" ind1=" " ind2=" ">
+        <subfield code="a">(NjP)8903432-princetondb</subfield>
+      </datafield>
+      <datafield tag="040" ind1=" " ind2=" ">
+        <subfield code="a">OSU</subfield>
+        <subfield code="b">eng</subfield>
+        <subfield code="e">rda</subfield>
+        <subfield code="c">OSU</subfield>
+      </datafield>
+      <datafield tag="020" ind1=" " ind2=" ">
+        <subfield code="a">9789954625125</subfield>
+        <subfield code="0">(uri) http://www.isbnsearch.org/isbn/9789954625125</subfield>
+      </datafield>
+      <datafield tag="020" ind1=" " ind2=" ">
+        <subfield code="a">9954625127</subfield>
+        <subfield code="0">(uri) http://www.isbnsearch.org/isbn/9954625127</subfield>
+      </datafield>
+      <datafield tag="050" ind1=" " ind2="4">
+        <subfield code="a">PQ3989.3.S47</subfield>
+        <subfield code="b">J35 2014</subfield>
+      </datafield>
+      <datafield tag="100" ind1="1" ind2=" ">
+        <subfield code="a">Serhani, Mounir,</subfield>
+        <subfield code="e">author.</subfield>
+        <subfield code="0">http://id.loc.gov/authorities/names/no2015013516</subfield>
+        <subfield code="0">(uri) http://id.loc.gov/authorities/names/no2015013516</subfield>
+        <subfield code="0">(uri) http://viaf.org/viaf/sourceID/LC|no2015013516</subfield>
+      </datafield>
+      <datafield tag="245" ind1="1" ind2="0">
+        <subfield code="a">J'ai vécu de t'attendre :</subfield>
+        <subfield code="b">suivi de "Effet nuit" /</subfield>
+        <subfield code="c">Mounir Serhani ; préface de Nicole Barrière.</subfield>
+      </datafield>
+      <datafield tag="250" ind1=" " ind2=" ">
+        <subfield code="a">1er édition.</subfield>
+      </datafield>
+      <datafield tag="264" ind1=" " ind2="1">
+        <subfield code="a">[Morocco] :</subfield>
+        <subfield code="b">Maison de la Poésie au Maroc,</subfield>
+        <subfield code="c">2014.</subfield>
+      </datafield>
+      <datafield tag="264" ind1=" " ind2="2">
+        <subfield code="a">Rabat :</subfield>
+        <subfield code="b">Imprimerie Dar Al Manahil</subfield>
+      </datafield>
+      <datafield tag="300" ind1=" " ind2=" ">
+        <subfield code="a">76 pages ;</subfield>
+        <subfield code="c">21 cm.</subfield>
+      </datafield>
+      <datafield tag="336" ind1=" " ind2=" ">
+        <subfield code="a">text</subfield>
+        <subfield code="b">txt</subfield>
+        <subfield code="2">rdacontent</subfield>
+      </datafield>
+      <datafield tag="337" ind1=" " ind2=" ">
+        <subfield code="a">unmediated</subfield>
+        <subfield code="b">n</subfield>
+        <subfield code="2">rdamedia</subfield>
+      </datafield>
+      <datafield tag="338" ind1=" " ind2=" ">
+        <subfield code="a">volume</subfield>
+        <subfield code="b">nc</subfield>
+        <subfield code="2">rdacarrier</subfield>
+      </datafield>
+      <datafield tag="490" ind1="1" ind2=" ">
+        <subfield code="a">Poésie</subfield>
+      </datafield>
+      <datafield tag="500" ind1=" " ind2=" ">
+        <subfield code="a">"Avec le soutien du Ministère de la Culture"--Title page verso.</subfield>
+      </datafield>
+      <datafield tag="500" ind1=" " ind2=" ">
+        <subfield code="a">Poetry and short stories.</subfield>
+      </datafield>
+      <datafield tag="505" ind1="0" ind2=" ">
+        <subfield code="a">I. J'ai vécu de t'attendre -- II. Effet nuit -- III. Fragments.</subfield>
+      </datafield>
+      <datafield tag="700" ind1="1" ind2=" ">
+        <subfield code="a">Barrière, Nicole,</subfield>
+        <subfield code="e">writer of preface.</subfield>
+        <subfield code="0">http://id.loc.gov/authorities/names/n2002040887</subfield>
+        <subfield code="0">(uri) http://id.loc.gov/authorities/names/n2002040887</subfield>
+        <subfield code="0">(uri) http://viaf.org/viaf/sourceID/LC|n2002040887</subfield>
+      </datafield>
+      <datafield tag="830" ind1=" " ind2="0">
+        <subfield code="a">Poésie.</subfield>
+      </datafield>
+      <datafield tag="904" ind1=" " ind2=" ">
+        <subfield code="a">se</subfield>
+        <subfield code="b">a</subfield>
+        <subfield code="h">m</subfield>
+        <subfield code="c">b</subfield>
+        <subfield code="e">20150121</subfield>
+      </datafield>
+      <datafield tag="999" ind1=" " ind2=" ">
+        <subfield code="a">8903432</subfield>
+      </datafield>
+      <datafield tag="902" ind1=" " ind2=" ">
+        <subfield code="a">of</subfield>
+        <subfield code="b">m</subfield>
+        <subfield code="6">a</subfield>
+        <subfield code="7">m</subfield>
+        <subfield code="d">v</subfield>
+        <subfield code="f">1</subfield>
+        <subfield code="e">20151214</subfield>
+      </datafield>
+      <datafield tag="950" ind1=" " ind2=" ">
+        <subfield code="c">2021-07-30 08:47:43 US/Eastern</subfield>
+        <subfield code="b">2021-07-13 05:59:45 US/Eastern</subfield>
+        <subfield code="a">false</subfield>
+      </datafield>
+      <datafield tag="852" ind1="0" ind2=" ">
+        <subfield code="b">recap</subfield>
+        <subfield code="c">pa</subfield>
+        <subfield code="h">PQ3989.3.S47</subfield>
+        <subfield code="i">J35 2014</subfield>
+        <subfield code="8">22714355410006421</subfield>
+      </datafield>
+      <datafield tag="952" ind1=" " ind2=" ">
+        <subfield code="a">2021-07-13 09:59:45</subfield>
+        <subfield code="8">22714355410006421</subfield>
+        <subfield code="b">ReCAP</subfield>
+        <subfield code="c">rcppa: RECAP</subfield>
+        <subfield code="e">false</subfield>
+      </datafield>
+      <datafield tag="876" ind1=" " ind2=" ">
+        <subfield code="0">22714355410006421</subfield>
+        <subfield code="a">23714355400006421</subfield>
+        <subfield code="j">1</subfield>
+        <subfield code="z">pa</subfield>
+        <subfield code="d">2021-07-13 09:59:45</subfield>
+        <subfield code="p">32101070487812</subfield>
+        <subfield code="t">1</subfield>
+        <subfield code="y">recap</subfield>
+      </datafield>
+    </record>
+    <record>
+      <leader>01002cam a2200325 i 4500</leader>
+      <controlfield tag="005">20201005171950.0</controlfield>
+      <controlfield tag="008">141211t20142014mr            000 f fre c</controlfield>
+      <controlfield tag="001">9989034333506421</controlfield>
+      <datafield tag="035" ind1=" " ind2=" ">
+        <subfield code="a">(OCoLC)ocn881634275</subfield>
+        <subfield code="0">(uri) http://www.worldcat.org/oclc/881634275</subfield>
+      </datafield>
+      <datafield tag="035" ind1=" " ind2=" ">
+        <subfield code="a">8903433</subfield>
+      </datafield>
+      <datafield tag="035" ind1=" " ind2=" ">
+        <subfield code="a">(OCoLC)881634275</subfield>
+        <subfield code="0">(uri) http://www.worldcat.org/oclc/881634275</subfield>
+      </datafield>
+      <datafield tag="035" ind1=" " ind2=" ">
+        <subfield code="a">(NjP)8903433-princetondb</subfield>
+      </datafield>
+      <datafield tag="040" ind1=" " ind2=" ">
+        <subfield code="a">HLS</subfield>
+        <subfield code="b">eng</subfield>
+        <subfield code="e">rda</subfield>
+        <subfield code="c">HLS</subfield>
+        <subfield code="d">OSU</subfield>
+      </datafield>
+      <datafield tag="020" ind1=" " ind2=" ">
+        <subfield code="a">9789954167625</subfield>
+        <subfield code="0">(uri) http://www.isbnsearch.org/isbn/9789954167625</subfield>
+      </datafield>
+      <datafield tag="020" ind1=" " ind2=" ">
+        <subfield code="a">9954167625</subfield>
+        <subfield code="0">(uri) http://www.isbnsearch.org/isbn/9954167625</subfield>
+      </datafield>
+      <datafield tag="042" ind1=" " ind2=" ">
+        <subfield code="a">pcc</subfield>
+      </datafield>
+      <datafield tag="050" ind1=" " ind2="4">
+        <subfield code="a">PQ3989.3.D349</subfield>
+        <subfield code="b">J63 2014</subfield>
+      </datafield>
+      <datafield tag="100" ind1="1" ind2=" ">
+        <subfield code="a">Dalil, Réda,</subfield>
+        <subfield code="e">author.</subfield>
+        <subfield code="0">http://id.loc.gov/authorities/names/no2015006831</subfield>
+        <subfield code="0">(uri) http://id.loc.gov/authorities/names/no2015006831</subfield>
+        <subfield code="0">(uri) http://viaf.org/viaf/sourceID/LC|no2015006831</subfield>
+      </datafield>
+      <datafield tag="245" ind1="1" ind2="3">
+        <subfield code="a">Le job :</subfield>
+        <subfield code="b">roman /</subfield>
+        <subfield code="c">Réda Dalil.</subfield>
+      </datafield>
+      <datafield tag="264" ind1=" " ind2="1">
+        <subfield code="a">Casablanca :</subfield>
+        <subfield code="b">Editions le Fennec,</subfield>
+        <subfield code="c">[2014]</subfield>
+      </datafield>
+      <datafield tag="264" ind1=" " ind2="4">
+        <subfield code="c">©2014</subfield>
+      </datafield>
+      <datafield tag="300" ind1=" " ind2=" ">
+        <subfield code="a">218 pages ;</subfield>
+        <subfield code="c">21 cm</subfield>
+      </datafield>
+      <datafield tag="336" ind1=" " ind2=" ">
+        <subfield code="a">text</subfield>
+        <subfield code="b">txt</subfield>
+        <subfield code="2">rdacontent</subfield>
+      </datafield>
+      <datafield tag="337" ind1=" " ind2=" ">
+        <subfield code="a">unmediated</subfield>
+        <subfield code="b">n</subfield>
+        <subfield code="2">rdamedia</subfield>
+      </datafield>
+      <datafield tag="338" ind1=" " ind2=" ">
+        <subfield code="a">volume</subfield>
+        <subfield code="b">nc</subfield>
+        <subfield code="2">rdacarrier</subfield>
+      </datafield>
+      <datafield tag="500" ind1=" " ind2=" ">
+        <subfield code="a">Novel.</subfield>
+      </datafield>
+      <datafield tag="655" ind1=" " ind2="7">
+        <subfield code="a">Novels.</subfield>
+        <subfield code="2">lcgft</subfield>
+        <subfield code="0">http://id.loc.gov/authorities/genreForms/gf2015026020</subfield>
+        <subfield code="0">(uri) http://id.loc.gov/authorities/genreForms/gf2015026020</subfield>
+      </datafield>
+      <datafield tag="752" ind1=" " ind2=" ">
+        <subfield code="a">Morocco</subfield>
+        <subfield code="d">Casablanca.</subfield>
+      </datafield>
+      <datafield tag="904" ind1=" " ind2=" ">
+        <subfield code="a">se</subfield>
+        <subfield code="b">a</subfield>
+        <subfield code="h">m</subfield>
+        <subfield code="c">b</subfield>
+        <subfield code="e">20150121</subfield>
+      </datafield>
+      <datafield tag="999" ind1=" " ind2=" ">
+        <subfield code="a">8903433</subfield>
+      </datafield>
+      <datafield tag="902" ind1=" " ind2=" ">
+        <subfield code="a">se</subfield>
+        <subfield code="b">l</subfield>
+        <subfield code="6">a</subfield>
+        <subfield code="7">m</subfield>
+        <subfield code="d">v</subfield>
+        <subfield code="f">1</subfield>
+        <subfield code="e">20150121</subfield>
+      </datafield>
+      <datafield tag="950" ind1=" " ind2=" ">
+        <subfield code="c">2021-08-01 15:28:25 US/Eastern</subfield>
+        <subfield code="b">2021-07-13 06:00:06 US/Eastern</subfield>
+        <subfield code="a">false</subfield>
+      </datafield>
+      <datafield tag="852" ind1="0" ind2=" ">
+        <subfield code="b">recap</subfield>
+        <subfield code="c">pa</subfield>
+        <subfield code="h">PQ3989.3.D349</subfield>
+        <subfield code="i">J63 2014</subfield>
+        <subfield code="8">22714459470006421</subfield>
+      </datafield>
+      <datafield tag="952" ind1=" " ind2=" ">
+        <subfield code="a">2021-07-13 10:00:06</subfield>
+        <subfield code="8">22714459470006421</subfield>
+        <subfield code="b">ReCAP</subfield>
+        <subfield code="c">rcppa: RECAP</subfield>
+        <subfield code="e">false</subfield>
+      </datafield>
+      <datafield tag="876" ind1=" " ind2=" ">
+        <subfield code="0">22714459470006421</subfield>
+        <subfield code="a">23714459460006421</subfield>
+        <subfield code="j">1</subfield>
+        <subfield code="z">pa</subfield>
+        <subfield code="d">2021-07-13 10:00:06</subfield>
+        <subfield code="p">32101070487820</subfield>
+        <subfield code="t">1</subfield>
+        <subfield code="y">recap</subfield>
+      </datafield>
+    </record>
+  </collection>

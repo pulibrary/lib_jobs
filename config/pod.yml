@@ -1,0 +1,14 @@
+default: &default
+  days_to_fetch: 7
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+staging: &staging
+  days_to_fetch: 1
+
+production:
+  <<: *staging
