@@ -11,7 +11,7 @@ module AlmaPodRecords
     end
 
     def handle(data_set:)
-      write_files
+      write_files.each { |filename| AlmaPodSender.new(filename: filename).send }
       data_set
     end
 
@@ -20,6 +20,7 @@ module AlmaPodRecords
       @documents.each_with_index do |document, index|
         filename = "pod_clean.#{timestamp}.#{index}.xml"
         File.write(filename, document.to_xml)
+        filename
       end
     end
 
