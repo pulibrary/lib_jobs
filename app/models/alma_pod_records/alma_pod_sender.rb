@@ -39,9 +39,3 @@ module AlmaPodRecords
     end
   end
 end
-
-# Want to do something like:
-#  curl -F 'upload[name]=pod_clean.2022-03-25-16-51-09.1.xml' \
-#  -F 'upload[files][]=@pod_clean.2022-03-25-16-51-09.1.xml`' \
-#  -H 'Authorization: good' \
-#  https://pod.stanford.edu/organizations/princeton/uploads
