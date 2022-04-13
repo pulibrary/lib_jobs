@@ -12,16 +12,16 @@ module AlmaPodRecords
     end
 
     def handle(data_set:)
-      write_files.each { |filename| AlmaPodSender.new(filename: filename).send }
+      send_files
       data_set
     end
 
-    def write_files
+    def send_files
       timestamp = Time.zone.now.strftime('%Y-%m-%d-%H-%M-%S')
-      @documents.map.with_index do |document, index|
+      @documents.each_with_index do |document, index|
         filename = @download_dir + "pod_clean.#{timestamp}.#{index}.xml"
         File.write(filename, document.to_xml)
-        filename.to_s
+        AlmaPodSender.new(filename: filename).send
       end
     end
 

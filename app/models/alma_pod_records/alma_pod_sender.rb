@@ -26,7 +26,7 @@ module AlmaPodRecords
     def parameters
       {
         'upload[name]': @filename,
-        'upload[files][]': UploadIO.new(@filename, 'application/marcxml+xml')
+        'upload[files][]': UploadIO.new(File.new(@filename), 'application/marcxml+xml')
       }
     end
 
