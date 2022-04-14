@@ -1,4 +1,5 @@
 default: &default
+  pod_record_path: <%= ENV["POD_RECORD_DIR"] || '/tmp' %>
   days_to_fetch: 7
 
 development:
