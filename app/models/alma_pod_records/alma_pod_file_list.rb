@@ -23,7 +23,7 @@ module AlmaPodRecords
           Rails.logger.info "Downloading POD file #{entry.name}"
           filename = File.join(@input_ftp_base_dir, entry.name)
           decompressed_files = Tarball.new(sftp.file.open(filename)).contents
-          documents.concat(decompressed_files.map { |document| Nokogiri::XML(document) })
+          documents.concat(decompressed_files)
         end
       end
       documents
