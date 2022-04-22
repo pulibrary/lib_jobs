@@ -4,6 +4,10 @@ defaults: &defaults
   hmac_secret: <%= ENV["HMAC_SECRET"] || 'secret' %>
 
   voucher_feed_recipients: "cac9@princeton.edu, mzelesky@princeton.edu, pdiskin@princeton.edu"
+  ncip_renew_from_agency: "01PRI_INST"
+  ncip_renew_to_agency: "01PRI_INST"
+  ncip_renew_application_profile: "SCSB"
+  ncip_renew_alma_url: "https://princeton.alma.exlibrisgroup.com/view/NCIPServlet"
 
 development:
   <<: *defaults
