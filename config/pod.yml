@@ -9,6 +9,7 @@ test:
   <<: *default
 
 staging: &staging
+  <<: *default
   days_to_fetch: 1
 
 production:
