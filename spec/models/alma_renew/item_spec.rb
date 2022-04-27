@@ -247,5 +247,23 @@ RSpec.describe AlmaRenew::Item, type: :model do
         end
       end
     end
+
+    context "Guests" do
+      let(:user_group) { "GST Guest Patron" }
+      let(:due_date) { 28.days.from_now }
+
+      it "translates to ncip and calculates the renew date" do
+        expect(item.ncip).to eq(xml)
+      end
+
+      context "close expiration date" do
+        let(:expiration_date) { 10.days.from_now }
+        let(:due_date) { expiration_date }
+
+        it "translates to ncip and calculates the renew date as the expiration date" do
+          expect(item.ncip).to eq(xml)
+        end
+      end
+    end
   end
 end

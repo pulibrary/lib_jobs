@@ -21,19 +21,25 @@ module AlmaRenew
     private
 
     def calculate_due_date
-      new_date = case user_group
-                 when "SENR Senior Undergraduate"
-                   calculate_by_date(this_year_cutoff_mon: 5, this_year_cutoff_day: 10, due_date_mon: 5, due_date_day: 10)
-                 when "GRAD Graduate Student", "P Faculty & Professional"
-                   calculate_by_date(this_year_cutoff_mon: 4, this_year_cutoff_day: 30, due_date_mon: 6, due_date_day: 15)
-                 else
-                   DateTime.now + 56.days
-                 end
+      new_date = group_to_date
       if new_date > expiration_date
         expiration_date
       else
         new_date
       end.to_date
+    end
+
+    def group_to_date
+      case user_group
+      when "SENR Senior Undergraduate"
+        calculate_by_date(this_year_cutoff_mon: 5, this_year_cutoff_day: 10, due_date_mon: 5, due_date_day: 10)
+      when "GRAD Graduate Student", "P Faculty & Professional"
+        calculate_by_date(this_year_cutoff_mon: 4, this_year_cutoff_day: 30, due_date_mon: 6, due_date_day: 15)
+      when "GST Guest Patron"
+        DateTime.now + 28.days
+      else
+        DateTime.now + 56.days
+      end
     end
 
     def calculate_by_date(this_year_cutoff_mon:, this_year_cutoff_day:, due_date_mon:, due_date_day:)
