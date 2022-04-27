@@ -66,4 +66,10 @@ namespace :lib_jobs do
     job = AlmaPodRecords::AlmaPodJob.new(file_pattern: file_pattern, since: since)
     job.run
   end
+
+  desc "renew alma request via NCIP calls to Alma"
+  task renew_alma_requests: [:environment] do
+    job = AlmaRenew::RenewJob.new
+    job.run
+  end
 end
