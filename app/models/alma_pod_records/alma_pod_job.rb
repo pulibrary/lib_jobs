@@ -8,7 +8,6 @@ module AlmaPodRecords
       since ||= Rails.application.config.pod.days_to_fetch.days.ago
       @file_list = incoming_file_list || AlmaPodFileList.new(file_pattern: file_pattern, since: since)
       @download_dir = Pathname.new(directory || Rails.application.config.pod.pod_record_path)
-      clean_documents
     end
 
     def handle(data_set:)
@@ -18,18 +17,10 @@ module AlmaPodRecords
 
     def send_files
       timestamp = Time.zone.now.strftime('%Y-%m-%d-%H-%M-%S')
-      @documents.each_with_index do |document, index|
+      @file_list.documents.each_with_index do |document, index|
         filename = @download_dir + "pod_clean.#{timestamp}.#{index}.xml"
-        File.write(filename, document.to_xml)
+        MarcCollection.new(document).write(File.open(filename, 'w'))
         AlmaPodSender.new(filename: filename).send
-      end
-    end
-
-    private
-
-    def clean_documents
-      @documents = @file_list.documents.each do |document|
-        document.children.first.default_namespace = 'http://www.loc.gov/MARC21/slim'
       end
     end
   end
