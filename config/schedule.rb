@@ -32,3 +32,8 @@ end
 every 1.day, at: '6:30 am', roles: [:prod] do # The server is in UTC, so this is 6:30 UTC
   rake " lib_jobs:send_pod_records"
 end
+
+# Run on production at 4am EST or 3am EDT (after the records are published at 2am)
+every 1.day, at: '8:00 am', roles: [:prod] do # The server is in UTC, so this is 8:00 UTC
+  rake " lib_jobs:renew_alma_requests"
+end
