@@ -14,7 +14,7 @@ every 1.day, at: '12:00 pm', roles: [:prod] do
 end
 
 # Run on production at 8:45 pm EST or 7:45 pm EDT (after the daily report is generated at 7:30 pm)
-every 1.day, at: '12:45 pm', roles: [:prod] do
+every 1.day, at: '12:45 am', roles: [:prod] do
   rake "lib_jobs:alma_daily_people_feed"
 end
 
@@ -33,7 +33,7 @@ every 1.day, at: '6:30 am', roles: [:prod] do # The server is in UTC, so this is
   rake " lib_jobs:send_pod_records"
 end
 
-# Run on production at 4am EST or 3am EDT (after the records are published at 2am)
-every 1.day, at: '8:00 am', roles: [:prod] do # The server is in UTC, so this is 8:00 UTC
+# Run on production at 9am EST or 8am EDT (after the records are published at 6am)
+every 1.day, at: '1:00 pm', roles: [:prod] do # The server is in UTC, so this is 8:00 UTC
   rake " lib_jobs:renew_alma_requests"
 end
