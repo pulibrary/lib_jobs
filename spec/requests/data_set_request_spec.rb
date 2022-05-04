@@ -24,31 +24,31 @@ RSpec.describe "DataSets", type: :request do
       get "/"
       expect(response.body).to include(previous_time.to_s).once
       expect(response.body).to include(today_string).twice
-      expect(response.body).to include('StaffDirectoryRemoved').once
-      expect(response.body).to include('StaffDirectoryAdded').once
-      expect(response.body).to include('Other').once
+      expect(response.body).to include('<td>StaffDirectoryRemoved</td>').once
+      expect(response.body).to include('<td>StaffDirectoryAdded</td>').once
+      expect(response.body).to include('<td>Other</td>').once
     end
 
     it "can be filtered by category" do
       get "/?category=StaffDirectoryAdded"
       expect(response.body).to include(previous_time.to_s).once
-      expect(response.body).not_to include('StaffDirectoryRemoved')
-      expect(response.body).to include('StaffDirectoryAdded').once
+      expect(response.body).not_to include('<td>StaffDirectoryRemoved</td>')
+      expect(response.body).to include('<td>StaffDirectoryAdded</td>').once
     end
 
     it "can be filtered by date" do
       get "/?report_date=#{today_string}"
       expect(response.body).to include(today_string).twice
-      expect(response.body).to include('StaffDirectoryRemoved')
-      expect(response.body).not_to include('StaffDirectoryAdded').once
-      expect(response.body).to include('Other').once
+      expect(response.body).to include('<td>StaffDirectoryRemoved</td>').once
+      expect(response.body).not_to include('<td>StaffDirectoryAdded</td>')
+      expect(response.body).to include('<td>Other</td>').once
     end
 
     it "can be filtered by an exact time" do
       get "/?report_time=#{today_time_string}"
       expect(response.body).to include(today_string).once
-      expect(response.body).to include('StaffDirectoryRemoved')
-      expect(response.body).not_to include('StaffDirectoryAdded').once
+      expect(response.body).to include('<td>StaffDirectoryRemoved</td>').once
+      expect(response.body).not_to include('<td>StaffDirectoryAdded</td>')
     end
   end
 
