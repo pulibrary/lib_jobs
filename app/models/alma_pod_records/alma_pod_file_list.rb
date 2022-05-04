@@ -20,6 +20,7 @@ module AlmaPodRecords
         sftp.dir.foreach(@input_ftp_base_dir) do |entry|
           next unless /#{@file_pattern}/.match?(entry.name)
           next unless entry.attributes.mtime > @since.to_time.to_i
+          next if entry.attributes.size.zero?
           Rails.logger.info "Downloading POD file #{entry.name}"
           filename = File.join(@input_ftp_base_dir, entry.name)
           decompressed_files = Tarball.new(sftp.file.open(filename)).contents
