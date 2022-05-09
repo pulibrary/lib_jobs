@@ -8,6 +8,8 @@ defaults: &defaults
   ncip_renew_to_agency: "01PRI_INST"
   ncip_renew_application_profile: "SCSB"
   ncip_renew_alma_url: "https://princeton.alma.exlibrisgroup.com/view/NCIPServlet"
+  peoplesoft_bursar_recipients: "cac9@princeton.edu, mzelesky@princeton.edu"
+  peoplesoft_bursar_no_report_recipients: "cac9@princeton.edu, mzelesky@princeton.edu"
 
 development:
   <<: *defaults
@@ -18,6 +20,8 @@ test:
 production:
   <<: *defaults
   voucher_feed_recipients: "dconte@princeton.edu, sregan@princeton.edu, dmnodine@princeton.edu, cac9@princeton.edu, mzelesky@princeton.edu, pdiskin@princeton.edu"
+  peoplesoft_bursar_no_report_recipients: "jmartine@princeton.edu, aknox@princeton.edu, mzelesky@princeton.edu"
+  peoplesoft_bursar_recipients: "jmartine@princeton.edu, aknox@princeton.edu, lrinter@princeton.edu, mzelesky@princeton.edu"
 
 staging:
   <<: *defaults
