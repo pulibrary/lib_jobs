@@ -28,8 +28,8 @@ every 1.day, at: '2:30 am', roles: [:prod] do
   rake " lib_jobs:alma_invoice_status_updates"
 end
 
-# Run on production at 2:30 am EST or 1:30 am EDT (after the records are published at 12 am)
-every 1.day, at: '6:30 am', roles: [:prod] do # The server is in UTC, so this is 6:30 UTC
+# Run on production at 7:30 am EST or 6:30 am EDT (after the records are published at 12 am - adding more pdding per Mark.)
+every 1.day, at: '11:30 am', roles: [:prod] do # The server is in UTC, so this refers to 11:30 UTC
   rake " lib_jobs:send_pod_records"
 end
 
