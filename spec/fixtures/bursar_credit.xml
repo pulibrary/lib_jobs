@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xb:xml-fragment xmlns:xb="http://com/exlibris/urm/rep/externalsysfinesfees/xmlbeans">
+  <xb:userExportedFineFees>
+    <xb:exportNumber>16797670660006421</xb:exportNumber>
+  </xb:userExportedFineFees>
+  <xb:userExportedFineFees>
+    <xb:userExportedList>
+      <xb:userExportedFineFeesList>
+        <xb:user>
+          <xb:type>userName</xb:type>
+          <xb:value>111111111</xb:value>
+          <xb:owneredEntity>
+            <xb:InstitutionId>null</xb:InstitutionId>
+          </xb:owneredEntity>
+        </xb:user>
+        <xb:patronName>Doe, Jane</xb:patronName>
+        <xb:finefeeList>
+          <xb:userFineFee>
+            <xb:fineFeeComment>test</xb:fineFeeComment>
+            <xb:fineFeeType>CREDIT</xb:fineFeeType>
+            <xb:owneredEntity>
+              <xb:InstitutionId>6421</xb:InstitutionId>
+              <xb:libraryId>124288510006421</xb:libraryId>
+              <xb:libraryCode>firestone</xb:libraryCode>
+            </xb:owneredEntity>
+            <xb:lastTransactionDate>02/23/2022 11:44:33 EST</xb:lastTransactionDate>
+            <xb:itemTitle>Christ meets me everywhere : Augustine's early figurative exegesis /</xb:itemTitle>
+            <xb:itemCallNumebr>BR65.A9 C26 2012</xb:itemCallNumebr>
+            <xb:itemLibrary>Firestone Library</xb:itemLibrary>
+            <xb:itemLocation>Stacks</xb:itemLocation>
+            <xb:itemInternalLocation>stacks: Firestone Library</xb:itemInternalLocation>
+            <xb:itemDueDate xsi:nil="true"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+            <xb:itemBarcode>32101071111064</xb:itemBarcode>
+            <xb:compositeSum>
+              <xb:currency>USD</xb:currency>
+              <xb:sum>-3</xb:sum>
+              <xb:vat xsi:nil="true"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+            </xb:compositeSum>
+            <xb:bursarTransactionId>16793228100006421</xb:bursarTransactionId>
+          </xb:userFineFee>
+        </xb:finefeeList>
+      </xb:userExportedFineFeesList>
+      <xb:userExportedFineFeesList>
+        <xb:user>
+          <xb:type>userName</xb:type>
+          <xb:value>211111111</xb:value>
+          <xb:owneredEntity>
+            <xb:InstitutionId>null</xb:InstitutionId>
+          </xb:owneredEntity>
+        </xb:user>
+        <xb:patronName>Smith, Sally</xb:patronName>
+        <xb:finefeeList>
+          <xb:userFineFee>
+            <xb:fineFeeComment>item returned</xb:fineFeeComment>
+            <xb:fineFeeType>CREDIT</xb:fineFeeType>
+            <xb:owneredEntity>
+              <xb:InstitutionId>6421</xb:InstitutionId>
+              <xb:libraryId>124288510006421</xb:libraryId>
+              <xb:libraryCode>firestone</xb:libraryCode>
+            </xb:owneredEntity>
+            <xb:lastTransactionDate>02/23/2022 11:40:43 EST</xb:lastTransactionDate>
+            <xb:itemTitle>Francia.</xb:itemTitle>
+            <xb:itemCallNumebr>D1 .F72</xb:itemCallNumebr>
+            <xb:itemLibrary>Firestone Library</xb:itemLibrary>
+            <xb:itemLocation>Stacks</xb:itemLocation>
+            <xb:itemInternalLocation>stacks: Firestone Library</xb:itemInternalLocation>
+            <xb:itemDueDate xsi:nil="true"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+            <xb:itemBarcode>32101110019096</xb:itemBarcode>
+            <xb:compositeSum>
+              <xb:currency>USD</xb:currency>
+              <xb:sum>-100</xb:sum>
+              <xb:vat xsi:nil="true"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+            </xb:compositeSum>
+            <xb:bursarTransactionId>16793197000006421</xb:bursarTransactionId>
+          </xb:userFineFee>
+          <xb:userFineFee>
+            <xb:fineFeeComment>BCR</xb:fineFeeComment>
+            <xb:fineFeeType>CREDIT</xb:fineFeeType>
+            <xb:owneredEntity>
+              <xb:InstitutionId>6421</xb:InstitutionId>
+              <xb:libraryId>124288510006421</xb:libraryId>
+              <xb:libraryCode>firestone</xb:libraryCode>
+            </xb:owneredEntity>
+            <xb:lastTransactionDate>02/23/2022 12:28:56 EST</xb:lastTransactionDate>
+            <xb:itemTitle>Tiermetaphorik in unterschiedlichen Diskurstraditionen /</xb:itemTitle>
+            <xb:itemCallNumebr>PN56.A64 A23 2018</xb:itemCallNumebr>
+            <xb:itemLibrary>Firestone Library</xb:itemLibrary>
+            <xb:itemLocation>Stacks</xb:itemLocation>
+            <xb:itemInternalLocation>stacks: Firestone Library</xb:itemInternalLocation>
+            <xb:itemDueDate xsi:nil="true"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+            <xb:itemBarcode>32101102709811</xb:itemBarcode>
+            <xb:compositeSum>
+              <xb:currency>USD</xb:currency>
+              <xb:sum>-3.25</xb:sum>
+              <xb:vat xsi:nil="true"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+            </xb:compositeSum>
+            <xb:bursarTransactionId>16794371170006421</xb:bursarTransactionId>
+          </xb:userFineFee>
+          <xb:userFineFee>
+            <xb:fineFeeComment>BCR</xb:fineFeeComment>
+            <xb:fineFeeType>CREDIT</xb:fineFeeType>
+            <xb:owneredEntity>
+              <xb:InstitutionId>6421</xb:InstitutionId>
+              <xb:libraryId>124288510006421</xb:libraryId>
+              <xb:libraryCode>firestone</xb:libraryCode>
+            </xb:owneredEntity>
+            <xb:lastTransactionDate>02/23/2022 12:27:41 EST</xb:lastTransactionDate>
+            <xb:itemTitle>Terror /</xb:itemTitle>
+            <xb:itemCallNumebr>HV6431 .T45697 2017</xb:itemCallNumebr>
+            <xb:itemLibrary>Firestone Library</xb:itemLibrary>
+            <xb:itemLocation>Stacks</xb:itemLocation>
+            <xb:itemInternalLocation>stacks: Firestone Library</xb:itemInternalLocation>
+            <xb:itemDueDate xsi:nil="true"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+            <xb:itemBarcode>32101102709712</xb:itemBarcode>
+            <xb:compositeSum>
+              <xb:currency>USD</xb:currency>
+              <xb:sum>-2</xb:sum>
+              <xb:vat xsi:nil="true"
+                xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+            </xb:compositeSum>
+            <xb:bursarTransactionId>16794369780006421</xb:bursarTransactionId>
+          </xb:userFineFee>
+        </xb:finefeeList>
+      </xb:userExportedFineFeesList>
+    </xb:userExportedList>
+  </xb:userExportedFineFees>
+</xb:xml-fragment>

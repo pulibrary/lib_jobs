@@ -72,4 +72,18 @@ namespace :lib_jobs do
     job = AlmaRenew::RenewJob.new
     job.run
   end
+
+  desc "process credits paid on fines and send them to the bursar"
+  task process_bursar_credits: [:environment] do
+    credit_report = PeoplesoftBursar::CreditReport.new
+    job = PeoplesoftBursar::Job.new(report: credit_report)
+    job.run
+  end
+
+  desc "process fines and send them to the bursar"
+  task process_bursar_fines: [:environment] do
+    fine_report = PeoplesoftBursar::FineReport.new
+    job = PeoplesoftBursar::Job.new(report: fine_report)
+    job.run
+  end
 end

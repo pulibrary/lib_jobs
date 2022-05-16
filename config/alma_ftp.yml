@@ -9,6 +9,7 @@ default: &default
   invoice_status_local_path: <%= ENV["ALMA_INVOICE_STATUS_LOCAL_DIR"] || '/tmp' %>
   pod_output_path: <%= ENV["ALMA_POD_OUTPUT_DIR"] || '/alma/pod' %>
   renew_report_path: <%= ENV["ALMA_RENEW_INPUT_DIR"] || '/alma/scsb_renewals' %>
+  bursar_report_path: <%= ENV["ALMA_BURSAR_INPUT_DIR"] || '/alma/bursar' %>
 
 development:
   <<: *default
