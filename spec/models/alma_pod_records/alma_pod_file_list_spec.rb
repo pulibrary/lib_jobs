@@ -11,7 +11,6 @@ RSpec.describe AlmaPodRecords::AlmaPodFileList, type: :model do
   let(:sftp_session) { instance_double("Net::SFTP::Session", dir: sftp_dir) }
   let(:sftp_dir) { instance_double("Net::SFTP::Operations::Dir") }
   let(:file_size) { 1028 }
-  let(:tarball) { instance_double(Tarball) }
 
   before do
     allow(file_attributes).to receive(:size).and_return file_size
@@ -20,34 +19,32 @@ RSpec.describe AlmaPodRecords::AlmaPodFileList, type: :model do
     allow(sftp_dir).to receive(:foreach).and_yield file_name
     allow(sftp_session).to receive(:file).and_return StringIO
     allow(Net::SFTP).to receive(:start).and_yield sftp_session
-    allow(Tarball).to receive(:new).and_return tarball
-    allow(tarball).to receive(:contents).and_return Array(1)
   end
 
   describe 'if the file is valid' do
     it "downloads the file" do
-      expect(alma_pod_file_list.documents.count).to eq(1)
+      expect(alma_pod_file_list.files.count).to eq(1)
     end
   end
 
   describe "if the filename doesn't match the pattern" do
     let(:name) { 'BAD' }
     it "doesn't download the file" do
-      expect(alma_pod_file_list.documents).to be_empty
+      expect(alma_pod_file_list.files).to be_empty
     end
   end
 
   describe 'if the file is empty' do
     let(:file_size) { 0 }
     it "doesn't download the file" do
-      expect(alma_pod_file_list.documents).to be_empty
+      expect(alma_pod_file_list.files).to be_empty
     end
   end
 
   describe 'if the file is old' do
     let(:mtime) { Time.new(1980).to_i }
     it "doesn't download the file" do
-      expect(alma_pod_file_list.documents).to be_empty
+      expect(alma_pod_file_list.files).to be_empty
     end
   end
 end

@@ -5,6 +5,7 @@
 # and then can write the results to
 # IO
 class MarcCollection
+  attr_reader :document
   def initialize(document)
     @document = document
   end

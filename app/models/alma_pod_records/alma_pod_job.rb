@@ -17,10 +17,12 @@ module AlmaPodRecords
 
     def send_files
       timestamp = Time.zone.now.strftime('%Y-%m-%d-%H-%M-%S')
-      @file_list.documents.each_with_index do |document, index|
-        filename = @download_dir + "pod_clean.#{timestamp}.#{index}.xml"
-        MarcCollection.new(document).write(File.open(filename, 'w'))
-        AlmaPodSender.new(filename: filename).send
+      @file_list.files.each_with_index do |remote_filename, remote_index|
+        @file_list.download_and_decompress_file(remote_filename).each_with_index do |contents, tarball_index|
+          filename = @download_dir + "pod_clean.#{timestamp}.#{remote_index}.#{tarball_index}.xml"
+          MarcCollection.new(contents).write(File.open(filename, 'w'))
+          AlmaPodSender.new(filename: filename).send
+        end
       end
     end
   end
