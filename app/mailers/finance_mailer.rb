@@ -12,6 +12,6 @@ class FinanceMailer < ApplicationMailer
               else
                 LibJobs.config[:peoplesoft_bursar_no_report_recipients]
               end
-    mail(to: mail_to, subject: 'Alma to Peoplesoft Bursar Results')
+    mail(to: mail_to, subject: report.subject_line)
   end
 end

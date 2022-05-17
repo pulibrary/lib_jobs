@@ -10,6 +10,10 @@ module PeoplesoftBursar
       super(input_ftp_base_dir: input_ftp_base_dir, file_pattern: file_pattern, alma_sftp: alma_sftp, list: list)
     end
 
+    def subject_line
+      'Library Credit Feed'
+    end
+
     private
 
     def parse_list(data)

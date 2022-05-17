@@ -8,6 +8,10 @@ module PeoplesoftBursar
       @report_type = 'Payment'
     end
 
+    def subject_line
+      'Library Fine Feed'
+    end
+
     private
 
     def parse_list(data)
