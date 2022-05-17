@@ -63,6 +63,10 @@ module PeoplesoftBursar
       "Type: #{report_type}"
     end
 
+    def subject_line
+      'Alma to Peoplesoft Bursar Results'
+    end
+
     def body
       return "" if list.empty?
       "Type: Payment\nNumber of lines: #{list.size}\nTotal: #{formatted_total}"
