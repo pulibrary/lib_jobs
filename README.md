@@ -27,6 +27,12 @@
   brew services start postgresql
   ```
 
+## Staging Mail Catcher
+To See mail that has been sent on the staging server you must ssh tunnel into the server
+
+ssh -L 1082:localhost:1080 pulsys@lib-jobs-staging1
+Once the tunnel is open you can see the mail that has been sent on staging [here](localhost:8082)
+
 ## Getting Started
 
 ```bash
@@ -47,6 +53,14 @@ bundle exec webpack-dev-server
 
 Then please visit the server running locally at [http://localhost:3000](http://localhost:3000)
 
+#### run mail catcher run once
+
+gem install mailcatcher
+run every time
+
+mailcatcher
+you can see the mail that has been sent here
+
 ### Linting with Rubocop
 
 ```bash
@@ -58,3 +72,5 @@ bundle exec rubocop -a
 ```bash
 bundle exec rspec
 ```
+
+
