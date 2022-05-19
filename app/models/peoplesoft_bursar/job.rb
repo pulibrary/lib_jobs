@@ -16,7 +16,7 @@ module PeoplesoftBursar
       report.mark_files_as_processed
 
       FinanceMailer.bursar_report(report: report).deliver
-      data_set.data = report.body
+      data_set.data = "#{report.heading}\n#{report.body}"
       data_set.report_time = Time.zone.now
       data_set
     end

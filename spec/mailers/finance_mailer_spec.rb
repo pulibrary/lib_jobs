@@ -112,7 +112,7 @@ RSpec.describe FinanceMailer, type: :mailer do
 
       it "renders the body" do
         expect(mail.html_part.body.encoded).not_to include("No file to send")
-        expect(mail.html_part.body.encoded).to include("Type: Payment")
+        expect(mail.html_part.body.encoded).to include("Type: Credit")
         expect(mail.html_part.body.encoded).to include("Number of lines: 1")
         expect(mail.html_part.body.encoded).to include("Total: -000000000005.50")
         expect(mail.html_part.body.encoded).to include("Beginning Date: #{Time.zone.today - 7.days}")
