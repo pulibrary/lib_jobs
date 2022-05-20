@@ -12,7 +12,7 @@ RSpec.describe PeoplesoftBursar::Job, type: :model do
         expect { expect(job.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(1)
         data_set = DataSet.last
         expect(data_set.category).to eq("BursarReport")
-        expect(data_set.data).to eq("Type: Payment\nNumber of lines: 1\nTotal: -000000000005.50")
+        expect(data_set.data).to eq("Type: Credit\nNumber of lines: 1\nTotal: -000000000005.50")
         expect(data_set.report_time.to_date).to eq(Time.zone.now.to_date)
         data = File.read("/tmp/libfines.dat")
         expect(data).to eq(report.to_s)

@@ -3,14 +3,14 @@ module PeoplesoftBursar
   class Report
     attr_reader :sftp_locations, :alma_sftp, :file_pattern, :input_ftp_base_dir, :list, :department, :report_type
 
-    def initialize(input_ftp_base_dir: Rails.application.config.alma_ftp.bursar_report_path, file_pattern: '\.csv$', alma_sftp: AlmaSftp.new, list: nil)
+    def initialize(input_ftp_base_dir: Rails.application.config.alma_ftp.bursar_report_path, file_pattern: '\.csv$', alma_sftp: AlmaSftp.new, list: nil, report_type: 'Generic')
       @input_ftp_base_dir = input_ftp_base_dir
       @file_pattern = file_pattern
       @alma_sftp = alma_sftp
       @sftp_locations = []
       @list = list || download_list
       @department = '41001'
-      @report_type ||= 'Generic'
+      @report_type = report_type
     end
 
     def mark_files_as_processed
@@ -69,7 +69,7 @@ module PeoplesoftBursar
 
     def body
       return "" if list.empty?
-      "Type: Payment\nNumber of lines: #{list.size}\nTotal: #{formatted_total}"
+      "Number of lines: #{list.size}\nTotal: #{formatted_total}"
     end
 
     def start_date
