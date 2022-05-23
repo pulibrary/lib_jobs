@@ -65,6 +65,13 @@ RSpec.describe AlmaRenew::Item, type: :model do
       end
     end
 
+    context "no expiration date" do
+      let(:expiration_date) { nil }
+      it "does not raise an ArgumentError" do
+        expect { item.ncip }.not_to raise_error
+      end
+    end
+
     context "Senior" do
       let(:user_group) { "SENR Senior Undergraduate" }
       let(:today) { DateTime.now }
