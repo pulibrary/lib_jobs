@@ -20,6 +20,8 @@
   * FTP files
 
 ## Prerequisites
+- FreeTds  
+  `brew install freetds`
 - Ruby (2.7.5 or later)
 - Postgres
   ```
