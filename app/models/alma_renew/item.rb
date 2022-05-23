@@ -21,6 +21,7 @@ module AlmaRenew
     private
 
     def calculate_due_date
+      return if expiration_date.blank?
       new_date = group_to_date
       if new_date > expiration_date
         expiration_date
