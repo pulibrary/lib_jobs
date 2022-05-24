@@ -39,6 +39,7 @@ gem 'net-ldap'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+gem "honeybadger", "~> 4.0"
 gem 'tiny_tds'
 
 group :development, :test do

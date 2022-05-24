@@ -1,0 +1,2 @@
+exceptions:
+  rake_rescue: true
