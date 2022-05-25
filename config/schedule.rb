@@ -34,6 +34,16 @@ every 1.day, at: '11:30 am', roles: [:prod] do # The server is in UTC, so this r
 end
 
 # Run on production at 9am EST or 8am EDT (after the records are published at 6am)
-every 1.day, at: '1:00 pm', roles: [:prod] do # The server is in UTC, so this is 8:00 UTC
+every 1.day, at: '1:00 pm', roles: [:prod] do # The server is in UTC, so this is 13:00 UTC
   rake " lib_jobs:renew_alma_requests"
+end
+
+# Run on production Tuesday at 10:30am EST or 11:30am EDT (after the records are published on Sunday)
+every :tuesday, at: '2:30 pm', roles: [:prod] do # The server is in UTC, so this is 14:30 UTC
+  rake "lib_jobs:process_bursar_fines"
+end
+
+# Run on production Thursday at 11:30am EST or 12:30am EDT (after the records are published on Sunday)
+every :thursday, at: '3:30 pm', roles: [:prod] do # The server is in UTC, so this is 15:30 UTC
+  rake "lib_jobs:process_bursar_fines"
 end
