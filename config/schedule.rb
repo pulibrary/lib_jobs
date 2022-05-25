@@ -43,7 +43,7 @@ every :tuesday, at: '2:30 pm', roles: [:prod] do # The server is in UTC, so this
   rake "lib_jobs:process_bursar_fines"
 end
 
-# Run on production Thursday at 11:30am EST or 12:30am EDT (after the records are published on Sunday)
-every :thursday, at: '3:30 pm', roles: [:prod] do # The server is in UTC, so this is 15:30 UTC
-  rake "lib_jobs:process_bursar_fines"
+# Run on production Thursday at 10:30am EST or 11:30am EDT (after the records are published on Sunday)
+every :thursday, at: '2:30 pm', roles: [:prod] do # The server is in UTC, so this is 15:30 UTC
+  rake "lib_jobs:process_bursar_credits"
 end
