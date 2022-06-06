@@ -30,7 +30,7 @@ RSpec.describe AlmaRenew::Item, type: :model do
       "    <ns1:ItemId>\n" \
       "      <ns1:ItemIdentifierValue>#{item_id}</ns1:ItemIdentifierValue>\n" \
       "    </ns1:ItemId>\n" \
-      "    <ns1:DesiredDateDue>#{due_date.strftime('%Y-%m-%d')}</ns1:DesiredDateDue>\n" \
+      "    <ns1:DesiredDateDue>#{due_date.strftime('%Y-%m-%dT19:00:00-05:00')}</ns1:DesiredDateDue>\n" \
       "  </ns1:RenewItem>\n" \
       "</ns1:NCIPMessage>\n"
     end
