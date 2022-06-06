@@ -10,7 +10,10 @@ module AlmaInvoiceStatus
     def invoices
       invoices = {}
       doc.xpath('//row').each do |row|
-        invoice_id = safe_lookup(row, 'INVOICE_ID')
+        invoice_id_with_comment = safe_lookup(row, 'INVOICE_ID')
+        raise 'Empty invoice id' if invoice_id_with_comment.blank?
+        invoice_id = invoice_id_with_comment.split(' ').first
+
         invoices[invoice_id] = convert_row(row)
       end
       invoices
