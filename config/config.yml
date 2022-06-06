@@ -3,26 +3,28 @@ defaults: &defaults
 
   hmac_secret: <%= ENV["HMAC_SECRET"] || 'secret' %>
 
-  voucher_feed_recipients: <%= ENV.fetch('VOUCHER_FEED_RECIPIENTS').split(',') %>
+  voucher_feed_recipients: <%= ENV.fetch('VOUCHER_FEED_RECIPIENTS', 'test_user@princeton.edu').split(',') %>
+  peoplesoft_bursar_recipients: <%= ENV.fetch('PEOPLESOFT_BURSAR_RECIPIENTS', 'test_user@princeton.edu').split(',') %>
+  peoplesoft_bursar_no_report_recipients: <%= ENV.fetch('PEOPLESOFT_BURSAR_NO_REPORT_RECIPIENTS', 'test_user@princeton.edu').split(',') %>
+  transaction_error_feed_recipients: <%= ENV.fetch('TRANSACTION_ERROR_FEED_RECIPIENTS', 'test_user@princeton.edu').split(',') %>
+
   ncip_renew_from_agency: "01PRI_INST"
   ncip_renew_to_agency: "01PRI_INST"
   ncip_renew_application_profile: "SCSB"
   ncip_renew_alma_url: "https://princeton.alma.exlibrisgroup.com/view/NCIPServlet"
-  peoplesoft_bursar_recipients: <%= ENV.fetch('PEOPLESOFT_BURSAR_RECIPIENTS').split(',') %>
-  peoplesoft_bursar_no_report_recipients: <%= ENV.fetch('PEOPLESOFT_BURSAR_NO_REPORT_RECIPIENTS').split(',') %>
-  transaction_error_feed_recipients: <%= ENV.fetch('TRANSACTION_ERROR_FEED_RECIPIENTS').split(',') %>
+
 
 development:
   <<: *defaults
-  voucher_feed_recipients: <%= ENV.fetch('VOUCHER_FEED_RECIPIENTS').split(',') || ['test_user@princeton.edu'] %>
-  peoplesoft_bursar_recipients: <%= ENV.fetch('PEOPLESOFT_BURSAR_RECIPIENTS').split(',') || ['test_user@princeton.edu'] %>
-  peoplesoft_bursar_no_report_recipients: <%= ENV.fetch('PEOPLESOFT_BURSAR_NO_REPORT_RECIPIENTS').split(',') || ['test_user@princeton.edu'] %>
-  transaction_error_feed_recipients: <%= ENV.fetch('TRANSACTION_ERROR_FEED_RECIPIENTS').split(',') || ['test_user@princeton.edu'] %>
+
 test:
   <<: *defaults
 
-production:
+production: &production
   <<: *defaults
-
+  voucher_feed_recipients: <%= ENV.fetch('VOUCHER_FEED_RECIPIENTS').split(',') %>
+  peoplesoft_bursar_recipients: <%= ENV.fetch('PEOPLESOFT_BURSAR_RECIPIENTS').split(',') %>
+  peoplesoft_bursar_no_report_recipients: <%= ENV.fetch('PEOPLESOFT_BURSAR_NO_REPORT_RECIPIENTS').split(',') %>
+  transaction_error_feed_recipients: <%= ENV.fetch('TRANSACTION_ERROR_FEED_RECIPIENTS').split(',') %>
 staging:
-  <<: *defaults
+  <<: *production
