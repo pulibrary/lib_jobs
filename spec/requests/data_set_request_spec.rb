@@ -4,7 +4,7 @@ require 'rails_helper'
 RSpec.describe "DataSets", type: :request do
   let(:previous_time) { 3.days.ago.midnight }
   let(:previous_time_string) { previous_time.midnight }
-  let(:today) { DateTime.now.midnight }
+  let(:today) { Time.zone.now.midnight }
   let(:today_string) { today.strftime('%Y-%m-%d') }
   let(:today_end_of_hour) { today.end_of_hour }
   let(:today_time_string) { today.strftime('%Y-%m-%d %H:%M:%S %Z') }

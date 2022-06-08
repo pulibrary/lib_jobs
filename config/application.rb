@@ -26,6 +26,7 @@ module IlsApps
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
     config.staff_directory = config_for(:staff_directory)
+    config.time_zone = "Eastern Time (US & Canada)"
 
     config.cas = config_for(:cas)
     config.x.after_sign_out_url = config.cas.after_sign_out_url
