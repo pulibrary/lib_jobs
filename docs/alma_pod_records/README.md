@@ -18,3 +18,5 @@ sequenceDiagram
 ```
 
 Alma exports the MarcXML records through the "POD Project Publishing" publishing profile.
+
+You can see all uploaded files in our [POD Aggregator Organization page](https://pod.stanford.edu/organizations/princeton).
