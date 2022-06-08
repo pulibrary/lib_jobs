@@ -12,9 +12,9 @@ sequenceDiagram
     Lib Jobs->>+lib-sftp: Download MaRC XML file(s)
     lib-sftp-->>-Lib Jobs: MaRC XML file(s)
     Lib Jobs->>Lib Jobs: Add namespace to XML files
-    Lib Jobs->>POD Server: POST MaRC XML files
-    POD Server->>POD Server: Adds records to data lake and makes them available to ReShare
-
+    Lib Jobs->>POD Aggregator: POST MaRC XML files
+    ReShare->>+POD Aggregator: Harvests records
+    POD Aggregator-->>-ReShare: MaRC records
 ```
 
 Alma exports the MarcXML records through the "POD Project Publishing" publishing profile.
