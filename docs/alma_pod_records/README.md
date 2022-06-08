@@ -1,6 +1,6 @@
 # Alma Pod Records
 
-This job cleans up MARC records from Alma and sends them to the POD project.
+This job cleans up MARC records from Alma and sends them to the [POD project](https://github.com/pod4lib/aggregator/wiki).
 
 ## Flow Diagrams
 
