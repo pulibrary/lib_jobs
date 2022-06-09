@@ -78,7 +78,9 @@ module AlmaRenew
             xml['ns1'].ItemId do
               xml['ns1'].ItemIdentifierValue item_barcode
             end
-            xml['ns1'].DesiredDateDue due_date
+            # setting the time to 7pm so that Alma does not revert the time to 11:59 the day before
+            #  Alma seems to ignore the exact time and just sets it to the end of the day
+            xml['ns1'].DesiredDateDue due_date&.strftime('%Y-%m-%dT19:00:00-05:00')
           end
         end
       end
