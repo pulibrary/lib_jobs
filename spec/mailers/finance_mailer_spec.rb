@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require "rails_helper"
+include ActiveSupport::Testing::TimeHelpers
 
 RSpec.describe FinanceMailer, type: :mailer do
   describe "#report" do
@@ -94,6 +95,26 @@ RSpec.describe FinanceMailer, type: :mailer do
         expect(mail.text_part.body.encoded).to include("Alma to Peoplesoft Voucher Feed Results")
         expect(mail.text_part.body.encoded).to include("No errors were found with the invoices")
         expect(mail.text_part.body.encoded).to include("No invoices available to process")
+      end
+    end
+
+    context "at the time the email sends" do
+      around do |example|
+        princeton_time = Time.new(2022, 0o6, 0o5, 22, 0o0, 0o0, "-05:00")
+        travel_to princeton_time
+        example.run
+        travel_back
+      end
+
+      it "renders the headers" do
+        expect(mail.subject).to eq("Alma to Peoplesoft Voucher Feed Results")
+        expect(mail.to).to eq(["person_1@princeton.edu", "person_2@princeton.edu", "person_3@princeton.edu"])
+        expect(mail.from).to eq(["lib-jobs@princeton.edu"])
+      end
+
+      it "shows the local date, not the UTC date" do
+        expect(mail.text_part.body.encoded).to include("Alma to Peoplesoft Voucher Feed Results 06/05/2022")
+        expect(mail.html_part.body.encoded).to include("Alma to Peoplesoft Voucher Feed Results 06/05/2022")
       end
     end
   end
