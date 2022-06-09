@@ -1,4 +1,5 @@
-<h1>Alma to Peoplesoft Voucher Feed Results <%= Time.zone.now.strftime('%m/%d/%Y') %></h1>
+<!-- This report is generated 10 pm Princeton time, which is 2 am UTC the next morning. We want the report title to reflect Princeton time -->
+<h1>Alma to Peoplesoft Voucher Feed Results <%= (Time.zone.now - 1.days).strftime('%m/%d/%Y') %></h1>
 <% if @alma_xml_invoice_list.errors.blank? %>
    <h2>No errors were found with the invoices</h2>
 <% else %>
