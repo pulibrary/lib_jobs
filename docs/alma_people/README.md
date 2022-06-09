@@ -8,15 +8,15 @@
 sequenceDiagram
     Lib Jobs->>+Peoplesoft API Store: Requests a List of new and updated People at 12:45am UTC daily
     Peoplesoft API Store->>-Lib Jobs: Returns a JSON List of new and updated People
-    Lib Jobs->>Lib Jobs: Converts JSON to People Alma XML
-    Lib Jobs->>Lib Jobs: zip People Alma XML
+    Lib Jobs->>Lib Jobs: Converts JSON to Alma Patron XML format
+    Lib Jobs->>Lib Jobs: zip Alma Patron XML
     alt Blank File    
       Lib Jobs->>Lib Jobs: Do Nothing (skip)
     else Any updated or new people
-      Lib Jobs->>lib-sftp: upload zipped People Alma XML file
+      Lib Jobs->>lib-sftp: upload zipped Alma Patron XML file
     end
-    Alma->>+lib-sftp: requests list of zipped People Alma XML files
-    lib-sftp-->>-Alma: returns a list of zipped People Alma XML files
+    Alma->>+lib-sftp: requests list of zipped Alma Patron XML files
+    lib-sftp-->>-Alma: returns a list of zipped Alma Patron XML files
     Alma->>lib-sftp: rename the file to .handled
     Alma->>Alma: SIS integration adds or updates accounts for each person in the XML file
     Alma->>Alma: Any errors are logged
