@@ -20,8 +20,9 @@ module AlmaRenew
 
     def handle(data_set:)
       Net::HTTP.start(alma_ncip_uri.host, alma_ncip_uri.port, use_ssl: true) do |http|
-        renew_list.renew_items.each do |item_hash|
-          ncip_renew_item(ncip_request(item_hash), http)
+        renew_list.renew_item_list.each do |item|
+          next unless item.valid?
+          ncip_renew_item(ncip_request(item: item), http)
         end
       end
       renew_list.mark_files_as_processed
@@ -49,8 +50,7 @@ module AlmaRenew
                 " (#{doc.xpath("//#{name_space}:Problem/#{name_space}:ProblemValue").text})"
     end
 
-    def ncip_request(item_hash)
-      item = Item.new(item_hash)
+    def ncip_request(item:)
       request = Net::HTTP::Post.new alma_ncip_uri.path
       request.body = item.ncip
       request['Content-Type'] = 'text/xml'
@@ -59,7 +59,7 @@ module AlmaRenew
     end
 
     def report
-      item_count = renew_list.renew_items.count
+      item_count = renew_list.renew_item_list.count
       if errors.empty?
         "Renewals were successfully sent for #{item_count} items"
       else
