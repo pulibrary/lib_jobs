@@ -6,7 +6,7 @@ Lib Jobs->>ASpace: aspace2alma requests MARC-XML for all collection-level ASpace
 loop each Item
   Lib Jobs->>+Lib Jobs: applies Special Collections changes to default MARC-XML export
   Lib Jobs->>+Lib Jobs: adds select records to a single <marc:collection> wrapper
-  Lib Jobs->>lib-sftp: sends MARC-XML file to lib-sftp
 end
+Lib Jobs->>lib-sftp: sends MARC-XML file to lib-sftp
 Alma->>lib-sftp: ASpace to Alma import profile loads MARC-XML file at 8am daily
 ```
