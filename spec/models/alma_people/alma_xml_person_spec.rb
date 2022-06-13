@@ -110,5 +110,44 @@ RSpec.describe AlmaPeople::AlmaXmlPerson, type: :model do
         expect(builder.to_xml).to eq(alma_xml)
       end
     end
+
+    context 'null expiration date' do
+      let(:oit_person) do
+        JSON.parse('{
+          "PATRON_EXPIRATION_DATE": null,
+          "PATRON_PURGE_DATE": null,
+          "ELIGIBLE_INELIGIBLE": "E",
+          "INSERT_UPDATE_DATETIME": "2021-04-02T08:44:50.000-04:00",
+          "PVSTATCATEGORY": null,
+          "ADDRESS_END_DATE": null,
+          "PVPATRONGROUP": null,
+          "DEPTID": null,
+          "DEPT_DESCR": null,
+          "EMPLID": "999999999",
+          "PRF_OR_PRI_FIRST_NAM": "First",
+          "PRF_OR_PRI_LAST_NAME": "Last",
+          "PRF_OR_PRI_MIDDLE_NAME": "Middle",
+          "PU_BARCODE": null,
+          "CAMPUS_ID": "patron",
+          "CAMP_COUNTRY": "USA",
+          "CAMP_ADDRESS1": "Unspecified Dept - Undergrads",
+          "CAMP_ADDRESS2": "For Payroll Use Only",
+          "CAMP_ADDRESS3": null,
+          "CAMP_ADDRESS4": null,
+          "CAMP_CITY": "Princeton",
+          "CAMP_COUNTY": null,
+          "CAMP_STATE": "NJ",
+          "CAMP_POSTAL": "08544",
+          "CAMP_COUNTRY_DESCR": "United States",
+          "CAMP_STATE_DESCR": "New Jersey"
+        }')
+      end
+      it 'is marked invalid' do
+        Nokogiri::XML::Builder.new do |xml|
+          alma_person = described_class.new(xml: xml, person: oit_person)
+          expect(alma_person.valid?).to eq(false)
+        end
+      end
+    end
   end
 end

@@ -12,6 +12,7 @@ module AlmaPeople
       @end_date = end_date
       @output_base_dir = output_base_dir
       @enabled_flag = enabled_flag
+      @invalid_records = []
     end
 
     private
@@ -21,6 +22,7 @@ module AlmaPeople
       oit_people = oit_person_feed.get_json(begin_date: begin_date, end_date: end_date, enabled_flag: enabled_flag)
       full_path = build_xml(oit_people: oit_people)
       transfer_alma_person_file(filename: full_path)
+      AlmaPeopleMailer.error_notification(invalid_records: @invalid_records).deliver
       data_set.data = "people_updated: #{oit_people.count}, file: #{File.basename(full_path)}"
       data_set
     end
@@ -56,7 +58,11 @@ module AlmaPeople
 
     def convert_person_to_xml(xml:, person:)
       alma_person = AlmaPeople::AlmaXmlPerson.new(xml: xml, person: person)
-      alma_person.convert
+      if alma_person.valid?
+        alma_person.convert
+      else
+        @invalid_records << alma_person
+      end
     end
 
     def output_filename

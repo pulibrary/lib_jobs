@@ -8,7 +8,13 @@
 sequenceDiagram
     Lib Jobs->>+Peoplesoft API Store: Requests a List of new and updated People at 12:45am UTC daily
     Peoplesoft API Store->>-Lib Jobs: Returns a JSON List of new and updated People
-    Lib Jobs->>Lib Jobs: Converts JSON to Alma Patron XML format
+    loop Each person in the JSON file
+      alt Nil expiration dates
+        Lib Jobs->>Email Server: Sends email to PUL stakeholders
+      else
+        Lib Jobs->>Lib Jobs: Converts JSON to Alma Patron XML format
+      end
+    end
     Lib Jobs->>Lib Jobs: zip Alma Patron XML
     alt Blank File    
       Lib Jobs->>Lib Jobs: Do Nothing (skip)

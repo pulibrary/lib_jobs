@@ -77,6 +77,16 @@ RSpec.describe AlmaPeople::AlmaPersonFeed, type: :model do
         expect(validate_xml(data)).to be_truthy
       end
     end
+
+    context 'invalid users' do
+      before do
+        allow_any_instance_of(AlmaPeople::AlmaXmlPerson).to receive(:valid?).and_return(false) # rubocop:disable RSpec/AnyInstance
+        allow(ENV).to receive(:fetch).and_return('person_1@princeton.edu,person_2@princeton.edu,person_3@princeton.edu')
+      end
+      it 'sends an email' do
+        expect { alma_person_feed.run }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      end
+    end
   end
 
   def validate_xml(data)

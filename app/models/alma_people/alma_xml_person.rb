@@ -8,6 +8,11 @@
 # rubocop:disable Metrics/ClassLength
 module AlmaPeople
   class AlmaXmlPerson
+    include ActiveModel::Validations
+    validates_each :person do |record, attr, value|
+      record.errors.add attr, :no_expiration_date, message: "Person doesn't have an expiration date" if value['PATRON_EXPIRATION_DATE'].blank?
+    end
+
     attr_reader :xml, :person
 
     # @param xml [XMLBuilder] builder to insert the person into

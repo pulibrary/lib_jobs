@@ -1,0 +1,4 @@
+Invalid NetIDs
+<% @invalid_records.each do |person| %>
+  <%= person.person['CAMPUS_ID'] %> (<%= person.person['EMPLID'] %>): <%= person.errors.full_messages.to_sentence %>
+<% end %>
