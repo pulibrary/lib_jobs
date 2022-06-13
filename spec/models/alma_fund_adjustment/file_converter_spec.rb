@@ -79,18 +79,36 @@ RSpec.describe AlmaFundAdjustment::FileConverter, type: :model do
         expect(data_set.category).to eq("FundAdjustment")
         expect(data_set.data).to eq("Files processed: /tmp/test_alma_1.csv;  Error processing: None")
         expect(data_set.report_time).to eq(Time.zone.now.midnight)
+        expect(File.exist?('/tmp/test_alma_1.csv.processed')).to eq true
+      end
+    end
+
+    context "file with only headers" do
+      it "notes that nothing was processed" do
+        allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
+        FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions_empty.csv'), '/tmp/test_alma_1.csv')
+
+        expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
+        data_set = DataSet.last
+        expect(data_set.category).to eq("FundAdjustment")
+        expect(data_set.data).to eq("Files processed: /tmp/test_alma_1.csv;  Error processing: None")
+        expect(data_set.report_time).to eq(Time.zone.now.midnight)
+        expect(File.exist?('/tmp/test_alma_1.csv.processed')).to eq true
       end
     end
 
     context "no files" do
       it "notes that nothing was processed" do
         allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
+        allow(sftp_session).to receive(:upload!)
 
         expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
+        expect(sftp_session).not_to have_received(:upload!)
         data_set = DataSet.last
         expect(data_set.category).to eq("FundAdjustment")
         expect(data_set.data).to eq("Files processed: None;  Error processing: None")
         expect(data_set.report_time).to eq(Time.zone.now.midnight)
+        expect(File.exist?('/tmp/test_alma_1.csv.processed')).to eq false
       end
     end
   end
