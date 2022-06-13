@@ -26,7 +26,7 @@ module AlmaFundAdjustment
       errors = []
       alma_sftp.start do |sftp|
         files.each do |path|
-          proccess_file(path, sftp)
+          process_file(path, sftp)
         rescue Net::SFTP::StatusException
           errors << path
         end
@@ -35,7 +35,7 @@ module AlmaFundAdjustment
       data_set
     end
 
-    def proccess_file(path, sftp)
+    def process_file(path, sftp)
       sftp.upload!(path, File.join(alma_fund_adjustment_path, File.basename(path)))
       File.rename(path, "#{path}.processed")
     end
