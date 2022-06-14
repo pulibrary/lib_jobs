@@ -88,7 +88,7 @@ RSpec.describe AlmaRenew::Item, type: :model do
         it "does not validate the item" do
           expect(item.valid?).to be false
           expect(item.errors.empty?).to be false
-          expect(item.errors.full_messages).to match_array(["expiration_date cannot be blank"])
+          expect(item.errors.full_messages).to match_array(["Expiration date cannot be blank"])
         end
       end
       context "when the primary identifier / user_id is 'None'" do
@@ -97,7 +97,7 @@ RSpec.describe AlmaRenew::Item, type: :model do
         it "does not validate the item" do
           expect(item.valid?).to be false
           expect(item.errors.empty?).to be false
-          expect(item.errors.full_messages).to match_array(["user_id cannot be 'None'"])
+          expect(item.errors.full_messages).to match_array(["User cannot be 'None'"])
         end
       end
     end

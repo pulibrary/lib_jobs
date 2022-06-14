@@ -74,7 +74,7 @@ RSpec.describe AlmaRenew::RenewJob, type: :model do
       let(:renew_csv) { Rails.root.join('spec', 'fixtures', 'renew_no_user_id.csv').read }
       let(:expected_data_message) do
         "We received 5 renewal requests. We tried to send renewals for 4 items. 2 errors were encountered.\n" \
-        " user_id cannot be 'None' (Barcode: 32044061963013)\nUnknown Item (23915763110006421)"
+        " User cannot be 'None' (Barcode: 32044061963013)\nUnknown Item (23915763110006421)"
       end
 
       it "generates an xml file" do
@@ -91,8 +91,8 @@ RSpec.describe AlmaRenew::RenewJob, type: :model do
       let(:renew_csv) { Rails.root.join('spec', 'fixtures', 'renew_no_id_no_expiration.csv').read }
       let(:expected_data_message) do
         "We received 6 renewal requests. We tried to send renewals for 3 items. 3 errors were encountered.\n" \
-        " user_id cannot be 'None' (Barcode: 32044061963013)\nexpiration_date cannot be blank (Barcode: CU53967402)\n" \
-        "expiration_date cannot be blank, user_id cannot be 'None' (Barcode: CU63769408)"
+        " User cannot be 'None' (Barcode: 32044061963013)\nExpiration date cannot be blank (Barcode: CU53967402)\n" \
+        "Expiration date cannot be blank, User cannot be 'None' (Barcode: CU63769408)"
       end
       it 'generates an xml file that doesn not include the invalid item' do
         renew_job = described_class.new

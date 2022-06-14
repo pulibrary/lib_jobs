@@ -2,6 +2,7 @@
 module AlmaRenew
   class Item
     extend ActiveModel::Naming
+    extend ActiveModel::Translation
 
     attr_reader :from_agency_id, :to_agency_id, :application_profile, :expiration_date, :user_id, :item_barcode, :user_group, :errors
 
@@ -35,13 +36,13 @@ module AlmaRenew
       { "Barcode" => item_barcode, "Expiry Date" => expiration_date, "Primary Identifier" => user_id, "Patron Group" => user_group }
     end
 
-    def self.human_attribute_name(attr, _options = {})
-      attr
-    end
-
-    def self.lookup_ancestors
-      [self]
-    end
+    # def self.human_attribute_name(attr, _options = {})
+    #   attr
+    # end
+    #
+    # def self.lookup_ancestors
+    #   [self]
+    # end
 
     private
 
