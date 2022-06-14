@@ -10,3 +10,7 @@ end
 Lib Jobs->>lib-sftp: sends MARC-XML file to lib-sftp
 Alma->>lib-sftp: ASpace to Alma import profile loads MARC-XML file at 8am daily
 ```
+
+### Key
+[whenever job](https://github.com/pulibrary/aspace_helpers/blob/main/config/schedule.rb)
+Alma import profile: Resources > Manage Import Profiles > ASpace to Alma
