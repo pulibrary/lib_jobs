@@ -6,14 +6,16 @@ RSpec.describe TransactionErrorMailer, type: :mailer do
 
   before do
     # Mock environment variables for emails
-    allow(ENV).to receive(:fetch).with('TRANSACTION_ERROR_FEED_RECIPIENTS')
+    allow(ENV).to receive(:fetch).with('TRANSACTION_ERROR_FEED_RECIPIENTS', "test_user@princeton.edu")
                                  .and_return('person_4@princeton.edu,person_5@princeton.edu,person_6@princeton.edu')
     # Not used in this test, but needed to load config file successfully
-    allow(ENV).to receive(:fetch).with('VOUCHER_FEED_RECIPIENTS')
+    allow(ENV).to receive(:fetch).with('VOUCHER_FEED_RECIPIENTS', "test_user@princeton.edu")
                                  .and_return('person_1@princeton.edu,person_2@princeton.edu,person_3@princeton.edu')
-    allow(ENV).to receive(:fetch).with('PEOPLESOFT_BURSAR_RECIPIENTS')
+    allow(ENV).to receive(:fetch).with('PEOPLESOFT_BURSAR_RECIPIENTS', "test_user@princeton.edu")
                                  .and_return('person_1@princeton.edu,person_2@princeton.edu')
-    allow(ENV).to receive(:fetch).with('PEOPLESOFT_BURSAR_NO_REPORT_RECIPIENTS')
+    allow(ENV).to receive(:fetch).with('PEOPLESOFT_BURSAR_NO_REPORT_RECIPIENTS', "test_user@princeton.edu")
+                                 .and_return('person_1@princeton.edu,person_2@princeton.edu')
+    allow(ENV).to receive(:fetch).with('PEOPLE_ERROR_NOTIFICATION_RECIPIENTS', "test_user@princeton.edu")
                                  .and_return('person_1@princeton.edu,person_2@princeton.edu')
   end
 
