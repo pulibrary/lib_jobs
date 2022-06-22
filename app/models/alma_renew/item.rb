@@ -36,14 +36,6 @@ module AlmaRenew
       { "Barcode" => item_barcode, "Expiry Date" => expiration_date, "Primary Identifier" => user_id, "Patron Group" => user_group }
     end
 
-    # def self.human_attribute_name(attr, _options = {})
-    #   attr
-    # end
-    #
-    # def self.lookup_ancestors
-    #   [self]
-    # end
-
     private
 
     def calculate_due_date
