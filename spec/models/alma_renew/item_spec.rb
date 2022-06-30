@@ -9,6 +9,15 @@ RSpec.describe AlmaRenew::Item, type: :model do
   let(:user_id) { "999999999" }
   let(:expiration_date) { 2.years.from_now }
 
+  describe "#to_h" do
+    let(:source_item_hash) { { "Barcode" => "32044061963013", "Patron Group" => "UGRD Undergraduate", "Expiry Date" => "2023-10-31", "Primary Identifier" => "999999999" } }
+    let(:item) { described_class.new(source_item_hash) }
+
+    it "can translate the item to and from a hash" do
+      expect(item.to_h).to eq source_item_hash
+    end
+  end
+
   describe "ncip" do
     let(:xml) do
       "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" \
@@ -61,6 +70,34 @@ RSpec.describe AlmaRenew::Item, type: :model do
 
         it "translates to ncip and calculates the renew date as the expiration date" do
           expect(item.ncip).to eq(xml)
+        end
+      end
+    end
+
+    describe "validating renewal items" do
+      context "with all required fields" do
+        it "validates the item" do
+          expect(item.valid?).to be true
+          expect(item.errors.empty?).to be true
+          expect(item.errors.full_messages).to be_empty
+        end
+      end
+      context "with a nil expiration date" do
+        let(:expiration_date) { nil }
+
+        it "does not validate the item" do
+          expect(item.valid?).to be false
+          expect(item.errors.empty?).to be false
+          expect(item.errors.full_messages).to match_array(["Expiration date cannot be blank"])
+        end
+      end
+      context "when the primary identifier / user_id is 'None'" do
+        let(:user_id) { "None" }
+
+        it "does not validate the item" do
+          expect(item.valid?).to be false
+          expect(item.errors.empty?).to be false
+          expect(item.errors.full_messages).to match_array(["User cannot be 'None'"])
         end
       end
     end

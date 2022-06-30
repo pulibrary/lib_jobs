@@ -27,15 +27,21 @@ RSpec.describe AlmaRenew::AlmaRenewList, type: :model do
     allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
   end
 
-  describe "#renew_items" do
-    it "parses the list " do
-      expect(alma_renew_list.renew_items).to contain_exactly(
+  describe "#renew_item_list" do
+    let(:expected_item_list) do
+      [
         { "Barcode" => "32044061963013", "Patron Group" => "UGRD Undergraduate", "Primary Identifier" => "999999999", "Expiry Date" => "2023-10-31" },
         { "Barcode" => "33433084897390", "Patron Group" => "SENR Senior Undergraduate", "Primary Identifier" => "999999999", "Expiry Date" => "2022-05-31" },
         { "Barcode" => "CU53967402", "Patron Group" => "Graduate Student", "Primary Identifier" => "999999999", "Expiry Date" => "2022-10-31" },
         { "Barcode" => "CU63769409", "Patron Group" => "P Faculty & Professional", "Primary Identifier" => "999999999", "Expiry Date" => "2023-10-31" },
         { "Barcode" => "CU63769408", "Patron Group" => "REG Regular Staff", "Primary Identifier" => "999999999", "Expiry Date" => "2022-12-31" }
-      )
+      ]
+    end
+    it "creates a list of items" do
+      expect(alma_renew_list.renew_item_list).to be_instance_of(Array)
+      expect(alma_renew_list.renew_item_list.first).to be_instance_of(AlmaRenew::Item)
+      expect(alma_renew_list.renew_item_list.count).to eq 5
+      expect(alma_renew_list.renew_item_list.map(&:to_h)).to match_array(expected_item_list)
       expect(sftp_session).to have_received(:download!).with("/alma/scsb_renewals/abc.csv")
     end
 
@@ -45,7 +51,7 @@ RSpec.describe AlmaRenew::AlmaRenewList, type: :model do
       end
 
       it "parses the list " do
-        expect(alma_renew_list.renew_items).to be_empty
+        expect(alma_renew_list.renew_item_list).to be_empty
       end
     end
   end

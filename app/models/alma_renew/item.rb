@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 module AlmaRenew
   class Item
-    attr_reader :from_agency_id, :to_agency_id, :application_profile, :expiration_date, :user_id, :item_barcode, :user_group
+    extend ActiveModel::Naming
+    extend ActiveModel::Translation
+
+    attr_reader :from_agency_id, :to_agency_id, :application_profile, :expiration_date, :user_id, :item_barcode, :user_group, :errors
 
     def initialize(item_hash, from_agency_id: LibJobs.config[:ncip_renew_from_agency], to_agency_id: LibJobs.config[:ncip_renew_to_agency],
                    application_profile: LibJobs.config[:ncip_renew_application_profile])
@@ -12,10 +15,25 @@ module AlmaRenew
       @user_id = item_hash["Primary Identifier"]
       @item_barcode = item_hash["Barcode"]
       @user_group = item_hash["Patron Group"]
+      @errors = ActiveModel::Errors.new(self)
     end
 
     def ncip
       ncip_renew_body(due_date: calculate_due_date).to_xml
+    end
+
+    def valid?
+      validate_expiration_date!
+      validate_user_id!
+      errors.empty?
+    end
+
+    def read_attribute_for_validation(attr)
+      send(attr)
+    end
+
+    def to_h
+      { "Barcode" => item_barcode, "Expiry Date" => expiration_date, "Primary Identifier" => user_id, "Patron Group" => user_group }
     end
 
     private
@@ -85,7 +103,15 @@ module AlmaRenew
         end
       end
     end
+
     # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/MethodLength
+    def validate_expiration_date!
+      errors.add(:expiration_date, :blank, message: "cannot be blank") if expiration_date.blank?
+    end
+
+    def validate_user_id!
+      errors.add(:user_id, :blank, message: "cannot be 'None'") if user_id == "None"
+    end
   end
 end

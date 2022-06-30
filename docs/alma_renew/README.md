@@ -10,7 +10,11 @@ sequenceDiagram
     Lib Jobs->>+lib-sftp: request list of items to be renewed at 13:00 (pm) UTC daily
     lib-sftp-->>-Lib Jobs: list of renew items CSV files
     loop Each item
-      Lib Jobs->>Lib Jobs: converts item to an NCIP XML call
+      alt Missing request expiration date or user id
+        Lib Jobs->>Lib Jobs: log error
+      else
+        Lib Jobs->>Lib Jobs: converts item to an NCIP XML call
+      end
       Lib Jobs->>+Alma: send renewals via NCIP
       Alma-->>-Lib Jobs: NCIP renewal status
       alt NCIP renewal error

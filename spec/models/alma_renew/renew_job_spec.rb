@@ -25,6 +25,7 @@ RSpec.describe AlmaRenew::RenewJob, type: :model do
     "<ns1:ProblemValue>23915763110006421</ns1:ProblemValue></ns1:Problem></ns1:RenewItemResponse></ns1:NCIPMessage>"
   end
 
+  let(:renew_csv) { Rails.root.join('spec', 'fixtures', 'renew.csv').read }
   let(:due_date_56day) { 56.days.from_now.strftime('%Y-%m-%d') }
 
   describe "#run" do
@@ -48,21 +49,60 @@ RSpec.describe AlmaRenew::RenewJob, type: :model do
       stub_request(:post, "https://princeton.alma.exlibrisgroup.com/view/NCIPServlet")
         .with { |request| request.body.include? "CU63769408" }
         .to_return(status: 200, body: valid_response, headers: {})
-    end
-    it "generates an xml file" do
       allow(sftp_dir).to receive(:foreach).and_yield(sftp_entry1)
-      allow(sftp_session).to receive(:download!).with("/alma/scsb_renewals/abc.csv").and_return(Rails.root.join('spec', 'fixtures', 'renew.csv').read)
+      allow(sftp_session).to receive(:download!).with("/alma/scsb_renewals/abc.csv").and_return(renew_csv)
       allow(sftp_session).to receive(:rename).with("/alma/scsb_renewals/abc.csv", "/alma/scsb_renewals/abc.csv.processed")
       allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
-
+    end
+    let(:expected_data_message) do
+      "We received 5 renewal requests. We tried to send renewals for 5 items. 1 errors were encountered.\n Unknown Item (23915763110006421)"
+    end
+    it "generates an xml file" do
       renew_job = described_class.new
+      allow(renew_job).to receive(:ncip_request).and_call_original
       expect(renew_job.run).to be_truthy
+      expect(renew_job).to have_received(:ncip_request).exactly(5).times
       expect(sftp_session).to have_received(:download!).with("/alma/scsb_renewals/abc.csv")
       expect(sftp_session).to have_received(:rename).with("/alma/scsb_renewals/abc.csv", "/alma/scsb_renewals/abc.csv.processed")
       data_set = DataSet.last
       expect(data_set.category).to eq("AlmaRenew")
-      expect(data_set.data).to eq("We tried to send renewals for 5 items. 1 errors were encountered.\n Unknown Item (23915763110006421)")
+      expect(data_set.data).to eq(expected_data_message)
       expect(data_set.report_time.to_date).to eq(Time.zone.now.to_date)
+    end
+
+    context 'with an item without a primary identifier / user_id' do
+      let(:renew_csv) { Rails.root.join('spec', 'fixtures', 'renew_no_user_id.csv').read }
+      let(:expected_data_message) do
+        "We received 5 renewal requests. We tried to send renewals for 4 items. 2 errors were encountered.\n" \
+        " User cannot be 'None' (Barcode: 32044061963013)\nUnknown Item (23915763110006421)"
+      end
+
+      it "generates an xml file" do
+        renew_job = described_class.new
+        allow(renew_job).to receive(:ncip_request).and_call_original
+        expect(renew_job.run).to be_truthy
+        expect(renew_job).to have_received(:ncip_request).exactly(4).times
+        data_set = DataSet.last
+        expect(data_set.data).to eq(expected_data_message)
+      end
+    end
+
+    context 'with items without user ids or expiration dates' do
+      let(:renew_csv) { Rails.root.join('spec', 'fixtures', 'renew_no_id_no_expiration.csv').read }
+      let(:expected_data_message) do
+        "We received 6 renewal requests. We tried to send renewals for 3 items. 3 errors were encountered.\n" \
+        " User cannot be 'None' (Barcode: 32044061963013)\nExpiration date cannot be blank (Barcode: CU53967402)\n" \
+        "Expiration date cannot be blank, User cannot be 'None' (Barcode: CU63769408)"
+      end
+      it 'generates an xml file that doesn not include the invalid item' do
+        renew_job = described_class.new
+        allow(renew_job).to receive(:ncip_request).and_call_original
+        expect(renew_job.run).to be_truthy
+        expect(renew_job).to have_received(:ncip_request).exactly(3).times
+
+        data_set = DataSet.last
+        expect(data_set.data).to eq(expected_data_message)
+      end
     end
   end
 end
