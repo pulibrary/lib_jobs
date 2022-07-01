@@ -2,7 +2,7 @@
 require 'rails_helper'
 
 RSpec.describe AlmaFundAdjustment::FileTransfer, type: :model do
-  subject(:fund_adjustment) do
+  subject(:file_transfer) do
     described_class.new(peoplesoft_input_base_dir: '/tmp', peoplesoft_input_file_pattern: 'test_alma*.csv',
                         alma_sftp: AlmaSftp.new(ftp_host: 'localhost', ftp_username: 'user', ftp_password: 'password'),
                         fund_adjustment_path: '/alma/fp')
@@ -22,7 +22,7 @@ RSpec.describe AlmaFundAdjustment::FileTransfer, type: :model do
       allow(Net::SFTP).to receive(:start).and_yield(sftp_session) # start with also
       FileUtils.touch('/tmp/test_alma_1.csv')
 
-      expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
+      expect { expect(file_transfer.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
       expect(sftp_session).to have_received(:upload!).with("/tmp/test_alma_1.csv", '/alma/fp/test_alma_1.csv')
       data_set = DataSet.last
       expect(data_set.category).to eq("FundAdjustment")
@@ -37,7 +37,7 @@ RSpec.describe AlmaFundAdjustment::FileTransfer, type: :model do
       FileUtils.touch('/tmp/test_alma_1.csv')
       FileUtils.touch('/tmp/test_alma_2.csv')
 
-      expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
+      expect { expect(file_transfer.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
       expect(sftp_session).to have_received(:upload!).with("/tmp/test_alma_1.csv", '/alma/fp/test_alma_1.csv')
       expect(sftp_session).to have_received(:upload!).with("/tmp/test_alma_2.csv", '/alma/fp/test_alma_2.csv')
       data_set = DataSet.last
@@ -54,7 +54,7 @@ RSpec.describe AlmaFundAdjustment::FileTransfer, type: :model do
         allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
         FileUtils.touch('/tmp/test_alma_1.csv')
 
-        expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
+        expect { expect(file_transfer.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
         expect(sftp_session).to have_received(:upload!).with("/tmp/test_alma_1.csv", '/alma/fp/test_alma_1.csv')
         data_set = DataSet.last
         expect(data_set.category).to eq("FundAdjustment")
@@ -69,11 +69,23 @@ RSpec.describe AlmaFundAdjustment::FileTransfer, type: :model do
       it "notes that nothing was processed" do
         allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
 
-        expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
+        expect { expect(file_transfer.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
         data_set = DataSet.last
         expect(data_set.category).to eq("FundAdjustment")
         expect(data_set.data).to eq("Files processed: None;  Error processing: None")
         expect(data_set.report_time).to eq(Time.zone.now.midnight)
+      end
+    end
+
+    context "file with only headers" do
+      it "renames the file" do
+        allow(sftp_session).to receive(:upload!)
+        allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
+        FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions_empty.csv'), '/tmp/test_alma_1.csv')
+
+        expect { expect(file_transfer.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
+        expect(sftp_session).to have_received(:upload!).with("/tmp/test_alma_1.csv", '/alma/fp/test_alma_1.csv')
+        expect(File.exist?('/tmp/test_alma_1.csv.processed')).to be_truthy
       end
     end
   end

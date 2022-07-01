@@ -21,7 +21,7 @@ module AlmaInvoiceStatus
 
     private
 
-    def proccess_file(path, sftp)
+    def process_file(path, sftp)
       query = File.open(path) { |f| StatusQuery.new(xml_io: f) }
       alma_xml = AlmaXml.new(invoices: query.invoices)
       local_filename = File.join(output_base_dir, "#{File.basename(path)}.converted")

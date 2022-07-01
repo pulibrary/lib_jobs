@@ -18,9 +18,10 @@ module AlmaFundAdjustment
 
     private
 
-    def proccess_file(path, sftp)
+    def process_file(path, sftp)
       data = ::CSV.read(path, headers: true)
-      return if data.size.zero?
+      File.rename(path, "#{path}.processed") && return if data.size.zero?
+
       adjustments = data.map { |row| FundAdjustment.new(row).adjusted_row }
       base_name = File.basename(path)
       adjusted_file = File.join(processed_directory, "#{base_name}.updated")

@@ -12,6 +12,8 @@ sequenceDiagram
     Lib Jobs->>Lib Jobs: Check for duplicate Transaction in the local database table peoplesoft_transactions
     alt ANY duplicate transaction    
       Lib Jobs->>Email Server: Sends Email to Student Accounts and PUL stakeholders
+    else Empty file
+      Lib Jobs->>Peoplesoft Samba Share: rename fund transaction csv files .processed
     else All new transactions
       Lib Jobs->>lib-sftp: upload fund transaction csv files
       alt No FTP error

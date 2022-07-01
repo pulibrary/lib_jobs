@@ -33,5 +33,13 @@ RSpec.describe AlmaFundAdjustment::AdjustmentCheck, type: :model do
       expect(error_email.html_part.body.to_s).to include("Duplicate Transactions from Peoplesoft were Encountered")
       expect(error_email.html_part.body.to_s).to include("123456")
     end
+
+    context "with a file with only headers" do
+      it "passes the file to the next step" do
+        FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions_empty.csv'), '/tmp/test_alma_1.csv')
+
+        expect { expect(adjustment_check.run).to be_truthy }
+      end
+    end
   end
 end
