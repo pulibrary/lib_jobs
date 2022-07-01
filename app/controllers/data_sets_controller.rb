@@ -131,7 +131,9 @@ class DataSetsController < ApplicationController
     data_sets = DataSet.all
     data_sets = data_sets.where(category: category) if category.present?
     data_sets = DataSet.filter_by_date(report_date: index_params[:report_date], query_context: data_sets)
-    DataSet.filter_by_time(report_time: index_params[:report_time], query_context: data_sets)
+    data_sets = DataSet.filter_by_time(report_time: index_params[:report_time], query_context: data_sets)
+    # Put most recent reports first on list
+    data_sets.order(report_time: :desc)
   end
 
   def redirect_clear_filters
