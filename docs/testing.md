@@ -2,7 +2,7 @@
 In general it is hard if not impossible to test these processes end to end before putting them into production.  
 You can do some testing on staging for the parts that run within the staging environment.  
 For example make sure that files get cretaed in the samba share as expected of that files get put onto the FTP server.
-Unfotunately when the system interacts with an API instead of a file based transfer this can, like the NCIP renewal, this can be almost impossible to test from staging. 
+  Unfortunately when the system interacts with an API instead of a file based transfer, like the NCIP renewal, this can be almost impossible to test from staging.
 
 ## Finding test Input data
 
