@@ -40,8 +40,8 @@ module WebStaff
     def report
       people = []
       hr_report.each do |person|
-        finance_data = finance_report.report(employee_id: person["EID"])
-        people << create_person_hash(finance_person: finance_data, hr_person: person)
+        staff = StaffMember.new(person)
+        people << staff.hash
       end
       generate_csv(people) unless people.empty?
     end
@@ -52,43 +52,6 @@ module WebStaff
         report_data = file.read
       end
       report_data
-    end
-
-    def create_person_hash(finance_person:, hr_person:)
-      person = fill_in_with_hr(finance_person: finance_person, hr_person: hr_person)
-      person = fill_in_with_ldap(person)
-      person["nickName"] ||= finance_person["firstName"]
-      person["Name"] = "#{person['lastName']}, #{person['nickName']}"
-      person["LongTitle"] = finance_person["LibraryTitle"]
-      person["StartDate"] = finance_person["StartDate"].strftime('%m/%d/%Y 00:00:00') if finance_person["StartDate"].present?
-      person["FireWarden"] = person["FireWarden"] && 1 || 0
-      person["BackupFireWarden"] = person["BackupFireWarden"] && 1 || 0
-      person.each { |key, value| person[key] = value.to_s }
-      person
-    end
-
-    def fill_in_with_hr(finance_person:, hr_person:)
-      person = finance_person
-      person["NetID"] = hr_person["Net ID"]
-      person["PUID"] ||= hr_person["EID"]
-      person['lastName'] ||= hr_person["Last Name"]
-      person['firstName'] ||= hr_person["First Name"]
-      person['Email'] ||= "#{hr_person['Net ID']}@princeton.edu"
-      person["LibraryTitle"] ||= hr_person["Title"]
-      person
-    end
-
-    def fill_in_with_ldap(person)
-      ldap_data = WebStaff::Ldap.find_by_netid(person["NetID"])
-      person['Email'] = ldap_data[:email]
-      if ldap_data[:address]
-        address = ldap_data[:address].split(' ')
-        person['Office'] = address.shift
-        person['Building'] = address.join(' ')
-      end
-      person['Phone'] = ldap_data[:telephone]
-      person['LibraryTitle'] ||= ldap_data[:title]
-      person
     end
 
     def generate_csv(people)
