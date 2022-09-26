@@ -20,10 +20,11 @@ module WebStaff
       hash.each { |key, value| hash[key] = value.to_s }
     end
 
+    # rubocop:disable Metrics/AbcSize
     def fill_in_with_hr
       hash["PUID"] = hr_person["EID"]
       hash["NetID"] = hr_person["Net ID"]
-      hash['Phone'] = hr_person["Phone"]
+      hash['Phone'] = hr_person["Phone"] if princeton_phone_number?(hr_person["Phone"])
       convert_name
       convert_title
       hash['Email'] = hr_person['E-Mail'].downcase
@@ -33,6 +34,7 @@ module WebStaff
       hash['Office'] = hr_person['Campus Address - Address 2']
       hash['Building'] = hr_person['Campus Address - Address 1']
     end
+    # rubocop:enable Metrics/AbcSize
 
     def convert_title
       hash['Title'] = hr_person["Title"]
@@ -45,7 +47,6 @@ module WebStaff
     end
 
     def convert_name
-      hash['Phone'] = hr_person["Phone"]
       hash["Name"] = "#{hr_person['Last Name']}, #{hr_person['Nick Name'] || hr_person['First Name']}"
       hash['lastName'] = hr_person["Last Name"]
       hash['firstName'] = hr_person["First Name"]
@@ -65,6 +66,12 @@ module WebStaff
       address = ldap_data[:address].split(' ')
       hash['Office'] = address.shift
       hash['Building'] = address.join(' ')
+    end
+
+    def princeton_phone_number?(phone_number)
+      return unless phone_number&.length
+
+      phone_number.match?(/609[\/\-]258/)
     end
   end
 end
