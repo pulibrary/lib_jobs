@@ -41,10 +41,10 @@ RSpec.describe WebStaff::StaffDirectoryGenerator, type: :model do
   # rubocop:disable Layout/LineLength
   let(:report_header)  { '"PUID","NetID","Phone","Name","lastName","firstName","middleName","nickName","Title","LibraryTitle","LongTitle","Email","Section","Division","Department","StartDate","StaffSort","UnitSort","DeptSort","Unit","DivSect","FireWarden","BackupFireWarden","FireWardenNotes","Office","Building"' }
 
-  let(:report_line1) { '"999999999","testi","609/258-2222","Test, Tester","Test","I","am","Tester","Library Office Assistant I","Library Office Assistant One","Library Office Assistant One","testi@princeton.edu",,,"Test Department Long",,,,,,,,0,,"B-1H-1","Firestone"' }
-  let(:report_line2) { '"999999998","testii","609/258-2223","Test, Testi","Test","II","am","Testi","Library Office Assistant II","Library Office Assistant Two","Library Office Assistant Two","testii@princeton.edu",,,"Test Department Long",,,,,,,,0,,"223A","693 Alexander Road"' }
-  let(:report_line3) { '"999999997","testiii","609/258-2224","Test, Testii","Test","III","am","Testii","Library Office Assistant III","Library Office Assistant Three","Library Office Assistant Three","testiii@princeton.edu",,,"Test Department Long",,,,,,,,0,,"Library Information Technology","Firestone Library"' }
-  let(:report_line4) { '"999999996","testiv","609/258-2225","Test, Testiii","Test","III","am","Testiii","Library Office Assistant IV","Library Office Assistant Four","Library Office Assistant Four","testiv@princeton.edu",,,"Test Department Long",,,,,,,,0,,"Library Information Technology","Firestone Library"' }
+  let(:report_line1) { '"999999999","testi","(609) 258-2222","Test, Tester","Test","I","am","Tester","Library Office Assistant I","Library Office Assistant One","Library Office Assistant One","testi@princeton.edu",,,"Test Department Long",,,,,,,,0,,"B-1H-1","Firestone"' }
+  let(:report_line2) { '"999999998","testii","(609) 258-2223","Test, Testi","Test","II","am","Testi","Library Office Assistant II","Library Office Assistant Two","Library Office Assistant Two","testii@princeton.edu",,,"Test Department Long",,,,,,,,0,,"223A","693 Alexander Road"' }
+  let(:report_line3) { '"999999997","testiii","(609) 258-2224","Test, Testii","Test","III","am","Testii","Library Office Assistant III","Library Office Assistant Three","Library Office Assistant Three","testiii@princeton.edu",,,"Test Department Long",,,,,,,,0,,"Library Information Technology","Firestone Library"' }
+  let(:report_line4) { '"999999996","testiv","(609) 258-2225","Test, Testiii","Test","III","am","Testiii","Library Office Assistant IV","Library Office Assistant Four","Library Office Assistant Four","testiv@princeton.edu",,,"Test Department Long",,,,,,,,0,,"Library Information Technology","Firestone Library"' }
   # rubocop:enable Layout/LineLength
 
   let(:hr_list) do
