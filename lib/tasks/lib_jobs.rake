@@ -86,4 +86,21 @@ namespace :lib_jobs do
     job = PeoplesoftBursar::Job.new(report: fine_report)
     job.run
   end
+
+  desc "remove temporary files from temp directories"
+  task clear_out_temp_directories: [:environment] do
+    person_feed_dir = ENV["ALMA_PERSON_FEED_OUTPUT_DIR"] || '/tmp'
+    pod_dir = Rails.application.config.pod.pod_record_path
+    fund_adjustment_dir = Rails.application.config.peoplesoft.fund_adjustment_converted_path
+
+    # Production directories
+    directories = ['/tmp', person_feed_dir, pod_dir, fund_adjustment_dir].uniq
+    # Directory for testing
+    # directories = ['./tmp']
+    directories.each do |dir_path|
+      all_files = Dir.glob(File.join(dir_path, '*')).select { |f| File.file?(f) }
+      old_files = all_files.select { |file| File.mtime(file) < (Time.zone.now - 1.week) }
+      old_files.each { |file| FileUtils.rm_rf(file) }
+    end
+  end
 end
