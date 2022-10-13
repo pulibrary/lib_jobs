@@ -24,7 +24,7 @@ module WebStaff
     def fill_in_with_hr
       hash["PUID"] = hr_person["EID"]
       hash["NetID"] = hr_person["Net ID"]
-      hash['Phone'] = hr_person["Phone"] if princeton_phone_number?(hr_person["Phone"])
+      convert_phone
       convert_name
       convert_title
       hash['Email'] = hr_person['E-Mail'].downcase
@@ -52,6 +52,10 @@ module WebStaff
       hash['firstName'] = hr_person["First Name"]
       hash['middleName'] = hr_person["Middle Name"]
       hash["nickName"] = hr_person["Nick Name"] || hr_person["First Name"]
+    end
+
+    def convert_phone
+      hash['Phone'] = hr_person["Phone"].gsub('609/', '(609) ') if princeton_phone_number?(hr_person["Phone"])
     end
 
     def insert_empty_fields(keys: ["StartDate", "StaffSort", "UnitSort", "DeptSort", "Unit", "DivSect", "FireWarden", "BackupFireWarden", "FireWardenNotes"])

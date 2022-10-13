@@ -45,7 +45,7 @@ RSpec.describe WebStaff::StaffMember, type: :model do
     end
 
     it('includes Princeton phone number in the staff member hash') do
-      expect(staff_member.hash['Phone']).to eq('609/258-1234')
+      expect(staff_member.hash['Phone']).to eq('(609) 258-1234')
     end
   end
   context 'HR system returns a personal phone number' do
