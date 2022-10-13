@@ -98,9 +98,13 @@ namespace :lib_jobs do
     # Directory for testing
     # directories = ['./tmp']
     directories.each do |dir_path|
+      puts("Deleting files older than 1 week in #{dir_path}")
       all_files = Dir.glob(File.join(dir_path, '*')).select { |f| File.file?(f) }
       old_files = all_files.select { |file| File.mtime(file) < (Time.zone.now - 1.week) }
-      old_files.each { |file| FileUtils.rm_rf(file) }
+      old_files.each do |file|
+        puts("Deleting file: #{file}, last updated: #{File.mtime(file)}")
+        FileUtils.rm_rf(file)
+      end
     end
   end
 end
