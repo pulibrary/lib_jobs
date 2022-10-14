@@ -29,7 +29,7 @@ every 1.day, at: '2:30 am', roles: [:prod] do
 end
 
 # Run on production and staging at 11:30 pm EST or 10:30 pm EDT
-every 1.day, at: '3:30 am', roles: [:prod, :staging] do
+every 1.day, at: '3:30 am', roles: [:app] do
   rake " lib_jobs:clear_out_temp_directories"
 end
 
