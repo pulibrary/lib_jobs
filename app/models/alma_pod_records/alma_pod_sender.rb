@@ -23,6 +23,7 @@ module AlmaPodRecords
 
     private
 
+    # TODO: Include the stream in the parameters
     def parameters
       {
         'upload[name]': @filename,

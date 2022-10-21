@@ -14,6 +14,7 @@ class MarcCollection
     xml = Nokogiri::XML(@document)
     xml.children.first.default_namespace = 'http://www.loc.gov/MARC21/slim'
     io.write(xml)
+    io.close
     io
   end
 end
