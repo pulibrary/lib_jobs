@@ -22,7 +22,7 @@ module AlmaPodRecords
         @file_list.download_and_decompress_file(remote_filename).each_with_index do |contents, tarball_index|
           file_path = @download_dir + "pod_clean.#{timestamp}.#{remote_index}.#{tarball_index}.xml"
           final_file_path = write_file(file_path: file_path, contents: contents, compressed: @compressed)
-          AlmaPodSender.new(filename: final_file_path).send
+          AlmaPodSender.new(filename: final_file_path, compressed: @compressed).send_to_pod
         end
       end
     end
@@ -41,19 +41,11 @@ module AlmaPodRecords
     end
 
     def write_compressed_file(file_path:, contents:)
-      write_uncompressed_file(file_path: file_path, contents: contents)
-
       compressed_file_path = file_path.to_path + '.gz'
       # write gzipped file
       Zlib::GzipWriter.open(compressed_file_path) do |gz|
-        File.open(file_path) do |fp|
-          while (chunk = fp.read(16 * 1024))
-            gz.write chunk
-          end
-        end
-        gz.close
+        MarcCollection.new(contents).write(gz)
       end
-      File.delete(file_path) if File.exist?(file_path)
       compressed_file_path
     end
   end

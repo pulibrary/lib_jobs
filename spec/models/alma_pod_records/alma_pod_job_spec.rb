@@ -58,6 +58,8 @@ RSpec.describe AlmaPodRecords::AlmaPodJob, type: :model do
     context 'writing compressed files' do
       let(:compressed) { true }
       let(:zipped_file_path) { Pathname.new(Rails.root.join('tmp', "test_file.xml.gz")) }
+      let(:alma_pod_job) { described_class.new(incoming_file_list: list, directory: Rails.root.join('tmp'), compressed: true) }
+
 
       around do |example|
         File.delete(file_path) if File.exist?(file_path)

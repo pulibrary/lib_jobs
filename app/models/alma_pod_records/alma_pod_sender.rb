@@ -4,12 +4,13 @@ require 'net/http/post/multipart'
 
 module AlmaPodRecords
   class AlmaPodSender
-    def initialize(filename:, access_token: ENV['POD_ACCESS_TOKEN'])
+    def initialize(filename:, access_token: ENV['POD_ACCESS_TOKEN'], compressed: false)
       @filename = filename
       @access_token = access_token
+      @compressed = compressed
     end
 
-    def send
+    def send_to_pod
       uri = URI('https://pod.stanford.edu/organizations/princeton/uploads')
       response = Net::HTTP.start(uri.host, uri.port, use_ssl: true) do |http|
         request = Net::HTTP::Post::Multipart.new(uri.path, parameters)
@@ -23,12 +24,20 @@ module AlmaPodRecords
 
     private
 
-    # TODO: Include the stream in the parameters
     def parameters
       {
         'upload[name]': @filename,
-        'upload[files][]': UploadIO.new(File.new(@filename), 'application/marcxml+xml')
+        'upload[files][]': UploadIO.new(File.new(@filename), 'application/marcxml+xml'),
+        'stream': stream
       }
+    end
+
+    def stream
+      if @compressed
+        'princeton-test-set'
+      else
+        'production'
+      end
     end
 
     def log_response(response)
