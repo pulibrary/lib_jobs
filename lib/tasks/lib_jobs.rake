@@ -62,8 +62,9 @@ namespace :lib_jobs do
   desc "download, clean, and send MARCXML files for the POD project"
   task send_pod_records: [:environment] do
     file_pattern = ENV['FILE_PATTERN'] || '\.tar\.gz$'
+    compressed = ActiveModel::Type::Boolean.new.cast(ENV['COMPRESSED']) || false
     since = ENV['SINCE'] || Rails.application.config.pod.days_to_fetch.days.ago
-    job = AlmaPodRecords::AlmaPodJob.new(file_pattern: file_pattern, since: since)
+    job = AlmaPodRecords::AlmaPodJob.new(file_pattern: file_pattern, since: since, compressed: compressed)
     job.run
   end
 
