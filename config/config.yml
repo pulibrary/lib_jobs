@@ -13,6 +13,8 @@ defaults: &defaults
   ncip_renew_to_agency: "01PRI_INST"
   ncip_renew_application_profile: "SCSB"
   ncip_renew_alma_url: "https://princeton.alma.exlibrisgroup.com/view/NCIPServlet"
+  pod_default_stream: <%= ENV["POD_DEFAULT_STREAM"] || "production" %>
+  pod_test_stream: <%= ENV["POD_TEST_STREAM"] || "princeton-test-set" %>
 
 
 development:

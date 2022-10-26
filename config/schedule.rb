@@ -33,9 +33,14 @@ every 1.day, at: '3:30 am', roles: [:app] do
   rake " lib_jobs:clear_out_temp_directories"
 end
 
-# Run on production at 7:30 am EST or 6:30 am EDT (after the records are published at 12 am - adding more pdding per Mark.)
+# Run on production at 7:30 am EST or 6:30 am EDT (after the records are published at 12 am - adding more padding per Mark.)
 every 1.day, at: '11:30 am', roles: [:prod] do # The server is in UTC, so this refers to 11:30 UTC
   rake " lib_jobs:send_pod_records"
+end
+
+# Run on production at 8:00 am EST or 7:00 am EDT (after the records are published at 12 am - adding more padding per Mark.)
+every 1.day, at: '12:00 pm', roles: [:app] do
+  rake " lib_jobs:send_pod_records COMPRESSED=true"
 end
 
 # Run on production at 9am EST or 8am EDT (after the records are published at 6am)
