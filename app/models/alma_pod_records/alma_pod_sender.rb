@@ -35,10 +35,8 @@ module AlmaPodRecords
     def stream
       if @compressed
         LibJobs.config[:pod_test_stream]
-        # 'princeton-test-set'
       else
         LibJobs.config[:pod_default_stream]
-        # 'production'
       end
     end
 
