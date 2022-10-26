@@ -61,16 +61,4 @@ RSpec.describe WebStaff::StaffMember, type: :model do
       expect(staff_member.hash).not_to have_key('Phone')
     end
   end
-  context 'HR system has redundant department name' do
-    let(:hr_person) do
-      {
-        'Department Long Name' => 'Library Information Technology',
-        'Register Title' => ' ',
-        'E-Mail' => ''
-      }
-    end
-    it 'removes library at the beginning of department names' do
-      expect(staff_member.hash['Department']).to eq('Information Technology')
-    end
-  end
 end

@@ -29,16 +29,12 @@ module WebStaff
       convert_title
       hash['Email'] = hr_person['E-Mail'].downcase
       insert_empty_fields(keys: ["Section", "Division"])
-      convert_department
+      hash["Department"] = hr_person["Department Long Name"]
       insert_empty_fields
       hash['Office'] = hr_person['Campus Address - Address 2']
       hash['Building'] = hr_person['Campus Address - Address 1']
     end
     # rubocop:enable Metrics/AbcSize
-
-    def convert_department
-      hash["Department"] = hr_person["Department Long Name"]&.gsub(/^Library /, "")
-    end
 
     def convert_title
       hash['Title'] = hr_person["Title"]
