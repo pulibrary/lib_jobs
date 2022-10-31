@@ -74,6 +74,22 @@ RSpec.describe WebStaff::StaffDirectoryGenerator, type: :model do
       report_data = File.open(data_set.data_file).read
       expect(report_data).to eq("#{report_header}\n#{report_line1}\n#{report_line2}\n#{report_line3}\n")
     end
+
+    context 'when phone numbers are empty or invalid' do
+      # rubocop:disable Layout/LineLength
+      let(:user1_line) { "90009\tTest Department\tTest Department Long\tPUHRS\t999999999\tI\tam\tTest\tTester\ttesti\tBiw\tR=BenElig\t000000000\tLibrary Office Assistant I\tLibrary Office Assistant One\tManager, I Am.\timanager\t000000001\tFirestone Library\tLibrary Information Technology\t \tPrinceton\tNJ\t08544\tUSA\t123/555-2222\ttesti@Princeton.EDU" }
+      let(:user2_line) { "90009\tTest Department\tTest Department Long\tPUHRS\t999999998\tII\tam\tTest\tTesti\ttestii\tBiw\tR=BenElig\t000000000\tLibrary Office Assistant II\tLibrary Office Assistant Two\tManager, I Am.\timanager\t000000001\tFirestone Library\tLibrary Information Technology\t \tPrinceton\tNJ\t08544\tUSA\t \ttestii@Princeton.EDU" }
+      let(:report_line1) { '"999999999","testi",,"Test, Tester","Test","I","am","Tester","Library Office Assistant I","Library Office Assistant One","Library Office Assistant One","testi@princeton.edu",,,"Test Department Long",,,,,,,,0,,"B-1H-1","Firestone"' }
+      let(:report_line2) { '"999999998","testii",,"Test, Testi","Test","II","am","Testi","Library Office Assistant II","Library Office Assistant Two","Library Office Assistant Two","testii@princeton.edu",,,"Test Department Long",,,,,,,,0,,"223A","693 Alexander Road"' }
+      # rubocop:enable Layout/LineLength
+
+      it 'leaves the column empty for that staff member' do
+        generator.run
+        data_set = DataSet.last
+        report_data = File.open(data_set.data_file).read
+        expect(report_data).to eq("#{report_header}\n#{report_line1}\n#{report_line2}\n#{report_line3}\n")
+      end
+    end
   end
 
   describe "#today" do
