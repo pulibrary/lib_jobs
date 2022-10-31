@@ -58,7 +58,7 @@ RSpec.describe WebStaff::StaffMember, type: :model do
       }
     end
     it('does not include personal phone number in the staff member hash') do
-      expect(staff_member.hash).not_to have_key('Phone')
+      expect(staff_member.hash['Phone']).to be_empty
     end
   end
 end

@@ -55,7 +55,11 @@ module WebStaff
     end
 
     def convert_phone
-      hash['Phone'] = hr_person["Phone"].gsub('609/', '(609) ') if princeton_phone_number?(hr_person["Phone"])
+      hash['Phone'] = if princeton_phone_number?(hr_person["Phone"])
+                        hr_person["Phone"].gsub('609/', '(609) ')
+                      else
+                        ''
+                      end
     end
 
     def insert_empty_fields(keys: ["StartDate", "StaffSort", "UnitSort", "DeptSort", "Unit", "DivSect", "FireWarden", "BackupFireWarden", "FireWardenNotes"])
