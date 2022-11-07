@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   get '/staff-directory', to: 'staff_directory#index', defaults: { format: 'csv' }
   get '/removed-staff', to: 'staff_directory#removed', defaults: { format: 'text' }
 
+  get '/library-events', to: 'library_events#index', defaults: { format: 'csv' }
+
   authenticate :user do
     mount Sidekiq::Web => "/sidekiq"
   end

@@ -1,0 +1,123 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Springshare//LibCal//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Events and Workshops
+X-WR-CALDESC:
+X-WR-TIMEZONE:America/New_York
+X-PUBLISHED-TTL:PT15M
+BEGIN:VEVENT
+DTSTART:20230407T160000Z
+DTEND:20230407T163000Z
+DTSTAMP:20230407T000000Z
+SUMMARY:30 Minutes Towards Better Bibliographies and Footnotes! (online)
+DESCRIPTION:This 30-minute workshop will focus on Zotero\, but will also 
+ briefly introduce you to other similar tools\, including Mendeley and 
+ Endnote. We will cover setting up an account\, importing citations from 
+ library databases and web pages\, and deploying the references into a Word 
+ document. Here is the Zoom link: 
+ https://princeton.zoom.us/j/2312568598\n\nPlease watch this six-minute 
+ video before the workshop: https://vimeo.com/369873151\n\n
+ORGANIZER;CN="Audrey B. Welber":MAILTO:abw@princeton.edu
+CATEGORIES:Bibliographies, Managing References, Workshops
+UID:LibCal-12260-9613672
+URL:https://libcal.princeton.edu/event/9613672
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20220913T160000Z
+DTEND:20220913T163000Z
+DTSTAMP:20220913T000000Z
+SUMMARY:Guided Tour of "Records of Resistance" exhibition
+DESCRIPTION:A 30-minute guided tour of the latest exhibition in the Milberg 
+ Gallery in Firestone Library at Princeton University. Tours meet in the 
+ lobby of Firestone Library. \n\nThe exhibition is open daily from noon to 6 
+ p.m. in the Milberg Gallery\, Firestone Library. Open to the public. 
+ Princeton University has a COVID visitor policy. Please make sure you are 
+ in compliance. https://covid.princeton.edu/visitors\n\n"Records of 
+ Resistance: Documenting Global Activism 1933 to 2021" curators are Fernando 
+ Acosta-Rodriguez\, Ellen Ambrosone\, Will Clements\, David Hollander\, and 
+ Gabrielle Winkler.\n\nEllen Ambrosone will lead the tour on Tuesday\, Sep 
+ 13 at noon.
+LOCATION:Milberg Gallery\, Firestone Library
+ORGANIZER;CN="Stephanie Oster":MAILTO:so1178@princeton.edu
+CATEGORIES:Exhibitions
+UID:LibCal-12260-9636011
+URL:https://libcal.princeton.edu/event/9636011
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20220913T173000Z
+DTEND:20220913T190000Z
+DTSTAMP:20220913T000000Z
+SUMMARY:Introduction to ArcGIS Pro
+DESCRIPTION:A Geographic Information System (GIS) combines software and 
+ digital geographic data to generate maps\, tables\, and interactive 
+ analyses of spatial information. Princeton faculty\, students\, and staff 
+ use GIS technology to manage resources\, explore spatial relationships\, 
+ and visualize change. The class\, intended for those with no previous GIS 
+ experience\, describes the technology and includes simple exercises to 
+ introduce its capabilities. Students will use ArcGIS Pro installed on the 
+ classroom’s Windows computers.\n\nThis event is part of the Geographic 
+ Information Systems (GIS) workshop series.
+LOCATION:Lewis Library - Room 225\, Lewis Science Library
+ORGANIZER;CN="Bill Guthe":MAILTO:wguthe@princeton.edu
+CATEGORIES:Geographic Information Systems
+UID:LibCal-12260-9453269
+URL:https://libcal.princeton.edu/calendar/events/introarcgispro2
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20220914T173000Z
+DTEND:20220914T190000Z
+DTSTAMP:20220914T000000Z
+SUMMARY:How to Create and Collect Geographic Data using QGIS
+DESCRIPTION:In this class students will learn how to collect geographic 
+ data from Google maps and Google Earth\, how to add GPS data to GIS 
+ software\, and how to georeference a scanned map. Students will use Google 
+ Earth and QGIS installed on classroom computers.  \n\nThis event is part of 
+ the Geographic Information Systems (GIS) workshop series.
+LOCATION:Lewis Library - Room 225\, Lewis Science Library
+ORGANIZER;CN="Bill Guthe":MAILTO:wguthe@princeton.edu
+CATEGORIES:Geographic Information Systems
+UID:LibCal-12260-9453275
+URL:https://libcal.princeton.edu/calendar/events/createcollectqgis2
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20220916T140000Z
+DTEND:20220916T143000Z
+DTSTAMP:20220916T000000Z
+SUMMARY:Welcome to Princeton University Library
+DESCRIPTION:You might be getting acquainted with the Princeton University 
+ Library for the first time\, or you might be curious about how we can 
+ support you during this fall semester. This informal zoom conversation will 
+ start with a checklist on getting started with library services and 
+ collections. Learn how to make the most of our library! After the 
+ presentation there will be plenty of time for questions.
+ORGANIZER;CN="Rebecca Friedman":MAILTO:rfriedma@princeton.edu
+CATEGORIES:Welcome to PUL
+UID:LibCal-12260-9610194
+URL:https://libcal.princeton.edu/calendar/events/pul91622
+END:VEVENT
+BEGIN:VEVENT
+DTSTART:20220917T130000Z
+DTEND:20220917T200000Z
+DTSTAMP:20220917T000000Z
+SUMMARY:SPIA 1-Day Introduction to Geographic Information Systems
+DESCRIPTION:A Geographic Information System (GIS) combines software and 
+ digital geographic data to generate maps\, tables\, and interactive 
+ analyses of spatial information. Princeton uses GIS to manage resources\, 
+ study spatial relationships\, and visualize change. The training session is 
+ for those with no previous GIS experience. Students work with ArcGIS Pro\, 
+ GIS software manufactured by the Environmental Systems Research Institute 
+ (Esri)\, and QGIS\, a free open-source GIS application\, to learn GIS 
+ concepts and explore geospatial data.\n\nAttendance at a one-day training 
+ session is a prerequisite for SPI 593n\, GIS for Public Policy. Other SPI 
+ students may take the one-day training if they wish\, or may register for 
+ other short GIS training sessions available through the Library.
+LOCATION:Lewis Library - Room 225\, Lewis Science Library
+ORGANIZER;CN="Bill Guthe":MAILTO:wguthe@princeton.edu
+CATEGORIES:Making Maps/Using Geographic Data
+UID:LibCal-12260-9652695
+URL:https://libcal.princeton.edu/calendar/events/SPIA1DayGIS
+END:VEVENT
+
+END:VCALENDAR
