@@ -57,3 +57,8 @@ end
 every :thursday, at: '2:30 pm', roles: [:prod] do # The server is in UTC, so this is 15:30 UTC
   rake "lib_jobs:process_bursar_credits"
 end
+
+# Run every hour on the :45 (e.g. 1:45, 2:45, 3:45...)
+every '45 * * * *' do
+  rake "lib_jobs:generate_events_csv"
+end

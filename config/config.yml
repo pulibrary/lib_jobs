@@ -16,6 +16,8 @@ defaults: &defaults
   pod_default_stream: <%= ENV["POD_DEFAULT_STREAM"] || "production" %>
   pod_test_stream: <%= ENV["POD_TEST_STREAM"] || "princeton-test-set" %>
 
+  libcal_cid: <%= ENV["LIBCAL_CID"] || "12260" %>
+  libcal_k: <%= ENV["LIBCAL_K"] || "79a5e62a54" %>
 
 development:
   <<: *defaults

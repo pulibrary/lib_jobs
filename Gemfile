@@ -95,3 +95,5 @@ gem 'rubyzip'
 gem 'sidekiq', "~> 5.2"
 gem 'webpacker'
 gem 'whenever'
+
+gem 'icalendar', '~> 2.8'
