@@ -28,7 +28,7 @@ class WebEvents::EventsFeedGenerator < LibJob
   def handle(data_set:)
     return most_recent_dataset if most_recent_dataset && recent_enough?(most_recent_dataset&.data_file)
     write_csv_to_disk
-    data_set.report_time = Time.zone.now.midnight
+    data_set.report_time = Time.zone.now
     data_set.data_file = report_filename
     data_set
   end
