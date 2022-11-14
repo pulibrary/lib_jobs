@@ -58,6 +58,18 @@ RSpec.describe WebEvents::EventsFeedGenerator, type: :model do
       expect(CSV.read(file_path).second).to eq(first_row)
     end
 
+    context 'when run at a particular time' do
+      let(:run_time) { Time.zone.local(2022, 3, 14, 15, 9, 26) }
+      before do
+        allow(Time).to receive(:now).and_return(run_time)
+      end
+      it 'records that time in the database' do
+        generator = described_class.new(filename: file_path)
+        generator.run
+        expect(DataSet.order('created_at').last.report_time).to eq(run_time)
+      end
+    end
+
     context 'when the process has already been run in the past hour' do
       let(:original_data_set) do
         FactoryBot.create(:data_set,
