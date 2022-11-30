@@ -55,13 +55,12 @@ bundle exec webpack-dev-server
 
 Then please visit the server running locally at [http://localhost:3000](http://localhost:3000)
 
-#### run mail catcher run once
+### Run mailcatcher 
+The mailcatcher gem ensures you do not accidentally send test emails to actual people
 
-gem install mailcatcher
-run every time
-
-mailcatcher
-you can see the mail that has been sent here
+1. run once: `gem install mailcatcher`
+1. run every time: `mailcatcher`
+1. you can see the mail that has been sent at http://127.0.0.1:1080
 
 ### Linting with Rubocop
 
