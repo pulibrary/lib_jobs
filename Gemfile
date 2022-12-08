@@ -55,10 +55,14 @@ end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
+  # net-ssh requires bcrypt_pbkdf and ed25510 for ed25519 key support
+  # See https://github.com/net-ssh/net-ssh/issues/565 for more information
+  gem 'bcrypt_pbkdf','< 2.0'
   gem 'capistrano', '>= 3.14.1'
   gem 'capistrano-passenger'
   gem 'capistrano-rails', '~> 1.1.6'
   gem 'database_cleaner-active_record'
+  gem 'ed25519', '< 2.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'rspec-rails'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
