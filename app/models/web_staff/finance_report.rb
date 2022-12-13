@@ -25,7 +25,7 @@ module WebStaff
     def reformat_data(db_data:)
       data = db_data
       database_unused_keys.each { |key| data.delete(key) }
-      data['DivSect'] = [db_data['Division'], db_data['Section'], db_data['Unit']].reject(&:blank?).join("  ")
+      data['DivSect'] = [db_data['Division'], db_data['Section'], db_data['Unit']].compact_blank.join("  ")
       data['Name'] = "#{db_data['lName']}, #{db_data['fName']}"
       data['lastName'] = data.delete('lName')
       data['firstName'] = data.delete('fName')

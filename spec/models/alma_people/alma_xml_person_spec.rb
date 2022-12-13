@@ -6,7 +6,7 @@ RSpec.describe AlmaPeople::AlmaXmlPerson, type: :model do
   let(:xml_builder) {}
   let(:oit_person_feed) { instance_double("AlmaPeople::OitPersonFeed") }
 
-  let(:yesterday) { (Time.zone.now - 1.day).strftime("%Y-%m-%d") }
+  let(:yesterday) { 1.day.ago.strftime("%Y-%m-%d") }
   let(:today) { Time.zone.now.strftime("%Y-%m-%d") }
   let(:patron_group) { 'P' }
 

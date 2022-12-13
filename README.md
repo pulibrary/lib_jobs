@@ -22,7 +22,7 @@
 ## Prerequisites
 - FreeTds  
   `brew install freetds`
-- Ruby (2.7.5 or later)
+- Ruby (3.1.0 or later)
 - Postgres
   ```
   brew install postgres
@@ -74,4 +74,10 @@ bundle exec rubocop -a
 bundle exec rspec
 ```
 
-
+### Debugging
+#### FreeTDS
+- To get what version of FreeTDS you have locally, run `tsql -C`
+- If you are on an M1 Mac using homebrew, if you are having trouble installing `tiny_tds` try the following (double check that the version and paths are still accurate)
+```bash
+gem install tiny_tds -v 2.1.3  -- --with-freetds-include=/opt/homebrew/include --with-freetds-lib=/opt/homebrew/lib
+```

@@ -60,7 +60,7 @@ module WebStaff
       unquoted = unquoted_columns(people.first.keys)
       quote_col2 = lambda do |field, fieldinfo|
         # fieldinfo has a line- ,header- and index-method
-        if field.present? && (fieldinfo.line == 1 || !unquoted.include?(fieldinfo.index))
+        if field.present? && (fieldinfo.line == 1 || unquoted.exclude?(fieldinfo.index))
           '"' + field + '"'
         else
           field

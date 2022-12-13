@@ -5,7 +5,7 @@ RSpec.describe AlmaPeople::AlmaPersonFeed, type: :model do
   subject(:alma_person_feed) { described_class.new(oit_person_feed: oit_person_feed, output_base_dir: '/tmp') }
   let(:oit_person_feed) { instance_double("AlmaPeople::OitPersonFeed") }
 
-  let(:yesterday) { (Time.zone.now - 1.day).strftime("%Y-%m-%d") }
+  let(:yesterday) { 1.day.ago.strftime("%Y-%m-%d") }
   let(:today) { Time.zone.now.strftime("%Y-%m-%d") }
 
   let(:sftp) { instance_double("Net::SFTP::Session") }

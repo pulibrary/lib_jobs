@@ -33,8 +33,7 @@ module WebStaff
 
       def default_connection
         @default_connection ||=
-          begin
-            Net::LDAP.new(
+          Net::LDAP.new(
               host: 'ldap.princeton.edu',
               base: 'o=Princeton University,c=US',
               port: 636,
@@ -43,7 +42,6 @@ module WebStaff
                 tls_options: OpenSSL::SSL::SSLContext::DEFAULT_PARAMS
               }
             )
-          end
       end
     end
   end
