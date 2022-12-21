@@ -3,7 +3,7 @@ module AlmaPeople
   class AlmaPersonFeed < LibJob
     attr_reader :oit_person_feed, :begin_date, :end_date, :output_base_dir, :enabled_flag
 
-    def initialize(oit_person_feed: AlmaPeople::OitPersonFeed.new, begin_date: (Time.zone.now - 1.day).strftime("%Y-%m-%d"),
+    def initialize(oit_person_feed: AlmaPeople::OitPersonFeed.new, begin_date: 1.day.ago.strftime("%Y-%m-%d"),
                    end_date: Time.zone.now.strftime("%Y-%m-%d"), output_base_dir: ENV["ALMA_PERSON_FEED_OUTPUT_DIR"] || '/tmp',
                    enabled_flag: 'E')
       super(category: "AlmaPersonFeed")
@@ -66,7 +66,7 @@ module AlmaPeople
     end
 
     def output_filename
-      date = begin_date || (Time.zone.now - 1.day).strftime("%Y-%m-%d")
+      date = begin_date || 1.day.ago.strftime("%Y-%m-%d")
       fname = ["alma_people", date, end_date, enabled_flag].compact.join('_')
       fname + ".xml"
     end

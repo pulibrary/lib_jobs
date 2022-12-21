@@ -34,9 +34,7 @@ module WebStaff
     def csv
       return if @hr_data.nil?
       @csv ||=
-        begin
-          ::CSV.new(@hr_data, col_sep: "\t", headers: true)
-        end
+        ::CSV.new(@hr_data, col_sep: "\t", headers: true)
     end
   end
 end

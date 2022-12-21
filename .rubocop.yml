@@ -4,7 +4,11 @@ inherit_gem:
   bixby: bixby_default.yml
 
 AllCops:
-  TargetRubyVersion: 2.6
+  TargetRubyVersion: 3.1
+  NewCops: enable
+
+Rails/I18nLocaleTexts:
+  Enabled: false
 
 Layout/LineLength:
   Enabled: true
@@ -12,6 +16,10 @@ Layout/LineLength:
   Exclude:
     - 'spec/support/stub_aspace_client.rb'
     - 'spec/support/stub_aspace.rb'
+
+Metrics/AbcSize:
+  Exclude:
+    - 'app/models/peoplesoft_voucher/alma_xml_invoice.rb'
 
 Metrics/BlockLength:
   Exclude:
@@ -27,6 +35,7 @@ Metrics/ClassLength:
 Metrics/CyclomaticComplexity:
   Exclude:
     - 'app/models/ability.rb'
+    - 'app/models/web_staff/ldap.rb'
 
 Metrics/MethodLength:
   Exclude:
@@ -35,6 +44,7 @@ Metrics/MethodLength:
 Metrics/PerceivedComplexity:
   Exclude:
     - 'app/models/ability.rb'
+    - 'app/models/web_staff/ldap.rb'
 
 RSpec/ExampleLength:
   Max: 100

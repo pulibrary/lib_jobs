@@ -1,3 +1,5 @@
 Rails/HasManyOrHasOneDependent:
   Exclude:
     - 'app/models/user.rb'
+Style/HashSyntax:
+  Enabled: false
