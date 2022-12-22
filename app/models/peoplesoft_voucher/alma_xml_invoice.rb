@@ -181,7 +181,7 @@ module PeoplesoftVoucher
       line_item_hash = {}
       line_item_hash[:inv_line_number] = line_item.at_xpath('xmlns:line_number').text
       line_item_hash[:reporting_code] = line_item.at_xpath('xmlns:reporting_code')&.text
-      line_item_hash[:fund_list] = PeoplesoftVoucher::AlmaXmlFundList.new(line_item: line_item)
+      line_item_hash[:fund_list] = PeoplesoftVoucher::AlmaXmlFundList.new(line_item:)
       line_item_hash[:currencies] = line_item_hash[:fund_list].currency_codes
       line_item_hash[:total_local_amount] = line_item_hash[:fund_list].total_local_amount
       line_item_hash[:total_local_amount_str] = line_item_hash[:fund_list].total_local_amount_str

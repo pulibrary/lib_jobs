@@ -19,7 +19,7 @@ RSpec.describe WebStaff::HrStaffReport, type: :model do
       "Department Long Name" => "Test Department Long", "Nick Name" => "Testy", "Register Title" => nil }
   end
 
-  let(:report) { described_class.new(hr_data: hr_data) }
+  let(:report) { described_class.new(hr_data:) }
   let(:hr_data) { "#{heading_line}\n#{user_line}" }
   it 'reads a list from the csv file' do
     expect(report.count).to eq(1)

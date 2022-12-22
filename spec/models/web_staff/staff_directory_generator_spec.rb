@@ -10,7 +10,7 @@ RSpec.describe WebStaff::StaffDirectoryGenerator, type: :model do
   # rubocop:enable Layout/LineLength
 
   let(:hr_data) { "#{heading_line}\n#{user1_line}\n#{user2_line}\n#{user3_line}" }
-  let(:hr_report) { WebStaff::HrStaffReport.new(hr_data: hr_data) }
+  let(:hr_report) { WebStaff::HrStaffReport.new(hr_data:) }
 
   let(:finance_report1) do
     { 'idStaff' => 111, 'PUID' => '999999999', 'NetID' => 'testi', 'Phone' => '111-222-333', "Name" => 'Am, Test', 'lastName' => 'Am', 'firstName' => 'Test', 'middleName' => 'I',
@@ -51,7 +51,7 @@ RSpec.describe WebStaff::StaffDirectoryGenerator, type: :model do
     "Department Number	Department Name	Bsns Unit	EID	Net ID	Last Name	First Name	Middle Name	Paid	Reg/Temp - Description	Pos #	Title	Absence Manager	Manager Net ID	Position Number\n" \
     "10001	Test Department Long Cons	PUHRS	999999999	foid	Smith	Jane	Biw	R=BenElig	00006823	The Great Assistant	Myers,Cory Andrew	corym	00008179\n"
   end
-  let(:generator) { described_class.new(finance_report: finance_report, hr_report: hr_report) }
+  let(:generator) { described_class.new(finance_report:, hr_report:) }
 
   before do
     allow(WebStaff::Ldap).to receive(:find_by_netid).with('testi').and_return({ email: 'testi@princeton.edu', address: 'B-1H-1 Firestone', telephone: '111-222-3333',

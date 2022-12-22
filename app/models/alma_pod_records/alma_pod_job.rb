@@ -6,7 +6,7 @@ module AlmaPodRecords
     def initialize(incoming_file_list: nil, file_pattern: '\.tar\.gz$', since: nil, directory: nil, compressed: false)
       super(category: 'AlmaPodRecords')
       since ||= Rails.application.config.pod.days_to_fetch.days.ago
-      @file_list = incoming_file_list || AlmaPodFileList.new(file_pattern: file_pattern, since: since)
+      @file_list = incoming_file_list || AlmaPodFileList.new(file_pattern:, since:)
       @download_dir = Pathname.new(directory || Rails.application.config.pod.pod_record_path)
       @compressed = compressed
     end
@@ -20,8 +20,8 @@ module AlmaPodRecords
       timestamp = Time.zone.now.strftime('%Y-%m-%d-%H-%M-%S')
       @file_list.files.each_with_index do |remote_filename, remote_index|
         @file_list.download_and_decompress_file(remote_filename).each_with_index do |contents, tarball_index|
-          file_path = file_path(timestamp: timestamp, remote_index: remote_index, tarball_index: tarball_index)
-          write_file(file_path: file_path, contents: contents)
+          file_path = file_path(timestamp:, remote_index:, tarball_index:)
+          write_file(file_path:, contents:)
           AlmaPodSender.new(filename: file_path, compressed: @compressed).send_to_pod
         end
       end
@@ -35,9 +35,9 @@ module AlmaPodRecords
 
     def write_file(file_path:, contents:)
       if @compressed
-        write_compressed_file(file_path: file_path, contents: contents)
+        write_compressed_file(file_path:, contents:)
       else
-        write_uncompressed_file(file_path: file_path, contents: contents)
+        write_uncompressed_file(file_path:, contents:)
       end
     end
 

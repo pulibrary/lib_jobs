@@ -17,7 +17,7 @@ RSpec.describe AlmaPodRecords::AlmaPodJob, type: :model do
 
   it 'sends each file to the POD' do
     orig_num_xml_files = Dir["#{directory}/*.xml"].length
-    described_class.new(incoming_file_list: list, directory: directory).send_files
+    described_class.new(incoming_file_list: list, directory:).send_files
     expect(a_request(:post, pod_url)).to have_been_made
     new_num_xml_files = Dir["#{directory}/*.xml"].length
     expect(new_num_xml_files - orig_num_xml_files).to eq(1)
@@ -28,7 +28,7 @@ RSpec.describe AlmaPodRecords::AlmaPodJob, type: :model do
 
     it 'sends a compressed file to the POD' do
       orig_num_gz_files = Dir["#{directory}/*.gz"].length
-      described_class.new(incoming_file_list: list, directory: directory, compressed: compressed).send_files
+      described_class.new(incoming_file_list: list, directory:, compressed:).send_files
       new_num_gz_files = Dir["#{directory}/*.gz"].length
       expect(new_num_gz_files - orig_num_gz_files).to eq(1)
     end
@@ -49,7 +49,7 @@ RSpec.describe AlmaPodRecords::AlmaPodJob, type: :model do
 
       it 'writes new xml files' do
         expect(File.exist?(file_path)).to be false
-        alma_pod_job.write_file(file_path: file_path, contents: tarball_contents.first)
+        alma_pod_job.write_file(file_path:, contents: tarball_contents.first)
         expect(File.exist?(file_path)).to be true
         expect(File.extname(file_path)).to eq('.xml')
       end

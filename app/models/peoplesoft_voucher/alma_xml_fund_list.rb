@@ -54,7 +54,7 @@ module PeoplesoftVoucher
         hash[:original_currency] = fund.at_xpath('xmlns:amount/xmlns:currency').text
         usd_amount = fund.at_xpath('xmlns:local_amount/xmlns:sum').text
         hash[:usd_amount] = format_usd_amount(usd_amount)
-        hash = process_chartstring(chartstring: fund.at_xpath('xmlns:external_id'), hash: hash)
+        hash = process_chartstring(chartstring: fund.at_xpath('xmlns:external_id'), hash:)
         hash[:ledger] = fund.at_xpath('xmlns:ledger_code').text
         hash[:fiscal_period] = fund.at_xpath('xmlns:fiscal_period').text
         fund_list << hash

@@ -25,7 +25,7 @@ module WebStaff
               "join [Work units] on Positions.idUnit = [Work units].idUnit " \
               "join Building on Positions.idBuilding = Building.ID_Building " \
               "where PUID = '#{employee_id}' and EndDate is null"
-      execute(query: query)
+      execute(query:)
     end
 
     private

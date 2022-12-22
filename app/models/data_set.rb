@@ -10,6 +10,6 @@ class DataSet < ApplicationRecord
   def self.filter_by_time(report_time:, query_context:)
     return query_context if report_time.blank?
     report_time = Time.zone.parse(report_time)
-    query_context.where(report_time: report_time)
+    query_context.where(report_time:)
   end
 end

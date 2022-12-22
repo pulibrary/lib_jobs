@@ -33,8 +33,8 @@ module PeoplesoftVoucher
 
         xml.transaction do
           xml.vchr_hdr_stg(class: 'R') do
-            build_invoice_header(invoice: invoice, voucher_id: voucher_id)
-            build_invoice(invoice: invoice, voucher_id: voucher_id)
+            build_invoice_header(invoice:, voucher_id:)
+            build_invoice(invoice:, voucher_id:)
           end
           build_invoice_footer
         end
@@ -44,7 +44,7 @@ module PeoplesoftVoucher
     def build_invoice(invoice:, voucher_id:)
       invoice.line_items.each_with_index do |line_item, line_idx|
         line_no = (line_idx + 1).to_s
-        build_voucher(line_no: line_no, line_item: line_item, voucher_id: voucher_id)
+        build_voucher(line_no:, line_item:, voucher_id:)
       end
     end
 
@@ -59,7 +59,7 @@ module PeoplesoftVoucher
         xml.descr254_mixed (line_item[:title]).to_s
         line_item[:fund_list].each_with_index do |fund, fund_idex|
           fund_no = (fund_idex + 1).to_s
-          build_voucher_distribution(line_no: line_no, line_item: line_item, fund: fund, voucher_id: voucher_id, fund_no: fund_no)
+          build_voucher_distribution(line_no:, line_item:, fund:, voucher_id:, fund_no:)
         end
       end
     end
@@ -94,8 +94,8 @@ module PeoplesoftVoucher
       xml.gross_amt invoice.invoice_local_amount_total.to_s
       xml.vndr_loc invoice.vendor_location
       xml.pymnt_terms_cd "IMM"
-      xml.descr254_mixed header_description(invoice: invoice)
-      build_invoice_header_payment(voucher_id: voucher_id)
+      xml.descr254_mixed header_description(invoice:)
+      build_invoice_header_payment(voucher_id:)
     end
     # rubocop:enable Metrics/AbcSize
 

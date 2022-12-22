@@ -30,7 +30,7 @@ class User < ApplicationRecord
               "#{net_id}@#{institutional_email_domain}"
             end
 
-    User.where(email: email).first_or_create
+    User.where(email:).first_or_create
   end
 
   # Include default devise modules. Others available are:

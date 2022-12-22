@@ -17,7 +17,7 @@ RSpec.describe WebStaff::FinanceReport, type: :model do
        'Division' => 'Division from DB', 'Section' => 'section from DB', 'Unit' => nil, 'LocationCode' => nil, 'ID_Building' => 19, 'Building' => 'Firestone' }]
   end
   let(:finance_adapter) { instance_double(WebStaff::FinanceReportTinyTdsAdapter, execute_staff_query: db_results) }
-  let(:generator) { described_class.new(finance_adapter: finance_adapter) }
+  let(:generator) { described_class.new(finance_adapter:) }
   let(:report) do
     { 'idStaff' => 111, 'PUID' => '999999999', 'NetID' => 'fouid', 'Phone' => '111-222-333', "Name" => 'Smith, Jane', 'lastName' => 'Smith', 'firstName' => 'Jane', 'middleName' => 'A',
       'nickName' => 'Janey', 'Title' => 'The Great Assistant', 'LibraryTitle' => 'The Great Assistant', 'LongTitle' => 'The Great Assistant Is Longer', 'Email' => 'smith@princeton.edu',
@@ -27,7 +27,7 @@ RSpec.describe WebStaff::FinanceReport, type: :model do
   end
 
   it 'generates the staff list csv' do
-    expect(generator.report(employee_id: employee_id)).to eq(report)
+    expect(generator.report(employee_id:)).to eq(report)
   end
 
   context "no adapter passes" do
@@ -35,7 +35,7 @@ RSpec.describe WebStaff::FinanceReport, type: :model do
 
     it "uses the default adapter" do
       allow(WebStaff::FinanceReportTinyTdsAdapter).to receive(:new).with(dbhost: 'finance_db_host', dbport: 1433, dbuser: 'finance_db_user', dbpass: 'finance_db_password').and_return(finance_adapter)
-      expect(generator.report(employee_id: employee_id)).to eq(report)
+      expect(generator.report(employee_id:)).to eq(report)
     end
   end
 
@@ -43,11 +43,11 @@ RSpec.describe WebStaff::FinanceReport, type: :model do
     let(:finance_adapter) { instance_double(WebStaff::FinanceReportTinyTdsAdapter, execute_staff_query: []) }
 
     it "returns an empty hash" do
-      expect(generator.report(employee_id: employee_id)).to eq({ "idStaff" => nil, "PUID" => nil, "NetID" => nil, "Phone" => nil, "Name" => nil, "lastName" => nil, "firstName" => nil,
-                                                                 "middleName" => nil, "nickName" => nil, "Title" => nil, "LibraryTitle" => nil, "LongTitle" => nil, "Email" => nil,
-                                                                 "Section" => nil, "Division" => nil, "Department" => nil, "StartDate" => nil, "StaffSort" => nil, "UnitSort" => nil,
-                                                                 "DeptSort" => nil, "Unit" => nil, "DivSect" => nil, "FireWarden" => false, "BackupFireWarden" => false,
-                                                                 "FireWardenNotes" => nil, "Office" => nil, "Building" => nil })
+      expect(generator.report(employee_id:)).to eq({ "idStaff" => nil, "PUID" => nil, "NetID" => nil, "Phone" => nil, "Name" => nil, "lastName" => nil, "firstName" => nil,
+                                                     "middleName" => nil, "nickName" => nil, "Title" => nil, "LibraryTitle" => nil, "LongTitle" => nil, "Email" => nil,
+                                                     "Section" => nil, "Division" => nil, "Department" => nil, "StartDate" => nil, "StaffSort" => nil, "UnitSort" => nil,
+                                                     "DeptSort" => nil, "Unit" => nil, "DivSect" => nil, "FireWarden" => false, "BackupFireWarden" => false,
+                                                     "FireWardenNotes" => nil, "Office" => nil, "Building" => nil })
     end
   end
 end

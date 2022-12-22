@@ -11,7 +11,7 @@ module AlmaInvoiceStatus
         xml['xb'].payment_confirmation_data('xmlns:xb' => 'http://com/exlibris/repository/acq/xmlbeans') do
           xml['xb'].invoice_list do
             invoices.each do |invoice_id, info|
-              build_invoice(xml: xml, invoice_id: invoice_id, info: info)
+              build_invoice(xml:, invoice_id:, info:)
             end
           end
         end

@@ -21,7 +21,7 @@ module WebStaff
     end
 
     def today
-      data_sets = DataSet.where(category: category, report_time: Time.zone.today.midnight)
+      data_sets = DataSet.where(category:, report_time: Time.zone.today.midnight)
       run if data_sets.empty? || !File.exist?(data_sets.first.data_file)
       read_report
     end

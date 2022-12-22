@@ -2,7 +2,7 @@
 require 'rails_helper'
 
 RSpec.describe PeoplesoftBursar::Job, type: :model do
-  let(:job) { described_class.new(output_base_dir: '/tmp', report: report) }
+  let(:job) { described_class.new(output_base_dir: '/tmp', report:) }
 
   describe "#run" do
     context 'with a credit report' do

@@ -11,7 +11,7 @@ module WebStaff
     end
 
     def ids
-      data_sets = DataSet.where(report_time: report_time, category: "StaffDirectoryRemoved")
+      data_sets = DataSet.where(report_time:, category: "StaffDirectoryRemoved")
       if data_sets.empty?
         calculate_removed_ids
       else

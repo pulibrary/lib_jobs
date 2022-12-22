@@ -31,7 +31,7 @@ module PeoplesoftVoucher
       # needs to be the original currency (total_invoice_amount)
 
       alma_xml_invoice_list.mark_files_as_processed
-      FinanceMailer.report(alma_xml_invoice_list: alma_xml_invoice_list).deliver
+      FinanceMailer.report(alma_xml_invoice_list:).deliver
       data_set.data = alma_xml_invoice_list.status_report
       data_set.report_time = Time.zone.now.midnight
       data_set
@@ -49,7 +49,7 @@ module PeoplesoftVoucher
     def build_peoplesoft_report
       return if alma_xml_invoice_list.empty?
       builder = Nokogiri::XML::Builder.new do |xml|
-        finance_invoice = PeoplesoftVoucher::FinanceXmlInvoice.new(xml: xml, alma_invoice_list: alma_xml_invoice_list)
+        finance_invoice = PeoplesoftVoucher::FinanceXmlInvoice.new(xml:, alma_invoice_list: alma_xml_invoice_list)
         finance_invoice.convert
       end
       full_path = File.join(peoplesoft_output_base_dir, output_filename)

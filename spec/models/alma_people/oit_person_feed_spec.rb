@@ -20,7 +20,7 @@ RSpec.describe AlmaPeople::OitPersonFeed do
           'User-Agent' => 'Ruby'
         }
       )
-        .to_return(status: 200, body: body, headers: {})
+        .to_return(status: 200, body:, headers: {})
     end
     it "gets an new token and then gets data from the api" do
       allow(token).to receive(:fetch).and_return('secret_token')

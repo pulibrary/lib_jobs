@@ -12,8 +12,8 @@ module AlmaInvoiceStatus
                    peoplesoft_input_file_pattern: Rails.application.config.peoplesoft.invoice_status_input_file_pattern,
                    alma_sftp: AlmaSftp.new, invoice_status_path: Rails.application.config.alma_ftp.invoice_status_path,
                    output_base_dir: Rails.application.config.alma_ftp.invoice_status_local_path)
-      super(peoplesoft_input_base_dir: peoplesoft_input_base_dir, peoplesoft_input_file_pattern: peoplesoft_input_file_pattern,
-            alma_sftp: alma_sftp)
+      super(peoplesoft_input_base_dir:, peoplesoft_input_file_pattern:,
+            alma_sftp:)
       @category = "InvoiceStatus"
       @alma_invoice_status_path = invoice_status_path
       @output_base_dir = output_base_dir

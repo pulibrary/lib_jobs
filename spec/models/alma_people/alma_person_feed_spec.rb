@@ -2,7 +2,7 @@
 require 'rails_helper'
 
 RSpec.describe AlmaPeople::AlmaPersonFeed, type: :model do
-  subject(:alma_person_feed) { described_class.new(oit_person_feed: oit_person_feed, output_base_dir: '/tmp') }
+  subject(:alma_person_feed) { described_class.new(oit_person_feed:, output_base_dir: '/tmp') }
   let(:oit_person_feed) { instance_double("AlmaPeople::OitPersonFeed") }
 
   let(:yesterday) { 1.day.ago.strftime("%Y-%m-%d") }
@@ -59,7 +59,7 @@ RSpec.describe AlmaPeople::AlmaPersonFeed, type: :model do
     end
 
     context "blank dates" do
-      subject(:alma_person_feed) { described_class.new(oit_person_feed: oit_person_feed, output_base_dir: '/tmp', begin_date: nil, end_date: nil, enabled_flag: nil) }
+      subject(:alma_person_feed) { described_class.new(oit_person_feed:, output_base_dir: '/tmp', begin_date: nil, end_date: nil, enabled_flag: nil) }
 
       before do
         allow(oit_person_feed).to receive(:get_json).with(begin_date: nil, end_date: nil, enabled_flag: nil).and_return(oit_people)

@@ -6,7 +6,7 @@ class LibJob
   end
 
   def run
-    data_set = handle(data_set: DataSet.new(category: category))
+    data_set = handle(data_set: DataSet.new(category:))
     data_set.report_time ||= Time.zone.now
     data_set.save
     data_set.status

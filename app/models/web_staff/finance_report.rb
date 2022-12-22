@@ -12,12 +12,12 @@ module WebStaff
     end
 
     def report(employee_id:)
-      results = finance_adapter.execute_staff_query(employee_id: employee_id)
+      results = finance_adapter.execute_staff_query(employee_id:)
       return default_data if results.blank?
 
       db_data = results.first
 
-      reformat_data(db_data: db_data)
+      reformat_data(db_data:)
     end
 
     private

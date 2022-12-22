@@ -80,7 +80,7 @@ RSpec.describe "DataSets", type: :request do
       end
 
       it "denies the request" do
-        get "/data_sets/latest/other", headers: headers, params: params
+        get("/data_sets/latest/other", headers:, params:)
 
         expect(response.forbidden?).to be true
       end
@@ -107,7 +107,7 @@ RSpec.describe "DataSets", type: :request do
       end
 
       it "denies the request" do
-        get "/data_sets/latest/other", headers: headers
+        get("/data_sets/latest/other", headers:)
 
         expect(response.forbidden?).to be true
       end
@@ -140,12 +140,12 @@ RSpec.describe "DataSets", type: :request do
       end
 
       it "returns the latest other dataset" do
-        get "/data_sets/latest/other", headers: headers, params: params
+        get("/data_sets/latest/other", headers:, params:)
         expect(response.body).to eq('other3,other4')
       end
 
       it "returns the StaffDirectoryRemoved dataset" do
-        get "/data_sets/latest/staff-directory-removed", headers: headers, params: params
+        get("/data_sets/latest/staff-directory-removed", headers:, params:)
         expect(response.body).to eq('abc123,def456')
       end
 
@@ -154,7 +154,7 @@ RSpec.describe "DataSets", type: :request do
           file.write("data from file\nMultiple lines")
           file.rewind
           DataSet.create(report_time: today, data: nil, data_file: file.path, status: true, category: "StaffDirectory")
-          get "/data_sets/latest/staff-directory", headers: headers, params: params
+          get("/data_sets/latest/staff-directory", headers:, params:)
           expect(response.body).to eq("data from file\nMultiple lines")
         end
       end

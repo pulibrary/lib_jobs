@@ -23,7 +23,7 @@ RSpec.describe PeoplesoftVoucher::FinanceXmlInvoice, type: :model do
 
     it "generates xml " do
       builder = Nokogiri::XML::Builder.new do |xml|
-        alma_person = described_class.new(xml: xml, alma_invoice_list: alma_invoice_list)
+        alma_person = described_class.new(xml:, alma_invoice_list:)
         alma_person.convert
       end
       expect(builder.to_xml).to eq(finance_xml)
@@ -35,7 +35,7 @@ RSpec.describe PeoplesoftVoucher::FinanceXmlInvoice, type: :model do
         pending "Should only be run locally"
         allow(sftp_session).to receive(:download!).with("/alma/invoices/abc.xml").and_return(alma_invoice_xml.read)
         builder = Nokogiri::XML::Builder.new do |xml|
-          alma_person = described_class.new(xml: xml, alma_invoice_list: alma_invoice_list)
+          alma_person = described_class.new(xml:, alma_invoice_list:)
           alma_person.convert
         end
         expect(builder.to_xml).to eq(File.open(Rails.root.join('alma_voucher_test_20210507.xml')).read)
