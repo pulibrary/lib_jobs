@@ -10,7 +10,7 @@ module RequestSpecHelper
 
   def login_as(user, scope: :user)
     user.reload
-    super(user, scope: scope, run_callbacks: false)
+    super(user, scope:, run_callbacks: false)
   end
 
   def logout(user = :user)

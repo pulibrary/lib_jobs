@@ -15,7 +15,7 @@ RSpec.describe WebStaff::StaffDirectoryDifference, type: :model do
   let(:new_report) { "#{report_header}\n#{report_line1}\n#{report_line2}\n#{report_line4}\n" }
   let(:old_report) { "#{report_header}\n#{report_line2}\n#{report_line3}\n#{report_line1}\n" }
 
-  let(:difference) { described_class.new(new_report: new_report, old_report: old_report) }
+  let(:difference) { described_class.new(new_report:, old_report:) }
 
   it "differs the reports to tell who was deleted" do
     expect { expect(difference.ids).to eq(['testiii']) }.to change(DataSet, :count).by(2)

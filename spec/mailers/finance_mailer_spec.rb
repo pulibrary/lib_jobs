@@ -18,7 +18,7 @@ RSpec.describe FinanceMailer, type: :mailer do
                                  .and_return('person_4@princeton.edu,person_5@princeton.edu,person_6@princeton.edu')
   end
   describe "#report" do
-    let(:alma_xml_invoice_list) { instance_double("PeoplesoftVoucher::AlmaXMLInvoiceList", errors: errors, error_invoices: error_invoices, valid_invoices: valid_invoices, empty?: false) }
+    let(:alma_xml_invoice_list) { instance_double("PeoplesoftVoucher::AlmaXMLInvoiceList", errors:, error_invoices:, valid_invoices:, empty?: false) }
     let(:errors) { [] }
     let(:error_invoices) { [] }
     let(:valid_invoices) do
@@ -27,7 +27,7 @@ RSpec.describe FinanceMailer, type: :mailer do
        instance_double("PeoplesoftVoucher::AlmaXmlInvoice", errors: [], invoice_date: "2021-12-25", id: 'invoice12', vendor_id: '456', vendor_code: "DEF", total_invoice_amount: '170.00',
                                                             invoice_currency: 'EUR', invoice_local_amount_total: '204.37', voucher_id: 'voucher12')]
     end
-    let(:mail) { described_class.report(alma_xml_invoice_list: alma_xml_invoice_list) }
+    let(:mail) { described_class.report(alma_xml_invoice_list:) }
 
     before do
       allow(alma_xml_invoice_list).to receive(:status_report).and_return("The csv status report")

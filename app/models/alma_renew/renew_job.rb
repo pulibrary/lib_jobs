@@ -37,7 +37,7 @@ module AlmaRenew
           next
         end
         @valid_item_count += 1
-        ncip_request = ncip_request(item: item)
+        ncip_request = ncip_request(item:)
         ncip_renew_item(ncip_request, http)
       end
     end

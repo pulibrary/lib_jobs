@@ -11,7 +11,7 @@ module PeoplesoftBursar
       #   The amount will be converted to negative even if it is passed in as a positive number
       negative_amount = amount.abs * -1.0
 
-      super(patron_id: patron_id, term_code: term_code, amount: negative_amount, reversal_indicator: "Y", fine_id: ' ', date: date, description: 'Library Credit')
+      super(patron_id:, term_code:, amount: negative_amount, reversal_indicator: "Y", fine_id: ' ', date:, description: 'Library Credit')
     end
 
     private

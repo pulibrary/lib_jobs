@@ -13,7 +13,7 @@ Capybara.register_driver(:selenium_chrome) do |app|
   browser_options.args << "--window-size=7680,4320"
   browser_options.add_preference(:download,
                                  prompt_for_download: false,
-                                 default_directory: default_directory)
+                                 default_directory:)
   browser_options.add_preference(:browser, set_download_behavior: { behavior: 'allow' })
 
   http_client = Selenium::WebDriver::Remote::Http::Default.new
@@ -21,7 +21,7 @@ Capybara.register_driver(:selenium_chrome) do |app|
   http_client.open_timeout = 120
   Capybara::Selenium::Driver.new(app,
                                  browser: :chrome,
-                                 http_client: http_client,
+                                 http_client:,
                                  options: browser_options)
 end
 
@@ -36,7 +36,7 @@ Capybara.register_driver(:selenium_chrome_headless) do |app|
   browser_options.args << "--window-size=7680,4320"
   browser_options.add_preference(:download,
                                  prompt_for_download: false,
-                                 default_directory: default_directory)
+                                 default_directory:)
   browser_options.add_preference(:browser, set_download_behavior: { behavior: 'allow' })
 
   http_client = Selenium::WebDriver::Remote::Http::Default.new
@@ -44,7 +44,7 @@ Capybara.register_driver(:selenium_chrome_headless) do |app|
   http_client.open_timeout = 120
   Capybara::Selenium::Driver.new(app,
                                  browser: :chrome,
-                                 http_client: http_client,
+                                 http_client:,
                                  options: browser_options)
 end
 

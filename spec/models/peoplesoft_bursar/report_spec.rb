@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe PeoplesoftBursar::Report, type: :model do
   let(:list) { [FactoryBot.build(:fine)] }
-  let(:report) { described_class.new(list: list) }
+  let(:report) { described_class.new(list:) }
   describe "#to_s" do
     it "generates formatted output " do
       expect(report.to_s).to eq("0000000001 0000000000005.50 41001 \n" \

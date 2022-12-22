@@ -23,7 +23,7 @@ module AlmaPeople
     # @param enabled_flag [String] ( 'E' enabled or 'I' inactive )
     # @returns [Hash]
     def get_json(begin_date:, end_date:, enabled_flag: 'E')
-      uri = api_uri(begin_date: begin_date, end_date: end_date, enabled_flag: enabled_flag)
+      uri = api_uri(begin_date:, end_date:, enabled_flag:)
       request = Net::HTTP::Get.new(uri)
       request['Content-Type'] = 'application/json'
       request['Accept'] = 'application/json'

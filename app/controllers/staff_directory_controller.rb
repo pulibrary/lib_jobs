@@ -5,7 +5,7 @@ class StaffDirectoryController < ApplicationController
   def index
     finance_report = WebStaff::FinanceReport.new
     hr_report = WebStaff::HrStaffReport.new
-    generator = WebStaff::StaffDirectoryGenerator.new(finance_report: finance_report, hr_report: hr_report)
+    generator = WebStaff::StaffDirectoryGenerator.new(finance_report:, hr_report:)
     respond_to do |format|
       format.csv { send_data generator.today, filename: "staff-directory.csv" }
     end

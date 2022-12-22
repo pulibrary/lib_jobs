@@ -19,7 +19,7 @@ RSpec.describe AccessToken do
           "Host" => "example.com",
           "User-Agent" => "Ruby"
         }
-      ).to_return(status: 200, body: body, headers: {})
+      ).to_return(status: 200, body:, headers: {})
   end
 
   describe ".fetch" do

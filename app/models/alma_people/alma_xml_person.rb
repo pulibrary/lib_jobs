@@ -92,7 +92,7 @@ module AlmaPeople
 
     def create_email(email:, preferred:, type:, description:)
       return if email.blank?
-      xml.email(preferred: preferred, segment_type: "External") do
+      xml.email(preferred:, segment_type: "External") do
         xml.email_address email
         # xml.email_address "stub@example.com"
         xml.email_types do
@@ -122,7 +122,7 @@ module AlmaPeople
     # rubocop:disable Metrics/ParameterLists
     def create_address(type:, preferred:, line1:, line2:, line3:, line4:, city:, state:, country:, postal:)
       return if line1.blank?
-      xml.address(preferred: preferred, segment_type: "External") do
+      xml.address(preferred:, segment_type: "External") do
         xml.line1 line1
         xml.line2 line2 if line2.present?
         xml.line3 line3 if line3.present?

@@ -6,7 +6,7 @@ RSpec.describe AlmaPodRecords::AlmaPodFileList, type: :model do
 
   let(:name) { 'file.tar.gz' }
   let(:mtime) { Time.now.to_i }
-  let(:file_name) { instance_double("Net::SFTP::Protocol::V01::Name", name: name) }
+  let(:file_name) { instance_double("Net::SFTP::Protocol::V01::Name", name:) }
   let(:file_attributes) { instance_double("Net::SFTP::Protocol::V01::Attributes") }
   let(:sftp_session) { instance_double("Net::SFTP::Session", dir: sftp_dir) }
   let(:sftp_dir) { instance_double("Net::SFTP::Operations::Dir") }

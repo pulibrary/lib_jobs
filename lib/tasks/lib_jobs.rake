@@ -70,7 +70,7 @@ namespace :lib_jobs do
     file_pattern = ENV['FILE_PATTERN'] || '\.tar\.gz$'
     compressed = ActiveModel::Type::Boolean.new.cast(ENV['COMPRESSED']) || false
     since = ENV['SINCE'] || Rails.application.config.pod.days_to_fetch.days.ago
-    job = AlmaPodRecords::AlmaPodJob.new(file_pattern: file_pattern, since: since, compressed: compressed)
+    job = AlmaPodRecords::AlmaPodJob.new(file_pattern:, since:, compressed:)
     job.run
   end
 

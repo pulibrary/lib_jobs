@@ -2,7 +2,7 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  subject(:user) { described_class.create(email: email) }
+  subject(:user) { described_class.create(email:) }
 
   let(:email) { 'user@princeton.edu' }
 
@@ -17,7 +17,7 @@ RSpec.describe User, type: :model do
     let(:access_token) do
       OpenStruct.new(
         {
-          uid: uid
+          uid:
         }
       )
     end

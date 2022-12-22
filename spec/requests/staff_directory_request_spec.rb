@@ -14,7 +14,7 @@ RSpec.describe "StaffDirectories", type: :request do
     before do
       allow(WebStaff::FinanceReport).to receive(:new).and_return(finance_report)
       allow(WebStaff::HrStaffReport).to receive(:new).and_return(hr_report)
-      allow(WebStaff::StaffDirectoryGenerator).to receive(:new).with(finance_report: finance_report, hr_report: hr_report).and_return(generator)
+      allow(WebStaff::StaffDirectoryGenerator).to receive(:new).with(finance_report:, hr_report:).and_return(generator)
     end
     it "returns the staff directory" do
       get "/staff-directory.csv"

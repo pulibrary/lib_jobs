@@ -68,7 +68,7 @@ module PeoplesoftVoucher
           data = sftp.download!(filename)
           doc = Nokogiri::XML(StringIO.new(data))
           sftp_locations << filename
-          current_invoices = doc.xpath('//xmlns:invoice_list/xmlns:invoice').map { |xml_invoice| PeoplesoftVoucher::AlmaXmlInvoice.new(xml_invoice: xml_invoice) }
+          current_invoices = doc.xpath('//xmlns:invoice_list/xmlns:invoice').map { |xml_invoice| PeoplesoftVoucher::AlmaXmlInvoice.new(xml_invoice:) }
           @invoices += current_invoices
         end
       end

@@ -2,7 +2,7 @@
 require 'rails_helper'
 
 RSpec.describe AlmaPeople::AlmaXmlPerson, type: :model do
-  subject(:alma_person) { described_class.new(oit_person_feed: oit_person_feed, output_base_dir: '/tmp') }
+  subject(:alma_person) { described_class.new(oit_person_feed:, output_base_dir: '/tmp') }
   let(:xml_builder) {}
   let(:oit_person_feed) { instance_double("AlmaPeople::OitPersonFeed") }
 
@@ -55,7 +55,7 @@ RSpec.describe AlmaPeople::AlmaXmlPerson, type: :model do
 
     it "generates xml " do
       builder = Nokogiri::XML::Builder.new do |xml|
-        alma_person = described_class.new(xml: xml, person: oit_person)
+        alma_person = described_class.new(xml:, person: oit_person)
         alma_person.convert
       end
       expect(builder.to_xml).to eq(alma_xml)
@@ -66,7 +66,7 @@ RSpec.describe AlmaPeople::AlmaXmlPerson, type: :model do
 
       it "generates xml " do
         builder = Nokogiri::XML::Builder.new do |xml|
-          alma_person = described_class.new(xml: xml, person: oit_person)
+          alma_person = described_class.new(xml:, person: oit_person)
           alma_person.convert
         end
         expect(builder.to_xml).to eq(alma_xml)
@@ -85,7 +85,7 @@ RSpec.describe AlmaPeople::AlmaXmlPerson, type: :model do
 
       it "generates xml " do
         builder = Nokogiri::XML::Builder.new do |xml|
-          alma_person = described_class.new(xml: xml, person: oit_person)
+          alma_person = described_class.new(xml:, person: oit_person)
           alma_person.convert
         end
         expect(builder.to_xml).to eq(alma_xml)
@@ -104,7 +104,7 @@ RSpec.describe AlmaPeople::AlmaXmlPerson, type: :model do
 
       it "generates xml " do
         builder = Nokogiri::XML::Builder.new do |xml|
-          alma_person = described_class.new(xml: xml, person: alma_person_query)
+          alma_person = described_class.new(xml:, person: alma_person_query)
           alma_person.convert
         end
         expect(builder.to_xml).to eq(alma_xml)
@@ -144,7 +144,7 @@ RSpec.describe AlmaPeople::AlmaXmlPerson, type: :model do
       end
       it 'is marked invalid' do
         Nokogiri::XML::Builder.new do |xml|
-          alma_person = described_class.new(xml: xml, person: oit_person)
+          alma_person = described_class.new(xml:, person: oit_person)
           expect(alma_person.valid?).to eq(false)
         end
       end
