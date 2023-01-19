@@ -40,7 +40,7 @@ RSpec.describe WebStaff::StaffMember, type: :model do
         'Title' => 'basic title',
         'Register Title' => ' ',
         'E-Mail' => '',
-        'Phone' => '609/258-1234'
+        'OL1 Phone - Phone Number' => '609/258-1234'
       }
     end
 
@@ -54,7 +54,7 @@ RSpec.describe WebStaff::StaffMember, type: :model do
         'Title' => 'basic title',
         'Register Title' => ' ',
         'E-Mail' => '',
-        'Phone' => '555/123-4567'
+        'OL1 Phone - Phone Number' => '555/123-4567'
       }
     end
     it('does not include personal phone number in the staff member hash') do
