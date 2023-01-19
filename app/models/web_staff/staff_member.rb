@@ -31,8 +31,8 @@ module WebStaff
       insert_empty_fields(keys: ["Section", "Division"])
       hash["Department"] = hr_person["Department Long Name"]
       insert_empty_fields
-      hash['Office'] = hr_person['Campus Address - Address 2']
-      hash['Building'] = hr_person['Campus Address - Address 1']
+      hash['Office'] = hr_person['Office Location - Description']
+      hash['Building'] = hr_person['OL1 Address - Address 1']
     end
     # rubocop:enable Metrics/AbcSize
 
@@ -55,8 +55,8 @@ module WebStaff
     end
 
     def convert_phone
-      hash['Phone'] = if princeton_phone_number?(hr_person["Phone"])
-                        hr_person["Phone"].gsub('609/', '(609) ')
+      hash['Phone'] = if princeton_phone_number?(hr_person["OL1 Phone - Phone Number"])
+                        hr_person["OL1 Phone - Phone Number"].gsub('609/', '(609) ')
                       else
                         ''
                       end
