@@ -4,11 +4,12 @@
 # Tokens are live for an hour and should be regenerated often
 class AccessToken
   attr_reader :client_id, :client_secret, :token_host, :token_path
-  def initialize(client_id:, client_secret:, token_host:, token_path: "/token")
+  def initialize(client_id:, client_secret:, token_host:, token_path: "/token", scope: nil)
     @client_id = client_id
     @client_secret = client_secret
     @token_host = token_host
     @token_path = token_path
+    @scope = scope
   end
 
   # Get a brand new token
@@ -20,9 +21,9 @@ class AccessToken
       data = {
         "client_id" => client_id,
         "client_secret" => client_secret,
-        "grant_type" => "client_credentials",
-        "scope" => "/read-public"
+        "grant_type" => "client_credentials"
       }
+      data['scope'] = @scope if @scope
       req.set_form_data(data)
       body = http.request(req).body
       JSON.parse(body)["access_token"]

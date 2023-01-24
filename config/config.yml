@@ -19,6 +19,9 @@ defaults: &defaults
   libcal_cid: <%= ENV["LIBCAL_CID"] || "12260" %>
   libcal_k: <%= ENV["LIBCAL_K"] || "79a5e62a54" %>
 
+  libguides_client_id: <%= ENV["LIBGUIDES_CLIENT_ID"] || "630" %>
+  libguides_client_secret: <%= ENV["LIBGUIDES_CLIENT_SECRET"] %>
+
 development:
   <<: *defaults
 
