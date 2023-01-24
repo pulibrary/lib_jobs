@@ -49,11 +49,6 @@ namespace :lib_jobs do
     convert.run
   end
 
-  desc "Clean dead Sidekiq Queues."
-  task :dead_queues, [] => [:environment] do |_t, _args|
-    CleanDeadQueuesJob.set(queue: :low).perform_later
-  end
-
   desc "generate an alma people feed for a csv file"
   task alma_csv_person_update: [:environment] do
     if ENV["CSV_PERSON_FILE"].blank?
