@@ -91,7 +91,7 @@ gem "omniauth", "~> 1.9"
 gem 'omniauth-cas'
 gem 'pg'
 gem 'rubyzip'
-gem 'sidekiq', "~> 5.2"
+gem 'sidekiq', "~> 7.0"
 gem 'webpacker'
 gem 'whenever'
 
