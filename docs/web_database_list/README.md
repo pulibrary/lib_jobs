@@ -9,6 +9,8 @@ libguides.
 sequenceDiagram
     Lib Jobs->>+LibGuides: requests authorization token
     LibGuides-->>-Lib Jobs: returns the token
+    Lib Jobs->>+LibGuides: requests the database list
+    LibGuides-->>-Lib Jobs: returns the list as JSON
 ```
 ## Configuration
 
