@@ -110,7 +110,6 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.10)
-    connection_pool (2.3.0)
     crack (0.4.5)
       rexml
     crass (1.0.6)
@@ -223,8 +222,6 @@ GEM
       nio4r (~> 2.0)
     racc (1.6.1)
     rack (2.2.6.2)
-    rack-protection (3.0.4)
-      rack
     rack-proxy (0.7.4)
       rack
     rack-test (2.0.2)
@@ -260,7 +257,6 @@ GEM
     rb-fsevent (0.11.2)
     rb-inotify (0.10.1)
       ffi (~> 1.0)
-    redis (3.3.5)
     regexp_parser (1.8.2)
     responders (3.0.1)
       actionpack (>= 5.0)
@@ -329,11 +325,6 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     semantic_range (3.0.0)
-    sidekiq (5.2.9)
-      connection_pool (~> 2.2, >= 2.2.2)
-      rack (~> 2.0)
-      rack-protection (>= 1.5.0)
-      redis (>= 3.3.5, < 4.2)
     simplecov (0.21.2)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -416,6 +407,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
+  arm64-darwin-22
   x86_64-darwin-21
   x86_64-linux
 
@@ -449,7 +441,6 @@ DEPENDENCIES
   pry-byebug
   puma (~> 4.3)
   rails (~> 6.0)
-  redis (~> 3.3)
   rspec
   rspec-rails
   rubocop (~> 1.22)
@@ -457,7 +448,6 @@ DEPENDENCIES
   rubyzip
   sass-rails
   selenium-webdriver
-  sidekiq (~> 5.2)
   simplecov
   solargraph
   spring (> 3)

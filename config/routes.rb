@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require "sidekiq/web"
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root 'data_sets#index'
@@ -11,10 +10,6 @@ Rails.application.routes.draw do
   get '/removed-staff', to: 'staff_directory#removed', defaults: { format: 'text' }
 
   get '/library-events', to: 'library_events#index', defaults: { format: 'csv' }
-
-  authenticate :user do
-    mount Sidekiq::Web => "/sidekiq"
-  end
 
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }, skip: [:passwords, :registration]
   devise_scope :user do
