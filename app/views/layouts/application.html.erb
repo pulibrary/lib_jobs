@@ -6,8 +6,9 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_pack_tag 'application' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= vite_client_tag %>
+    <%= vite_javascript_tag 'application' %>
   </head>
 
   <body class="page">
@@ -23,5 +24,4 @@
       <%= render partial: 'shared/footer' %>
     <section>
   </body>
-  <%= javascript_pack_tag 'application' %>
 </html>
