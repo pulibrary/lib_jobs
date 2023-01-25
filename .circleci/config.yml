@@ -2,6 +2,7 @@
 version: 2.1
 orbs:
   browser-tools: circleci/browser-tools@1.2.4
+  node: circleci/node@5.1.0
 executors:
   lib-jobs-executor:
     docker:
@@ -46,19 +47,9 @@ commands:
   setup-node:
     description: "Install the correct release of NodeJS and install the JavaScript package dependencies"
     steps:
-      - run:
-          name: Install node@lts/erbium (need right version for `yarn`)
-          command: |
-            set +e
-            touch $BASH_ENV
-            curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.5/install.sh | bash
-            echo 'export NVM_DIR="$HOME/.nvm"' >> $BASH_ENV
-            echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' >> $BASH_ENV
-            echo 'nvm install lts/erbium' >> $BASH_ENV
-            echo 'nvm alias default lts/erbium' >> $BASH_ENV
-      - run:
-          name: Check current version of NodeJS
-          command: node -v
+      - node/install:
+          install-yarn: true
+          node-version: '16.19.0'
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
