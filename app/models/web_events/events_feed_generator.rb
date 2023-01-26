@@ -52,16 +52,6 @@ class WebEvents::EventsFeedGenerator < LibJob
     File.join(Rails.configuration.staff_directory['report_directory'], "library_events_#{date_str}.csv")
   end
 
-  def most_recent_dataset
-    data_set = DataSet.where(category: 'EventsFeed')
-                      .order(created_at: :desc)
-                      .limit(1)
-                      .first
-    return unless data_set && File.exist?(data_set.data_file)
-
-    data_set
-  end
-
   def recent_enough?(filename)
     File.mtime(filename) > 1.hour.ago
   end

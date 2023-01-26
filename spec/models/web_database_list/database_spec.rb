@@ -2,12 +2,12 @@
 require 'rails_helper'
 
 RSpec.describe WebDatabaseList::Database, type: :model do
-  describe '#initialize' do
-    let(:databases) do
-      fixtures = JSON.parse(File.read(file_fixture('libguides_databases.json')))
-      fixtures.map { |fixture| described_class.new fixture }
-    end
+  let(:databases) do
+    fixtures = JSON.parse(File.read(file_fixture('libguides_databases.json')))
+    fixtures.map { |fixture| described_class.new fixture }
+  end
 
+  describe '#initialize' do
     it 'retrieves the id from the provided json' do
       expect(databases.first.id).to eq('2938715')
     end
@@ -34,6 +34,23 @@ RSpec.describe WebDatabaseList::Database, type: :model do
       expect(databases.second.subjects).to eq('African Studies')
       expect(databases.third.subjects).to eq('African American Studies;Biographical Sources')
       expect(databases.fourth.subjects).to eq('')
+    end
+  end
+
+  describe '#to_csv_row' do
+    it 'creates a CSV::Row with the correct content' do
+      expect(databases.second.to_csv_row).to eq(
+        CSV::Row.new(
+          [:id, :name, :description, :alt_names, :url, :friendly_url, :subjects],
+          ['2938717',
+           'AfricaBib.org: Africana Periodical Literature',
+           'Free index to articles on a wide range of topics relating to all countries in Africa.   Some of the databases included are: Africana Periodical Literature, African Women\'s literature, Women Travelers, Explorers and Missionaries to Africa, AJOL,  and the Library of Congress’s Quarterly Index of African Periodical Literature.  Searchable by region, country, subject categories, and by keyword.',
+           nil,
+           'http://www.africabib.org/perio.htm',
+           'https://libguides.princeton.edu/resource/11553',
+           'African Studies']
+        )
+      )
     end
   end
 end

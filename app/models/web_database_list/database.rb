@@ -1,9 +1,23 @@
 # frozen_string_literal: true
 
+require 'csv'
+
 class WebDatabaseList::Database
   attr_reader :id, :name, :description, :alt_names, :url, :friendly_url, :subjects
   def initialize(json)
     parse json
+  end
+
+  def to_csv_row
+    row = CSV::Row.new([], [])
+    self.class.field_names.each do |field|
+      row << [field, instance_variable_get("@#{field}")]
+    end
+    row
+  end
+
+  def self.field_names
+    [:id, :name, :description, :alt_names, :url, :friendly_url, :subjects]
   end
 
   private

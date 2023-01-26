@@ -12,6 +12,16 @@ class LibJob
     data_set.status
   end
 
+  def most_recent_dataset
+    data_set = DataSet.where(category: @category)
+                      .order(created_at: :desc)
+                      .limit(1)
+                      .first
+    return unless data_set && File.exist?(data_set.data_file)
+
+    data_set
+  end
+
   # Expect subclass to implement handle to do the actual data set creation
   # def handle(data_set:)
   # end
