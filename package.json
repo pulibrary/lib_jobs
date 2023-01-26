@@ -2,7 +2,6 @@
   "name": "lib_jobs",
   "private": true,
   "dependencies": {
-    "@rails/webpacker": "5.4.3",
     "@vue/cli-plugin-babel": "^4.5.12",
     "babel-core": "^6.26.3",
     "lux-design-system": "^2.0.4",
@@ -26,10 +25,14 @@
     "jest-cli": "^26.6.3",
     "jest-fetch-mock": "^3.0.3",
     "jest-vue-preprocessor": "^1.7.1",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-preset-env": "^6.7.0",
     "prettier-eslint": "^12.0.0",
     "prettier-eslint-cli": "^5.0.1",
-    "vue-jest": "^3.0.7",
-    "webpack-dev-server": "^3.11.0"
+    "sass": "^1.57.1",
+    "vite": "^4.0.0",
+    "vite-plugin-ruby": "^3.1.2",
+    "vue-jest": "^3.0.7"
   },
   "scripts": {
     "prettier": "prettier --check app/javascript/**/*{vue,js} .*js .*json",
