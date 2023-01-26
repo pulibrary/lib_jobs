@@ -137,6 +137,14 @@ jobs:
       - setup-bundler
       - run: bundle exec rubocop
 
+  brakeman:
+    executor: lib-jobs-executor
+    steps:
+      - attach_workspace:
+          at: '~/project'
+      - setup-bundler
+      - run: bundle exec brakeman
+
   prettier-eslint:
     executor: lib-jobs-executor
     steps:
@@ -161,6 +169,9 @@ workflows:
     jobs:
       - build
       - rubocop:
+         requires:
+          - build
+      - brakeman:
          requires:
           - build
       - prettier-eslint:

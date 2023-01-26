@@ -1,0 +1,52 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "5c6e06cf13b6203f13666dfbe7cc0a0eb0f1e36b550488b1ec962ae34beadee0",
+      "check_name": "FileAccess",
+      "message": "Model attribute used in file name",
+      "file": "app/controllers/staff_directory_controller.rb",
+      "line": 15,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "File.new(WebStaff::StaffDirectoryGenerator.report_filename)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "StaffDirectoryController",
+        "method": "removed"
+      },
+      "user_input": "WebStaff::StaffDirectoryGenerator.report_filename",
+      "confidence": "Medium",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
+      "fingerprint": "8b8d4f5473ad09f9adf0d25ebb668964b3e1b1abbb7554ee97d7e72b3c1a0cbc",
+      "check_name": "FileAccess",
+      "message": "Model attribute used in file name",
+      "file": "app/controllers/staff_directory_controller.rb",
+      "line": 16,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "File.new(WebStaff::StaffDirectoryGenerator.yesterday_filename)",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "StaffDirectoryController",
+        "method": "removed"
+      },
+      "user_input": "WebStaff::StaffDirectoryGenerator.yesterday_filename",
+      "confidence": "Medium",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
+    }
+  ],
+  "updated": "2023-01-26 15:17:39 -0800",
+  "brakeman_version": "5.4.0"
+}
