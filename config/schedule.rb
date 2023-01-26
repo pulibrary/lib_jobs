@@ -62,3 +62,8 @@ end
 every '45 * * * *' do
   rake "lib_jobs:generate_events_csv"
 end
+
+# Run every day at 12pm and 6pm
+every 1.day, at: ['12:00 pm', '6:00 pm'], roles: [:prod] do
+  rake " lib_jobs:generate_database_list_csv"
+end

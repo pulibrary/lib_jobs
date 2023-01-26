@@ -10,10 +10,16 @@ namespace :lib_jobs do
     differ.ids
   end
 
-  desc "generate the daily events feed csv"
+  desc "generate the events feed csv"
   task generate_events_csv: [:environment] do
     generator = WebEvents::EventsFeedGenerator.new
     generator.run
+  end
+
+  desc "generate the A-Z database list csv"
+  task generate_database_list_csv: [:environment] do
+    feed = WebDatabaseList::DatabasesFeed.new
+    feed.run
   end
 
   desc "generate the daily alma people feed"

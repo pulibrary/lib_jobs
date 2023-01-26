@@ -21,7 +21,7 @@ module WebDatabaseList
 
     def write_csv_to_disk
       CSV.open(Pathname.new(@report_filename), 'wb') do |csv|
-        csv << Database::field_names
+        csv << Database.field_names
         @database_list.each do |database|
           csv << Database.new(database).to_csv_row
         end

@@ -3,22 +3,18 @@
 require 'rails_helper'
 
 RSpec.describe WebDatabaseList::DatabasesFeed, type: :model do
-  before do
-    stub_request(:get, "https://libcal.princeton.edu/ical_subscribe.php?cid=12260&k=79a5e62a54")
-      .to_return(status: 200, headers: {},
-                 body: File.new(Rails.root.join('spec', 'fixtures', 'files', 'libcal_events.ics')))
-  end
-
   describe('CSV file generation') do
     let(:filename) { Pathname.new(Rails.root.join('tmp', "databases.csv")) }
     let(:first_row) do
-      ["2938715",
-       "Africa Knowledge Project",
-       "Provides access to these journals: JENDa : a journal of culture and African women studies; West Africa review; ProudFlesh : new Afrikan journal of culture, politics and consciousness; Ijele : art ejournal of the African world ; African journal of criminology and justice studies and Journal of African philosophy; and the following databases: Kiswahili story database; African music database and the Biafran War database : Africa's first modern genocide (1967-1970)",
+      ['2938715',
+       'Africa Knowledge Project',
+       'Provides access to these journals: JENDa : a journal of culture and African women studies; West Africa review; ProudFlesh : new Afrikan journal of culture, '\
+       'politics and consciousness; Ijele : art ejournal of the African world ; African journal of criminology and justice studies and Journal of African philosophy; '\
+       'and the following databases: Kiswahili story database; African music database and the Biafran War database : Africa\'s first modern genocide (1967-1970)',
        nil,
-       "http://www.africaknowledgeproject.org",
-       "https://libguides.princeton.edu/resource/5014",
-       "African Studies"]
+       'http://www.africaknowledgeproject.org',
+       'https://libguides.princeton.edu/resource/5014',
+       'African Studies']
     end
     let(:feed) do
       database_list = JSON.parse(File.read(file_fixture('libguides_databases.json')))

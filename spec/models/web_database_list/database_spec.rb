@@ -44,7 +44,10 @@ RSpec.describe WebDatabaseList::Database, type: :model do
           [:id, :name, :description, :alt_names, :url, :friendly_url, :subjects],
           ['2938717',
            'AfricaBib.org: Africana Periodical Literature',
-           'Free index to articles on a wide range of topics relating to all countries in Africa.   Some of the databases included are: Africana Periodical Literature, African Women\'s literature, Women Travelers, Explorers and Missionaries to Africa, AJOL,  and the Library of Congress’s Quarterly Index of African Periodical Literature.  Searchable by region, country, subject categories, and by keyword.',
+           'Free index to articles on a wide range of topics relating to all countries in Africa.   Some of the databases included '\
+           'are: Africana Periodical Literature, African Women\'s literature, Women Travelers, Explorers and Missionaries to Africa, '\
+           'AJOL,  and the Library of Congress’s Quarterly Index of African Periodical Literature.  Searchable by region, country, subject '\
+           'categories, and by keyword.',
            nil,
            'http://www.africabib.org/perio.htm',
            'https://libguides.princeton.edu/resource/11553',
