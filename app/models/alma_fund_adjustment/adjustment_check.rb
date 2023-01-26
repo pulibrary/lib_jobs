@@ -25,7 +25,7 @@ module AlmaFundAdjustment
 
     def process_file(file)
       status = true
-      data = ::CSV.read(file, headers: true)
+      data = read_file(file)
       adjustments = data.map { |row| FundAdjustment.new(row) }
       ids = adjustments.map(&:unique_id)
       already_processed = ids.select { |id| PeoplesoftTransaction.where(transaction_id: id).count.positive? }
@@ -38,6 +38,12 @@ module AlmaFundAdjustment
       end
 
       status
+    end
+
+    def read_file(file)
+      CSVValidator.new(csv_filename: file)
+                  .require_headers(['TRANSACTION_REFERENCE_NUMBER', 'TRANSACTION_NOTE', 'AMOUNT'])
+      CSV.read(file, headers: true)
     end
   end
 end

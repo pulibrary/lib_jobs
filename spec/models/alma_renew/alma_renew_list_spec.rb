@@ -54,6 +54,15 @@ RSpec.describe AlmaRenew::AlmaRenewList, type: :model do
         expect(alma_renew_list.renew_item_list).to be_empty
       end
     end
+
+    context "a list with an incorrect header name" do
+      before do
+        allow(sftp_session).to receive(:download!).with("/alma/scsb_renewals/abc.csv").and_return(Rails.root.join('spec', 'fixtures', 'renew_invalid_headers.csv').read)
+      end
+      it "throws an error" do
+        expect { described_class.new }.to raise_error(CSVValidator::InvalidHeadersError)
+      end
+    end
   end
 
   describe "#mark_files_as_processed" do

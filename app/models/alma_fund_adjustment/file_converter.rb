@@ -19,7 +19,7 @@ module AlmaFundAdjustment
     private
 
     def process_file(path, sftp)
-      data = ::CSV.read(path, headers: true)
+      data = read_file path
       File.rename(path, "#{path}.processed") && return if data.size.zero?
 
       adjustments = data.map { |row| FundAdjustment.new(row).adjusted_row }
@@ -34,6 +34,14 @@ module AlmaFundAdjustment
 
       sftp.upload!(adjusted_file, File.join(alma_fund_adjustment_path, base_name))
       File.rename(path, "#{path}.processed")
+    end
+
+    def read_file(path)
+      data = CSV.read(path, headers: true)
+      return data if data.size.zero?
+      CSVValidator.new(csv_filename: path)
+                  .require_headers(['TRANSACTION_REFERENCE_NUMBER', 'TRANSACTION_NOTE', 'AMOUNT'])
+      data
     end
   end
 end

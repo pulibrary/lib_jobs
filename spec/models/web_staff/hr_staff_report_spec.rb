@@ -48,4 +48,13 @@ RSpec.describe WebStaff::HrStaffReport, type: :model do
       expect(report.last.to_h).to eq(result_hash)
     end
   end
+
+  describe '#people' do
+    context "incorrect CSV headers" do
+      let(:heading_line) { "Campus Address - Country\tPhone\tE-Mail" }
+      it 'throws an error' do
+        expect { report.people }.to raise_error(CSVValidator::InvalidHeadersError)
+      end
+    end
+  end
 end
