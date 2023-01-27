@@ -15,14 +15,6 @@ class WebEvents::EventsFeedGenerator < LibJob
     end
   end
 
-  def read_most_recent_report
-    report_data = ''
-    File.open(most_recent_dataset.data_file) do |file|
-      report_data = file.read
-    end
-    report_data
-  end
-
   private
 
   def handle(data_set:)
@@ -50,16 +42,6 @@ class WebEvents::EventsFeedGenerator < LibJob
   def report_filename
     date_str = Time.zone.now.strftime('%Y%m%d%H%M')
     File.join(Rails.configuration.staff_directory['report_directory'], "library_events_#{date_str}.csv")
-  end
-
-  def most_recent_dataset
-    data_set = DataSet.where(category: 'EventsFeed')
-                      .order(created_at: :desc)
-                      .limit(1)
-                      .first
-    return unless data_set && File.exist?(data_set.data_file)
-
-    data_set
   end
 
   def recent_enough?(filename)

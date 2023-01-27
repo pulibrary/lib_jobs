@@ -1,0 +1,190 @@
+[
+  {
+    "id": "2938715",
+    "name": "Africa Knowledge Project",
+    "description": "Provides access to these journals: JENDa : a journal of culture and African women studies; West Africa review; ProudFlesh : new Afrikan journal of culture, politics and consciousness; Ijele : art ejournal of the African world ; African journal of criminology and justice studies and Journal of African philosophy; and the following databases: Kiswahili story database; African music database and the Biafran War database : Africa's first modern genocide (1967-1970)",
+    "url": "http://www.africaknowledgeproject.org",
+    "site_id": "77",
+    "type_id": "10",
+    "owner_id": "231",
+    "az_vendor_id": "0",
+    "meta": {
+      "target": "0",
+      "enable_proxy": "1",
+      "tn_url": "",
+      "tn_height": "",
+      "tn_width": "",
+      "tn_alt_text": "",
+      "more_info": "",
+      "desc_pos": "1"
+    },
+    "created": "2014-06-13 02:57:45",
+    "updated": "2023-01-25 17:29:18",
+    "slug_id": "2743615",
+    "enable_hidden": "0",
+    "az_vendor_name": null,
+    "subjects": [
+      {
+        "id": "213420",
+        "site_id": "77",
+        "parent_id": "0",
+        "name": "African Studies",
+        "ordering": "0",
+        "slug_id": "2566024",
+        "subject_id": "213420",
+        "content_id": "2938715",
+        "featured": "0",
+        "content_id_count": "1"
+      }
+    ],
+    "friendly_url": "https://libguides.princeton.edu/resource/5014",
+    "internal_note": "",
+    "library_review": "",
+    "alt_names": ""
+  },
+  {
+    "id": "2938717",
+    "name": "AfricaBib.org: Africana Periodical Literature",
+    "description": "Free index to articles on a wide range of topics relating to all countries in Africa.   Some of the databases included are: Africana Periodical Literature, African Women's literature, Women Travelers, Explorers and Missionaries to Africa, AJOL,  and the Library of Congress’s Quarterly Index of African Periodical Literature.  Searchable by region, country, subject categories, and by keyword.",
+    "url": "http://www.africabib.org/perio.htm",
+    "site_id": "77",
+    "type_id": "10",
+    "owner_id": "231",
+    "az_vendor_id": "0",
+    "meta": {
+      "target": "0",
+      "enable_proxy": "1",
+      "tn_url": "",
+      "tn_height": "",
+      "tn_width": "",
+      "more_info": "",
+      "desc_pos": "1",
+      "tn_alt_text": ""
+    },
+    "created": "2014-06-13 02:57:45",
+    "updated": "2023-01-25 17:29:18",
+    "slug_id": "2743616",
+    "enable_hidden": "0",
+    "az_vendor_name": null,
+    "subjects": [
+      {
+        "id": "213420",
+        "site_id": "77",
+        "parent_id": "0",
+        "name": "African Studies",
+        "ordering": "0",
+        "slug_id": "2566024",
+        "subject_id": "213420",
+        "content_id": "2938717",
+        "featured": "0",
+        "content_id_count": "1"
+      }
+    ],
+    "friendly_url": "https://libguides.princeton.edu/resource/11553",
+    "internal_note": "",
+    "library_review": "",
+    "alt_names": ""
+  },
+  {
+    "id": "2938718",
+    "name": "African American Biographical Database",
+    "description": "Biographical profiles & extended narratives of African-Americans from all walks of life. Many profiles include photographs & illustrations, and there is a rich collection of full-text African-American reference works.",
+    "url": "http://aabd.chadwyck.com/",
+    "site_id": "77",
+    "type_id": "10",
+    "owner_id": "231",
+    "az_vendor_id": "128865",
+    "meta": {
+      "target": "0",
+      "enable_proxy": "1",
+      "desc_pos": "1"
+    },
+    "created": "2014-06-13 02:57:45",
+    "updated": "2023-01-25 17:29:18",
+    "slug_id": "2743617",
+    "enable_hidden": "0",
+    "az_vendor_name": "Chadwyck Resources",
+    "subjects": [
+      {
+        "id": "213328",
+        "site_id": "77",
+        "parent_id": "0",
+        "name": "African American Studies",
+        "ordering": "0",
+        "slug_id": "2556818",
+        "subject_id": "213328",
+        "content_id": "2938718",
+        "featured": "0",
+        "content_id_count": "1"
+      },
+      {
+        "id": "214520",
+        "site_id": "77",
+        "parent_id": "0",
+        "name": "Biographical Sources",
+        "ordering": "0",
+        "slug_id": "2580058",
+        "subject_id": "214520",
+        "content_id": "2938718",
+        "featured": "0",
+        "content_id_count": "1"
+      }
+    ],
+    "friendly_url": "https://libguides.princeton.edu/resource/3561",
+    "internal_note": null,
+    "library_review": "",
+    "alt_names": ""
+  },
+  {
+    "id": "2938725",
+    "name": "African American Song",
+    "description": "Documents the history of African American music in an online music listening service. Contains a diverse range of genres such as jazz, blues, gospel, ragtime, folk songs, and narratives, among others.",
+    "url": "https://library.princeton.edu/resource/4295",
+    "site_id": "77",
+    "type_id": "10",
+    "owner_id": "231",
+    "az_vendor_id": "0",
+    "meta": {
+      "target": "0",
+      "enable_proxy": "0",
+      "desc_pos": ""
+    },
+    "created": "2014-06-13 02:57:45",
+    "updated": "2018-10-25 23:53:56",
+    "slug_id": "0",
+    "enable_hidden": "0",
+    "az_vendor_name": null,
+    "internal_note": null,
+    "library_review": "",
+    "alt_names": ""
+  },
+  {
+    "id": "2938690",
+    "name": "18th Century German Literature Online; Deutsche Literatur des 18. Jahrhunderts Online; Eighteenth Century German Literature Online",
+    "description": "Includes first editions and first published complete editions of more than 600 German-speaking authors of the 18th century. The approximately 2,700 works reflect the broad spectrum of German literature from the early stages of the age of Enlightenment to the later part of the period.",
+    "url": "http://db.saur.de/DLO/autologin?user=princeton",
+    "site_id": "77",
+    "type_id": "10",
+    "owner_id": "231",
+    "az_vendor_id": "130772",
+    "meta": {
+      "target": "0",
+      "enable_proxy": "1",
+      "desc_pos": "1",
+      "tn_url": "",
+      "tn_height": "",
+      "tn_width": "",
+      "tn_alt_text": "",
+      "more_info": ""
+    },
+    "created": "2014-06-13 02:57:45",
+    "updated": "2023-01-25 17:29:12",
+    "slug_id": "2730086",
+    "enable_hidden": "0",
+    "az_vendor_name": "De Gruyter/Saur",
+    "friendly_url": "https://libguides.princeton.edu/resource/4856",
+    "internal_note": "",
+    "library_review": "",
+    "alt_names": "Deutsche Literatur des 18. Jahrhunderts Online; Eighteenth Century German Literature Online"
+  }
+]
