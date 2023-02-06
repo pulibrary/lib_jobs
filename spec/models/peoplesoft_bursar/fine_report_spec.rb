@@ -48,4 +48,13 @@ RSpec.describe PeoplesoftBursar::FineReport, type: :model do
       expect(data).to eq(fine_report.to_s)
     end
   end
+
+  describe "#list" do
+    context "when CSV is missing required headers" do
+      it "throws an error" do
+        allow(sftp_session).to receive(:download!).with("/alma/bursar/abc.csv").and_return(Rails.root.join('spec', 'fixtures', 'bursar_fine_invalid_headers.csv').read)
+        expect { described_class.new }.to raise_error(CSVValidator::InvalidHeadersError)
+      end
+    end
+  end
 end

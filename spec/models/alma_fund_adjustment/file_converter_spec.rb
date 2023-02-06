@@ -97,6 +97,15 @@ RSpec.describe AlmaFundAdjustment::FileConverter, type: :model do
       end
     end
 
+    context "file with incorrect headers" do
+      it "throws an error" do
+        allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
+        FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions_invalid_headers.csv'), '/tmp/test_alma_1.csv')
+
+        expect { expect(fund_adjustment.run) }.to raise_error(CSVValidator::InvalidHeadersError)
+      end
+    end
+
     context "no files" do
       it "notes that nothing was processed" do
         allow(Net::SFTP).to receive(:start).and_yield(sftp_session)

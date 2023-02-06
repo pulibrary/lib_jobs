@@ -16,6 +16,11 @@ module PeoplesoftBursar
 
     def parse_list(data)
       list = []
+      CSVValidator.new(csv_string: data)
+                  .require_headers([
+                                     'Transaction Amount', 'Primary Identifier', 'Fine Fee Id',
+                                     'Fine Fee Type', 'Transaction Date'
+                                   ])
       CSV.parse(data.delete_prefix("\uFEFF"), headers: true) do |row|
         list << Fine.new(amount: BigDecimal(row['Transaction Amount']),
                          patron_id: row['Primary Identifier'],

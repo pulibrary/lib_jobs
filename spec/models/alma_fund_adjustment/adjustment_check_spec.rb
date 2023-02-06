@@ -41,5 +41,12 @@ RSpec.describe AlmaFundAdjustment::AdjustmentCheck, type: :model do
         expect { expect(adjustment_check.run).to be_truthy }
       end
     end
+    context "with a file with invalid headers" do
+      it "throws an error" do
+        FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions_invalid_headers.csv'), '/tmp/test_alma_1.csv')
+
+        expect { adjustment_check.run }.to raise_error(CSVValidator::InvalidHeadersError)
+      end
+    end
   end
 end

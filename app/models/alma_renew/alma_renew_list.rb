@@ -35,6 +35,7 @@ module AlmaRenew
           next unless /#{file_pattern}/.match?(entry.name)
           filename = File.join(input_ftp_base_dir, entry.name)
           data = sftp.download!(filename)
+          CSVValidator.new(csv_string: data).require_headers ['Barcode', 'Patron Group', 'Expiry Date', 'Primary Identifier']
           CSV.parse(data.delete_prefix(BOM), headers: true) do |row|
             renew_item_list << Item.new(row.to_h)
           end

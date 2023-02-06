@@ -33,6 +33,12 @@ module WebStaff
 
     def csv
       return if @hr_data.nil?
+      CSVValidator.new(csv_string: @hr_data, col_sep: "\t")
+                  .require_headers([
+                                     'EID', 'Net ID', 'E-Mail', 'Department Long Name',
+                                     'Title', 'Register Title', 'Last Name', 'First Name',
+                                     'Nick Name', 'Middle Name'
+                                   ])
       @csv ||=
         ::CSV.new(@hr_data, col_sep: "\t", headers: true)
     end
