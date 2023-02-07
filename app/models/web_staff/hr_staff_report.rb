@@ -37,7 +37,7 @@ module WebStaff
                   .require_headers([
                                      'EID', 'Net ID', 'E-Mail', 'Department Long Name',
                                      'Title', 'Register Title', 'Last Name', 'First Name',
-                                     'Nick Name', 'Middle Name'
+                                     'Middle Name'
                                    ])
       @csv ||=
         ::CSV.new(@hr_data, col_sep: "\t", headers: true)
