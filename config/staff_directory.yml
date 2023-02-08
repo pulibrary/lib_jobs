@@ -1,35 +1,19 @@
 production:
-  finance_db_host: <%= ENV['FINANCE_DATABASE_HOST'] %>
-  finance_db_port: <%= ENV['FINANCE_DATABASE_PORT'] || '1433' %>
-  finance_db_user: <%= ENV['FINANCE_DATABASE_USER'] %>
-  finance_db_password: <%= ENV['FINANCE_DATABASE_PASS'] %>
   hr_staff_report_location: <%= ENV['HR_STAFF_REPORT_LOCATION'] || '/mnt/dms-smbserve/bi-library-hr/prod/Department Absence Manager Report - Library-en.csv' %>
   report_directory: <%= ENV['STAFF_REPORT_DIRECTORY'] %>
   report_name: 'staff-directory'
   difference_name: 'staff-differences'
 staging:
-  finance_db_host: <%= ENV['FINANCE_DATABASE_HOST'] %>
-  finance_db_port: <%= ENV['FINANCE_DATABASE_PORT'] || '1433' %>
-  finance_db_user: <%= ENV['FINANCE_DATABASE_USER'] %>
-  finance_db_password: <%= ENV['FINANCE_DATABASE_PASS'] %>
   hr_staff_report_location: <%= ENV['HR_STAFF_REPORT_LOCATION'] || '/mnt/dms-smbserve/bi-library-hr/prod/Department Absence Manager Report - Library-en.csv' %>
   report_directory: <%= ENV['STAFF_REPORT_DIRECTORY'] %>
   report_name: 'staff-directory'
   difference_name: 'staff-differences'
 development:
-  finance_db_host: <%= ENV['FINANCE_DATABASE_HOST'] || 'abc' %>
-  finance_db_port: <%= ENV['FINANCE_DATABASE_PORT'] || '1433' %>
-  finance_db_user: <%= ENV['FINANCE_DATABASE_USER'] %>
-  finance_db_password: <%= ENV['FINANCE_DATABASE_PASS'] %>
   hr_staff_report_location: <%= ENV['HR_STAFF_REPORT_LOCATION'] || './Department Absence Manager Report - Library-en.csv' %>
   report_directory: <%= Rails.root.join('tmp') %>
   report_name: 'staff-directory'
   difference_name: 'staff-differences'
 test:
-  finance_db_host: finance_db_host
-  finance_db_port: 1433
-  finance_db_user: finance_db_user
-  finance_db_password: finance_db_password
   hr_staff_report_location: hr_staff_report_location
   report_directory: <%= Rails.root.join('tmp') %>
   report_name: 'staff-directory-test'

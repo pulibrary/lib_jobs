@@ -1,11 +1,8 @@
 # frozen_string_literal: true
 class StaffDirectoryController < ApplicationController
-  class_attribute :finance_report, default: {}
-
   def index
-    finance_report = WebStaff::FinanceReport.new
     hr_report = WebStaff::HrStaffReport.new
-    generator = WebStaff::StaffDirectoryGenerator.new(finance_report:, hr_report:)
+    generator = WebStaff::StaffDirectoryGenerator.new(hr_report:)
     respond_to do |format|
       format.csv { send_data generator.today, filename: "staff-directory.csv" }
     end

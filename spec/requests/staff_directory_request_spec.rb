@@ -2,8 +2,6 @@
 require 'rails_helper'
 
 RSpec.describe "StaffDirectories", type: :request do
-  let(:adapter) { instance_double(WebStaff::FinanceReportTinyTdsAdapter) }
-  let(:finance_report) { instance_double(WebStaff::FinanceReport) }
   let(:hr_report) { instance_double(WebStaff::HrStaffReport) }
   let(:generator) { instance_double(WebStaff::StaffDirectoryGenerator, today: 'abc') }
   let(:new_report) { instance_double(File) }
@@ -12,9 +10,8 @@ RSpec.describe "StaffDirectories", type: :request do
 
   describe "staff-directory" do
     before do
-      allow(WebStaff::FinanceReport).to receive(:new).and_return(finance_report)
       allow(WebStaff::HrStaffReport).to receive(:new).and_return(hr_report)
-      allow(WebStaff::StaffDirectoryGenerator).to receive(:new).with(finance_report:, hr_report:).and_return(generator)
+      allow(WebStaff::StaffDirectoryGenerator).to receive(:new).with(hr_report:).and_return(generator)
     end
     it "returns the staff directory" do
       get "/staff-directory.csv"

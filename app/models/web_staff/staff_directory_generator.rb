@@ -12,10 +12,9 @@ module WebStaff
       report_filename(date: Time.zone.yesterday)
     end
 
-    attr_reader :finance_report, :hr_report, :report_filename
-    def initialize(finance_report:, hr_report:)
+    attr_reader :hr_report, :report_filename
+    def initialize(hr_report:)
       super(category: "StaffDirectory")
-      @finance_report = finance_report
       @hr_report = hr_report
       @report_filename = self.class.report_filename
     end
