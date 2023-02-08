@@ -13,7 +13,7 @@ If you need to generate the CSV output locally:
     scp deploy@lib-jobs-prod1:/opt/lib-jobs/shared/staff-directory_[YESTERDAY].csv tmp/
     ````
 1. If you have run the rake task previously today, `rm tmp/staff-directory_[TODAY].csv`.  This rake task doesn't run if there's already a data set entry for today and the file is in place. 
-1. `HR_STAFF_REPORT_LOCATION=tmp/hr-resport.csv bundle exec rake lib_jobs:generate_staff_report`
+1. `HR_STAFF_REPORT_LOCATION=tmp/hr-report.csv bundle exec rake lib_jobs:generate_staff_report`
 1. Wait a while, the report can take some time to process.
 1. Review your output at `tmp/staff-directory_[TODAY].csv`.
 
