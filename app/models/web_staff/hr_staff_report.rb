@@ -32,6 +32,7 @@ module WebStaff
     end
 
     def csv
+      return @csv if @csv
       return if @hr_data.nil?
       CSVValidator.new(csv_string: @hr_data, col_sep: "\t")
                   .require_headers([

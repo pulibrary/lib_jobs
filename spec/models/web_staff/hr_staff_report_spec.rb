@@ -56,5 +56,10 @@ RSpec.describe WebStaff::HrStaffReport, type: :model do
         expect { report.people }.to raise_error(CSVValidator::InvalidHeadersError)
       end
     end
+    it "reads the CSV file's data once for validation and once for reading" do
+      allow(CSV).to receive(:new).and_call_original
+      report.people
+      expect(CSV).to have_received(:new).twice
+    end
   end
 end
