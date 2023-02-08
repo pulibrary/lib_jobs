@@ -2,6 +2,10 @@
 
 require 'rails_helper'
 
+RSpec::Matchers.define :an_io_with_contents do
+  match { |actual| !actual.closed? && !actual.eof? }
+end
+
 RSpec.describe WebStaff::HrStaffReport, type: :model do
   # rubocop:disable Layout/LineLength
   let(:heading_line) { "Department Number\tDepartment Name\tDepartment Long Name\tBsns Unit\tEID\tFirst Name\tMiddle Name\tLast Name\tNick Name\tNet ID\tPaid\tReg/Temp - Description\tPos #\tTitle\tRegister Title\tAbsence Manager\tManager Net ID\tPosition Number\tCampus Address - Address 1\tCampus Address - Address 2\tCampus Address - Address 3\tCampus Address - City\tCampus Address - State\tCampus Address - Postal Code\tCampus Address - Country\tPhone\tE-Mail" }
@@ -54,6 +58,21 @@ RSpec.describe WebStaff::HrStaffReport, type: :model do
       let(:heading_line) { "Campus Address - Country\tPhone\tE-Mail" }
       it 'throws an error' do
         expect { report.people }.to raise_error(CSVValidator::InvalidHeadersError)
+      end
+    end
+    it "reads the CSV file's data once for validation and once for reading" do
+      allow(CSV).to receive(:new).and_call_original
+      report.people
+      expect(CSV).to have_received(:new).twice
+    end
+  end
+  describe '#csv' do
+    context "when reading from an IO" do
+      let(:hr_data) { StringIO.new "#{heading_line}\n#{user_line}" }
+      it "passes an IO suitable for reading to the CSV class" do
+        allow(CSV).to receive(:new).and_call_original
+        report.csv
+        expect(CSV).to have_received(:new).with(an_io_with_contents, anything).twice
       end
     end
   end
