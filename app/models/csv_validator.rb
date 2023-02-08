@@ -6,7 +6,7 @@ class CSVValidator
     raise ArgumentError, 'csv_string and csv_filename are mutually exclusive' if csv_string && csv_filename
     raise ArgumentError, 'must supply csv_string or csv_filename' if csv_string.nil? && csv_filename.nil?
     if csv_string
-      @data = CSV.parse(csv_string, headers: true, col_sep:)
+      @data = CSV.new(csv_string, headers: true, col_sep:).read
       @csv_filename = 'In-memory string'
     else
       @data = CSV.read(csv_filename, headers: true, col_sep:)

@@ -40,6 +40,7 @@ module WebStaff
                                      'Title', 'Register Title', 'Last Name', 'First Name',
                                      'Middle Name'
                                    ])
+      @hr_data.rewind if @hr_data.respond_to? :rewind
       @csv ||=
         ::CSV.new(@hr_data, col_sep: "\t", headers: true)
     end
