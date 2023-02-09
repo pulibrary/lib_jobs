@@ -47,11 +47,10 @@ module WebStaff
     end
 
     def convert_name
-      hash["Name"] = "#{hr_person['Last Name']}, #{hr_person['Nick Name'] || hr_person['First Name']}"
+      hash["Name"] = "#{hr_person['Last Name']}, #{hr_person['First Name']}"
       hash['lastName'] = hr_person["Last Name"]
       hash['firstName'] = hr_person["First Name"]
       hash['middleName'] = hr_person["Middle Name"]
-      hash["nickName"] = hr_person["Nick Name"] || hr_person["First Name"]
     end
 
     def convert_phone

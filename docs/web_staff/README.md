@@ -5,10 +5,10 @@
 
 ```mermaid
 sequenceDiagram
-    PeopleSoft->>HR Reports Share: writes Department Absence Manager Report (6am Princeton time Daily)
+    PeopleSoft->>HR Reports Share: writes Active Library Staff Report (6am Princeton time Daily)
 
     Library Website->>+Lib Jobs: get staff updates (6:30am Princeton time Daily)
-    Lib Jobs->>HR Reports Share: read Department Absence Manager Report
+    Lib Jobs->>HR Reports Share: read Active Library Staff Report
     Lib Jobs-->>-Library Website: responds with csv 
     Library Website->>Library Website: saves csv to feeds directory
     Library Website->>Library Website: PUL library staff Importer (every 12 hours)
