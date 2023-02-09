@@ -12,31 +12,6 @@ RSpec.describe WebStaff::StaffDirectoryGenerator, type: :model do
   let(:hr_data) { "#{heading_line}\n#{user1_line}\n#{user2_line}\n#{user3_line}" }
   let(:hr_report) { WebStaff::HrStaffReport.new(hr_data:) }
 
-  let(:finance_report1) do
-    { 'idStaff' => 111, 'PUID' => '999999999', 'NetID' => 'testi', 'Phone' => '111-222-333', "Name" => 'Am, Test', 'lastName' => 'Am', 'firstName' => 'Test', 'middleName' => 'I',
-      'nickName' => 'Tester', 'Title' => 'The Great Assistant', 'LibraryTitle' => 'The Great Library Assistant', 'LongTitle' => 'The Great Assistant Is Longer', 'Email' => 'testi@princeton.edu',
-      'Section' => 'section from DB', 'Division' => 'Division from DB', 'Department' => 'Lib-Research Coll & Presr', 'StartDate' => Time.zone.parse('2019-04-15 00:00:00 -0400'),
-      'StaffSort' => 10_000, 'UnitSort' => 1_000, 'DeptSort' => 10, 'Unit' => nil, 'DivSect' => 'Division from DB  section from DB', 'FireWarden' => false, 'BackupFireWarden' => false,
-      'FireWardenNotes' => nil, 'Office' => 'B-18', 'Building' => 'Firestone' }
-  end
-  let(:finance_report2) do
-    new_result = finance_report1.dup
-    new_result['NetID'] = 'testii'
-    new_result['Email'] = 'testii@princeton.edu'
-    new_result['middleName'] = 'II'
-    new_result['PUID'] = '999999998'
-    new_result
-  end
-  let(:finance_report3) do
-    new_result = finance_report1.dup
-    new_result['NetID'] = 'testiii'
-    new_result['Email'] = 'testiii@princeton.edu'
-    new_result['middleName'] = 'III'
-    new_result['PUID'] = '999999997'
-    new_result
-  end
-  let(:finance_report) { instance_double(WebStaff::FinanceReport) }
-
   # these are actual lines in the file, so lets ignore rubocop an keep them together
   # rubocop:disable Layout/LineLength
   let(:report_header)  { '"PUID","NetID","Phone","Name","lastName","firstName","middleName","nickName","Title","LibraryTitle","LongTitle","Email","Section","Division","Department","StartDate","StaffSort","UnitSort","DeptSort","Unit","DivSect","FireWarden","BackupFireWarden","FireWardenNotes","Office","Building"' }
@@ -51,7 +26,7 @@ RSpec.describe WebStaff::StaffDirectoryGenerator, type: :model do
     "Department Number	Department Name	Bsns Unit	EID	Net ID	Last Name	First Name	Middle Name	Paid	Reg/Temp - Description	Pos #	Title	Absence Manager	Manager Net ID	Position Number\n" \
     "10001	Test Department Long Cons	PUHRS	999999999	foid	Smith	Jane	Biw	R=BenElig	00006823	The Great Assistant	Myers,Cory Andrew	corym	00008179\n"
   end
-  let(:generator) { described_class.new(finance_report:, hr_report:) }
+  let(:generator) { described_class.new(hr_report:) }
 
   before do
     allow(WebStaff::Ldap).to receive(:find_by_netid).with('testi').and_return({ email: 'testi@princeton.edu', address: 'B-1H-1 Firestone', telephone: '111-222-3333',

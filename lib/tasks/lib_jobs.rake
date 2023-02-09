@@ -2,7 +2,7 @@
 namespace :lib_jobs do
   desc "generate the daily staff report"
   task generate_staff_report: [:environment] do
-    generator = WebStaff::StaffDirectoryGenerator.new(finance_report: WebStaff::FinanceReport.new, hr_report: WebStaff::HrStaffReport.new)
+    generator = WebStaff::StaffDirectoryGenerator.new(hr_report: WebStaff::HrStaffReport.new)
     generator.today
     today_report = File.new(WebStaff::StaffDirectoryGenerator.report_filename)
     yesterday_report = File.new(WebStaff::StaffDirectoryGenerator.yesterday_filename)
