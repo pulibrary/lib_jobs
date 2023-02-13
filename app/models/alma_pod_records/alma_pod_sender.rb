@@ -4,10 +4,9 @@ require 'net/http/post/multipart'
 
 module AlmaPodRecords
   class AlmaPodSender
-    def initialize(filename:, access_token: ENV['POD_ACCESS_TOKEN'], compressed: false)
+    def initialize(filename:, access_token: ENV['POD_ACCESS_TOKEN'])
       @filename = filename
       @access_token = access_token
-      @compressed = compressed
     end
 
     def send_to_pod
@@ -33,11 +32,7 @@ module AlmaPodRecords
     end
 
     def stream
-      if @compressed
-        LibJobs.config[:pod_test_stream]
-      else
-        LibJobs.config[:pod_default_stream]
-      end
+      LibJobs.config[:pod_default_stream]
     end
 
     def log_response(response)

@@ -33,19 +33,8 @@ RSpec.describe AlmaPodRecords::AlmaPodSender, type: :model do
     end
   end
 
-  context 'with an uncompressed file' do
-    it 'includes the default stream' do
-      params = sender.send(:parameters)
-      expect(params.keys).to include(:'upload[files][]')
-      expect(params[:'upload[files][]'].content_type).to eq("application/marcxml+xml")
-      expect(params.keys).to include(:'upload[name]')
-      expect(params.keys).to include(:stream)
-      expect(params[:stream]).to eq('production')
-    end
-  end
-
   context 'with a compressed file' do
-    let(:sender) { described_class.new(filename: file_fixture('marcxml_no_namespaces.xml').to_s, access_token: token, compressed: true) }
+    let(:sender) { described_class.new(filename: file_fixture('marcxml_no_namespaces.xml').to_s, access_token: token) }
 
     it 'includes the test stream' do
       params = sender.send(:parameters)
@@ -53,7 +42,7 @@ RSpec.describe AlmaPodRecords::AlmaPodSender, type: :model do
       expect(params[:'upload[files][]'].content_type).to eq("application/marcxml+xml")
       expect(params.keys).to include(:'upload[name]')
       expect(params.keys).to include(:stream)
-      expect(params[:stream]).to eq('princeton-test-set')
+      expect(params[:stream]).to eq('princeton-prod-0223')
     end
   end
 end
