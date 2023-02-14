@@ -14,7 +14,7 @@ executors:
           BUNDLE_PATH: vendor/bundle
           RAILS_ENV: test
           lando_libjobs_database_creds_user: "libjobs"
-      - image: postgres:10.6-alpine
+      - image: postgres:13.10-alpine
         environment:
           POSTGRES_USER: libjobs
           POSTGRES_DB: libjobs_test
