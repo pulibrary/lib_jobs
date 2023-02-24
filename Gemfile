@@ -31,7 +31,6 @@ gem 'net-ldap'
 gem 'bootsnap', '>= 1.1.0', require: false
 
 gem "honeybadger", "~> 4.0"
-gem 'tiny_tds'
 
 group :development, :test do
   gem 'bixby'
