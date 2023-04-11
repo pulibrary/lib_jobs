@@ -34,12 +34,24 @@ RSpec.describe WebDatabaseList::DatabasesFeed, type: :model do
 
     it 'the CSV file has a header row and one row for each database' do
       feed.run
-      expect(CSV.read(filename).length).to eq(6)
+      expect(CSV.read(filename).length).to eq(5)
     end
 
     it 'the first row of data is correct' do
       feed.run
       expect(CSV.read(filename).second).to eq(first_row)
+    end
+
+    it 'skips rows that do not have a friendly_url' do
+      feed.run
+      records = CSV.read(filename)
+      expect(records.select { |record| record.include?("African American Song") }).to be_empty
+    end
+
+    it 'logs skipped rows' do
+      allow(Rails.logger).to receive(:warn)
+      feed.run
+      expect(Rails.logger).to have_received(:warn).once.with("Skipping database without friendly_url. Database id: 2938725, Database name: African American Song")
     end
 
     context 'when run at a particular time' do

@@ -23,6 +23,10 @@ module WebDatabaseList
       CSV.open(Pathname.new(@report_filename), 'wb') do |csv|
         csv << Database.field_names
         @database_list.each do |database|
+          if database["friendly_url"].blank?
+            Rails.logger.warn("Skipping database without friendly_url. Database id: #{database['id']}, Database name: #{database['name']}")
+            next
+          end
           csv << Database.new(database).to_csv_row
         end
       end
