@@ -203,11 +203,11 @@ GEM
       net-protocol
     net-ssh (6.1.0)
     nio4r (2.5.8)
-    nokogiri (1.14.1-arm64-darwin)
+    nokogiri (1.14.3-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.14.1-x86_64-darwin)
+    nokogiri (1.14.3-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.14.1-x86_64-linux)
+    nokogiri (1.14.3-x86_64-linux)
       racc (~> 1.4)
     omniauth (1.9.2)
       hashie (>= 3.4.6)
@@ -443,7 +443,7 @@ DEPENDENCIES
   multipart-post
   net-ldap
   net-sftp
-  nokogiri (~> 1.13)
+  nokogiri (~> 1.14)
   omniauth (~> 1.9)
   omniauth-cas
   pg
