@@ -12,6 +12,10 @@ Rails.application.routes.draw do
   get '/library-events', to: 'library_events#index', defaults: { format: 'csv' }
   get '/library-databases', to: 'library_databases#index', defaults: { format: 'csv' }
 
+  resources :download, :file => /([^\/\?])+/
+  get '/open-marc-records', to: 'open_marc_records#index'
+  get '/open-marc-records/download/:file', to: 'open_marc_records#download'
+
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }, skip: [:passwords, :registration]
   devise_scope :user do
     get "sign_out", to: "devise/sessions#destroy", as: :destroy_user_session

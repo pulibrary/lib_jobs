@@ -1,0 +1,10 @@
+<div>
+  <h1>PUL Open Dataset Download</h1>
+  <ul>
+    <% @data_dumps.each do |data_dump| %>
+      <li>
+        <%= link_to data_dump, "open-marc-records/download/#{data_dump}" %>
+      </li>
+    <% end %>
+  </ul>
+</div>
