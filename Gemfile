@@ -79,7 +79,7 @@ gem 'foreman'
 gem 'jwt'
 gem 'multipart-post'
 gem 'net-sftp'
-gem 'nokogiri', "~> 1.13"
+gem 'nokogiri', "~> 1.14"
 gem "omniauth", "~> 1.9"
 gem 'omniauth-cas'
 gem 'pg'
