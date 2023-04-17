@@ -29,6 +29,7 @@ development:
 
 test:
   <<: *defaults
+  open_marc_records_location: "spec/fixtures/open_marc_records"
 
 production: &production
   <<: *defaults

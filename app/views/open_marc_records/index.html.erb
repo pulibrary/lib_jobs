@@ -1,9 +1,9 @@
 <div>
   <h1>PUL Open Dataset Download</h1>
   <ul>
-    <% @data_dumps.each do |data_dump| %>
+    <% @data_dumps.each do |value, index| %>
       <li>
-        <%= link_to data_dump, "open-marc-records/download/#{data_dump}" %>
+        <%= link_to value, "open-marc-records/download/#{index}" %>
       </li>
     <% end %>
   </ul>

@@ -1,12 +1,10 @@
 # frozen_string_literal: true
 class OpenMarcRecordsController < ApplicationController
   def index
-    @data_dumps = Dir.children(LibJobs.config[:open_marc_records_location])
+    @data_dumps = OpenMarcRecord.data_dumps.map.with_index.to_h
   end
 
   def download
-    file = Rails.root.join(LibJobs.config[:open_marc_records_location], "#{params[:file]}.#{params[:format]}")
-    raise ActiveRecord::RecordNotFound and return unless File.exists?(file)
-    send_file(file)
+    send_file(OpenMarcRecord.file_path(params[:index]))
   end
 end
