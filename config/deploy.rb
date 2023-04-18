@@ -26,7 +26,7 @@ set :deploy_to, "/opt/lib-jobs"
 
 # Default value for linked_dirs is []
 # append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
-set linked_dirs, %w[open_marc_records]
+set :linked_dirs, %w[open_marc_records]
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
