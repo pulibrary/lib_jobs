@@ -3,11 +3,34 @@
     {
       "warning_type": "File Access",
       "warning_code": 16,
+      "fingerprint": "0312843353fad0308e361f90c99da81028cd063258ff0339d836ba0c8b95ed77",
+      "check_name": "SendFile",
+      "message": "Model attribute used in file name",
+      "file": "app/controllers/open_marc_records_controller.rb",
+      "line": 8,
+      "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
+      "code": "send_file(OpenMarcRecord.file_path(params[:index]))",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "OpenMarcRecordsController",
+        "method": "download"
+      },
+      "user_input": "OpenMarcRecord.file_path(params[:index])",
+      "confidence": "Medium",
+      "cwe_id": [
+        22
+      ],
+      "note": "File is accessed via index on a list of files in a known directory"
+    },
+    {
+      "warning_type": "File Access",
+      "warning_code": 16,
       "fingerprint": "5c6e06cf13b6203f13666dfbe7cc0a0eb0f1e36b550488b1ec962ae34beadee0",
       "check_name": "FileAccess",
       "message": "Model attribute used in file name",
       "file": "app/controllers/staff_directory_controller.rb",
-      "line": 15,
+      "line": 12,
       "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
       "code": "File.new(WebStaff::StaffDirectoryGenerator.report_filename)",
       "render_path": null,
@@ -30,7 +53,7 @@
       "check_name": "FileAccess",
       "message": "Model attribute used in file name",
       "file": "app/controllers/staff_directory_controller.rb",
-      "line": 16,
+      "line": 13,
       "link": "https://brakemanscanner.org/docs/warning_types/file_access/",
       "code": "File.new(WebStaff::StaffDirectoryGenerator.yesterday_filename)",
       "render_path": null,
@@ -47,6 +70,6 @@
       "note": ""
     }
   ],
-  "updated": "2023-01-26 15:17:39 -0800",
+  "updated": "2023-04-17 09:29:03 -0500",
   "brakeman_version": "5.4.0"
 }

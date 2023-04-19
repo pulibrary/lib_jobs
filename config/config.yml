@@ -22,11 +22,14 @@ defaults: &defaults
   libguides_client_id: <%= ENV["LIBGUIDES_CLIENT_ID"] || "630" %>
   libguides_client_secret: <%= ENV["LIBGUIDES_CLIENT_SECRET"] %>
 
+  open_marc_records_location: <%= ENV["OPEN_MARC_RECORDS_LOCATION"] || "spec/fixtures/open_marc_records" %>
+
 development:
   <<: *defaults
 
 test:
   <<: *defaults
+  open_marc_records_location: "spec/fixtures/open_marc_records"
 
 production: &production
   <<: *defaults
