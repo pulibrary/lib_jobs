@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<bibs total_record_count="2">
+    <bib>
+        <mms_id>9933584373506421</mms_id>
+        <record_format>marc21</record_format>
+        <linked_record_id />
+        <title>Presse scientifiques des deux mondes revue universelle du mouvement des sciences
+            pures et appliquées.</title>
+        <network_numbers>
+            <network_number>(NjP)3358437-princetondb</network_number>
+            <network_number>3358437</network_number>
+            <network_number>(OCoLC)ocm15232721</network_number>
+        </network_numbers>
+        <place_of_publication>Paris :</place_of_publication>
+        <date_of_publication>1860-1865.</date_of_publication>
+        <publisher_const>Aux Bureaux de Cercle de la press scientifique a l'imprimerie de Dubuisson
+            et cie,</publisher_const>
+        <holdings
+            link="https://api-na.hosted.exlibrisgroup.com/almaws/v1/bibs/9933584373506421/holdings" />
+        <created_by>import</created_by>
+        <created_date>2021-07-13Z</created_date>
+        <last_modified_by>920227301</last_modified_by>
+        <last_modified_date>2022-11-22Z</last_modified_date>
+        <suppress_from_publishing>false</suppress_from_publishing>
+        <suppress_from_external_search>false</suppress_from_external_search>
+        <suppress_from_metadoor>false</suppress_from_metadoor>
+        <rank>52</rank>
+        <sync_with_oclc>BIBS</sync_with_oclc>
+        <sync_with_libraries_australia>NONE</sync_with_libraries_australia>
+        <originating_system>ILS</originating_system>
+        <originating_system_id>3358437-princetondb</originating_system_id>
+        <cataloging_level desc="Default Level">00</cataloging_level>
+        <brief_level desc="08">08</brief_level>
+        <record>
+            <leader>01107cas a2200277Ia 4500</leader>
+            <controlfield tag="001">9933584373506421</controlfield>
+            <controlfield tag="005">20221122101044.0</controlfield>
+            <controlfield tag="007">hd#afb---buca</controlfield>
+            <controlfield tag="008">870224d18601865fr fr p a 0 b0fre d</controlfield>
+            <datafield ind1=" " ind2=" " tag="035">
+                <subfield code="a">(OCoLC)ocm15232721</subfield>
+            </datafield>
+            <datafield ind1=" " ind2=" " tag="035">
+                <subfield code="a">3358437</subfield>
+            </datafield>
+            <datafield ind1=" " ind2=" " tag="035">
+                <subfield code="a">(NjP)3358437-princetondb</subfield>
+            </datafield>
+            <datafield ind1=" " ind2=" " tag="040">
+                <subfield code="a">UGT</subfield>
+                <subfield code="c">UGT</subfield>
+            </datafield>
+            <datafield ind1=" " ind2=" " tag="090">
+                <subfield code="a">QH111</subfield>
+                <subfield code="b">.H35</subfield>
+                <subfield code="a">Q2</subfield>
+            </datafield>
+            <datafield ind1="0" ind2="0" tag="245">
+                <subfield code="a">Presse scientifiques des deux mondes</subfield>
+                <subfield code="h">microform :</subfield>
+                <subfield code="b">revue universelle du mouvement des sciences pures et appliquées.</subfield>
+            </datafield>
+            <datafield ind1=" " ind2=" " tag="260">
+                <subfield code="a">Paris :</subfield>
+                <subfield code="b">Aux Bureaux de Cercle de la press scientifique a l'imprimerie de
+                    Dubuisson et cie,</subfield>
+                <subfield code="c">1860-1865.</subfield>
+            </datafield>
+            <datafield ind1=" " ind2=" " tag="300">
+                <subfield code="a">v. :</subfield>
+                <subfield code="b">ill.</subfield>
+            </datafield>
+            <datafield ind1=" " ind2=" " tag="310">
+                <subfield code="a">Semimonthly</subfield>
+            </datafield>
+            <datafield ind1="0" ind2=" " tag="362">
+                <subfield code="a">1. année, 1. t. no. 1 (16 juil. 1860)-6. année, 2. t, no. 2 (16
+                    juil. 1865).</subfield>
+            </datafield>
+            <datafield ind1=" " ind2=" " tag="500">
+                <subfield code="a">Subtitle varies slightly.</subfield>
+            </datafield>
+            <datafield ind1=" " ind2=" " tag="500">
+                <subfield code="a">References: Scudder, S. Cat. of scientific serials, 1492.</subfield>
+            </datafield>
+            <datafield ind1=" " ind2=" " tag="500">
+                <subfield code="a">Includes bibliographic references and indexes.</subfield>
+            </datafield>
+            <datafield ind1="0" ind2="0" tag="785">
+                <subfield code="t">Presse scientifiques &amp; industrielle des deux mondes</subfield>
+                <subfield code="w">(OCoLC)15232710</subfield>
+            </datafield>
+            <datafield ind1="0" ind2=" " tag="773">
+                <subfield code="w">99126221259206421</subfield>
+            </datafield>
+            <datafield ind1=" " ind2="0" tag="830">
+                <subfield code="a">Landmarks II,</subfield>
+                <subfield code="p">Journals.</subfield>
+            </datafield>
+            <datafield ind1=" " ind2=" " tag="994">
+                <subfield code="a">92</subfield>
+                <subfield code="b">PUL</subfield>
+            </datafield>
+        </record>
+    </bib>
+    <bib>
+        <mms_id>997007993506421</mms_id>
+        <record_format>marc21</record_format>
+        <linked_record_id />
+        <title>Presse scientifique des deux mondes</title>
+        <network_numbers>
+            <network_number>(OCoLC)ocn175312265</network_number>
+            <network_number>(NjP)700799-princetondb</network_number>
+            <network_number>700799</network_number>
+            <network_number>(CStRLIN)NJPG91-S452</network_number>
+        </network_numbers>
+        <place_of_publication>Paris :</place_of_publication>
+        <date_of_publication>1860-1865.</date_of_publication>
+        <publisher_const>Cercle de la presse scientifique,</publisher_const>
+        <holdings
+            link="https://api-na.hosted.exlibrisgroup.com/almaws/v1/bibs/997007993506421/holdings" />
+        <created_by>import</created_by>
+        <created_date>2021-07-12Z</created_date>
+        <last_modified_by>System</last_modified_by>
+        <last_modified_date>2022-12-16Z</last_modified_date>
+        <suppress_from_publishing>false</suppress_from_publishing>
+        <suppress_from_external_search>false</suppress_from_external_search>
+        <suppress_from_metadoor>false</suppress_from_metadoor>
+        <rank>56</rank>
+        <sync_with_oclc>BIBS</sync_with_oclc>
+        <sync_with_libraries_australia>NONE</sync_with_libraries_australia>
+        <originating_system>OTHER</originating_system>
+        <originating_system_id>700799-princetondb</originating_system_id>
+        <cataloging_level desc="Default Level">00</cataloging_level>
+        <brief_level desc="08">08</brief_level>
+        <record>
+            <leader>01229cas a2200313 a 4500</leader>
+            <controlfield tag="001">997007993506421</controlfield>
+            <controlfield tag="005">20221216124908.0</controlfield>
+            <controlfield tag="007">hd#afb---baca</controlfield>
+            <controlfield tag="008">910130d18601865ctuuu p a 0 0fre d</controlfield>
+            <datafield ind1=" " ind2=" " tag="035">
+                <subfield code="a">(CStRLIN)NJPG91-S452</subfield>
+            </datafield>
+            <datafield ind1=" " ind2=" " tag="035">
+                <subfield code="9">ADD7273TS</subfield>
+            </datafield>
+            <datafield ind1=" " ind2=" " tag="035">
+                <subfield code="a">700799</subfield>
+            </datafield>
+            <datafield ind1=" " ind2=" " tag="035">
+                <subfield code="a">(NjP)700799-princetondb</subfield>
+            </datafield>
+            <datafield ind1=" " ind2=" " tag="035">
+                <subfield code="a">(OCoLC)ocn175312265</subfield>
+            </datafield>
+            <datafield ind1=" " ind2=" " tag="040">
+                <subfield code="a">NjP</subfield>
+                <subfield code="b">eng</subfield>
+                <subfield code="c">NjP</subfield>
+            </datafield>
+            <datafield ind1="0" ind2="0" tag="245">
+                <subfield code="a">Presse scientifique des deux mondes</subfield>
+                <subfield code="h">[microform]</subfield>
+            </datafield>
+            <datafield ind1=" " ind2=" " tag="260">
+                <subfield code="a">Paris :</subfield>
+                <subfield code="b">Cercle de la presse scientifique,</subfield>
+                <subfield code="c">1860-1865.</subfield>
+            </datafield>
+            <datafield ind1=" " ind2=" " tag="300">
+                <subfield code="a">v.</subfield>
+            </datafield>
+            <datafield ind1="0" ind2=" " tag="362">
+                <subfield code="a">1860, t. 1, livraison no 1 (16 juillet 1860)-1865, t. 2, no. 2
+                    (16 juillet 1865).</subfield>
+            </datafield>
+            <datafield ind1=" " ind2=" " tag="500">
+                <subfield code="a">Imprint varies.</subfield>
+            </datafield>
+            <datafield ind1=" " ind2=" " tag="533">
+                <subfield code="a">Microfilm.</subfield>
+                <subfield code="b">New Canaan, CT :</subfield>
+                <subfield code="c">Readex,</subfield>
+                <subfield code="d">198-.</subfield>
+                <subfield code="e">6 microfilm reels ; 35 mm.</subfield>
+            </datafield>
+            <datafield ind1=" " ind2="0" tag="650">
+                <subfield code="a">Science</subfield>
+                <subfield code="v">Periodicals.</subfield>
+                <subfield code="0">http://id.loc.gov/authorities/subjects/sh85118580</subfield>
+            </datafield>
+            <datafield ind1=" " ind2="7" tag="655">
+                <subfield code="a">Periodicals.</subfield>
+                <subfield code="2">lcgft</subfield>
+                <subfield code="0">http://id.loc.gov/authorities/genreForms/gf2014026139</subfield>
+            </datafield>
+            <datafield ind1="0" ind2="0" tag="785">
+                <subfield code="t">Presse scientifique &amp; industrielle des deux mondes</subfield>
+            </datafield>
+            <datafield ind1="0" ind2=" " tag="773">
+                <subfield code="w">99126221259206421</subfield>
+            </datafield>
+            <datafield ind1=" " ind2=" " tag="911">
+                <subfield code="a">19921028</subfield>
+            </datafield>
+            <datafield ind1=" " ind2=" " tag="912">
+                <subfield code="a">19920402000000.0</subfield>
+            </datafield>
+            <datafield ind1=" " ind2=" " tag="914">
+                <subfield code="a">(OCoLC)ocn175312265</subfield>
+                <subfield code="b">OCoLC</subfield>
+                <subfield code="c">match</subfield>
+                <subfield code="d">11172022</subfield>
+                <subfield code="e">processed</subfield>
+                <subfield code="f">175312265</subfield>
+            </datafield>
+            <datafield ind1=" " ind2=" " tag="998">
+                <subfield code="a">04/02/92</subfield>
+                <subfield code="s">9114</subfield>
+                <subfield code="n">NjP</subfield>
+                <subfield code="w">NJPG91S452</subfield>
+                <subfield code="d">01/30/91</subfield>
+                <subfield code="c">DLJ</subfield>
+                <subfield code="b">?</subfield>
+                <subfield code="i">920402</subfield>
+                <subfield code="l">NJPG</subfield>
+            </datafield>
+        </record>
+    </bib>
+</bibs>

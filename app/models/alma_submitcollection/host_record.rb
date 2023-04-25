@@ -2,7 +2,6 @@
 
 class AlmaSubmitcollection
   class HostRecord
-    def get_constituent_records
-    end
+    def get_constituent_records; end
   end
 end
