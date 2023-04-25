@@ -2,8 +2,8 @@
 
 module AlmaSubmitcollection
   class AlmaApi
-    def initialize(url)
-      @conn = Faraday.new(url) do |faraday|
+    def initialize
+      @conn = Faraday.new(LibJobs.config[:alma_api_uri]) do |faraday|
         faraday.request   :url_encoded
         faraday.response  :logger, nil, { headers: true, bodies: false }
         faraday.adapter   Faraday.default_adapter
