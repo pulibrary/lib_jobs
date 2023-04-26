@@ -11,7 +11,7 @@ RSpec.describe(AlmaSubmitcollection::AlmaApi) do
   describe('#bib_record_call') do
     it('parses correctly') do
       response = described_class.new.bib_record_call(mms_ids)
-      expect(Nokogiri::XML(response.body)).not_to raise_error
+      expect { Nokogiri::XML(response.body) }.not_to raise_error
     end
   end
 end
