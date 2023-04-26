@@ -28,7 +28,7 @@ defaults: &defaults
   alma_region: <%= ENV["ALMA_REGION"] %>
   alma_api_key: <%= ENV["ALMA_CONFIG_API_KEY"] || "" %>
   alma_api_uri: <%= ENV['ALMA_API_URI'] || 'https://api-na.hosted.exlibrisgroup.com' %>
-
+  alma_api_key: <%= ENV['ALMA_API_KEY'] || '1234' %>
 development:
   <<: *defaults
 
@@ -39,6 +39,6 @@ test:
 
 production: &production
   <<: *defaults
-  
+
 staging:
   <<: *production

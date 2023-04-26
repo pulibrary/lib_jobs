@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AlmaSubmitcollection
+module AlmaSubmitcollection
   class HostRecord
     def get_constituent_records; end
   end
