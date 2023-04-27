@@ -7,7 +7,8 @@ module AlmaSubmitcollection
     end
 
     def constituent_records
-      constituent_record_ids(@record)
+      ids = constituent_record_ids(@record)
+      AlmaApi.new.bib_record_call(ids)
     end
 
     private
