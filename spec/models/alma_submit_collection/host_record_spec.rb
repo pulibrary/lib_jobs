@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe(AlmaSubmitcollection::HostRecord) do
+RSpec.describe(AlmaSubmitCollection::HostRecord) do
   # use the new host fixture that Mark exported
   # update constituent_ids with the two ids from the new record
   # Change the test so that is testing the [] 001 fields is the array in line 8

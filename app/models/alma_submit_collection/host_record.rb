@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module AlmaSubmitcollection
+module AlmaSubmitCollection
   class HostRecord
     def initialize(record)
       @record = record

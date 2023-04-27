@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module AlmaSubmitcollection
+module AlmaSubmitCollection
   class AlmaApi
     def initialize
       @conn = Faraday.new(LibJobs.config[:alma_api_uri]) do |faraday|
