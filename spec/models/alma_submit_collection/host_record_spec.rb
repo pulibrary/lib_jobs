@@ -3,10 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe(AlmaSubmitCollection::HostRecord) do
-  # use the new host fixture that Mark exported
-  # update constituent_ids with the two ids from the new record
-  # Change the test so that is testing the [] 001 fields is the array in line 8
-  let(:constituent_ids) { ["9923749023506421", "997573203506421", "997573243506421", "997573403506421", "99753293506421", "997573283506421", "997573343506421", "997573163506421"] }
+  let(:constituent_ids) { ["9933584373506421", "997007993506421", "997008003506421"] }
   let(:host_file) { Pathname.new(file_fixture_path).join("alma", 'host_record.xml').to_s }
   let(:record) { MARC::XMLReader.new(host_file).first }
   before do
@@ -14,7 +11,10 @@ RSpec.describe(AlmaSubmitCollection::HostRecord) do
   end
   describe('#constituent_records') do
     it('returns an array of MARC records') do
-      expect(described_class.new(record).constituent_records)
+      constituent_records = described_class.new(record).constituent_records
+      expect(constituent_records[0]['001'].value).to eq('9933584373506421')
+      expect(constituent_records[1]['001'].value).to eq('997007993506421')
+      expect(constituent_records[2]['001'].value).to eq('997008003506421')
     end
   end
 end

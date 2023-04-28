@@ -1,79 +1,483 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <collection>
-  <record>
-    <leader>00096nam a2200049 i 4500</leader>
-    <controlfield tag="008">000000|||||||||vp |||||||||||||||||mul||</controlfield>
-    <controlfield tag="001">99125094803506421</controlfield>
-    <datafield tag="245" ind1="0" ind2="0">
-      <subfield code="a">Multi-title collection including Wajīdah and 7 other(s).</subfield>
-    </datafield>
-    <datafield tag="774" ind1="1" ind2=" ">
-      <subfield code="t">Wajīdah</subfield>
-      <subfield code="w">(NjP)9923749023506421</subfield>
-    </datafield>
-    <datafield tag="774" ind1="1" ind2=" ">
-      <subfield code="t">al-Taḥqīq wa-al-ijrāʾāt al-jināʾīyah li-ṭalabat al-ḥuqūq wa-al-shurṭah wa-al-muḥaqqiqīn wa-al-muḥāmīn</subfield>
-      <subfield code="w">997573203506421</subfield>
-    </datafield>
-    <datafield tag="774" ind1="1" ind2=" ">
-      <subfield code="t">Fī janūb al-Sūdān dirāsāt ijtimāʻīyah, nafsīyah, tarbawīyah /</subfield>
-      <subfield code="w">997573243506421</subfield>
-    </datafield>
-    <datafield tag="774" ind1="1" ind2=" ">
-      <subfield code="t">al-ʻUdwān al-thulāthī wa-al-ḍamīr al-ʻālamī</subfield>
-      <subfield code="w">997573403506421</subfield>
-    </datafield>
-    <datafield tag="774" ind1="1" ind2=" ">
-      <subfield code="t">Optimal quadrature formulas /</subfield>
-      <subfield code="w">99753293506421</subfield>
-    </datafield>
-    <datafield tag="774" ind1="1" ind2=" ">
-      <subfield code="t">Fī maʻārik tathbīt al-istiqlāl, al-Sadd al-ʻĀlī</subfield>
-      <subfield code="w">997573283506421</subfield>
-    </datafield>
-    <datafield tag="774" ind1="1" ind2=" ">
-      <subfield code="t">Qaḍīyat al-jalāʾ wa-thawrat 23 Yūliyū sanat 1952</subfield>
-      <subfield code="w">997573343506421</subfield>
-    </datafield>
-    <datafield tag="774" ind1="1" ind2=" ">
-      <subfield code="t">Khaṭarāt nafs</subfield>
-      <subfield code="w">997573163506421</subfield>
-    </datafield>
-    <datafield tag="950" ind1=" " ind2=" ">
-      <subfield code="c">2021-08-02 23:29:56 US/Eastern</subfield>
-      <subfield code="b">2021-07-12 09:00:37 US/Eastern</subfield>
-      <subfield code="a">false</subfield>
-    </datafield>
-    <datafield tag="852" ind1="8" ind2="1">
-      <subfield code="b">recap</subfield>
-      <subfield code="c">pe</subfield>
-      <subfield code="h">MICROFILM 1734</subfield>
-      <subfield code="8">22486804560006421</subfield>
-    </datafield>
-    <datafield tag="866" ind1=" " ind2="0">
-      <subfield code="z">Master preservation microfilm.</subfield>
-      <subfield code="8">22486804560006421</subfield>
-    </datafield>
-    <datafield tag="866" ind1=" " ind2="0">
-      <subfield code="z">Available for reproduction only.</subfield>
-      <subfield code="8">22486804560006421</subfield>
-    </datafield>
-    <datafield tag="952" ind1=" " ind2=" ">
-      <subfield code="a">2021-07-12 13:00:37</subfield>
-      <subfield code="8">22486804560006421</subfield>
-      <subfield code="b">ReCAP</subfield>
-      <subfield code="c">rcppe: RECAP Restricted</subfield>
-      <subfield code="e">true</subfield>
-    </datafield>
-    <datafield tag="876" ind1=" " ind2=" ">
-      <subfield code="0">22486804560006421</subfield>
-      <subfield code="a">23486804550006421</subfield>
-      <subfield code="j">1</subfield>
-      <subfield code="z">pe</subfield>
-      <subfield code="d">2021-05-13 06:59:00</subfield>
-      <subfield code="p">32101109661155</subfield>
-      <subfield code="t">0</subfield>
-      <subfield code="y">recap</subfield>
-    </datafield>
-  </record>
+    <record>
+        <leader>00426nac a2200133 i 4500</leader>
+        <controlfield tag="005">20230126143141.0</controlfield>
+        <controlfield tag="008">211122s nyu 000 0 eng d</controlfield>
+        <controlfield tag="001">99126221259206421</controlfield>
+        <datafield tag="040" ind1=" " ind2=" ">
+            <subfield code="a">NjP</subfield>
+            <subfield code="b">eng</subfield>
+            <subfield code="e">rda</subfield>
+            <subfield code="c">NjP</subfield>
+        </datafield>
+        <datafield tag="245" ind1="0" ind2="0">
+            <subfield code="a">Multi-title collection including Presse scientifiques des deux mondes
+                and 2 others.</subfield>
+        </datafield>
+        <datafield tag="500" ind1=" " ind2=" ">
+            <subfield code="a">Composite resource comprising 3 titles.</subfield>
+        </datafield>
+        <datafield tag="774" ind1="0" ind2=" ">
+            <subfield code="w">9933584373506421</subfield>
+        </datafield>
+        <datafield tag="774" ind1="0" ind2=" ">
+            <subfield code="w">997007993506421</subfield>
+        </datafield>
+        <datafield tag="774" ind1="0" ind2=" ">
+            <subfield code="w">997008003506421</subfield>
+        </datafield>
+        <datafield tag="950" ind1=" " ind2=" ">
+            <subfield code="c">2023-01-26 14:31:41 US/Eastern</subfield>
+            <subfield code="b">2022-11-22 10:07:32 US/Eastern</subfield>
+            <subfield code="a">false</subfield>
+        </datafield>
+        <datafield tag="852" ind1="8" ind2=" ">
+            <subfield code="b">firestone</subfield>
+            <subfield code="c">pf</subfield>
+            <subfield code="h">MICROFILM S01063 reel 58-65</subfield>
+            <subfield code="8">22641409810006421</subfield>
+        </datafield>
+        <datafield tag="866" ind1=" " ind2="0">
+            <subfield code="a">1. année, 1. t. no. 1 (16 juil. 1860)-(15 sept. 1867).</subfield>
+            <subfield code="8">22641409810006421</subfield>
+        </datafield>
+        <datafield tag="952" ind1=" " ind2=" ">
+            <subfield code="d">2022-11-22 15:23:20</subfield>
+            <subfield code="8">22641409810006421</subfield>
+            <subfield code="a">2021-07-13 03:12:50</subfield>
+            <subfield code="b">Firestone Library</subfield>
+            <subfield code="c">rcppf: Firestone Remote Storage (ReCAP)</subfield>
+            <subfield code="e">false</subfield>
+        </datafield>
+        <datafield tag="876" ind1=" " ind2=" ">
+            <subfield code="0">22641409810006421</subfield>
+            <subfield code="a">23579686040006421</subfield>
+            <subfield code="j">1</subfield>
+            <subfield code="3">r. 58, v 1&amp; 2, Jul 16-Dec 16, 1860</subfield>
+            <subfield code="d">2016-12-12 19:00:00 US/Eastern</subfield>
+            <subfield code="p">32101053143440</subfield>
+            <subfield code="t">0</subfield>
+        </datafield>
+    </record>
+    <record>
+        <leader>00426nac a2200133 i 4500</leader>
+        <controlfield tag="005">20230126143141.0</controlfield>
+        <controlfield tag="008">211122s nyu 000 0 eng d</controlfield>
+        <controlfield tag="001">99126221259206421</controlfield>
+        <datafield tag="040" ind1=" " ind2=" ">
+            <subfield code="a">NjP</subfield>
+            <subfield code="b">eng</subfield>
+            <subfield code="e">rda</subfield>
+            <subfield code="c">NjP</subfield>
+        </datafield>
+        <datafield tag="245" ind1="0" ind2="0">
+            <subfield code="a">Multi-title collection including Presse scientifiques des deux mondes
+                and 2 others.</subfield>
+        </datafield>
+        <datafield tag="500" ind1=" " ind2=" ">
+            <subfield code="a">Composite resource comprising 3 titles.</subfield>
+        </datafield>
+        <datafield tag="774" ind1="0" ind2=" ">
+            <subfield code="w">9933584373506421</subfield>
+        </datafield>
+        <datafield tag="774" ind1="0" ind2=" ">
+            <subfield code="w">997007993506421</subfield>
+        </datafield>
+        <datafield tag="774" ind1="0" ind2=" ">
+            <subfield code="w">997008003506421</subfield>
+        </datafield>
+        <datafield tag="950" ind1=" " ind2=" ">
+            <subfield code="c">2023-01-26 14:31:41 US/Eastern</subfield>
+            <subfield code="b">2022-11-22 10:07:32 US/Eastern</subfield>
+            <subfield code="a">false</subfield>
+        </datafield>
+        <datafield tag="852" ind1="8" ind2=" ">
+            <subfield code="b">firestone</subfield>
+            <subfield code="c">pf</subfield>
+            <subfield code="h">MICROFILM S01063 reel 58-65</subfield>
+            <subfield code="8">22641409810006421</subfield>
+        </datafield>
+        <datafield tag="866" ind1=" " ind2="0">
+            <subfield code="a">1. année, 1. t. no. 1 (16 juil. 1860)-(15 sept. 1867).</subfield>
+            <subfield code="8">22641409810006421</subfield>
+        </datafield>
+        <datafield tag="952" ind1=" " ind2=" ">
+            <subfield code="d">2022-11-22 15:23:20</subfield>
+            <subfield code="8">22641409810006421</subfield>
+            <subfield code="a">2021-07-13 03:12:50</subfield>
+            <subfield code="b">Firestone Library</subfield>
+            <subfield code="c">rcppf: Firestone Remote Storage (ReCAP)</subfield>
+            <subfield code="e">false</subfield>
+        </datafield>
+        <datafield tag="876" ind1=" " ind2=" ">
+            <subfield code="0">22641409810006421</subfield>
+            <subfield code="a">23579686030006421</subfield>
+            <subfield code="j">1</subfield>
+            <subfield code="3">r. 59, v1-3, Jan-Dec 16, 1861</subfield>
+            <subfield code="d">2016-12-12 19:00:00 US/Eastern</subfield>
+            <subfield code="p">32101053143457</subfield>
+            <subfield code="t">0</subfield>
+        </datafield>
+    </record>
+    <record>
+        <leader>00426nac a2200133 i 4500</leader>
+        <controlfield tag="005">20230126143141.0</controlfield>
+        <controlfield tag="008">211122s nyu 000 0 eng d</controlfield>
+        <controlfield tag="001">99126221259206421</controlfield>
+        <datafield tag="040" ind1=" " ind2=" ">
+            <subfield code="a">NjP</subfield>
+            <subfield code="b">eng</subfield>
+            <subfield code="e">rda</subfield>
+            <subfield code="c">NjP</subfield>
+        </datafield>
+        <datafield tag="245" ind1="0" ind2="0">
+            <subfield code="a">Multi-title collection including Presse scientifiques des deux mondes
+                and 2 others.</subfield>
+        </datafield>
+        <datafield tag="500" ind1=" " ind2=" ">
+            <subfield code="a">Composite resource comprising 3 titles.</subfield>
+        </datafield>
+        <datafield tag="774" ind1="0" ind2=" ">
+            <subfield code="w">9933584373506421</subfield>
+        </datafield>
+        <datafield tag="774" ind1="0" ind2=" ">
+            <subfield code="w">997007993506421</subfield>
+        </datafield>
+        <datafield tag="774" ind1="0" ind2=" ">
+            <subfield code="w">997008003506421</subfield>
+        </datafield>
+        <datafield tag="950" ind1=" " ind2=" ">
+            <subfield code="c">2023-01-26 14:31:41 US/Eastern</subfield>
+            <subfield code="b">2022-11-22 10:07:32 US/Eastern</subfield>
+            <subfield code="a">false</subfield>
+        </datafield>
+        <datafield tag="852" ind1="8" ind2=" ">
+            <subfield code="b">firestone</subfield>
+            <subfield code="c">pf</subfield>
+            <subfield code="h">MICROFILM S01063 reel 58-65</subfield>
+            <subfield code="8">22641409810006421</subfield>
+        </datafield>
+        <datafield tag="866" ind1=" " ind2="0">
+            <subfield code="a">1. année, 1. t. no. 1 (16 juil. 1860)-(15 sept. 1867).</subfield>
+            <subfield code="8">22641409810006421</subfield>
+        </datafield>
+        <datafield tag="952" ind1=" " ind2=" ">
+            <subfield code="d">2022-11-22 15:23:20</subfield>
+            <subfield code="8">22641409810006421</subfield>
+            <subfield code="a">2021-07-13 03:12:50</subfield>
+            <subfield code="b">Firestone Library</subfield>
+            <subfield code="c">rcppf: Firestone Remote Storage (ReCAP)</subfield>
+            <subfield code="e">false</subfield>
+        </datafield>
+        <datafield tag="876" ind1=" " ind2=" ">
+            <subfield code="0">22641409810006421</subfield>
+            <subfield code="a">23579686020006421</subfield>
+            <subfield code="j">1</subfield>
+            <subfield code="3">r. 60, v 1 &amp; 2, Jan-Dec 16, 1862</subfield>
+            <subfield code="d">2016-12-12 19:00:00 US/Eastern</subfield>
+            <subfield code="p">32101053143465</subfield>
+            <subfield code="t">0</subfield>
+        </datafield>
+    </record>
+    <record>
+        <leader>00426nac a2200133 i 4500</leader>
+        <controlfield tag="005">20230126143141.0</controlfield>
+        <controlfield tag="008">211122s nyu 000 0 eng d</controlfield>
+        <controlfield tag="001">99126221259206421</controlfield>
+        <datafield tag="040" ind1=" " ind2=" ">
+            <subfield code="a">NjP</subfield>
+            <subfield code="b">eng</subfield>
+            <subfield code="e">rda</subfield>
+            <subfield code="c">NjP</subfield>
+        </datafield>
+        <datafield tag="245" ind1="0" ind2="0">
+            <subfield code="a">Multi-title collection including Presse scientifiques des deux mondes
+                and 2 others.</subfield>
+        </datafield>
+        <datafield tag="500" ind1=" " ind2=" ">
+            <subfield code="a">Composite resource comprising 3 titles.</subfield>
+        </datafield>
+        <datafield tag="774" ind1="0" ind2=" ">
+            <subfield code="w">9933584373506421</subfield>
+        </datafield>
+        <datafield tag="774" ind1="0" ind2=" ">
+            <subfield code="w">997007993506421</subfield>
+        </datafield>
+        <datafield tag="774" ind1="0" ind2=" ">
+            <subfield code="w">997008003506421</subfield>
+        </datafield>
+        <datafield tag="950" ind1=" " ind2=" ">
+            <subfield code="c">2023-01-26 14:31:41 US/Eastern</subfield>
+            <subfield code="b">2022-11-22 10:07:32 US/Eastern</subfield>
+            <subfield code="a">false</subfield>
+        </datafield>
+        <datafield tag="852" ind1="8" ind2=" ">
+            <subfield code="b">firestone</subfield>
+            <subfield code="c">pf</subfield>
+            <subfield code="h">MICROFILM S01063 reel 58-65</subfield>
+            <subfield code="8">22641409810006421</subfield>
+        </datafield>
+        <datafield tag="866" ind1=" " ind2="0">
+            <subfield code="a">1. année, 1. t. no. 1 (16 juil. 1860)-(15 sept. 1867).</subfield>
+            <subfield code="8">22641409810006421</subfield>
+        </datafield>
+        <datafield tag="952" ind1=" " ind2=" ">
+            <subfield code="d">2022-11-22 15:23:20</subfield>
+            <subfield code="8">22641409810006421</subfield>
+            <subfield code="a">2021-07-13 03:12:50</subfield>
+            <subfield code="b">Firestone Library</subfield>
+            <subfield code="c">rcppf: Firestone Remote Storage (ReCAP)</subfield>
+            <subfield code="e">false</subfield>
+        </datafield>
+        <datafield tag="876" ind1=" " ind2=" ">
+            <subfield code="0">22641409810006421</subfield>
+            <subfield code="a">23579686010006421</subfield>
+            <subfield code="j">1</subfield>
+            <subfield code="3">r. 61, v 1&amp;2, Jan-Dec 16, 1863</subfield>
+            <subfield code="d">2016-12-12 19:00:00 US/Eastern</subfield>
+            <subfield code="p">32101053143473</subfield>
+            <subfield code="t">0</subfield>
+        </datafield>
+    </record>
+    <record>
+        <leader>00426nac a2200133 i 4500</leader>
+        <controlfield tag="005">20230126143141.0</controlfield>
+        <controlfield tag="008">211122s nyu 000 0 eng d</controlfield>
+        <controlfield tag="001">99126221259206421</controlfield>
+        <datafield tag="040" ind1=" " ind2=" ">
+            <subfield code="a">NjP</subfield>
+            <subfield code="b">eng</subfield>
+            <subfield code="e">rda</subfield>
+            <subfield code="c">NjP</subfield>
+        </datafield>
+        <datafield tag="245" ind1="0" ind2="0">
+            <subfield code="a">Multi-title collection including Presse scientifiques des deux mondes
+                and 2 others.</subfield>
+        </datafield>
+        <datafield tag="500" ind1=" " ind2=" ">
+            <subfield code="a">Composite resource comprising 3 titles.</subfield>
+        </datafield>
+        <datafield tag="774" ind1="0" ind2=" ">
+            <subfield code="w">9933584373506421</subfield>
+        </datafield>
+        <datafield tag="774" ind1="0" ind2=" ">
+            <subfield code="w">997007993506421</subfield>
+        </datafield>
+        <datafield tag="774" ind1="0" ind2=" ">
+            <subfield code="w">997008003506421</subfield>
+        </datafield>
+        <datafield tag="950" ind1=" " ind2=" ">
+            <subfield code="c">2023-01-26 14:31:41 US/Eastern</subfield>
+            <subfield code="b">2022-11-22 10:07:32 US/Eastern</subfield>
+            <subfield code="a">false</subfield>
+        </datafield>
+        <datafield tag="852" ind1="8" ind2=" ">
+            <subfield code="b">firestone</subfield>
+            <subfield code="c">pf</subfield>
+            <subfield code="h">MICROFILM S01063 reel 58-65</subfield>
+            <subfield code="8">22641409810006421</subfield>
+        </datafield>
+        <datafield tag="866" ind1=" " ind2="0">
+            <subfield code="a">1. année, 1. t. no. 1 (16 juil. 1860)-(15 sept. 1867).</subfield>
+            <subfield code="8">22641409810006421</subfield>
+        </datafield>
+        <datafield tag="952" ind1=" " ind2=" ">
+            <subfield code="d">2022-11-22 15:23:20</subfield>
+            <subfield code="8">22641409810006421</subfield>
+            <subfield code="a">2021-07-13 03:12:50</subfield>
+            <subfield code="b">Firestone Library</subfield>
+            <subfield code="c">rcppf: Firestone Remote Storage (ReCAP)</subfield>
+            <subfield code="e">false</subfield>
+        </datafield>
+        <datafield tag="876" ind1=" " ind2=" ">
+            <subfield code="0">22641409810006421</subfield>
+            <subfield code="a">23579686000006421</subfield>
+            <subfield code="j">1</subfield>
+            <subfield code="3">r. 62, v 1&amp;2, Jan-Dec 16, 1864</subfield>
+            <subfield code="d">2016-12-12 19:00:00 US/Eastern</subfield>
+            <subfield code="p">32101053143481</subfield>
+            <subfield code="t">0</subfield>
+        </datafield>
+    </record>
+    <record>
+        <leader>00426nac a2200133 i 4500</leader>
+        <controlfield tag="005">20230126143141.0</controlfield>
+        <controlfield tag="008">211122s nyu 000 0 eng d</controlfield>
+        <controlfield tag="001">99126221259206421</controlfield>
+        <datafield tag="040" ind1=" " ind2=" ">
+            <subfield code="a">NjP</subfield>
+            <subfield code="b">eng</subfield>
+            <subfield code="e">rda</subfield>
+            <subfield code="c">NjP</subfield>
+        </datafield>
+        <datafield tag="245" ind1="0" ind2="0">
+            <subfield code="a">Multi-title collection including Presse scientifiques des deux mondes
+                and 2 others.</subfield>
+        </datafield>
+        <datafield tag="500" ind1=" " ind2=" ">
+            <subfield code="a">Composite resource comprising 3 titles.</subfield>
+        </datafield>
+        <datafield tag="774" ind1="0" ind2=" ">
+            <subfield code="w">9933584373506421</subfield>
+        </datafield>
+        <datafield tag="774" ind1="0" ind2=" ">
+            <subfield code="w">997007993506421</subfield>
+        </datafield>
+        <datafield tag="774" ind1="0" ind2=" ">
+            <subfield code="w">997008003506421</subfield>
+        </datafield>
+        <datafield tag="950" ind1=" " ind2=" ">
+            <subfield code="c">2023-01-26 14:31:41 US/Eastern</subfield>
+            <subfield code="b">2022-11-22 10:07:32 US/Eastern</subfield>
+            <subfield code="a">false</subfield>
+        </datafield>
+        <datafield tag="852" ind1="8" ind2=" ">
+            <subfield code="b">firestone</subfield>
+            <subfield code="c">pf</subfield>
+            <subfield code="h">MICROFILM S01063 reel 58-65</subfield>
+            <subfield code="8">22641409810006421</subfield>
+        </datafield>
+        <datafield tag="866" ind1=" " ind2="0">
+            <subfield code="a">1. année, 1. t. no. 1 (16 juil. 1860)-(15 sept. 1867).</subfield>
+            <subfield code="8">22641409810006421</subfield>
+        </datafield>
+        <datafield tag="952" ind1=" " ind2=" ">
+            <subfield code="d">2022-11-22 15:23:20</subfield>
+            <subfield code="8">22641409810006421</subfield>
+            <subfield code="a">2021-07-13 03:12:50</subfield>
+            <subfield code="b">Firestone Library</subfield>
+            <subfield code="c">rcppf: Firestone Remote Storage (ReCAP)</subfield>
+            <subfield code="e">false</subfield>
+        </datafield>
+        <datafield tag="876" ind1=" " ind2=" ">
+            <subfield code="0">22641409810006421</subfield>
+            <subfield code="a">23579685990006421</subfield>
+            <subfield code="j">1</subfield>
+            <subfield code="3">r. 63, v 1&amp;2, Jan-Jul 16, 1865</subfield>
+            <subfield code="d">2016-12-12 19:00:00 US/Eastern</subfield>
+            <subfield code="p">32101053143499</subfield>
+            <subfield code="t">0</subfield>
+        </datafield>
+    </record>
+    <record>
+        <leader>00426nac a2200133 i 4500</leader>
+        <controlfield tag="005">20230126143141.0</controlfield>
+        <controlfield tag="008">211122s nyu 000 0 eng d</controlfield>
+        <controlfield tag="001">99126221259206421</controlfield>
+        <datafield tag="040" ind1=" " ind2=" ">
+            <subfield code="a">NjP</subfield>
+            <subfield code="b">eng</subfield>
+            <subfield code="e">rda</subfield>
+            <subfield code="c">NjP</subfield>
+        </datafield>
+        <datafield tag="245" ind1="0" ind2="0">
+            <subfield code="a">Multi-title collection including Presse scientifiques des deux mondes
+                and 2 others.</subfield>
+        </datafield>
+        <datafield tag="500" ind1=" " ind2=" ">
+            <subfield code="a">Composite resource comprising 3 titles.</subfield>
+        </datafield>
+        <datafield tag="774" ind1="0" ind2=" ">
+            <subfield code="w">9933584373506421</subfield>
+        </datafield>
+        <datafield tag="774" ind1="0" ind2=" ">
+            <subfield code="w">997007993506421</subfield>
+        </datafield>
+        <datafield tag="774" ind1="0" ind2=" ">
+            <subfield code="w">997008003506421</subfield>
+        </datafield>
+        <datafield tag="950" ind1=" " ind2=" ">
+            <subfield code="c">2023-01-26 14:31:41 US/Eastern</subfield>
+            <subfield code="b">2022-11-22 10:07:32 US/Eastern</subfield>
+            <subfield code="a">false</subfield>
+        </datafield>
+        <datafield tag="852" ind1="8" ind2=" ">
+            <subfield code="b">firestone</subfield>
+            <subfield code="c">pf</subfield>
+            <subfield code="h">MICROFILM S01063 reel 58-65</subfield>
+            <subfield code="8">22641409810006421</subfield>
+        </datafield>
+        <datafield tag="866" ind1=" " ind2="0">
+            <subfield code="a">1. année, 1. t. no. 1 (16 juil. 1860)-(15 sept. 1867).</subfield>
+            <subfield code="8">22641409810006421</subfield>
+        </datafield>
+        <datafield tag="952" ind1=" " ind2=" ">
+            <subfield code="d">2022-11-22 15:23:20</subfield>
+            <subfield code="8">22641409810006421</subfield>
+            <subfield code="a">2021-07-13 03:12:50</subfield>
+            <subfield code="b">Firestone Library</subfield>
+            <subfield code="c">rcppf: Firestone Remote Storage (ReCAP)</subfield>
+            <subfield code="e">false</subfield>
+        </datafield>
+        <datafield tag="876" ind1=" " ind2=" ">
+            <subfield code="0">22641409810006421</subfield>
+            <subfield code="a">23579487100006421</subfield>
+            <subfield code="j">1</subfield>
+            <subfield code="3">r. 64, v 2, Aug-Dec 1866</subfield>
+            <subfield code="d">2016-12-12 19:00:00 US/Eastern</subfield>
+            <subfield code="p">32101096195894</subfield>
+            <subfield code="t">0</subfield>
+        </datafield>
+    </record>
+    <record>
+        <leader>00426nac a2200133 i 4500</leader>
+        <controlfield tag="005">20230126143141.0</controlfield>
+        <controlfield tag="008">211122s nyu 000 0 eng d</controlfield>
+        <controlfield tag="001">99126221259206421</controlfield>
+        <datafield tag="040" ind1=" " ind2=" ">
+            <subfield code="a">NjP</subfield>
+            <subfield code="b">eng</subfield>
+            <subfield code="e">rda</subfield>
+            <subfield code="c">NjP</subfield>
+        </datafield>
+        <datafield tag="245" ind1="0" ind2="0">
+            <subfield code="a">Multi-title collection including Presse scientifiques des deux mondes
+                and 2 others.</subfield>
+        </datafield>
+        <datafield tag="500" ind1=" " ind2=" ">
+            <subfield code="a">Composite resource comprising 3 titles.</subfield>
+        </datafield>
+        <datafield tag="774" ind1="0" ind2=" ">
+            <subfield code="w">9933584373506421</subfield>
+        </datafield>
+        <datafield tag="774" ind1="0" ind2=" ">
+            <subfield code="w">997007993506421</subfield>
+        </datafield>
+        <datafield tag="774" ind1="0" ind2=" ">
+            <subfield code="w">997008003506421</subfield>
+        </datafield>
+        <datafield tag="950" ind1=" " ind2=" ">
+            <subfield code="c">2023-01-26 14:31:41 US/Eastern</subfield>
+            <subfield code="b">2022-11-22 10:07:32 US/Eastern</subfield>
+            <subfield code="a">false</subfield>
+        </datafield>
+        <datafield tag="852" ind1="8" ind2=" ">
+            <subfield code="b">firestone</subfield>
+            <subfield code="c">pf</subfield>
+            <subfield code="h">MICROFILM S01063 reel 58-65</subfield>
+            <subfield code="8">22641409810006421</subfield>
+        </datafield>
+        <datafield tag="866" ind1=" " ind2="0">
+            <subfield code="a">1. année, 1. t. no. 1 (16 juil. 1860)-(15 sept. 1867).</subfield>
+            <subfield code="8">22641409810006421</subfield>
+        </datafield>
+        <datafield tag="952" ind1=" " ind2=" ">
+            <subfield code="d">2022-11-22 15:23:20</subfield>
+            <subfield code="8">22641409810006421</subfield>
+            <subfield code="a">2021-07-13 03:12:50</subfield>
+            <subfield code="b">Firestone Library</subfield>
+            <subfield code="c">rcppf: Firestone Remote Storage (ReCAP)</subfield>
+            <subfield code="e">false</subfield>
+        </datafield>
+        <datafield tag="876" ind1=" " ind2=" ">
+            <subfield code="0">22641409810006421</subfield>
+            <subfield code="a">23579487090006421</subfield>
+            <subfield code="j">1</subfield>
+            <subfield code="3">r. 65, v 1&amp;2, Jan 6-Sep 15, 1867</subfield>
+            <subfield code="d">2016-12-12 19:00:00 US/Eastern</subfield>
+            <subfield code="p">32101096195902</subfield>
+            <subfield code="t">0</subfield>
+        </datafield>
+    </record>
 </collection>

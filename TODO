@@ -1,0 +1,7 @@
+* Make a connection to lib-sftp
+* Fetch the file(s) that is there
+* Unzip the file
+* Make the record fixes
+* Write the non bound-with records to the S3
+* Write the bound-with (host and constituents) records to the S3 too
+   * All the constituents for a given host have to be in the same file as the host

@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe(AlmaSubmitCollection::AlmaApi) do
-  let(:mms_ids) { ["9933584373506421", "997007993506421"] }
+  let(:mms_ids) { ["9933584373506421", "997007993506421", "997008003506421"] }
   before do
     stub_alma_bibs(ids: mms_ids, status: 200, fixture: "constituent_records.xml", apikey: '1234')
   end

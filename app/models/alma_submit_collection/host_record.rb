@@ -8,7 +8,8 @@ module AlmaSubmitCollection
 
     def constituent_records
       ids = constituent_record_ids(@record)
-      AlmaApi.new.bib_record_call(ids)
+      doc = Nokogiri::XML(AlmaApi.new.bib_record_call(ids).body)
+      xml_to_bibs doc
     end
 
     private
@@ -23,6 +24,16 @@ module AlmaSubmitCollection
         constituent_ids << id
       end
       constituent_ids
+    end
+
+    def xml_to_bibs(doc)
+      bibs = []
+      doc.xpath('//bib').each do |bib|
+        string = bib.to_xml
+        reader = MARC::XMLReader.new(StringIO.new(string, 'r'))
+        bibs << reader.first
+      end
+      bibs
     end
   end
 end
