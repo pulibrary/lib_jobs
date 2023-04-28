@@ -12,6 +12,11 @@ module AlmaSubmitCollection
       xml_to_bibs doc
     end
 
+    def record_fixes
+      @record.fields.delete_if { |f| f.tag =~ /[^0-9]/ }
+      @record
+    end
+
     private
 
     def constituent_record_ids(record)

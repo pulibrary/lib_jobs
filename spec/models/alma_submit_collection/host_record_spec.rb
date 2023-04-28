@@ -6,6 +6,14 @@ RSpec.describe(AlmaSubmitCollection::HostRecord) do
   let(:constituent_ids) { ["9933584373506421", "997007993506421", "997008003506421"] }
   let(:host_file) { Pathname.new(file_fixture_path).join("alma", 'host_record.xml').to_s }
   let(:record) { MARC::XMLReader.new(host_file).first }
+  let(:fields) do
+    [
+      { '001' => '12345' },
+      { 'a24' => { 'subfields' => [{ 'a' => 'nah' }] } }
+    ]
+  end
+  let(:record_non_numeric) { MARC::Record.new_from_hash('fields' => fields) }
+
   before do
     stub_alma_bibs(ids: constituent_ids, status: 200, fixture: "constituent_records.xml", apikey: '1234')
   end
@@ -15,6 +23,13 @@ RSpec.describe(AlmaSubmitCollection::HostRecord) do
       expect(constituent_records[0]['001'].value).to eq('9933584373506421')
       expect(constituent_records[1]['001'].value).to eq('997007993506421')
       expect(constituent_records[2]['001'].value).to eq('997008003506421')
+    end
+  end
+
+  describe('#record_fixes') do
+    it('deletes non numeric fields') do
+      fixed_record = described_class.new(record_non_numeric).record_fixes
+      expect(fixed_record['a24']).to be nil
     end
   end
 end

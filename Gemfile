@@ -25,6 +25,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'jwt'
 gem 'library_stdnums'
 gem 'marc'
+gem 'marc_cleanup', github: "pulibrary/marc_cleanup", tag: 'v0.9.0'
 # Use ActiveStorage variant
 gem 'matrix'
 gem 'multipart-post'
@@ -45,8 +46,6 @@ gem 'terser'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'vite_rails', '~> 3.0'
 gem 'whenever'
-
-gem 'marc', '~> 1.2'
 
 group :development, :test do
   gem 'bixby'
