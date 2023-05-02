@@ -9,10 +9,11 @@ RSpec.describe(AlmaSubmitCollection::HostRecord) do
   let(:fields) do
     [
       { '001' => '12345' },
-      { 'a24' => { 'subfields' => [{ 'a' => 'nah' }] } }
+      { 'a24' => { 'subfields' => [{ 'a' => 'nah' }] } },
+      { '902' => { 'subfields' => [{ 'a' => 'anything' }] } }
     ]
   end
-  let(:record_non_numeric) { MARC::Record.new_from_hash('fields' => fields) }
+  let(:alma_record) { AlmaSubmitCollection::MarcRecord.new(MARC::Record.new_from_hash('fields' => fields)) }
 
   before do
     stub_alma_bibs(ids: constituent_ids, status: 200, fixture: "constituent_records.xml", apikey: '1234')
@@ -26,10 +27,11 @@ RSpec.describe(AlmaSubmitCollection::HostRecord) do
     end
   end
 
-  describe('#record_fixes') do
-    it('deletes non numeric fields') do
-      fixed_record = described_class.new(record_non_numeric).record_fixes
+  describe('#fixed record') do
+    it('is fixed using the record_fixes method') do
+      fixed_record = described_class.new(alma_record).record_fixes
       expect(fixed_record['a24']).to be nil
+      expect(fixed_record['902']).to be nil
     end
   end
 end

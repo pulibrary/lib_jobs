@@ -2,6 +2,8 @@
 
 module AlmaSubmitCollection
   class HostRecord
+    attr_reader :record
+
     def initialize(record)
       @record = record
     end
@@ -10,11 +12,6 @@ module AlmaSubmitCollection
       ids = constituent_record_ids(@record)
       doc = Nokogiri::XML(AlmaApi.new.bib_record_call(ids).body)
       xml_to_bibs doc
-    end
-
-    def record_fixes
-      @record.fields.delete_if { |f| f.tag =~ /[^0-9]/ }
-      @record
     end
 
     private
@@ -39,6 +36,14 @@ module AlmaSubmitCollection
         bibs << reader.first
       end
       bibs
+    end
+
+    def alma_record
+      @alma_record ||=
+        begin
+          new_record = MARC::Record.new
+          AlmaSubmitCollection::MarcRecord.new(new_record)
+        end
     end
   end
 end
