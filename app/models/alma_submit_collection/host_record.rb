@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
 module AlmaSubmitCollection
-  class HostRecord
+  class HostRecord < MarcRecord
     attr_reader :record
 
     def initialize(record)
+      super(record)
       @record = record
     end
 
