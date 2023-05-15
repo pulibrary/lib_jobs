@@ -31,36 +31,28 @@ module AspaceSvn
         dir =
           case repo
             when 3
-              FileUtils.mkdir_p("mudd/publicpolicy") unless Dir.exists?("mudd/publicpolicy")
               "mudd/publicpolicy"
             when 4
-              FileUtils.mkdir_p("mudd/univarchives") unless Dir.exists?("mudd/univarchives")
               "mudd/univarchives"
             when 5
-              Dir.mkdir("mss") unless Dir.exists?("mss")
               "mss"
             when 6
-              Dir.mkdir("rarebooks") unless Dir.exists?("rarebooks")
               "rarebooks"
             when 7
-              Dir.mkdir("cotsen") unless Dir.exists?("cotsen")
               "cotsen"
             when 8
-              Dir.mkdir("lae") unless Dir.exists?("lae")
               "lae"
             when 9
-              Dir.mkdir("eng") unless Dir.exists?("eng")
               "eng"
             when 10
-              Dir.mkdir("selectors") unless Dir.exists?("selectors")
               "selectors"
             when 11
-              Dir.mkdir("ga") unless Dir.exists?("ga")
               "ga"
             when 12
-              Dir.mkdir("ea") unless Dir.exists?("ea")
               "ea"
           end
+        FileUtils.mkdir_p(dir) unless Dir.exists?(dir)
+
         #get resource ids
         resource_ids = @client.get("/repositories/#{repo}/resources", {
           query: {
