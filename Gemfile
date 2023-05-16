@@ -91,3 +91,5 @@ gem 'icalendar', '~> 2.8'
 gem "vite_rails", "~> 3.0"
 
 gem "capistrano-yarn", "~> 2.0"
+
+gem "flipflop", "~> 2.7"

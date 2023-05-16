@@ -1,6 +1,15 @@
 # frozen_string_literal: true
 # rubocop:disable Metrics/BlockLength
 Rails.application.configure do
+  # Allow any logged-in user to access the flipflop dashboard in development
+  config.flipflop.dashboard_access_filter = lambda {
+    redirect_to '/users/auth/cas' unless user_signed_in?
+  }
+
+  # By default, when set to `nil`, strategy loading errors are suppressed in test
+  # mode. Set to `true` to always raise errors, or `false` to always warn.
+  config.flipflop.raise_strategy_errors = false
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on

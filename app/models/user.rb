@@ -53,4 +53,15 @@ class User < ApplicationRecord
 
     decoded_token != token
   end
+
+  def admin?
+    uid = email.split('@').first
+    netids.include? uid
+  end
+
+  private
+
+  def netids
+    @netids ||= ENV['LIB_JOBS_ADMIN_NETIDS']&.split(" ") || ""
+  end
 end

@@ -89,4 +89,9 @@ class ApplicationController < ActionController::Base
   def find_user
     User.find_by(id: current_user_id, token: current_user_token)
   end
+
+  def verify_admin!
+    authenticate_user!
+    redirect_to '/users/auth/cas' unless current_user.admin?
+  end
 end
