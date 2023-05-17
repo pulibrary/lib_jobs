@@ -5,9 +5,10 @@ require 'fileutils'
 
 module AspaceSvn
   class GetEadsJob < LibJob
-    def initialize
+    def initialize(aspace_output_base_dir: Rails.application.config.aspace.aspace_files_output_path)
       super(category: "EAD_export")
       @errors = []
+      @aspace_output_base_dir = aspace_output_base_dir
     end
 
     def aspace_login
@@ -33,25 +34,25 @@ module AspaceSvn
         dir =
           case repo
           when 3
-            "mudd/publicpolicy"
+            "#{@aspace_output_base_dir}/eads/mudd/publicpolicy"
           when 4
-            "mudd/univarchives"
+            "#{@aspace_output_base_dir}/eads/mudd/univarchives"
           when 5
-            "mss"
+            "#{@aspace_output_base_dir}/eads/mss"
           when 6
-            "rarebooks"
+            "#{@aspace_output_base_dir}/eads/rarebooks"
           when 7
-            "cotsen"
+            "#{@aspace_output_base_dir}/eads/cotsen"
           when 8
-            "lae"
+            "#{@aspace_output_base_dir}/eads/lae"
           when 9
-            "eng"
+            "#{@aspace_output_base_dir}/eads/eng"
           when 10
-            "selectors"
+            "#{@aspace_output_base_dir}/eads/selectors"
           when 11
-            "ga"
+            "#{@aspace_output_base_dir}/eads/ga"
           when 12
-            "ea"
+            "#{@aspace_output_base_dir}/eads/ea"
           end
         FileUtils.mkdir_p(dir) unless Dir.exist?(dir)
 
@@ -70,7 +71,7 @@ module AspaceSvn
             ead.remove_namespaces!
             eadid = ead.at_xpath('//eadid/text()')
             # save file with eadid as file name
-            file =  File.open("./#{dir}/#{eadid}.EAD.xml", "w")
+            file =  File.open("#{dir}/#{eadid}.EAD.xml", "w")
             # add back a default namespace
             ead.child.add_namespace('ead', 'http://www.loc.gov/ead/ead')
             file << ead

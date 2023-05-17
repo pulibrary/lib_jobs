@@ -1,0 +1,14 @@
+default: &default
+  aspace_files_output_path: <%= '/tmp' %>
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+
+staging:
+  <<: *default
+
+production:
+  <<: *default
