@@ -56,7 +56,7 @@ class User < ApplicationRecord
 
   def admin?
     uid = email.split('@').first
-    netids.include? uid
+    netids.include?(uid) || Rails.env.development?
   end
 
   private
