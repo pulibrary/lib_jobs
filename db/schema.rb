@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2021_07_21_154522) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_16_155655) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "data_sets", force: :cascade do |t|
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
-    t.datetime "report_time", precision: nil
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "report_time"
     t.string "data"
     t.string "data_file"
     t.string "category"
@@ -25,17 +25,24 @@ ActiveRecord::Schema[7.0].define(version: 2021_07_21_154522) do
     t.index ["category"], name: "index_data_sets_on_category"
   end
 
+  create_table "flipflop_features", force: :cascade do |t|
+    t.string "key", null: false
+    t.boolean "enabled", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "peoplesoft_transactions", force: :cascade do |t|
     t.string "transaction_id"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
     t.string "email"
     t.string "token"
-    t.datetime "created_at", precision: nil, null: false
-    t.datetime "updated_at", precision: nil, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
 end

@@ -22,6 +22,7 @@ module PeoplesoftVoucher
     private
 
     def handle(data_set:)
+      return log_job_is_turned_off(data_set) unless Flipflop.peoplesoft_voucher?
       build_peoplesoft_report
       build_onbase_report
       # send emails here.  The emailed file should.  Nicely formatted table in the email, one for errors & one for valid lines
@@ -67,6 +68,12 @@ module PeoplesoftVoucher
     def onbase_output_filename
       date = Time.zone.now.strftime("%Y%m%d")
       "Library Invoice Keyword Update_#{date}.csv"
+    end
+
+    def log_job_is_turned_off(data_set)
+      data_set.data = 'Voucher feed job is typically scheduled for this time, but it is turned off.  Go to /features to turn it back on.'
+      data_set.report_time = Time.zone.now.midnight
+      data_set
     end
   end
 end

@@ -66,4 +66,15 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe('#admin?') do
+    it 'returns true if user is in the list of netids' do
+      subject.instance_variable_set(:@netids, %w[user user2])
+      expect(subject.admin?).to eq(true)
+    end
+    it 'returns false if user is not in the list of netids' do
+      subject.instance_variable_set(:@netids, %w[user2 user3])
+      expect(subject.admin?).to eq(false)
+    end
+  end
 end

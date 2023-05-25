@@ -81,5 +81,21 @@ RSpec.describe PeoplesoftVoucher::VoucherFeed, type: :model do
                                                            "<td>#{invoice_errors}</td>")
       expect(confirm_email.html_part.body.to_s).to include("No invoices available to process")
     end
+
+    context 'job is turned off' do
+      before do
+        allow(Flipflop).to receive(:peoplesoft_voucher?).and_return(false)
+      end
+      it 'logs that it is turned off' do
+        voucher_feed = described_class.new(onbase_output_base_dir: '/tmp', peoplesoft_output_base_dir: '/tmp', alma_xml_invoice_list: nil)
+        voucher_feed.run
+        data_set = DataSet.last
+        expect(data_set.data).to eq('Voucher feed job is typically scheduled for this time, but it is turned off.  Go to /features to turn it back on.')
+      end
+      it 'does not email anybody' do
+        voucher_feed = described_class.new(onbase_output_base_dir: '/tmp', peoplesoft_output_base_dir: '/tmp', alma_xml_invoice_list: nil)
+        expect { voucher_feed.run }.not_to change { ActionMailer::Base.deliveries.count }
+      end
+    end
   end
 end

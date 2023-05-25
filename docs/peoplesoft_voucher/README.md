@@ -24,3 +24,8 @@ sequenceDiagram
     Onbase->>Email Server: Sends Email to PUL Stakeholders
     end
 ```
+## Turning the job on and off
+
+To turn this job on or off:
+1. Go to [the flipflop dashboard](https://lib-jobs.princeton.edu/features)
+1. In the active_record column, press the on or off button

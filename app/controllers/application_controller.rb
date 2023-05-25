@@ -12,18 +12,7 @@ class ApplicationController < ActionController::Base
 
   def header_user_menu_item
     if current_user
-      {
-        name: current_user.email,
-        component: current_user.email,
-        href: '#',
-        children: [
-          {
-            name: 'Log Out',
-            component: 'Log Out',
-            href: destroy_user_session_path
-          }
-        ]
-      }
+      logged_in_user_menu_item
     else
       {
         name: 'Log In',
@@ -31,6 +20,29 @@ class ApplicationController < ActionController::Base
         href: new_user_session_path
       }
     end
+  end
+
+  def logged_in_user_menu_item
+    children = [
+      {
+        name: 'Log out',
+        component: 'Log out',
+        href: destroy_user_session_path
+      }
+    ]
+    if current_user.admin?
+      children << {
+        name: 'Turn jobs on and off',
+        component: 'Turn jobs on and off',
+        href: '/features'
+      }
+    end
+    {
+      name: current_user.email,
+      component: current_user.email,
+      href: '#',
+      children:
+    }
   end
 
   def library_header_menu_items
@@ -88,5 +100,10 @@ class ApplicationController < ActionController::Base
 
   def find_user
     User.find_by(id: current_user_id, token: current_user_token)
+  end
+
+  def verify_admin!
+    authenticate_user!
+    redirect_to '/users/auth/cas' unless current_user.admin?
   end
 end

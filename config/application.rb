@@ -13,6 +13,12 @@ require 'zip'
 
 module IlsApps
   class Application < Rails::Application
+    config.flipflop.dashboard_access_filter = :verify_admin!
+
+    # By default, when set to `nil`, strategy loading errors are suppressed in test
+    # mode. Set to `true` to always raise errors, or `false` to always warn.
+    config.flipflop.raise_strategy_errors = false
+
     def config_for(*args)
       build = super(*args)
       OpenStruct.new(build)
