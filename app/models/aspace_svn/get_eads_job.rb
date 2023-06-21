@@ -63,20 +63,19 @@ module AspaceSvn
                                      }
                                    }).parsed
         # get eads from ids
-        eads =
-          resource_ids.map do |id|
-            record = @client.get("/repositories/#{repo}/resource_descriptions/#{id}.xml")
-            ead = Nokogiri::XML(record.body)
-            # i shouldn't have to do this but I do
-            ead.remove_namespaces!
-            eadid = ead.at_xpath('//eadid/text()')
-            # save file with eadid as file name
-            file =  File.open("#{dir}/#{eadid}.EAD.xml", "w")
-            # add back a default namespace
-            ead.child.add_namespace('ead', 'http://www.loc.gov/ead/ead')
-            file << ead
-            file.close
-          end
+        resource_ids.map do |id|
+          record = @client.get("/repositories/#{repo}/resource_descriptions/#{id}.xml")
+          ead = Nokogiri::XML(record.body)
+          # i shouldn't have to do this but I do
+          ead.remove_namespaces!
+          eadid = ead.at_xpath('//eadid/text()')
+          # save file with eadid as file name
+          file =  File.open("#{dir}/#{eadid}.EAD.xml", "w")
+          # add back a default namespace
+          ead.child.add_namespace('ead', 'http://www.loc.gov/ead/ead')
+          file << ead
+          file.close
+        end
       end
       data_set.data = report
       data_set.report_time = Time.zone.now
@@ -84,7 +83,6 @@ module AspaceSvn
     end
 
     def report
-      # item_count = renew_list.renew_item_list.count
       if @errors.empty?
         "EADs successfully exported."
       else
