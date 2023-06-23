@@ -38,19 +38,29 @@ module AlmaRenew
         end
         @valid_item_count += 1
         ncip_request = ncip_request(item:)
-        ncip_renew_item(ncip_request, http)
+        ncip_renew_item(ncip_request, http, item)
       end
     end
 
-    def ncip_renew_item(request, http)
+    # rubocop:disable Metrics/MethodLength
+    def ncip_renew_item(request, http, item)
+      retries ||= 0
       response = http.request request
-
       if response.is_a? Net::HTTPOK
         process_ncip_response(response)
       else
         errors << response.body
       end
+    rescue Net::ReadTimeout => error
+      while (retries += 1) <= 2
+        Rails.logger.warn("Encountered #{error.class}: '#{error.message}' when renewing item with barcode: #{item.item_barcode} at #{Time.now.utc}, retrying in #{retries} second(s)...")
+        sleep(retries)
+        retry
+      end
+      errors << "Encountered #{error.class}: Renewal unsuccessful for item with barcode: #{item.item_barcode}"
+      Rails.logger.error("Encountered #{error.class}: '#{error.message}' at #{Time.now.utc}, unsuccessful in renewing item with barcode: #{item.item_barcode} after #{retries} retries")
     end
+    # rubocop:enable Metrics/MethodLength
 
     def process_ncip_response(response)
       doc = Nokogiri::XML(response.body)
