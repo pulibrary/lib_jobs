@@ -104,5 +104,28 @@ RSpec.describe AlmaRenew::RenewJob, type: :model do
         expect(data_set.data).to eq(expected_data_message)
       end
     end
+
+    context 'when there is a Net::ReadTimeout in ncip_renew_item with one item' do
+      before do
+        stub_request(:post, "https://princeton.alma.exlibrisgroup.com/view/NCIPServlet")
+          .with { |request| request.body.include? "32044061963013" }
+          .to_raise(Net::ReadTimeout)
+        allow(Rails.logger).to receive(:warn)
+        allow(Rails.logger).to receive(:error)
+      end
+
+      it 'retries the one item 3 times' do
+        renew_job = described_class.new
+        allow(renew_job).to receive(:ncip_request).and_call_original
+        expect(renew_job.run).to be_truthy
+        expect(renew_job).to have_received(:ncip_request).exactly(5).times
+        expect(a_request(:post, "https://princeton.alma.exlibrisgroup.com/view/NCIPServlet")
+        .with { |request| request.body.include? "32044061963013" }).to have_been_made.times(3)
+        expect(Rails.logger).to have_received(:warn).exactly(2).times
+        expect(Rails.logger).to have_received(:error).once
+        data_set = DataSet.last
+        expect(data_set.data).to include('Encountered Net::ReadTimeout: Renewal unsuccessful for item with barcode: 32044061963013')
+      end
+    end
   end
 end
