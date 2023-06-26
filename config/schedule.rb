@@ -65,5 +65,5 @@ end
 
 # Run once a month
 every '0 6 1 * *', roles: [:prod] do
-  rake ""
+  rake " lib_jobs:send_eads"
 end
