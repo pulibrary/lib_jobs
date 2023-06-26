@@ -28,32 +28,9 @@ module AspaceSvn
 
     def handle(data_set:)
       aspace_login
-      repos = (3..12).to_a
-      repos.each do |repo|
+      repos.each do |repo, path|
         # make directories if they don't already exist
-        dir =
-          case repo
-          when 3
-            "#{@aspace_output_base_dir}/eads/mudd/publicpolicy"
-          when 4
-            "#{@aspace_output_base_dir}/eads/mudd/univarchives"
-          when 5
-            "#{@aspace_output_base_dir}/eads/mss"
-          when 6
-            "#{@aspace_output_base_dir}/eads/rarebooks"
-          when 7
-            "#{@aspace_output_base_dir}/eads/cotsen"
-          when 8
-            "#{@aspace_output_base_dir}/eads/lae"
-          when 9
-            "#{@aspace_output_base_dir}/eads/eng"
-          when 10
-            "#{@aspace_output_base_dir}/eads/selectors"
-          when 11
-            "#{@aspace_output_base_dir}/eads/ga"
-          when 12
-            "#{@aspace_output_base_dir}/eads/ea"
-          end
+        dir = "#{@aspace_output_base_dir}/eads/#{path}"
         FileUtils.mkdir_p(dir) unless Dir.exist?(dir)
 
         # get resource ids
@@ -63,19 +40,7 @@ module AspaceSvn
                                      }
                                    }).parsed
         # get eads from ids
-        resource_ids.map do |id|
-          record = @client.get("/repositories/#{repo}/resource_descriptions/#{id}.xml")
-          ead = Nokogiri::XML(record.body)
-          # i shouldn't have to do this but I do
-          ead.remove_namespaces!
-          eadid = ead.at_xpath('//eadid/text()')
-          # save file with eadid as file name
-          file =  File.open("#{dir}/#{eadid}.EAD.xml", "w")
-          # add back a default namespace
-          ead.child.add_namespace('ead', 'http://www.loc.gov/ead/ead')
-          file << ead
-          file.close
-        end
+        resource_ids.map { |id| write_eads_to_file(dir, repo, id) }
       end
       data_set.data = report
       data_set.report_time = Time.zone.now
@@ -88,6 +53,37 @@ module AspaceSvn
       else
         "There was a problem exporting the EADs."
       end
+    end
+
+    private
+
+    def repos
+      {
+        3 => "mudd/publicpolicy",
+        4 => "mudd/univarchives",
+        5 => "mss",
+        6 => "rarebooks",
+        7 => "cotsen",
+        8 => "lae",
+        9 => "eng",
+        10 => "selectors",
+        11 => "ga",
+        12 => "ea"
+      }
+    end
+
+    def write_eads_to_file(dir, repo, id)
+      record = @client.get("/repositories/#{repo}/resource_descriptions/#{id}.xml")
+      ead = Nokogiri::XML(record.body)
+      # i shouldn't have to do this but I do
+      ead.remove_namespaces!
+      eadid = ead.at_xpath('//eadid/text()')
+      # save file with eadid as file name
+      file =  File.open("#{dir}/#{eadid}.EAD.xml", "w")
+      # add back a default namespace
+      ead.child.add_namespace('ead', 'http://www.loc.gov/ead/ead')
+      file << ead
+      file.close
     end
   end
 end

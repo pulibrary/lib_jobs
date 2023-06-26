@@ -6,6 +6,7 @@ development:
 
 test:
   <<: *default
+  aspace_files_output_path: tmp
 
 staging:
   <<: *default
