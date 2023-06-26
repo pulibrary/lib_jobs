@@ -4,14 +4,14 @@ require 'rails_helper'
 RSpec.describe AspaceSvn::GetEadsJob do
   describe "#run" do
     before do
-      stub_request(:post, %r{\Ahttps://aspace-staging.princeton.edu/staff/api/users/}).and_return(
+      stub_request(:post, %r{\Ahttps://aspace-staging\.princeton\.edu/staff/api/users/}).and_return(
         status: 200, body: "{'session': 123}"
       )
-      stub_request(:get, %r{\Ahttps://aspace-staging.princeton.edu/staff/api/repositories/\d+/resources\?all_ids=true}).and_return(
+      stub_request(:get, %r{\Ahttps://aspace-staging\.princeton\.edu/staff/api/repositories/\d+/resources\?all_ids=true}).and_return(
         status: 200, body: "[1234,5678]\n",
         headers: { "content-type" => "application/json" }
       )
-      stub_request(:get, %r{\Ahttps://aspace-staging.princeton.edu/staff/api/repositories/\d+/resource_descriptions}).and_return(
+      stub_request(:get, %r{\Ahttps://aspace-staging\.princeton\.edu/staff/api/repositories/\d+/resource_descriptions}).and_return(
         status: 200, body: "<xml><eadid>My_ID</eadid></xml>"
       )
       allow(ENV)
