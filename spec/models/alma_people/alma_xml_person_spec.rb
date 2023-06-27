@@ -146,6 +146,8 @@ RSpec.describe AlmaPeople::AlmaXmlPerson, type: :model do
         Nokogiri::XML::Builder.new do |xml|
           alma_person = described_class.new(xml:, person: oit_person)
           expect(alma_person.valid?).to eq(false)
+          expect(alma_person.errors.messages).to eq({ person: ["doesn't have an expiration date"] })
+          expect(alma_person.errors.full_messages).to eq(["Person doesn't have an expiration date"])
         end
       end
     end
