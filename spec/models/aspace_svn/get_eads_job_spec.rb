@@ -12,7 +12,7 @@ RSpec.describe AspaceSvn::GetEadsJob do
         headers: { "content-type" => "application/json" }
       )
       stub_request(:get, %r{\Ahttps://aspace-staging\.princeton\.edu/staff/api/repositories/\d+/resource_descriptions}).and_return(
-        status: 200, body: "<xml><eadid>My_ID</eadid></xml>"
+        status: 200, body: File.new(file_fixture('ead_from_aspace.xml'))
       )
       allow(ENV)
         .to receive(:[])
@@ -44,6 +44,15 @@ RSpec.describe AspaceSvn::GetEadsJob do
       expect(File).to exist(Rails.root.join('tmp', 'eads', 'selectors'))
       expect(File).to exist(Rails.root.join('tmp', 'eads', 'ga'))
       expect(File).to exist(Rails.root.join('tmp', 'eads', 'ea'))
+    end
+    it "gets filename from the eadid element in the EAD xml api response" do
+      described_class.new.run
+      expect(File).to exist(Rails.root.join('tmp', 'eads', 'mudd', 'publicpolicy', 'MyEadID.EAD.xml'))
+    end
+    it "puts the EAD xml file with corrected namespace into the file" do
+      described_class.new.run
+      expect(FileUtils.identical?(Rails.root.join('tmp', 'eads', 'mudd', 'publicpolicy', 'MyEadID.EAD.xml'),
+                                  file_fixture('ead_corrected.xml'))).to be true
     end
   end
   describe "report" do
