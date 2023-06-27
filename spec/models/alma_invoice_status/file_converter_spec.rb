@@ -91,5 +91,20 @@ RSpec.describe AlmaInvoiceStatus::FileConverter, type: :model do
         expect(File.open('/tmp/test_alma_1.csv.converted').read).to eq(File.open(Rails.root.join('alma_status_query_output.xml')).read)
       end
     end
+
+    context "job is turned off" do
+      before do
+        allow(Flipflop).to receive(:alma_invoice_status?).and_return(false)
+      end
+      it "logs that it is turned off" do
+        allow(sftp_session).to receive(:upload!)
+        allow(Net::SFTP).to receive(:start).and_yield(sftp_session) # start with also
+        FileUtils.touch('/tmp/test_alma_1.csv')
+
+        fund_adjustment.run
+        data_set = DataSet.last
+        expect(data_set.data).to eq("Alma Invoice Status job is typically scheduled for this time, but it is turned off.  Go to /features to turn it back on.")
+      end
+    end
   end
 end

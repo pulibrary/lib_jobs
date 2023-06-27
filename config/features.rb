@@ -19,4 +19,12 @@ Flipflop.configure do
   feature :peoplesoft_voucher,
     default: true,
     description: "Run the Peoplesoft Voucher job on a regular basis?"
+
+  feature :alma_fund_adjustment,
+    default: true,
+    description: "Run the Alma Fund Adjustment job on a regular basis?"
+
+  feature :alma_invoice_status,
+    default: true,
+    description: "Run the Alma Invoice Status job on a regular basis?"
 end

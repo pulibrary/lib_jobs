@@ -21,6 +21,19 @@ module AlmaInvoiceStatus
 
     private
 
+    def handle(data_set:)
+      return log_job_is_turned_off unless Flipflop.alma_invoice_status?
+      super(data_set:)
+    end
+
+    def log_job_is_turned_off
+      data_set = DataSet.new(category: "InvoiceStatus")
+      data_set.data = 'Alma Invoice Status job is typically scheduled for this time, but it is turned off.  Go to /features to turn it back on.'
+      data_set.report_time = Time.zone.now.midnight
+      data_set.save
+      data_set
+    end
+
     def process_file(path, sftp)
       query = File.open(path) { |f| StatusQuery.new(xml_io: f) }
       alma_xml = AlmaXml.new(invoices: query.invoices)

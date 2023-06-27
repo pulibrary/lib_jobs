@@ -24,6 +24,7 @@ module AlmaFundAdjustment
     private
 
     def process_file(file)
+      return log_job_is_turned_off unless Flipflop.alma_fund_adjustment?
       status = true
       data = read_file(file)
       adjustments = data.map { |row| FundAdjustment.new(row) }
@@ -44,6 +45,14 @@ module AlmaFundAdjustment
       CSVValidator.new(csv_filename: file)
                   .require_headers(['TRANSACTION_REFERENCE_NUMBER', 'TRANSACTION_NOTE', 'AMOUNT'])
       CSV.read(file, headers: true)
+    end
+
+    def log_job_is_turned_off
+      data_set = DataSet.new(category: "FundAdjustment")
+      data_set.data = 'Alma Fund Adjustment job is typically scheduled for this time, but it is turned off.  Go to /features to turn it back on.'
+      data_set.report_time = Time.zone.now.midnight
+      data_set.save
+      false
     end
   end
 end
