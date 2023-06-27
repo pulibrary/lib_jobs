@@ -23,8 +23,8 @@
 - Ruby (3.1.0 or later)
 - Postgres
   ```
-  brew install postgres
-  brew services start postgresql
+  brew install postgresql@version-number
+  brew services start postgresql@version-number
   ```
 
 ## Staging Mail Catcher
