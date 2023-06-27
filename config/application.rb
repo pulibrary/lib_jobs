@@ -41,6 +41,7 @@ module IlsApps
     config.alma_ftp = config_for(:alma_ftp)
     config.peoplesoft = config_for(:peoplesoft)
     config.pod = config_for(:pod)
+    config.aspace = config_for(:aspace)
   end
 end
 

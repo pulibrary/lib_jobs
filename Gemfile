@@ -92,4 +92,5 @@ gem "vite_rails", "~> 3.0"
 
 gem "capistrano-yarn", "~> 2.0"
 
+gem 'archivesspace-client'
 gem "flipflop", "~> 2.7"

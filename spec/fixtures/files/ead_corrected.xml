@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ead xmlns:ead="http://www.loc.gov/ead/ead" audience="internal" schemaLocation="urn:isbn:1-931666-22-9 http://www.loc.gov/ead/ead.xsd">
+    <eadheader countryencoding="iso3166-1" dateencoding="iso8601" langencoding="iso639-2b" repositoryencoding="iso15511">
+        <eadid url="http://arks.princeton.edu/ark:/1234/12345">MyEadID</eadid>
+        <filedesc>
+            <titlestmt>
+                <titleproper>Title Proper</titleproper>
+            </titlestmt>
+        </filedesc>
+    </eadheader>
+    <archdesc level="class">
+        <did>
+            <abstract>My abstract</abstract>
+        </did>
+    </archdesc>
+</ead>
