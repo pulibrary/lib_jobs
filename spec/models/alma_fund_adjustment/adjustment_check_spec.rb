@@ -48,5 +48,20 @@ RSpec.describe AlmaFundAdjustment::AdjustmentCheck, type: :model do
         expect { adjustment_check.run }.to raise_error(CSVValidator::InvalidHeadersError)
       end
     end
+    context "job is turned off" do
+      before do
+        allow(Flipflop).to receive(:alma_fund_adjustment?).and_return(false)
+      end
+      it "does not run" do
+        FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions_empty.csv'), '/tmp/test_alma_1.csv')
+        expect(adjustment_check.run).to be false
+      end
+      it "logs that it is turned off" do
+        FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions_empty.csv'), '/tmp/test_alma_1.csv')
+        adjustment_check.run
+        data_set = DataSet.last
+        expect(data_set.data).to eq("Alma Fund Adjustment job is typically scheduled for this time, but it is turned off.  Go to /features to turn it back on.")
+      end
+    end
   end
 end
