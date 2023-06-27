@@ -14,13 +14,10 @@ gem 'terser'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
 
-# Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.2'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 
 # Use ActiveStorage variant
-# gem 'mini_magick', '~> 4.8'
 gem 'matrix'
 gem 'net-ldap'
 
@@ -42,7 +39,6 @@ group :development, :test do
   gem 'rubocop', "~> 1.22"
   gem 'rubocop-rails'
   gem 'solargraph'
-  gem 'sqlite3'
 end
 
 group :development do
@@ -53,9 +49,6 @@ group :development do
   gem 'database_cleaner-active_record'
   gem 'listen', '>= 3.0.5', '< 3.2'
   gem 'rspec-rails'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring', '> 3'
-  gem 'spring-watcher-listen'
   gem 'web-console', '>= 3.3.0'
 end
 
