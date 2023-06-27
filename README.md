@@ -21,10 +21,10 @@
 
 ## Prerequisites
 - Ruby (3.1.0 or later)
-- Postgres
+- Postgres (note: 14 is the version)
   ```
-  brew install postgres
-  brew services start postgresql
+  brew install postgresql@14
+  brew services start postgresql@14
   ```
 
 ## Staging Mail Catcher
