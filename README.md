@@ -21,6 +21,7 @@
 
 ## Prerequisites
 - Ruby (3.1.0 or later)
+- Python (3.11.1 or later)
 - Postgres
   ```
   brew install postgresql@version-number
