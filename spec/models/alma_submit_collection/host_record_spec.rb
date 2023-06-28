@@ -13,7 +13,7 @@ RSpec.describe(AlmaSubmitCollection::HostRecord) do
       { '902' => { 'subfields' => [{ 'a' => 'anything' }] } }
     ]
   end
-  let(:leader) { '00426nad a2200133 i 4500' }
+  let(:leader) { +'00426dad a2200133 i 4500' }
   let(:alma_record) { described_class.new(MARC::Record.new_from_hash('fields' => fields, 'leader' => leader)) }
 
   before do
@@ -33,6 +33,8 @@ RSpec.describe(AlmaSubmitCollection::HostRecord) do
       fixed_record = alma_record.record_fixes
       expect(fixed_record['a24']).to be nil
       expect(fixed_record['902']).to be nil
+      expect(fixed_record['852']).to be nil
+      expect(fixed_record.leader[5]).to eq('c')
     end
   end
 end
