@@ -6054,10 +6054,10 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
-lux-design-system@^2.0.4:
-  version "2.17.0"
-  resolved "https://registry.yarnpkg.com/lux-design-system/-/lux-design-system-2.17.0.tgz#2635ebe64ca16ee01423bc1e360b5834f5ba0216"
-  integrity sha512-OY1Qdh4rckYtbpa8G4PSnBGzV7t1JY7Sxkok214nlO9B+cp55cz7DcRkOntrFrahzClXWnQ0/I2BXcyivnsSGw==
+lux-design-system@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lux-design-system/-/lux-design-system-4.5.0.tgz#f0c72373a4fe4f75629488e34268643b7b52237e"
+  integrity sha512-qWijT9bUv6BMVwCZmLoPgmUxsD3e3OtmNjBjd0xLqasJhzhMRZnGSQNp55plXBBybdwi4vgicElP7pth3ZTmzw==
   dependencies:
     lodash "^4.17.11"
     mini-css-extract-plugin "^0.4.5"
@@ -6069,8 +6069,10 @@ lux-design-system@^2.0.4:
     tinycolor2 "^1.4.1"
     v-calendar "^0.9.7"
     vue "^2.5.18"
+    vue-cookies "^1.7.4"
     vue-lodash "^2.0.0"
     vue-meta "^1.5.6"
+    vue-multiselect "^2.1.7"
     vue-router "^3.0.2"
     vuedraggable "^2.16.0"
     vuex "^3.0.1"
@@ -9064,6 +9066,11 @@ vue-class-component@^7.1.0:
   resolved "https://registry.yarnpkg.com/vue-class-component/-/vue-class-component-7.2.6.tgz#8471e037b8e4762f5a464686e19e5afc708502e4"
   integrity sha512-+eaQXVrAm/LldalI272PpDe3+i4mPis0ORiMYxF6Ae4hyuCh15W8Idet7wPUEs4N4YptgFHGys4UrgNQOMyO6w==
 
+vue-cookies@^1.7.4:
+  version "1.8.3"
+  resolved "https://registry.yarnpkg.com/vue-cookies/-/vue-cookies-1.8.3.tgz#0c7ce26d150f7ac50356ae17cb4ead1122013b82"
+  integrity sha512-VBRsyRMVdahBgFfh389TMHPmDdr4URDJNMk4FKSCfuNITs7+jitBDhwyL4RJd3WUsfOYNNjPAkfbehyH9AFuoA==
+
 vue-eslint-parser@^2.0.2:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/vue-eslint-parser/-/vue-eslint-parser-2.0.3.tgz#c268c96c6d94cfe3d938a5f7593959b0ca3360d1"
@@ -9154,6 +9161,11 @@ vue-meta@^1.5.6:
     lodash.isplainobject "^4.0.6"
     lodash.uniqueid "^4.0.1"
     object-assign "^4.1.1"
+
+vue-multiselect@^2.1.7:
+  version "2.1.7"
+  resolved "https://registry.yarnpkg.com/vue-multiselect/-/vue-multiselect-2.1.7.tgz#f27afe3d46482b94810382af7a4826219255c47d"
+  integrity sha512-KIegcN+Ntwg3cbkY/jhw2s/+XJUM0Lpi/LcKFYCS8PrZHcWBl2iKCVze7ZCnRj3w8H7/lUJ9v7rj9KQiNxApBw==
 
 vue-property-decorator@8.3.0:
   version "8.3.0"

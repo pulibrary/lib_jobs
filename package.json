@@ -4,7 +4,7 @@
   "dependencies": {
     "@vue/cli-plugin-babel": "^4.5.12",
     "babel-core": "^6.26.3",
-    "lux-design-system": "^2.0.4",
+    "lux-design-system": "^4.5.0",
     "vue": "^2.6.12",
     "vue-focus": "^2.1.0",
     "vue-loader": "^15.9.5",
