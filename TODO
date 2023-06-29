@@ -1,5 +1,7 @@
 [Mark's gist](https://gist.github.com/mzelesky/e6bd007090fae5a492961fcd7dda975e)
 * Make a connection to lib-sftp. Separate the responsibility of the sftp connection in a different class. Reuse it in POD and in submit collection. lib_jobs/app/models/alma_pod_records/alma_pod_file_list.rb
+   * Rename files to .processed when we download them
+   * See if we can share code with POD
 
 * Fetch the file(s) that is there
 * Unzip the file
