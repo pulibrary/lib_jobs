@@ -12,10 +12,6 @@ module.exports = {
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/app/javascript/$1",
   },
-  transform: {
-    "^.+\\.js$": "<rootDir>/node_modules/babel-jest",
-    ".*\\.(vue)$": "<rootDir>/node_modules/jest-vue-preprocessor"
-  },
   setupFiles: [
     "<rootDir>/app/javascript/__tests__/setup"
   ],
