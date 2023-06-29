@@ -77,6 +77,7 @@ GEM
     ast (2.4.2)
     backport (1.1.2)
     bcrypt (3.1.18)
+    bcrypt_pbkdf (1.1.0)
     benchmark (0.1.1)
     bindex (0.8.1)
     bixby (5.0.0)
@@ -138,6 +139,7 @@ GEM
       railties (>= 3.2)
     dry-cli (1.0.0)
     e2mmap (0.1.0)
+    ed25519 (1.3.0)
     erubi (1.12.0)
     execjs (2.7.0)
     factory_bot (6.1.0)
@@ -201,11 +203,11 @@ GEM
       timeout
     net-scp (4.0.0)
       net-ssh (>= 2.6.5, < 8.0.0)
-    net-sftp (3.0.0)
-      net-ssh (>= 5.0.0, < 7.0.0)
+    net-sftp (4.0.0)
+      net-ssh (>= 5.0.0, < 8.0.0)
     net-smtp (0.3.3)
       net-protocol
-    net-ssh (6.1.0)
+    net-ssh (7.1.0)
     nio4r (2.5.9)
     nokogiri (1.14.3-arm64-darwin)
       racc (~> 1.4)
@@ -422,6 +424,7 @@ PLATFORMS
 
 DEPENDENCIES
   archivesspace-client
+  bcrypt_pbkdf (~> 1.1)
   bixby
   bootsnap (>= 1.1.0)
   brakeman
@@ -434,6 +437,7 @@ DEPENDENCIES
   database_cleaner-active_record
   devise (>= 4.6.0)
   dotenv-rails
+  ed25519 (~> 1.3)
   factory_bot_rails
   flipflop (~> 2.7)
   foreman

@@ -87,3 +87,6 @@ gem "capistrano-yarn", "~> 2.0"
 
 gem 'archivesspace-client'
 gem "flipflop", "~> 2.7"
+
+gem "bcrypt_pbkdf", "~> 1.1"
+gem "ed25519", "~> 1.3"
