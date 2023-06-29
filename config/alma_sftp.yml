@@ -10,6 +10,7 @@ default: &default
   pod_output_path: <%= ENV["ALMA_POD_OUTPUT_DIR"] || '/alma/pod' %>
   renew_report_path: <%= ENV["ALMA_RENEW_INPUT_DIR"] || '/alma/scsb_renewals' %>
   bursar_report_path: <%= ENV["ALMA_BURSAR_INPUT_DIR"] || '/alma/bursar' %>
+  alma_recap_output_path: <%= ENV["ALMA_RECAP_OUTPUT_DIR"] || '/alma/recap' %>
 
 development:
   <<: *default
