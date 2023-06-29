@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 class AlmaSftp
-  attr_reader :ftp_host, :ftp_username, :ftp_password
+  attr_reader :ftp_host, :ftp_username
 
   def initialize(ftp_host: Rails.application.config.alma_ftp.host,
                  ftp_username: Rails.application.config.alma_ftp.username,
@@ -12,7 +12,7 @@ class AlmaSftp
 
   def start
     retries ||= 0
-    Net::SFTP.start(ftp_host, ftp_username, { password: ftp_password }) do |sftp|
+    Net::SFTP.start(ftp_host, ftp_username, { password: @ftp_password }) do |sftp|
       yield(sftp)
     end
   rescue Net::SSH::Disconnect => error
