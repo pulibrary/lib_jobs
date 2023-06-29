@@ -4,8 +4,8 @@ require 'rails_helper'
 RSpec.describe AlmaSubmitCollection::AlmaRecapFileList, type: :model do
   subject(:alma_recap_file_list) { described_class.new }
 
-  let(:name) { 'file.tar.gz' }
-  let(:file_name) { instance_double("Net::SFTP::Protocol::V01::Name", name:) }
+  let(:alma_recap_filename) { 'incremental_recap_25915534740006421_20230421_180416[015]_new_150.tar.gz' }
+  let(:file_name) { instance_double("Net::SFTP::Protocol::V01::Name", name: alma_recap_filename) }
   let(:file_attributes) { instance_double("Net::SFTP::Protocol::V01::Attributes") }
   let(:sftp_session) { instance_double("Net::SFTP::Session", dir: sftp_dir) }
   let(:sftp_dir) { instance_double("Net::SFTP::Operations::Dir") }
@@ -36,6 +36,14 @@ RSpec.describe AlmaSubmitCollection::AlmaRecapFileList, type: :model do
     let(:file_size) { 0 }
     it "doesn't download the file" do
       expect(alma_recap_file_list.files).to be_empty
+    end
+  end
+
+  describe '#download_and_decompress_file' do
+    pending 'we need to decompress the fixture file before checking, also get a smaller file'
+    it 'downloads and returns the content of the file' do
+      results = alma_recap_file_list.download_and_decompress_file(alma_recap_filename)
+      expect(results.first.readlines).to eq(File.new(Pathname.new(file_fixture_path).join("alma", alma_recap_filename)).readlines)
     end
   end
 end
