@@ -11,15 +11,15 @@ module.exports = {
           docs: { lang: "markdown" },
           config: { lang: "json" },
           module: { lang: "js" },
-          comments: false
-        }
+          comments: false,
+        },
       },
       usePrettierrc: true,
       fileInfoOptions: {
         ignorePath: ".prettierignore",
-        withNodeModules: false
-      }
-    }
+        withNodeModules: false,
+      },
+    },
   },
 
   rules: {
@@ -42,11 +42,11 @@ module.exports = {
           {
             files: "*.scss",
             options: {
-              parser: "scss"
-            }
-          }
-        ]
-      }
-    ]
-  }
-};
+              parser: "scss",
+            },
+          },
+        ],
+      },
+    ],
+  },
+}
