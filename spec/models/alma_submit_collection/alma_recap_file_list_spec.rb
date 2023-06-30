@@ -4,7 +4,7 @@ require 'rails_helper'
 RSpec.describe AlmaSubmitCollection::AlmaRecapFileList, type: :model do
   subject(:alma_recap_file_list) { described_class.new }
 
-  let(:alma_recap_filename) { 'incremental_recap_25915534740006421_20230421_180416[015]_new_150.tar.gz' }
+  let(:alma_recap_filename) { 'incremental_recap_25908087650006421_20230420_160408[057]_new.xml.tar.gz' }
   let(:file_name) { instance_double("Net::SFTP::Protocol::V01::Name", name: alma_recap_filename) }
   let(:file_attributes) { instance_double("Net::SFTP::Protocol::V01::Attributes") }
   let(:sftp_session) { instance_double("Net::SFTP::Session", dir: sftp_dir) }
