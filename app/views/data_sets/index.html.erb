@@ -1,6 +1,7 @@
 <h1>Data Sets</h1>
 
 <%= form_with url: data_sets_path, method: :get, local: true do |form| %>
+  <label for="category">Filter by job</label>
   <%= form.select :category, @data_sets.categories, selected: params[:category] %>
   <%= form.submit "Filter" %>
   <%= form.submit "Clear Filters" %>
