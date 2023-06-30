@@ -446,9 +446,9 @@ PLATFORMS
 
 DEPENDENCIES
   archivesspace-client
-  bcrypt_pbkdf (~> 1.1)
   axe-core-api
   axe-core-rspec
+  bcrypt_pbkdf (~> 1.1)
   bixby
   bootsnap (>= 1.1.0)
   brakeman
