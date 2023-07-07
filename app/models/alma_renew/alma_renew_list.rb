@@ -10,7 +10,7 @@ module AlmaRenew
 
     delegate :empty?, to: :valid_invoices
 
-    def initialize(input_ftp_base_dir: Rails.application.config.alma_ftp.renew_report_path, file_pattern: '\.csv$', alma_sftp: AlmaSftp.new)
+    def initialize(input_ftp_base_dir: Rails.application.config.alma_sftp.renew_report_path, file_pattern: '\.csv$', alma_sftp: AlmaSftp.new)
       @input_ftp_base_dir = input_ftp_base_dir
       @file_pattern = file_pattern
       @alma_sftp = alma_sftp

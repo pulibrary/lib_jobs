@@ -3,7 +3,7 @@ module PeoplesoftBursar
   class Report
     attr_reader :sftp_locations, :alma_sftp, :file_pattern, :input_ftp_base_dir, :list, :department, :report_type
 
-    def initialize(input_ftp_base_dir: Rails.application.config.alma_ftp.bursar_report_path, file_pattern: '\.csv$', alma_sftp: AlmaSftp.new, list: nil, report_type: 'Generic')
+    def initialize(input_ftp_base_dir: Rails.application.config.alma_sftp.bursar_report_path, file_pattern: '\.csv$', alma_sftp: AlmaSftp.new, list: nil, report_type: 'Generic')
       @input_ftp_base_dir = input_ftp_base_dir
       @file_pattern = file_pattern
       @alma_sftp = alma_sftp

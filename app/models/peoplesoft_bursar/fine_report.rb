@@ -3,7 +3,7 @@ require 'csv'
 
 module PeoplesoftBursar
   class FineReport < Report
-    def initialize(input_ftp_base_dir: Rails.application.config.alma_ftp.bursar_report_path, file_pattern: '\.csv$', alma_sftp: AlmaSftp.new, list: nil)
+    def initialize(input_ftp_base_dir: Rails.application.config.alma_sftp.bursar_report_path, file_pattern: '\.csv$', alma_sftp: AlmaSftp.new, list: nil)
       super(input_ftp_base_dir:, file_pattern:, alma_sftp:, list:, report_type: 'Payment')
       @report_type = 'Payment'
     end

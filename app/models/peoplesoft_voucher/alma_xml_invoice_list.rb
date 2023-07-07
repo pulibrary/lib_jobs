@@ -8,7 +8,7 @@ module PeoplesoftVoucher
 
     delegate :empty?, to: :valid_invoices
 
-    def initialize(input_ftp_base_dir: Rails.application.config.alma_ftp.voucher_feed_path, file_pattern: '\.xml$', alma_sftp: AlmaSftp.new)
+    def initialize(input_ftp_base_dir: Rails.application.config.alma_sftp.voucher_feed_path, file_pattern: '\.xml$', alma_sftp: AlmaSftp.new)
       @input_ftp_base_dir = input_ftp_base_dir
       @file_pattern = file_pattern
       @alma_sftp = alma_sftp
