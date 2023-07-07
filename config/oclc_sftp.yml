@@ -3,11 +3,13 @@ default: &default
   username: <%= ENV['OCLC_SFTP_USER'] || 'fx_pul' %>
   password: <%= ENV['OCLC_SFTP_PASSWORD'] || 'test_oclc_pass' %>
   lc_call_slip_path: '/xfer/metacoll/out/ongoing/new'
+
 development:
   <<: *default
 
 test:
   <<: *default
+  host: 'localhost2'
 
 staging: &staging
   <<: *default
