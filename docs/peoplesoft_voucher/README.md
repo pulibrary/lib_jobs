@@ -5,6 +5,16 @@
 
 ```mermaid
 sequenceDiagram
+    accTitle: Transformation of invoices from Alma to vouchers for PeopleSoft.
+    accDescr {
+      Alma exports Invoices for Payment job to lib-sftp (7pm Princeton time Daily)
+      Lib Jobs requests and receives a list of invoice xml files (Daily at 2:00 UTC) from lib-sftp. Lib Jobs downloads these xml file(s) from lib-sftp.
+      If valid invoice lines exist, Lib Jobs shares the Voucher Report and Onbase Report with Voucher Samba Share.
+      Lib Jobs sends emails to PUL stakeholders and renames the invoice xml file(s) to .processed in lib-sftp.
+      At this stage, if valid invoice lines exist, Peoplesoft downloads and processes the Voucher Report from Voucher Samba Share.
+      Peoplesoft stages vouchers for prod to process for payment.
+      Onbase downloads and processes the Onbase Report from Voucher Samba Share. Onbase then updates invoices with the voucher ID and finally sends emails to PUL Stakeholders.
+    }
     Alma->>lib-sftp: Export Invoices for Payment job f(7pm Princeton time Daily)
     Lib Jobs->>+lib-sftp: request list of invoice xml files (Daily at 2:00 UTC)
     lib-sftp-->>-Lib Jobs: list of invoice xml files
