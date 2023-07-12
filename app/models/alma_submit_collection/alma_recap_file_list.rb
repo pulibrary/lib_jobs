@@ -12,6 +12,12 @@ module AlmaSubmitCollection
     end
 
     # @return [Array<StringIO>]
+    def file_contents
+      @file_contents ||= @files.map { |filename| download_and_decompress_file(filename) }
+                               .flatten
+    end
+
+    # @return [Array<StringIO>]
     def download_and_decompress_file(filename)
       Tarball.new(download_file(filename)).contents
     end
