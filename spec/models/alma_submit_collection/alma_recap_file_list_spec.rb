@@ -26,7 +26,7 @@ RSpec.describe AlmaSubmitCollection::AlmaRecapFileList, type: :model do
   end
 
   context "if the filename doesn't match the pattern" do
-    let(:name) { 'BAD' }
+    let(:alma_recap_filename) { 'BAD' }
     it "doesn't download the file" do
       expect(alma_recap_file_list.files).to be_empty
     end
