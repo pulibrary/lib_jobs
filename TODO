@@ -3,7 +3,6 @@
    * Rename files to .processed when we download them
    * See if we can share code with POD
 
-* Fetch the file(s) that is there
 * Unzip the file
    * Create a tempfile file with the namespace added. lib_jobs/app/models/marc_collection.rb
 * Make the record fixes

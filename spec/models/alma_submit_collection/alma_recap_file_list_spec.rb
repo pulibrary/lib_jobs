@@ -9,13 +9,15 @@ RSpec.describe AlmaSubmitCollection::AlmaRecapFileList, type: :model do
   let(:file_attributes) { instance_double("Net::SFTP::Protocol::V01::Attributes") }
   let(:sftp_session) { instance_double("Net::SFTP::Session", dir: sftp_dir) }
   let(:sftp_dir) { instance_double("Net::SFTP::Operations::Dir") }
+  let(:sftp_file_factory) { Net::SFTP::Operations::FileFactory.new(sftp_session) }
   let(:file_size) { 1028 }
 
   before do
     allow(file_attributes).to receive(:size).and_return file_size
     allow(file_name).to receive(:attributes).and_return file_attributes
     allow(sftp_dir).to receive(:foreach).and_yield file_name
-    allow(sftp_session).to receive(:file).and_return StringIO
+    allow(sftp_session).to receive(:file).and_return sftp_file_factory
+    allow(sftp_file_factory).to receive(:open).and_return StringIO.new
     allow(Net::SFTP).to receive(:start).and_yield sftp_session
   end
 
@@ -40,10 +42,15 @@ RSpec.describe AlmaSubmitCollection::AlmaRecapFileList, type: :model do
   end
 
   describe '#download_and_decompress_file' do
-    pending 'we need to decompress the fixture file before checking, also get a smaller file'
+    before do
+      allow(sftp_file_factory).to receive(:open).and_return File.new(Pathname.new(file_fixture_path).join("alma", alma_recap_filename))
+    end
     it 'downloads and returns the content of the file' do
-      results = alma_recap_file_list.download_and_decompress_file(alma_recap_filename)
-      expect(results.first.readlines).to eq(File.new(Pathname.new(file_fixture_path).join("alma", alma_recap_filename)).readlines)
+      title_field = '<datafield tag="245" ind1="1" ind2="0"><subfield code="a">Distress in the fields :</subfield>'\
+                    '<subfield code="b">Indian agriculture after liberalization /</subfield>'\
+                    '<subfield code="c">edited by R. Ramakumar.</subfield></datafield>'
+      decompressed_file_contents = alma_recap_file_list.download_and_decompress_file(alma_recap_filename)
+      expect(decompressed_file_contents.first.string).to include(title_field)
     end
   end
 end
