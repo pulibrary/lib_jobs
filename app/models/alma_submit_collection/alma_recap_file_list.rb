@@ -11,14 +11,9 @@ module AlmaSubmitCollection
       @files = files || compile_file_list
     end
 
+    # @return [Array<StringIO>]
     def download_and_decompress_file(filename)
-      decompressed_files = []
-      @alma_sftp.start do |sftp|
-        Rails.logger.info "Downloading Alma Recap file #{filename}"
-        full_filename = File.join(@input_ftp_base_dir, filename)
-        decompressed_files.concat(Tarball.new(sftp.file.open(full_filename)).contents)
-      end
-      decompressed_files
+      Tarball.new(download_file(filename)).contents
     end
 
     private
@@ -33,6 +28,16 @@ module AlmaSubmitCollection
         end
       end
       files
+    end
+
+    def download_file(filename)
+      @alma_sftp.start do |sftp|
+        Rails.logger.info "Downloading Alma Recap file #{filename}"
+        full_filename = File.join(@input_ftp_base_dir, filename)
+        contents = sftp.file.open(full_filename)
+        sftp.rename(full_filename, "#{full_filename}.processed")
+        contents
+      end
     end
   end
 end

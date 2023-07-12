@@ -17,6 +17,7 @@ RSpec.describe AlmaSubmitCollection::AlmaRecapFileList, type: :model do
     allow(file_name).to receive(:attributes).and_return file_attributes
     allow(sftp_dir).to receive(:foreach).and_yield file_name
     allow(sftp_session).to receive(:file).and_return sftp_file_factory
+    allow(sftp_session).to receive(:rename)
     allow(sftp_file_factory).to receive(:open).and_return StringIO.new
     allow(Net::SFTP).to receive(:start).and_yield sftp_session
   end
@@ -51,6 +52,12 @@ RSpec.describe AlmaSubmitCollection::AlmaRecapFileList, type: :model do
                     '<subfield code="c">edited by R. Ramakumar.</subfield></datafield>'
       decompressed_file_contents = alma_recap_file_list.download_and_decompress_file(alma_recap_filename)
       expect(decompressed_file_contents.first.string).to include(title_field)
+    end
+    it 'renames the file to .processed' do
+      old_filepath = "/alma/recap/incremental_recap_25908087650006421_20230420_160408[057]_new.xml.tar.gz"
+      new_filepath = "/alma/recap/incremental_recap_25908087650006421_20230420_160408[057]_new.xml.tar.gz.processed"
+      alma_recap_file_list.download_and_decompress_file(alma_recap_filename)
+      expect(sftp_session).to have_received(:rename).with(old_filepath, new_filepath)
     end
   end
 end
