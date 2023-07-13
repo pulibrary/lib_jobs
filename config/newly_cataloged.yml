@@ -1,0 +1,29 @@
+default: &default
+  selector_csv_path: '/tmp/oclc/'
+  selectors:
+    - bordelon:
+      - classes:
+        - class:
+          - G:
+            - low_num: 154.9
+            - high_num: 155.8
+    - darrington:
+      - classes:
+        - class:
+          - GE:
+            - low_num: 170
+            - high_num: 190
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+  host: 'localhost2'
+  selector_csv_path: 'spec/fixtures/oclc/'
+
+staging: &staging
+  <<: *default
+
+production:
+  <<: *staging
