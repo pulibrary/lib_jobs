@@ -5,13 +5,9 @@ module AlmaSubmitCollection
       files = AlmaRecapFileList.new.file_contents
       records_processed = 0
       files.each_with_index do |file, file_num|
-        # TODO: read files using nokogiri rather than rexml
-        reader = MARC::XMLReader.new(file)
-        writer = MARC::XMLWriter.new(Tempfile.new(['scsb_submitcollection_std', "#{file_num}.marcxml"]))
-        reader.each do |record|
-          writer.write(MarcRecord.new(record).record_fixes)
-          records_processed += 1
-        end
+        processor = MarcFileProcessor.new(file:, file_num:)
+        processor.process
+        records_processed += processor.records_processed
       end
       data_set.data = "#{records_processed} records processed."
       data_set

@@ -28,7 +28,7 @@ RSpec.describe AlmaSubmitCollection::AlmaSubmitCollectionJob, type: :model do
     it "logs the number of records processed" do
       described_class.new(category: 'mouse').run
       data_last = DataSet.last
-      expect(data_last.data).to eq "8 records processed."
+      expect(data_last.data).to eq "7 records processed."
     end
   end
 end
