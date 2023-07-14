@@ -2,17 +2,40 @@ default: &default
   selector_csv_path: '/tmp/oclc/'
   selectors:
     - bordelon:
-      - classes:
-        - class:
-          - G:
-            - low_num: 154.9
-            - high_num: 155.8
+        classes:
+        - class: G
+          low_num: 154.9
+          high_num: 155.8
+        - class: G
+          low_num: 156.5
+          high_num: 156.599
+        excluded_languages:
+        - ara
+        - heb
+        - jpn
+        - kor
+        - urd
+        subjects:
+        - economic aspects
     - darrington:
-      - classes:
-        - class:
-          - GE:
-            - low_num: 170
-            - high_num: 190
+        classes:
+        - class: GE
+          low_num: 170
+          high_num: 190
+        - class: GE
+          low_num: 195
+          high_num: 199
+        excluded_languages:
+        - ara
+        - heb
+        - jpn
+        - kor
+        - urd
+        subjects:
+        - foreign relations
+        - politic
+        - policy
+        - government
 
 development:
   <<: *default
@@ -21,7 +44,49 @@ test:
   <<: *default
   host: 'localhost2'
   selector_csv_path: 'spec/fixtures/oclc/'
-
+  selectors:
+    - bordelon:
+        classes:
+        - class: G
+          low_num: 154.9
+          high_num: 155.8
+        - class: G
+          low_num: 156.5
+          high_num: 156.599
+        - class: GE
+          low_num: 125
+          high_num: 125
+        - class: U
+          low_num: 700
+          high_num: 799
+        excluded_languages:
+        - ara
+        - heb
+        - jpn
+        - kor
+        - urd
+        subjects:
+        - economic aspects
+        - history
+    - darrington:
+        classes:
+        - class: GE
+          low_num: 170
+          high_num: 190
+        - class: GE
+          low_num: 195
+          high_num: 199
+        excluded_languages:
+        - ara
+        - heb
+        - jpn
+        - kor
+        - urd
+        subjects:
+        - foreign relations
+        - politic
+        - policy
+        - government
 staging: &staging
   <<: *default
 
