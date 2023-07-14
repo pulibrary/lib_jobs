@@ -6,10 +6,12 @@ RSpec.describe(AlmaSubmitCollection::MarcRecord) do
   let(:field_852_subfield_8) { '22922994580006421' }
   let(:field_876_subfield_a) { '23579686040006421' }
   let(:field_876_subfield_0) { '22641409810006421' }
+  let(:field_876_subfield_r) { 'false' }
+  let(:field_876_subfield_s) { 'IPLCBrill' }
   let(:fields) do
     [
       { '852' => { 'subfields' => [{ 'c' => field_852_subfield_c, '8' => field_852_subfield_8 }] } },
-      { '876' => { 'subfields' => [{ 'a' => field_876_subfield_a, '0' => field_876_subfield_0 }] } }
+      { '876' => { 'subfields' => [{ 'a' => field_876_subfield_a, '0' => field_876_subfield_0, 'r' => field_876_subfield_r, 's' => field_876_subfield_s}] } }
     ]
   end
   let(:leader) { '00426dad a2200133 i 4500' }
@@ -48,6 +50,28 @@ RSpec.describe(AlmaSubmitCollection::MarcRecord) do
       let(:field_876_subfield_0) { '13579' }
       it 'returns false' do
         expect(record.valid?).to eq(false)
+      end
+    end
+  end
+
+  describe('#cgd') do
+    context 'returns a Committed cgd' do
+      let(:field_876_subfield_r) { 'true' }
+      let(:field_852_subfield_c) { 'pl' }
+      it 'returns Committed' do
+        expect(record.cgd_assignment).to eq('Committed')
+      end
+    end
+    context 'returns a Shared cgd' do
+      let(:field_852_subfield_c) { 'pa' }
+      it 'returns Shared' do
+        expect(record.cgd_assignment).to eq('Shared')
+      end
+    end
+    context 'returns a Private cgd' do
+      let(:field_852_subfield_c) { 'pl' }
+      it 'returns Private' do
+        expect(record.cgd_assignment).to eq('Private')
       end
     end
   end

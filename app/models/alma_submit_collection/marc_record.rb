@@ -23,6 +23,16 @@ module AlmaSubmitCollection
       @record
     end
 
+    def cgd_assignment
+      return 'Committed' if committed_cgd?
+    
+      wanted852 = @record.fields('852').select do |f|
+        alma_holding?(f)
+      end
+      location = wanted852.first['c']
+      cgd_from_location(location)
+    end
+
     private
 
     def alma_holding?(field)
@@ -46,5 +56,29 @@ module AlmaSubmitCollection
         xr xw xx pg pv
       ]
     end
+
+    def cgd_from_location(location)
+      if %w[pa gp qk pf pv].include?(location)
+        'Shared'
+      else
+        'Private'
+      end
+    end
+    
+    def retention_reasons
+      %w[ReCAPItalianImprints IPLCBrill ReCAPSACAP]
+    end
+    
+    def committed_cgd?
+      f876 = @record.fields('876').select do |f|
+        alma_item?(f)
+      end
+      f876.each do |field|
+        return true if field['r'] == 'true' &&
+                       retention_reasons.include?(field['s'])
+      end
+      false
+    end
+    
   end
 end
