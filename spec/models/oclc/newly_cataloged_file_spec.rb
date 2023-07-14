@@ -29,6 +29,10 @@ RSpec.describe Oclc::NewlyCatalogedFile, type: :model do
     expect(newly_cataloged_file.csv_file_path).to eq('spec/fixtures/oclc/')
   end
 
+  it 'has a Marc Reader' do
+    expect(newly_cataloged_file.reader).to be_instance_of(MARC::Reader)
+  end
+
   context 'without an existing csv file' do
     it 'without an existing csv file, it creates a csv file' do
       expect(File.exist?(new_csv_path_1)).to be false
