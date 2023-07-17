@@ -16,6 +16,13 @@ and run the rake task again.
 
 ```mermaid
 sequenceDiagram
+    accTitle: Generation of CSV version of Libcal's ical feed or library events.
+    accDescr {
+        Lib Jobs requests and receives the ical feed from LibCal.
+        Lib Jobs converts this feed to CSV.
+        The Library Website Feeds module requests for the CSV file (every hour on the :45) and receives it from Lib Jobs.
+        The Library Website Feeds module imports the events for display on the front page.
+    }
     Lib Jobs->>+LibCal: requests ical feed
     LibCal-->>-Lib Jobs: returns ical feed
     Lib Jobs->>Lib Jobs: converts to CSV

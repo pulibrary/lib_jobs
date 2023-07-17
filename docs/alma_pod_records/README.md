@@ -10,6 +10,14 @@ You can see all uploaded files in our [POD Aggregator Organization page](https:/
 
 ```mermaid
 sequenceDiagram
+    accTitle: Flow diagram depicting the job cleaning up MaRC records from Alma and sending them to the POD project.
+    accDescr {
+        MaRC XML records are exported from Alma to lib-sftp on midnight daily Princeton time.
+        Lib Jobs requests the list of MaRC XML files (Daily at 11:30am UTC) from lib-sftp and received the list of non-empty files.
+        Lib Jobs downloads the MaRC XML files from lib-sftp.
+        Lib Jobs adds namespace to the XML files.
+        Lib Jobs POSTs MaRC XML files to POD Aggregator. ReShare harvests these records from the POD Aggregator.
+}
     Alma->>lib-sftp: Exports MaRC XML records(midnight daily Princeton time)
     Lib Jobs->>+lib-sftp: Request list of MaRC XML files (Daily at 11:30am UTC)
     lib-sftp-->>-Lib Jobs: list of non-empty MaRC XML files

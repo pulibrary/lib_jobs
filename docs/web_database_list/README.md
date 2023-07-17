@@ -7,6 +7,11 @@ libguides.
 
 ```mermaid
 sequenceDiagram
+    accTitle: Generation of a CSV version of the database A-Z list in libguides.
+    accDescr {
+        Lib Jobs requests an authorization token from LibGuides. LibGuides returns the token to LibJobs.
+        Lib Jobs requests the database list from LibGuides and receives the list in JSON form.
+    }
     Lib Jobs->>+LibGuides: requests authorization token
     LibGuides-->>-Lib Jobs: returns the token
     Lib Jobs->>+LibGuides: requests the database list
