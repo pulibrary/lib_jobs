@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Oclc
+  # rubocop:disable Metrics/ClassLength
   class Record
     attr_reader :record
     def initialize(marc_record:)
@@ -12,11 +13,24 @@ module Oclc
     end
 
     def relevant_to_selector?(selector:)
-      class_relevant_to_selector?(selector:) || subject_relevant_to_selector?(selector:)
+      call_number_in_range_for_selector?(selector:) || subject_relevant_to_selector?(selector:)
+    end
+
+    def call_number_in_range_for_selector?(selector:)
+      return false unless class_relevant_to_selector?(selector:)
+
+      selector.call_number_ranges.map do |range|
+        next false unless lc_class == range[:class]
+
+        next true if lc_number.between?(range[:low_num], range[:high_num])
+
+        false
+      end.include?(true)
     end
 
     def class_relevant_to_selector?(selector:)
       return true if selector.classes.include?(lc_class)
+
       false
     end
 
@@ -24,10 +38,44 @@ module Oclc
       subjects.any? { |subject| subject.downcase.match?(/#{selector.subjects.join('|')}/) }
     end
 
-    def lc_class
-      return unless record['050']['a']
+    def oclc_id
+      record['001'].value.strip
+    end
 
-      record['050']['a'].gsub(/^([A-Z]+?)[^A-Z].*$/, '\1')
+    def isbns
+      isbn = []
+      record.fields('020').each do |field|
+        next unless field['a']
+
+        isbn << StdNum::ISBN.normalize(field.value)
+      end
+      isbn.uniq
+    end
+
+    # The LC classification number (050 subfield a) stripped of whitespace
+    def call_number
+      return nil unless record['050']
+
+      targets = record['050'].subfields.select do |subfield|
+        %w[a b].include?(subfield.code)
+      end
+      return nil if targets.empty?
+
+      targets.map(&:value).join(' ')
+    end
+
+    # Only the class from the call_number
+    def lc_class
+      return unless call_number
+
+      call_number.gsub(/^([A-Z]+?)[^A-Z].*$/, '\1')
+    end
+
+    # Only the number from the call_number
+    def lc_number
+      return unless call_number
+
+      call_number.gsub(/^[^0-9]+([0-9]+)(\.[0-9]+)?[^0-9]?.*$/, '\1\2').to_f
     end
 
     def languages
@@ -95,3 +143,4 @@ module Oclc
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

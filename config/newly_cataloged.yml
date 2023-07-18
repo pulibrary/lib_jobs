@@ -59,6 +59,9 @@ test:
         - class: U
           low_num: 700
           high_num: 799
+        - class: KBR
+          low_num: 27.2
+          high_num: 27.4
         excluded_languages:
         - ara
         - heb

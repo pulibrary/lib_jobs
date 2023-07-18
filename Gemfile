@@ -21,6 +21,7 @@ gem 'icalendar', '~> 2.8'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 gem 'jwt'
+gem 'library_stdnums'
 gem 'marc'
 # Use ActiveStorage variant
 gem 'matrix'

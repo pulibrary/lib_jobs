@@ -28,8 +28,14 @@ RSpec.describe Oclc::Record, type: :model do
     expect(subject.subject_relevant_to_selector?(selector:)).to be false
   end
 
-  it 'has an lc class' do
+  it 'can tell if a call number is in range for the selector' do
+    expect(subject.call_number_in_range_for_selector?(selector:)).to be false
+  end
+
+  it 'can parse the call number and constituent parts' do
+    expect(subject.call_number).to eq('HD7123 .A22 no. 3')
     expect(subject.lc_class).to eq('HD')
+    expect(subject.lc_number).to eq(7123)
   end
 
   it 'can tell if it is a juvenile work' do
@@ -60,10 +66,19 @@ RSpec.describe Oclc::Record, type: :model do
     expect(subject.languages).to match_array(['eng'])
   end
 
+  it 'can give an id' do
+    expect(subject.oclc_id).to eq('ocm00414106')
+  end
+
+  it 'does not have an isbn' do
+    expect(subject.isbns).to match_array([])
+  end
+
   # it 'can go through all the records to find a relevant one' do
   #   marc_reader.each_with_index do |record, index|
-  #     byebug if described_class.new(marc_record: record).generally_relevant?
-  #     # record['035']['a'] == "(OCoLC)1389531111"
+  #     # byebug if described_class.new(marc_record: record).generally_relevant?
+  #     byebug if record['020'].try(:[], 'a')
+  #     record['035']['a'] == "(OCoLC)1389531111"
   #   end
   # end
 
@@ -73,9 +88,44 @@ RSpec.describe Oclc::Record, type: :model do
     end
 
     it 'can tell if a record is relevant to the selector' do
+      expect(subject.call_number_in_range_for_selector?(selector:)).to be true
       expect(subject.class_relevant_to_selector?(selector:)).to be true
       expect(subject.subject_relevant_to_selector?(selector:)).to be true
       expect(subject.relevant_to_selector?(selector:)).to be true
+    end
+
+    it 'can parse the call number and constituent parts' do
+      expect(subject.call_number).to eq('U799 .O75')
+      expect(subject.lc_class).to eq('U')
+      expect(subject.lc_number).to eq(799)
+    end
+
+    it 'has needed metadata' do
+      expect(subject.oclc_id).to eq('on1389531111')
+      expect(subject.isbns).to match_array([])
+    end
+  end
+
+  context 'with a call number with a decimal' do
+    let(:marc_record) do
+      marc_reader.find { |record| record['035']['a'] == "(OCoLC)01036108" }
+    end
+
+    it 'can tell if a call number is relevant to the selector' do
+      expect(subject.class_relevant_to_selector?(selector:)).to be true
+      expect(subject.call_number_in_range_for_selector?(selector:)).to be false
+    end
+
+    it 'can parse the call number and constituent parts' do
+      expect(subject.call_number).to eq('KBR27.5.I56 C38 1964')
+      expect(subject.lc_class).to eq('KBR')
+      expect(subject.lc_number).to eq(27.5)
+    end
+
+    it 'has needed metadata' do
+      expect(subject.oclc_id).to eq('ocm01036108')
+      expect(subject.isbns).to match_array(["9783700102915", "9783700192114", "9783700121749", "9783700120131", "9783700121961", "9783700125501", "9783700129967", "9783700132769", "9783700136842",
+                                            "9783700165446", "9783700171430", "9783700176718", "9783700181095", "9783700187196", "9783700105565"])
     end
   end
 end

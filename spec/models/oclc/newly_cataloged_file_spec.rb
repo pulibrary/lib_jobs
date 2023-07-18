@@ -47,7 +47,8 @@ RSpec.describe Oclc::NewlyCatalogedFile, type: :model do
       newly_cataloged_file.process
       csv_file = CSV.read(new_csv_path_1)
       # the below expectation will change as we build out the CSV
-      expect(csv_file.length).to eq(1)
+      expect(csv_file.length).to eq(2)
+      expect(csv_file[1]).to include('on1389531111')
     end
   end
 end

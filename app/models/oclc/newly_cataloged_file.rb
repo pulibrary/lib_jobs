@@ -55,6 +55,10 @@ module Oclc
         next unless record.generally_relevant?
 
         next unless record.relevant_to_selector?(selector:)
+        row = [
+          record.oclc_id
+        ]
+        csv << row
       end
     end
     # rubocop:enable Lint/UnusedBlockArgument
