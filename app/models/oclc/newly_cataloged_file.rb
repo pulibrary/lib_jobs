@@ -21,17 +21,15 @@ module Oclc
       end
     end
 
-    # rubocop:disable Lint/UnusedBlockArgument
-    # rubocop:disable Lint/UnusedMethodArgument
     def create_or_update_csv(selector:, reader:)
       date = Time.now.utc.strftime('%Y-%m-%d')
       selector_name = selector.name
       file_name = "#{date}-newly-cataloged-by-lc-#{selector_name}.csv"
       file_path = "#{csv_file_path}#{file_name}"
       if File.exist?(file_path)
-        update_csv(file_path:, selector:)
+        update_csv(file_path:, selector:, reader:)
       else
-        create_csv(file_path:, selector:)
+        create_csv(file_path:, selector:, reader:)
       end
     end
 
@@ -71,7 +69,5 @@ module Oclc
         record.subject_string
       ]
     end
-    # rubocop:enable Lint/UnusedBlockArgument
-    # rubocop:enable Lint/UnusedMethodArgument
   end
 end
