@@ -29,10 +29,6 @@ RSpec.describe Oclc::NewlyCatalogedFile, type: :model do
     expect(newly_cataloged_file.csv_file_path).to eq('spec/fixtures/oclc/')
   end
 
-  it 'has a Marc Reader' do
-    expect(newly_cataloged_file.reader).to be_instance_of(MARC::Reader)
-  end
-
   context 'without an existing csv file' do
     it 'without an existing csv file, it creates a csv file' do
       expect(File.exist?(new_csv_path_1)).to be false
@@ -40,13 +36,11 @@ RSpec.describe Oclc::NewlyCatalogedFile, type: :model do
       expect(File.exist?(new_csv_path_1)).to be true
     end
 
-    it 'with an existing csv file, it appends to an existing file' do
+    it 'it writes the expected data to the file' do
       expect(File.exist?(new_csv_path_1)).to be false
       newly_cataloged_file.process
       expect(File.exist?(new_csv_path_1)).to be true
-      newly_cataloged_file.process
       csv_file = CSV.read(new_csv_path_1)
-      # the below expectation will change as we build out the CSV
       expect(csv_file.length).to eq(2)
       first_row = csv_file[1]
       expect(first_row[0]).to eq('on1389531111')

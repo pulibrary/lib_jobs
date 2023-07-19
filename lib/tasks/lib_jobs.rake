@@ -120,4 +120,10 @@ namespace :lib_jobs do
     job = AspaceSvn::GetEadsJob.new
     job.run
   end
+
+  desc "process newly cataloged records from OCLC and create CSVs to send to selectors"
+  task process_newly_cataloged_records: [:environment] do
+    job = Oclc::NewlyCatalogedJob.new
+    job.run
+  end
 end

@@ -9,6 +9,99 @@ default: &default
         - class: G
           low_num: 156.5
           high_num: 156.599
+        - class: GE
+          low_num: 125
+          high_num: 125
+        - class: GE
+          low_num: 140
+          high_num: 160
+        - class: GE
+          low_num: 170
+          high_num: 190
+        - class: GE
+          low_num: 195
+          high_num: 199
+        - class: GV
+          low_num: 350
+          high_num: 350
+        - class: GV
+          low_num: 716
+          high_num: 716
+        - class: H
+          low_num: 1
+          high_num: 99_999
+        - class: HA
+          low_num: 1
+          high_num: 99_999
+        - class: HB
+          low_num: 1
+          high_num: 99_999
+        - class: HC
+          low_num: 1
+          high_num: 99_999
+        - class: HD
+          low_num: 1
+          high_num: 99_999
+        - class: HE
+          low_num: 1
+          high_num: 99_999
+        - class: HF
+          low_num: 1
+          high_num: 99_999
+        - class: HG
+          low_num: 1
+          high_num: 99_999
+        - class: HJ
+          low_num: 1
+          high_num: 99_999
+        - class: HQ
+          low_num: 444
+          high_num: 445
+        - class: HQ
+          low_num: 1240
+          high_num: 1240.5
+        - class: HQ
+          low_num: 1381
+          high_num: 1381
+        - class: HT
+          low_num: 388
+          high_num: 388
+        - class: HX
+          low_num: 1
+          high_num: 99_999
+        - class: LC
+          low_num: 65
+          high_num: 245
+        - class: ML
+          low_num: 3790
+          high_num: 3792
+        - class: N
+          low_num: 8600
+          high_num: 8675
+        - class: NX
+          low_num: 634
+          high_num: 634
+        - class: NX
+          low_num: 700
+          high_num: 750
+        - class: RA
+          low_num: 407
+          high_num: 416.5
+        - class: S
+          low_num: 401
+          high_num: 401
+        - class: S
+          low_num: 560
+          high_num: 565.88
+        - class: SH
+          low_num: 334
+          high_num: 334
+        - class: TX
+          low_num: 901
+          high_num: 946.5
+        - class: TX
+          low_num: 950
+          high_num: 953
         excluded_languages:
         - ara
         - heb
@@ -19,12 +112,42 @@ default: &default
         - economic aspects
     - darrington:
         classes:
-        - class: GE
-          low_num: 170
-          high_num: 190
-        - class: GE
-          low_num: 195
-          high_num: 199
+        - class: J
+          low_num: 1
+          high_num: 99_999
+        - class: JA
+          low_num: 1
+          high_num: 99_999
+        - class: JC
+          low_num: 1
+          high_num: 99_999
+        - class: JF
+          low_num: 1
+          high_num: 99_999
+        - class: JJ
+          low_num: 1
+          high_num: 99_999
+        - class: JK
+          low_num: 1
+          high_num: 99_999
+        - class: JL
+          low_num: 1
+          high_num: 99_999
+        - class: JN
+          low_num: 1
+          high_num: 99_999
+        - class: JQ
+          low_num: 1
+          high_num: 99_999
+        - class: JS
+          low_num: 1
+          high_num: 99_999
+        - class: JV
+          low_num: 1
+          high_num: 99_999
+        - class: JZ
+          low_num: 1
+          high_num: 99_999
         excluded_languages:
         - ara
         - heb
@@ -39,6 +162,8 @@ default: &default
 
 development:
   <<: *default
+  selector_csv_path: 'tmp/oclc/'
+
 
 test:
   <<: *default

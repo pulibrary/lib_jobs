@@ -93,17 +93,17 @@ module Oclc
     end
 
     def pub_place
-      return scrub_string(pub_field['a']) if pub_field.present?
+      return scrub_string(pub_field['a']) if pub_field.try(:[], 'a').present?
       ''
     end
 
     def pub_name
-      return scrub_string(pub_field['b']) if pub_field.present?
+      return scrub_string(pub_field['b']) if pub_field.try(:[], 'b').present?
       ''
     end
 
     def pub_date
-      return scrub_string(pub_field['c']) if pub_field.present?
+      return scrub_string(pub_field['c']) if pub_field.try(:[], 'c').present?
       ''
     end
 
