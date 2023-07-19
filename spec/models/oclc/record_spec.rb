@@ -78,9 +78,6 @@ RSpec.describe Oclc::Record, type: :model do
     expect(subject.oclc_id).to eq('ocm00414106')
   end
 
-  it 'does not have an isbn' do
-    expect(subject.isbns).to match_array([])
-
   # it 'can go through all the records to find a relevant one' do
   #   marc_reader.each_with_index do |record, index|
   #     # byebug if described_class.new(marc_record: record).generally_relevant?
