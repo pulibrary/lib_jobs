@@ -48,7 +48,24 @@ RSpec.describe Oclc::NewlyCatalogedFile, type: :model do
       csv_file = CSV.read(new_csv_path_1)
       # the below expectation will change as we build out the CSV
       expect(csv_file.length).to eq(2)
-      expect(csv_file[1]).to include('on1389531111')
+      first_row = csv_file[1]
+      expect(first_row[0]).to eq('on1389531111')
+      expect(first_row[1]).to eq('')
+      expect(first_row[2]).to eq('2023214610')
+      expect(first_row[3]).to eq('')
+      expect(first_row[4]).to eq('Oruzheĭnyĭ sbornik ')
+      expect(first_row[5]).to eq('ru')
+      expect(first_row[6]).to eq('Sankt-Peterburg ')
+      expect(first_row[7]).to eq("Izdatel'stvo Gosudarstvennogo Ėrmitazha")
+      expect(first_row[8]).to eq('2021-')
+      expect(first_row[9]).to eq('volumes : illustrations ; 26 cm')
+      expect(first_row[10]).to eq('as')
+      expect(first_row[11]).to eq('rus | eng')
+      expect(first_row[12]).to eq('U799 .O75')
+      expect(first_row[13]).to eq((" Gosudarstvennyĭ Ėrmitazh (Russia) -- Congresses |" \
+        "  Weapons -- History -- Congresses |  Armor -- History -- Congresses |" \
+        "  Weapons -- Museums -- Russia (Federation) -- Congresses |" \
+        "  Armor -- Museums -- Russia (Federation) -- Congresses"))
     end
   end
 end

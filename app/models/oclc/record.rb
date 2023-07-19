@@ -1,4 +1,4 @@
-# frozen_string_literal: true
+# frozen_string_literal: false
 
 module Oclc
   # rubocop:disable Metrics/ClassLength
@@ -38,8 +38,32 @@ module Oclc
       subjects.any? { |subject| subject.downcase.match?(/#{selector.subjects.join('|')}/) }
     end
 
-    def oclc_id
-      record['001'].value.strip
+    def author
+      # The first available author field
+      auth_field = record.fields(%w[100 110 111]).try(:[], 0)
+      return '' if auth_field.blank?
+
+      auth_tag = auth_field.tag
+      subf_to_skip = auth_subfields_to_skip(auth_tag)
+      targets = auth_field.subfields.reject do |subfield|
+        subf_to_skip.include?(subfield.code)
+      end
+
+      targets.map(&:value).join(' ')
+    end
+
+    def description
+      return '' unless record['300']
+
+      record['300'].subfields.map(&:value).join(' ')
+    end
+
+    def f008_pub_place
+      record['008'].value[15..17].strip
+    end
+
+    def format
+      record.leader[6..7]
     end
 
     def isbns
@@ -49,7 +73,49 @@ module Oclc
 
         isbn << StdNum::ISBN.normalize(field.value)
       end
-      isbn.uniq
+      isbn.uniq.join(' | ')
+    end
+
+    def lccns
+      lccn = []
+      record.fields('010').each do |field|
+        next unless field['a']
+
+        lccn << StdNum::LCCN.normalize(field.value)
+      end
+      lccn.uniq.join(' | ')
+    end
+
+    def pub_field
+      return record['260'] if record['260']
+
+      record.fields('264').min_by(&:indicator2) if record.fields('264').present?
+    end
+
+    def pub_place
+      return scrub_string(pub_field['a']) if pub_field.present?
+      ''
+    end
+
+    def pub_name
+      return scrub_string(pub_field['b']) if pub_field.present?
+      ''
+    end
+
+    def pub_date
+      return scrub_string(pub_field['c']) if pub_field.present?
+      ''
+    end
+
+    def title
+      title_string = record['245']['a']
+      return '' unless title_string
+
+      scrub_string(title_string)
+    end
+
+    def oclc_id
+      record['001'].value.strip
     end
 
     # The LC classification number (050 subfield a) stripped of whitespace
@@ -82,7 +148,7 @@ module Oclc
       f008_language = record['008'].value[35..37]
       languages = [f008_language]
       languages += f041_languages if f041_languages.present?
-      languages.uniq
+      languages.uniq.join(' | ')
     end
 
     def f041_languages
@@ -92,15 +158,34 @@ module Oclc
     end
 
     def subjects
-      subjects = []
+      accumulator = []
+      subject_fields.each do |field|
+        text = ""
+        field.subfields.each do |subfield|
+          case subfield.code
+          when 'v', 'x', 'y', 'z'
+            text << " -- " + subfield.value
+          when /[a-z]/
+            text << " " + subfield.value
+          end
+        end
+        accumulator << scrub_string(text)
+      end
+      accumulator.flatten.uniq
+    end
+
+    def subject_fields
       subject_fields = record.fields('600'..'699').select do |field|
         field.indicator2 == '0' || (field.indicator2 == '7' && %w[lcgft aat].include?(field['2']))
       end
-      return subjects if subject_fields.empty?
-      subject_fields.each do |field|
-        subjects << field.map { |f| scrub_string(f.value) }
-      end
-      subjects.flatten.uniq
+      return [] if subject_fields.empty?
+
+      subject_fields
+    end
+
+    def subject_string
+      return '' if subjects.empty?
+      subjects.join(' | ')
     end
 
     def audiobook?
@@ -127,6 +212,17 @@ module Oclc
     def within_last_two_years?
       pub_date = record['008'].value[7..10].to_i
       pub_date >= Time.zone.now.year - 2
+    end
+
+    private
+
+    def auth_subfields_to_skip(field_tag)
+      case field_tag
+      when '100', '110'
+        %w[0 6 e]
+      else
+        %w[0 6 j]
+      end
     end
 
     def scrub_string(string)

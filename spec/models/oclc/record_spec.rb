@@ -47,7 +47,7 @@ RSpec.describe Oclc::Record, type: :model do
   end
 
   it 'has an array of subjects' do
-    expect(subject.subjects).to match_array(["Great Britain", "Health insurance", "Unemployment insurance"])
+    expect(subject.subjects).to match_array([" Unemployment insurance -- Great Britain", " Health insurance -- Great Britain"])
   end
 
   it 'can tell if it was published within the last two years' do
@@ -62,8 +62,8 @@ RSpec.describe Oclc::Record, type: :model do
     expect(subject.published_in_us_uk_or_canada?).to be true
   end
 
-  it 'can give an array of languages' do
-    expect(subject.languages).to match_array(['eng'])
+  it 'can give a string of languages' do
+    expect(subject.languages).to eq('eng')
   end
 
   it 'can give an id' do
@@ -71,14 +71,14 @@ RSpec.describe Oclc::Record, type: :model do
   end
 
   it 'does not have an isbn' do
-    expect(subject.isbns).to match_array([])
+    expect(subject.isbns).to eq('')
   end
 
   # it 'can go through all the records to find a relevant one' do
   #   marc_reader.each_with_index do |record, index|
   #     # byebug if described_class.new(marc_record: record).generally_relevant?
-  #     byebug if record['020'].try(:[], 'a')
-  #     record['035']['a'] == "(OCoLC)1389531111"
+  #     byebug unless record['245'].try(:[], 'a')
+  #     # record['035']['a'] == "(OCoLC)1389531111"
   #   end
   # end
 
@@ -102,7 +102,21 @@ RSpec.describe Oclc::Record, type: :model do
 
     it 'has needed metadata' do
       expect(subject.oclc_id).to eq('on1389531111')
-      expect(subject.isbns).to match_array([])
+      expect(subject.isbns).to eq('')
+      expect(subject.lccns).to eq('2023214610')
+      expect(subject.author).to eq('')
+      expect(subject.title).to include('Oruzheĭnyĭ sbornik')
+      expect(subject.f008_pub_place).to eq('ru')
+      expect(subject.pub_place).to eq('Sankt-Peterburg ')
+      expect(subject.pub_name).to eq("Izdatel'stvo Gosudarstvennogo Ėrmitazha")
+      expect(subject.pub_date).to eq('2021-')
+      expect(subject.description).to eq('volumes : illustrations ; 26 cm')
+      expect(subject.format).to eq('as')
+      expect(subject.languages).to eq('rus | eng')
+      expect(subject.subject_string).to eq(" Gosudarstvennyĭ Ėrmitazh (Russia) -- Congresses |" \
+        "  Weapons -- History -- Congresses |  Armor -- History -- Congresses |" \
+        "  Weapons -- Museums -- Russia (Federation) -- Congresses |" \
+        "  Armor -- Museums -- Russia (Federation) -- Congresses")
     end
   end
 
@@ -124,8 +138,24 @@ RSpec.describe Oclc::Record, type: :model do
 
     it 'has needed metadata' do
       expect(subject.oclc_id).to eq('ocm01036108')
-      expect(subject.isbns).to match_array(["9783700102915", "9783700192114", "9783700121749", "9783700120131", "9783700121961", "9783700125501", "9783700129967", "9783700132769", "9783700136842",
-                                            "9783700165446", "9783700171430", "9783700176718", "9783700181095", "9783700187196", "9783700105565"])
+      expect(subject.isbns).to eq("9783700102915 | 9783700192114 | 9783700121749 | 9783700120131 | " \
+        "9783700121961 | 9783700125501 | 9783700129967 | 9783700132769 | 9783700136842 | 9783700165446 " \
+        "| 9783700171430 | 9783700176718 | 9783700181095 | 9783700187196 | 9783700105565")
+      expect(subject.lccns).to eq('70230550')
+      expect(subject.author).to eq('Catholic Church. Pope (1198-1216 : Innocent III)')
+      expect(subject.title).to include("Die Register Innocenz' III")
+      expect(subject.f008_pub_place).to eq('au')
+      expect(subject.pub_place).to eq('Graz ;')
+      expect(subject.pub_name).to eq('Hermann Böhlaus Nachf')
+      expect(subject.pub_date).to eq('1964-1968')
+      expect(subject.description).to eq('volumes <1, 2-3, 5-14>; 25 cm.')
+      expect(subject.format).to eq('am')
+      expect(subject.languages).to eq('ger | lat')
+      expect(subject.subject_string).to eq(" Innocent III Pope 1160 or 1161-1216 |" \
+        "  Church history -- 12th century -- Sources |" \
+        "  Church history -- 13th century -- Sources |" \
+        "  Papacy -- History -- To 1309 -- Sources |" \
+        "  Canon law -- Sources")
     end
   end
 end
