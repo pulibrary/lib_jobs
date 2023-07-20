@@ -11,7 +11,7 @@ RSpec.describe(AlmaSubmitCollection::MarcRecord) do
   let(:fields) do
     [
       { '852' => { 'subfields' => [{ 'c' => field_852_subfield_c, '8' => field_852_subfield_8 }] } },
-      { '876' => { 'subfields' => [{ 'a' => field_876_subfield_a, '0' => field_876_subfield_0, 'r' => field_876_subfield_r, 's' => field_876_subfield_s}] } }
+      { '876' => { 'subfields' => [{ 'a' => field_876_subfield_a, '0' => field_876_subfield_0, 'r' => field_876_subfield_r, 's' => field_876_subfield_s }] } }
     ]
   end
   let(:leader) { '00426dad a2200133 i 4500' }
@@ -72,6 +72,34 @@ RSpec.describe(AlmaSubmitCollection::MarcRecord) do
       let(:field_852_subfield_c) { 'pl' }
       it 'returns Private' do
         expect(record.cgd_assignment).to eq('Private')
+      end
+    end
+  end
+  describe('#recap_item_info') do
+    context 'when location equals pa' do
+      let(:field_852_subfield_c) { 'pa' }
+      describe('customer_code key') do
+        it 'returns PA' do
+          expect(record.recap_item_info[:customer_code]).to eq('PA')
+        end
+      end
+      describe('use_restriction key') do
+        it 'returns nil' do
+          expect(record.recap_item_info[:use_restriction]).to eq(nil)
+        end
+      end
+    end
+    context 'when location equals xmr' do
+      let(:field_852_subfield_c) { 'xmr' }
+      describe('customer_code key') do
+        it 'returns PG' do
+          expect(record.recap_item_info[:customer_code]).to eq('PG')
+        end
+      end
+      describe('use_restriction key') do
+        it 'returns Supervised Use' do
+          expect(record.recap_item_info[:use_restriction]).to eq('Supervised Use')
+        end
       end
     end
   end

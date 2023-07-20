@@ -25,12 +25,15 @@ module AlmaSubmitCollection
 
     def cgd_assignment
       return 'Committed' if committed_cgd?
-    
-      wanted852 = @record.fields('852').select do |f|
-        alma_holding?(f)
-      end
-      location = wanted852.first['c']
+
       cgd_from_location(location)
+    end
+
+    def recap_item_info
+      info_hash = {}
+      info_hash[:customer_code] = customer_code
+      info_hash[:use_restriction] = use_restriction
+      info_hash
     end
 
     private
@@ -57,6 +60,10 @@ module AlmaSubmitCollection
       ]
     end
 
+    def location
+      wanted852['c']
+    end
+
     def cgd_from_location(location)
       if %w[pa gp qk pf pv].include?(location)
         'Shared'
@@ -64,11 +71,11 @@ module AlmaSubmitCollection
         'Private'
       end
     end
-    
+
     def retention_reasons
       %w[ReCAPItalianImprints IPLCBrill ReCAPSACAP]
     end
-    
+
     def committed_cgd?
       f876 = @record.fields('876').select do |f|
         alma_item?(f)
@@ -79,6 +86,29 @@ module AlmaSubmitCollection
       end
       false
     end
-    
+
+    def wanted852
+      @record.fields('852').find do |f|
+        alma_holding?(f)
+      end
+    end
+
+    def customer_code
+      case location[0..1]
+      when /^x[a-z]$/
+        'PG'
+      when /^[^x][a-z]$/
+        location.upcase
+      end
+    end
+
+    def use_restriction
+      case location[0..1]
+      when 'pj', 'pk', 'pl', 'pm', 'pn', 'pt', 'pv'
+        'In Library Use'
+      when 'pb', 'ph', 'ps', 'pw', 'pz', 'xc', 'xg', 'xm', 'xn', 'xp', 'xr', 'xw', 'xx'
+        'Supervised Use'
+      end
+    end
   end
 end
