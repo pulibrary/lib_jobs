@@ -4,7 +4,7 @@ require 'rails_helper'
 RSpec.describe AlmaFundAdjustment::FileTransfer, type: :model do
   subject(:file_transfer) do
     described_class.new(peoplesoft_input_base_dir: '/tmp', peoplesoft_input_file_pattern: 'test_alma*.csv',
-                        alma_sftp: AlmaSftp.new(ftp_host: 'localhost', ftp_username: 'user', ftp_password: 'password'),
+                        alma_sftp: AlmaSftp.new(sftp_host: 'localhost', sftp_username: 'user', sftp_password: 'password'),
                         fund_adjustment_path: '/alma/fp')
   end
   let(:sftp_session) { instance_double("Net::SFTP::Session") }
