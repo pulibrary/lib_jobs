@@ -9,7 +9,7 @@ module Oclc
     end
 
     def generally_relevant?
-      !juvenile? && !audiobook? && !computer_file? && !published_in_us_uk_or_canada? && within_last_two_years?
+      !juvenile? && !audiobook? && !published_in_us_uk_or_canada? && monograph? && within_last_two_years?
     end
 
     def relevant_to_selector?(selector:)
@@ -49,7 +49,7 @@ module Oclc
         subf_to_skip.include?(subfield.code)
       end
 
-      targets.map(&:value).join(' ')
+      targets.map { |field| scrub_string(field.value) }.join(' ')
     end
 
     def description
@@ -196,17 +196,19 @@ module Oclc
       terms.map { |term| scrub_string(term) }.uniq.include?('audiobook')
     end
 
-    def computer_file?
-      record.leader[6..7].match?(/m$/)
-    end
-
     def juvenile?
       subjects.any? { |subject| subject.downcase =~ /juvenile/ }
+    end
+
+    def monograph?
+      record.leader[7] == 'm'
     end
 
     def published_in_us_uk_or_canada?
       publication_location = record['008'].value[15..17].strip
       return true if us_uk_canada_country_codes.include?(publication_location)
+
+      false
     end
 
     def within_last_two_years?
@@ -226,7 +228,13 @@ module Oclc
     end
 
     def scrub_string(string)
-      string.gsub(%r{[.,:/=]}, '')
+      return string if string.nil?
+
+      new_string = string.dup
+      new_string.strip!
+      new_string[-1] = '' if %r{[.,:/=]}.match?(new_string[-1])
+      new_string.strip!
+      new_string.gsub(/(\s){2, }/, '\1')
     end
 
     # Country codes for all US, UK, and Canada states/provinces
