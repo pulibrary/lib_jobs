@@ -39,6 +39,7 @@ module IlsApps
     config.cache_store = :memory_store, { size: 64.megabytes }
 
     config.alma_ftp = config_for(:alma_ftp)
+    config.newly_cataloged = config_for(:newly_cataloged)
     config.peoplesoft = config_for(:peoplesoft)
     config.pod = config_for(:pod)
     config.aspace = config_for(:aspace)
