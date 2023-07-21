@@ -5,6 +5,7 @@
 * Unzip the file
    * Create a tempfile file with the namespace added. lib_jobs/app/models/marc_collection.rb
 * Make the record fixes
+* Make the record fixes to constituent records too
 * Each file should have 20000 or fewer records. Zip the file.
 * Open connection to AWS S3
 * Transfer the non bound-with files to the S3
