@@ -52,7 +52,7 @@ module AlmaPeople
       end
       alma_sftp = AlmaSftp.new
       alma_sftp.start do |sftp|
-        sftp.upload!(filename + '.zip', File.join(Rails.application.config.alma_ftp.person_feed_path, "#{File.basename(filename)}.zip"))
+        sftp.upload!(filename + '.zip', File.join(Rails.application.config.alma_sftp.person_feed_path, "#{File.basename(filename)}.zip"))
       end
     end
 

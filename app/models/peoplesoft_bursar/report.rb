@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 module PeoplesoftBursar
   class Report
-    attr_reader :sftp_locations, :alma_sftp, :file_pattern, :input_ftp_base_dir, :list, :department, :report_type
+    attr_reader :sftp_locations, :alma_sftp, :file_pattern, :input_sftp_base_dir, :list, :department, :report_type
 
-    def initialize(input_ftp_base_dir: Rails.application.config.alma_ftp.bursar_report_path, file_pattern: '\.csv$', alma_sftp: AlmaSftp.new, list: nil, report_type: 'Generic')
-      @input_ftp_base_dir = input_ftp_base_dir
+    def initialize(input_sftp_base_dir: Rails.application.config.alma_sftp.bursar_report_path, file_pattern: '\.csv$', alma_sftp: AlmaSftp.new, list: nil, report_type: 'Generic')
+      @input_sftp_base_dir = input_sftp_base_dir
       @file_pattern = file_pattern
       @alma_sftp = alma_sftp
       @sftp_locations = []
@@ -85,9 +85,9 @@ module PeoplesoftBursar
     def download_list
       list = []
       alma_sftp.start do |sftp|
-        sftp.dir.foreach(input_ftp_base_dir) do |entry|
+        sftp.dir.foreach(input_sftp_base_dir) do |entry|
           next unless /#{file_pattern}/.match?(entry.name)
-          filename = File.join(input_ftp_base_dir, entry.name)
+          filename = File.join(input_sftp_base_dir, entry.name)
           data = sftp.download!(filename)
           sftp_locations << filename
           list += parse_list(data)
