@@ -2,12 +2,12 @@
 
 module PeoplesoftBursar
   class CreditReport < Report
-    attr_reader :sftp_locations, :alma_sftp, :file_pattern, :input_ftp_base_dir
+    attr_reader :sftp_locations, :alma_sftp, :file_pattern, :input_sftp_base_dir
 
     AMERICAN_DATE = "%m/%d/%Y %H:%M:%S %Z"
 
-    def initialize(input_ftp_base_dir: Rails.application.config.alma_ftp.bursar_report_path, file_pattern: '\.xml$', alma_sftp: AlmaSftp.new, list: nil)
-      super(input_ftp_base_dir:, file_pattern:, alma_sftp:, list:, report_type: "Credit")
+    def initialize(input_sftp_base_dir: Rails.application.config.alma_sftp.bursar_report_path, file_pattern: '\.xml$', alma_sftp: AlmaSftp.new, list: nil)
+      super(input_sftp_base_dir:, file_pattern:, alma_sftp:, list:, report_type: "Credit")
     end
 
     def subject_line

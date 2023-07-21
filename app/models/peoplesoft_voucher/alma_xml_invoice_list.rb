@@ -4,12 +4,12 @@ require 'csv'
 
 module PeoplesoftVoucher
   class AlmaXmlInvoiceList
-    attr_reader :xml_file, :invoices, :sftp_locations, :alma_sftp, :file_pattern, :input_ftp_base_dir
+    attr_reader :xml_file, :invoices, :sftp_locations, :alma_sftp, :file_pattern, :input_sftp_base_dir
 
     delegate :empty?, to: :valid_invoices
 
-    def initialize(input_ftp_base_dir: Rails.application.config.alma_ftp.voucher_feed_path, file_pattern: '\.xml$', alma_sftp: AlmaSftp.new)
-      @input_ftp_base_dir = input_ftp_base_dir
+    def initialize(input_sftp_base_dir: Rails.application.config.alma_sftp.voucher_feed_path, file_pattern: '\.xml$', alma_sftp: AlmaSftp.new)
+      @input_sftp_base_dir = input_sftp_base_dir
       @file_pattern = file_pattern
       @alma_sftp = alma_sftp
       @sftp_locations = []
@@ -62,9 +62,9 @@ module PeoplesoftVoucher
 
     def download_invoices
       alma_sftp.start do |sftp|
-        sftp.dir.foreach(input_ftp_base_dir) do |entry|
+        sftp.dir.foreach(input_sftp_base_dir) do |entry|
           next unless /#{file_pattern}/.match?(entry.name)
-          filename = File.join(input_ftp_base_dir, entry.name)
+          filename = File.join(input_sftp_base_dir, entry.name)
           data = sftp.download!(filename)
           doc = Nokogiri::XML(StringIO.new(data))
           sftp_locations << filename
