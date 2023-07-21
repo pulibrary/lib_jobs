@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 module AlmaSubmitCollection
   class MarcRecord
-    attr_reader :record
-
     def initialize(record)
       @record = record
     end
@@ -24,9 +22,7 @@ module AlmaSubmitCollection
     end
 
     def cgd_assignment
-      return 'Committed' if committed_cgd?
-
-      cgd_from_location(location)
+      committed_cgd? ? 'Committed' : cgd_from_location(location)
     end
 
     def recap_item_info
@@ -37,10 +33,7 @@ module AlmaSubmitCollection
     end
 
     def constituent_records
-      ids = constituent_record_ids(@record)
-      return [] if ids.empty?
-      doc = Nokogiri::XML(AlmaApi.new.bib_record_call(ids).body)
-      xml_to_bibs doc
+      @constituent_records ||= AlmaApi.new.fetch_marc_records(constituent_record_ids(@record))
     end
 
     private
@@ -128,24 +121,6 @@ module AlmaSubmitCollection
         constituent_ids << id
       end
       constituent_ids
-    end
-
-    def xml_to_bibs(doc)
-      bibs = []
-      doc.xpath('//bib').each do |bib|
-        string = bib.to_xml
-        reader = MARC::XMLReader.new(StringIO.new(string, 'r'))
-        bibs << reader.first
-      end
-      bibs
-    end
-
-    def alma_record
-      @alma_record ||=
-        begin
-          new_record = MARC::Record.new
-          AlmaSubmitCollection::MarcRecord.new(new_record)
-        end
     end
   end
 end

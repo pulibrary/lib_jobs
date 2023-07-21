@@ -10,6 +10,12 @@ module AlmaSubmitCollection
       end
     end
 
+    def fetch_marc_records(mms_ids)
+      return [] if mms_ids.empty?
+      doc = Nokogiri::XML(bib_record_call(mms_ids).body)
+      xml_to_bibs doc
+    end
+
     def bib_record_call(mms_ids)
       @conn.get do |req|
         req.url 'almaws/v1/bibs'
@@ -18,6 +24,18 @@ module AlmaSubmitCollection
         req.params['apikey'] = LibJobs.config[:alma_api_key]
         req.params['mms_id'] = mms_ids.join(',')
       end
+    end
+
+    private
+
+    def xml_to_bibs(doc)
+      bibs = []
+      doc.xpath('//bib').each do |bib|
+        string = bib.to_xml
+        reader = MARC::XMLReader.new(StringIO.new(string, 'r'))
+        bibs << reader.first
+      end
+      bibs
     end
   end
 end
