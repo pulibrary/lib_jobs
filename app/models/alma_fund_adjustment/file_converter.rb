@@ -11,7 +11,7 @@ module AlmaFundAdjustment
     # the output is the alma ftp server
     def initialize(peoplesoft_input_base_dir: Rails.application.config.peoplesoft.fund_adjustment_input_path,
                    peoplesoft_input_file_pattern: Rails.application.config.peoplesoft.fund_adjustment_input_file_pattern,
-                   alma_sftp: AlmaSftp.new, fund_adjustment_path: Rails.application.config.alma_ftp.fund_adjustment_path)
+                   alma_sftp: AlmaSftp.new, fund_adjustment_path: Rails.application.config.alma_sftp.fund_adjustment_path)
       super
       @processed_directory = Rails.application.config.peoplesoft.fund_adjustment_converted_path
     end
