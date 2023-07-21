@@ -91,3 +91,5 @@ gem "flipflop", "~> 2.7"
 
 gem "bcrypt_pbkdf", "~> 1.1"
 gem "ed25519", "~> 1.3"
+gem 'library_stdnums'
+gem 'marc'
