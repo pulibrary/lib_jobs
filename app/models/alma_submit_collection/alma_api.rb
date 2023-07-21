@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module AlmaSubmitCollection
+  # This class is responsible for requesting
+  # MARC records from the Alma API
   class AlmaApi
     def initialize
       @conn = Faraday.new(LibJobs.config[:alma_api_uri]) do |faraday|

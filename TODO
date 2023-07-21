@@ -2,11 +2,13 @@
 * Make a connection to lib-sftp. Separate the responsibility of the sftp connection in a different class. Reuse it in POD and in submit collection. lib_jobs/app/models/alma_pod_records/alma_pod_file_list.rb
    * See if we can share code with POD
 
-* Unzip the file
-   * Create a tempfile file with the namespace added. lib_jobs/app/models/marc_collection.rb
-* Make the record fixes
+* Use the nokogiri version of MarcXMLReader, rather than the default
+  rexml.  In order to do this, we need to first add the namespace
+  (maybe using the MarcCollection model shared with POD?)
 * Make the record fixes to constituent records too
+  * Constituent records share the 852s, 876s, and other 8xx of the hosts.  So allow them to be passed into the MarcRecord initializer
 * Each file should have 20000 or fewer records. Zip the file.
+* The host records should go into the boundwith_writer, not the regular one
 * Open connection to AWS S3
 * Transfer the non bound-with files to the S3
 * Transfer the bound-with (host and constituents) records to the S3

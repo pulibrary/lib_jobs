@@ -13,23 +13,31 @@ module AlmaSubmitCollection
       true
     end
 
+    def version_for_recap
+      new_item_field = MarcItemFieldFactory.new(original_fields: @record.fields('876').select { |f| alma_item?(f) },
+                                                library:,
+                                                location:).generate
+      new_location_field = MarcLocationFieldFactory.new(wanted852).generate
+
+      version_for_recap = record_fixes
+      version_for_recap.append(new_location_field)
+      associated_holding_fields.each { |field| version_for_recap.append(field) }
+      version_for_recap.append(new_item_field)
+      version_for_recap
+    end
+
     def record_fixes
       @record.fields.delete_if { |f| f.tag =~ /[^0-9]/ }
       @record.fields.delete_if { |f| f.tag =~ /^9/ }
       @record.fields.delete_if { |f| %w[852 866 867 868 876].include?(f.tag) }
       @record.leader[5] = 'c' if @record.leader[5] == 'd'
-      @record
-    end
-
-    def cgd_assignment
-      committed_cgd? ? 'Committed' : cgd_from_location(location)
-    end
-
-    def recap_item_info
-      info_hash = {}
-      info_hash[:customer_code] = customer_code
-      info_hash[:use_restriction] = use_restriction
-      info_hash
+      MarcCleanup.empty_subfield_fix(@record)
+      MarcCleanup.leaderfix(@record)
+      MarcCleanup.extra_space_fix(@record)
+      MarcCleanup.bad_utf8_fix(@record)
+      MarcCleanup.invalid_xml_fix(@record)
+      MarcCleanup.composed_chars_normalize(@record)
+      MarcCleanup.tab_newline_fix(@record)
     end
 
     def constituent_records
@@ -60,54 +68,17 @@ module AlmaSubmitCollection
       ]
     end
 
+    def library
+      wanted852['b']
+    end
+
     def location
       wanted852['c']
-    end
-
-    def cgd_from_location(location)
-      if %w[pa gp qk pf pv].include?(location)
-        'Shared'
-      else
-        'Private'
-      end
-    end
-
-    def retention_reasons
-      %w[ReCAPItalianImprints IPLCBrill ReCAPSACAP]
-    end
-
-    def committed_cgd?
-      f876 = @record.fields('876').select do |f|
-        alma_item?(f)
-      end
-      f876.each do |field|
-        return true if field['r'] == 'true' &&
-                       retention_reasons.include?(field['s'])
-      end
-      false
     end
 
     def wanted852
       @record.fields('852').find do |f|
         alma_holding?(f)
-      end
-    end
-
-    def customer_code
-      case location[0..1]
-      when /^x[a-z]$/
-        'PG'
-      when /^[^x][a-z]$/
-        location.upcase
-      end
-    end
-
-    def use_restriction
-      case location[0..1]
-      when 'pj', 'pk', 'pl', 'pm', 'pn', 'pt', 'pv'
-        'In Library Use'
-      when 'pb', 'ph', 'ps', 'pw', 'pz', 'xc', 'xg', 'xm', 'xn', 'xp', 'xr', 'xw', 'xx'
-        'Supervised Use'
       end
     end
 
@@ -121,6 +92,12 @@ module AlmaSubmitCollection
         constituent_ids << id
       end
       constituent_ids
+    end
+
+    def associated_holding_fields
+      @record.fields(%w[583 866 867 868])
+             .select { |field| alma_holding?(field) }
+             .map { |field| MarcAssociatedHoldingFieldFactory.new(field).generate }
     end
   end
 end

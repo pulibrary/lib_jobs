@@ -55,50 +55,50 @@ RSpec.describe(AlmaSubmitCollection::MarcRecord) do
   end
 
   describe('#cgd') do
-    context 'returns a Committed cgd' do
+    context 'when 876$r is the string "true" and we have a valid retention reason' do
       let(:field_876_subfield_r) { 'true' }
       let(:field_852_subfield_c) { 'pl' }
-      it 'returns Committed' do
-        expect(record.cgd_assignment).to eq('Committed')
+      it 'puts Committed in 876$x (cgd) field' do
+        expect(record.version_for_recap['876']['x']).to eq('Committed')
       end
     end
-    context 'returns a Shared cgd' do
+    context 'when 852$c is a shared location' do
       let(:field_852_subfield_c) { 'pa' }
-      it 'returns Shared' do
-        expect(record.cgd_assignment).to eq('Shared')
+      it 'puts Shared in 876$x (cgd) field' do
+        expect(record.version_for_recap['876']['x']).to eq('Shared')
       end
     end
-    context 'returns a Private cgd' do
+    context 'when 852$c is a private location' do
       let(:field_852_subfield_c) { 'pl' }
-      it 'returns Private' do
-        expect(record.cgd_assignment).to eq('Private')
+      it 'puts Private in 876$x (cgd) field' do
+        expect(record.version_for_recap['876']['x']).to eq('Private')
       end
     end
   end
   describe('#recap_item_info') do
     context 'when location equals pa' do
       let(:field_852_subfield_c) { 'pa' }
-      describe('customer_code key') do
+      describe('876$z') do
         it 'returns PA' do
-          expect(record.recap_item_info[:customer_code]).to eq('PA')
+          expect(record.version_for_recap['876']['z']).to eq('PA')
         end
       end
-      describe('use_restriction key') do
-        it 'returns nil' do
-          expect(record.recap_item_info[:use_restriction]).to eq(nil)
+      describe('876$h') do
+        it 'returns an empty string' do
+          expect(record.version_for_recap['876']['h']).to eq('')
         end
       end
     end
     context 'when location equals xmr' do
       let(:field_852_subfield_c) { 'xmr' }
-      describe('customer_code key') do
+      describe('876$z') do
         it 'returns PG' do
-          expect(record.recap_item_info[:customer_code]).to eq('PG')
+          expect(record.version_for_recap['876']['z']).to eq('PG')
         end
       end
-      describe('use_restriction key') do
+      describe('876$h') do
         it 'returns Supervised Use' do
-          expect(record.recap_item_info[:use_restriction]).to eq('Supervised Use')
+          expect(record.version_for_recap['876']['h']).to eq('Supervised Use')
         end
       end
     end
@@ -107,7 +107,7 @@ RSpec.describe(AlmaSubmitCollection::MarcRecord) do
   describe('#fixed record') do
     let(:fields) do
       [
-        { '001' => '12345' },
+        { '001' => +'12345' },
         { 'a24' => { 'subfields' => [{ 'a' => 'nah' }] } },
         { '902' => { 'subfields' => [{ 'a' => 'anything' }] } }
       ]

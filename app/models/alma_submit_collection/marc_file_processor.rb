@@ -16,12 +16,11 @@ module AlmaSubmitCollection
     def process
       return if @records_processed.positive?
 
-      # TODO: read files using nokogiri rather than rexml
       @reader.each do |record|
         recap_record = MarcRecord.new(record)
         next unless recap_record.valid?
 
-        @writer.write(recap_record.record_fixes)
+        @writer.write(recap_record.version_for_recap)
         recap_record.constituent_records.each { |constituent| @constituent_writer.write(constituent) }
         @records_processed += 1
       end
