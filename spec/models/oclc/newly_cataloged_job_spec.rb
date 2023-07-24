@@ -4,13 +4,17 @@ require 'rails_helper'
 RSpec.describe Oclc::NewlyCatalogedJob, type: :model do
   subject(:newly_cataloged_job) { described_class.new }
 
-  let(:file_full_path) { "#{input_sftp_base_dir}#{file_name_to_download}" }
+  let(:file_full_path_one) { "#{input_sftp_base_dir}#{file_name_to_download_one}" }
+  let(:file_full_path_two) { "#{input_sftp_base_dir}#{file_name_to_download_two}" }
   let(:input_sftp_base_dir) { '/xfer/metacoll/out/ongoing/new/' }
-  let(:file_name_to_download) { 'metacoll.PUL.new.D20230706.T213019.MZallDLC.1.mrc' }
-  let(:temp_file) { Tempfile.new(encoding: 'ascii-8bit') }
-  let(:sftp_entry1) { instance_double("Net::SFTP::Protocol::V01::Name", name: file_name_to_download) }
+  let(:file_name_to_download_one) { 'metacoll.PUL.new.D20230706.T213019.MZallDLC.1.mrc' }
+  let(:file_name_to_download_two) { 'metacoll.PUL.new.D20230718.T213016.MZallDLC.1.mrc' }
+  let(:temp_file_one) { Tempfile.new(encoding: 'UTF-8') }
+  let(:temp_file_two) { Tempfile.new(encoding: 'UTF-8') }
+  let(:sftp_entry1) { instance_double("Net::SFTP::Protocol::V01::Name", name: file_name_to_download_one) }
   let(:sftp_entry2) { instance_double("Net::SFTP::Protocol::V01::Name", name: "metacoll.PUL.new.D20230709.T213017.MZallDLC.1.mrc.processed") }
   let(:sftp_entry3) { instance_double("Net::SFTP::Protocol::V01::Name", name: "metacoll.PUL.new.D20230705.T213018.allpcc.1.mrc") }
+  let(:sftp_entry4) { instance_double("Net::SFTP::Protocol::V01::Name", name: file_name_to_download_two) }
   let(:sftp_session) { instance_double("Net::SFTP::Session", dir: sftp_dir) }
   let(:sftp_dir) { instance_double("Net::SFTP::Operations::Dir") }
   let(:freeze_time) { Time.utc(2023, 7, 12) }
@@ -28,15 +32,17 @@ RSpec.describe Oclc::NewlyCatalogedJob, type: :model do
   end
 
   before do
-    allow(Tempfile).to receive(:new).and_return(temp_file)
-    allow(sftp_dir).to receive(:foreach).and_yield(sftp_entry1).and_yield(sftp_entry2).and_yield(sftp_entry3)
-    allow(sftp_session).to receive(:download!).with(file_full_path, temp_file).and_return(Rails.root.join('spec', 'fixtures', 'oclc', file_name_to_download).to_s)
+    allow(Tempfile).to receive(:new).and_return(temp_file_one)
+    allow(sftp_dir).to receive(:foreach).and_yield(sftp_entry1).and_yield(sftp_entry2).and_yield(sftp_entry3).and_yield(sftp_entry4)
+    allow(sftp_session).to receive(:download!).with(file_full_path_one, temp_file_one).and_return(Rails.root.join('spec', 'fixtures', 'oclc', file_name_to_download_one).to_s)
+    allow(sftp_session).to receive(:download!).with(file_full_path_two, temp_file_two).and_return(Rails.root.join('spec', 'fixtures', 'oclc', file_name_to_download_two).to_s)
     allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
   end
 
   it 'downloads only the relevant files' do
     expect(newly_cataloged_job.run).to be_truthy
-    expect(sftp_session).to have_received(:download!).with(file_full_path, temp_file)
+    expect(sftp_session).to have_received(:download!).with(file_full_path_one, temp_file_one)
+    expect(sftp_session).to have_received(:download!).with(file_full_path_two, temp_file_two)
   end
 
   it 'creates a csv file for each selector' do

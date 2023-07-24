@@ -2,19 +2,22 @@
 
 module Oclc
   class NewlyCatalogedJob < LibJob
-    attr_reader :oclc_sftp, :input_sftp_base_dir, :file_pattern
+    attr_reader :oclc_sftp, :input_sftp_base_dir, :file_pattern, :selectors_config
     def initialize(oclc_sftp: OclcSftp.new,
                    input_sftp_base_dir: Rails.application.config.oclc_sftp.lc_newly_cataloged_path,
-                   file_pattern: 'MZallDLC.1.mrc$')
+                   file_pattern: 'MZallDLC.1.mrc$',
+                   selectors_config: Rails.application.config.newly_cataloged.selectors)
       super(category: "Oclc")
       @oclc_sftp = oclc_sftp
       @input_sftp_base_dir = input_sftp_base_dir
       @file_pattern = file_pattern
+      @selectors_config = selectors_config
     end
 
     private
 
     def handle(data_set:)
+      create_csvs_for_selectors
       oclc_sftp.start do |sftp|
         sftp.dir.foreach(input_sftp_base_dir) do |entry|
           next unless /#{file_pattern}/.match?(entry.name)
@@ -27,6 +30,13 @@ module Oclc
         end
       end
       data_set
+    end
+
+    def create_csvs_for_selectors
+      selectors_config.each do |selector_config|
+        selector_csv = SelectorCSV.new(selector_config:)
+        selector_csv.create
+      end
     end
   end
 end
