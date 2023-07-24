@@ -3,7 +3,6 @@
 * Make the record fixes to constituent records too
   * Constituent records share the 852s, 876s, and other 8xx of the hosts.  So allow them to be passed into the MarcRecord initializer
 * Each file should have 20000 or fewer records. Zip the file.
-* The host records should go into the boundwith_writer, not the regular one
 * Open connection to AWS S3
 * Transfer the non bound-with files to the S3
 * Transfer the bound-with (host and constituents) records to the S3

@@ -24,12 +24,20 @@ RSpec.describe AlmaSubmitCollection::MarcFileProcessor, type: :model do
 
   describe "#constituent_record_file" do
     let(:constituent_ids) { ["9933584373506421", "997007993506421", "997008003506421"] }
-    it 'contains constituent records taken from the Alma API' do
+    before do
       stub_alma_bibs(ids: constituent_ids, status: 200, fixture: "constituent_records.xml", apikey: '1234')
+    end
+    it 'contains host records from the file from lib-sftp' do
       processor.process
       processor.constituent_record_file.rewind
       @reader = MARC::XMLReader.new(processor.constituent_record_file)
-      expect(@reader.first['245']['a']).to eq('Presse scientifiques des deux mondes')
+      expect(@reader.first['245']['a']).to eq('Multi-title collection including Presse scientifiques des deux mondes and 2 others.')
+    end
+    it 'contains constituent records taken from the Alma API' do
+      processor.process
+      processor.constituent_record_file.rewind
+      @reader = MARC::XMLReader.new(processor.constituent_record_file)
+      expect(@reader.map { |record| record['245']['a'] }.second).to eq('Presse scientifiques des deux mondes')
     end
   end
 end

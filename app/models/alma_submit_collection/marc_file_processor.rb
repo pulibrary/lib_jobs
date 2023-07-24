@@ -22,7 +22,8 @@ module AlmaSubmitCollection
         recap_record = MarcRecord.new(record)
         next unless recap_record.valid?
 
-        @writer.write(recap_record.version_for_recap)
+        writer = recap_record.constituent_records.any? ? @constituent_writer : @writer
+        writer.write(recap_record.version_for_recap)
         recap_record.constituent_records.each { |constituent| @constituent_writer.write(constituent) }
         @records_processed += 1
       end
