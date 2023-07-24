@@ -1,0 +1,18 @@
+default: &default
+  host: 'filex-m1.oclc.org'
+  username: <%= ENV['OCLC_SFTP_USER'] || 'fx_pul' %>
+  password: <%= ENV['OCLC_SFTP_PASSWORD'] || 'test_oclc_pass' %>
+  lc_newly_cataloged_path: '/xfer/metacoll/out/ongoing/new'
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+  host: 'localhost2'
+
+staging: &staging
+  <<: *default
+
+production:
+  <<: *staging
