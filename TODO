@@ -1,10 +1,5 @@
 [Mark's gist](https://gist.github.com/mzelesky/e6bd007090fae5a492961fcd7dda975e)
-* Make a connection to lib-sftp. Separate the responsibility of the sftp connection in a different class. Reuse it in POD and in submit collection. lib_jobs/app/models/alma_pod_records/alma_pod_file_list.rb
-   * See if we can share code with POD
-
-* Use the nokogiri version of MarcXMLReader, rather than the default
-  rexml.  In order to do this, we need to first add the namespace
-  (maybe using the MarcCollection model shared with POD?)
+* See if we can share code with POD: lib_jobs/app/models/alma_pod_records/alma_pod_file_list.rb
 * Make the record fixes to constituent records too
   * Constituent records share the 852s, 876s, and other 8xx of the hosts.  So allow them to be passed into the MarcRecord initializer
 * Each file should have 20000 or fewer records. Zip the file.
@@ -15,7 +10,6 @@
    * All the constituents for a given host have to be in the same file as the host
 * unlink the tempfile
 * Close the connection to S3.
-
 
 
 

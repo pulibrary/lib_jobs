@@ -8,7 +8,9 @@ module AlmaSubmitCollection
 
     def initialize(file:, file_num: 1)
       @records_processed = 0
-      @reader = MARC::XMLReader.new(file)
+      normalized_records = StringIO.new
+      MarcCollection.new(file).write(normalized_records)
+      @reader = MARC::XMLReader.new(normalized_records.reopen(normalized_records.string, 'r'), parser: "nokogiri")
       @writer = MARC::XMLWriter.new(Tempfile.new(['scsb_submitcollection_std', "#{file_num}.marcxml"]))
       @constituent_writer = MARC::XMLWriter.new(constituent_record_file)
     end
