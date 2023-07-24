@@ -45,11 +45,11 @@ module Oclc
 
       auth_tag = auth_field.tag
       subf_to_skip = auth_subfields_to_skip(auth_tag)
-      targets = auth_field.subfields.reject do |subfield|
+      subf_to_keep = auth_field.subfields.reject do |subfield|
         subf_to_skip.include?(subfield.code)
       end
 
-      targets.map { |field| scrub_string(field.value) }.join(' ')
+      subf_to_keep.map { |field| scrub_string(field.value) }.join(' ')
     end
 
     def description
