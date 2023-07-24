@@ -16,7 +16,7 @@ module Oclc
     def process
       selectors_config.each do |selector_config|
         selector = Selector.new(selector_config:)
-        reader = MARC::Reader.new(temp_file.path)
+        reader = MARC::Reader.new(temp_file.path, external_encoding: 'UTF-8')
         create_or_update_csv(selector:, reader:)
       end
     end
@@ -37,13 +37,13 @@ module Oclc
       headers = ['OCLC Number', 'ISBNs', 'LCCNs', 'Author', 'Title', '008 Place Code',
                  'Pub Place', 'Pub Name', 'Pub Date', 'Description', 'Format', 'Languages',
                  'Call Number', 'Subjects']
-      CSV.open(file_path, 'w', headers:, write_headers: true) do |csv|
+      CSV.open(file_path, 'w', headers:, write_headers: true, encoding: 'UTF-8') do |csv|
         process_records_by_selector(selector:, csv:, reader:)
       end
     end
 
     def update_csv(file_path:, selector:, reader:)
-      CSV.open(file_path, 'a', headers: true) do |csv|
+      CSV.open(file_path, 'a', headers: true, encoding: 'UTF-8') do |csv|
         process_records_by_selector(selector:, csv:, reader:)
       end
     end

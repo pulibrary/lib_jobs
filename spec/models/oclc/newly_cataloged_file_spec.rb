@@ -20,10 +20,6 @@ RSpec.describe Oclc::NewlyCatalogedFile, type: :model do
     File.delete(new_csv_path_2) if File.exist?(new_csv_path_2)
   end
 
-  it 'can run a test' do
-    newly_cataloged_file.process
-  end
-
   it 'is configured' do
     expect(newly_cataloged_file.selectors_config.map { |selector| selector.keys.first.to_s }).to match_array(['bordelon', 'darrington'])
     expect(newly_cataloged_file.csv_file_path).to eq('spec/fixtures/oclc/')
@@ -37,15 +33,10 @@ RSpec.describe Oclc::NewlyCatalogedFile, type: :model do
     end
 
     it 'it writes the expected data to the file' do
-      # Changed the reference file so this whole test will need to be updated
       expect(File.exist?(new_csv_path_1)).to be false
       newly_cataloged_file.process
       expect(File.exist?(new_csv_path_1)).to be true
       csv_file = CSV.read(new_csv_path_1)
-      # File length according to old code
-      # expect(csv_file.length).to eq(9)
-      # File length according to current code - seems to be including more works
-      # Not yet sure why
       expect(csv_file.length).to eq(14)
 
       first_row = csv_file[1]

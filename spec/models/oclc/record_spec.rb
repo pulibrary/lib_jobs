@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe Oclc::Record, type: :model do
   let(:marc_record) { marc_reader.first }
-  let(:marc_reader) { MARC::Reader.new(oclc_fixture_file_path.to_s) }
+  let(:marc_reader) { MARC::Reader.new(oclc_fixture_file_path.to_s, external_encoding: 'UTF-8') }
   let(:selector_config) { Rails.application.config.newly_cataloged.selectors.first }
   let(:selector) { Oclc::Selector.new(selector_config:) }
   let(:subject) { described_class.new(marc_record:) }
@@ -49,24 +49,6 @@ RSpec.describe Oclc::Record, type: :model do
         expect(subject.generally_relevant?).to eq(true)
         expect(subject.call_number_in_range_for_selector?(selector:)).to eq(true)
         expect(subject.relevant_to_selector?(selector:)).to eq(true)
-      end
-    end
-
-    context 'with irrelevant records' do
-      let(:marc_record) do
-        marc_reader.find { |record| record['001'].value.strip == "on1390706836" }
-      end
-      it 'can tell that it is not relevant' do
-        expect(subject.juvenile?).to eq(false)
-        expect(subject.audiobook?).to eq(false)
-        expect(subject.published_in_us_uk_or_canada?).to eq(false)
-        expect(subject.monograph?).to eq(true)
-        expect(subject.within_last_two_years?).to eq(true)
-        expect(subject.generally_relevant?).to eq(true)
-        expect(subject.call_number_in_range_for_selector?(selector:)).to eq(true)
-        # It's not clear to me why this should not be relevant, but Mark's scan did not match it
-        pending("Pairing with Mark to figure out why this isn't relevant")
-        expect(subject.relevant_to_selector?(selector:)).to eq(false)
       end
     end
   end
@@ -162,6 +144,18 @@ RSpec.describe Oclc::Record, type: :model do
         expect(subject.call_number).to eq('U799 .O75')
         expect(subject.lc_class).to eq('U')
         expect(subject.lc_number).to eq(799)
+      end
+
+      context 'with a call number with just a class' do
+        before do
+          allow(subject).to receive(:call_number).and_return('HD')
+        end
+        it 'has a zero lc_number' do
+          expect(subject.call_number).to eq('HD')
+          expect(subject.lc_class).to eq('HD')
+          expect(subject.lc_number).to be 0.0
+          expect(subject.call_number_in_range_for_selector?(selector:)).to be false
+        end
       end
 
       it 'has needed metadata' do

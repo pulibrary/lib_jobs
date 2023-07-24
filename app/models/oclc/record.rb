@@ -138,6 +138,7 @@ module Oclc
     end
 
     # Only the number from the call_number
+    # If the call_number only consists of a class, it will return 0.0
     def lc_number
       return unless call_number
 
