@@ -194,6 +194,9 @@
         <datafield ind1="0" ind2=" " tag="773">
           <subfield code="w">99126221259206421</subfield>
         </datafield>
+        <datafield ind1="8" ind2=" " tag="852">
+          <subfield code="h">Unwanted field</subfield>
+        </datafield>
         <datafield ind1=" " ind2=" " tag="911">
           <subfield code="a">19921028</subfield>
         </datafield>

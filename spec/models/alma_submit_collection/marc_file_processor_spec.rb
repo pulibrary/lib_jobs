@@ -31,13 +31,15 @@ RSpec.describe AlmaSubmitCollection::MarcFileProcessor, type: :model do
       processor.process
       processor.constituent_record_file.rewind
       @reader = MARC::XMLReader.new(processor.constituent_record_file)
-      expect(@reader.first['245']['a']).to eq('Multi-title collection including Presse scientifiques des deux mondes and 2 others.')
+      host = @reader.first
+      expect(host['245']['a']).to eq('Multi-title collection including Presse scientifiques des deux mondes and 2 others.')
     end
     it 'contains constituent records taken from the Alma API' do
       processor.process
       processor.constituent_record_file.rewind
       @reader = MARC::XMLReader.new(processor.constituent_record_file)
-      expect(@reader.map { |record| record['245']['a'] }.second).to eq('Presse scientifiques des deux mondes')
+      constituent = @reader.to_a.second
+      expect(constituent['245']['a']).to eq('Presse scientifiques des deux mondes')
     end
   end
 end
