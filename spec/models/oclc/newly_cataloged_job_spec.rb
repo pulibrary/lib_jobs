@@ -11,8 +11,8 @@ RSpec.describe Oclc::NewlyCatalogedJob, type: :model do
   let(:oclc_fixture_file_path_two) { Rails.root.join('spec', 'fixtures', 'oclc', file_name_to_download_two) }
   let(:file_name_to_download_one) { 'metacoll.PUL.new.D20230706.T213019.MZallDLC.1.mrc' }
   let(:file_name_to_download_two) { 'metacoll.PUL.new.D20230718.T213016.MZallDLC.1.mrc' }
-  let(:temp_file_one) { Tempfile.new(encoding: 'UTF-8') }
-  let(:temp_file_two) { Tempfile.new(encoding: 'UTF-8') }
+  let(:temp_file_one) { Tempfile.new(encoding: 'ascii-8bit') }
+  let(:temp_file_two) { Tempfile.new(encoding: 'ascii-8bit') }
   let(:sftp_entry1) { instance_double("Net::SFTP::Protocol::V01::Name", name: file_name_to_download_one) }
   let(:sftp_entry2) { instance_double("Net::SFTP::Protocol::V01::Name", name: "metacoll.PUL.new.D20230709.T213017.MZallDLC.1.mrc.processed") }
   let(:sftp_entry3) { instance_double("Net::SFTP::Protocol::V01::Name", name: "metacoll.PUL.new.D20230705.T213018.allpcc.1.mrc") }

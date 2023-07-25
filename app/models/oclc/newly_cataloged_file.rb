@@ -11,29 +11,23 @@ module Oclc
     end
 
     def process
-      selectors_config.each do |selector_config|
-        selector = Selector.new(selector_config:)
-        reader = MARC::Reader.new(temp_file.path, external_encoding: 'UTF-8')
-        selector_csv = SelectorCSV.new(selector_config:)
-        update_csv(file_path: selector_csv.file_path, selector:, reader:)
-      end
-    end
-
-    def update_csv(file_path:, selector:, reader:)
-      CSV.open(file_path, 'a', headers: true, encoding: 'bom|utf-8') do |csv|
-        process_records_by_selector(selector:, csv:, reader:)
-      end
-    end
-
-    def process_records_by_selector(selector:, csv:, reader:)
+      reader = MARC::Reader.new(temp_file.path, external_encoding: 'UTF-8')
       reader.each do |marc_record|
         record = Record.new(marc_record:)
-
-        Rails.logger.debug { "Record OCLC id: #{record.oclc_id}; Generally relevant? #{record.generally_relevant?}; Relevant to selector #{selector.name}: #{record.relevant_to_selector?(selector:)}" }
         next unless record.generally_relevant?
 
-        next unless record.relevant_to_selector?(selector:)
+        selectors_config.each do |selector_config|
+          selector = Selector.new(selector_config:)
+          next unless record.relevant_to_selector?(selector:)
 
+          write_record_for_selector(record:, selector_config:)
+        end
+      end
+    end
+
+    def write_record_for_selector(record:, selector_config:)
+      selector_csv = SelectorCSV.new(selector_config:)
+      CSV.open(selector_csv.file_path, 'a', headers: true, encoding: 'bom|utf-8') do |csv|
         csv << row_data(record:)
       end
     end

@@ -4,7 +4,7 @@ require 'rails_helper'
 RSpec.describe Oclc::NewlyCatalogedFile, type: :model do
   subject(:newly_cataloged_file) { described_class.new(temp_file:) }
   let(:oclc_fixture_file_path) { Rails.root.join('spec', 'fixtures', 'oclc', 'metacoll.PUL.new.D20230718.T213016.MZallDLC.1.mrc') }
-  let(:temp_file) { Tempfile.new }
+  let(:temp_file) { Tempfile.new(encoding: 'ascii-8bit') }
   let(:freeze_time) { Time.utc(2023, 7, 12) }
   let(:new_csv_path_1) { Rails.root.join('spec', 'fixtures', 'oclc', '2023-07-12-newly-cataloged-by-lc-bordelon.csv') }
   let(:new_csv_path_2) { Rails.root.join('spec', 'fixtures', 'oclc', '2023-07-12-newly-cataloged-by-lc-darrington.csv') }

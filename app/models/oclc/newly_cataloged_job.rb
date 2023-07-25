@@ -24,7 +24,8 @@ module Oclc
 
           Rails.logger.debug { "Found matching pattern in file: #{entry.name}" }
           remote_filename = File.join(input_sftp_base_dir, entry.name)
-          temp_file = Tempfile.new(encoding: 'UTF-8')
+          # ascii-8bit required for download! to succeed
+          temp_file = Tempfile.new(encoding: 'ascii-8bit')
           sftp.download!(remote_filename, temp_file)
           NewlyCatalogedFile.new(temp_file:).process
         end
