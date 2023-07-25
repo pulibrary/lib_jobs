@@ -7,6 +7,8 @@ RSpec.describe Oclc::NewlyCatalogedJob, type: :model do
   let(:file_full_path_one) { "#{input_sftp_base_dir}#{file_name_to_download_one}" }
   let(:file_full_path_two) { "#{input_sftp_base_dir}#{file_name_to_download_two}" }
   let(:input_sftp_base_dir) { '/xfer/metacoll/out/ongoing/new/' }
+  let(:oclc_fixture_file_path_one) { Rails.root.join('spec', 'fixtures', 'oclc', file_name_to_download_one) }
+  let(:oclc_fixture_file_path_two) { Rails.root.join('spec', 'fixtures', 'oclc', file_name_to_download_two) }
   let(:file_name_to_download_one) { 'metacoll.PUL.new.D20230706.T213019.MZallDLC.1.mrc' }
   let(:file_name_to_download_two) { 'metacoll.PUL.new.D20230718.T213016.MZallDLC.1.mrc' }
   let(:temp_file_one) { Tempfile.new(encoding: 'UTF-8') }
@@ -24,6 +26,8 @@ RSpec.describe Oclc::NewlyCatalogedJob, type: :model do
   around do |example|
     File.delete(new_csv_path_1) if File.exist?(new_csv_path_1)
     File.delete(new_csv_path_2) if File.exist?(new_csv_path_2)
+    temp_file_one.write(File.open(oclc_fixture_file_path_one).read)
+    temp_file_two.write(File.open(oclc_fixture_file_path_two).read)
     Timecop.freeze(freeze_time) do
       example.run
     end
@@ -32,10 +36,10 @@ RSpec.describe Oclc::NewlyCatalogedJob, type: :model do
   end
 
   before do
-    allow(Tempfile).to receive(:new).and_return(temp_file_one)
+    allow(Tempfile).to receive(:new).and_return(temp_file_one, temp_file_two)
     allow(sftp_dir).to receive(:foreach).and_yield(sftp_entry1).and_yield(sftp_entry2).and_yield(sftp_entry3).and_yield(sftp_entry4)
-    allow(sftp_session).to receive(:download!).with(file_full_path_one, temp_file_one).and_return(Rails.root.join('spec', 'fixtures', 'oclc', file_name_to_download_one).to_s)
-    allow(sftp_session).to receive(:download!).with(file_full_path_two, temp_file_two).and_return(Rails.root.join('spec', 'fixtures', 'oclc', file_name_to_download_two).to_s)
+    allow(sftp_session).to receive(:download!).with(file_full_path_one, temp_file_one)
+    allow(sftp_session).to receive(:download!).with(file_full_path_two, temp_file_two)
     allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
   end
 
@@ -51,5 +55,13 @@ RSpec.describe Oclc::NewlyCatalogedJob, type: :model do
     newly_cataloged_job.run
     expect(File.exist?(new_csv_path_1)).to be true
     expect(File.exist?(new_csv_path_2)).to be true
+  end
+
+  it 'puts data in the csv file for each selector' do
+    newly_cataloged_job.run
+    csv_file_one = CSV.read(new_csv_path_1)
+    expect(csv_file_one.length).to eq(25)
+    csv_file_two = CSV.read(new_csv_path_2)
+    expect(csv_file_two.length).to eq(38)
   end
 end
