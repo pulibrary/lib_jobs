@@ -43,8 +43,9 @@ module AspaceSvn
         resource_ids.map { |id| write_eads_to_file(dir, repo, id) }
       end
       data_set.data = report
-      data_set.report_time = Time.zone.now
+      #data_set.report_time = Time.zone.now
       data_set
+      commit_eads_to_svn
     end
 
     def report
@@ -59,15 +60,15 @@ module AspaceSvn
 
     def repos
       {
-        3 => "mudd/publicpolicy",
-        4 => "mudd/univarchives",
-        5 => "mss",
-        6 => "rarebooks",
-        7 => "cotsen",
-        8 => "lae",
-        9 => "eng",
-        10 => "selectors",
-        11 => "ga",
+        # 3 => "mudd/publicpolicy",
+        # 4 => "mudd/univarchives",
+        # 5 => "mss",
+        # 6 => "rarebooks",
+        # 7 => "cotsen",
+        # 8 => "lae",
+        # 9 => "eng",
+        # 10 => "selectors",
+        # 11 => "ga",
         12 => "ea"
       }
     end
@@ -75,6 +76,7 @@ module AspaceSvn
     # Replace the namespace with the correct loc.gov one,
     # then write the results to the file
     def write_eads_to_file(dir, repo, id)
+      Rails.logger.info("Now processing #{repo}/#{id}")
       record = @client.get("/repositories/#{repo}/resource_descriptions/#{id}.xml")
       ead = Nokogiri::XML(record.body)
       ead.remove_namespaces!
@@ -83,6 +85,16 @@ module AspaceSvn
       ead.child.add_namespace('ead', 'http://www.loc.gov/ead/ead')
       file << ead
       file.close
+    end
+
+    #send eads from temp directory to svn
+    def commit_eads_to_svn
+      wc = "/Users/heberleinr/Documents/SVN_Working_Copies/trunk/eads"
+      `mv #{@aspace_output_base_dir}/eads #{wc}`
+      `svn update #{wc} >&2`
+      #add anything that isn't versioned yet
+      `svn add --force #{wc} >&2`
+      `svn commit #{wc} -m "testing monthly snapshot of ASpace EAD export" >&2`
     end
   end
 end
