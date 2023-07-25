@@ -42,7 +42,7 @@ RSpec.describe Oclc::SelectorCSV, type: :model do
 
   it 'adds headers to the CSV' do
     subject.create
-    csv_file = CSV.read(new_csv_path_1)
+    csv_file = CSV.read(new_csv_path_1, encoding: "bom|utf-8")
     expect(csv_file[0]).to eq(headers)
   end
 end
