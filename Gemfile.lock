@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/voormedia/flipflop.git
+  revision: 0d70d8e33483a9c0282ed8d6bca9c5ccd61e61e8
+  ref: 0d70d8e33483a9c0282ed8d6bca9c5ccd61e61e8
+  specs:
+    flipflop (2.7.1)
+      activesupport (>= 4.0)
+      terminal-table (>= 1.8)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -164,9 +173,6 @@ GEM
       factory_bot (~> 6.1.0)
       railties (>= 5.0.0)
     ffi (1.15.5)
-    flipflop (2.7.1)
-      activesupport (>= 4.0)
-      terminal-table (>= 1.8)
     foreman (0.87.2)
     globalid (1.1.0)
       activesupport (>= 5.0)
@@ -473,7 +479,7 @@ DEPENDENCIES
   dotenv-rails
   ed25519 (~> 1.3)
   factory_bot_rails
-  flipflop (~> 2.7)
+  flipflop!
   foreman
   honeybadger (~> 4.0)
   icalendar (~> 2.8)
