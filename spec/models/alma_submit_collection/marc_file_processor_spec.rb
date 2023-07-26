@@ -41,5 +41,21 @@ RSpec.describe AlmaSubmitCollection::MarcFileProcessor, type: :model do
       constituent = @reader.to_a.second
       expect(constituent['245']['a']).to eq('Presse scientifiques des deux mondes')
     end
+    it 'contains 852 from host record' do
+      processor.process
+      processor.constituent_record_file.rewind
+      @reader = MARC::XMLReader.new(processor.constituent_record_file)
+      constituent = @reader.to_a.third
+      f852s = constituent.fields('852').select { |f852| f852['h'] == 'MICROFILM S01063 reel 58-65' }
+      expect(f852s.length).to eq 1
+    end
+    it 'does not contain the 852 that was originally in the constituent record' do
+      processor.process
+      processor.constituent_record_file.rewind
+      @reader = MARC::XMLReader.new(processor.constituent_record_file)
+      constituent = @reader.to_a.third
+      f852s = constituent.fields('852').select { |f852| f852['h'] == 'Unwanted field' }
+      expect(f852s).to be_empty
+    end
   end
 end
