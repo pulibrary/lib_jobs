@@ -1,14 +1,11 @@
 [Mark's gist](https://gist.github.com/mzelesky/e6bd007090fae5a492961fcd7dda975e)
 * See if we can share code with POD: lib_jobs/app/models/alma_pod_records/alma_pod_file_list.rb
-* Make the record fixes to constituent records too
-  * Constituent records share the 852s, 876s, and other 8xx of the hosts.  So allow them to be passed into the MarcRecord initializer
-* Each file should have 20000 or fewer records. Zip the file.
+* Each file should have 10_000 or fewer records, constituent files should have 1_000 hosts or fewer. Zip the file.
 * Open connection to AWS S3
 * Transfer the non bound-with files to the S3
 * Transfer the bound-with (host and constituents) records to the S3
    * All the constituents for a given host have to be in the same file as the host
 * unlink the tempfile
 * Close the connection to S3.
-
-
+* Rename the file to .processed on the SFTP server only after the records are successfully sent to S3 (currently it is being added when it is downloaded)
 

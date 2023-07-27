@@ -57,5 +57,21 @@ RSpec.describe AlmaSubmitCollection::MarcFileProcessor, type: :model do
       f852s = constituent.fields('852').select { |f852| f852['h'] == 'Unwanted field' }
       expect(f852s).to be_empty
     end
+    it 'contains 866$a from host record' do
+      processor.process
+      processor.constituent_record_file.rewind
+      @reader = MARC::XMLReader.new(processor.constituent_record_file)
+      constituent = @reader.to_a.third
+      f866s = constituent.fields('866').select { |f866| f866['a'] == '1. année, 1. t. no. 1 (16 juil. 1860)-(15 sept. 1867).' }
+      expect(f866s.length).to eq 1
+    end
+    it 'contains 876$a (item ID) from host record' do
+      processor.process
+      processor.constituent_record_file.rewind
+      @reader = MARC::XMLReader.new(processor.constituent_record_file)
+      constituent = @reader.to_a.third
+      f876s = constituent.fields('876').select { |f876| f876['a'] == '23579686040006421' }
+      expect(f876s.length).to eq 1
+    end
   end
 end

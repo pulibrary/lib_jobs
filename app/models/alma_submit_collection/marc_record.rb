@@ -1,8 +1,15 @@
 # frozen_string_literal: true
 module AlmaSubmitCollection
   class MarcRecord
-    def initialize(record)
+    def initialize(record, wanted852 = nil, wanted876 = nil, associated_holding_fields = nil)
       @record = record
+      @wanted852 = wanted852 || @record.fields('852').find do |f|
+        alma_holding?(f)
+      end
+      @wanted876 = wanted876 || @record.fields('876').select { |f| alma_item?(f) }
+      @associated_holding_fields = associated_holding_fields || @record.fields(%w[583 866 867 868])
+                                                                       .select { |field| alma_holding?(field) }
+                                                                       .map { |field| MarcAssociatedHoldingFieldFactory.new(field).generate }
     end
 
     def valid?
@@ -14,14 +21,14 @@ module AlmaSubmitCollection
     end
 
     def version_for_recap
-      new_item_field = MarcItemFieldFactory.new(original_fields: @record.fields('876').select { |f| alma_item?(f) },
+      new_item_field = MarcItemFieldFactory.new(original_fields: @wanted876,
                                                 library:,
                                                 location:).generate
-      new_location_field = MarcLocationFieldFactory.new(wanted852).generate
+      new_location_field = MarcLocationFieldFactory.new(@wanted852).generate
 
       version_for_recap = record_fixes
       version_for_recap.append(new_location_field)
-      associated_holding_fields.each { |field| version_for_recap.append(field) }
+      @associated_holding_fields.each { |field| version_for_recap.append(field) }
       version_for_recap.append(new_item_field)
       version_for_recap
     end
@@ -41,7 +48,11 @@ module AlmaSubmitCollection
     end
 
     def constituent_records
-      @constituent_records ||= AlmaApi.new.fetch_marc_records(constituent_record_ids(@record))
+      marc_records_from_api = AlmaApi.new.fetch_marc_records(constituent_record_ids(@record))
+      marc_records_from_api.map do |record|
+        recap_record = MarcRecord.new(record, @wanted852, @wanted876, @associated_holding_fields)
+        recap_record.version_for_recap
+      end
     end
 
     private
@@ -69,17 +80,11 @@ module AlmaSubmitCollection
     end
 
     def library
-      wanted852['b']
+      @wanted852['b']
     end
 
     def location
-      wanted852['c']
-    end
-
-    def wanted852
-      @record.fields('852').find do |f|
-        alma_holding?(f)
-      end
+      @wanted852['c']
     end
 
     def constituent_record_ids(record)
@@ -92,12 +97,6 @@ module AlmaSubmitCollection
         constituent_ids << id
       end
       constituent_ids
-    end
-
-    def associated_holding_fields
-      @record.fields(%w[583 866 867 868])
-             .select { |field| alma_holding?(field) }
-             .map { |field| MarcAssociatedHoldingFieldFactory.new(field).generate }
     end
   end
 end

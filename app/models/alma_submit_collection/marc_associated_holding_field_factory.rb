@@ -17,6 +17,7 @@ module AlmaSubmitCollection
         new_code = '0' if new_code == '8'
         new_field.append(MARC::Subfield.new(new_code, subfield.value))
       end
+      new_field
     end
   end
 end
