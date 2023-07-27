@@ -56,7 +56,7 @@ RSpec.describe Oclc::Record, type: :model do
         expect(subject.call_number).to eq('HD')
         expect(subject.lc_class).to eq('HD')
         expect(subject.lc_number).to be 0.0
-        expect(subject.call_number_in_range_for_selector?(selector:)).to be false
+        expect(subject.call_number_in_range_for_selector?(selector:)).to be true
       end
     end
 

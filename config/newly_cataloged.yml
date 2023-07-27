@@ -28,31 +28,31 @@ default: &default
           low_num: 716
           high_num: 716
         - class: H
-          low_num: 1
+          low_num: 0
           high_num: 99_999
         - class: HA
-          low_num: 1
+          low_num: 0
           high_num: 99_999
         - class: HB
-          low_num: 1
+          low_num: 0
           high_num: 99_999
         - class: HC
-          low_num: 1
+          low_num: 0
           high_num: 99_999
         - class: HD
-          low_num: 1
+          low_num: 0
           high_num: 99_999
         - class: HE
-          low_num: 1
+          low_num: 0
           high_num: 99_999
         - class: HF
-          low_num: 1
+          low_num: 0
           high_num: 99_999
         - class: HG
-          low_num: 1
+          low_num: 0
           high_num: 99_999
         - class: HJ
-          low_num: 1
+          low_num: 0
           high_num: 99_999
         - class: HQ
           low_num: 444
@@ -67,7 +67,7 @@ default: &default
           low_num: 388
           high_num: 388
         - class: HX
-          low_num: 1
+          low_num: 0
           high_num: 99_999
         - class: LC
           low_num: 65
@@ -113,40 +113,40 @@ default: &default
     - darrington:
         classes:
         - class: J
-          low_num: 1
+          low_num: 0
           high_num: 99_999
         - class: JA
-          low_num: 1
+          low_num: 0
           high_num: 99_999
         - class: JC
-          low_num: 1
+          low_num: 0
           high_num: 99_999
         - class: JF
-          low_num: 1
+          low_num: 0
           high_num: 99_999
         - class: JJ
-          low_num: 1
+          low_num: 0
           high_num: 99_999
         - class: JK
-          low_num: 1
+          low_num: 0
           high_num: 99_999
         - class: JL
-          low_num: 1
+          low_num: 0
           high_num: 99_999
         - class: JN
-          low_num: 1
+          low_num: 0
           high_num: 99_999
         - class: JQ
-          low_num: 1
+          low_num: 0
           high_num: 99_999
         - class: JS
-          low_num: 1
+          low_num: 0
           high_num: 99_999
         - class: JV
-          low_num: 1
+          low_num: 0
           high_num: 99_999
         - class: JZ
-          low_num: 1
+          low_num: 0
           high_num: 99_999
         excluded_languages:
         - ara
