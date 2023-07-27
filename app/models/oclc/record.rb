@@ -134,7 +134,8 @@ module Oclc
     def lc_class
       return unless call_number
 
-      call_number.gsub(/^([A-Z]+?)[^A-Z].*$/, '\1')
+      # Capture and return beginning letters, match the rest, but discard
+      call_number.gsub(/^([A-Z]+)[^A-Z].*$/, '\1')
     end
 
     # Only the number from the call_number
@@ -142,6 +143,10 @@ module Oclc
     def lc_number
       return unless call_number
 
+      # Ignore starting non-numeric characters, capture all numbers
+      # If there's a decimal, capture that and subsequent numbers
+      # Match but do not capture the rest
+      # This results in only the numeric portions of the call number
       call_number.gsub(/^[^0-9]+([0-9]+)(\.[0-9]+)?[^0-9]?.*$/, '\1\2').to_f
     end
 
@@ -233,8 +238,11 @@ module Oclc
 
       new_string = string.dup
       new_string.strip!
+      # Scrub the last character if it ends in punctuation
       new_string[-1] = '' if %r{[.,:/=]}.match?(new_string[-1])
+      # Remove beginning or ending spaces
       new_string.strip!
+      # If there are two or more spaces, replace with a single space
       new_string.gsub(/(\s){2, }/, '\1')
     end
 
