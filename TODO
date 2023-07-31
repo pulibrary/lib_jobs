@@ -7,5 +7,4 @@
    * All the constituents for a given host have to be in the same file as the host
 * unlink the tempfile
 * Close the connection to S3.
-* Rename the file to .processed on the SFTP server only after the records are successfully sent to S3 (currently it is being added when it is downloaded)
 

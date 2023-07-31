@@ -53,10 +53,15 @@ RSpec.describe AlmaSubmitCollection::AlmaRecapFileList, type: :model do
       decompressed_file_contents = alma_recap_file_list.download_and_decompress_file(alma_recap_filename)
       expect(decompressed_file_contents.first.string).to include(title_field)
     end
+  end
+  describe '#mark_files_as_processed' do
+    before do
+      allow(sftp_file_factory).to receive(:open).and_return File.new(Pathname.new(file_fixture_path).join("alma", alma_recap_filename))
+    end
     it 'renames the file to .processed' do
       old_filepath = "/alma/recap/incremental_recap_25908087650006421_20230420_160408[057]_new.xml.tar.gz"
       new_filepath = "/alma/recap/incremental_recap_25908087650006421_20230420_160408[057]_new.xml.tar.gz.processed"
-      alma_recap_file_list.download_and_decompress_file(alma_recap_filename)
+      alma_recap_file_list.mark_files_as_processed
       expect(sftp_session).to have_received(:rename).with(old_filepath, new_filepath)
     end
   end

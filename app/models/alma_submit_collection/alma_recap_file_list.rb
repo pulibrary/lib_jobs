@@ -22,6 +22,14 @@ module AlmaSubmitCollection
       Tarball.new(download_file(filename)).contents
     end
 
+    def mark_files_as_processed
+      @alma_sftp.start do |sftp|
+        files.each do |filename|
+          sftp.rename(full_filename(filename), "#{full_filename(filename)}.processed")
+        end
+      end
+    end
+
     private
 
     def compile_file_list
@@ -39,11 +47,12 @@ module AlmaSubmitCollection
     def download_file(filename)
       @alma_sftp.start do |sftp|
         Rails.logger.info "Downloading Alma Recap file #{filename}"
-        full_filename = File.join(@input_sftp_base_dir, filename)
-        contents = sftp.file.open(full_filename)
-        sftp.rename(full_filename, "#{full_filename}.processed")
-        contents
+        sftp.file.open(full_filename(filename))
       end
+    end
+
+    def full_filename(filename)
+      File.join(@input_sftp_base_dir, filename)
     end
   end
 end
