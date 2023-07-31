@@ -7,6 +7,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gem 'rails', '~> 7.0'
 
 gem 'archivesspace-client'
+gem 'aws-sdk-s3'
 gem 'bcrypt_pbkdf', '~> 1.1'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
