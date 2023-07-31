@@ -2,14 +2,14 @@
 module AlmaSubmitCollection
   class AlmaSubmitCollectionJob < LibJob
     def handle(data_set:)
-      files = AlmaRecapFileList.new.file_contents
+      file_list = AlmaRecapFileList.new
       records_processed = 0
-      files.each_with_index do |file, file_num|
-        processor = MarcFileProcessor.new(file:, file_num:)
+      file_list.file_contents.each do |file|
+        processor = MarcFileProcessor.new(file:)
         processor.process
         records_processed += processor.records_processed
       end
-      files.mark_files_as_processed
+      file_list.mark_files_as_processed
       data_set.data = "#{records_processed} records processed."
       data_set
     end

@@ -29,46 +29,40 @@ RSpec.describe AlmaSubmitCollection::MarcFileProcessor, type: :model do
     end
     it 'contains host records from the file from lib-sftp' do
       processor.process
-      processor.constituent_record_file.rewind
-      @reader = MARC::XMLReader.new(processor.constituent_record_file)
+      @reader = MARC::XMLReader.new(processor.constituent_record_filenames.first)
       host = @reader.first
       expect(host['245']['a']).to eq('Multi-title collection including Presse scientifiques des deux mondes and 2 others.')
     end
     it 'contains constituent records taken from the Alma API' do
       processor.process
-      processor.constituent_record_file.rewind
-      @reader = MARC::XMLReader.new(processor.constituent_record_file)
+      @reader = MARC::XMLReader.new(processor.constituent_record_filenames.first)
       constituent = @reader.to_a.second
       expect(constituent['245']['a']).to eq('Presse scientifiques des deux mondes')
     end
     it 'contains 852 from host record' do
       processor.process
-      processor.constituent_record_file.rewind
-      @reader = MARC::XMLReader.new(processor.constituent_record_file)
+      @reader = MARC::XMLReader.new(processor.constituent_record_filenames.first)
       constituent = @reader.to_a.third
       f852s = constituent.fields('852').select { |f852| f852['h'] == 'MICROFILM S01063 reel 58-65' }
       expect(f852s.length).to eq 1
     end
     it 'does not contain the 852 that was originally in the constituent record' do
       processor.process
-      processor.constituent_record_file.rewind
-      @reader = MARC::XMLReader.new(processor.constituent_record_file)
+      @reader = MARC::XMLReader.new(processor.constituent_record_filenames.first)
       constituent = @reader.to_a.third
       f852s = constituent.fields('852').select { |f852| f852['h'] == 'Unwanted field' }
       expect(f852s).to be_empty
     end
     it 'contains 866$a from host record' do
       processor.process
-      processor.constituent_record_file.rewind
-      @reader = MARC::XMLReader.new(processor.constituent_record_file)
+      @reader = MARC::XMLReader.new(processor.constituent_record_filenames.first)
       constituent = @reader.to_a.third
       f866s = constituent.fields('866').select { |f866| f866['a'] == '1. année, 1. t. no. 1 (16 juil. 1860)-(15 sept. 1867).' }
       expect(f866s.length).to eq 1
     end
     it 'contains 876$a (item ID) from host record' do
       processor.process
-      processor.constituent_record_file.rewind
-      @reader = MARC::XMLReader.new(processor.constituent_record_file)
+      @reader = MARC::XMLReader.new(processor.constituent_record_filenames.first)
       constituent = @reader.to_a.third
       f876s = constituent.fields('876').select { |f876| f876['a'] == '23579686040006421' }
       expect(f876s.length).to eq 1

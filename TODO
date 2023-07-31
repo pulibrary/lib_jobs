@@ -1,11 +1,12 @@
 [Mark's gist](https://gist.github.com/mzelesky/e6bd007090fae5a492961fcd7dda975e)
 * See if we can share code with POD: lib_jobs/app/models/alma_pod_records/alma_pod_file_list.rb
-* Each file should have 10_000 or fewer records, constituent files should have 1_000 hosts or fewer. Zip the file.
+* Compress the file before we send it.
 * Open connection to AWS S3
   It uses correct region name
   It gets bucket name from config
   It gets bucket creds from envvars
   It puts the file contents to the bucket: https://docs.aws.amazon.com/sdk-for-ruby/v3/api/Aws/S3/Client.html#put_object-instance_method
+  It puts the file contents with a key that matches the current pattern
 * Transfer the non bound-with files to the S3
 * Transfer the bound-with (host and constituents) records to the S3
 * unlink the tempfile

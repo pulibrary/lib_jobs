@@ -6,13 +6,13 @@ module AlmaSubmitCollection
   class MarcFileProcessor
     attr_reader :records_processed
 
-    def initialize(file:, file_num: 1)
+    def initialize(file:)
       @records_processed = 0
       normalized_records = StringIO.new
       MarcCollection.new(file).write(normalized_records)
       @reader = MARC::XMLReader.new(normalized_records.reopen(normalized_records.string, 'r'), parser: "nokogiri")
-      @writer = MARC::XMLWriter.new(Tempfile.new(['scsb_submitcollection_std', "#{file_num}.marcxml"]))
-      @constituent_writer = MARC::XMLWriter.new(constituent_record_file)
+      @writer = MarcS3Writer.new(records_per_file: 10_000)
+      @constituent_writer = MarcS3Writer.new(records_per_file: 1_000, file_type: 'constituent')
     end
 
     def process
@@ -27,10 +27,12 @@ module AlmaSubmitCollection
         recap_record.constituent_records.each { |constituent| @constituent_writer.write(constituent) }
         @records_processed += 1
       end
+      @writer.done
+      @constituent_writer.done
     end
 
-    def constituent_record_file
-      @constituent_record_file ||= Tempfile.new(['scsb_submitcollection_constituent'])
+    def constituent_record_filenames
+      @constituent_writer.filenames_on_disk
     end
   end
 end
