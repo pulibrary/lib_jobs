@@ -37,8 +37,9 @@ module AlmaSubmitCollection
     def done
       return unless @marc_writer
       @marc_writer.close
-      File.open(@current_file.path) do |file_contents|
-        @s3_client.put_object(bucket: 'scsb', body: file_contents, key: 'scsb')
+      file_path = @current_file.path
+      File.open(file_path) do |file_contents|
+        @s3_client.put_object(bucket:, body: file_contents, key: "#{ENV['SCSB_S3_UPDATES']}/scsb_#{File.basename(file_path)}")
       end
       @current_file.unlink
     end
@@ -53,6 +54,10 @@ module AlmaSubmitCollection
 
     def full
       @records_in_file >= @records_per_file
+    end
+
+    def bucket
+      ENV['SCSB_S3_BUCKET_NAME'] || 'scsb-uat'
     end
   end
 end
