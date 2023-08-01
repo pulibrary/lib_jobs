@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 module AlmaSubmitCollection
+  # This class is responsible for interacting
+  # with SubmitCollection-related files on the
+  # sftp server
   class AlmaRecapFileList
     attr_reader :files
 

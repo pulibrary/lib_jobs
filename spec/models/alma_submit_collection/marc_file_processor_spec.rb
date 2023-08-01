@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe AlmaSubmitCollection::MarcFileProcessor, type: :model do
   let(:filename) { 'host_record.xml' }
-  let(:processor) { described_class.new(file: File.new(Pathname.new(file_fixture_path).join("alma", filename))) }
+  let(:processor) { described_class.new(file: File.new(Pathname.new(file_fixture_path).join("alma", filename)), s3_client: Aws::S3::Client.new(stub_responses: true)) }
   let(:constituent_ids) { ["9933584373506421", "997007993506421", "997008003506421"] }
   before do
     stub_alma_bibs(ids: constituent_ids, status: 200, fixture: "constituent_records.xml", apikey: '1234')

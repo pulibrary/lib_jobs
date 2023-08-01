@@ -6,13 +6,13 @@ module AlmaSubmitCollection
   class MarcFileProcessor
     attr_reader :records_processed
 
-    def initialize(file:)
+    def initialize(file:, s3_client: nil)
       @records_processed = 0
       normalized_records = StringIO.new
       MarcCollection.new(file).write(normalized_records)
       @reader = MARC::XMLReader.new(normalized_records.reopen(normalized_records.string, 'r'), parser: "nokogiri")
-      @writer = MarcS3Writer.new(records_per_file: 10_000)
-      @constituent_writer = MarcS3Writer.new(records_per_file: 1_000, file_type: 'constituent')
+      @writer = MarcS3Writer.new(records_per_file: 10_000, s3_client:)
+      @constituent_writer = MarcS3Writer.new(records_per_file: 1_000, file_type: 'constituent', s3_client:)
     end
 
     def process

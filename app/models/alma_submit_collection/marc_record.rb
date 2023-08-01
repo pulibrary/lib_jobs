@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 module AlmaSubmitCollection
+  # This class is responsible for
+  # making various corrections and
+  # edits necessary before we send
+  # a MARC record to SCSB
   class MarcRecord
     def initialize(record, wanted852 = nil, wanted876 = nil, associated_holding_fields = nil)
       @record = record
