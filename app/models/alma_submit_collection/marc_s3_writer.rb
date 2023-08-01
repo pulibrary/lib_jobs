@@ -4,9 +4,7 @@ module AlmaSubmitCollection
   # MARC data and writing it to files in an
   # AWS S3 bucket
   class MarcS3Writer
-    attr_reader :filenames_on_disk
     def initialize(records_per_file: 10_000, file_type: 'std', s3_client: nil)
-      @filenames_on_disk = []
       @records_in_file = 0
 
       @records_per_file = records_per_file
@@ -28,11 +26,10 @@ module AlmaSubmitCollection
     def marc_writer
       if @marc_writer
         return @marc_writer unless full
-        @marc_writer.close
+        done
       end
       @current_file = Tempfile.new(filename_components)
       @marc_writer = MARC::XMLWriter.new(@current_file)
-      filenames_on_disk << @current_file.path
       @records_in_file = 0
       @marc_writer
     end
@@ -43,7 +40,7 @@ module AlmaSubmitCollection
       File.open(@current_file.path) do |file_contents|
         @s3_client.put_object(bucket: 'scsb', body: file_contents, key: 'scsb')
       end
-      # TODO: unlink the tempfile here, update the tests to see what the mocked s3 has received
+      @current_file.unlink
     end
 
     private

@@ -30,9 +30,5 @@ module AlmaSubmitCollection
       @writer.done
       @constituent_writer.done
     end
-
-    def constituent_record_filenames
-      @constituent_writer.filenames_on_disk
-    end
   end
 end
