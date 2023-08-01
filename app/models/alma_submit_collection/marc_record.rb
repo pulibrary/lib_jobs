@@ -17,11 +17,13 @@ module AlmaSubmitCollection
     end
 
     def valid?
-      return false if @record.fields('852').none? { |field| alma_holding?(field) }
-      return false if @record.fields('852').none? { |field| scsb_locations.include?(field['c'][0..1]) }
-      return false if @record.fields('876').none? { |field| alma_item?(field) }
-
-      true
+      if @record.fields('852').none? { |field| alma_holding?(field) && scsb_location?(field['c']) }
+        false
+      elsif @record.fields('876').none? { |field| alma_item?(field) }
+        false
+      else
+        true
+      end
     end
 
     def version_for_recap
@@ -38,9 +40,7 @@ module AlmaSubmitCollection
     end
 
     def record_fixes
-      @record.fields.delete_if { |f| f.tag =~ /[^0-9]/ }
-      @record.fields.delete_if { |f| f.tag =~ /^9/ }
-      @record.fields.delete_if { |f| %w[852 866 867 868 876].include?(f.tag) }
+      @record.fields.delete_if { |f| should_delete_field?(f.tag) }
       @record.leader[5] = 'c' if @record.leader[5] == 'd'
       MarcCleanup.empty_subfield_fix(@record)
       MarcCleanup.leaderfix(@record)
@@ -94,13 +94,20 @@ module AlmaSubmitCollection
     def constituent_record_ids(record)
       constituent_ids = []
       record.fields('774').select { |f| f['w'] }.each do |field|
-        next unless /^[^9]*99[0-9]+6421/.match?(field['w'])
-
         id = field['w']
-        id.gsub!(/^[^9]*(99[0-9]+6421).*$/, '\1')
-        constituent_ids << id
+        next unless /^[^9]*99[0-9]+6421/.match?(id)
+
+        constituent_ids << id.gsub(/^[^9]*(99[0-9]+6421).*$/, '\1')
       end
       constituent_ids
+    end
+
+    def should_delete_field?(tag)
+      tag =~ /[^0-9]/ || tag.start_with?('9') || %w[852 866 867 868 876].include?(tag)
+    end
+
+    def scsb_location?(possible)
+      scsb_locations.any? { |location| possible.start_with?(location) }
     end
   end
 end

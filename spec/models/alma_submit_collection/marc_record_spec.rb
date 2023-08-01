@@ -104,7 +104,7 @@ RSpec.describe(AlmaSubmitCollection::MarcRecord) do
     end
   end
 
-  describe('#fixed record') do
+  describe('#record_fixes') do
     let(:fields) do
       [
         { '001' => +'12345' },

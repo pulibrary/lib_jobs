@@ -1,4 +1,4 @@
 * Compress the file before we send it.
-* Run reek to check for code smells
-* See if there is any refactoring that needs to be done
+* See if there is any refactoring (sharing code with other jobs)
+  that needs to be done
 * Try running the job locally!
