@@ -1,0 +1,12 @@
+PUL_1012676_1689177432289::bib::889175|99114463063506421||1390150805|Validation Error|SEVERE|Invalid code in 1st $2 in 2nd 650.
+PUL_1012676_1689177432289::bib::889175|99114463063506421||1390150805|Validation Error|SEVERE|Invalid code in 1st $2 in 3rd 650.
+PUL_1012676_1689177432289::bib::1856787||||Data Error||crosswalk_error
+PUL_1012676_1689177432289::bib::1737659|9968304893506421||1390150062|Validation Error|CRITICAL|Record is sparse.
+PUL_1012676_1689177432289::bib::1737659|9968304893506421||1390150062|Validation Error|MINOR|Invalid relationship - when Bibliographic Level (Leader/07) is equal to b, then 773 must be present.
+PUL_1012676_1689177432289::bib::1737659|9968304893506421||1390150062|Validation Error|SEVERE|Invalid relationship - when Type of Date/Publication Status (008/06) is equal to s, then Bibliographic Level (Leader/07) must not be equal to b.
+PUL_1012676_1689177432289::bib::1737659|9968304893506421||1390150062|Validation Error|SEVERE|Date2/Ending Date of Publication (008/11-14) is too short.
+PUL_1012676_1689177432289::bib::1737659|9968304893506421||1390150062|Validation Error|MINOR|Invalid relationship - when Type of Cartographic Material (008/25) is equal to b, then Bibliographic Level (Leader/07) must not be equal to b.
+PUL_1012676_1689177432289::bib::1737659|9968304893506421||1390150062|Validation Error|MINOR|Invalid relationship - when indicator 1 in 1st 045 is equal to blank, then $b in 045 must not be present.
+PUL_1012676_1689177432289::bib::1737659|9968304893506421||1390150062|Validation Error|MINOR|Invalid relationship - when $i in 246 is present, then indicator 2 in 246 must equal blank.
+PUL_1012676_1689177432289::bib::886793|99114464553506421||1390150840|Validation Error|SEVERE|Invalid code in 1st $2 in 2nd 650.
+PUL_1012676_1689177432289::bib::886793|99114464553506421||1390150840|Validation Error|SEVERE|Invalid code in 1st $2 in 3rd 650.
