@@ -89,7 +89,7 @@ module AspaceSvn
 
     # send eads from temp directory to svn via working copy
     def commit_eads_to_svn
-      wc = "path/to/working_copy/eads"
+      wc = "path/to/working_copy"
       `cp -r #{@aspace_output_base_dir}/eads #{wc}`
       `svn update #{wc} >&2`
       # add anything that isn't versioned yet
