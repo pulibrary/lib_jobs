@@ -30,7 +30,7 @@ RSpec.describe AlmaSubmitCollection::MarcFileProcessor, type: :model do
       stub_alma_bibs(ids: constituent_ids, status: 200, fixture: "constituent_records.xml", apikey: '1234')
       s3_client.stub_responses(
         :put_object, lambda { |context|
-          files_sent_to_s3 << StringIO.new(context.params[:body].read)
+          files_sent_to_s3 << Zlib::GzipReader.new(context.params[:body])
         }
       )
     end

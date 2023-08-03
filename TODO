@@ -1,4 +1,0 @@
-* Compress the file before we send it.
-* See if there is any refactoring (sharing code with other jobs)
-  that needs to be done
-* Try running the job locally!

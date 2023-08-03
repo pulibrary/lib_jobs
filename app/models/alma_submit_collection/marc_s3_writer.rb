@@ -39,7 +39,11 @@ module AlmaSubmitCollection
       @marc_writer.close
       file_path = @current_file.path
       File.open(file_path) do |file_contents|
-        @s3_client.put_object(bucket:, body: file_contents, key: "#{ENV['SCSB_S3_UPDATES']}/scsb_#{File.basename(file_path)}")
+        compressed = StringIO.new
+        compressor = Zlib::GzipWriter.new(compressed)
+        compressor.write file_contents.read
+        compressor.flush
+        @s3_client.put_object(bucket:, body: compressed, key: "#{ENV['SCSB_S3_UPDATES']}/scsb_#{File.basename(file_path)}")
       end
       @current_file.unlink
     end

@@ -8,7 +8,7 @@ RSpec.describe(AlmaSubmitCollection::MarcS3Writer) do
       s3_client = Aws::S3::Client.new(stub_responses: true)
       s3_client.stub_responses(
         :put_object, lambda { |context|
-          files_sent_to_s3 << StringIO.new(context.params[:body].read)
+          files_sent_to_s3 << Zlib::GzipReader.new(context.params[:body])
         }
       )
       writer = described_class.new(records_per_file: 5, s3_client:)
