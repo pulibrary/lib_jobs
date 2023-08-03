@@ -30,7 +30,7 @@ module AspaceSvn
       aspace_login
       repos.each do |repo, path|
         # make directories if they don't already exist
-        dir = "#{@aspace_output_base_dir}/eads/#{path}"
+        dir = "#{@aspace_output_base_dir}/#{path}"
         FileUtils.mkdir_p(dir) unless Dir.exist?(dir)
 
         # get resource ids
@@ -44,8 +44,8 @@ module AspaceSvn
       end
       data_set.data = report
       data_set.report_time = Time.zone.now
-      data_set
       commit_eads_to_svn
+      data_set
     end
 
     def report
@@ -89,12 +89,10 @@ module AspaceSvn
 
     # send eads from temp directory to svn via working copy
     def commit_eads_to_svn
-      wc = "path/to/working_copy"
-      `cp -r #{@aspace_output_base_dir}/eads #{wc}`
-      `svn update #{wc} >&2`
+      `svn update #{@aspace_output_base_dir} >&2`
       # add anything that isn't versioned yet
-      `svn add --force #{wc} >&2`
-      `svn commit #{wc} -m "monthly snapshot of ASpace EAD export" >&2`
+      `svn add --force #{@aspace_output_base_dir} >&2`
+      `svn commit #{@aspace_output_base_dir} -m "monthly snapshot of ASpace EAD export" >&2`
     end
   end
 end
