@@ -30,7 +30,7 @@ module AspaceSvn
       aspace_login
       repos.each do |repo, path|
         # make directories if they don't already exist
-        dir = "#{@aspace_output_base_dir}/eads/#{path}"
+        dir = "#{@aspace_output_base_dir}/#{path}"
         FileUtils.mkdir_p(dir) unless Dir.exist?(dir)
 
         # get resource ids
@@ -44,6 +44,7 @@ module AspaceSvn
       end
       data_set.data = report
       data_set.report_time = Time.zone.now
+      commit_eads_to_svn
       data_set
     end
 
@@ -75,6 +76,7 @@ module AspaceSvn
     # Replace the namespace with the correct loc.gov one,
     # then write the results to the file
     def write_eads_to_file(dir, repo, id)
+      Rails.logger.info("Now processing #{repo}/#{id}")
       record = @client.get("/repositories/#{repo}/resource_descriptions/#{id}.xml")
       ead = Nokogiri::XML(record.body)
       ead.remove_namespaces!
@@ -83,6 +85,10 @@ module AspaceSvn
       ead.child.add_namespace('ead', 'http://www.loc.gov/ead/ead')
       file << ead
       file.close
+    end
+
+    def commit_eads_to_svn
+      stdout_str, stderr_str, status = Open3.capture3("svn update #{@aspace_output_base_dir}")
     end
   end
 end

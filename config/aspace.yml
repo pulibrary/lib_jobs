@@ -1,12 +1,12 @@
 default: &default
-  aspace_files_output_path: <%= '/tmp' %>
+  aspace_files_output_path: subversion_eads
 
 development:
   <<: *default
 
 test:
   <<: *default
-  aspace_files_output_path: tmp
+  aspace_files_output_path: tmp/subversion_eads
 
 staging:
   <<: *default

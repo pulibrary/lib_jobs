@@ -28,36 +28,41 @@ RSpec.describe AspaceSvn::GetEadsJob do
         .and_return("password")
     end
     around do |example|
-      Dir.glob(Rails.root.join('tmp', 'eads', '*')).each { |directory| FileUtils.rm_r(directory) }
+      Dir.glob(Rails.root.join('tmp', 'subversion_eads', '*')).each { |directory| FileUtils.rm_r(directory) }
       example.run
-      Dir.glob(Rails.root.join('tmp', 'eads', '*')).each { |directory| FileUtils.rm_r(directory) }
+      Dir.glob(Rails.root.join('tmp', 'subversion_eads', '*')).each { |directory| FileUtils.rm_r(directory) }
     end
     it "creates directories for all relevant ead repos" do
       described_class.new.run
-      expect(File).to exist(Rails.root.join('tmp', 'eads', 'mudd', 'publicpolicy'))
-      expect(File).to exist(Rails.root.join('tmp', 'eads', 'mudd', 'univarchives'))
-      expect(File).to exist(Rails.root.join('tmp', 'eads', 'mss'))
-      expect(File).to exist(Rails.root.join('tmp', 'eads', 'rarebooks'))
-      expect(File).to exist(Rails.root.join('tmp', 'eads', 'cotsen'))
-      expect(File).to exist(Rails.root.join('tmp', 'eads', 'lae'))
-      expect(File).to exist(Rails.root.join('tmp', 'eads', 'eng'))
-      expect(File).to exist(Rails.root.join('tmp', 'eads', 'selectors'))
-      expect(File).to exist(Rails.root.join('tmp', 'eads', 'ga'))
-      expect(File).to exist(Rails.root.join('tmp', 'eads', 'ea'))
+      expect(File).to exist(Rails.root.join('tmp', 'subversion_eads', 'mudd', 'publicpolicy'))
+      expect(File).to exist(Rails.root.join('tmp', 'subversion_eads', 'mudd', 'univarchives'))
+      expect(File).to exist(Rails.root.join('tmp', 'subversion_eads', 'mss'))
+      expect(File).to exist(Rails.root.join('tmp', 'subversion_eads', 'rarebooks'))
+      expect(File).to exist(Rails.root.join('tmp', 'subversion_eads', 'cotsen'))
+      expect(File).to exist(Rails.root.join('tmp', 'subversion_eads', 'lae'))
+      expect(File).to exist(Rails.root.join('tmp', 'subversion_eads', 'eng'))
+      expect(File).to exist(Rails.root.join('tmp', 'subversion_eads', 'selectors'))
+      expect(File).to exist(Rails.root.join('tmp', 'subversion_eads', 'ga'))
+      expect(File).to exist(Rails.root.join('tmp', 'subversion_eads', 'ea'))
     end
     it "gets filename from the eadid element in the EAD xml api response" do
       described_class.new.run
-      expect(File).to exist(Rails.root.join('tmp', 'eads', 'mudd', 'publicpolicy', 'MyEadID.EAD.xml'))
+      expect(File).to exist(Rails.root.join('tmp', 'subversion_eads', 'mudd', 'publicpolicy', 'MyEadID.EAD.xml'))
     end
     it "puts the EAD xml file with corrected namespace into the file" do
       described_class.new.run
-      expect(FileUtils.identical?(Rails.root.join('tmp', 'eads', 'mudd', 'publicpolicy', 'MyEadID.EAD.xml'),
+      expect(FileUtils.identical?(Rails.root.join('tmp', 'subversion_eads', 'mudd', 'publicpolicy', 'MyEadID.EAD.xml'),
                                   file_fixture('ead_corrected.xml'))).to be true
     end
   end
   describe "report" do
     it "reports success" do
       expect(described_class.new.report).to eq "EADs successfully exported."
+    end
+  end
+  describe "commit_eads_to_svn" do
+    before do
+      allow(Open3).to receive(:capture3).and_return(["Skipped 'tmp/subversion_eads'\n", "svn: E155007: None of the targets are working copies\n", Process::Status])
     end
   end
 end

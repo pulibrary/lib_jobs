@@ -53,3 +53,6 @@ node_modules
 # https://vitejs.dev/guide/env-and-mode.html#env-files
 *.local
 
+# SVN working copy
+/subversion_eads/*
+
