@@ -22,6 +22,7 @@ RSpec.describe Oclc::DataSyncExceptionJob, type: :model do
     let(:input_sftp_base_dir) { Rails.application.config.oclc_sftp.data_sync_exception_path }
     let(:file_full_path_one) { "#{input_sftp_base_dir}#{file_name_to_download_one}" }
     let(:file_full_path_two) { "#{input_sftp_base_dir}#{file_name_to_download_two}" }
+    let(:oclc_fixture_file_path) { 'spec/fixtures/oclc/PUL-PUL.1012676.IN.BIB.D20230712.T115732756.1012676.pul.non-pcc_27837389230006421_new.mrc_1.BibExceptionReport.txt' }
     let(:file_name_to_download_one) { 'PUL-PUL.1012676.IN.BIB.D20230712.T115712289.1012676.pul.non-pcc_27837389230006421_new.mrc_2.BibExceptionReport.txt' }
     let(:file_name_to_download_two) { 'PUL-PUL.1012676.IN.BIB.D20230712.T115732756.1012676.pul.non-pcc_27837389230006421_new.mrc_1.BibExceptionReport.txt' }
     # too old
@@ -30,17 +31,25 @@ RSpec.describe Oclc::DataSyncExceptionJob, type: :model do
     let(:file_name_to_skip_two) { 'PUL-PUL.1012676.IN.BIB.D20230712.T115712289.1012676.pul.non-pcc_27837389230006421_new.mrc_2.LbdExceptionReport.txt' }
     let(:temp_file_one) { Tempfile.new(encoding: 'ascii-8bit') }
     let(:temp_file_two) { Tempfile.new(encoding: 'ascii-8bit') }
-    let(:freeze_time) { Time.utc(2023, 7, 13) }
+    let(:freeze_time) { Time.utc(2023, 7, 13, 10, 30, 5) }
     let(:sftp_entry1) { instance_double("Net::SFTP::Protocol::V01::Name", name: file_name_to_download_one) }
     let(:sftp_entry2) { instance_double("Net::SFTP::Protocol::V01::Name", name: file_name_to_skip_one) }
     let(:sftp_entry3) { instance_double("Net::SFTP::Protocol::V01::Name", name: file_name_to_skip_two) }
     let(:sftp_entry4) { instance_double("Net::SFTP::Protocol::V01::Name", name: file_name_to_download_two) }
     let(:sftp_session) { instance_double("Net::SFTP::Session", dir: sftp_dir) }
     let(:sftp_dir) { instance_double("Net::SFTP::Operations::Dir") }
+    let(:new_file_for_alma_path_1) { 'spec/fixtures/oclc/datasync_errors_20230713_103005_1.mrc' }
+    let(:new_file_for_alma_path_2) { 'spec/fixtures/oclc/datasync_errors_20230713_103005_2.mrc' }
+
     around do |example|
+      File.delete(new_file_for_alma_path_1) if File.exist?(new_file_for_alma_path_1)
+      File.delete(new_file_for_alma_path_2) if File.exist?(new_file_for_alma_path_2)
+      temp_file_one.write(File.open(oclc_fixture_file_path).read)
       Timecop.freeze(freeze_time) do
         example.run
       end
+      File.delete(new_file_for_alma_path_1) if File.exist?(new_file_for_alma_path_1)
+      File.delete(new_file_for_alma_path_2) if File.exist?(new_file_for_alma_path_2)
     end
 
     before do

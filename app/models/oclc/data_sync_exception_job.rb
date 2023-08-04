@@ -25,6 +25,7 @@ module Oclc
           # ascii-8bit required for download! to succeed
           temp_file = Tempfile.new(encoding: 'ascii-8bit')
           sftp.download!(remote_filename, temp_file)
+          DataSyncExceptionFile.new(temp_file:).process
         end
       end
       data_set
