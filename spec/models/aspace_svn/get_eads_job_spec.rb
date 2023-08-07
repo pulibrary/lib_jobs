@@ -2,6 +2,11 @@
 require 'rails_helper'
 
 RSpec.describe AspaceSvn::GetEadsJob do
+  let(:status) { double }
+  before do
+    allow(status).to receive(:success?).and_return(true)
+    allow(Open3).to receive(:capture3).and_return(["Updating 'subversion_eads':\nAt revision 18345.\n", "", status])
+  end
   describe "#run" do
     before do
       stub_request(:post, %r{\Ahttps://aspace-staging\.princeton\.edu/staff/api/users/}).and_return(
@@ -62,7 +67,8 @@ RSpec.describe AspaceSvn::GetEadsJob do
   end
   describe "commit_eads_to_svn" do
     before do
-      allow(Open3).to receive(:capture3).and_return(["Skipped 'tmp/subversion_eads'\n", "svn: E155007: None of the targets are working copies\n", Process::Status])
+      allow(status).to receive(:success?).and_return(false)
+      allow(Open3).to receive(:capture3).and_return(["Skipped 'tmp/subversion_eads'\n", "svn: E155007: None of the targets are working copies\n", status])
     end
   end
 end
