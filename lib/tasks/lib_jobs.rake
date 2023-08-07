@@ -99,9 +99,10 @@ namespace :lib_jobs do
     person_feed_dir = ENV["ALMA_PERSON_FEED_OUTPUT_DIR"] || '/tmp'
     pod_dir = Rails.application.config.pod.pod_record_path
     fund_adjustment_dir = Rails.application.config.peoplesoft.fund_adjustment_converted_path
+    oclc_working_files_dir = Rails.application.config.oclc_sftp.exceptions_working_directory
 
     # Production directories
-    directories = ['/tmp', person_feed_dir, pod_dir, fund_adjustment_dir].uniq
+    directories = ['/tmp', person_feed_dir, pod_dir, fund_adjustment_dir, oclc_working_files_dir].uniq
     # Directory for testing
     # directories = ['./tmp']
     directories.each do |dir_path|
@@ -131,6 +132,12 @@ namespace :lib_jobs do
   desc "process newly cataloged records from OCLC and create CSVs to send to selectors"
   task process_newly_cataloged_records: [:environment] do
     job = Oclc::NewlyCatalogedJob.new
+    job.run
+  end
+
+  desc "download data sync exceptions from oclc_sftp, process, and upload to lib-sftp"
+  task process_data_sync_exceptions: [:environment] do
+    job = Oclc::DataSyncExceptionJob.new
     job.run
   end
 end

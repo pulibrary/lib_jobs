@@ -13,15 +13,15 @@ module Oclc
       @process_date = Time.now.utc.strftime('%Y%m%d')
     end
 
+    # Returns working_file_name, which will also be the file name
+    # once uploaded to lib-sftp
     def process
       accumulate_errors
       clean_errors
       write_marc_records
-      true
     end
 
     def accumulate_errors
-      temp_file.rewind
       File.readlines(temp_file).each do |line|
         mms_id = mms_id(line:)
         next if mms_id.zero?
@@ -40,6 +40,7 @@ module Oclc
     end
 
     def write_marc_records
+      current_working_file_name = working_file_name
       rec_num = 0
       writer = nil
       @error_accumulator.each do |mms_id, errors|
@@ -49,6 +50,7 @@ module Oclc
         rec_num += 1
       end
       writer&.close
+      current_working_file_name
     end
 
     def marc_writer(rec_num:, writer:)
@@ -61,9 +63,13 @@ module Oclc
     end
 
     def working_file_path
-      working_file_directory = 'spec/fixtures/oclc/'
-      working_file_name = "datasync_errors_#{file_date}_#{@file_num_iterator}.mrc"
-      "#{working_file_directory}#{working_file_name}"
+      working_file_directory = Rails.application.config.oclc_sftp.exceptions_working_directory
+      FileUtils.mkdir_p(working_file_directory) unless File.exist?(working_file_directory)
+      File.join(working_file_directory, working_file_name)
+    end
+
+    def working_file_name
+      "datasync_errors_#{file_date}_#{@file_num_iterator}.mrc"
     end
 
     def marc_record(mms_id:, errors:)

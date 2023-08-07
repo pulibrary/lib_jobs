@@ -6,8 +6,8 @@ RSpec.describe Oclc::DataSyncExceptionFile, type: :model do
   let(:exception_file) { described_class.new(temp_file:) }
   let(:freeze_time) { Time.utc(2023, 7, 13, 10, 30, 5) }
   let(:oclc_fixture_file_path) { 'spec/fixtures/oclc/PUL-PUL.1012676.IN.BIB.D20230712.T115732756.1012676.pul.non-pcc_27837389230006421_new.mrc_1.BibExceptionReport.txt' }
-  let(:new_file_for_alma_path_1) { 'spec/fixtures/oclc/datasync_errors_20230713_103005_1.mrc' }
-  let(:new_file_for_alma_path_2) { 'spec/fixtures/oclc/datasync_errors_20230713_103005_2.mrc' }
+  let(:new_file_for_alma_path_1) { 'spec/fixtures/oclc/exceptions/datasync_errors_20230713_103005_1.mrc' }
+  let(:new_file_for_alma_path_2) { 'spec/fixtures/oclc/exceptions/datasync_errors_20230713_103005_2.mrc' }
   it 'can be instantiated with a temp_file and new file for alma' do
     expect(described_class.new(temp_file:)).to be
     expect(exception_file.temp_file).to be_an_instance_of(Tempfile)
