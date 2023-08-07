@@ -49,10 +49,10 @@ module AspaceSvn
 
     def get_resource_ids_for_repo(repo)
       @resource_ids = @client.get("/repositories/#{repo}/resources", {
-        query: {
-          all_ids: true
-        }
-      }).parsed
+                                    query: {
+                                      all_ids: true
+                                    }
+                                  }).parsed
       @resource_ids
     end
 
