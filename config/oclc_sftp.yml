@@ -4,6 +4,7 @@ default: &default
   password: <%= ENV['OCLC_SFTP_PASSWORD'] || 'test_oclc_pass' %>
   lc_newly_cataloged_path: '/xfer/metacoll/out/ongoing/new/'
   data_sync_exception_path: '/xfer/metacoll/reports/'
+  max_records_per_file: 20_000
 
 development:
   <<: *default
@@ -11,6 +12,7 @@ development:
 test:
   <<: *default
   host: 'localhost2'
+  max_records_per_file: 7
 
 staging: &staging
   <<: *default

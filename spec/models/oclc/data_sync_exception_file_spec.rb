@@ -11,10 +11,11 @@ RSpec.describe Oclc::DataSyncExceptionFile, type: :model do
   it 'can be instantiated with a temp_file and new file for alma' do
     expect(described_class.new(temp_file:)).to be
     expect(exception_file.temp_file).to be_an_instance_of(Tempfile)
-    expect(exception_file.max_records_per_file).to eq(6)
+    expect(exception_file.max_records_per_file).to eq(7)
   end
 
   context 'with a fixture file' do
+    let(:duplicated_error_text) { 'Invalid relationship - when 1st $2 in 1st 655 is equal to lcgft, then $z in 655 must not be present' }
     around do |example|
       File.delete(new_file_for_alma_path_1) if File.exist?(new_file_for_alma_path_1)
       File.delete(new_file_for_alma_path_2) if File.exist?(new_file_for_alma_path_2)
@@ -32,8 +33,19 @@ RSpec.describe Oclc::DataSyncExceptionFile, type: :model do
       expect(exception_file.process).to be
       expect(File.exist?(new_file_for_alma_path_1)).to be true
       expect(File.exist?(new_file_for_alma_path_2)).to be true
-      foo = File.read(new_file_for_alma_path_1)
-      expect(foo).to include('99127605741006421').once
+      new_file = File.read(new_file_for_alma_path_1)
+      expect(new_file).to include('99127605741006421').once
+      expect(new_file).to include('Validation Error')
+      expect(new_file).to include('SEVERE')
+      expect(new_file).to include('Invalid code in 1st $2 in 1st 600.')
+      expect(new_file).to include('20230713')
+      expect(new_file).to include('1390150469')
+      # errors that have invalid subfield...$0 are excluded
+      expect(new_file).not_to include('Invalid subfield 1st $0')
+      # mms with no errors are excluded
+      expect(new_file).not_to include('99127132156106421')
+      # Duplicate errors for a single record are deleted
+      expect(new_file.scan(duplicated_error_text).size).to eq(3)
     end
   end
 end

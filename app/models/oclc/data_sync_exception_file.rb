@@ -8,12 +8,14 @@ module Oclc
       @temp_file = temp_file
       @file_date = Time.now.utc.strftime('%Y%m%d_%H%M%S')
       @error_accumulator = {}
-      @max_records_per_file = 6
+      @max_records_per_file = Rails.application.config.oclc_sftp.max_records_per_file
       @file_num_iterator = 1
+      @process_date = Time.now.utc.strftime('%Y%m%d')
     end
 
     def process
       accumulate_errors
+      clean_errors
       write_marc_records
       true
     end
@@ -29,12 +31,20 @@ module Oclc
       end
     end
 
+    def clean_errors
+      @error_accumulator.each do |_mms, errors|
+        errors.delete_if { |error| error[:error_text]&.match?(/invalid subfield.*\$0/i) }
+        errors.uniq!
+      end
+      @error_accumulator.delete_if { |_mms, errors| errors.empty? }
+    end
+
     def write_marc_records
       rec_num = 0
       writer = nil
       @error_accumulator.each do |mms_id, errors|
         writer = marc_writer(rec_num:, writer:)
-        record = marc_record(mms_id, errors)
+        record = marc_record(mms_id:, errors:)
         writer.write(record)
         rec_num += 1
       end
@@ -56,9 +66,18 @@ module Oclc
       "#{working_file_directory}#{working_file_name}"
     end
 
-    def marc_record(mms_id, _errors)
+    def marc_record(mms_id:, errors:)
       record = MARC::Record.new
       record.append(MARC::ControlField.new('001', mms_id.to_s))
+      errors.each do |error|
+        field = MARC::DataField.new('915', ' ', ' ')
+        field.append(MARC::Subfield.new('a', error[:error_type]))
+        field.append(MARC::Subfield.new('b', error[:error_severity]))
+        field.append(MARC::Subfield.new('c', error[:error_text]))
+        field.append(MARC::Subfield.new('d', @process_date))
+        field.append(MARC::Subfield.new('e', error[:oclc_num]))
+        record.append(field)
+      end
       record
     end
 
@@ -71,9 +90,12 @@ module Oclc
     def line_error_hash(line:)
       line.chomp!
       parts = line.split('|')
-      le_hash = {}
-      le_hash[:oclc_num] = parts[3]
-      le_hash
+      hash = {}
+      hash[:oclc_num] = parts[3]
+      hash[:error_type] = parts[4]
+      hash[:error_severity] = parts[5]
+      hash[:error_text] = parts[6]
+      hash
     end
   end
 end
