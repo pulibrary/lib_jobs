@@ -30,22 +30,34 @@ module AspaceSvn
       aspace_login
       repos.each do |repo, path|
         # make directories if they don't already exist
-        dir = "#{@aspace_output_base_dir}/#{path}"
-        FileUtils.mkdir_p(dir) unless Dir.exist?(dir)
-
+        make_directories(path)
         # get resource ids
-        resource_ids = @client.get("/repositories/#{repo}/resources", {
-                                     query: {
-                                       all_ids: true
-                                     }
-                                   }).parsed
+        get_resource_ids_for_repo(repo)
         # get eads from ids
-        resource_ids.map { |id| write_eads_to_file(dir, repo, id) }
+        get_eads_from_ids(@dir, repo, @resource_ids)
       end
       data_set.data = report
       data_set.report_time = Time.zone.now
       commit_eads_to_svn
       data_set
+    end
+
+    def make_directories(path)
+      @dir = "#{@aspace_output_base_dir}/#{path}"
+      FileUtils.mkdir_p(@dir) unless Dir.exist?(@dir)
+    end
+
+    def get_resource_ids_for_repo(repo)
+      @resource_ids = @client.get("/repositories/#{repo}/resources", {
+        query: {
+          all_ids: true
+        }
+      }).parsed
+      @resource_ids
+    end
+
+    def get_eads_from_ids(dir, repo, resource_ids)
+      resource_ids.map { |id| write_eads_to_file(dir, repo, id) }
     end
 
     def report
