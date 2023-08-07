@@ -1,0 +1,67 @@
+# frozen_string_literal: true
+require 'rails_helper'
+
+RSpec.describe Oclc::NewlyCatalogedJob, type: :model do
+  subject(:newly_cataloged_job) { described_class.new }
+
+  let(:file_full_path_one) { "#{input_sftp_base_dir}#{file_name_to_download_one}" }
+  let(:file_full_path_two) { "#{input_sftp_base_dir}#{file_name_to_download_two}" }
+  let(:input_sftp_base_dir) { '/xfer/metacoll/out/ongoing/new/' }
+  let(:oclc_fixture_file_path_one) { Rails.root.join('spec', 'fixtures', 'oclc', file_name_to_download_one) }
+  let(:oclc_fixture_file_path_two) { Rails.root.join('spec', 'fixtures', 'oclc', file_name_to_download_two) }
+  let(:file_name_to_download_one) { 'metacoll.PUL.new.D20230706.T213019.MZallDLC.1.mrc' }
+  let(:file_name_to_download_two) { 'metacoll.PUL.new.D20230718.T213016.MZallDLC.1.mrc' }
+  let(:temp_file_one) { Tempfile.new(encoding: 'ascii-8bit') }
+  let(:temp_file_two) { Tempfile.new(encoding: 'ascii-8bit') }
+  let(:sftp_entry1) { instance_double("Net::SFTP::Protocol::V01::Name", name: file_name_to_download_one) }
+  let(:sftp_entry2) { instance_double("Net::SFTP::Protocol::V01::Name", name: "metacoll.PUL.new.D20230709.T213017.MZallDLC.1.mrc.processed") }
+  let(:sftp_entry3) { instance_double("Net::SFTP::Protocol::V01::Name", name: "metacoll.PUL.new.D20230705.T213018.allpcc.1.mrc") }
+  let(:sftp_entry4) { instance_double("Net::SFTP::Protocol::V01::Name", name: file_name_to_download_two) }
+  let(:sftp_session) { instance_double("Net::SFTP::Session", dir: sftp_dir) }
+  let(:sftp_dir) { instance_double("Net::SFTP::Operations::Dir") }
+  let(:freeze_time) { Time.utc(2023, 7, 12) }
+  let(:new_csv_path_1) { Rails.root.join('spec', 'fixtures', 'oclc', '2023-07-12-newly-cataloged-by-lc-bordelon.csv') }
+  let(:new_csv_path_2) { Rails.root.join('spec', 'fixtures', 'oclc', '2023-07-12-newly-cataloged-by-lc-darrington.csv') }
+
+  around do |example|
+    File.delete(new_csv_path_1) if File.exist?(new_csv_path_1)
+    File.delete(new_csv_path_2) if File.exist?(new_csv_path_2)
+    temp_file_one.write(File.open(oclc_fixture_file_path_one).read)
+    temp_file_two.write(File.open(oclc_fixture_file_path_two).read)
+    Timecop.freeze(freeze_time) do
+      example.run
+    end
+    File.delete(new_csv_path_1) if File.exist?(new_csv_path_1)
+    File.delete(new_csv_path_2) if File.exist?(new_csv_path_2)
+  end
+
+  before do
+    allow(Tempfile).to receive(:new).and_return(temp_file_one, temp_file_two)
+    allow(sftp_dir).to receive(:foreach).and_yield(sftp_entry1).and_yield(sftp_entry2).and_yield(sftp_entry3).and_yield(sftp_entry4)
+    allow(sftp_session).to receive(:download!).with(file_full_path_one, temp_file_one)
+    allow(sftp_session).to receive(:download!).with(file_full_path_two, temp_file_two)
+    allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
+  end
+
+  it 'downloads only the relevant files' do
+    expect(newly_cataloged_job.run).to be_truthy
+    expect(sftp_session).to have_received(:download!).with(file_full_path_one, temp_file_one)
+    expect(sftp_session).to have_received(:download!).with(file_full_path_two, temp_file_two)
+  end
+
+  it 'creates a csv file for each selector' do
+    expect(File.exist?(new_csv_path_1)).to be false
+    expect(File.exist?(new_csv_path_2)).to be false
+    newly_cataloged_job.run
+    expect(File.exist?(new_csv_path_1)).to be true
+    expect(File.exist?(new_csv_path_2)).to be true
+  end
+
+  it 'puts data in the csv file for each selector' do
+    newly_cataloged_job.run
+    csv_file_one = CSV.read(new_csv_path_1)
+    expect(csv_file_one.length).to eq(25)
+    csv_file_two = CSV.read(new_csv_path_2)
+    expect(csv_file_two.length).to eq(38)
+  end
+end

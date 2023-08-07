@@ -45,11 +45,11 @@ module Oclc
 
       auth_tag = auth_field.tag
       subf_to_skip = auth_subfields_to_skip(auth_tag)
-      targets = auth_field.subfields.reject do |subfield|
+      subf_to_keep = auth_field.subfields.reject do |subfield|
         subf_to_skip.include?(subfield.code)
       end
 
-      targets.map { |field| scrub_string(field.value) }.join(' ')
+      subf_to_keep.map { |field| scrub_string(field.value) }.join(' ')
     end
 
     def description
@@ -134,13 +134,19 @@ module Oclc
     def lc_class
       return unless call_number
 
-      call_number.gsub(/^([A-Z]+?)[^A-Z].*$/, '\1')
+      # Capture and return beginning letters, match the rest, but discard
+      call_number.gsub(/^([A-Z]+)[^A-Z].*$/, '\1')
     end
 
     # Only the number from the call_number
+    # If the call_number only consists of a class, it will return 0.0
     def lc_number
       return unless call_number
 
+      # Ignore starting non-numeric characters, capture all numbers
+      # If there's a decimal, capture that and subsequent numbers
+      # Match but do not capture the rest
+      # This results in only the numeric portions of the call number
       call_number.gsub(/^[^0-9]+([0-9]+)(\.[0-9]+)?[^0-9]?.*$/, '\1\2').to_f
     end
 
@@ -232,8 +238,11 @@ module Oclc
 
       new_string = string.dup
       new_string.strip!
+      # Scrub the last character if it ends in punctuation
       new_string[-1] = '' if %r{[.,:/=]}.match?(new_string[-1])
+      # Remove beginning or ending spaces
       new_string.strip!
+      # If there are two or more spaces, replace with a single space
       new_string.gsub(/(\s){2, }/, '\1')
     end
 
