@@ -3,16 +3,20 @@ default: &default
   username: <%= ENV['OCLC_SFTP_USER'] || 'fx_pul' %>
   password: <%= ENV['OCLC_SFTP_PASSWORD'] || 'test_oclc_pass' %>
   lc_newly_cataloged_path: '/xfer/metacoll/out/ongoing/new/'
-  data_sync_exception_path: '/xfer/metacoll/reports/'
   max_records_per_file: 20_000
+  exceptions_input_path: '/xfer/metacoll/reports/'
+  exceptions_working_directory: '/tmp/datasync_processing/exceptions'
+  exceptions_output_path: '/alma/datasync_processing'
 
 development:
   <<: *default
+  exceptions_working_directory: 'tmp/datasync_processing/exceptions'
 
 test:
   <<: *default
   host: 'localhost2'
   max_records_per_file: 7
+  exceptions_working_directory: 'spec/fixtures/oclc/exceptions'
 
 staging: &staging
   <<: *default

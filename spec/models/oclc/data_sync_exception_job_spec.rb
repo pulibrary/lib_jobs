@@ -3,6 +3,11 @@ require 'rails_helper'
 
 RSpec.describe Oclc::DataSyncExceptionJob, type: :model do
   subject(:data_sync_exception_job) { described_class.new }
+  let(:working_file_name_1) { 'datasync_errors_20230713_103005_1.mrc' }
+  let(:working_file_name_2) { 'datasync_errors_20230713_103005_2.mrc' }
+  let(:new_file_for_alma_path_1) { "spec/fixtures/oclc/exceptions/#{working_file_name_1}" }
+  let(:new_file_for_alma_path_2) { "spec/fixtures/oclc/exceptions/#{working_file_name_2}" }
+
   it 'can be instantiated' do
     expect(data_sync_exception_job).to be
   end
@@ -19,7 +24,7 @@ RSpec.describe Oclc::DataSyncExceptionJob, type: :model do
   end
 
   context 'with files on the OCLC sftp server' do
-    let(:input_sftp_base_dir) { Rails.application.config.oclc_sftp.data_sync_exception_path }
+    let(:input_sftp_base_dir) { Rails.application.config.oclc_sftp.exceptions_input_path }
     let(:file_full_path_one) { "#{input_sftp_base_dir}#{file_name_to_download_one}" }
     let(:file_full_path_two) { "#{input_sftp_base_dir}#{file_name_to_download_two}" }
     let(:oclc_fixture_file_path) { 'spec/fixtures/oclc/PUL-PUL.1012676.IN.BIB.D20230712.T115732756.1012676.pul.non-pcc_27837389230006421_new.mrc_1.BibExceptionReport.txt' }
@@ -38,8 +43,6 @@ RSpec.describe Oclc::DataSyncExceptionJob, type: :model do
     let(:sftp_entry4) { instance_double("Net::SFTP::Protocol::V01::Name", name: file_name_to_download_two) }
     let(:sftp_session) { instance_double("Net::SFTP::Session", dir: sftp_dir) }
     let(:sftp_dir) { instance_double("Net::SFTP::Operations::Dir") }
-    let(:new_file_for_alma_path_1) { 'spec/fixtures/oclc/datasync_errors_20230713_103005_1.mrc' }
-    let(:new_file_for_alma_path_2) { 'spec/fixtures/oclc/datasync_errors_20230713_103005_2.mrc' }
 
     around do |example|
       File.delete(new_file_for_alma_path_1) if File.exist?(new_file_for_alma_path_1)
@@ -58,12 +61,19 @@ RSpec.describe Oclc::DataSyncExceptionJob, type: :model do
       allow(sftp_session).to receive(:download!).with(file_full_path_one, temp_file_one)
       allow(sftp_session).to receive(:download!).with(file_full_path_two, temp_file_two)
       allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
+      allow(sftp_session).to receive(:upload!).twice
     end
 
     it 'downloads only the relevant files' do
       expect(data_sync_exception_job.run).to be_truthy
       expect(sftp_session).to have_received(:download!).with(file_full_path_one, temp_file_one)
       expect(sftp_session).to have_received(:download!).with(file_full_path_two, temp_file_two)
+    end
+
+    it 'uploads working files to lib-sftp' do
+      data_sync_exception_job.upload_files_to_alma_sftp(working_file_names: [working_file_name_1, working_file_name_2])
+      expect(sftp_session).to have_received(:upload!).with(new_file_for_alma_path_1, '/alma/datasync_processing/datasync_errors_20230713_103005_1.mrc')
+      expect(sftp_session).to have_received(:upload!).with(new_file_for_alma_path_2, '/alma/datasync_processing/datasync_errors_20230713_103005_2.mrc')
     end
   end
 end
