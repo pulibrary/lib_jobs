@@ -120,4 +120,10 @@ namespace :lib_jobs do
     job = AspaceSvn::GetEadsJob.new
     job.run
   end
+
+  desc "POSTs to Alma to move OCLC numbers from the 914 field to the 035 field"
+  task alma_bib_norm: [:environment] do
+    job = AlmaBibNorm::AlmaBibNorm.new
+    job.run
+  end
 end

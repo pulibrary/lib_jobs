@@ -67,3 +67,8 @@ end
 every '0 6 1 * *', roles: [:prod] do
   rake " lib_jobs:send_eads"
 end
+
+# Run on production every Thursday at 4am
+every :thursday, at: '4:00 am', roles: [:prod] do
+  rake "lib_jobs:alma_bib_norm"
+end
