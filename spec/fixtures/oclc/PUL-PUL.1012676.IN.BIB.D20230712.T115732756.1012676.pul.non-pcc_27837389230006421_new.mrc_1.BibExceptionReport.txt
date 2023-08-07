@@ -1,3 +1,10 @@
+PUL_1012676_1685126481659::bib::2911384|99127132156106421||1380395187|Validation Error|SEVERE|Invalid subfield 1st $0 in 1st 264.
+PUL_1012676_1689177452756::bib::2527306|99127172958506421||1390150126|Validation Error|CRITICAL|Record is sparse.
+PUL_1012676_1689177452756::bib::2527306|99127172958506421||1390150126|Validation Error|MINOR|Invalid relationship - when Bibliographic Level (Leader/07) is equal to a, then 773 must be present.
+PUL_1012676_1689177452756::bib::2527306|99127172958506421||1390150126|Validation Error|MINOR|Invalid relationship - when 1st $e in 1st 040 is equal to rda, then Descriptive Cataloging Form (Leader/18) must equal c or i.
+PUL_1012676_1689177452756::bib::2527306|99127172958506421||1390150126|Validation Error|MINOR|Invalid relationship - when 1st $2 in 1st 655 is equal to lcgft, then $y in 655 must not be present.
+PUL_1012676_1689177452756::bib::2527306|99127172958506421||1390150126|Validation Error|MINOR|Invalid relationship - when 1st $2 in 1st 655 is equal to lcgft, then $z in 655 must not be present.
+PUL_1012676_1689177452756::bib::2527306|99127172958506421||1390150126|Validation Error|MINOR|Invalid relationship - when 1st $2 in 1st 655 is equal to lcgft, then $z in 655 must not be present.
 PUL_1012676_1689177452756::bib::228600|99127605741006421||1390150034|Validation Error|MINOR|Invalid relationship - when 1st $e in 1st 040 is equal to rda, then Descriptive Cataloging Form (Leader/18) must equal c or i.
 PUL_1012676_1689177452756::bib::228600|99127605741006421||1390150034|Validation Error|MINOR|Invalid relationship - when 1st $e in 1st 040 is equal to rda, then 336 must be present.
 PUL_1012676_1689177452756::bib::228600|99127605741006421||1390150034|Validation Error|MINOR|Invalid relationship - when 1st $e in 1st 040 is equal to rda, then 338 must be present.
@@ -39,12 +46,6 @@ PUL_1012676_1689177452756::bib::1605285|99127175456906421||1390151406|Validation
 PUL_1012676_1689177452756::bib::1605285|99127175456906421||1390151406|Validation Error|MINOR|Invalid relationship - when 1st $2 in 1st 655 is equal to lcgft, then $y in 655 must not be present.
 PUL_1012676_1689177452756::bib::1605285|99127175456906421||1390151406|Validation Error|MINOR|Invalid relationship - when 1st $2 in 1st 655 is equal to lcgft, then $z in 655 must not be present.
 PUL_1012676_1689177452756::bib::1605285|99127175456906421||1390151406|Validation Error|MINOR|Invalid relationship - when 1st $2 in 1st 655 is equal to lcgft, then $z in 655 must not be present.
-PUL_1012676_1689177452756::bib::2527306|99127172958506421||1390150126|Validation Error|CRITICAL|Record is sparse.
-PUL_1012676_1689177452756::bib::2527306|99127172958506421||1390150126|Validation Error|MINOR|Invalid relationship - when Bibliographic Level (Leader/07) is equal to a, then 773 must be present.
-PUL_1012676_1689177452756::bib::2527306|99127172958506421||1390150126|Validation Error|MINOR|Invalid relationship - when 1st $e in 1st 040 is equal to rda, then Descriptive Cataloging Form (Leader/18) must equal c or i.
-PUL_1012676_1689177452756::bib::2527306|99127172958506421||1390150126|Validation Error|MINOR|Invalid relationship - when 1st $2 in 1st 655 is equal to lcgft, then $y in 655 must not be present.
-PUL_1012676_1689177452756::bib::2527306|99127172958506421||1390150126|Validation Error|MINOR|Invalid relationship - when 1st $2 in 1st 655 is equal to lcgft, then $z in 655 must not be present.
-PUL_1012676_1689177452756::bib::2527306|99127172958506421||1390150126|Validation Error|MINOR|Invalid relationship - when 1st $2 in 1st 655 is equal to lcgft, then $z in 655 must not be present.
 PUL_1012676_1689177452756::bib::9759664|99127133076906421||1390149929|Validation Error|MINOR|Invalid code in Illustrations (008/18-21).
 PUL_1012676_1689177452756::bib::9759664|99127133076906421||1390149929|Validation Error|SEVERE|$b in 245 occurs too many times.
 PUL_1012676_1689177452756::bib::222335|99127605741706421||1390151350|Validation Error|MINOR|Invalid relationship - when 1st $e in 1st 040 is equal to rda, then Descriptive Cataloging Form (Leader/18) must equal c or i.
