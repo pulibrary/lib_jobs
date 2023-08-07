@@ -68,8 +68,31 @@
         22
       ],
       "note": ""
+    },
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "f660efcf62eb155c994efbc2046b6c57dde09d854e72c041748a22b413daebd6",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/models/aspace_svn/get_eads_job.rb",
+      "line": 91,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "Open3.capture3(\"svn update #{@aspace_output_base_dir}\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "AspaceSvn::GetEadsJob",
+        "method": "commit_eads_to_svn"
+      },
+      "user_input": "@aspace_output_base_dir",
+      "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
+      "note": "Variable comes from configuration, not user input"
     }
   ],
-  "updated": "2023-04-17 09:29:03 -0500",
+  "updated": "2023-08-07 10:47:03 -0400",
   "brakeman_version": "5.4.0"
 }
