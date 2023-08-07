@@ -25,7 +25,7 @@ defaults: &defaults
 
   open_marc_records_location: <%= ENV["OPEN_MARC_RECORDS_LOCATION"] || "spec/fixtures/open_marc_records" %>
 
-  alma_region: <%= ENV["ALMA_REGION"] =>
+  alma_region: <%= ENV["ALMA_REGION"] %>
   alma_api_key: <%= ENV["ALMA_CONFIG_API_KEY"] || "" %>
 
 development:

@@ -16,6 +16,8 @@ RSpec.describe FinanceMailer, type: :mailer do
                                  .and_return('person_4@princeton.edu,person_5@princeton.edu,person_6@princeton.edu')
     allow(ENV).to receive(:fetch).with('PEOPLE_ERROR_NOTIFICATION_RECIPIENTS', 'test_user@princeton.edu')
                                  .and_return('person_4@princeton.edu,person_5@princeton.edu,person_6@princeton.edu')
+    allow(ENV).to receive(:fetch).with('ALMA_BIB_NORM_ERROR_RECIPIENTS', "test_user@princeton.edu")
+                                 .and_return('person_4@princeton.edu,person_5@princeton.edu')
   end
   describe "#report" do
     let(:alma_xml_invoice_list) { instance_double("PeoplesoftVoucher::AlmaXMLInvoiceList", errors:, error_invoices:, valid_invoices:, empty?: false) }

@@ -2,11 +2,10 @@
 
 module AlmaBibNorm
   class AlmaBibNorm < LibJob
-
-    def initialize()
+    def initialize
       super(category: "PulBibNorm")
       @url = LibJobs.config[:alma_region]
-      @api_key =  LibJobs.config[:alma_api_key]
+      @api_key = LibJobs.config[:alma_api_key]
       @job_id = 'M7407373650006421'
       @norm_rule_name = 'task_189_droolesFileKey'
       @norm_rule_value = 'Datasync xref norm'
@@ -18,14 +17,7 @@ module AlmaBibNorm
     def handle(data_set:)
       data_set.report_time = Time.zone.now
 
-      response = connection.post do |req|
-        req.url "almaws/v1/conf/jobs/#{@job_id}"
-        req.headers['Content-Type'] = 'application/xml'
-        req.headers['Accept'] = 'application/xml'
-        req.params['apikey'] = @api_key
-        req.params['op'] = 'run'
-        req.body = request_body
-      end
+      response = post_request
 
       if response.status == 200
         data_set.status = true
@@ -41,6 +33,17 @@ module AlmaBibNorm
 
     private
 
+    def post_request
+      connection.post do |req|
+        req.url "almaws/v1/conf/jobs/#{@job_id}"
+        req.headers['Content-Type'] = 'application/xml'
+        req.headers['Accept'] = 'application/xml'
+        req.params['apikey'] = @api_key
+        req.params['op'] = 'run'
+        req.body = request_body
+      end
+    end
+
     def connection
       Faraday.new(url: @url) do |faraday|
         faraday.request   :url_encoded
@@ -49,29 +52,31 @@ module AlmaBibNorm
       end
     end
 
-    def request_body()
+    # rubocop:disable Metrics/MethodLength
+    def request_body
       Nokogiri::XML::Builder.new(encoding: 'UTF-8') do |xml|
-        xml.job {
-          xml.parameters {
-            xml.parameter {
+        xml.job do
+          xml.parameters do
+            xml.parameter do
               xml.name @norm_rule_name
               xml.value @norm_rule_value
-            }
-            xml.parameter {
+            end
+            xml.parameter do
               xml.name @distribution_name
               xml.value 'true'
-            }
-            xml.parameter {
+            end
+            xml.parameter do
               xml.name 'set_id'
               xml.value @set_id
-            }
-            xml.parameter {
+            end
+            xml.parameter do
               xml.name 'job_name'
               xml.value @job_value
-            }
-          }
-        }
+            end
+          end
+        end
       end.to_xml
     end
+    # rubocop:enable Metrics/MethodLength
   end
 end
