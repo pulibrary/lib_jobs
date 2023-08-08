@@ -3,7 +3,9 @@ require 'rails_helper'
 
 RSpec.describe Oclc::ReportDownloader, type: :model do
   context "OCLC exception report downloader" do
-    subject(:exception_report_downloader) { described_class.new(file_pattern: 'BibExceptionReport.txt$', process_class: Oclc::DataSyncExceptionFile, input_sftp_base_dir: '/xfer/metacoll/reports/', recent: true) }
+    subject(:exception_report_downloader) do
+      described_class.new(file_pattern: 'BibExceptionReport.txt$', process_class: Oclc::DataSyncExceptionFile, input_sftp_base_dir: '/xfer/metacoll/reports/', recent: true)
+    end
     it 'can be instantiated' do
       expect(exception_report_downloader).to be
     end
