@@ -8,6 +8,9 @@ module AspaceSvn
     def initialize(aspace_output_base_dir: Rails.application.config.aspace.aspace_files_output_path)
       super(category: "EAD_export")
       @errors = []
+      @svn_username = Rails.application.config.aspace.svn_username
+      @svn_password = Rails.application.config.aspace.svn_password
+      @svn_host = Rails.application.config.aspace.svn_host
       @aspace_output_base_dir = aspace_output_base_dir
     end
 
@@ -100,7 +103,21 @@ module AspaceSvn
     end
 
     def commit_eads_to_svn
+      svn_update
+      svn_add
+      svn_commit
+    end
+
+    def svn_update
       stdout_str, stderr_str, status = Open3.capture3("svn update #{@aspace_output_base_dir}")
+    end
+
+    def svn_add
+      stdout_str, stderr_str, status = Open3.capture3("svn add --force #{@aspace_output_base_dir}")
+    end
+
+    def svn_commit
+      stdout_str, stderr_str, status = Open3.capture3("svn commit #{@aspace_output_base_dir} -m 'monthly snapshot of ASpace EADs' --username test-username --password test-password")
     end
   end
 end
