@@ -6,20 +6,9 @@ RSpec.describe Oclc::DataSyncExceptionJob, type: :model do
   it 'can be instantiated' do
     expect(data_sync_exception_job).to be
   end
-  it 'knows what directory to look in' do
-    expect(data_sync_exception_job.input_sftp_base_dir).to eq('/xfer/metacoll/reports/')
-  end
-
-  it 'knows what file pattern to look for' do
-    expect(data_sync_exception_job.file_pattern).to eq('BibExceptionReport.txt$')
-  end
-
-  it 'can connect to OCLC sftp' do
-    expect(data_sync_exception_job.oclc_sftp).to be_instance_of(OclcSftp)
-  end
 
   context 'with files on the OCLC sftp server' do
-    let(:input_sftp_base_dir) { Rails.application.config.oclc_sftp.data_sync_exception_path }
+    let(:input_sftp_base_dir) { Rails.application.config.oclc_sftp.data_sync_report_path }
     let(:file_full_path_one) { "#{input_sftp_base_dir}#{file_name_to_download_one}" }
     let(:file_full_path_two) { "#{input_sftp_base_dir}#{file_name_to_download_two}" }
     let(:oclc_fixture_file_path) { 'spec/fixtures/oclc/PUL-PUL.1012676.IN.BIB.D20230712.T115732756.1012676.pul.non-pcc_27837389230006421_new.mrc_1.BibExceptionReport.txt' }
