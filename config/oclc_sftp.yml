@@ -3,7 +3,7 @@ default: &default
   username: <%= ENV['OCLC_SFTP_USER'] || 'fx_pul' %>
   password: <%= ENV['OCLC_SFTP_PASSWORD'] || 'test_oclc_pass' %>
   lc_newly_cataloged_path: '/xfer/metacoll/out/ongoing/new/'
-  data_sync_exception_path: '/xfer/metacoll/reports/'
+  data_sync_report_path: '/xfer/metacoll/reports/'
   max_records_per_file: 20_000
 
 development:
