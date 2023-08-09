@@ -22,7 +22,12 @@ module AlmaSubmitCollection
 
     # @return [Array<StringIO>]
     def download_and_decompress_file(filename)
-      Tarball.new(download_file(filename)).contents
+      decompressed_files = []
+      @alma_sftp.start do |sftp|
+        Rails.logger.info "Downloading Alma Recap file #{filename}"
+        decompressed_files.concat(Tarball.new(sftp.file.open(full_filename(filename))).contents)
+      end
+      decompressed_files
     end
 
     def mark_files_as_processed
@@ -38,7 +43,7 @@ module AlmaSubmitCollection
     def compile_file_list
       files = []
       @alma_sftp.start do |sftp|
-        sftp.dir.foreach(@input_ftp_base_dir) do |entry|
+        sftp.dir.foreach(@input_sftp_base_dir) do |entry|
           next unless /#{@file_pattern}/.match?(entry.name)
           next if entry.attributes.size.zero?
           files << entry.name

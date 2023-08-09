@@ -22,11 +22,11 @@ RSpec.describe AlmaSubmitCollection::AlmaSubmitCollectionJob, type: :model do
     end
 
     it "runs" do
-      described_class.new(s3_client: Aws::S3::Client.new(stub_responses: true)).run
+      described_class.new(s3_client: Aws::S3::Client.new).run
     end
 
     it "logs the number of records processed" do
-      described_class.new(s3_client: Aws::S3::Client.new(stub_responses: true)).run
+      described_class.new(s3_client: Aws::S3::Client.new).run
       data_last = DataSet.last
       expect(data_last.data).to eq "7 records processed."
     end

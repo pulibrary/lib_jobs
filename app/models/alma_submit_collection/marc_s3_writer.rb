@@ -4,18 +4,15 @@ module AlmaSubmitCollection
   # MARC data and writing it to files in an
   # AWS S3 bucket
   class MarcS3Writer
-    def initialize(records_per_file: 10_000, file_type: 'std', s3_client: nil)
-      @records_in_file = 0
+    attr_reader :s3_partner, :client, :bucket
 
+    def initialize(records_per_file: 10_000, file_type: 'std')
+      @records_in_file = 0
       @records_per_file = records_per_file
       @file_type = file_type
-      @s3_client = s3_client || Aws::S3::Client.new(
-        region: 'us-east-2',
-        credentials: Aws::Credentials.new(
-          ENV['SCSB_S3_PARTNER_ACCESS_KEY'],
-          ENV['SCSB_S3_PARTNER_SECRET_ACCESS_KEY']
-        )
-      )
+      @s3_partner = AlmaSubmitCollection::PartnerS3.new
+      @client = @s3_partner.client
+      @bucket = @s3_partner.bucket_name
     end
 
     def write(record)
@@ -43,7 +40,7 @@ module AlmaSubmitCollection
         compressor = Zlib::GzipWriter.new(compressed)
         compressor.write file_contents.read
         compressor.flush
-        @s3_client.put_object(bucket:, body: compressed, key: "#{ENV['SCSB_S3_UPDATES']}/scsb_#{File.basename(file_path)}")
+        client.put_object(bucket:, body: compressed, key: "#{ENV['SCSB_S3_UPDATES']}/scsb_#{File.basename(file_path)}")
       end
       @current_file.unlink
     end
@@ -58,10 +55,6 @@ module AlmaSubmitCollection
 
     def full
       @records_in_file >= @records_per_file
-    end
-
-    def bucket
-      ENV['SCSB_S3_BUCKET_NAME'] || 'scsb-uat'
     end
   end
 end
