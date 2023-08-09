@@ -17,10 +17,17 @@ module Oclc
 
     def handle(data_set:)
       create_csvs_for_selectors
-
       report_downloader.run
-
+      email_csvs_to_selectors
       data_set
+    end
+
+    def email_csvs_to_selectors
+      selectors_config.each do |selector_config|
+        selector_csv = SelectorCSV.new(selector_config:)
+        selector = Selector.new(selector_config:)
+        NewlyCatalogedMailer.report(selector:, file_path: selector_csv.file_path).deliver
+      end
     end
 
     def create_csvs_for_selectors

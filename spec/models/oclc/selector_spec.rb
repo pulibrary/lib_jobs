@@ -17,6 +17,11 @@ RSpec.describe Oclc::Selector, type: :model do
     expect(second_selector.name).to eq('darrington')
   end
 
+  it 'has an email' do
+    expect(first_selector.email).to eq('bordelon@princeton.edu')
+    expect(second_selector.email).to eq('jdarring@princeton.edu')
+  end
+
   it 'has an array of call numbers ranges' do
     expect(first_selector.call_number_ranges).to match_array([{ class: "G", low_num: 154.9, high_num: 155.8 },
                                                               { class: "G", low_num: 156.5, high_num: 156.599 }, { class: "GE", low_num: 125, high_num: 125 },

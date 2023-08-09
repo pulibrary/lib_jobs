@@ -2,6 +2,7 @@ default: &default
   selector_csv_path: '/tmp/oclc/'
   selectors:
     - bordelon:
+        email: bordelon@princeton.edu
         classes:
         - class: G
           low_num: 154.9
@@ -111,6 +112,7 @@ default: &default
         subjects:
         - economic aspects
     - darrington:
+        email: jdarring@princeton.edu
         classes:
         - class: J
           low_num: 0
