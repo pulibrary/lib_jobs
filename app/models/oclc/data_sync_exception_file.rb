@@ -6,7 +6,7 @@ module Oclc
 
     def initialize(temp_file:)
       @temp_file = temp_file
-      @file_date = Time.now.utc.strftime('%Y%m%d_%H%M%S')
+      @file_date = Time.now.utc.strftime('%Y%m%d_%H%M%S%L')
       @error_accumulator = {}
       @max_records_per_file = Rails.application.config.oclc_sftp.max_records_per_file
       @file_num_iterator = 1

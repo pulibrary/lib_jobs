@@ -3,8 +3,8 @@ require 'rails_helper'
 
 RSpec.describe Oclc::DataSyncExceptionJob, type: :model do
   subject(:data_sync_exception_job) { described_class.new }
-  let(:working_file_name_1) { 'datasync_errors_20230713_103005_1.mrc' }
-  let(:working_file_name_2) { 'datasync_errors_20230713_103005_2.mrc' }
+  let(:working_file_name_1) { 'datasync_errors_20230713_103005835_1.mrc' }
+  let(:working_file_name_2) { 'datasync_errors_20230713_103005835_2.mrc' }
   let(:new_file_for_alma_path_1) { "spec/fixtures/oclc/exceptions/#{working_file_name_1}" }
   let(:new_file_for_alma_path_2) { "spec/fixtures/oclc/exceptions/#{working_file_name_2}" }
 
@@ -25,7 +25,7 @@ RSpec.describe Oclc::DataSyncExceptionJob, type: :model do
     let(:file_name_to_skip_two) { 'PUL-PUL.1012676.IN.BIB.D20230712.T115712289.1012676.pul.non-pcc_27837389230006421_new.mrc_2.LbdExceptionReport.txt' }
     let(:temp_file_one) { Tempfile.new(encoding: 'ascii-8bit') }
     let(:temp_file_two) { Tempfile.new(encoding: 'ascii-8bit') }
-    let(:freeze_time) { Time.utc(2023, 7, 13, 10, 30, 5) }
+    let(:freeze_time) { Time.utc(2023, 7, 13, 10, 30, 5, 835_000) }
     let(:sftp_entry1) { instance_double("Net::SFTP::Protocol::V01::Name", name: file_name_to_download_one) }
     let(:sftp_entry2) { instance_double("Net::SFTP::Protocol::V01::Name", name: file_name_to_skip_one) }
     let(:sftp_entry3) { instance_double("Net::SFTP::Protocol::V01::Name", name: file_name_to_skip_two) }
@@ -61,8 +61,8 @@ RSpec.describe Oclc::DataSyncExceptionJob, type: :model do
 
     it 'uploads working files to lib-sftp' do
       data_sync_exception_job.upload_files_to_alma_sftp(working_file_names: [working_file_name_1, working_file_name_2])
-      expect(sftp_session).to have_received(:upload!).with(new_file_for_alma_path_1, '/alma/datasync_processing/datasync_errors_20230713_103005_1.mrc')
-      expect(sftp_session).to have_received(:upload!).with(new_file_for_alma_path_2, '/alma/datasync_processing/datasync_errors_20230713_103005_2.mrc')
+      expect(sftp_session).to have_received(:upload!).with(new_file_for_alma_path_1, '/alma/datasync_processing/datasync_errors_20230713_103005835_1.mrc')
+      expect(sftp_session).to have_received(:upload!).with(new_file_for_alma_path_2, '/alma/datasync_processing/datasync_errors_20230713_103005835_2.mrc')
     end
   end
 end
