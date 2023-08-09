@@ -64,4 +64,9 @@ RSpec.describe Oclc::NewlyCatalogedJob, type: :model do
     csv_file_two = CSV.read(new_csv_path_2)
     expect(csv_file_two.length).to eq(38)
   end
+
+  it 'emails the csv to the selectors' do
+    expect(NewlyCatalogedMailer).to receive(:report).twice.and_call_original
+    newly_cataloged_job.run
+  end
 end

@@ -11,6 +11,10 @@ module Oclc
       selector_config.keys.first.to_s
     end
 
+    def email
+      selector_config[selector_key][:email]
+    end
+
     def call_number_ranges
       selector_config[selector_key][:classes]
     end
