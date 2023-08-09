@@ -110,14 +110,20 @@ module AspaceSvn
 
     def svn_update
       stdout_str, stderr_str, status = Open3.capture3("svn update #{@aspace_output_base_dir}")
+      @errors << stderr_str unless stderr_str.empty?
+      Rails.logger.info(stdout_str) unless stdout_str.empty?
     end
 
     def svn_add
       stdout_str, stderr_str, status = Open3.capture3("svn add --force #{@aspace_output_base_dir}")
+      @errors << stderr_str unless stderr_str.empty?
+      Rails.logger.info(stdout_str) unless stdout_str.empty?
     end
 
     def svn_commit
       stdout_str, stderr_str, status = Open3.capture3("svn commit #{@aspace_output_base_dir} -m 'monthly snapshot of ASpace EADs' --username test-username --password test-password")
+      @errors << stderr_str unless stderr_str.empty?
+      Rails.logger.info(stdout_str) unless stdout_str.empty?
     end
   end
 end
