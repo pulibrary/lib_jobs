@@ -47,6 +47,29 @@
       "note": ""
     },
     {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "7ad38b3f0a23e5682aab680f2b2871b179f8e9634159b23766597c6e6370d574",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/models/aspace_svn/get_eads_job.rb",
+      "line": 117,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "Open3.capture3(\"svn add --force #{@aspace_output_base_dir}\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "AspaceSvn::GetEadsJob",
+        "method": "svn_add"
+      },
+      "user_input": "@aspace_output_base_dir",
+      "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
+      "note": "Variable comes from configuration, not user input"
+    },
+    {
       "warning_type": "File Access",
       "warning_code": 16,
       "fingerprint": "8b8d4f5473ad09f9adf0d25ebb668964b3e1b1abbb7554ee97d7e72b3c1a0cbc",
@@ -72,18 +95,41 @@
     {
       "warning_type": "Command Injection",
       "warning_code": 14,
-      "fingerprint": "f660efcf62eb155c994efbc2046b6c57dde09d854e72c041748a22b413daebd6",
+      "fingerprint": "8ec2409e8c02fd6a971fdc2b60cc6fa3e3e59bc00db6b0f43b100f829d612e6c",
       "check_name": "Execute",
       "message": "Possible command injection",
       "file": "app/models/aspace_svn/get_eads_job.rb",
-      "line": 91,
+      "line": 111,
       "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
       "code": "Open3.capture3(\"svn update #{@aspace_output_base_dir}\")",
       "render_path": null,
       "location": {
         "type": "method",
         "class": "AspaceSvn::GetEadsJob",
-        "method": "commit_eads_to_svn"
+        "method": "svn_update"
+      },
+      "user_input": "@aspace_output_base_dir",
+      "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
+      "note": "Variable comes from configuration, not user input"
+    },
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "aa2ad7627f6983357a6f472619b95905f23683ab4b58474483a162326ee680f4",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/models/aspace_svn/get_eads_job.rb",
+      "line": 123,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "Open3.capture3(\"svn commit #{@aspace_output_base_dir} -m 'monthly snapshot of ASpace EADs' --username test-username --password test-password\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "AspaceSvn::GetEadsJob",
+        "method": "svn_commit"
       },
       "user_input": "@aspace_output_base_dir",
       "confidence": "Medium",
@@ -93,6 +139,6 @@
       "note": "Variable comes from configuration, not user input"
     }
   ],
-  "updated": "2023-08-07 10:47:03 -0400",
+  "updated": "2023-08-10 11:50:11 -0400",
   "brakeman_version": "5.4.0"
 }

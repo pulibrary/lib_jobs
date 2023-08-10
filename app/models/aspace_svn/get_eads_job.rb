@@ -4,13 +4,14 @@ require 'nokogiri'
 require 'fileutils'
 
 module AspaceSvn
+  # rubocop:disable Metrics/ClassLength
   class GetEadsJob < LibJob
     def initialize(aspace_output_base_dir: Rails.application.config.aspace.aspace_files_output_path)
       super(category: "EAD_export")
       @errors = []
       @svn_username = Rails.application.config.aspace.svn_username
       @svn_password = Rails.application.config.aspace.svn_password
-      @svn_host = Rails.application.config.aspace.svn_host
+      #@svn_host = Rails.application.config.aspace.svn_host
       @aspace_output_base_dir = aspace_output_base_dir
     end
 
@@ -39,9 +40,9 @@ module AspaceSvn
         # get eads from ids
         get_eads_from_ids(@dir, repo, @resource_ids)
       end
+      commit_eads_to_svn
       data_set.data = report
       data_set.report_time = Time.zone.now
-      commit_eads_to_svn
       data_set
     end
 
@@ -52,9 +53,7 @@ module AspaceSvn
 
     def get_resource_ids_for_repo(repo)
       @resource_ids = @client.get("/repositories/#{repo}/resources", {
-                                    query: {
-                                      all_ids: true
-                                    }
+                                    query: { all_ids: true }
                                   }).parsed
       @resource_ids
     end
@@ -75,15 +74,15 @@ module AspaceSvn
 
     def repos
       {
-        3 => "mudd/publicpolicy",
-        4 => "mudd/univarchives",
-        5 => "mss",
-        6 => "rarebooks",
-        7 => "cotsen",
-        8 => "lae",
-        9 => "eng",
-        10 => "selectors",
-        11 => "ga",
+        # 3 => "mudd/publicpolicy",
+        # 4 => "mudd/univarchives",
+        # 5 => "mss",
+        # 6 => "rarebooks",
+        # 7 => "cotsen",
+        # 8 => "lae",
+        # 9 => "eng",
+        # 10 => "selectors",
+        # 11 => "ga",
         12 => "ea"
       }
     end
@@ -112,18 +111,27 @@ module AspaceSvn
       stdout_str, stderr_str, status = Open3.capture3("svn update #{@aspace_output_base_dir}")
       log_stdout(stdout_str)
       log_stderr(stderr_str)
+      if status.success? == false
+        log_stderr("Update failed")
+      end
     end
 
     def svn_add
       stdout_str, stderr_str, status = Open3.capture3("svn add --force #{@aspace_output_base_dir}")
       log_stdout(stdout_str)
       log_stderr(stderr_str)
+      if status.success? == false
+        log_stderr("SVN Add failed")
+      end
     end
 
     def svn_commit
-      stdout_str, stderr_str, status = Open3.capture3("svn commit #{@aspace_output_base_dir} -m 'monthly snapshot of ASpace EADs' --username test-username --password test-password")
+      stdout_str, stderr_str, status = Open3.capture3("svn commit #{@aspace_output_base_dir} -m 'monthly snapshot of ASpace EADs' --username #{@svn_username} --password #{@svn_password}")
       log_stdout(stdout_str)
       log_stderr(stderr_str)
+      if status.success? == false
+        log_stderr("Commit failed")
+      end
     end
 
     def log_stderr(stderr_str)
@@ -134,4 +142,5 @@ module AspaceSvn
       Rails.logger.info(stdout_str) unless stdout_str.empty?
     end
   end
+  # rubocop:enable Metrics/ClassLength
 end

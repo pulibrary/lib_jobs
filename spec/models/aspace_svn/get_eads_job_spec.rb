@@ -7,9 +7,9 @@ RSpec.describe AspaceSvn::GetEadsJob do
     allow(status).to receive(:success?).and_return(true)
     allow(Open3).to receive(:capture3).with("svn update tmp/subversion_eads").and_return(["Updating 'subversion_eads':\nAt revision 18345.\n", "", status])
     allow(Open3).to receive(:capture3).with("svn add --force tmp/subversion_eads").and_return(["", "", status])
-    allow(Open3).to receive(:capture3).with("svn commit tmp/subversion_eads -m 'monthly snapshot of ASpace EADs' --username test-username --password test-password").and_return([
-                                                                                                                                                                                  "Sending        subversion_eads/ea/EA01.EAD.xml\nTransmitting file data .done\nCommitting transaction...\nCommitted revision 18347.\n", "", status
-                                                                                                                                                                                ])
+    allow(Open3).to receive(:capture3)
+      .with("svn commit tmp/subversion_eads -m 'monthly snapshot of ASpace EADs' --username test-username --password test-password")
+      .and_return(["Sending        subversion_eads/ea/EA01.EAD.xml\nTransmitting file data .done\nCommitting transaction...\nCommitted revision 18347.\n", "", status])
   end
   describe "#run" do
     before do
@@ -66,7 +66,9 @@ RSpec.describe AspaceSvn::GetEadsJob do
   end
   describe "report" do
     it "reports success" do
-      expect(described_class.new.report).to eq "EADs successfully exported."
+      foo = described_class.new
+      foo.handle(data_set: DataSet.new(category: "EAD_export"))
+      expect(foo.report).to eq "EADs successfully exported."
     end
   end
   describe "commit_eads_to_svn" do
@@ -75,8 +77,14 @@ RSpec.describe AspaceSvn::GetEadsJob do
         allow(status).to receive(:success?).and_return(false)
         allow(Open3).to receive(:capture3).with("svn update tmp/subversion_eads").and_return(["Skipped 'tmp/subversion_eads'\n", "svn: E155007: None of the targets are working copies\n", status])
         allow(Open3).to receive(:capture3).with("svn add --force tmp/subversion_eads").and_return(["", "", status])
-        allow(Open3).to receive(:capture3).with("svn commit tmp/subversion_eads -m 'monthly snapshot of ASpace EADs' --username test-username --password test-password").and_return(["",
-                                                                                                                                                                                     "svn: E170001: Commit failed (details follow):\nsvn: E170001: Can't get username or password\n", status])
+        allow(Open3).to receive(:capture3)
+          .with("svn commit tmp/subversion_eads -m 'monthly snapshot of ASpace EADs' --username test-username --password test-password")
+          .and_return(["", "svn: E170001: Commit failed (details follow):\nsvn: E170001: Can't get username or password\n", status])
+      end
+      it "reports failure" do
+        foo = described_class.new
+        foo.handle(data_set: DataSet.new(category: "EAD_export"))
+        expect(foo.report).to eq "Failed to commit to SVN."
       end
     end
   end
