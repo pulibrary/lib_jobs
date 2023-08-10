@@ -8,6 +8,7 @@ defaults: &defaults
   peoplesoft_bursar_recipients: <%= ENV.fetch('PEOPLESOFT_BURSAR_RECIPIENTS', 'test_user@princeton.edu').split(',') %>
   peoplesoft_bursar_no_report_recipients: <%= ENV.fetch('PEOPLESOFT_BURSAR_NO_REPORT_RECIPIENTS', 'test_user@princeton.edu').split(',') %>
   transaction_error_feed_recipients: <%= ENV.fetch('TRANSACTION_ERROR_FEED_RECIPIENTS', 'test_user@princeton.edu').split(',') %>
+  alma_bib_norm_error_recipients: <%= ENV.fetch('ALMA_BIB_NORM_ERROR_RECIPIENTS', 'test_user@princeton.edu').split(',') %>
 
   ncip_renew_from_agency: "01PRI_INST"
   ncip_renew_to_agency: "01PRI_INST"
@@ -24,12 +25,16 @@ defaults: &defaults
 
   open_marc_records_location: <%= ENV["OPEN_MARC_RECORDS_LOCATION"] || "spec/fixtures/open_marc_records" %>
 
+  alma_region: <%= ENV["ALMA_REGION"] %>
+  alma_api_key: <%= ENV["ALMA_CONFIG_API_KEY"] || "" %>
+
 development:
   <<: *defaults
 
 test:
   <<: *defaults
   open_marc_records_location: "spec/fixtures/open_marc_records"
+  alma_region: "https://alma"
 
 production: &production
   <<: *defaults

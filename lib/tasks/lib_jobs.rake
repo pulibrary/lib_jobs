@@ -122,6 +122,12 @@ namespace :lib_jobs do
     job.run
   end
 
+  desc "POSTs to Alma to move OCLC numbers from the 914 field to the 035 field"
+  task alma_bib_norm: [:environment] do
+    job = AlmaBibNorm::AlmaBibNorm.new
+    job.run
+  end
+
   desc "process single file of newly cataloged records from OCLC and create CSV"
   task process_one_file_newly_cataloged_records: [:environment] do
     file = File.new(ENV['NEW_RECORDS_PATH'])
