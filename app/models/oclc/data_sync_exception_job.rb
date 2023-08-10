@@ -38,12 +38,5 @@ module Oclc
       upload_files_to_alma_sftp(working_file_names:)
       data_set
     end
-
-    def date_in_range?(file_name:)
-      file_date_str = file_name.match(/.IN.BIB.D(\d{8})/).captures.first
-      file_date = Time.zone.parse(file_date_str)
-      today = Time.now.utc
-      file_date.between?(today - 7.days, today)
-    end
   end
 end
