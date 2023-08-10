@@ -68,7 +68,7 @@ every '0 6 1 * *', roles: [:prod] do
   rake " lib_jobs:send_eads"
 end
 
-# Run on production every Thursday at 4am
-every :thursday, at: '4:00 am', roles: [:prod] do
+# Run on production every Thursday at 4am EST or 5am EDT
+every :thursday, at: '8:00 am', roles: [:prod] do # The server is in UTC, so that is 8:00 UTC
   rake "lib_jobs:alma_bib_norm"
 end
