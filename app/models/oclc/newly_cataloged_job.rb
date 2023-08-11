@@ -8,7 +8,7 @@ module Oclc
                                                                  input_sftp_base_dir: Rails.application.config.oclc_sftp.lc_newly_cataloged_path,
                                                                  recent: false),
                    selectors_config: Rails.application.config.newly_cataloged.selectors)
-      super(category: "Oclc")
+      super(category: "Oclc:NewlyCataloged")
       @report_downloader = report_downloader
       @selectors_config = selectors_config
     end
@@ -16,9 +16,10 @@ module Oclc
     private
 
     def handle(data_set:)
-      create_csvs_for_selectors
+      csvs_created = create_csvs_for_selectors
       report_downloader.run
       email_csvs_to_selectors
+      data_set.data = "Files created and emailed to selectors: #{csvs_created.join(', ')}"
       data_set
     end
 
@@ -31,10 +32,13 @@ module Oclc
     end
 
     def create_csvs_for_selectors
+      csvs_created = []
       selectors_config.each do |selector_config|
         selector_csv = SelectorCSV.new(selector_config:)
         selector_csv.create
+        csvs_created << selector_csv.file_path
       end
+      csvs_created
     end
   end
 end
