@@ -57,6 +57,14 @@ RSpec.describe Oclc::NewlyCatalogedJob, type: :model do
     expect(File.exist?(new_csv_path_2)).to be true
   end
 
+  it 'records data to display in the UI' do
+    newly_cataloged_job.run
+    data_set = DataSet.last
+    expect(data_set.report_time).to eq(freeze_time)
+    expect(data_set.data).to eq("Files created and emailed to selectors: spec/fixtures/oclc/2023-07-12-newly-cataloged-by-lc-bordelon.csv," \
+      " spec/fixtures/oclc/2023-07-12-newly-cataloged-by-lc-darrington.csv")
+  end
+
   it 'puts data in the csv file for each selector' do
     newly_cataloged_job.run
     csv_file_one = CSV.read(new_csv_path_1)
