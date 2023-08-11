@@ -6,6 +6,7 @@ require 'fileutils'
 module AspaceSvn
   # rubocop:disable Metrics/ClassLength
   class GetEadsJob < LibJob
+    attr_reader :repos
     def initialize(aspace_output_base_dir: Rails.application.config.aspace.aspace_files_output_path)
       super(category: "EAD_export")
       @errors = []
@@ -13,6 +14,7 @@ module AspaceSvn
       @svn_password = Rails.application.config.aspace.svn_password
       # @svn_host = Rails.application.config.aspace.svn_host
       @aspace_output_base_dir = aspace_output_base_dir
+      @repos = Rails.application.config.aspace.repos
     end
 
     def aspace_login
@@ -72,20 +74,20 @@ module AspaceSvn
 
     private
 
-    def repos
-      {
-        3 => "mudd/publicpolicy",
-        4 => "mudd/univarchives",
-        5 => "mss",
-        6 => "rarebooks",
-        7 => "cotsen",
-        8 => "lae",
-        9 => "eng",
-        10 => "selectors",
-        11 => "ga",
-        12 => "ea"
-      }
-    end
+    # def repos
+    #   {
+    #     3 => "mudd/publicpolicy",
+    #     4 => "mudd/univarchives",
+    #     5 => "mss",
+    #     6 => "rarebooks",
+    #     7 => "cotsen",
+    #     8 => "lae",
+    #     9 => "eng",
+    #     10 => "selectors",
+    #     11 => "ga",
+    #     12 => "ea"
+    #   }
+    # end
 
     # Replace the namespace with the correct loc.gov one,
     # then write the results to the file

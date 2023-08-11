@@ -3,9 +3,23 @@ default: &default
   svn_username: <%= ENV["SVN_USERNAME"] || 'libjobs' %>
   svn_password: <%= ENV["SVN_PASSWORD"] %>
   svn_host: <%= ENV["SVN_HOST"] %>
+  repos: 
+    3: "mudd/publicpolicy"
+    4: "mudd/univarchives"
+    5: "mss"
+    6: "rarebooks"
+    7: "cotsen"
+    8: "lae"
+    9: "eng"
+    10: "selectors"
+    11: "ga"
+    12: "ea"
+      
 
 development:
   <<: *default
+  repos: 
+    12: "ea"
 
 test:
   <<: *default
