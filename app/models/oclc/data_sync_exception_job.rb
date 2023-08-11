@@ -19,23 +19,25 @@ module Oclc
     end
 
     def upload_files_to_alma_sftp(working_file_names:)
+      uploaded_file_paths = []
       alma_sftp.start do |sftp|
         working_file_names.each do |working_file_name|
           source_file_path = File.join(working_file_directory, working_file_name)
           destination_file_path = File.join(output_sftp_base_dir, working_file_name)
           sftp.upload!(source_file_path, destination_file_path)
+          uploaded_file_paths << destination_file_path
           Rails.logger.debug { "Uploaded source file: #{source_file_path} to sftp path: #{destination_file_path}" }
         end
       end
+      uploaded_file_paths
     end
 
     private
 
     def handle(data_set:)
-      data_set.report_time = Time.zone.now.midnight
-
       working_file_names = report_downloader.run
-      upload_files_to_alma_sftp(working_file_names:)
+      uploaded_file_paths = upload_files_to_alma_sftp(working_file_names:)
+      data_set.data = "Files created and uploaded to lib-sftp: #{uploaded_file_paths.join(', ')}"
       data_set
     end
 

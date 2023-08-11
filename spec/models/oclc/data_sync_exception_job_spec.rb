@@ -64,5 +64,14 @@ RSpec.describe Oclc::DataSyncExceptionJob, type: :model do
       expect(sftp_session).to have_received(:upload!).with(new_file_for_alma_path_1, '/alma/datasync_processing/datasync_errors_20230713_103005835_1.mrc')
       expect(sftp_session).to have_received(:upload!).with(new_file_for_alma_path_2, '/alma/datasync_processing/datasync_errors_20230713_103005835_2.mrc')
     end
+
+    it 'records data to display in the UI' do
+      data_sync_exception_job.run
+      data_set = DataSet.last
+      expect(data_set.report_time).to eq(Time.zone.now)
+      expect(data_set.data).to eq("Files created and uploaded to lib-sftp: " \
+        "/alma/datasync_processing/datasync_errors_20230713_103005835_1.mrc," \
+        " /alma/datasync_processing/datasync_errors_20230713_103005835_1.mrc")
+    end
   end
 end
