@@ -2,10 +2,10 @@
 require 'rails_helper'
 
 RSpec.describe AlmaRenew::RenewJob, type: :model do
+  include_context 'sftp'
+
   let(:today) { Time.zone.now.strftime("%m%d%Y") }
   let(:sftp_entry1) { instance_double("Net::SFTP::Protocol::V01::Name", name: "abc.csv") }
-  let(:sftp_session) { instance_double("Net::SFTP::Session", dir: sftp_dir) }
-  let(:sftp_dir) { instance_double("Net::SFTP::Operations::Dir") }
 
   let(:valid_response) do
     "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" \
@@ -52,7 +52,6 @@ RSpec.describe AlmaRenew::RenewJob, type: :model do
       allow(sftp_dir).to receive(:foreach).and_yield(sftp_entry1)
       allow(sftp_session).to receive(:download!).with("/alma/scsb_renewals/abc.csv").and_return(renew_csv)
       allow(sftp_session).to receive(:rename).with("/alma/scsb_renewals/abc.csv", "/alma/scsb_renewals/abc.csv.processed")
-      allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
     end
     let(:expected_data_message) do
       "We received 5 renewal requests. We tried to send renewals for 5 items. 1 errors were encountered.\n Unknown Item (23915763110006421)"

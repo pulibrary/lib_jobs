@@ -23,12 +23,11 @@ RSpec.describe OclcSftp, type: :model do
   end
 
   context 'with a mocked sftp connection' do
-    let(:sftp_session) { instance_double("Net::SFTP::Session", dir: sftp_dir) }
-    let(:sftp_dir) { instance_double("Net::SFTP::Operations::Dir") }
+    include_context 'sftp'
+
     let(:file_path) { "spec/fixtures/oclc/metacoll.PUL.new.D20230706.T213019.MZallDLC.1.mrc" }
     before do
       allow(sftp_session).to receive(:download!).with(file_path).and_return(Rails.root.join('spec', 'fixtures', 'oclc', 'metacoll.PUL.new.D20230706.T213019.MZallDLC.1.mrc').read)
-      allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
     end
     it 'downloads over sftp' do
       subject.start { |sftp| sftp.download!(file_path) }

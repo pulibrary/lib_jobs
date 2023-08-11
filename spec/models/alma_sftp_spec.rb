@@ -2,14 +2,13 @@
 require "rails_helper"
 
 RSpec.describe AlmaSftp, type: :model do
+  include_context 'sftp'
+
   let(:subject) { described_class.new }
-  let(:sftp_session) { instance_double("Net::SFTP::Session", dir: sftp_dir) }
-  let(:sftp_dir) { instance_double("Net::SFTP::Operations::Dir") }
   let(:file_path) { "/alma/invoices/abc.xml" }
 
   before do
     allow(sftp_session).to receive(:download!).with(file_path).and_return(Rails.root.join('spec', 'fixtures', 'invoice_export_202118300518.xml').read)
-    allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
   end
   it 'downloads over sftp' do
     subject.start { |sftp| sftp.download!(file_path) }

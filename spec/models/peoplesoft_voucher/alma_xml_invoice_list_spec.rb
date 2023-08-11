@@ -2,13 +2,13 @@
 require 'rails_helper'
 
 RSpec.describe PeoplesoftVoucher::AlmaXmlInvoiceList, type: :model do
+  include_context 'sftp'
+
   subject(:alma_invoice_list) { described_class.new }
 
   let(:sftp_entry1) { instance_double("Net::SFTP::Protocol::V01::Name", name: "abc.xml") }
   let(:sftp_entry2) { instance_double("Net::SFTP::Protocol::V01::Name", name: "abc.xml2") }
   let(:sftp_entry3) { instance_double("Net::SFTP::Protocol::V01::Name", name: "123.xml") }
-  let(:sftp_session) { instance_double("Net::SFTP::Session", dir: sftp_dir) }
-  let(:sftp_dir) { instance_double("Net::SFTP::Operations::Dir") }
 
   let(:invoice_errors) do
     "Invalid vendor_id: vendor_id can not be blank,"\
@@ -26,7 +26,6 @@ RSpec.describe PeoplesoftVoucher::AlmaXmlInvoiceList, type: :model do
     allow(sftp_session).to receive(:download!).with("/alma/invoices/123.xml").and_return(Rails.root.join('spec', 'fixtures', 'invalid_invoice.xml').read)
     allow(sftp_session).to receive(:rename).with("/alma/invoices/123.xml", "/alma/invoices/123.xml.processed")
     allow(sftp_session).to receive(:rename).with("/alma/invoices/abc.xml", "/alma/invoices/abc.xml.processed")
-    allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
   end
 
   describe "#invoices" do

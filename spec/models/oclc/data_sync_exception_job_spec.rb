@@ -7,12 +7,16 @@ RSpec.describe Oclc::DataSyncExceptionJob, type: :model do
   let(:working_file_name_2) { 'datasync_errors_20230713_103005835_2.mrc' }
   let(:new_file_for_alma_path_1) { "spec/fixtures/oclc/exceptions/#{working_file_name_1}" }
   let(:new_file_for_alma_path_2) { "spec/fixtures/oclc/exceptions/#{working_file_name_2}" }
+  let(:alma_upload_path_1) { "/alma/datasync_processing/#{working_file_name_1}" }
+  let(:alma_upload_path_2) { "/alma/datasync_processing/#{working_file_name_2}" }
 
   it 'can be instantiated' do
     expect(data_sync_exception_job).to be
   end
 
   context 'with files on the OCLC sftp server' do
+    include_context 'sftp'
+
     let(:input_sftp_base_dir) { Rails.application.config.oclc_sftp.data_sync_report_path }
     let(:file_full_path_one) { "#{input_sftp_base_dir}#{file_name_to_download_one}" }
     let(:file_full_path_two) { "#{input_sftp_base_dir}#{file_name_to_download_two}" }
@@ -30,8 +34,6 @@ RSpec.describe Oclc::DataSyncExceptionJob, type: :model do
     let(:sftp_entry2) { instance_double("Net::SFTP::Protocol::V01::Name", name: file_name_to_skip_one) }
     let(:sftp_entry3) { instance_double("Net::SFTP::Protocol::V01::Name", name: file_name_to_skip_two) }
     let(:sftp_entry4) { instance_double("Net::SFTP::Protocol::V01::Name", name: file_name_to_download_two) }
-    let(:sftp_session) { instance_double("Net::SFTP::Session", dir: sftp_dir) }
-    let(:sftp_dir) { instance_double("Net::SFTP::Operations::Dir") }
 
     around do |example|
       File.delete(new_file_for_alma_path_1) if File.exist?(new_file_for_alma_path_1)
@@ -49,7 +51,6 @@ RSpec.describe Oclc::DataSyncExceptionJob, type: :model do
       allow(sftp_dir).to receive(:foreach).and_yield(sftp_entry1).and_yield(sftp_entry2).and_yield(sftp_entry3).and_yield(sftp_entry4)
       allow(sftp_session).to receive(:download!).with(file_full_path_one, temp_file_one)
       allow(sftp_session).to receive(:download!).with(file_full_path_two, temp_file_two)
-      allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
       allow(sftp_session).to receive(:upload!).twice
     end
 
@@ -61,17 +62,18 @@ RSpec.describe Oclc::DataSyncExceptionJob, type: :model do
 
     it 'uploads working files to lib-sftp' do
       data_sync_exception_job.upload_files_to_alma_sftp(working_file_names: [working_file_name_1, working_file_name_2])
-      expect(sftp_session).to have_received(:upload!).with(new_file_for_alma_path_1, '/alma/datasync_processing/datasync_errors_20230713_103005835_1.mrc')
-      expect(sftp_session).to have_received(:upload!).with(new_file_for_alma_path_2, '/alma/datasync_processing/datasync_errors_20230713_103005835_2.mrc')
+      expect(sftp_session).to have_received(:upload!).with(new_file_for_alma_path_1, alma_upload_path_1)
+      expect(sftp_session).to have_received(:upload!).with(new_file_for_alma_path_2, alma_upload_path_2)
     end
 
     it 'records data to display in the UI' do
       data_sync_exception_job.run
       data_set = DataSet.last
       expect(data_set.report_time).to eq(Time.zone.now)
+      # The two upload paths are the same in the test environment because usually the timestamp
+      # would be different, but we've frozen time for the rest of the tests & mocks to work
       expect(data_set.data).to eq("Files created and uploaded to lib-sftp: " \
-        "/alma/datasync_processing/datasync_errors_20230713_103005835_1.mrc," \
-        " /alma/datasync_processing/datasync_errors_20230713_103005835_1.mrc")
+        "#{alma_upload_path_1}, #{alma_upload_path_1}")
     end
   end
 end

@@ -2,13 +2,12 @@
 require 'rails_helper'
 
 RSpec.describe AlmaRenew::AlmaRenewList, type: :model do
+  include_context 'sftp'
   subject(:alma_renew_list) { described_class.new }
 
   let(:sftp_entry1) { instance_double("Net::SFTP::Protocol::V01::Name", name: "abc.csv") }
   let(:sftp_entry2) { instance_double("Net::SFTP::Protocol::V01::Name", name: "abc.csv.processed") }
   let(:sftp_entry3) { instance_double("Net::SFTP::Protocol::V01::Name", name: "123.csv") }
-  let(:sftp_session) { instance_double("Net::SFTP::Session", dir: sftp_dir) }
-  let(:sftp_dir) { instance_double("Net::SFTP::Operations::Dir") }
 
   let(:invoice_errors) do
     "Invalid vendor_id: vendor_id can not be blank,"\
@@ -24,7 +23,6 @@ RSpec.describe AlmaRenew::AlmaRenewList, type: :model do
     pin_time_to_valid_invoice_list
     allow(sftp_session).to receive(:download!).with("/alma/scsb_renewals/abc.csv").and_return(Rails.root.join('spec', 'fixtures', 'renew.csv').read)
     allow(sftp_session).to receive(:rename).with("/alma/scsb_renewals/abc.csv", "/alma/scsb_renewals/abc.csv.processed")
-    allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
   end
 
   describe "#renew_item_list" do

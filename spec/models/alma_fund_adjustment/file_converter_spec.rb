@@ -2,12 +2,13 @@
 require 'rails_helper'
 
 RSpec.describe AlmaFundAdjustment::FileConverter, type: :model do
+  include_context 'sftp'
+
   subject(:fund_adjustment) do
     described_class.new(peoplesoft_input_base_dir: '/tmp', peoplesoft_input_file_pattern: 'test_alma*.csv',
                         alma_sftp: AlmaSftp.new(sftp_host: 'localhost', sftp_username: 'user', sftp_password: 'password'),
                         fund_adjustment_path: '/alma/fp')
   end
-  let(:sftp_session) { instance_double("Net::SFTP::Session") }
 
   describe "#run" do
     after do
@@ -19,7 +20,6 @@ RSpec.describe AlmaFundAdjustment::FileConverter, type: :model do
 
     it "transfers a file" do
       allow(sftp_session).to receive(:upload!)
-      allow(Net::SFTP).to receive(:start).and_yield(sftp_session) # start with also
       FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions-2012-07-19-09-09-00.csv'), '/tmp/test_alma_1.csv')
 
       expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
@@ -34,7 +34,6 @@ RSpec.describe AlmaFundAdjustment::FileConverter, type: :model do
 
     it "transfers multiple files" do
       allow(sftp_session).to receive(:upload!).twice
-      allow(Net::SFTP).to receive(:start).and_yield(sftp_session) # start with also
       FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions-2012-07-19-09-09-00.csv'), '/tmp/test_alma_1.csv')
       FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions-2012-07-19-09-09-00.csv'), '/tmp/test_alma_2.csv')
 
@@ -54,7 +53,6 @@ RSpec.describe AlmaFundAdjustment::FileConverter, type: :model do
     context "handles an ftp error" do
       it "notes the error" do
         allow(sftp_session).to receive(:upload!).and_raise(Net::SFTP::StatusException, Net::SFTP::Response.new({}, { code: 500 }))
-        allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
         FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions-2012-07-19-09-09-00.csv'), '/tmp/test_alma_1.csv')
 
         expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
@@ -71,7 +69,6 @@ RSpec.describe AlmaFundAdjustment::FileConverter, type: :model do
 
     context "file with no data" do
       it "notes that nothing was processed" do
-        allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
         FileUtils.touch('/tmp/test_alma_1.csv')
 
         expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
@@ -85,7 +82,6 @@ RSpec.describe AlmaFundAdjustment::FileConverter, type: :model do
 
     context "file with only headers" do
       it "notes that nothing was processed" do
-        allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
         FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions_empty.csv'), '/tmp/test_alma_1.csv')
 
         expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
@@ -99,7 +95,6 @@ RSpec.describe AlmaFundAdjustment::FileConverter, type: :model do
 
     context "file with incorrect headers" do
       it "throws an error" do
-        allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
         FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions_invalid_headers.csv'), '/tmp/test_alma_1.csv')
 
         expect { expect(fund_adjustment.run) }.to raise_error(CSVValidator::InvalidHeadersError)
@@ -108,7 +103,6 @@ RSpec.describe AlmaFundAdjustment::FileConverter, type: :model do
 
     context "no files" do
       it "notes that nothing was processed" do
-        allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
         allow(sftp_session).to receive(:upload!)
 
         expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)

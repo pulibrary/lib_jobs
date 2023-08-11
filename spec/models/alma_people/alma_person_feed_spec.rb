@@ -2,13 +2,13 @@
 require 'rails_helper'
 
 RSpec.describe AlmaPeople::AlmaPersonFeed, type: :model do
+  include_context 'sftp'
+
   subject(:alma_person_feed) { described_class.new(oit_person_feed:, output_base_dir: '/tmp') }
   let(:oit_person_feed) { instance_double("AlmaPeople::OitPersonFeed") }
 
   let(:yesterday) { 1.day.ago.strftime("%Y-%m-%d") }
   let(:today) { Time.zone.now.strftime("%Y-%m-%d") }
-
-  let(:sftp) { instance_double("Net::SFTP::Session") }
 
   describe "#run" do
     let(:oit_people) do
@@ -28,14 +28,13 @@ RSpec.describe AlmaPeople::AlmaPersonFeed, type: :model do
 
     before do
       allow(oit_person_feed).to receive(:get_json).with(begin_date: yesterday, end_date: today, enabled_flag: "E").and_return(oit_people)
-      allow(Net::SFTP).to receive(:start).and_yield(sftp)
-      allow(sftp).to receive(:upload!)
+      allow(sftp_session).to receive(:upload!)
     end
 
     it "generates an xml file" do
       expect(alma_person_feed.run).to be_truthy
       expect(oit_person_feed).to have_received(:get_json)
-      expect(sftp).to have_received(:upload!).with("/tmp/alma_people_#{yesterday}_#{today}_E.xml.zip", "/alma/people/alma_people_#{yesterday}_#{today}_E.xml.zip")
+      expect(sftp_session).to have_received(:upload!).with("/tmp/alma_people_#{yesterday}_#{today}_E.xml.zip", "/alma/people/alma_people_#{yesterday}_#{today}_E.xml.zip")
       data_set = DataSet.last
       expect(data_set.category).to eq("AlmaPersonFeed")
       expect(data_set.report_time).to eq(Time.zone.now.midnight)
@@ -50,7 +49,7 @@ RSpec.describe AlmaPeople::AlmaPersonFeed, type: :model do
       it "generates no xml file" do
         expect(alma_person_feed.run).to be_truthy
         expect(oit_person_feed).to have_received(:get_json)
-        expect(sftp).not_to have_received(:upload!)
+        expect(sftp_session).not_to have_received(:upload!)
         data_set = DataSet.last
         expect(data_set.category).to eq("AlmaPersonFeed")
         expect(data_set.report_time).to eq(Time.zone.now.midnight)
@@ -68,7 +67,7 @@ RSpec.describe AlmaPeople::AlmaPersonFeed, type: :model do
       it "generates an xml file" do
         expect(alma_person_feed.run).to be_truthy
         expect(oit_person_feed).to have_received(:get_json)
-        expect(sftp).to have_received(:upload!).with("/tmp/alma_people_#{yesterday}.xml.zip", "/alma/people/alma_people_#{yesterday}.xml.zip")
+        expect(sftp_session).to have_received(:upload!).with("/tmp/alma_people_#{yesterday}.xml.zip", "/alma/people/alma_people_#{yesterday}.xml.zip")
         data_set = DataSet.last
         expect(data_set.category).to eq("AlmaPersonFeed")
         expect(data_set.report_time).to eq(Time.zone.now.midnight)

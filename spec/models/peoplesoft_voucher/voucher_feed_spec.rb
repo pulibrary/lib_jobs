@@ -2,11 +2,11 @@
 require 'rails_helper'
 
 RSpec.describe PeoplesoftVoucher::VoucherFeed, type: :model do
+  include_context 'sftp'
+
   let(:today) { Time.zone.now.strftime("%m%d%Y") }
   let(:onbase_today) { Time.zone.now .strftime("%Y%m%d") }
   let(:sftp_entry1) { instance_double("Net::SFTP::Protocol::V01::Name", name: "abc.xml") }
-  let(:sftp_session) { instance_double("Net::SFTP::Session", dir: sftp_dir) }
-  let(:sftp_dir) { instance_double("Net::SFTP::Operations::Dir") }
 
   describe "#run" do
     it "generates an xml file" do
@@ -14,7 +14,6 @@ RSpec.describe PeoplesoftVoucher::VoucherFeed, type: :model do
       # only 1 & 3 should get downloaded
       allow(sftp_session).to receive(:download!).with("/alma/invoices/abc.xml").and_return(Rails.root.join('spec', 'fixtures', 'invoice_export_202118300518.xml').read)
       allow(sftp_session).to receive(:rename).with("/alma/invoices/abc.xml", "/alma/invoices/abc.xml.processed")
-      allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
 
       voucher_feed = described_class.new(onbase_output_base_dir: '/tmp', peoplesoft_output_base_dir: '/tmp')
       expect { expect(voucher_feed.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(1)
@@ -39,7 +38,6 @@ RSpec.describe PeoplesoftVoucher::VoucherFeed, type: :model do
 
     it "does not generates xml files if no invoices are present" do
       allow(sftp_dir).to receive(:foreach)
-      allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
 
       voucher_feed = described_class.new(onbase_output_base_dir: '/tmp', peoplesoft_output_base_dir: '/tmp')
       expect { expect(voucher_feed.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(1)
@@ -60,7 +58,6 @@ RSpec.describe PeoplesoftVoucher::VoucherFeed, type: :model do
       # only 1 & 3 should get downloaded
       allow(sftp_session).to receive(:download!).with("/alma/invoices/abc.xml").and_return(Rails.root.join('spec', 'fixtures', 'invalid_invoice.xml').read)
       allow(sftp_session).to receive(:rename).with("/alma/invoices/abc.xml", "/alma/invoices/abc.xml.processed")
-      allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
 
       voucher_feed = described_class.new(onbase_output_base_dir: '/tmp', peoplesoft_output_base_dir: '/tmp')
       expect { expect(voucher_feed.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(1)
