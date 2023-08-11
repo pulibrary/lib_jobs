@@ -2,10 +2,10 @@
 require 'rails_helper'
 
 RSpec.describe PeoplesoftBursar::CreditReport, type: :model do
+  include_context 'sftp'
+
   let(:sftp_entry1) { instance_double("Net::SFTP::Protocol::V01::Name", name: "abc.xml") }
   let(:sftp_entry2) { instance_double("Net::SFTP::Protocol::V01::Name", name: "abc.csv") }
-  let(:sftp_session) { instance_double("Net::SFTP::Session", dir: sftp_dir) }
-  let(:sftp_dir) { instance_double("Net::SFTP::Operations::Dir") }
   let(:credit_report) { described_class.new }
 
   before do
@@ -13,7 +13,6 @@ RSpec.describe PeoplesoftBursar::CreditReport, type: :model do
     # only 1 & 3 should get downloaded
     allow(sftp_session).to receive(:download!).with("/alma/bursar/abc.xml").and_return(Rails.root.join('spec', 'fixtures', 'bursar_credit.xml').read)
     allow(sftp_session).to receive(:rename).with("/alma/bursar/abc.xml", "/alma/bursar/abc.xml.processed")
-    allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
   end
 
   describe "#to_s" do

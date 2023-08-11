@@ -2,6 +2,8 @@
 require 'rails_helper'
 
 RSpec.describe Oclc::NewlyCatalogedJob, type: :model do
+  include_context 'sftp'
+
   subject(:newly_cataloged_job) { described_class.new }
 
   let(:file_full_path_one) { "#{input_sftp_base_dir}#{file_name_to_download_one}" }
@@ -17,8 +19,6 @@ RSpec.describe Oclc::NewlyCatalogedJob, type: :model do
   let(:sftp_entry2) { instance_double("Net::SFTP::Protocol::V01::Name", name: "metacoll.PUL.new.D20230709.T213017.MZallDLC.1.mrc.processed") }
   let(:sftp_entry3) { instance_double("Net::SFTP::Protocol::V01::Name", name: "metacoll.PUL.new.D20230705.T213018.allpcc.1.mrc") }
   let(:sftp_entry4) { instance_double("Net::SFTP::Protocol::V01::Name", name: file_name_to_download_two) }
-  let(:sftp_session) { instance_double("Net::SFTP::Session", dir: sftp_dir) }
-  let(:sftp_dir) { instance_double("Net::SFTP::Operations::Dir") }
   let(:freeze_time) { Time.utc(2023, 7, 12) }
   let(:new_csv_path_1) { Rails.root.join('spec', 'fixtures', 'oclc', '2023-07-12-newly-cataloged-by-lc-bordelon.csv') }
   let(:new_csv_path_2) { Rails.root.join('spec', 'fixtures', 'oclc', '2023-07-12-newly-cataloged-by-lc-darrington.csv') }
@@ -40,7 +40,6 @@ RSpec.describe Oclc::NewlyCatalogedJob, type: :model do
     allow(sftp_dir).to receive(:foreach).and_yield(sftp_entry1).and_yield(sftp_entry2).and_yield(sftp_entry3).and_yield(sftp_entry4)
     allow(sftp_session).to receive(:download!).with(file_full_path_one, temp_file_one)
     allow(sftp_session).to receive(:download!).with(file_full_path_two, temp_file_two)
-    allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
   end
 
   it 'downloads only the relevant files' do

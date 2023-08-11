@@ -2,10 +2,10 @@
 require 'rails_helper'
 
 RSpec.describe PeoplesoftVoucher::FinanceXmlInvoice, type: :model do
+  include_context 'sftp'
+
   describe "#run" do
     let(:sftp_entry) { instance_double("Net::SFTP::Protocol::V01::Name", name: "abc.xml") }
-    let(:sftp_session) { instance_double("Net::SFTP::Session", dir: sftp_dir) }
-    let(:sftp_dir) { instance_double("Net::SFTP::Operations::Dir") }
     let(:alma_invoice_list) do
       pin_time_to_valid_invoice_list
       PeoplesoftVoucher::AlmaXmlInvoiceList.new
@@ -18,7 +18,6 @@ RSpec.describe PeoplesoftVoucher::FinanceXmlInvoice, type: :model do
     before do
       allow(sftp_dir).to receive(:foreach).and_yield(sftp_entry)
       allow(sftp_session).to receive(:download!).with("/alma/invoices/abc.xml").and_return(Rails.root.join('spec', 'fixtures', 'invoice_export_202118300518.xml').read)
-      allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
     end
 
     it "generates xml " do

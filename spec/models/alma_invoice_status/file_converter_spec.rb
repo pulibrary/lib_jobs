@@ -2,12 +2,13 @@
 require 'rails_helper'
 
 RSpec.describe AlmaInvoiceStatus::FileConverter, type: :model do
+  include_context 'sftp'
+
   subject(:fund_adjustment) do
     described_class.new(peoplesoft_input_base_dir: '/tmp', peoplesoft_input_file_pattern: 'test_alma*.csv',
                         alma_sftp: AlmaSftp.new(sftp_host: 'localhost', sftp_username: 'user', sftp_password: 'password'),
                         invoice_status_path: '/alma/fp')
   end
-  let(:sftp_session) { instance_double("Net::SFTP::Session") }
 
   describe "#run" do
     after do
@@ -21,7 +22,6 @@ RSpec.describe AlmaInvoiceStatus::FileConverter, type: :model do
 
     it "transfers a file" do
       allow(sftp_session).to receive(:upload!)
-      allow(Net::SFTP).to receive(:start).and_yield(sftp_session) # start with also
       FileUtils.touch('/tmp/test_alma_1.csv')
 
       expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
@@ -35,7 +35,6 @@ RSpec.describe AlmaInvoiceStatus::FileConverter, type: :model do
 
     it "transfers multiple files" do
       allow(sftp_session).to receive(:upload!).twice
-      allow(Net::SFTP).to receive(:start).and_yield(sftp_session) # start with also
       FileUtils.touch('/tmp/test_alma_1.csv')
       FileUtils.touch('/tmp/test_alma_2.csv')
 
@@ -53,7 +52,6 @@ RSpec.describe AlmaInvoiceStatus::FileConverter, type: :model do
     context "handles an ftp error" do
       it "notes the error" do
         allow(sftp_session).to receive(:upload!).and_raise(Net::SFTP::StatusException, Net::SFTP::Response.new({}, { code: 500 }))
-        allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
         FileUtils.touch('/tmp/test_alma_1.csv')
 
         expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
@@ -69,8 +67,6 @@ RSpec.describe AlmaInvoiceStatus::FileConverter, type: :model do
 
     context "no files" do
       it "notes that nothing was processed" do
-        allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
-
         expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
         data_set = DataSet.last
         expect(data_set.category).to eq("InvoiceStatus")
@@ -84,7 +80,6 @@ RSpec.describe AlmaInvoiceStatus::FileConverter, type: :model do
       it "generates xml" do
         pending "Should only be run locally"
         allow(sftp_session).to receive(:upload!)
-        allow(Net::SFTP).to receive(:start).and_yield(sftp_session) # start with also
         FileUtils.copy_file(alma_invoice_xml, '/tmp/test_alma_1.csv')
         expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
         expect(sftp_session).to have_received(:upload!).with("/tmp/test_alma_1.csv.converted", '/alma/fp/test_alma_1.csv')
@@ -98,7 +93,6 @@ RSpec.describe AlmaInvoiceStatus::FileConverter, type: :model do
       end
       it "logs that it is turned off" do
         allow(sftp_session).to receive(:upload!)
-        allow(Net::SFTP).to receive(:start).and_yield(sftp_session) # start with also
         FileUtils.touch('/tmp/test_alma_1.csv')
 
         fund_adjustment.run
