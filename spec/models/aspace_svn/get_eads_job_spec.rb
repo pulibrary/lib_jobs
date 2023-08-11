@@ -13,16 +13,21 @@ RSpec.describe AspaceSvn::GetEadsJob do
   end
   describe "#run" do
     before do
-      stub_request(:post, %r{\Ahttps://aspace-staging\.princeton\.edu/staff/api/users/}).and_return(
+      stub_request(:post, %r{\Ahttps://aspace-staging\.princeton\.edu/staff/api/users/})
+        .and_return(
         status: 200, body: "{'session': 123}"
       )
-      stub_request(:get, %r{\Ahttps://aspace-staging\.princeton\.edu/staff/api/repositories/\d+/resources\?all_ids=true}).and_return(
+      stub_request(:get, %r{\Ahttps://aspace-staging\.princeton\.edu/staff/api/repositories/\d+/resources\?all_ids=true})
+        .and_return(
         status: 200, body: "[1234,5678]\n",
         headers: { "content-type" => "application/json" }
       )
-      stub_request(:get, %r{\Ahttps://aspace-staging\.princeton\.edu/staff/api/repositories/\d+/resource_descriptions}).and_return(
+      stub_request(:get, %r{\Ahttps://aspace-staging\.princeton\.edu/staff/api/repositories/\d+/resource_descriptions})
+        .and_return(
         status: 200, body: File.new(file_fixture('ead_from_aspace.xml'))
       )
+      allow(ENV)
+        .to receive(:[])
       allow(ENV)
         .to receive(:[])
         .with("ASPACE_URL")
@@ -63,28 +68,29 @@ RSpec.describe AspaceSvn::GetEadsJob do
       expect(FileUtils.identical?(Rails.root.join('tmp', 'subversion_eads', 'mudd', 'publicpolicy', 'MyEadID.EAD.xml'),
                                   file_fixture('ead_corrected.xml'))).to be true
     end
-  end
-  describe "report" do
-    it "reports success" do
-      foo = described_class.new
-      foo.handle(data_set: DataSet.new(category: "EAD_export"))
-      expect(foo.report).to eq "EADs successfully exported."
-    end
-  end
-  describe "commit_eads_to_svn" do
-    context "failed to connect to SVN" do
-      before do
-        allow(status).to receive(:success?).and_return(false)
-        allow(Open3).to receive(:capture3).with("svn update tmp/subversion_eads").and_return(["Skipped 'tmp/subversion_eads'\n", "svn: E155007: None of the targets are working copies\n", status])
-        allow(Open3).to receive(:capture3).with("svn add --force tmp/subversion_eads").and_return(["", "", status])
-        allow(Open3).to receive(:capture3)
-          .with("svn commit tmp/subversion_eads -m 'monthly snapshot of ASpace EADs' --username test-username --password test-password")
-          .and_return(["", "svn: E170001: Commit failed (details follow):\nsvn: E170001: Can't get username or password\n", status])
+    describe "report" do
+      it "reports success" do
+        out = described_class.new
+        out.handle(data_set: DataSet.new(category: "EAD_export"))
+        expect(out.report).to eq "EADs successfully exported."
       end
-      it "reports failure" do
-        foo = described_class.new
-        foo.handle(data_set: DataSet.new(category: "EAD_export"))
-        expect(foo.report).to eq "Failed to commit to SVN."
+    end
+    describe "commit_eads_to_svn" do
+      context "failed to connect to SVN" do
+        before do
+          allow(status).to receive(:success?).and_return(false)
+          allow(Open3).to receive(:capture3).with("svn update tmp/subversion_eads").and_return(["Skipped 'tmp/subversion_eads'\n", "svn: E155007: None of the targets are working copies\n", status])
+          allow(Open3).to receive(:capture3).with("svn add --force tmp/subversion_eads").and_return(["", "", status])
+          allow(Open3).to receive(:capture3)
+            .with("svn commit tmp/subversion_eads -m 'monthly snapshot of ASpace EADs' --username test-username --password test-password")
+            .and_return(["", "svn: E170001: Commit failed (details follow):\nsvn: E170001: Can't get username or password\n", status])
+        end
+        it "reports failure" do
+          out = described_class.new
+          out.handle(data_set: DataSet.new(category: "EAD_export"))
+          expect(out.report).to eq "svn: E155007: None of the targets are working copies\n, Update failed, SVN Add failed, " \
+                                   "svn: E170001: Commit failed (details follow):\nsvn: E170001: Can't get username or password\n, Commit failed"
+        end
       end
     end
   end

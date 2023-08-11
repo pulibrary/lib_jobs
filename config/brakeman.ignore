@@ -53,7 +53,7 @@
       "check_name": "Execute",
       "message": "Possible command injection",
       "file": "app/models/aspace_svn/get_eads_job.rb",
-      "line": 117,
+      "line": 119,
       "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
       "code": "Open3.capture3(\"svn add --force #{@aspace_output_base_dir}\")",
       "render_path": null,
@@ -61,6 +61,29 @@
         "type": "method",
         "class": "AspaceSvn::GetEadsJob",
         "method": "svn_add"
+      },
+      "user_input": "@aspace_output_base_dir",
+      "confidence": "Medium",
+      "cwe_id": [
+        77
+      ],
+      "note": "Variable comes from configuration, not user input"
+    },
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "896cf25471f17acba538c68968efdfeee5e4c1fdcfdad9ac2baf08afaa7406ff",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "app/models/aspace_svn/get_eads_job.rb",
+      "line": 127,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "Open3.capture3(\"svn commit #{@aspace_output_base_dir} -m 'monthly snapshot of ASpace EADs' --username #{@svn_username} --password #{@svn_password}\")",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "AspaceSvn::GetEadsJob",
+        "method": "svn_commit"
       },
       "user_input": "@aspace_output_base_dir",
       "confidence": "Medium",
@@ -114,31 +137,8 @@
         77
       ],
       "note": "Variable comes from configuration, not user input"
-    },
-    {
-      "warning_type": "Command Injection",
-      "warning_code": 14,
-      "fingerprint": "aa2ad7627f6983357a6f472619b95905f23683ab4b58474483a162326ee680f4",
-      "check_name": "Execute",
-      "message": "Possible command injection",
-      "file": "app/models/aspace_svn/get_eads_job.rb",
-      "line": 123,
-      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
-      "code": "Open3.capture3(\"svn commit #{@aspace_output_base_dir} -m 'monthly snapshot of ASpace EADs' --username test-username --password test-password\")",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "AspaceSvn::GetEadsJob",
-        "method": "svn_commit"
-      },
-      "user_input": "@aspace_output_base_dir",
-      "confidence": "Medium",
-      "cwe_id": [
-        77
-      ],
-      "note": "Variable comes from configuration, not user input"
     }
   ],
-  "updated": "2023-08-10 11:50:11 -0400",
+  "updated": "2023-08-11 12:41:49 -0400",
   "brakeman_version": "5.4.0"
 }

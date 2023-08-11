@@ -11,7 +11,7 @@ module AspaceSvn
       @errors = []
       @svn_username = Rails.application.config.aspace.svn_username
       @svn_password = Rails.application.config.aspace.svn_password
-      #@svn_host = Rails.application.config.aspace.svn_host
+      # @svn_host = Rails.application.config.aspace.svn_host
       @aspace_output_base_dir = aspace_output_base_dir
     end
 
@@ -66,7 +66,7 @@ module AspaceSvn
       if @errors.empty?
         "EADs successfully exported."
       else
-        "There was a problem exporting the EADs."
+        @errors.join(', ')
       end
     end
 
@@ -74,15 +74,15 @@ module AspaceSvn
 
     def repos
       {
-        # 3 => "mudd/publicpolicy",
-        # 4 => "mudd/univarchives",
-        # 5 => "mss",
-        # 6 => "rarebooks",
-        # 7 => "cotsen",
-        # 8 => "lae",
-        # 9 => "eng",
-        # 10 => "selectors",
-        # 11 => "ga",
+        3 => "mudd/publicpolicy",
+        4 => "mudd/univarchives",
+        5 => "mss",
+        6 => "rarebooks",
+        7 => "cotsen",
+        8 => "lae",
+        9 => "eng",
+        10 => "selectors",
+        11 => "ga",
         12 => "ea"
       }
     end
@@ -111,27 +111,24 @@ module AspaceSvn
       stdout_str, stderr_str, status = Open3.capture3("svn update #{@aspace_output_base_dir}")
       log_stdout(stdout_str)
       log_stderr(stderr_str)
-      if status.success? == false
-        log_stderr("Update failed")
-      end
+      return unless status.success? == false
+      log_stderr("Update failed")
     end
 
     def svn_add
       stdout_str, stderr_str, status = Open3.capture3("svn add --force #{@aspace_output_base_dir}")
       log_stdout(stdout_str)
       log_stderr(stderr_str)
-      if status.success? == false
-        log_stderr("SVN Add failed")
-      end
+      return unless status.success? == false
+      log_stderr("SVN Add failed")
     end
 
     def svn_commit
       stdout_str, stderr_str, status = Open3.capture3("svn commit #{@aspace_output_base_dir} -m 'monthly snapshot of ASpace EADs' --username #{@svn_username} --password #{@svn_password}")
       log_stdout(stdout_str)
       log_stderr(stderr_str)
-      if status.success? == false
-        log_stderr("Commit failed")
-      end
+      return unless status.success? == false
+      log_stderr("Commit failed")
     end
 
     def log_stderr(stderr_str)
