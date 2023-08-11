@@ -33,6 +33,7 @@ gem 'net-sftp'
 gem 'nokogiri', '~> 1.14'
 gem 'omniauth', '~> 1.9'
 gem 'omniauth-cas'
+gem 'open3'
 gem 'pg'
 # Use Puma as the app server
 gem 'puma', '~> 4.3'

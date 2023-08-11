@@ -72,3 +72,11 @@ bundle exec rubocop -a
 ```bash
 bundle exec rspec
 ```
+
+### Brakeman
+
+Run brakeman normally; to ignore false positives run
+
+`brakeman -I`
+
+See [brakeman ignoring false positives documentation](https://brakemanscanner.org/docs/ignoring_false_positives/)
