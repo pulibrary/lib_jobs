@@ -2,20 +2,16 @@
 require 'rails_helper'
 
 RSpec.describe AlmaSubmitCollection::MarcFileProcessor, type: :model do
-  Aws.config[:stub_responses] = true
   let(:filename) { 'host_record.xml' }
   let(:files_sent_to_s3) { [] }
-  let(:s3_credentials) { Aws::Credentials.new(ENV['SCSB_S3_PARTNER_ACCESS_KEY'] = '12345', ENV['SCSB_S3_PARTNER_SECRET_ACCESS_KEY'] = '12345678') }
-  let(:s3_client) { Aws::S3::Client.new(region: 'us-region', credentials: s3_credentials) }
-  let(:s3_partner) { AlmaSubmitCollection::PartnerS3.new }
-  let(:writer) { AlmaSubmitCollection::MarcS3Writer.new }
+  let(:s3_client) { Aws::S3::Client.new(stub_responses: true) }
   let(:processor) { described_class.new(file: File.new(Pathname.new(file_fixture_path).join("alma", filename))) }
   let(:constituent_ids) { ["9933584373506421", "997007993506421", "997008003506421"] }
 
   before do
     stub_alma_bibs(ids: constituent_ids, status: 200, fixture: "constituent_records.xml", apikey: '1234')
-    # allow(s3_partner).to receive(:s3_bucket)
-    # allow(s3_partner).to receive(:s3_client_connection)
+    allow_any_instance_of(AlmaSubmitCollection::PartnerS3).to receive(:s3_bucket).and_return('test-bucket')
+    allow_any_instance_of(AlmaSubmitCollection::PartnerS3).to receive(:s3_client_connection).and_return(s3_client)
   end
   context "when the file has valid MARC records" do
     it 'processed all valid records in a file' do
@@ -35,8 +31,6 @@ RSpec.describe AlmaSubmitCollection::MarcFileProcessor, type: :model do
     let(:constituent_ids) { ["9933584373506421", "997007993506421", "997008003506421"] }
     before do
       stub_alma_bibs(ids: constituent_ids, status: 200, fixture: "constituent_records.xml", apikey: '1234')
-      allow(writer).to receive(:done).and_return(files_sent_to_s3)
-      # allow(s3_client).to receive(:put_object).with(bucket: 'test', key: 'data-feed/submitcollections/PUL/cgd_protection/scsb_abc_123').and_return(files_sent_to_s3)
       s3_client.stub_responses(
         :put_object, lambda { |context|
           files_sent_to_s3 << Zlib::GzipReader.new(context.params[:body])

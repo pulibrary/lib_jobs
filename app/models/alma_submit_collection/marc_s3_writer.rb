@@ -40,7 +40,7 @@ module AlmaSubmitCollection
         compressor = Zlib::GzipWriter.new(compressed)
         compressor.write file_contents.read
         compressor.flush
-        client.put_object(bucket:, body: compressed, key: "#{ENV['SCSB_S3_UPDATES']}/scsb_#{File.basename(file_path)}")
+        client.put_object(bucket:, body: compressed, key: "#{Rails.configuration.scsb_s3[:scsb_s3_updates]}/scsb_#{File.basename(file_path)}")
       end
       @current_file.unlink
     end
