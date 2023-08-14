@@ -1,7 +1,16 @@
 GIT
+  remote: https://github.com/pulibrary/marc_cleanup.git
+  revision: 81c8857800a02b1e0bebd3ef773fc8b6a51ec043
+  tag: v0.9.0
+  specs:
+    marc_cleanup (0.9.0)
+      marc (~> 1.0)
+
+GIT
   remote: https://github.com/voormedia/flipflop.git
   revision: 0d70d8e33483a9c0282ed8d6bca9c5ccd61e61e8
   ref: 0d70d8e33483a9c0282ed8d6bca9c5ccd61e61e8
+  tag: v0.9.0
   specs:
     flipflop (2.7.1)
       activesupport (>= 4.0)
@@ -84,6 +93,22 @@ GEM
       json (~> 2.0)
       nokogiri (~> 1.10)
     ast (2.4.2)
+    aws-eventstream (1.2.0)
+    aws-partitions (1.794.0)
+    aws-sdk-core (3.180.0)
+      aws-eventstream (~> 1, >= 1.0.2)
+      aws-partitions (~> 1, >= 1.651.0)
+      aws-sigv4 (~> 1.5)
+      jmespath (~> 1, >= 1.6.1)
+    aws-sdk-kms (1.71.0)
+      aws-sdk-core (~> 3, >= 3.177.0)
+      aws-sigv4 (~> 1.1)
+    aws-sdk-s3 (1.132.0)
+      aws-sdk-core (~> 3, >= 3.179.0)
+      aws-sdk-kms (~> 1)
+      aws-sigv4 (~> 1.6)
+    aws-sigv4 (1.6.0)
+      aws-eventstream (~> 1, >= 1.0.2)
     axe-core-api (4.7.0)
       dumb_delegator
       virtus
@@ -195,6 +220,7 @@ GEM
     jaro_winkler (1.5.4)
     jbuilder (2.10.1)
       activesupport (>= 5.0.0)
+    jmespath (1.6.2)
     json (2.6.3)
     jwt (2.2.2)
     kramdown (2.3.1)
@@ -221,7 +247,7 @@ GEM
     matrix (0.4.2)
     method_source (1.0.0)
     mini_mime (1.1.2)
-    minitest (5.18.1)
+    minitest (5.19.0)
     msgpack (1.6.0)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
@@ -421,7 +447,7 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.8.2)
-    unicode-display_width (2.3.0)
+    unicode-display_width (2.4.2)
     virtus (2.0.0)
       axiom-types (~> 0.1)
       coercible (~> 1.0)
@@ -462,12 +488,14 @@ GEM
 PLATFORMS
   arm64-darwin-21
   arm64-darwin-22
+  x86_64-darwin-20
   x86_64-darwin-21
   x86_64-darwin-22
   x86_64-linux
 
 DEPENDENCIES
   archivesspace-client
+  aws-sdk-s3
   axe-core-api
   axe-core-rspec
   bcrypt_pbkdf (~> 1.1)
@@ -495,6 +523,7 @@ DEPENDENCIES
   library_stdnums
   listen (>= 3.0.5)
   marc
+  marc_cleanup!
   matrix
   multipart-post
   net-ldap
