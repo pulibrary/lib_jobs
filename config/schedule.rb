@@ -77,3 +77,8 @@ end
 every :thursday, at: '8:00 am', roles: [:prod] do # The server is in UTC, so that is 8:00 UTC
   rake "lib_jobs:alma_bib_norm"
 end
+
+# Run on production every day at 8:00am EST or 9:00am EDT
+every 1.day, at: '12:00 pm', roles: [:prod] do
+  rake "lib_jobs:process_submit_collection"
+end

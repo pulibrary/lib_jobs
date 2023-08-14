@@ -146,4 +146,10 @@ namespace :lib_jobs do
     job = Oclc::DataSyncExceptionJob.new
     job.run
   end
+
+  desc "Submit collection: download PUL records from ALMA and upload them to SCSB"
+  task process_submit_collection: [:environment] do
+    job = AlmaSubmitCollection::AlmaSubmitCollectionJob.new
+    job.run
+  end
 end
