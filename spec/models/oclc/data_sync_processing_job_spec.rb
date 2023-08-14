@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Oclc::BibProcessingJob, type: :model do
-  subject(:bib_processing_job) { described_class.new }
+RSpec.describe Oclc::DataSyncProcessingJob, type: :model do
+  subject(:processing_job) { described_class.new }
   let(:working_file_name_1) { 'xref_report_20230713_103005835_1.mrc' }
   let(:working_file_name_2) { 'xref_report_20230713_103005835_2.mrc' }
   let(:new_file_for_alma_path_1) { "spec/fixtures/oclc/processing/#{working_file_name_1}" }
   let(:new_file_for_alma_path_2) { "spec/fixtures/oclc/processing/#{working_file_name_2}" }
 
   it 'can be instantiated' do
-    expect(bib_processing_job).to be
+    expect(processing_job).to be
   end
 
   context 'with files on the OCLC sftp server' do
@@ -53,7 +53,7 @@ RSpec.describe Oclc::BibProcessingJob, type: :model do
     end
 
     it 'downloads only the relevant files' do
-      expect(bib_processing_job.run).to be_truthy
+      expect(processing_job.run).to be_truthy
       expect(sftp_session).to have_received(:download!).with(file_full_path_one, temp_file_one)
       expect(sftp_session).to have_received(:download!).with(file_full_path_two, temp_file_two)
     end

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Oclc
-  class BibProcessingFile
+  class DataSyncProcessingFile
     attr_reader :temp_file, :file_date, :max_records_per_file
     def initialize(temp_file:)
       @temp_file = temp_file
@@ -55,8 +55,8 @@ module Oclc
       writer = nil
       @record_accumulator.each do |mms_id, record|
         writer = marc_writer(rec_num:, writer:)
-        record = marc_record(mms_id:, record:)
-        writer.write(record)
+        processing_record = marc_record(mms_id:, record:)
+        writer.write(processing_record)
         rec_num += 1
       end
       writer&.close
@@ -82,8 +82,9 @@ module Oclc
     end
 
     def marc_record(mms_id:, record:)
-      record = MARC::Record.new
-      record.append(MARC::ControlField.new('001', mms_id.to_s))
+      record = record.first
+      marc_record = MARC::Record.new
+      marc_record.append(MARC::ControlField.new('001', mms_id.to_s))
       field = MARC::DataField.new('914', ' ', ' ')
       field.append(MARC::Subfield.new('a', record[:formatted_oclc_num]))
       field.append(MARC::Subfield.new('b', 'OCoLC'))
@@ -91,8 +92,8 @@ module Oclc
       field.append(MARC::Subfield.new('d', @process_date))
       field.append(MARC::Subfield.new('e', 'unprocessed'))
       field.append(MARC::Subfield.new('f', record[:oclc_num]))
-      record.append(field)
-      record
+      marc_record.append(field)
+      marc_record
     end
 
     def format_oclc_number(oclc_num)
