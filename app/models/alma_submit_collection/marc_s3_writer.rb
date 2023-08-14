@@ -39,8 +39,8 @@ module AlmaSubmitCollection
         compressed = StringIO.new
         compressor = Zlib::GzipWriter.new(compressed)
         compressor.write file_contents.read
-        compressor.flush
-        client.put_object(bucket:, body: compressed, key: "#{Rails.configuration.scsb_s3[:scsb_s3_updates]}/scsb_#{File.basename(file_path)}")
+        compressor.close
+        client.put_object(bucket:, body: compressed.string, key: "#{Rails.configuration.scsb_s3[:scsb_s3_updates]}/scsb_#{File.basename(file_path)}")
       end
       @current_file.unlink
     end
@@ -49,7 +49,7 @@ module AlmaSubmitCollection
 
     def filename_components
       components = ["scsb_submitcollection_#{@file_type}"]
-      components << "#{Time.current.iso8601}.marcxml"
+      components << "#{Time.current.iso8601}.marcxml.gz"
       components
     end
 
