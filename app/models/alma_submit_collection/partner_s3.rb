@@ -9,7 +9,7 @@ module AlmaSubmitCollection
     end
 
     def s3_bucket
-      ENV['SCSB_S3_BUCKET_NAME'] || 'scsb-uat'
+      Rails.configuration.scsb_s3[:scsb_s3_bucket_name] || 'scsb-uat'
     end
 
     def s3_client_connection

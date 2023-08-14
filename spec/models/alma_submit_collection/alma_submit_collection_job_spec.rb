@@ -10,6 +10,7 @@ RSpec.describe AlmaSubmitCollection::AlmaSubmitCollectionJob, type: :model do
     let(:sftp_dir) { instance_double("Net::SFTP::Operations::Dir") }
     let(:sftp_file_factory) { Net::SFTP::Operations::FileFactory.new(sftp_session) }
     let(:file_size) { 1028 }
+    let(:s3_client) { Aws::S3::Client.new(stub_responses: true) }
 
     before do
       allow(file_attributes).to receive(:size).and_return file_size
@@ -19,14 +20,12 @@ RSpec.describe AlmaSubmitCollection::AlmaSubmitCollectionJob, type: :model do
       allow(sftp_session).to receive(:rename)
       allow(sftp_file_factory).to receive(:open).and_return File.new(Pathname.new(file_fixture_path).join("alma", alma_recap_filename))
       allow(Net::SFTP).to receive(:start).and_yield sftp_session
-    end
-
-    it "runs" do
-      described_class.new(s3_client: Aws::S3::Client.new).run
+      allow_any_instance_of(AlmaSubmitCollection::PartnerS3).to receive(:s3_bucket).and_return('test-bucket')
+      allow_any_instance_of(AlmaSubmitCollection::PartnerS3).to receive(:s3_client_connection).and_return(s3_client)
+      described_class.new.run
     end
 
     it "logs the number of records processed" do
-      described_class.new(s3_client: Aws::S3::Client.new).run
       data_last = DataSet.last
       expect(data_last.data).to eq "7 records processed."
     end
