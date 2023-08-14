@@ -36,7 +36,10 @@ module Oclc
 
     def handle(data_set:)
       working_file_names = report_downloader.run
-      uploaded_file_paths = upload_files_to_alma_sftp(working_file_names:)
+      report_uploader = Oclc::ReportUploader.new(working_file_names:,
+                                                 working_file_directory:,
+                                                 output_sftp_base_dir:)
+      uploaded_file_paths = report_uploader.run
       data_set.data = "Files created and uploaded to lib-sftp: #{uploaded_file_paths.join(', ')}"
       data_set
     end
