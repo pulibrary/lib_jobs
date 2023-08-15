@@ -2,6 +2,8 @@
 require 'rails_helper'
 
 RSpec.describe Oclc::DataSyncProcessingJob, type: :model do
+  include_context 'sftp'
+
   subject(:processing_job) { described_class.new }
   let(:working_file_name_1) { 'xref_report_20230713_103005835_1.mrc' }
   let(:working_file_name_2) { 'xref_report_20230713_103005835_2.mrc' }
@@ -30,8 +32,6 @@ RSpec.describe Oclc::DataSyncProcessingJob, type: :model do
     let(:sftp_entry2) { instance_double("Net::SFTP::Protocol::V01::Name", name: file_name_to_skip_one) }
     let(:sftp_entry3) { instance_double("Net::SFTP::Protocol::V01::Name", name: file_name_to_skip_two) }
     let(:sftp_entry4) { instance_double("Net::SFTP::Protocol::V01::Name", name: file_name_to_download_two) }
-    let(:sftp_session) { instance_double("Net::SFTP::Session", dir: sftp_dir) }
-    let(:sftp_dir) { instance_double("Net::SFTP::Operations::Dir") }
 
     around do |example|
       File.delete(new_file_for_alma_path_1) if File.exist?(new_file_for_alma_path_1)
@@ -49,13 +49,18 @@ RSpec.describe Oclc::DataSyncProcessingJob, type: :model do
       allow(sftp_dir).to receive(:foreach).and_yield(sftp_entry1).and_yield(sftp_entry2).and_yield(sftp_entry3).and_yield(sftp_entry4)
       allow(sftp_session).to receive(:download!).with(file_full_path_one, temp_file_one)
       allow(sftp_session).to receive(:download!).with(file_full_path_two, temp_file_two)
-      allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
+      allow(sftp_session).to receive(:upload!).twice
     end
 
     it 'downloads only the relevant files' do
       expect(processing_job.run).to be_truthy
       expect(sftp_session).to have_received(:download!).with(file_full_path_one, temp_file_one)
       expect(sftp_session).to have_received(:download!).with(file_full_path_two, temp_file_two)
+    end
+
+    it 'uploads working files to lib-sftp' do
+      processing_job.run
+      expect(sftp_session).to have_received(:upload!).with(new_file_for_alma_path_1, "/alma/datasync_processing/#{working_file_name_1}").twice
     end
   end
 end

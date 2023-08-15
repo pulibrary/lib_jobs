@@ -6,7 +6,7 @@ default: &default
   data_sync_report_path: '/xfer/metacoll/reports/'
   max_records_per_file: 20_000
   exceptions_working_directory: '/tmp/datasync_processing/exceptions'
-  exceptions_output_path: '/alma/datasync_processing'
+  datasync_output_path: '/alma/datasync_processing'
   processing_working_directory: '/tmp/datasync_processing/processing'
 
 development:

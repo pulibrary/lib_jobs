@@ -147,6 +147,12 @@ namespace :lib_jobs do
     job.run
   end
 
+  desc "download data sync processed from oclc_sftp, process, and upload to lib-sftp"
+  task process_data_sync_processed: [:environment] do
+    job = Oclc::DataSyncProcessingJob.new
+    job.run
+  end
+
   desc "Submit collection: download PUL records from ALMA and upload them to SCSB"
   task process_submit_collection: [:environment] do
     job = AlmaSubmitCollection::AlmaSubmitCollectionJob.new

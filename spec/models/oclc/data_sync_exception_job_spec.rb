@@ -61,9 +61,10 @@ RSpec.describe Oclc::DataSyncExceptionJob, type: :model do
     end
 
     it 'uploads working files to lib-sftp' do
-      data_sync_exception_job.upload_files_to_alma_sftp(working_file_names: [working_file_name_1, working_file_name_2])
-      expect(sftp_session).to have_received(:upload!).with(new_file_for_alma_path_1, alma_upload_path_1)
-      expect(sftp_session).to have_received(:upload!).with(new_file_for_alma_path_2, alma_upload_path_2)
+      data_sync_exception_job.run
+      # The two upload paths are the same in the test environment because usually the timestamp
+      # would be different, but we've frozen time for the rest of the tests & mocks to work
+      expect(sftp_session).to have_received(:upload!).with(new_file_for_alma_path_1, alma_upload_path_1).twice
     end
 
     it 'records data to display in the UI' do

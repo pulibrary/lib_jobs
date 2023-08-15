@@ -35,6 +35,7 @@ RSpec.describe Oclc::DataSyncProcessingFile, type: :model do
       File.delete(new_file_for_alma_path_1) if File.exist?(new_file_for_alma_path_1)
       File.delete(new_file_for_alma_path_2) if File.exist?(new_file_for_alma_path_2)
       temp_file.write(File.open(oclc_fixture_file_path).read)
+      temp_file.rewind
       Timecop.freeze(freeze_time) do
         example.run
       end

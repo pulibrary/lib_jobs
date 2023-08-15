@@ -15,11 +15,9 @@ module Oclc
     def process
       accumulate_records
       write_marc_records
-      true
     end
 
     def accumulate_records
-      temp_file.rewind
       File.readlines(temp_file).each do |line|
         mms_id = mms_id(line:)
         next if mms_id.zero?
@@ -51,6 +49,7 @@ module Oclc
     end
 
     def write_marc_records
+      current_working_file_name = working_file_name
       rec_num = 0
       writer = nil
       @record_accumulator.each do |mms_id, record|
@@ -60,6 +59,7 @@ module Oclc
         rec_num += 1
       end
       writer&.close
+      current_working_file_name
     end
 
     def marc_writer(rec_num:, writer:)

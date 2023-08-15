@@ -10,8 +10,8 @@ module Oclc
                                                                  recent: true),
                    alma_sftp: AlmaSftp.new,
                    working_file_directory: Rails.application.config.oclc_sftp.exceptions_working_directory,
-                   output_sftp_base_dir: Rails.application.config.oclc_sftp.exceptions_output_path)
-      super(category: "OclcDataSyncException")
+                   output_sftp_base_dir: Rails.application.config.oclc_sftp.datasync_output_path)
+      super(category: "Oclc:DataSyncException")
       @report_downloader = report_downloader
       @alma_sftp = alma_sftp
       @working_file_directory = working_file_directory
