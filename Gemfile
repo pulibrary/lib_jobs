@@ -78,7 +78,5 @@ group :test do
   gem 'selenium-webdriver'
   gem 'simplecov', require: false
   gem 'timecop'
-  # Easy installation and use of chromedriver to run system tests with Chrome
-  gem 'webdrivers'
   gem 'webmock'
 end
