@@ -93,5 +93,26 @@ RSpec.describe AspaceSvn::GetEadsJob do
         end
       end
     end
+    describe "write_eads_to_file" do
+      context "with XML syntax errors" do
+        let(:dir) { "tmp/subversion_eads/rarebooks" }
+        let(:repo) { 6 }
+        let(:id) { 1234 }
+        before do
+          # Raising the error within the method to simulate a parsing failure
+          allow(Rails.logger).to receive(:info).and_call_original
+          allow(Rails.logger).to receive(:info).with("Now processing 6/1234").and_raise(Nokogiri::XML::SyntaxError)
+        end
+        it "records the error and completes the job" do
+          out = described_class.new
+          out.handle(data_set: DataSet.new(category: "EAD_export"))
+          expect(out.report).to eq "Unable to process XML for record 6/1234, please check the source XML for errors"
+
+          # Ensure the process continutes after logging exception
+          expect(FileUtils.identical?(Rails.root.join('tmp', 'subversion_eads', 'selectors', 'MyEadID.EAD.xml'),
+                                      file_fixture('ead_corrected.xml'))).to be true
+        end
+      end
+    end
   end
 end

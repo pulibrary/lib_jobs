@@ -83,6 +83,10 @@ module AspaceSvn
       ead.child.add_namespace('ead', 'http://www.loc.gov/ead/ead')
       file << ead
       file.close
+    rescue Nokogiri::XML::SyntaxError
+      err = "Unable to process XML for record #{repo}/#{id}, please check the source XML for errors"
+      log_stdout(err)
+      log_stderr(err)
     end
 
     def commit_eads_to_svn
