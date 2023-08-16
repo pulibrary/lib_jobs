@@ -44,6 +44,7 @@ module IlsApps
     config.peoplesoft = config_for(:peoplesoft)
     config.pod = config_for(:pod)
     config.aspace = config_for(:aspace)
+    config.scsb_s3 = config_for(:scsb_s3)
   end
 end
 
