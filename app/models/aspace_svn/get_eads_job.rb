@@ -38,7 +38,7 @@ module AspaceSvn
         get_resource_ids_for_repo(repo)
         # get eads from ids
         get_eads_from_ids(@dir, repo, @resource_ids)
-        commit_eads_to_svn(path)
+        commit_eads_to_svn(path:)
       end
       data_set.data = report
       data_set.report_time = Time.zone.now
@@ -85,10 +85,10 @@ module AspaceSvn
       file.close
     end
 
-    def commit_eads_to_svn(path)
+    def commit_eads_to_svn(path: nil)
       svn_update
       svn_add
-      svn_commit(path)
+      svn_commit(path:)
     end
 
     def svn_update
@@ -107,7 +107,7 @@ module AspaceSvn
       log_stderr("SVN Add failed")
     end
 
-    def svn_commit(path)
+    def svn_commit(path: nil)
       stdout_str, stderr_str, status = Open3.capture3("svn commit #{@aspace_output_base_dir}/#{path} -m 'monthly snapshot of ASpace EADs' --username #{@svn_username} --password #{@svn_password}")
       log_stdout(stdout_str)
       log_stderr(stderr_str)
