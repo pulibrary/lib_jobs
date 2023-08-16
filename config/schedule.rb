@@ -53,6 +53,18 @@ every :tuesday, at: '2:30 pm', roles: [:prod] do # The server is in UTC, so this
   rake "lib_jobs:process_bursar_fines"
 end
 
+# Run on production Wednesday at 10:00am EST or 11:00am EDT
+# After Alma submits data to OCLC every Tuesday at 7:00 pm Eastern
+every :wednesday, at: '12:00 pm', roles: [:prod] do
+  rake "lib_jobs:process_data_sync_exceptions"
+end
+
+# Run on production Wednesday at 10:30am EST or 11:30am EDT
+# After Alma submits data to OCLC every Tuesday at 7:00 pm Eastern
+every :wednesday, at: '12:30 pm', roles: [:prod] do
+  rake "lib_jobs:process_data_sync_processed"
+end
+
 # Run on production Thursday at 10:30am EST or 11:30am EDT (after the records are published on Sunday)
 every :thursday, at: '2:30 pm', roles: [:prod] do # The server is in UTC, so this is 15:30 UTC
   rake "lib_jobs:process_bursar_credits"
