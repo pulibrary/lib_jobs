@@ -5,7 +5,7 @@ module AlmaSubmitCollection
   # MARC records from the Alma API
   class AlmaApi
     def initialize
-      @conn = Faraday.new(LibJobs.config[:alma_api_uri]) do |faraday|
+      @conn = Faraday.new(LibJobs.config[:alma_region]) do |faraday|
         faraday.request   :url_encoded
         faraday.response  :logger, nil, { headers: true, bodies: false }
         faraday.adapter   Faraday.default_adapter
