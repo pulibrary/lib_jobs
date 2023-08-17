@@ -80,8 +80,8 @@ every 1.day, at: ['12:00 pm', '6:00 pm'], roles: [:prod] do
   rake " lib_jobs:generate_database_list_csv"
 end
 
-# Run once a month
-every '0 6 1 * *', roles: [:prod] do
+# Run once a month on the first Saturday
+every '0 6 1-7 * */6', roles: [:prod] do
   rake " lib_jobs:send_eads"
 end
 
