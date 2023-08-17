@@ -5,7 +5,7 @@ module AlmaSubmitCollection
   # MARC records from the Alma API
   class AlmaApi
     def initialize
-      @conn = Faraday.new(LibJobs.config[:alma_api_uri]) do |faraday|
+      @conn = Faraday.new(LibJobs.config[:alma_region]) do |faraday|
         faraday.request   :url_encoded
         faraday.response  :logger, nil, { headers: true, bodies: false }
         faraday.adapter   Faraday.default_adapter
@@ -23,7 +23,7 @@ module AlmaSubmitCollection
         req.url 'almaws/v1/bibs'
         req.headers['Content-Type'] = 'application/xml'
         req.headers['Accept'] = 'application/xml'
-        req.params['apikey'] = LibJobs.config[:alma_api_key]
+        req.params['apikey'] = LibJobs.config[:alma_bib_api_key]
         req.params['mms_id'] = mms_ids.join(',')
       end
     end

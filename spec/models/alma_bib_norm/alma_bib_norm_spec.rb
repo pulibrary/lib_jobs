@@ -37,7 +37,7 @@ RSpec.describe AlmaBibNorm::AlmaBibNorm, type: :model do
   describe "submit job to Alma API" do
     context "with a successful response" do
       before do
-        stub_request(:post, "https://alma/almaws/v1/conf/jobs/M7407373650006421?apikey=#{LibJobs.config[:alma_api_key]}&op=run")
+        stub_request(:post, "https://api-na.hosted.exlibrisgroup.com/almaws/v1/conf/jobs/M7407373650006421?apikey=#{LibJobs.config[:alma_api_key]}&op=run")
           .to_return(status: 200, body: success, headers:)
       end
 
@@ -51,7 +51,7 @@ RSpec.describe AlmaBibNorm::AlmaBibNorm, type: :model do
 
     context "with an unsuccessful response" do
       before do
-        stub_request(:post, "https://alma/almaws/v1/conf/jobs/M7407373650006421?apikey=#{LibJobs.config[:alma_api_key]}&op=run")
+        stub_request(:post, "https://api-na.hosted.exlibrisgroup.com/almaws/v1/conf/jobs/M7407373650006421?apikey=#{LibJobs.config[:alma_api_key]}&op=run")
           .to_return(status: 400, body: error, headers:)
       end
 
