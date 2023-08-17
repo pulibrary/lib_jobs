@@ -23,7 +23,7 @@ module AlmaSubmitCollection
         req.url 'almaws/v1/bibs'
         req.headers['Content-Type'] = 'application/xml'
         req.headers['Accept'] = 'application/xml'
-        req.params['apikey'] = LibJobs.config[:alma_api_key]
+        req.params['apikey'] = LibJobs.config[:alma_bib_api_key]
         req.params['mms_id'] = mms_ids.join(',')
       end
     end
