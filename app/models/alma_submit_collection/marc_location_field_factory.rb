@@ -27,6 +27,7 @@ module AlmaSubmitCollection
 
     def call_num_from852
       call_num = @original_field['h'].to_s
+      call_num = call_num.dup
       call_num << " #{@original_field['i']}" if @original_field['i']
       call_num.strip
     end
