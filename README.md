@@ -1,23 +1,41 @@
 # ILS Jobs
 
 ## Connects to
-  * SFX
-  * Voyager
-  * Future Alma File integration
-
-## Access Databases
-  * Oracle
-  * MySQL (MariaDB)
+  * Alma SFTP for file based integrations
+  * Alma NCIP 
+  * OCLC SFTP Server
+  * Archivesspace API
+  * Alma APIs to start of jobs
+  * OIT Person API
+  * Data Warehouse File Server
+  * Peoplesoft File Server
+  * Ombase
+  * SCSB Middleware S3 Server
+  * Platform for Open Data (POD) API
+  * Springshare Libguides and Libcal APIs
+  * Library 
 
 ## Tasks
-  * Statistics
-  * Generate records from SFX
-  * Download records from OCLC
+  * Alma Fund Adjustment
+  * Alma Invoice Status
+  * Alma Oclc Number Normalization
+  * Alma renewal of SCSB partner materials via NCIP
+  * Alma Patron Adds/Updates
+  * Peoplesoft Bursar Transfer
+  * Peoplesoft Vocher Feed
+  * Aspace2Alma Collection Record Synchronization
+  * SCSB SubmitCollection Record Updates
+  * POD Marc Record Adds/Updates
+  * OCLC Data Sync Successful Record Update Processing
+  * OCLC Data Sync Failed Record Update Processing
+  * Library Current Event List
+  * Library Databases List Publishing
+  * Library Staff List 
 
 ## Output
-  * tableau.princeton.edu
-  * Google Drive
-  * FTP files
+  * CSV Files for download by other applications
+  * Various text file formats for SFTP/Fileshare Processing
+  * MarcXML for various purposes
 
 ## Prerequisites
 - Ruby (3.1.0 or later)
@@ -43,13 +61,6 @@ bundle exec rake db:create db:migrate
 bundle exec rake servers:start
 bundle exec foreman start
 bundle exec rails db:seed
-```
-
-Alternatively, in place of `bundle exec foreman start`, one may invoke the following for running the Rails server and Webpack separately:
-```bash
-bundle exec rails server
-# And please invoke this in another terminal:
-bundle exec webpack-dev-server
 ```
 
 Then please visit the server running locally at [http://localhost:3000](http://localhost:3000)
