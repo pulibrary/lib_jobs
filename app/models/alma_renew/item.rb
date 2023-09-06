@@ -52,7 +52,7 @@ module AlmaRenew
       case user_group
       when "SENR Senior Undergraduate"
         calculate_by_date(this_year_cutoff_mon: 5, this_year_cutoff_day: 10, due_date_mon: 5, due_date_day: 10)
-      when "GRAD Graduate Student", "P Faculty & Professional"
+      when "GRAD Graduate Student", "P Faculty & Professional", "Affiliate-P Faculty Affiliate"
         calculate_by_date(this_year_cutoff_mon: 4, this_year_cutoff_day: 30, due_date_mon: 6, due_date_day: 15)
       when "GST Guest Patron"
         DateTime.now + 28.days
