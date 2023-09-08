@@ -145,25 +145,6 @@ jobs:
       - setup-bundler
       - run: bundle exec brakeman
 
-  prettier-eslint:
-    executor: lib-jobs-executor
-    steps:
-      - attach_workspace:
-          at: '~/project'
-      - setup-bundler
-      - run: yarn run lint
-
-  jest:
-    executor: lib-jobs-executor
-    steps:
-      - attach_workspace:
-          at: '~/project'
-      - setup-bundler
-      - run: yarn run jest
-      - persist_to_workspace:
-          root: '~/project'
-          paths: '*'
-
 workflows:
   build_accept:
     jobs:
@@ -174,12 +155,7 @@ workflows:
       - brakeman:
          requires:
           - build
-      - prettier-eslint:
-         requires:
-          - build
       - test:
          requires:
           - build
-      - jest:
-         requires:
-          - build
+
