@@ -7,23 +7,10 @@
     "vue-template-compiler": "^2.6.12"
   },
   "devDependencies": {
-    "eslint-config-standard": "^17.1.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier-vue": "^4.2.0",
-    "eslint-plugin-promise": "^6.1.1",
-    "eslint-plugin-vue": "^9.15.0",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^8.5.1",
     "sass": "^1.57.1",
     "vite": "^4.0.5",
     "vite-plugin-ruby": "^3.1.2"
-  },
-  "scripts": {
-    "prettier": "prettier --check app/javascript/**/*{vue,js} .*js .*json",
-    "prettier-format": "prettier --write app/javascript/**/*{vue,js} .*js .*json",
-    "lint": "prettier-eslint --eslint-config-path .eslintrc.js --config .prettierrc.json app/javascript/**/*{js,vue} .*js .*json",
-    "format": "prettier-eslint --write --eslint-config-path .eslintrc.js --config .prettierrc.json app/javascript/**/*{js,vue} .*js .*json",
-    "jest": "jest --config jest.config.js --coverage --passWithNoTests"
   }
 }
