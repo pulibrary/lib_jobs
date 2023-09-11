@@ -41,3 +41,5 @@ set :linked_dirs, %w[open_marc_records subversion_eads]
 # set :ssh_options, verify_host_key: :secure
 
 set :yarn_flags, '--silent --no-progress'
+
+set :whenever_roles, -> { [:cron_prod1, :cron_prod2] }
