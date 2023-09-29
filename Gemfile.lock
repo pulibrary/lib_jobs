@@ -10,7 +10,6 @@ GIT
   remote: https://github.com/voormedia/flipflop.git
   revision: 0d70d8e33483a9c0282ed8d6bca9c5ccd61e61e8
   ref: 0d70d8e33483a9c0282ed8d6bca9c5ccd61e61e8
-  tag: v0.9.0
   specs:
     flipflop (2.7.1)
       activesupport (>= 4.0)
