@@ -9,7 +9,7 @@ class WebEvents::EventsFeedGenerator < LibJob
   end
 
   def events
-    @events = URI.open(WebEvents::LibcalUrl.new.to_s) do |file|
+    @events = URI(WebEvents::LibcalUrl.new.to_s).open do |file|
       raw_events = Icalendar::Calendar.parse(file).first.events
       raw_events.map { |event| WebEvents::Event.new(event) }
     end
