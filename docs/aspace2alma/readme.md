@@ -22,7 +22,7 @@ loop each Item
   Lib Jobs->>+Lib Jobs: constructs item records from top_container records that 1.are at ReCAP 2. have a barcode 3.are not on the Alma barcode report
   Lib Jobs->>+Lib Jobs: adds select records to a single <marc:collection> wrapper
 end
-Lib Jobs->>lib-sftp: sends MARC-XML file to lib-sftp; renames old file
+Lib Jobs->>lib-sftp: sends MARC-XML file to lib-sftp, renames old file
 Alma->>lib-sftp: ASpace to Alma import profile loads MARC-XML file at 8am daily
 ```
 
