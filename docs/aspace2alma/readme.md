@@ -14,7 +14,7 @@ accDescr {
   ASpace to Alma imports profile loads MARC-XML file at 8am daily.
 }
 Alma->>lib-sftp: Alma Analytics sends barcode report at 1am daily
-Lib Jobs->>lib-sftp: aspace2alma requests barcode report at 3:30am daily; deletes report once downloaded
+Lib Jobs->>lib-sftp: aspace2alma requests barcode report at 3:30am daily, deletes report once downloaded
 Lib Jobs->>ASpace: aspace2alma requests MARC-XML for all collection-level ASpace records at 3:30am daily
 loop each Item
   Lib Jobs->>+Lib Jobs: applies Special Collections changes to default MARC-XML export
