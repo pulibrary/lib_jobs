@@ -4,18 +4,26 @@ This workflow loads select collection-level archival records from ArchivesSpace 
 sequenceDiagram
 accTitle: Diagram depicting loading select records from ArchivesSpace to Alma.
 accDescr {
-  aspace2alma requests MARC-XML for all collection-level ASpace records at 4am daily.
+  Alma Analytics sends barcode report at 11pm daily.
+  aspace2alma requests barcode report at 2:30am daily; deletes report once downloaded.
+  aspace2alma requests MARC-XML for all collection-level ASpace records at 2:30am daily.
   Lib Jobs applies Special Collections changes to default MARC-XML export and adds select records to a single <marc:collection> wrapper.
-  Lib Jobs sends MARC-XML file to lib-sftp.
-  ASpace to Alma imports profile loads MARC-XML file at 8am daily.
+  Lib Jobs gets top_container records from ASpace.
+  Lib Jobs constructs item records from top_container records that 1.are at ReCAP 2. have a barcode 3.are not on the Alma barcode report.
+  Lib Jobs sends MARC-XML file to lib-sftp; renames old file.
+  ASpace to Alma imports profile loads MARC-XML file at 9am daily.
 }
-Lib Jobs->>ASpace: aspace2alma requests MARC-XML for all collection-level ASpace records at 4am daily
+Alma->>lib-sftp: Alma Analytics sends barcode report at 11pm daily
+Lib Jobs->>lib-sftp: aspace2alma requests barcode report at 2:30am daily, deletes report once downloaded
+Lib Jobs->>ASpace: aspace2alma requests MARC-XML for all collection-level ASpace records at 2:30am daily
 loop each Item
   Lib Jobs->>+Lib Jobs: applies Special Collections changes to default MARC-XML export
+  Lib Jobs->>+Lib Jobs: gets top_container records from ASpace
+  Lib Jobs->>+Lib Jobs: constructs item records from top_container records that 1.are at ReCAP 2. have a barcode 3.are not on the Alma barcode report
   Lib Jobs->>+Lib Jobs: adds select records to a single <marc:collection> wrapper
 end
-Lib Jobs->>lib-sftp: sends MARC-XML file to lib-sftp
-Alma->>lib-sftp: ASpace to Alma import profile loads MARC-XML file at 8am daily
+Lib Jobs->>lib-sftp: sends MARC-XML file to lib-sftp, renames old file
+Alma->>lib-sftp: ASpace to Alma import profile loads MARC-XML file at 9am daily
 ```
 
 ### Key
