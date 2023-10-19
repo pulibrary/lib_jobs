@@ -4,7 +4,7 @@ This workflow loads select collection-level archival records from ArchivesSpace 
 sequenceDiagram
 accTitle: Diagram depicting loading select records from ArchivesSpace to Alma.
 accDescr {
-  Alma Analytics sends barcode report at 11pm daily.
+  Alma Analytics sends barcode report at 1am daily.
   aspace2alma requests barcode report at 2:30am daily; deletes report once downloaded.
   aspace2alma requests MARC-XML for all collection-level ASpace records at 2:30am daily.
   Lib Jobs applies Special Collections changes to default MARC-XML export and adds select records to a single <marc:collection> wrapper.
@@ -13,7 +13,7 @@ accDescr {
   Lib Jobs sends MARC-XML file to lib-sftp; renames old file.
   ASpace to Alma imports profile loads MARC-XML file at 9am daily.
 }
-Alma->>lib-sftp: Alma Analytics sends barcode report at 11pm daily
+Alma->>lib-sftp: Alma Analytics sends barcode report at 1am daily
 Lib Jobs->>lib-sftp: aspace2alma requests barcode report at 2:30am daily, deletes report once downloaded
 Lib Jobs->>ASpace: aspace2alma requests MARC-XML for all collection-level ASpace records at 2:30am daily
 loop each Item
