@@ -30,7 +30,7 @@ class WebDatabaseList::Database
     @url = json['url']
     @friendly_url = json['friendly_url']
     @subjects = if json['subjects'].present?
-                  json['subjects'].map { |subject| subject['name'] }.join(';')
+                  json['subjects'].pluck('name').join(';')
                 else
                   ''
                 end

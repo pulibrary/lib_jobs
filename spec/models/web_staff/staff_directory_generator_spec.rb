@@ -37,7 +37,7 @@ RSpec.describe WebStaff::StaffDirectoryGenerator, type: :model do
   end
 
   after do
-    DataSet.all.each { |data_set| File.delete(data_set.data_file) }
+    DataSet.find_each { |data_set| File.delete(data_set.data_file) }
   end
 
   describe "#run" do

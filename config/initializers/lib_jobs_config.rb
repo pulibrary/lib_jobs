@@ -15,7 +15,7 @@ module LibJobs
   end
 
   def yaml
-    ERB.new(File.read(Rails.root.join("config", "config.yml"))).result
+    ERB.new(Rails.root.join("config", "config.yml").read).result
   end
 
   module_function :config, :yaml, :environment_yaml, :all_environment_config
