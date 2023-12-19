@@ -30,7 +30,9 @@ module AlmaPodRecords
         sftp.dir.foreach(@input_sftp_base_dir) do |entry|
           next unless /#{@file_pattern}/.match?(entry.name)
           next unless entry.attributes.mtime > @since.to_time.to_i
+          # rubocop:disable Style/ZeroLengthPredicate -- entry.attributes is an Net::SFTP::Protocol::V01::Attributes, not an array
           next if entry.attributes.size.zero?
+          # rubocop:enable Style/ZeroLengthPredicate
           files << entry.name
         end
       end

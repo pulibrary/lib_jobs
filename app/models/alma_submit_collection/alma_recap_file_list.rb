@@ -45,7 +45,9 @@ module AlmaSubmitCollection
       @alma_sftp.start do |sftp|
         sftp.dir.foreach(@input_sftp_base_dir) do |entry|
           next unless /#{@file_pattern}/.match?(entry.name)
+          # rubocop:disable Style/ZeroLengthPredicate -- entry.attributes is an Net::SFTP::Protocol::V01::Attributes, not an array
           next if entry.attributes.size.zero?
+          # rubocop:enable Style/ZeroLengthPredicate
           files << entry.name
         end
       end

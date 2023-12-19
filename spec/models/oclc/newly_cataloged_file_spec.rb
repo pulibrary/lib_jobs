@@ -47,8 +47,8 @@ RSpec.describe Oclc::NewlyCatalogedFile, type: :model do
     expect(first_row[10]).to eq('am')
     expect(first_row[11]).to eq('eng')
     expect(first_row[12]).to eq('BR115.E3 I889 2021')
-    expect(first_row[13]).to eq(("Bible -- Criticism, interpretation, etc | " \
+    expect(first_row[13]).to eq("Bible -- Criticism, interpretation, etc | " \
       "Christianity -- Economic aspects -- Biblical teaching | " \
-      "Economics -- Religious aspects -- Christianity | Kingdom of God -- Biblical teaching"))
+      "Economics -- Religious aspects -- Christianity | Kingdom of God -- Biblical teaching")
   end
 end

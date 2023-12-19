@@ -8,6 +8,6 @@ class DataSetList
   end
 
   def categories
-    DataSet.select(:category).distinct.map(&:category)
+    DataSet.distinct.pluck(:category)
   end
 end

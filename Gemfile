@@ -19,8 +19,8 @@ gem 'ed25519', '~> 1.3'
 gem 'faraday', '~> 2.7'
 gem "flipflop", git: "https://github.com/voormedia/flipflop.git", ref: "0d70d8e33483a9c0282ed8d6bca9c5ccd61e61e8"
 gem 'foreman'
-gem 'honeybadger', '~> 4.0'
-gem 'icalendar', '~> 2.8'
+gem 'honeybadger'
+gem 'icalendar'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 gem 'jwt'
@@ -38,7 +38,7 @@ gem 'omniauth-cas'
 gem 'open3'
 gem 'pg'
 # Use Puma as the app server
-gem 'puma', '~> 5.6'
+gem 'puma'
 gem 'rubyzip'
 # Use SCSS for stylesheets
 gem 'sass-rails'
@@ -62,9 +62,9 @@ end
 
 group :development do
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
-  gem 'capistrano', '>= 3.14.1'
+  gem 'capistrano'
   gem 'capistrano-passenger'
-  gem 'capistrano-rails', '~> 1.1.6'
+  gem 'capistrano-rails'
   gem 'database_cleaner-active_record'
   gem 'listen', '>= 3.0.5'
   gem 'rspec-rails'

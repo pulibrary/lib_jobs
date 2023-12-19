@@ -47,9 +47,9 @@ RSpec.describe AspaceSvn::GetEadsJob do
         .and_return("password")
     end
     around do |example|
-      Dir.glob(Rails.root.join('tmp', 'subversion_eads', '*')).each { |directory| FileUtils.rm_r(directory) }
+      Rails.root.glob('tmp/subversion_eads/*').each { |directory| FileUtils.rm_r(directory) }
       example.run
-      Dir.glob(Rails.root.join('tmp', 'subversion_eads', '*')).each { |directory| FileUtils.rm_r(directory) }
+      Rails.root.glob('tmp/subversion_eads/*').each { |directory| FileUtils.rm_r(directory) }
     end
     it "creates directories for all relevant ead repos" do
       described_class.new.run
