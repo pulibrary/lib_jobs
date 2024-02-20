@@ -8,6 +8,7 @@ gem 'rails', '~> 7.0'
 
 gem 'archivesspace-client'
 gem 'aws-sdk-s3'
+gem 'base64', '~>0.1.1'
 gem 'bcrypt_pbkdf', '~> 1.1'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false

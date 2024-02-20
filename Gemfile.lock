@@ -129,7 +129,7 @@ GEM
       ice_nine (~> 0.11.0)
       thread_safe (~> 0.3, >= 0.3.1)
     backport (1.2.0)
-    base64 (0.2.0)
+    base64 (0.1.1)
     bcrypt (3.1.20)
     bcrypt_pbkdf (1.1.0)
     benchmark (0.3.0)
@@ -289,6 +289,8 @@ GEM
       net-protocol
     net-ssh (7.2.0)
     nio4r (2.7.0)
+    nokogiri (1.16.2-arm64-darwin)
+      racc (~> 1.4)
     nokogiri (1.16.2-x86_64-linux)
       racc (~> 1.4)
     omniauth (1.9.2)
@@ -524,6 +526,7 @@ GEM
     zeitwerk (2.6.12)
 
 PLATFORMS
+  arm64-darwin-21
   x86_64-linux
 
 DEPENDENCIES
@@ -531,6 +534,7 @@ DEPENDENCIES
   aws-sdk-s3
   axe-core-api
   axe-core-rspec
+  base64 (~> 0.1.1)
   bcrypt_pbkdf (~> 1.1)
   bixby
   bootsnap (>= 1.1.0)
