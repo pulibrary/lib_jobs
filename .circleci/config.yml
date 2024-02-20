@@ -49,7 +49,7 @@ commands:
     steps:
       - node/install:
           install-yarn: true
-          node-version: '18.17.0'
+          node-version: '18.19.1'
       - restore_cache:
           name: Restore Yarn Package Cache
           keys:
