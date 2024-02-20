@@ -43,6 +43,7 @@ gem 'puma'
 gem 'rubyzip'
 # Use SCSS for stylesheets
 gem 'sass-rails'
+gem 'stringio', '3.0.1'
 gem 'terser'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
