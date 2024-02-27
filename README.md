@@ -57,10 +57,8 @@ Once the tunnel is open you can see the mail that has been sent on staging [here
 ```bash
 bundle install
 yarn install
-bundle exec rake db:create db:migrate
 bundle exec rake servers:start
 bundle exec foreman start
-bundle exec rails db:seed
 ```
 
 Then please visit the server running locally at [http://localhost:3000](http://localhost:3000)
