@@ -21,7 +21,7 @@ module Oclc
     def create
       headers = ['OCLC Number', 'ISBNs', 'LCCNs', 'Author', 'Title', '008 Place Code',
                  'Pub Place', 'Pub Name', 'Pub Date', 'Description', 'Format', 'Languages',
-                 'Call Number', 'Subjects']
+                 'Call Number', 'Subjects', 'Non-Romanized Title']
       CSV.open(file_path, 'w', encoding: 'bom|utf-8') do |csv|
         csv.to_io.write "\uFEFF" # use CSV#to_io to write BOM directly
         csv << headers

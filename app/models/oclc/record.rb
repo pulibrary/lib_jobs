@@ -114,6 +114,28 @@ module Oclc
       scrub_string(title_string)
     end
 
+    def non_romanized_title
+      return '' unless title_linkage
+
+      linked_880s = record.fields('880').select do |linked_field|
+        linked_field['6'].include?("245-#{number_of_title_880}")
+      end
+      scrub_string(linked_880s.first['a'])
+    end
+
+    # Finds information on the 880 "Alternate Graphic Representation" connected to the 245 title field
+    def title_linkage
+      record['245']['6']
+    end
+
+    # Records can have more than one "Alternate Graphic Representation" for different fields
+    # They are linked by the number in the subfield 6
+    # rubocop:disable Naming/VariableNumber
+    def number_of_title_880
+      title_linkage.match(/(\d{2}$)/).captures&.first
+    end
+    # rubocop:enable Naming/VariableNumber
+
     def oclc_id
       record['001'].value.strip
     end
