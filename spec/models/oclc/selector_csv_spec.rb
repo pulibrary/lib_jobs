@@ -11,7 +11,7 @@ RSpec.describe Oclc::SelectorCSV, type: :model do
   let(:headers) do
     ['OCLC Number', 'ISBNs', 'LCCNs', 'Author', 'Title', '008 Place Code',
      'Pub Place', 'Pub Name', 'Pub Date', 'Description', 'Format', 'Languages',
-     'Call Number', 'Subjects']
+     'Call Number', 'Subjects', 'Non-Romanized Title']
   end
 
   around do |example|
