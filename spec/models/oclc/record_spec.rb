@@ -25,6 +25,15 @@ RSpec.describe Oclc::Record, type: :model do
         expect(subject.generally_relevant?).to eq(true)
         expect(subject.relevant_to_selector?(selector:)).to eq(true)
       end
+
+      context 'with a selector without any subjects' do
+        let(:selector_config) do
+          Rails.application.config.newly_cataloged.selectors.find { |selector| selector.keys.include?(:hatfield) }
+        end
+        it 'does not mark a record as relevant based on its subjects' do
+          expect(subject.relevant_to_selector?(selector:)).to eq(false)
+        end
+      end
     end
 
     context 'with relevant record 2' do
@@ -239,6 +248,18 @@ RSpec.describe Oclc::Record, type: :model do
           " Church history -- 13th century -- Sources |" \
           " Papacy -- History -- To 1309 -- Sources |" \
           " Canon law -- Sources")
+      end
+    end
+    context 'with a selector without any subjects' do
+      let(:selector_config) do
+        Rails.application.config.newly_cataloged.selectors.find { |selector| selector.keys.include?(:hatfield) }
+      end
+      let(:marc_record) do
+        marc_reader.find { |record| record['001'].value.strip == "on1250254400" }
+      end
+
+      it 'marks the record relevant based on its call number range' do
+        expect(subject.relevant_to_selector?(selector:)).to eq(true)
       end
     end
   end
