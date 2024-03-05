@@ -64,7 +64,8 @@ RSpec.describe Oclc::NewlyCatalogedJob, type: :model do
     data_set = DataSet.last
     expect(data_set.report_time).to eq(freeze_time)
     expect(data_set.data).to eq("Files created and emailed to selectors: spec/fixtures/oclc/2023-07-12-newly-cataloged-by-lc-bordelon.csv," \
-      " spec/fixtures/oclc/2023-07-12-newly-cataloged-by-lc-darrington.csv, spec/fixtures/oclc/2023-07-12-newly-cataloged-by-lc-donatiello.csv")
+      " spec/fixtures/oclc/2023-07-12-newly-cataloged-by-lc-darrington.csv," \
+      " spec/fixtures/oclc/2023-07-12-newly-cataloged-by-lc-hatfield.csv, spec/fixtures/oclc/2023-07-12-newly-cataloged-by-lc-donatiello.csv")
   end
 
   it 'puts data in the csv file for each selector' do

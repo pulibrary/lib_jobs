@@ -180,7 +180,28 @@ default: &default
         - census
         - statistics, vital
         - emigration and immigration -- statistics
-        - statistics, medical
+        - statistics, medical    
+    - hatfield:
+        email: rexh@princeton.edu
+        classes:
+        - class: PT
+          low_num: 1
+          high_num: 4_897
+        - class: PF
+          low_num: 3_001
+          high_num: 5_999
+        - class: PN
+          low_num: 6755
+          high_num: 6758
+        excluded_languages:
+          - ara
+          - heb
+          - jpn
+          - kor
+          - urd
+          - chi
+          - per
+
 development:
   <<: *default
   selector_csv_path: 'tmp/oclc/'
