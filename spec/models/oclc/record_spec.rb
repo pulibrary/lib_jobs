@@ -8,6 +8,21 @@ RSpec.describe Oclc::Record, type: :model do
   let(:selector) { Oclc::Selector.new(selector_config:) }
   let(:subject) { described_class.new(marc_record:) }
 
+  context 'with a selector with a single call number, not a range' do
+    let(:selector_config) { Rails.application.config.newly_cataloged.selectors.find { |selector| selector.keys.include?(:donatiello) } }
+
+    let(:fields) do
+      [
+        { '050' => { 'indicator1' => ' ',
+                     'indicator2' => ' ',
+                     'subfields' => [{ 'a' => 'JV6019.1' }] } }
+      ]
+    end
+    let(:marc_record) { MARC::Record.new_from_hash('fields' => fields) }
+    it 'recognizes that it is relevant' do
+      expect(subject.call_number_in_range_for_selector?(selector:)).to eq(true)
+    end
+  end
   context 'fixture one' do
     let(:oclc_fixture_file_path) { Rails.root.join('spec', 'fixtures', 'oclc', 'metacoll.PUL.new.D20230718.T213016.MZallDLC.1.mrc') }
 

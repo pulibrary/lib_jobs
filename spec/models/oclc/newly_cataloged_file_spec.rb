@@ -23,7 +23,7 @@ RSpec.describe Oclc::NewlyCatalogedFile, type: :model do
   end
 
   it 'is configured' do
-    expect(newly_cataloged_file.selectors_config.map { |selector| selector.keys.first.to_s }).to match_array(['bordelon', 'darrington'])
+    expect(newly_cataloged_file.selectors_config.map { |selector| selector.keys.first.to_s }).to match_array(['bordelon', 'darrington', 'donatiello'])
   end
 
   it 'it writes the expected data to the file' do

@@ -161,11 +161,29 @@ default: &default
         - politic
         - policy
         - government
-
+    - donatiello:
+        email: jdonatie@princeton.edu
+        classes:
+        - class: HA
+          low_num: 0
+          high_num: 99_999
+        - class: HB
+          low_num: 0
+          high_num: 99_999
+        - class: JV
+          low_num: 6019
+          high_num: 6019.999
+        - class: RA
+          low_num: 407.3
+          high_num: 407.3
+        subjects:
+        - census
+        - statistics, vital
+        - emigration and immigration--statistics
+        - statistics, medical
 development:
   <<: *default
   selector_csv_path: 'tmp/oclc/'
-
 
 test:
   <<: *default
