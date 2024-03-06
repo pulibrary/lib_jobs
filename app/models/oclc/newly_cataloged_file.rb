@@ -37,7 +37,7 @@ module Oclc
         record.oclc_id, record.isbns, record.lccns, record.author, record.title,
         record.f008_pub_place, record.pub_place, record.pub_name, record.pub_date,
         record.description, record.format, record.languages, record.call_number,
-        record.subject_string
+        record.subject_string, record.non_romanized_title
       ]
     end
   end

@@ -50,5 +50,10 @@ RSpec.describe Oclc::NewlyCatalogedFile, type: :model do
     expect(first_row[13]).to eq("Bible -- Criticism, interpretation, etc | " \
       "Christianity -- Economic aspects -- Biblical teaching | " \
       "Economics -- Religious aspects -- Christianity | Kingdom of God -- Biblical teaching")
+
+    second_row = csv_file[2]
+    expect(second_row[1]).to eq('9787221165381')
+    expect(second_row[4]).to eq('Guizhou bao xian bai nian')
+    expect(second_row[14]).to eq('贵州保险百年')
   end
 end
