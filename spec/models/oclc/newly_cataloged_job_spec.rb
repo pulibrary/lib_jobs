@@ -22,14 +22,10 @@ RSpec.describe Oclc::NewlyCatalogedJob, type: :model do
   let(:freeze_time) { Time.utc(2023, 7, 12) }
   let(:new_csv_path_1) { Rails.root.join('spec', 'fixtures', 'oclc', '2023-07-12-newly-cataloged-by-lc-bordelon.csv') }
   let(:new_csv_path_2) { Rails.root.join('spec', 'fixtures', 'oclc', '2023-07-12-newly-cataloged-by-lc-darrington.csv') }
-  let(:new_csv_path_3) { Rails.root.join('spec', 'fixtures', 'oclc', '2023-07-12-newly-cataloged-by-lc-donatiello.csv') }
-  let(:new_csv_path_4) { Rails.root.join('spec', 'fixtures', 'oclc', '2023-07-12-newly-cataloged-by-lc-hatfield.csv') }
 
   around do |example|
     File.delete(new_csv_path_1) if File.exist?(new_csv_path_1)
     File.delete(new_csv_path_2) if File.exist?(new_csv_path_2)
-    File.delete(new_csv_path_3) if File.exist?(new_csv_path_3)
-    File.delete(new_csv_path_4) if File.exist?(new_csv_path_4)
 
     temp_file_one.write(File.open(oclc_fixture_file_path_one).read)
     temp_file_two.write(File.open(oclc_fixture_file_path_two).read)
@@ -38,8 +34,6 @@ RSpec.describe Oclc::NewlyCatalogedJob, type: :model do
     end
     File.delete(new_csv_path_1) if File.exist?(new_csv_path_1)
     File.delete(new_csv_path_2) if File.exist?(new_csv_path_2)
-    File.delete(new_csv_path_3) if File.exist?(new_csv_path_3)
-    File.delete(new_csv_path_4) if File.exist?(new_csv_path_4)
   end
 
   before do
@@ -68,9 +62,7 @@ RSpec.describe Oclc::NewlyCatalogedJob, type: :model do
     data_set = DataSet.last
     expect(data_set.report_time).to eq(freeze_time)
     expect(data_set.data).to eq("Files created and emailed to selectors: spec/fixtures/oclc/2023-07-12-newly-cataloged-by-lc-bordelon.csv," \
-      " spec/fixtures/oclc/2023-07-12-newly-cataloged-by-lc-darrington.csv," \
-      " spec/fixtures/oclc/2023-07-12-newly-cataloged-by-lc-donatiello.csv," \
-      " spec/fixtures/oclc/2023-07-12-newly-cataloged-by-lc-hatfield.csv")
+      " spec/fixtures/oclc/2023-07-12-newly-cataloged-by-lc-darrington.csv")
   end
 
   it 'puts data in the csv file for each selector' do
@@ -82,7 +74,7 @@ RSpec.describe Oclc::NewlyCatalogedJob, type: :model do
   end
 
   it 'emails the csv to the selectors' do
-    expect(NewlyCatalogedMailer).to receive(:report).exactly(4).times.and_call_original
+    expect(NewlyCatalogedMailer).to receive(:report).twice.and_call_original
     newly_cataloged_job.run
   end
 end
