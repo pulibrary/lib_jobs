@@ -179,7 +179,7 @@ default: &default
         subjects:
         - census
         - statistics, vital
-        - emigration and immigration--statistics
+        - emigration and immigration -- statistics
         - statistics, medical
 development:
   <<: *default

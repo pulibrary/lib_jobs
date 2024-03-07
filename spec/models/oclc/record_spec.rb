@@ -10,17 +10,47 @@ RSpec.describe Oclc::Record, type: :model do
 
   context 'with a selector with a single call number, not a range' do
     let(:selector_config) { Rails.application.config.newly_cataloged.selectors.find { |selector| selector.keys.include?(:donatiello) } }
-
+    let(:marc_record) { MARC::Record.new_from_hash('fields' => fields) }
+    context 'with a matching call number' do
+      let(:fields) do
+        [
+          { '050' => { 'indicator1' => ' ',
+                       'indicator2' => ' ',
+                       'subfields' => [{ 'a' => 'RA407.3' }] } }
+        ]
+      end
+      it 'recognizes that it is relevant' do
+        expect(subject.call_number_in_range_for_selector?(selector:)).to eq(true)
+      end
+    end
+    context 'with an almost-matching call number' do
+      let(:fields) do
+        [
+          { '050' => { 'indicator1' => ' ',
+                       'indicator2' => ' ',
+                       'subfields' => [{ 'a' => 'RA407' }] } }
+        ]
+      end
+      it 'recognizes that it is not relevant' do
+        expect(subject.call_number_in_range_for_selector?(selector:)).to eq(false)
+      end
+    end
+  end
+  context 'with a selector with a multi-part subject term' do
+    let(:selector_config) { Rails.application.config.newly_cataloged.selectors.find { |selector| selector.keys.include?(:donatiello) } }
+    let(:marc_record) { MARC::Record.new_from_hash('fields' => fields) }
     let(:fields) do
       [
-        { '050' => { 'indicator1' => ' ',
-                     'indicator2' => ' ',
-                     'subfields' => [{ 'a' => 'JV6019.1' }] } }
+        { '650' => { "ind1" => "",
+                     "ind2" => "0",
+                     'subfields' => [
+                       { 'a' => 'Emigration and immigration',
+                         'z' => 'Statistics' }
+                     ] } }
       ]
     end
-    let(:marc_record) { MARC::Record.new_from_hash('fields' => fields) }
     it 'recognizes that it is relevant' do
-      expect(subject.call_number_in_range_for_selector?(selector:)).to eq(true)
+      expect(subject.subject_relevant_to_selector?(selector:)).to eq(true)
     end
   end
   context 'fixture one' do
