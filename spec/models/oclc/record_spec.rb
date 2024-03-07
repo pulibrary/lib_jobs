@@ -135,6 +135,23 @@ RSpec.describe Oclc::Record, type: :model do
         end
       end
     end
+    context 'with a three letter class' do
+      let(:selector_config) do
+        { hatfield: {
+          classes: [{ class: 'KBM', low_num: 0, high_num: 99_999 }]
+        } }
+      end
+      let(:fields) do
+        [
+          { '050' => { 'indicator1' => ' ',
+                       'indicator2' => ' ',
+                       'subfields' => [{ 'a' => 'KBM520.2', 'b' => '.B54 2015' }] } }
+        ]
+      end
+      it 'recognizes that it is relevant' do
+        expect(oclc_record.call_number_in_range_for_selector?(selector:)).to eq(true)
+      end
+    end
   end
 
   context 'fixture one' do

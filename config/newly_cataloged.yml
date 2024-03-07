@@ -201,7 +201,56 @@ default: &default
           - urd
           - chi
           - per
-
+    - hollander:
+        email: dholland@princeton.edu
+        classes:
+          - class: B
+            low_num: 154
+            high_num: 158
+          - class: B
+            low_num: 755
+            high_num: 759
+          - class: B
+            low_num: 5800
+            high_num: 5802
+          - class: BM
+            low_num: 0
+            high_num: 99_999
+          - class: D
+            low_num: 803
+            high_num: 805.7
+          - class: DS
+            low_num: 101
+            high_num: 151
+          - class: KBM
+            low_num: 0
+            high_num: 99_999
+          - class: KMK
+            low_num: 0
+            high_num: 4990
+          - class: PJ
+            low_num: 4501
+            high_num: 5192
+          - class: PJ
+            low_num: 5201
+            high_num: 5329.5
+          - class: Z
+            low_num: 3475
+            high_num: 3480
+        subjects:
+        - Jewish
+        - Jews
+        - Israel
+        - Zionist
+        - Zionists
+        - Zionism
+        - Hebrew
+        - Judaism
+        - Holocaust
+        - Antisemitism
+        - Cairo Geniza
+        - Rabbinical
+        - Talmud
 development:
   <<: *default
   selector_csv_path: 'tmp/oclc/'
