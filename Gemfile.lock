@@ -266,6 +266,7 @@ GEM
       unf
     marcel (1.0.2)
     matrix (0.4.2)
+    memory_profiler (1.0.1)
     method_source (1.0.0)
     mini_mime (1.1.5)
     minitest (5.22.2)
@@ -529,6 +530,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-21
+  arm64-darwin-22
   arm64-darwin-23
   x86_64-darwin-21
   x86_64-linux
@@ -565,6 +567,7 @@ DEPENDENCIES
   marc
   marc_cleanup!
   matrix
+  memory_profiler
   multipart-post
   net-ldap
   net-sftp

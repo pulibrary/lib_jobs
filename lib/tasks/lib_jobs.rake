@@ -155,7 +155,10 @@ namespace :lib_jobs do
 
   desc "Submit collection: download PUL records from ALMA and upload them to SCSB"
   task process_submit_collection: [:environment] do
-    job = AlmaSubmitCollection::AlmaSubmitCollectionJob.new
-    job.run
+    report = MemoryProfiler.report do
+      job = AlmaSubmitCollection::AlmaSubmitCollectionJob.new
+      job.run  
+    end
+    report.pretty_print
   end
 end
