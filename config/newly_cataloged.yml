@@ -251,6 +251,15 @@ default: &default
         - Cairo Geniza
         - Rabbinical
         - Talmud
+    - painter:
+        email: zp5928@princeton.edu
+        classes:
+          - class: QA
+            low_num: 0
+            high_num: 99_999
+        subjects:
+        - mathematics
+        - statistics
 development:
   <<: *default
   selector_csv_path: 'tmp/oclc/'
