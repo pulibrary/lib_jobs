@@ -260,6 +260,112 @@ default: &default
         subjects:
         - mathematics
         - statistics
+    - wild:
+        email: ewild@princeton.edu
+        classes:
+          - class: CC
+            low_num: 600
+            high_num: 605
+          - class: CC
+            low_num: 700
+            high_num: 705
+          - class: G
+            low_num: 369
+            high_num: 503
+          - class: G
+            low_num: 521
+            high_num: 539
+          - class: G
+            low_num: 540
+            high_num: 550
+          - class: G
+            low_num: 575
+            high_num: 890
+          - class: G
+            low_num: 905
+            high_num: 910
+          - class: G
+            low_num: 912
+            high_num: 922
+          - class: G
+            low_num: 1000
+            high_num: 3122
+          - class: G
+            low_num: 3180
+            high_num: 9980
+          - class: GA
+            low_num: 51
+            high_num: 87
+          - class: GB
+            low_num: 400
+            high_num: 649
+          - class: GB
+            low_num: 651
+            high_num: 2998
+          - class: GC
+            low_num: 0
+            high_num: 1581
+          - class: GE
+            low_num: 70
+            high_num: 90
+          - class: QD
+            low_num: 901
+            high_num: 999
+          - class: QE
+            low_num: 0
+            high_num: 996.5
+          - class: QH
+            low_num: 201
+            high_num: 278.5
+          - class: TN
+            low_num: 0
+            high_num: 997
+          - class: TP
+            low_num: 751
+            high_num: 762
+          - class: TP
+            low_num: 785
+            high_num: 869
+          - class: TP
+            low_num: 875
+            high_num: 888
+          - class: TP
+            low_num: 890
+            high_num: 933
+          - class: TP
+            low_num: 934
+            high_num: 945
+          - class: TP
+            low_num: 1080
+            high_num: 1185
+          - class: U
+            low_num: 0
+            high_num: 99_999
+          - class: V
+            low_num: 0
+            high_num: 99_999
+        subjects:
+        - Hydrology
+        - Hydrogeology
+        - Geology
+        - Mineralogy
+        - Oceanography
+        - Water Resources 
+        - Water Use 
+        - Water Quality
+        - Atmospheric Science
+        - Air Quality
+        - Paleontology
+        - Climate
+        - Paleoclimatology
+        - Geochemistry
+        - Geophysics
+        - Biogeochemistry
+        - Crystal Optics
+        - Fluid Dynamics
+        - Rare Earth Metal
+        - Radioactive Dating 
+        - Isotope Geology
 development:
   <<: *default
   selector_csv_path: 'tmp/oclc/'
