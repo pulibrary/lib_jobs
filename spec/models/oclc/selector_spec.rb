@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Oclc::Selector, type: :model do
+RSpec.describe Oclc::Selector, type: :model, newly_cataloged: true do
   let(:first_selector_config) { Rails.application.config.newly_cataloged.selectors[0] }
   let(:second_selector_config) { Rails.application.config.newly_cataloged.selectors[1] }
 

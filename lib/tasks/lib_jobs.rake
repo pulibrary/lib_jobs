@@ -141,6 +141,12 @@ namespace :lib_jobs do
     job.run
   end
 
+  desc "create a CSV of all generally relevant records for selectors to compare"
+  task create_csv_for_selector_comparison: [:environment] do
+    job = Oclc::NewlyCatalogedJobAll.new
+    job.run
+  end
+
   desc "download data sync exceptions from oclc_sftp, process, and upload to lib-sftp"
   task process_data_sync_exceptions: [:environment] do
     job = Oclc::DataSyncExceptionJob.new
