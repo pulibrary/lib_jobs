@@ -91,6 +91,6 @@ every :thursday, at: '8:00 am', roles: [:cron_prod2] do # The server is in UTC, 
 end
 
 # Run on production every day at 7:00am EST or 8:00am EDT
-# every 1.day, at: '12:00 pm', roles: [:cron_prod2] do
-#   rake "lib_jobs:process_submit_collection"
-# end
+every 1.day, at: '12:00 pm', roles: [:cron_prod2] do
+  rake "lib_jobs:process_submit_collection"
+end
