@@ -8,9 +8,10 @@ module AlmaSubmitCollection
 
     def initialize(file:)
       @records_processed = 0
-      normalized_records = StringIO.new
-      MarcCollection.new(file).write(normalized_records)
-      @reader = MARC::XMLReader.new(normalized_records.reopen(normalized_records.string, 'r'), parser: "nokogiri")
+      Tempfile.create do |normalized_records|
+        MarcCollection.new(file).write(normalized_records)
+        @reader = MARC::XMLReader.new(normalized_records.path, parser: "nokogiri")
+      end
       @writer = MarcS3Writer.new(records_per_file: 10_000)
       @constituent_writer = MarcS3Writer.new(records_per_file: 1_000, file_type: 'constituent')
     end
