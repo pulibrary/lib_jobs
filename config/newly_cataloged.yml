@@ -161,16 +161,380 @@ default: &default
         - politic
         - policy
         - government
-
+    - donatiello:
+        email: jdonatie@princeton.edu
+        classes:
+        - class: HA
+          low_num: 0
+          high_num: 99_999
+        - class: HB
+          low_num: 0
+          high_num: 99_999
+        - class: JV
+          low_num: 6019
+          high_num: 6019.999
+        - class: RA
+          low_num: 407.3
+          high_num: 407.3
+        subjects:
+        - census
+        - statistics, vital
+        - emigration and immigration -- statistics
+        - statistics, medical
+    - hatfield:
+        email: rexh@princeton.edu
+        classes:
+        - class: PT
+          low_num: 1
+          high_num: 4_897
+        - class: PF
+          low_num: 3_001
+          high_num: 5_999
+        - class: PN
+          low_num: 6755
+          high_num: 6758
+        excluded_languages:
+          - ara
+          - heb
+          - jpn
+          - kor
+          - urd
+          - chi
+          - per
+    - hollander:
+        email: dholland@princeton.edu
+        classes:
+          - class: B
+            low_num: 154
+            high_num: 158
+          - class: B
+            low_num: 755
+            high_num: 759
+          - class: B
+            low_num: 5800
+            high_num: 5802
+          - class: BM
+            low_num: 0
+            high_num: 99_999
+          - class: D
+            low_num: 803
+            high_num: 805.7
+          - class: DS
+            low_num: 101
+            high_num: 151
+          - class: KBM
+            low_num: 0
+            high_num: 99_999
+          - class: KMK
+            low_num: 0
+            high_num: 4990
+          - class: PJ
+            low_num: 4501
+            high_num: 5192
+          - class: PJ
+            low_num: 5201
+            high_num: 5329.5
+          - class: Z
+            low_num: 3475
+            high_num: 3480
+        subjects:
+        - Jewish
+        - Jews
+        - Israel
+        - Zionist
+        - Zionists
+        - Zionism
+        - Hebrew
+        - Judaism
+        - Holocaust
+        - Antisemitism
+        - Cairo Geniza
+        - Rabbinical
+        - Talmud
+    - painter:
+        email: zp5928@princeton.edu
+        classes:
+          - class: QA
+            low_num: 0
+            high_num: 99_999
+        subjects:
+        - mathematics
+        - statistics
+    - wild:
+        email: ewild@princeton.edu
+        classes:
+          - class: CC
+            low_num: 600
+            high_num: 605
+          - class: CC
+            low_num: 700
+            high_num: 705
+          - class: G
+            low_num: 369
+            high_num: 503
+          - class: G
+            low_num: 521
+            high_num: 539
+          - class: G
+            low_num: 540
+            high_num: 550
+          - class: G
+            low_num: 575
+            high_num: 890
+          - class: G
+            low_num: 905
+            high_num: 910
+          - class: G
+            low_num: 912
+            high_num: 922
+          - class: G
+            low_num: 1000
+            high_num: 3122
+          - class: G
+            low_num: 3180
+            high_num: 9980
+          - class: GA
+            low_num: 51
+            high_num: 87
+          - class: GB
+            low_num: 400
+            high_num: 649
+          - class: GB
+            low_num: 651
+            high_num: 2998
+          - class: GC
+            low_num: 0
+            high_num: 1581
+          - class: GE
+            low_num: 70
+            high_num: 90
+          - class: QD
+            low_num: 901
+            high_num: 999
+          - class: QE
+            low_num: 0
+            high_num: 996.5
+          - class: QH
+            low_num: 201
+            high_num: 278.5
+          - class: TN
+            low_num: 0
+            high_num: 997
+          - class: TP
+            low_num: 751
+            high_num: 762
+          - class: TP
+            low_num: 785
+            high_num: 869
+          - class: TP
+            low_num: 875
+            high_num: 888
+          - class: TP
+            low_num: 890
+            high_num: 933
+          - class: TP
+            low_num: 934
+            high_num: 945
+          - class: TP
+            low_num: 1080
+            high_num: 1185
+          - class: U
+            low_num: 0
+            high_num: 99_999
+          - class: V
+            low_num: 0
+            high_num: 99_999
+        subjects:
+        - Hydrology
+        - Hydrogeology
+        - Geology
+        - Mineralogy
+        - Oceanography
+        - Water Resources 
+        - Water Use 
+        - Water Quality
+        - Atmospheric Science
+        - Air Quality
+        - Paleontology
+        - Climate
+        - Paleoclimatology
+        - Geochemistry
+        - Geophysics
+        - Biogeochemistry
+        - Crystal Optics
+        - Fluid Dynamics
+        - Rare Earth Metal
+        - Radioactive Dating 
+        - Isotope Geology
 development:
   <<: *default
   selector_csv_path: 'tmp/oclc/'
-
 
 test:
   <<: *default
   host: 'localhost2'
   selector_csv_path: 'spec/fixtures/oclc/'
+  selectors:
+    - bordelon:
+        email: bordelon@princeton.edu
+        classes:
+        - class: G
+          low_num: 154.9
+          high_num: 155.8
+        - class: G
+          low_num: 156.5
+          high_num: 156.599
+        - class: GE
+          low_num: 125
+          high_num: 125
+        - class: GE
+          low_num: 140
+          high_num: 160
+        - class: GE
+          low_num: 170
+          high_num: 190
+        - class: GE
+          low_num: 195
+          high_num: 199
+        - class: GV
+          low_num: 350
+          high_num: 350
+        - class: GV
+          low_num: 716
+          high_num: 716
+        - class: H
+          low_num: 0
+          high_num: 99_999
+        - class: HA
+          low_num: 0
+          high_num: 99_999
+        - class: HB
+          low_num: 0
+          high_num: 99_999
+        - class: HC
+          low_num: 0
+          high_num: 99_999
+        - class: HD
+          low_num: 0
+          high_num: 99_999
+        - class: HE
+          low_num: 0
+          high_num: 99_999
+        - class: HF
+          low_num: 0
+          high_num: 99_999
+        - class: HG
+          low_num: 0
+          high_num: 99_999
+        - class: HJ
+          low_num: 0
+          high_num: 99_999
+        - class: HQ
+          low_num: 444
+          high_num: 445
+        - class: HQ
+          low_num: 1240
+          high_num: 1240.5
+        - class: HQ
+          low_num: 1381
+          high_num: 1381
+        - class: HT
+          low_num: 388
+          high_num: 388
+        - class: HX
+          low_num: 0
+          high_num: 99_999
+        - class: LC
+          low_num: 65
+          high_num: 245
+        - class: ML
+          low_num: 3790
+          high_num: 3792
+        - class: N
+          low_num: 8600
+          high_num: 8675
+        - class: NX
+          low_num: 634
+          high_num: 634
+        - class: NX
+          low_num: 700
+          high_num: 750
+        - class: RA
+          low_num: 407
+          high_num: 416.5
+        - class: S
+          low_num: 401
+          high_num: 401
+        - class: S
+          low_num: 560
+          high_num: 565.88
+        - class: SH
+          low_num: 334
+          high_num: 334
+        - class: TX
+          low_num: 901
+          high_num: 946.5
+        - class: TX
+          low_num: 950
+          high_num: 953
+        excluded_languages:
+        - ara
+        - heb
+        - jpn
+        - kor
+        - urd
+        subjects:
+        - economic aspects
+    - darrington:
+        email: jdarring@princeton.edu
+        classes:
+        - class: J
+          low_num: 0
+          high_num: 99_999
+        - class: JA
+          low_num: 0
+          high_num: 99_999
+        - class: JC
+          low_num: 0
+          high_num: 99_999
+        - class: JF
+          low_num: 0
+          high_num: 99_999
+        - class: JJ
+          low_num: 0
+          high_num: 99_999
+        - class: JK
+          low_num: 0
+          high_num: 99_999
+        - class: JL
+          low_num: 0
+          high_num: 99_999
+        - class: JN
+          low_num: 0
+          high_num: 99_999
+        - class: JQ
+          low_num: 0
+          high_num: 99_999
+        - class: JS
+          low_num: 0
+          high_num: 99_999
+        - class: JV
+          low_num: 0
+          high_num: 99_999
+        - class: JZ
+          low_num: 0
+          high_num: 99_999
+        excluded_languages:
+        - ara
+        - heb
+        - jpn
+        - kor
+        - urd
+        subjects:
+        - foreign relations
+        - politic
+        - policy
+        - government
 staging: &staging
   <<: *default
 

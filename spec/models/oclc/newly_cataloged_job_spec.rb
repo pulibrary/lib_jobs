@@ -26,6 +26,7 @@ RSpec.describe Oclc::NewlyCatalogedJob, type: :model do
   around do |example|
     File.delete(new_csv_path_1) if File.exist?(new_csv_path_1)
     File.delete(new_csv_path_2) if File.exist?(new_csv_path_2)
+
     temp_file_one.write(File.open(oclc_fixture_file_path_one).read)
     temp_file_two.write(File.open(oclc_fixture_file_path_two).read)
     Timecop.freeze(freeze_time) do

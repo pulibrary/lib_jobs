@@ -8,18 +8,18 @@ RSpec.describe Oclc::NewlyCatalogedFile, type: :model do
   let(:freeze_time) { Time.utc(2023, 7, 12) }
   let(:new_csv_path_1) { Rails.root.join('spec', 'fixtures', 'oclc', '2023-07-12-newly-cataloged-by-lc-bordelon.csv') }
   let(:new_csv_path_2) { Rails.root.join('spec', 'fixtures', 'oclc', '2023-07-12-newly-cataloged-by-lc-darrington.csv') }
+  let(:new_csv_path_3) { Rails.root.join('spec', 'fixtures', 'oclc', '2023-07-12-newly-cataloged-by-lc-hatfield.csv') }
   let(:selector_config) { Rails.application.config.newly_cataloged.selectors.first }
   let(:selector_csv) { Oclc::SelectorCSV.new(selector_config:) }
 
   around do |example|
-    File.delete(new_csv_path_1) if File.exist?(new_csv_path_1)
-    File.delete(new_csv_path_2) if File.exist?(new_csv_path_2)
+    csv_paths = [new_csv_path_1, new_csv_path_2, new_csv_path_3]
+    csv_paths.each { |path| File.delete(path) if File.exist?(path) }
     temp_file.write(File.open(oclc_fixture_file_path).read)
     Timecop.freeze(freeze_time) do
       example.run
     end
-    File.delete(new_csv_path_1) if File.exist?(new_csv_path_1)
-    File.delete(new_csv_path_2) if File.exist?(new_csv_path_2)
+    csv_paths.each { |path| File.delete(path) if File.exist?(path) }
   end
 
   it 'is configured' do

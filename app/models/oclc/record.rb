@@ -35,6 +35,8 @@ module Oclc
     end
 
     def subject_relevant_to_selector?(selector:)
+      return false unless selector.subjects
+
       subjects.any? { |subject| subject.downcase.match?(/#{selector.subjects.join('|')}/) }
     end
 
