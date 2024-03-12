@@ -48,7 +48,7 @@ RSpec.describe AlmaPodRecords::AlmaPodJob, type: :model do
         expect(File.exist?(zipped_file_path)).to be true
         expect(File.extname(zipped_file_path)).to eq('.gz')
         `gunzip #{zipped_file_path}`
-        expect(File.read(file_path)).to eq("<?xml version=\"1.0\"?>\n<collection xmlns=\"http://www.loc.gov/MARC21/slim\"/>\n")
+        expect(File.read(file_path)).to eq("<?xml version=\"1.0\"?>\n<collection xmlns=\"http://www.loc.gov/MARC21/slim\"></collection>")
       end
     end
   end

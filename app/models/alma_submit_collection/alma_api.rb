@@ -12,6 +12,8 @@ module AlmaSubmitCollection
       end
     end
 
+    # Fetch the bib records from the Alma API
+    # Returns an array of MARCXML records
     def fetch_marc_records(mms_ids)
       return [] if mms_ids.empty?
       doc = Nokogiri::XML(bib_record_call(mms_ids).body)
@@ -30,14 +32,15 @@ module AlmaSubmitCollection
 
     private
 
+    # Returns an array of MARCXML records
     def xml_to_bibs(doc)
-      bibs = []
-      doc.xpath('//bib').each do |bib|
-        string = bib.to_xml
-        reader = MARC::XMLReader.new(StringIO.new(string, 'r'))
-        bibs << reader.first
+      doc.xpath('//bib//record').map do |record|
+        Tempfile.create do |valid_record|
+          MarcCollection.from_record_string(record.to_xml).write(valid_record)
+          reader = MARC::XMLReader.new valid_record.path, parser: 'nokogiri'
+          reader.first
+        end
       end
-      bibs
     end
   end
 end

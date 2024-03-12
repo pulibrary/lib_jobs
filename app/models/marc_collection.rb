@@ -11,10 +11,22 @@ class MarcCollection
   end
 
   def write(io)
-    xml = Nokogiri::XML(@document)
-    xml.children.first.default_namespace = 'http://www.loc.gov/MARC21/slim'
-    io.write(xml)
+    parser = Nokogiri::XML::SAX::Parser.new(MarcCollectionDocumentCallbacks.new(io))
+    io.write "<?xml version=\"1.0\"?>\n"
+    parser.parse document
+
     io.close
     io
+  end
+
+  # An alternative initializer, if you just have a
+  # single record without the MARCXML namespace,
+  # as you might when getting a response from the
+  # Alma API
+  def self.from_record_string(string)
+    document = Tempfile.new
+    document.write "<collection>#{string}</collection>"
+    document.rewind
+    MarcCollection.new document
   end
 end
