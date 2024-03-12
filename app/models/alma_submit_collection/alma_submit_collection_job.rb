@@ -17,7 +17,7 @@ module AlmaSubmitCollection
         processor.process
         records_processed += processor.records_processed
       end
-      file_list.mark_files_as_processed
+      # file_list.mark_files_as_processed
       data_set.data = "#{records_processed} records processed."
       data_set
     end
