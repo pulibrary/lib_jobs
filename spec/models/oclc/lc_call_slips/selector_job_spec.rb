@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Oclc::NewlyCatalogedJob, type: :model, newly_cataloged: true do
+RSpec.describe Oclc::LcCallSlips::SelectorJob, type: :model, newly_cataloged: true do
   include_context 'sftp_newly_cataloged'
 
   subject(:newly_cataloged_job) { described_class.new }
