@@ -55,7 +55,7 @@ RSpec.describe Oclc::LcCallSlips::SelectorJob, type: :model, newly_cataloged: tr
   end
 
   it 'emails the csv to the selectors' do
-    expect(NewlyCatalogedMailer).to receive(:report).twice.and_call_original
+    expect(LcCallSlipsMailer).to receive(:report).twice.and_call_original
     newly_cataloged_job.run
   end
 end

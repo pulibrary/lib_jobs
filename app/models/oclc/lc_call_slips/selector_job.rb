@@ -2,11 +2,11 @@
 
 module Oclc
   module LcCallSlips
-    class SelectorJob < LibJob
+    class SelectorJob < LcCallSlipJob
       attr_reader :report_downloader, :selectors_config
-      def initialize(report_downloader: Oclc::ReportDownloader.new(file_pattern: 'MZallDLC.1.mrc$',
+      def initialize(report_downloader: Oclc::ReportDownloader.new(file_pattern: Rails.application.config.oclc_sftp.lc_call_slips_file_pattern,
                                                                    process_class: Oclc::LcCallSlips::SelectorFile,
-                                                                   input_sftp_base_dir: Rails.application.config.oclc_sftp.lc_newly_cataloged_path,
+                                                                   input_sftp_base_dir: Rails.application.config.oclc_sftp.lc_call_slips_path,
                                                                    recent: false),
                      selectors_config: Rails.application.config.lc_call_slips.selectors)
         super(category: "Oclc:LcCallSlips")
@@ -28,7 +28,7 @@ module Oclc
         selectors_config.each do |selector_config|
           selector_csv = SelectorCSV.new(selector_config:)
           selector = Selector.new(selector_config:)
-          NewlyCatalogedMailer.report(selector:, file_path: selector_csv.file_path).deliver
+          LcCallSlipsMailer.report(selector:, file_path: selector_csv.file_path).deliver
         end
       end
 
