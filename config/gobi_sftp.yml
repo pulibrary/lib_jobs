@@ -1,0 +1,18 @@
+default: &default
+  host: <%= ENV['GOBI_SFTP_HOST'] || 'ftp.ybp.com' %>
+  username: <%= ENV['GOBI_SFTP_USER'] || 'gobi' %>
+  password: <%= ENV['GOBI_SFTP_PASSWORD'] || 'change_me' %>
+  isbn_export_file_path: '/prince/holdings'
+
+development:
+  <<: *default
+
+test:
+  <<: *default
+  host: 'localhost2'
+
+staging: &staging
+  <<: *default
+
+production:
+  <<: *staging
