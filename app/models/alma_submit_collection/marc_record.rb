@@ -52,6 +52,7 @@ module AlmaSubmitCollection
     end
 
     def constituent_records
+      Rails.logger.debug("Looking for constituent records for record #{@record['001']}")
       marc_records_from_api = AlmaApi.new.fetch_marc_records(constituent_record_ids(@record))
       marc_records_from_api.map do |record|
         recap_record = MarcRecord.new(record, @wanted852, @wanted876, @associated_holding_fields)

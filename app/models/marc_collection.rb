@@ -11,12 +11,13 @@ class MarcCollection
   end
 
   def write(io)
+    Rails.logger.debug('Parsing an XML file and adding the namespace')
     parser = Nokogiri::XML::SAX::Parser.new(MarcCollectionDocumentCallbacks.new(io))
     io.write "<?xml version=\"1.0\"?>\n"
     parser.parse document
 
-    io.close
-    io
+    # io.close
+    io.tap(&:rewind)
   end
 
   # An alternative initializer, if you just have a

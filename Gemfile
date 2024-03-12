@@ -80,3 +80,5 @@ group :test do
   gem 'timecop'
   gem 'webmock'
 end
+
+gem "memory_profiler", "~> 1.0"
