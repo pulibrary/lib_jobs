@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Oclc::Selector, type: :model, newly_cataloged: true do
-  let(:first_selector_config) { Rails.application.config.newly_cataloged.selectors[0] }
-  let(:second_selector_config) { Rails.application.config.newly_cataloged.selectors[1] }
+RSpec.describe Oclc::LcCallSlips::Selector, type: :model, newly_cataloged: true do
+  let(:first_selector_config) { Rails.application.config.lc_call_slips.selectors[0] }
+  let(:second_selector_config) { Rails.application.config.lc_call_slips.selectors[1] }
 
   let(:first_selector) { described_class.new(selector_config: first_selector_config) }
   let(:second_selector) { described_class.new(selector_config: second_selector_config) }
