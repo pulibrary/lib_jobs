@@ -54,13 +54,6 @@ module AlmaSubmitCollection
       files
     end
 
-    def download_file(filename)
-      @alma_sftp.start do |sftp|
-        Rails.logger.info "Downloading Alma Recap file #{filename}"
-        sftp.file.open(full_filename(filename))
-      end
-    end
-
     def full_filename(filename)
       File.join(@input_sftp_base_dir, filename)
     end
