@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Oclc::Record, type: :model, newly_cataloged: true do
+RSpec.describe Oclc::LcCallSlips::Record, type: :model, newly_cataloged: true do
   let(:marc_record) { marc_reader.first }
   let(:marc_reader) { MARC::Reader.new(oclc_fixture_file_path.to_s, external_encoding: 'UTF-8') }
   let(:selector_config) do
@@ -11,7 +11,7 @@ RSpec.describe Oclc::Record, type: :model, newly_cataloged: true do
       subjects: ['economic aspects']
     } }
   end
-  let(:selector) { Oclc::Selector.new(selector_config:) }
+  let(:selector) { Oclc::LcCallSlips::Selector.new(selector_config:) }
   let(:oclc_record) { described_class.new(marc_record:) }
 
   describe 'subjects' do

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 require "rails_helper"
 
-RSpec.describe NewlyCatalogedMailer, type: :mailer do
+RSpec.describe LcCallSlipsMailer, type: :mailer do
   describe "#report" do
-    let(:first_selector_config) { Rails.application.config.newly_cataloged.selectors[0] }
-    let(:selector) { Oclc::Selector.new(selector_config: first_selector_config) }
+    let(:first_selector_config) { Rails.application.config.lc_call_slips.selectors[0] }
+    let(:selector) { Oclc::LcCallSlips::Selector.new(selector_config: first_selector_config) }
     let(:file_path) { 'spec/fixtures/oclc/example_csv_for_selector.csv' }
     let(:mail) { described_class.report(selector:, file_path:) }
     let(:freeze_time) { Time.utc(2023, 7, 13) }

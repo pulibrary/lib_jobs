@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Oclc::NewlyCatalogedJob, type: :model, newly_cataloged: true do
+RSpec.describe Oclc::LcCallSlips::SelectorJob, type: :model, newly_cataloged: true do
   include_context 'sftp_newly_cataloged'
 
   subject(:newly_cataloged_job) { described_class.new }
@@ -55,7 +55,7 @@ RSpec.describe Oclc::NewlyCatalogedJob, type: :model, newly_cataloged: true do
   end
 
   it 'emails the csv to the selectors' do
-    expect(NewlyCatalogedMailer).to receive(:report).twice.and_call_original
+    expect(LcCallSlipsMailer).to receive(:report).twice.and_call_original
     newly_cataloged_job.run
   end
 end

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class NewlyCatalogedMailer < ApplicationMailer
+class LcCallSlipsMailer < ApplicationMailer
   def report(selector:, file_path:)
     week_string = Time.now.utc.strftime('%B %e, %Y')
     @subject = "LC Slips for the week of #{week_string}"
