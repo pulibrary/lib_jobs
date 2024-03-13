@@ -131,13 +131,19 @@ namespace :lib_jobs do
   desc "process single file of newly cataloged records from OCLC and create CSV"
   task process_one_file_newly_cataloged_records: [:environment] do
     file = File.new(ENV['NEW_RECORDS_PATH'])
-    newly_cataloged_file = Oclc::NewlyCatalogedFile.new(temp_file: file)
+    newly_cataloged_file = Oclc::LcCallSlips::SelectorFile.new(temp_file: file)
     newly_cataloged_file.process
   end
 
   desc "process newly cataloged records from OCLC and create CSVs to send to selectors"
   task process_newly_cataloged_records: [:environment] do
-    job = Oclc::NewlyCatalogedJob.new
+    job = Oclc::LcCallSlips::SelectorJob.new
+    job.run
+  end
+
+  desc "create a CSV of all generally relevant records for selectors to compare"
+  task create_csv_for_selector_comparison: [:environment] do
+    job = Oclc::LcCallSlips::AllRelevantJob.new
     job.run
   end
 

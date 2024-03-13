@@ -2,7 +2,8 @@ default: &default
   host: 'filex-m1.oclc.org'
   username: <%= ENV['OCLC_SFTP_USER'] || 'fx_pul' %>
   password: <%= ENV['OCLC_SFTP_PASSWORD'] || 'test_oclc_pass' %>
-  lc_newly_cataloged_path: '/xfer/metacoll/out/ongoing/new/'
+  lc_call_slips_path: '/xfer/metacoll/out/ongoing/new/'
+  lc_call_slips_file_pattern: 'MZallDLC.1.mrc$'
   data_sync_report_path: '/xfer/metacoll/reports/'
   max_records_per_file: 20_000
   exceptions_working_directory: '/tmp/datasync_processing/exceptions'

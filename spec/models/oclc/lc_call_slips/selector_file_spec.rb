@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Oclc::NewlyCatalogedFile, type: :model do
+RSpec.describe Oclc::LcCallSlips::SelectorFile, type: :model, newly_cataloged: true do
   subject(:newly_cataloged_file) { described_class.new(temp_file:) }
   let(:oclc_fixture_file_path) { Rails.root.join('spec', 'fixtures', 'oclc', 'metacoll.PUL.new.D20230718.T213016.MZallDLC.1.mrc') }
   let(:temp_file) { Tempfile.new(encoding: 'ascii-8bit') }
@@ -9,8 +9,8 @@ RSpec.describe Oclc::NewlyCatalogedFile, type: :model do
   let(:new_csv_path_1) { Rails.root.join('spec', 'fixtures', 'oclc', '2023-07-12-newly-cataloged-by-lc-bordelon.csv') }
   let(:new_csv_path_2) { Rails.root.join('spec', 'fixtures', 'oclc', '2023-07-12-newly-cataloged-by-lc-darrington.csv') }
   let(:new_csv_path_3) { Rails.root.join('spec', 'fixtures', 'oclc', '2023-07-12-newly-cataloged-by-lc-hatfield.csv') }
-  let(:selector_config) { Rails.application.config.newly_cataloged.selectors.first }
-  let(:selector_csv) { Oclc::SelectorCSV.new(selector_config:) }
+  let(:selector_config) { Rails.application.config.lc_call_slips.selectors.first }
+  let(:selector_csv) { Oclc::LcCallSlips::SelectorCSV.new(selector_config:) }
 
   around do |example|
     csv_paths = [new_csv_path_1, new_csv_path_2, new_csv_path_3]
