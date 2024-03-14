@@ -49,7 +49,7 @@ RSpec.describe AlmaSubmitCollection::AlmaRecapFileList, type: :model do
                     '<subfield code="b">Indian agriculture after liberalization /</subfield>'\
                     '<subfield code="c">edited by R. Ramakumar.</subfield></datafield>'
       decompressed_file_contents = alma_recap_file_list.download_and_decompress_file(alma_recap_filename)
-      expect(decompressed_file_contents.first.string).to include(title_field)
+      expect(decompressed_file_contents.first.read).to include(title_field)
     end
   end
   describe '#mark_files_as_processed' do
