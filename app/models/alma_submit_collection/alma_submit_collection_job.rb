@@ -6,6 +6,8 @@ module AlmaSubmitCollection
     attr_reader :s3_partner
     def initialize
       super(category: 'AlmaSubmitCollection')
+      # We use the same S3 connection for the whole job,
+      # since each instance takes quite a bit of memory
       @s3_partner = AlmaSubmitCollection::PartnerS3.new
     end
 
@@ -13,7 +15,7 @@ module AlmaSubmitCollection
       file_list = AlmaRecapFileList.new
       records_processed = 0
       file_list.file_contents.each do |file|
-        processor = MarcFileProcessor.new(file:)
+        processor = MarcFileProcessor.new(file:, s3_partner:)
         processor.process
         records_processed += processor.records_processed
       end

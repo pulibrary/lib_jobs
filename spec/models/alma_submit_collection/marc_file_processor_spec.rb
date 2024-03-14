@@ -4,14 +4,15 @@ require 'rails_helper'
 RSpec.describe AlmaSubmitCollection::MarcFileProcessor, type: :model do
   let(:filename) { 'host_record.xml' }
   let(:files_sent_to_s3) { [] }
+  let(:s3_partner) { instance_double(AlmaSubmitCollection::PartnerS3) }
   let(:s3_client) { Aws::S3::Client.new(stub_responses: true) }
-  let(:processor) { described_class.new(file: File.new(Pathname.new(file_fixture_path).join("alma", filename))) }
+  let(:processor) { described_class.new(file: File.new(Pathname.new(file_fixture_path).join("alma", filename)), s3_partner:) }
   let(:constituent_ids) { ["9933584373506421", "997007993506421", "997008003506421"] }
 
   before do
     stub_alma_bibs(ids: constituent_ids, status: 200, fixture: "constituent_records.xml", apikey: '1234')
-    allow_any_instance_of(AlmaSubmitCollection::PartnerS3).to receive(:s3_bucket).and_return('test-bucket')
-    allow_any_instance_of(AlmaSubmitCollection::PartnerS3).to receive(:s3_client_connection).and_return(s3_client)
+    allow(s3_partner).to receive(:bucket_name).and_return('test-bucket')
+    allow(s3_partner).to receive(:client).and_return(s3_client)
   end
   context "when the file has valid MARC records" do
     it 'processed all valid records in a file' do

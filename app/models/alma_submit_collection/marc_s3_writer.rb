@@ -6,11 +6,11 @@ module AlmaSubmitCollection
   class MarcS3Writer
     attr_reader :s3_partner, :client, :bucket
 
-    def initialize(records_per_file: 10_000, file_type: 'std')
+    def initialize(records_per_file: 10_000, file_type: 'std', s3_partner:)
       @records_in_file = 0
       @records_per_file = records_per_file
       @file_type = file_type
-      @s3_partner = AlmaSubmitCollection::PartnerS3.new
+      @s3_partner = s3_partner
       @client = @s3_partner.client
       @bucket = @s3_partner.bucket_name
     end
