@@ -25,7 +25,9 @@ RSpec.describe MarcCollectionDocumentCallbacks do
 
   describe '#characters' do
     it "escapes special XML characters" do
-      document_callbacks.characters('Vols. for 1972-<1982> called also vyp. 1-<8/2>.')
+      # Nokogiri's SAX parser gives unfrozen strings to this callback, so we use the +
+      # in this test to make sure the string we pass is similarly unfrozen
+      document_callbacks.characters(+'Vols. for 1972-<1982> called also vyp. 1-<8/2>.')
       expect(io.string).to eq('Vols. for 1972-&lt;1982&gt; called also vyp. 1-&lt;8/2&gt;.')
     end
   end

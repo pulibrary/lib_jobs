@@ -25,7 +25,7 @@ class MarcCollectionDocumentCallbacks < Nokogiri::XML::SAX::Document
 
   # Write any text that can be found in an open tag
   def characters(string)
-    @io.write string.encode(xml: :text)
+    @io.write string.encode!(xml: :text)
   end
 
   # Write the closing tag for an element
