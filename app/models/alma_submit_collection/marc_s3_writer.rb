@@ -38,7 +38,12 @@ module AlmaSubmitCollection
       File.open(file_path) do |file_contents|
         compressed = StringIO.new
         compressor = Zlib::GzipWriter.new(compressed)
-        compressor.write file_contents.read
+        # Compress the file contents 10 bytes at a time,
+        # rather than reading the whole uncompressed file
+        # contents into memory all at once
+        while (chunk = file_contents.read(10))
+          compressor.write chunk
+        end
         compressor.close
         Rails.logger.debug('SubmitCollection: Writing file to SCSB S3')
         client.put_object(bucket:, body: compressed.string, key: "#{Rails.configuration.scsb_s3[:scsb_s3_updates]}/scsb_#{File.basename(file_path)}")
