@@ -237,6 +237,10 @@ default: &default
           - class: Z
             low_num: 3475
             high_num: 3480
+        excluded_languages:
+        - ara
+        - per
+        - tur
         subjects:
         - Jewish
         - Jews
