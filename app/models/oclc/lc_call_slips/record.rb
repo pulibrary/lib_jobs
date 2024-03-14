@@ -38,7 +38,7 @@ module Oclc
       def subject_relevant_to_selector?(selector:)
         return false unless selector.subjects
 
-        subjects.any? { |subject| subject.downcase.match?(/#{selector.subjects.join('|')}/) }
+        subjects.any? { |subject| subject.match?(/#{selector.subjects.join('|')}/i) }
       end
 
       def author

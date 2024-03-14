@@ -51,6 +51,28 @@ RSpec.describe Oclc::LcCallSlips::Record, type: :model, newly_cataloged: true do
         expect(oclc_record.relevant_to_selector?(selector:)).to eq(false)
       end
     end
+    context 'with capitalization in the config file subjects' do
+      let(:selector_config) do
+        { hatfield: {
+          classes: [{ class: 'X', low_num: 0, high_num: 99_999 }],
+          subjects: ['Judaism']
+        } }
+      end
+      let(:fields) do
+        [
+          { '650' => { "ind1" => "",
+                       "ind2" => "0",
+                       'subfields' => [
+                         { 'a' => 'Judaism' }
+                       ] } }
+        ]
+      end
+
+      it 'uses case insensitive matching' do
+        expect(oclc_record.subject_relevant_to_selector?(selector:)).to eq(true)
+        expect(oclc_record.relevant_to_selector?(selector:)).to eq(true)
+      end
+    end
   end
 
   describe 'call number parsing' do
