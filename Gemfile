@@ -26,7 +26,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'jwt'
 gem 'library_stdnums'
 gem 'marc'
-gem 'marc_cleanup', github: "pulibrary/marc_cleanup", tag: 'v0.9.0'
+gem 'marc_cleanup', github: "pulibrary/marc_cleanup", tag: 'v0.9.1'
 # Use ActiveStorage variant
 gem 'matrix'
 gem 'multipart-post'
