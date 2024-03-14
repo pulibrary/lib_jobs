@@ -13,12 +13,12 @@ class MarcCollectionDocumentCallbacks < Nokogiri::XML::SAX::Document
     # If this is the root <collection> node, and it doesn't already
     # have the required MARC namespace, add it
     attrs << ['xmlns', 'http://www.loc.gov/MARC21/slim'] if name == 'collection' && attrs.none? { |attr| attr[0] == 'xmlns' }
-    attr_strings = attrs.map { |attr| "#{attr[0]}=\"#{attr[1]}\"" }
     @io.write('<')
     @io.write(name)
-    if attr_strings.any?
+    if attrs.any?
       @io.write(' ')
-      @io.write attr_strings.join(' ')
+      # write the attributes in the format attribute1="dog" attribute2="cat"
+      @io.write attrs.map { |attr| "#{attr[0]}=\"#{attr[1]}\"" }.join(' ')
     end
     @io.write('>')
   end
