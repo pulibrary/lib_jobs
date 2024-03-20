@@ -8,4 +8,16 @@ RSpec.shared_examples 'a lib job' do
       expect(job.category).to be_truthy
     end
   end
+
+  describe '#run' do
+    it 'returns true' do
+      expect(job.run).to be true
+    end
+
+    it 'creates a dataset' do
+      expect do
+        job.run
+      end.to change(DataSet, :count).by(1)
+    end
+  end
 end
