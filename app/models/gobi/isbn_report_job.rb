@@ -30,6 +30,13 @@ module Gobi
       temp_files.each do |temp_file|
         Gobi::IsbnFile.new(received_items_file: temp_file).process
       end
+      report_uploader = ReportUploader.new(
+        sftp: GobiSftp.new,
+        working_file_names: [IsbnReportJob.working_file_name],
+        working_file_directory: Rails.application.config.gobi_sftp.working_directory,
+        output_sftp_base_dir: Rails.application.config.gobi_sftp.output_sftp_base_dir
+      )
+      report_uploader.run
       data_set
     end
 

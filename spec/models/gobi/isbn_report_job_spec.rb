@@ -4,7 +4,7 @@ require 'rails_helper'
 RSpec.describe Gobi::IsbnReportJob, type: :model do
   include_context 'sftp_gobi_isbn'
   let(:isbn_job) { described_class.new }
-  let(:new_tsv_path) { Rails.root.join('spec', 'fixtures', 'gobi', '2024-03-16-gobi-isbn-updates.tsv') }
+  # let(:new_tsv_path) { File.join('spec', 'fixtures', 'gobi', '2024-03-16-gobi-isbn-updates.tsv') }
 
   it_behaves_like 'a lib job'
 
@@ -27,8 +27,8 @@ RSpec.describe Gobi::IsbnReportJob, type: :model do
     expect(lines[1]).to include("9789775414656\t")
   end
 
-  xit 'uploads the relevant files' do
+  it 'uploads the relevant files' do
     expect(isbn_job.run).to be_truthy
-    expect(sftp_session).to have_received(:upload)#.with(file_full_path_one, temp_file_one)
+    expect(sftp_session).to have_received(:upload!).with(new_tsv_path, '/holdings/2024-03-16-gobi-isbn-updates.tsv').once
   end
 end

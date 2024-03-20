@@ -20,9 +20,9 @@ module Oclc
       data_set.report_time = Time.zone.now.midnight
 
       working_file_names = report_downloader.run
-      report_uploader = Oclc::ReportUploader.new(working_file_names:,
-                                                 working_file_directory:,
-                                                 output_sftp_base_dir:)
+      report_uploader = ReportUploader.new(working_file_names:,
+                                           working_file_directory:,
+                                           output_sftp_base_dir:)
       uploaded_file_paths = report_uploader.run
       data_set.data = "Files created and uploaded to lib-sftp: #{uploaded_file_paths.join(', ')}"
 
