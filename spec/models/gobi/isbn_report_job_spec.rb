@@ -26,4 +26,9 @@ RSpec.describe Gobi::IsbnReportJob, type: :model do
     expect(lines[0]).to include("isbn\tcode_string\taccount_code\n")
     expect(lines[1]).to include("9789775414656\t")
   end
+
+  xit 'uploads the relevant files' do
+    expect(isbn_job.run).to be_truthy
+    expect(sftp_session).to have_received(:upload)#.with(file_full_path_one, temp_file_one)
+  end
 end
