@@ -4,7 +4,6 @@ require 'rails_helper'
 RSpec.describe Gobi::IsbnFile, type: :model do
   include_context 'gobi_isbn'
   let(:isbn_file) { described_class.new(temp_file: temp_file_one) }
-
   it 'can be processed' do
     expect(isbn_file.process).to be
   end
@@ -12,11 +11,34 @@ RSpec.describe Gobi::IsbnFile, type: :model do
   it 'it writes the expected data to the file' do
     isbn_file.process
     csv_file = CSV.read(new_csv_path, col_sep: "|")
-    expect(csv_file.length).to eq(156)
+    expect(csv_file.length).to eq(391)
     first_row = csv_file[0]
     expect(first_row[0]).to eq('9789775414656')
     expect(first_row[1]).to eq('RCP')
     expect(first_row[2]).to eq('123499')
+  end
+
+  describe 'bib_hash' do
+    let(:headers) { ['MMS Id', 'Begin Publication Date', 'ISBN Valid', 'Library Code', 'Location Code'] }
+    let(:fields_one) { ['99113270853506421', '2019', '1442214430; 9781442214439', 'recap', 'pa'] }
+    let(:fields_two) { ['99113270853506421', '2019', '1442214430; 9781442214439', 'firestone', 'stacks'] }
+    let(:row_one) { CSV::Row.new(headers, fields_one) }
+    let(:row_two) { CSV::Row.new(headers, fields_two) }
+    it 'creates a hash of all bib ids and accumulates associated data' do
+      isbn_file.build_bib_hash(row: row_one)
+      isbn_file.build_bib_hash(row: row_two)
+      expect(isbn_file.bib_hash).to eq({ "99113270853506421" => {
+                                         "isbns": ["1442214430", "9781442214439"],
+                                         "loc_combos": ['recap$pa', 'firestone$stacks']
+                                       } })
+    end
+    it 'writes the bib_hash to a CSV file' do
+      isbn_file.build_bib_hash(row: row_one)
+      isbn_file.build_bib_hash(row: row_two)
+      isbn_file.write_bib_hash_to_csv
+      csv_file = CSV.read(new_csv_path, col_sep: "|")
+      expect(csv_file.length).to eq(2)
+    end
   end
 
   describe '#published_within_five_years?' do
@@ -49,16 +71,19 @@ RSpec.describe Gobi::IsbnFile, type: :model do
 
   describe '#code_string' do
     it 'has a code string of NC when in a non-circulating location' do
-      row = CSV::Row.new(['Library Code', 'Location Code'], ['arch', 'ref'])
-      expect(isbn_file.code_string(row:)).to eq('NC')
+      expect(isbn_file.code_string(loc_combos: ['arch$ref'])).to eq('NC')
     end
     it 'has a code string of RCP when in a shared location' do
-      row = CSV::Row.new(['Library Code', 'Location Code'], ['recap', 'pa'])
-      expect(isbn_file.code_string(row:)).to eq('RCP')
+      expect(isbn_file.code_string(loc_combos: ['recap$pa'])).to eq('RCP')
     end
     it 'has a code string of Cir for all other locations' do
-      row = CSV::Row.new(['Library Code', 'Location Code'], ['anything', 'atall'])
-      expect(isbn_file.code_string(row:)).to eq('Cir')
+      expect(isbn_file.code_string(loc_combos: ['anything$atall'])).to eq('Cir')
+    end
+    it 'combines codes for multiple locations' do
+      expect(isbn_file.code_string(loc_combos: ['arch$ref', 'recap$pa'])).to eq('NCRCP')
+    end
+    it 'keeps the same code order no matter the order of locations' do
+      expect(isbn_file.code_string(loc_combos: ['arch$ref', 'any$thing', 'recap$pa'])).to eq('CirNCRCP')
     end
   end
 
@@ -93,23 +118,6 @@ RSpec.describe Gobi::IsbnFile, type: :model do
     it 'does not return invalid isbns' do
       row = CSV::Row.new(['ISBN Valid'], ['01951034830; 978019510348; 01951034; 978019510349'])
       expect(isbn_file.isbns_for_report(row:)).to be_blank
-    end
-  end
-
-  describe 'repeated MMS ID with different locations and one ISBN' do
-    let(:our_csv) do
-      str = <<-EOT
-MMS Id,Begin Publication Date,ISBN Valid,Library Code,Location Code
-99113270853506421,2019,9781442214439,recap,pa
-99113270853506421,2019,9781442214439,firestone,stacks
-99113270853506421,2019,9781442214439,arch,ref
-EOT
-      CSV.new(str, headers: true)
-    end
-    let(:expected_output_row) { "9781442214439|CIRNCRCP|123499" }
-    it 'creates a single output line ' do
-      pending("Combining MMS ID locations")
-      expect("output_row").to eq(expected_output_row)
     end
   end
 end

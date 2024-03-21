@@ -2,9 +2,10 @@
 
 module Gobi
   class IsbnFile
-    attr_reader :received_items_file
+    attr_reader :received_items_file, :bib_hash
     def initialize(temp_file:)
       @received_items_file = temp_file
+      @bib_hash = {}
     end
 
     def process
@@ -13,10 +14,52 @@ module Gobi
         next unless relevant_library_code?(row:)
         isbns = isbns_for_report(row:)
         next if isbns.blank?
-        # Will need to write a record for each valid ISBN
-        write_record(row:)
+        build_bib_hash(row:)
       end
+      write_bib_hash_to_csv
       Gobi::IsbnReportJob.working_file_name
+    end
+
+    def build_bib_hash(row:)
+      bib_id = row["MMS Id"]
+      if @bib_hash[bib_id]
+        @bib_hash[bib_id][:loc_combos] << loc_combo(row:)
+      else
+        @bib_hash[bib_id] = {
+          isbns: isbns_for_report(row:),
+          loc_combos: [loc_combo(row:)]
+        }
+      end
+    end
+
+    def write_bib_hash_to_csv
+      CSV.open(Gobi::IsbnReportJob.working_file_path, 'a', headers: true, encoding: 'bom|utf-8', col_sep: "|") do |csv|
+        @bib_hash.each do |_bib, data|
+          code_string = code_string(loc_combos: data[:loc_combos])
+          data[:isbns].each do |isbn|
+            csv << [isbn, code_string, Rails.application.config.gobi_sftp.gobi_account_code]
+          end
+        end
+      end
+    end
+
+    def code_string(loc_combos:)
+      limited_locations = Rails.application.config.gobi_locations.limited_locations
+      shared_locations = Rails.application.config.gobi_locations.shared_locations
+      has_limited_locations = (loc_combos & limited_locations)
+      has_shared_locations = (loc_combos & shared_locations)
+      has_circ_locations = (loc_combos - has_limited_locations - has_shared_locations).present?
+      code_string = ''
+      code_string << 'Cir' if has_circ_locations
+      code_string << 'NC' if has_limited_locations.present?
+      code_string << 'RCP' if has_shared_locations.present?
+      code_string
+    end
+
+    def loc_combo(row:)
+      library = row['Library Code']
+      location = row['Location Code']
+      [library, location].join('$')
     end
 
     # with items published in the last 5 years
@@ -38,42 +81,11 @@ module Gobi
       false
     end
 
-    # Text files for Gobi must be either tab or pipe separated
-    def write_record(row:)
-      CSV.open(Gobi::IsbnReportJob.working_file_path, 'a', headers: true, encoding: 'bom|utf-8', col_sep: "|") do |csv|
-        csv << row_data(row:)
-      end
-    end
-
     # Need to have a row for each valid ISBN
     # Could convert to 13 digit ISBN and de-dup
     def isbns_for_report(row:)
       isbns = row["ISBN Valid"].split("\; ").map { |isbn| isbn.delete(':') }
       isbns.select { |isbn| isbn.size == 13 || isbn.size == 10 }
-    end
-
-    # Could have more than one copy, each in its own location
-    # Would be on separate rows on source CSV
-    # Need to be able to add all three locations, if relevant
-    def code_string(row:)
-      location_combo = "#{row['Library Code']}$#{row['Location Code']}"
-      limited_locations = Rails.application.config.gobi_locations.limited_locations
-      shared_locations = Rails.application.config.gobi_locations.shared_locations
-      if limited_locations.include?(location_combo)
-        'NC'
-      elsif shared_locations.include?(location_combo)
-        'RCP'
-      else
-        'Cir'
-      end
-    end
-
-    def row_data(row:)
-      [
-        isbns_for_report(row:).first,
-        code_string(row:),
-        Rails.application.config.gobi_sftp.gobi_account_code
-      ]
     end
   end
 end
