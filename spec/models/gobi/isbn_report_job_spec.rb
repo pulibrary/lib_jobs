@@ -17,7 +17,7 @@ RSpec.describe Gobi::IsbnReportJob, type: :model do
     expect(sftp_session).to have_received(:download!).with(file_full_path_two, temp_file_two)
   end
 
-  it 'creates a tsv for uploading to gobi' do
+  it 'creates a csv for uploading to gobi' do
     expect(File.exist?(new_csv_path)).to be false
     isbn_job.run
     expect(File.exist?(new_csv_path)).to be true
@@ -28,5 +28,11 @@ RSpec.describe Gobi::IsbnReportJob, type: :model do
   it 'uploads the relevant files' do
     expect(isbn_job.run).to be_truthy
     expect(sftp_session).to have_received(:upload!).with(new_csv_path, '/holdings/2024-03-16-gobi-isbn-updates.txt').once
+  end
+
+  it 'adds a count of ISBNs sent to the dataset' do
+    isbn_job.run
+    data_set = DataSet.last
+    expect(data_set.data).to be
   end
 end

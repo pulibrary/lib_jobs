@@ -2,7 +2,7 @@
 
 module Gobi
   class IsbnReportJob < LibJob
-    attr_reader :report_downloader
+    attr_reader :report_downloader, :report_uploader
 
     def initialize
       super(category: 'Gobi:IsbnReports')
@@ -11,6 +11,12 @@ module Gobi
         file_pattern: 'received_items_published_last_5_years_\d{12}.csv',
         input_sftp_base_dir: '/alma/isbns',
         process_class: Gobi::IsbnFile
+      )
+      @report_uploader = ReportUploader.new(
+        sftp: GobiSftp.new,
+        working_file_names: [IsbnReportJob.working_file_name],
+        working_file_directory: Rails.application.config.gobi_sftp.working_directory,
+        output_sftp_base_dir: Rails.application.config.gobi_sftp.output_sftp_base_dir
       )
     end
 
@@ -27,14 +33,9 @@ module Gobi
 
     def handle(data_set:)
       create_csv
-      @report_downloader.run
-      report_uploader = ReportUploader.new(
-        sftp: GobiSftp.new,
-        working_file_names: [IsbnReportJob.working_file_name],
-        working_file_directory: Rails.application.config.gobi_sftp.working_directory,
-        output_sftp_base_dir: Rails.application.config.gobi_sftp.output_sftp_base_dir
-      )
+      report_downloader.run
       report_uploader.run
+      data_set.data = "Number of ISBNs sent: #{CSV.read(IsbnReportJob.working_file_path).length}"
       data_set
     end
 
