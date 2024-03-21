@@ -85,7 +85,22 @@ module Gobi
     # Could convert to 13 digit ISBN and de-dup
     def isbns_for_report(row:)
       isbns = row["ISBN Valid"].split("\; ").map { |isbn| isbn.delete(':') }
-      isbns.select { |isbn| isbn.size == 13 || isbn.size == 10 }
+      isbns.select! { |isbn| isbn.size == 13 || isbn.size == 10 }
+      isbns.map { |isbn| convert_to_isbn_thirteen(isbn:) }.uniq
+    end
+
+    def convert_to_isbn_thirteen(isbn:)
+      return isbn if isbn.length == 13
+
+      isbn.chop!
+      isbn.prepend('978')
+      check_digit_arr = isbn.split("").map(&:to_i)
+      modulo = check_digit_arr.each_with_index.map do |num, index|
+        index.odd? ? num * 3 : num * 1
+      end.sum % 10
+      check_digit = modulo.zero? ? 0 : 10 - modulo
+      isbn << check_digit.to_s
+      isbn
     end
   end
 end

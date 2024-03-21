@@ -11,7 +11,7 @@ RSpec.describe Gobi::IsbnFile, type: :model do
   it 'it writes the expected data to the file' do
     isbn_file.process
     csv_file = CSV.read(new_csv_path, col_sep: "|")
-    expect(csv_file.length).to eq(391)
+    expect(csv_file.length).to eq(196)
     first_row = csv_file[0]
     expect(first_row[0]).to eq('9789775414656')
     expect(first_row[1]).to eq('RCP')
@@ -20,24 +20,48 @@ RSpec.describe Gobi::IsbnFile, type: :model do
 
   describe 'bib_hash' do
     let(:headers) { ['MMS Id', 'Begin Publication Date', 'ISBN Valid', 'Library Code', 'Location Code'] }
-    let(:fields_one) { ['99113270853506421', '2019', '1442214430; 9781442214439', 'recap', 'pa'] }
-    let(:fields_two) { ['99113270853506421', '2019', '1442214430; 9781442214439', 'firestone', 'stacks'] }
     let(:row_one) { CSV::Row.new(headers, fields_one) }
     let(:row_two) { CSV::Row.new(headers, fields_two) }
-    it 'creates a hash of all bib ids and accumulates associated data' do
-      isbn_file.build_bib_hash(row: row_one)
-      isbn_file.build_bib_hash(row: row_two)
-      expect(isbn_file.bib_hash).to eq({ "99113270853506421" => {
-                                         "isbns": ["1442214430", "9781442214439"],
-                                         "loc_combos": ['recap$pa', 'firestone$stacks']
-                                       } })
+
+    context 'with the same bib id and one isbn' do
+      let(:fields_one) { ['99113270853506421', '2019', '1442214430; 9781442214439', 'recap', 'pa'] }
+      let(:fields_two) { ['99113270853506421', '2019', '1442214430; 9781442214439', 'firestone', 'stacks'] }
+
+      it 'creates a hash of all bib ids and accumulates associated data' do
+        isbn_file.build_bib_hash(row: row_one)
+        isbn_file.build_bib_hash(row: row_two)
+        expect(isbn_file.bib_hash).to eq({ "99113270853506421" => {
+                                           "isbns": ["9781442214439"],
+                                           "loc_combos": ['recap$pa', 'firestone$stacks']
+                                         } })
+      end
+      it 'writes the bib_hash to a CSV file' do
+        isbn_file.build_bib_hash(row: row_one)
+        isbn_file.build_bib_hash(row: row_two)
+        isbn_file.write_bib_hash_to_csv
+        csv_file = CSV.read(new_csv_path, col_sep: "|")
+        expect(csv_file.length).to eq(1)
+      end
     end
-    it 'writes the bib_hash to a CSV file' do
-      isbn_file.build_bib_hash(row: row_one)
-      isbn_file.build_bib_hash(row: row_two)
-      isbn_file.write_bib_hash_to_csv
-      csv_file = CSV.read(new_csv_path, col_sep: "|")
-      expect(csv_file.length).to eq(2)
+    context 'with the same bib id and multiple isbns' do
+      let(:fields_one) { ['99113270853506421', '2019', '0195103483; 9780195103489; 0195103491; 9780195103496', 'recap', 'pa'] }
+      let(:fields_two) { ['99113270853506421', '2019', '0195103483; 9780195103489; 0195103491; 9780195103496', 'firestone', 'stacks'] }
+
+      it 'creates a hash of all bib ids and accumulates associated data' do
+        isbn_file.build_bib_hash(row: row_one)
+        isbn_file.build_bib_hash(row: row_two)
+        expect(isbn_file.bib_hash).to eq({ "99113270853506421" => {
+                                           "isbns": ["9780195103489", "9780195103496"],
+                                           "loc_combos": ['recap$pa', 'firestone$stacks']
+                                         } })
+      end
+      it 'writes the bib_hash to a CSV file' do
+        isbn_file.build_bib_hash(row: row_one)
+        isbn_file.build_bib_hash(row: row_two)
+        isbn_file.write_bib_hash_to_csv
+        csv_file = CSV.read(new_csv_path, col_sep: "|")
+        expect(csv_file.length).to eq(2)
+      end
     end
   end
 
@@ -103,11 +127,7 @@ RSpec.describe Gobi::IsbnFile, type: :model do
   end
 
   describe '#isbns_for_report' do
-    it 'returns all valid isbns' do
-      row = CSV::Row.new(['ISBN Valid'], ['0195103483; 9780195103489; 0195103491; 9780195103496'])
-      expect(isbn_file.isbns_for_report(row:)).to match_array(['0195103483', '9780195103489', '0195103491', '9780195103496'])
-    end
-    xit 'removes ten digit isbns that match a 13 digit isbn' do
+    it 'removes ten digit isbns that match a 13 digit isbn' do
       row = CSV::Row.new(['ISBN Valid'], ['0195103483; 9780195103489; 0195103491; 9780195103496'])
       expect(isbn_file.isbns_for_report(row:)).to match_array(['9780195103489', '9780195103496'])
     end
@@ -118,6 +138,15 @@ RSpec.describe Gobi::IsbnFile, type: :model do
     it 'does not return invalid isbns' do
       row = CSV::Row.new(['ISBN Valid'], ['01951034830; 978019510348; 01951034; 978019510349'])
       expect(isbn_file.isbns_for_report(row:)).to be_blank
+    end
+  end
+
+  describe '#convert_isbn' do
+    it 'converts a ten digit isbn to a thirteen digit isbn' do
+      expect(isbn_file.convert_to_isbn_thirteen(isbn: '0195103483')).to eq('9780195103489')
+      expect(isbn_file.convert_to_isbn_thirteen(isbn: '0195103491')).to eq('9780195103496')
+      expect(isbn_file.convert_to_isbn_thirteen(isbn: '9642523299')).to eq('9789642523290')
+      expect(isbn_file.convert_to_isbn_thirteen(isbn: '6411053861')).to eq('9786411053866')
     end
   end
 end
