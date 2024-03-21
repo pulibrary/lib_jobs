@@ -22,7 +22,7 @@ module Gobi
 
     def self.working_file_name
       date = Time.now.utc.strftime('%Y-%m-%d')
-      "#{date}-gobi-isbn-updates.tsv"
+      "#{date}-gobi-isbn-updates.txt"
     end
 
     def handle(data_set:)
@@ -39,10 +39,7 @@ module Gobi
     end
 
     def create_csv
-      headers = ['isbn', 'code_string', 'account_code']
-      CSV.open(IsbnReportJob.working_file_path, 'w', encoding: 'bom|utf-8', col_sep: "\t") do |csv|
-        csv << headers
-      end
+      CSV.open(IsbnReportJob.working_file_path, 'w', encoding: 'bom|utf-8', col_sep: "|")
     end
   end
 end

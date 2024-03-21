@@ -11,7 +11,9 @@ module Gobi
       CSV.foreach(received_items_file, headers: true, encoding: 'bom|utf-8') do |row|
         next unless published_within_five_years?(row:)
         next unless relevant_library_code?(row:)
-        next if isbn_for_report(row:).blank?
+        isbns = isbns_for_report(row:)
+        next if isbns.blank?
+        # Will need to write a record for each valid ISBN
         write_record(row:)
       end
       Gobi::IsbnReportJob.working_file_name
@@ -38,17 +40,21 @@ module Gobi
 
     # Text files for Gobi must be either tab or pipe separated
     def write_record(row:)
-      CSV.open(Gobi::IsbnReportJob.working_file_path, 'a', headers: true, encoding: 'bom|utf-8', col_sep: "\t") do |csv|
+      CSV.open(Gobi::IsbnReportJob.working_file_path, 'a', headers: true, encoding: 'bom|utf-8', col_sep: "|") do |csv|
         csv << row_data(row:)
       end
     end
 
-    def isbn_for_report(row:)
+    # Need to have a row for each valid ISBN
+    # Could convert to 13 digit ISBN and de-dup
+    def isbns_for_report(row:)
       isbns = row["ISBN Valid"].split("\; ").map { |isbn| isbn.delete(':') }
-      # Use the first 13 digit ISBN
-      isbns.find { |isbn| isbn.size == 13 }
+      isbns.select { |isbn| isbn.size == 13 || isbn.size == 10 }
     end
 
+    # Could have more than one copy, each in its own location
+    # Would be on separate rows on source CSV
+    # Need to be able to add all three locations, if relevant
     def code_string(row:)
       location_combo = "#{row['Library Code']}$#{row['Location Code']}"
       limited_locations = Rails.application.config.gobi_locations.limited_locations
@@ -64,7 +70,7 @@ module Gobi
 
     def row_data(row:)
       [
-        isbn_for_report(row:),
+        isbns_for_report(row:).first,
         code_string(row:),
         Rails.application.config.gobi_sftp.gobi_account_code
       ]

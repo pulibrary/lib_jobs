@@ -11,10 +11,8 @@ RSpec.describe Gobi::IsbnFile, type: :model do
 
   it 'it writes the expected data to the file' do
     isbn_file.process
-    # Since we're not doing this in the context of the larger job,
-    # the CSV won't have headers
-    csv_file = CSV.read(new_tsv_path, col_sep: "\t")
-    expect(csv_file.length).to eq(154)
+    csv_file = CSV.read(new_csv_path, col_sep: "|")
+    expect(csv_file.length).to eq(156)
     first_row = csv_file[0]
     expect(first_row[0]).to eq('9789775414656')
     expect(first_row[1]).to eq('RCP')
@@ -37,6 +35,10 @@ RSpec.describe Gobi::IsbnFile, type: :model do
     end
     it 'returns true for recent dates' do
       row = CSV::Row.new(['Begin Publication Date'], ["2022"])
+      expect(isbn_file.published_within_five_years?(row:)).to be true
+    end
+    it 'returns true for 2019' do
+      row = CSV::Row.new(['Begin Publication Date'], ["2019"])
       expect(isbn_file.published_within_five_years?(row:)).to be true
     end
     it 'returns false for older dates' do
@@ -75,14 +77,39 @@ RSpec.describe Gobi::IsbnFile, type: :model do
     end
   end
 
-  describe '#isbn_for_report' do
-    it 'returns the first 13 digit isbn' do
+  describe '#isbns_for_report' do
+    it 'returns all valid isbns' do
       row = CSV::Row.new(['ISBN Valid'], ['0195103483; 9780195103489; 0195103491; 9780195103496'])
-      expect(isbn_file.isbn_for_report(row:)).to eq('9780195103489')
+      expect(isbn_file.isbns_for_report(row:)).to match_array(['0195103483', '9780195103489', '0195103491', '9780195103496'])
+    end
+    xit 'removes ten digit isbns that match a 13 digit isbn' do
+      row = CSV::Row.new(['ISBN Valid'], ['0195103483; 9780195103489; 0195103491; 9780195103496'])
+      expect(isbn_file.isbns_for_report(row:)).to match_array(['9780195103489', '9780195103496'])
     end
     it 'removes extra colons' do
       row = CSV::Row.new(['ISBN Valid'], ['9780195103489:'])
-      expect(isbn_file.isbn_for_report(row:)).to eq('9780195103489')
+      expect(isbn_file.isbns_for_report(row:)).to eq(['9780195103489'])
+    end
+    it 'does not return invalid isbns' do
+      row = CSV::Row.new(['ISBN Valid'], ['01951034830; 978019510348; 01951034; 978019510349'])
+      expect(isbn_file.isbns_for_report(row:)).to be_blank
+    end
+  end
+
+  describe 'repeated MMS ID with different locations and one ISBN' do
+    let(:our_csv) do
+      str = <<-EOT
+MMS Id,Begin Publication Date,ISBN Valid,Library Code,Location Code
+99113270853506421,2019,9781442214439,recap,pa
+99113270853506421,2019,9781442214439,firestone,stacks
+99113270853506421,2019,9781442214439,arch,ref
+EOT
+      CSV.new(str, headers: true)
+    end
+    let(:expected_output_row) { "9781442214439|CIRNCRCP|123499" }
+    it 'creates a single output line ' do
+      pending("Combining MMS ID locations")
+      expect("output_row").to eq(expected_output_row)
     end
   end
 end

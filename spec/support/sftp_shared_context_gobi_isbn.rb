@@ -17,7 +17,7 @@ RSpec.shared_context 'sftp_gobi_isbn' do
     allow(Tempfile).to receive(:new).and_return(temp_file_one, temp_file_two)
     allow(sftp_session).to receive(:download!).with(file_full_path_one, temp_file_one)
     allow(sftp_session).to receive(:download!).with(file_full_path_two, temp_file_two)
-    allow(sftp_session).to receive(:upload!).with(new_tsv_path, '/holdings/2024-03-16-gobi-isbn-updates.tsv')
+    allow(sftp_session).to receive(:upload!).with(new_csv_path, '/holdings/2024-03-16-gobi-isbn-updates.txt')
     allow(sftp_dir).to receive(:foreach).and_yield(sftp_entry1).and_yield(sftp_entry2).and_yield(sftp_entry3)
   end
 end

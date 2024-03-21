@@ -18,16 +18,15 @@ RSpec.describe Gobi::IsbnReportJob, type: :model do
   end
 
   it 'creates a tsv for uploading to gobi' do
-    expect(File.exist?(new_tsv_path)).to be false
+    expect(File.exist?(new_csv_path)).to be false
     isbn_job.run
-    expect(File.exist?(new_tsv_path)).to be true
-    lines = File.open(new_tsv_path).to_a
-    expect(lines[0]).to include("isbn\tcode_string\taccount_code\n")
-    expect(lines[1]).to include("9789775414656\t")
+    expect(File.exist?(new_csv_path)).to be true
+    lines = File.open(new_csv_path).to_a
+    expect(lines[0]).to include("9789775414656|")
   end
 
   it 'uploads the relevant files' do
     expect(isbn_job.run).to be_truthy
-    expect(sftp_session).to have_received(:upload!).with(new_tsv_path, '/holdings/2024-03-16-gobi-isbn-updates.tsv').once
+    expect(sftp_session).to have_received(:upload!).with(new_csv_path, '/holdings/2024-03-16-gobi-isbn-updates.txt').once
   end
 end
