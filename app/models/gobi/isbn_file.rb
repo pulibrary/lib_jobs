@@ -3,8 +3,8 @@
 module Gobi
   class IsbnFile
     attr_reader :received_items_file
-    def initialize(received_items_file:)
-      @received_items_file = received_items_file
+    def initialize(temp_file:)
+      @received_items_file = temp_file
     end
 
     def process
@@ -14,7 +14,7 @@ module Gobi
         next if isbn_for_report(row:).blank?
         write_record(row:)
       end
-      true
+      Gobi::IsbnReportJob.working_file_name
     end
 
     # with items published in the last 5 years

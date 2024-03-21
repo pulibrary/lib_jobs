@@ -6,7 +6,8 @@ RSpec.describe ReportDownloader, type: :model do
     described_class.new(
                         sftp: AlmaSftp.new,
                         file_pattern: 'received_items_published_last_5_years_\d{12}.csv',
-                        input_sftp_base_dir: '/alma/isbns'
+                        input_sftp_base_dir: '/alma/isbns',
+                        process_class: Gobi::IsbnFile
                       )
   end
 
@@ -24,17 +25,17 @@ RSpec.describe ReportDownloader, type: :model do
     expect(downloader.input_sftp_base_dir).to eq('/alma/isbns')
   end
 
-  describe '#download' do
+  describe '#run' do
     include_context 'sftp_gobi_isbn'
 
     it 'downloads matching files' do
-      temp_files = downloader.download
+      working_file_names = downloader.run
       expect(sftp_session).to have_received(:download!).with(file_full_path_one, temp_file_one)
       expect(sftp_session).to have_received(:download!).with(file_full_path_two, temp_file_two)
-      expect(temp_files).to be_an_instance_of(Array)
-      expect(temp_files.size).to eq(2)
-      expect(temp_files.first).to be_an_instance_of(String)
-      expect(File.exist?(temp_files.first)).to be true
+      expect(working_file_names).to be_an_instance_of(Array)
+      expect(working_file_names.size).to eq(2)
+      expect(working_file_names.first).to be_an_instance_of(String)
+      expect(File.exist?(File.join('spec', 'fixtures', 'gobi', working_file_names.first))).to be true
     end
   end
 end

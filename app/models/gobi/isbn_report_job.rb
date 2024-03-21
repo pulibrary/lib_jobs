@@ -9,7 +9,8 @@ module Gobi
       @report_downloader = ReportDownloader.new(
         sftp: AlmaSftp.new,
         file_pattern: 'received_items_published_last_5_years_\d{12}.csv',
-        input_sftp_base_dir: '/alma/isbns'
+        input_sftp_base_dir: '/alma/isbns',
+        process_class: Gobi::IsbnFile
       )
     end
 
@@ -25,11 +26,8 @@ module Gobi
     end
 
     def handle(data_set:)
-      temp_files = @report_downloader.download
       create_csv
-      temp_files.each do |temp_file|
-        Gobi::IsbnFile.new(received_items_file: temp_file).process
-      end
+      @report_downloader.run
       report_uploader = ReportUploader.new(
         sftp: GobiSftp.new,
         working_file_names: [IsbnReportJob.working_file_name],

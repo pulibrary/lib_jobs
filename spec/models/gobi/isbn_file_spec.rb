@@ -3,7 +3,7 @@ require 'rails_helper'
 
 RSpec.describe Gobi::IsbnFile, type: :model do
   include_context 'gobi_isbn'
-  let(:isbn_file) { described_class.new(received_items_file: temp_file_one) }
+  let(:isbn_file) { described_class.new(temp_file: temp_file_one) }
 
   it 'can be processed' do
     expect(isbn_file.process).to be

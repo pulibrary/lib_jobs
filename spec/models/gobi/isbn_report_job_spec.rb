@@ -4,7 +4,6 @@ require 'rails_helper'
 RSpec.describe Gobi::IsbnReportJob, type: :model do
   include_context 'sftp_gobi_isbn'
   let(:isbn_job) { described_class.new }
-  # let(:new_tsv_path) { File.join('spec', 'fixtures', 'gobi', '2024-03-16-gobi-isbn-updates.tsv') }
 
   it_behaves_like 'a lib job'
 
