@@ -7,6 +7,7 @@ default: &default
   gobi_account_code: <%= ENV['GOBI_ACCOUNT_CODE'] || '123499' %>
 development:
   <<: *default
+  working_directory: 'tmp/gobi'
 
 test:
   <<: *default
