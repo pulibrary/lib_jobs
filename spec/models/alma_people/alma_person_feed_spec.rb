@@ -27,8 +27,9 @@ RSpec.describe AlmaPeople::AlmaPersonFeed, type: :model do
     end
 
     before do
-      allow(oit_person_feed).to receive(:get_json).with(begin_date: yesterday, end_date: today, enabled_flag: "E").and_return(oit_people)
+      allow(oit_person_feed).to receive(:get_json).with(begin_date: yesterday, end_date: today, enabled_flag: 'E').and_return(oit_people)
       allow(sftp_session).to receive(:upload!)
+      allow(Flipflop).to receive(:alma_person_ineligible?).and_return(false)
     end
 
     it "generates an xml file" do
