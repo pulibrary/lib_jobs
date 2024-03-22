@@ -6,6 +6,7 @@ Some lib jobs work with large data files, or many data files.  In these scenario
 
 * If there is any chance that a file will be large, or that there will be many of them, don't slurp the entire file into a memory as a string (e.g. with File.read)
 * If you need to temporarily store some data during a process, consider using a Tempfile object, rather than storing it in memory
+* When handling a very large CSV, you should use the `CSV.foreach` method, rather than `CSV.read` or `CSV.parse` (see [Common issues with CSV parsing and solutions to them](https://www.paweldabrowski.com/articles/ruby-csv-common-issues))
 
 #### Identifying if a job runs out of memory
 
