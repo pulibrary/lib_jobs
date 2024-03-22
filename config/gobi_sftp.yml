@@ -14,6 +14,8 @@ test:
   host: 'localhost2'
   working_directory: 'spec/fixtures/gobi'
   gobi_account_code: '123499'
+  username: 'gobi'
+  password: 'pass'
 
 staging: &staging
   <<: *default

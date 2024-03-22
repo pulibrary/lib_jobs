@@ -2,31 +2,16 @@
 require "rails_helper"
 
 RSpec.describe GobiSftp, type: :model do
+  it_behaves_like 'an sftp'
   include_context 'sftp'
-
-  let(:subject) { described_class.new }
-  let(:file_path) { "/alma/invoices/abc.xml" }
+  let(:file_path) { '/any/old/path' }
 
   before do
-    allow(sftp_session).to receive(:download!).with(file_path).and_return(Rails.root.join('spec', 'fixtures', 'invoice_export_202118300518.xml').read)
-  end
-  it 'downloads over sftp' do
-    subject.start { |sftp| sftp.download!(file_path) }
-    expect(sftp_session).to have_received(:download!).with(file_path).once
+    allow(sftp_session).to receive(:download!)
   end
 
-  context 'with a spotty sftp connection' do
-    before do
-      allow(sftp_session).to receive(:download!).with(file_path).and_return(Rails.root.join('spec', 'fixtures', 'invoice_export_202118300518.xml').read)
-      allow(Net::SFTP).to receive(:start).and_raise(Net::SSH::Disconnect)
-      allow(Rails.logger).to receive(:warn)
-      allow(Rails.logger).to receive(:error)
-    end
-    it 'tries the download 4 times, then stops' do
-      subject.start { |sftp| sftp.download!(file_path) }
-      expect(Net::SFTP).to have_received(:start).exactly(4).times
-      expect(Rails.logger).to have_received(:warn).exactly(3).times
-      expect(Rails.logger).to have_received(:error).once
-    end
+  it 'defaults to allowing less secure algorithms' do
+    described_class.new.start { |sftp| sftp.download!(file_path) }
+    expect(Net::SFTP).to have_received(:start).with("localhost2", "gobi", { password: "pass", append_all_supported_algorithms: true }).once
   end
 end

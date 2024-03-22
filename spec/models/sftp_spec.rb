@@ -4,7 +4,7 @@ require "rails_helper"
 RSpec.describe Sftp, type: :model do
   include_context 'sftp'
 
-  let(:subject) { described_class.new }
+  let(:subject) { described_class.new(sftp_host: "example.com", sftp_username: "name", sftp_password: "pass") }
   let(:file_path) { "/alma/invoices/abc.xml" }
 
   before do
@@ -18,14 +18,19 @@ RSpec.describe Sftp, type: :model do
     expect(sftp_session).to have_received(:download!).with(file_path).once
   end
 
-  context 'with specific arguments' do
-    let(:subject) { described_class.new(sftp_host: "example.com", sftp_username: "name", sftp_password: "pass") }
-    # before do
-    #   allow(Net::SFTP).to receive(:start).with().and_yield(sftp_session)
-    # end
-    xit 'defaults to not appending all supported algorithms' do
+  describe 'allowing all supported algorithms' do
+    it 'defaults to not appending all supported algorithms' do
       subject.start { |sftp| sftp.download!(file_path) }
       expect(Net::SFTP).to have_received(:start).with("example.com", "name", { password: "pass", append_all_supported_algorithms: false }).once
+    end
+
+    context 'when you want to allow less secure algorithms' do
+      let(:subject) { described_class.new(sftp_host: "example.com", sftp_username: "name", sftp_password: "pass", allow_less_secure_algorithms: true) }
+
+      it 'can append all supported algorithms' do
+        subject.start { |sftp| sftp.download!(file_path) }
+        expect(Net::SFTP).to have_received(:start).with("example.com", "name", { password: "pass", append_all_supported_algorithms: true }).once
+      end
     end
   end
 
