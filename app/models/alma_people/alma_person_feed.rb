@@ -4,15 +4,14 @@ module AlmaPeople
     attr_reader :oit_person_feed, :begin_date, :end_date, :output_base_dir, :enabled_flag
 
     def initialize(oit_person_feed: AlmaPeople::OitPersonFeed.new, begin_date: 1.day.ago.strftime("%Y-%m-%d"),
-                   end_date: Time.zone.now.strftime("%Y-%m-%d"), output_base_dir: ENV["ALMA_PERSON_FEED_OUTPUT_DIR"] || '/tmp',
-                   enabled_flag: 'E', ineligible_flag: 'I')
+                   end_date: Time.zone.now.strftime("%Y-%m-%d"), output_base_dir: ENV["ALMA_PERSON_FEED_OUTPUT_DIR"] || '/tmp')
       super(category: "AlmaPersonFeed")
       @oit_person_feed = oit_person_feed
       @begin_date = begin_date
       @end_date = end_date
       @output_base_dir = output_base_dir
-      @enabled_flag = enabled_flag
-      @ineligible_flag = ineligible_flag
+      @enabled_flag = 'E'
+      @ineligible_flag = 'I'
       @invalid_records = []
     end
 

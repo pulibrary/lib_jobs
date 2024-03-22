@@ -114,7 +114,6 @@ RSpec.describe AlmaPeople::AlmaPersonFeed, type: :model do
         expect(sftp_session).to have_received(:upload!).once.with("/tmp/alma_people_#{yesterday}_#{today}_E.xml.zip", "/alma/people/alma_people_#{yesterday}_#{today}_E.xml.zip")
         expect(sftp_session).to have_received(:upload!).once.with("/tmp/alma_people_#{yesterday}_#{today}_I.xml.zip", "/alma/people/alma_people_#{yesterday}_#{today}_I.xml.zip")
         data_set = DataSet.last
-        byebug
         expect(data_set.category).to eq("AlmaPersonFeed")
         expect(data_set.report_time).to eq(Time.zone.now.midnight)
         expect(data_set.data).to eq("people_updated: 1, file: alma_people_#{yesterday}_#{today}_E.xml, ineligible_people_updated: 1, file: alma_people_#{yesterday}_#{today}_I.xml")
