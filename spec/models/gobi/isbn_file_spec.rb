@@ -26,21 +26,25 @@ RSpec.describe Gobi::IsbnFile, type: :model do
     context 'with the same bib id and one isbn' do
       let(:fields_one) { ['99113270853506421', '2019', '1442214430; 9781442214439', 'recap', 'pa'] }
       let(:fields_two) { ['99113270853506421', '2019', '1442214430; 9781442214439', 'firestone', 'stacks'] }
-
-      it 'creates a hash of all bib ids and accumulates associated data' do
+      before do
         isbn_file.build_bib_hash(row: row_one)
         isbn_file.build_bib_hash(row: row_two)
+      end
+      it 'creates a hash of all bib ids and accumulates associated data' do
         expect(isbn_file.bib_hash).to eq({ "99113270853506421" => {
                                            "isbns": ["9781442214439"],
                                            "loc_combos": ['recap$pa', 'firestone$stacks']
                                          } })
       end
       it 'writes the bib_hash to a CSV file' do
-        isbn_file.build_bib_hash(row: row_one)
-        isbn_file.build_bib_hash(row: row_two)
         isbn_file.write_bib_hash_to_csv
         csv_file = CSV.read(new_csv_path, col_sep: "|")
         expect(csv_file.length).to eq(1)
+      end
+      it 'writes the expected string to a CSV file' do
+        isbn_file.write_bib_hash_to_csv
+        csv_file = File.read(new_csv_path)
+        expect(csv_file).to eq("9781442214439|CirRCP|123499\n")
       end
     end
     context 'with the same bib id and multiple isbns' do
