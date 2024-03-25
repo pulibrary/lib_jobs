@@ -27,4 +27,8 @@ Flipflop.configure do
   feature :alma_invoice_status,
     default: true,
     description: "Run the Alma Invoice Status job on a regular basis?"
+
+  feature :alma_person_ineligible,
+    default: false,
+    description: "Generate the ineligible user report when the person feed runs"
 end
