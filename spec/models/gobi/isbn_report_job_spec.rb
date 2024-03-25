@@ -17,6 +17,13 @@ RSpec.describe Gobi::IsbnReportJob, type: :model do
     expect(sftp_session).to have_received(:download!).with(file_full_path_two, temp_file_two)
   end
 
+  it 'renames the relevant files to .processed once the job has completed successfully' do
+    allow(sftp_session).to receive(:rename)
+    isbn_job.run
+    expect(sftp_session).to have_received(:rename).with(file_full_path_one, "#{file_full_path_one}.processed")
+    expect(sftp_session).to have_received(:rename).with(file_full_path_two, "#{file_full_path_two}.processed")
+  end
+
   it 'creates a csv for uploading to gobi' do
     expect(File.exist?(new_csv_path)).to be false
     isbn_job.run

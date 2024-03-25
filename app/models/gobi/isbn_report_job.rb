@@ -35,8 +35,17 @@ module Gobi
       create_csv
       report_downloader.run
       report_uploader.run
+      rename_files_on_sftp
       data_set.data = "Number of ISBNs sent: #{CSV.read(IsbnReportJob.working_file_path).length}"
       data_set
+    end
+
+    def rename_files_on_sftp
+      AlmaSftp.new.start do |sftp|
+        report_downloader.remote_filenames.each do |file_name|
+          sftp.rename(file_name, "#{file_name}.processed")
+        end
+      end
     end
 
     def create_csv
