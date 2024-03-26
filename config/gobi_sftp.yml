@@ -2,14 +2,21 @@ default: &default
   host: <%= ENV['GOBI_SFTP_HOST'] || 'ftp.ybp.com' %>
   username: <%= ENV['GOBI_SFTP_USER'] || 'gobi' %>
   password: <%= ENV['GOBI_SFTP_PASSWORD'] || 'change_me' %>
-  isbn_export_file_path: '/prince/holdings'
+  output_sftp_base_dir: '/holdings'
+  working_directory: '/tmp/gobi'
+  gobi_account_code: <%= ENV['GOBI_ACCOUNT_CODE'] || '123499' %>
 
 development:
   <<: *default
+  working_directory: 'tmp/gobi'
 
 test:
   <<: *default
   host: 'localhost2'
+  working_directory: 'spec/fixtures/gobi'
+  gobi_account_code: '123499'
+  username: 'gobi'
+  password: 'pass'
 
 staging: &staging
   <<: *default
