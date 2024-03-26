@@ -42,4 +42,4 @@ set :linked_dirs, %w[open_marc_records subversion_eads]
 
 set :yarn_flags, '--silent --no-progress'
 
-set :whenever_roles, -> { [:cron_prod1, :cron_prod2] }
+set :whenever_roles, -> { [:cron_prod1, :cron_prod2, :cron_staging2] }

@@ -14,7 +14,7 @@ every 1.day, at: '12:00 pm', roles: [:cron_prod2] do
 end
 
 # Run on production at 7:45 pm EST or 8:45 pm EDT (after the daily report is generated at 7:30 pm)
-every 1.day, at: '12:45 am', roles: [:cron_prod2] do
+every 1.day, at: '12:45 am', roles: [:cron_prod2, :cron_staging2] do
   rake "lib_jobs:alma_daily_people_feed"
 end
 
