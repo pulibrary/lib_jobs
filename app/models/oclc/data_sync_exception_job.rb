@@ -4,10 +4,10 @@ module Oclc
   class DataSyncExceptionJob < LibJob
     attr_reader :report_downloader, :alma_sftp, :working_file_directory, :output_sftp_base_dir
 
-    def initialize(report_downloader: Oclc::ReportDownloader.new(file_pattern: 'BibExceptionReport.txt$',
-                                                                 process_class: Oclc::DataSyncExceptionFile,
-                                                                 input_sftp_base_dir: Rails.application.config.oclc_sftp.data_sync_report_path,
-                                                                 recent: true),
+    def initialize(report_downloader: ReportDownloader.new(file_pattern: 'BibExceptionReport.txt$',
+                                                           process_class: Oclc::DataSyncExceptionFile,
+                                                           input_sftp_base_dir: Rails.application.config.oclc_sftp.data_sync_report_path,
+                                                           recent: true),
                    alma_sftp: AlmaSftp.new,
                    working_file_directory: Rails.application.config.oclc_sftp.exceptions_working_directory,
                    output_sftp_base_dir: Rails.application.config.oclc_sftp.datasync_output_path)

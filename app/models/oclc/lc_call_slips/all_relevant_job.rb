@@ -3,10 +3,10 @@
 module Oclc
   module LcCallSlips
     class AllRelevantJob < LcCallSlipJob
-      def initialize(report_downloader: Oclc::ReportDownloader.new(file_pattern: Rails.application.config.oclc_sftp.lc_call_slips_file_pattern,
-                                                                   process_class: Oclc::LcCallSlips::AllRelevantFile,
-                                                                   input_sftp_base_dir: Rails.application.config.oclc_sftp.lc_call_slips_path,
-                                                                   recent: false))
+      def initialize(report_downloader: ReportDownloader.new(file_pattern: Rails.application.config.oclc_sftp.lc_call_slips_file_pattern,
+                                                             process_class: Oclc::LcCallSlips::AllRelevantFile,
+                                                             input_sftp_base_dir: Rails.application.config.oclc_sftp.lc_call_slips_path,
+                                                             recent: false))
         super(category: "Oclc:LcCallSlipsAll")
         @report_downloader = report_downloader
       end

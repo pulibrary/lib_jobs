@@ -4,10 +4,10 @@ module Oclc
   class DataSyncProcessingJob < LibJob
     attr_reader :report_downloader, :working_file_directory, :output_sftp_base_dir
 
-    def initialize(report_downloader: Oclc::ReportDownloader.new(file_pattern: 'BibProcessingReport.txt$',
-                                                                 process_class: Oclc::DataSyncProcessingFile,
-                                                                 input_sftp_base_dir: Rails.application.config.oclc_sftp.data_sync_report_path,
-                                                                 recent: true))
+    def initialize(report_downloader: ReportDownloader.new(file_pattern: 'BibProcessingReport.txt$',
+                                                           process_class: Oclc::DataSyncProcessingFile,
+                                                           input_sftp_base_dir: Rails.application.config.oclc_sftp.data_sync_report_path,
+                                                           recent: true))
       super(category: "Oclc:DataSyncProcessing")
       @report_downloader = report_downloader
       @working_file_directory = Rails.application.config.oclc_sftp.processing_working_directory
