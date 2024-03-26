@@ -24,6 +24,8 @@ RSpec.describe Oclc::LcCallSlips::SelectorJob, type: :model, newly_cataloged: tr
     allow(sftp_session).to receive(:download!).with(file_full_path_two, temp_file_two)
   end
 
+  it_behaves_like 'a lib job'
+
   it 'downloads only the relevant files' do
     expect(newly_cataloged_job.run).to be_truthy
     expect(sftp_session).to have_received(:download!).with(file_full_path_one, temp_file_one)

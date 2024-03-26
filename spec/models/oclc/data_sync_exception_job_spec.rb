@@ -54,6 +54,8 @@ RSpec.describe Oclc::DataSyncExceptionJob, type: :model do
       allow(sftp_session).to receive(:upload!).twice
     end
 
+    it_behaves_like 'a lib job'
+
     it 'downloads only the relevant files' do
       expect(data_sync_exception_job.run).to be_truthy
       expect(sftp_session).to have_received(:download!).with(file_full_path_one, temp_file_one)
