@@ -18,6 +18,7 @@ RSpec.describe Oclc::LcCallSlips::Record, type: :model, newly_cataloged: true do
     let(:marc_record) { MARC::Record.new_from_hash('fields' => fields) }
     let(:fields) do
       [
+        { '008' => '120627s2024    ncuabg  ob    001 0 gre d' },
         { '650' => { "ind1" => "",
                      "ind2" => "0",
                      'subfields' => [
@@ -60,6 +61,7 @@ RSpec.describe Oclc::LcCallSlips::Record, type: :model, newly_cataloged: true do
       end
       let(:fields) do
         [
+          { '008' => '120627s2024    gerabg  ob    001 0 gre d' },
           { '650' => { "ind1" => "",
                        "ind2" => "0",
                        'subfields' => [
@@ -225,7 +227,7 @@ RSpec.describe Oclc::LcCallSlips::Record, type: :model, newly_cataloged: true do
     end
 
     it 'can tell if a record is relevant to the selector' do
-      expect(oclc_record.relevant_to_selector?(selector:)).to be true
+      expect(oclc_record.relevant_to_selector?(selector:)).to be false
     end
 
     it 'can tell if a class is relevant to the selector' do
@@ -367,6 +369,42 @@ RSpec.describe Oclc::LcCallSlips::Record, type: :model, newly_cataloged: true do
           " Papacy -- History -- To 1309 -- Sources |" \
           " Canon law -- Sources")
       end
+    end
+  end
+
+  context 'a selector who wants US, UK, and Canada publications' do
+    let(:selector_config) do
+      { hollander: {
+        classes: [{ class: 'G', low_num: 154.9, high_num: 155.8 },
+                  { class: 'HD', low_num: 0, high_num: 99_999 }],
+        subjects: ['Judaism'],
+        include_us_uk_canada: true
+      } }
+    end
+    let(:marc_record) { MARC::Record.new_from_hash('fields' => fields, 'leader' => leader) }
+    let(:fields) do
+      [
+        { '008' => '120627s2024    ncuabg  ob    001 0 gre d' },
+        { '650' => { "ind1" => "",
+                     "ind2" => "0",
+                     'subfields' => [
+                       { 'a' => 'Judaism' }
+                     ] } }
+      ]
+    end
+    let(:leader) { '00852cam a2200277 i 4500' }
+    it 'recognizes that the record is relevant to the selector' do
+      expect(oclc_record.published_in_us_uk_or_canada?).to eq(true)
+      expect(oclc_record.subject_relevant_to_selector?(selector:)).to eq(true)
+      expect(oclc_record.location_relevant_to_selector?(selector:)).to eq(true)
+      expect(oclc_record.relevant_to_selector?(selector:)).to eq(true)
+    end
+    it 'recognizes that the record is generally relevant' do
+      expect(oclc_record.monograph?).to eq(true)
+      expect(oclc_record.within_last_two_years?).to eq(true)
+      expect(oclc_record.juvenile?).to eq(false)
+      expect(oclc_record.audiobook?).to eq(false)
+      expect(oclc_record.generally_relevant?).to eq(true)
     end
   end
 end

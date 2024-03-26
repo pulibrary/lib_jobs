@@ -28,6 +28,12 @@ module Oclc
         selector_config[selector_key][:subjects]
       end
 
+      def include_us_uk_canada?
+        return false unless selector_config[selector_key].keys.include?(:include_us_uk_canada)
+
+        selector_config[selector_key][:include_us_uk_canada]
+      end
+
       def selector_key
         selector_config.keys.first
       end

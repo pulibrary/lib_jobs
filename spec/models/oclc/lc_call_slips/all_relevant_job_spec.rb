@@ -20,6 +20,6 @@ RSpec.describe Oclc::LcCallSlips::AllRelevantJob, type: :model, newly_cataloged:
     subject.run
     expect(File.exist?(new_csv_path)).to be true
     csv_file = CSV.read(new_csv_path)
-    expect(csv_file.length).to eq(529)
+    expect(csv_file.length).to eq(1152)
   end
 end

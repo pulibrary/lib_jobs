@@ -10,11 +10,17 @@ module Oclc
       end
 
       def generally_relevant?
-        !juvenile? && !audiobook? && !published_in_us_uk_or_canada? && monograph? && within_last_two_years?
+        !juvenile? && !audiobook? && monograph? && within_last_two_years?
       end
 
       def relevant_to_selector?(selector:)
-        call_number_in_range_for_selector?(selector:) || subject_relevant_to_selector?(selector:)
+        location_relevant_to_selector?(selector:) && (call_number_in_range_for_selector?(selector:) || subject_relevant_to_selector?(selector:))
+      end
+
+      def location_relevant_to_selector?(selector:)
+        return true if selector.include_us_uk_canada?
+
+        !published_in_us_uk_or_canada?
       end
 
       def call_number_in_range_for_selector?(selector:)
