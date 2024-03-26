@@ -255,6 +255,7 @@ default: &default
         - Cairo Geniza
         - Rabbinical
         - Talmud
+        include_us_uk_canada: true
     - painter:
         email: zp5928@princeton.edu
         classes:

@@ -50,4 +50,27 @@ RSpec.describe Oclc::LcCallSlips::Selector, type: :model, newly_cataloged: true 
   it 'has an array of subjects' do
     expect(second_selector.subjects).to match_array(['foreign relations', 'politic', 'policy', 'government'])
   end
+
+  describe '#include_us_uk_canada?' do
+    context 'a selector who wants US, UK, and Canada publications' do
+      let(:selector_config) do
+        { hollander: {
+          classes: [{ class: 'G', low_num: 154.9, high_num: 155.8 },
+                    { class: 'HD', low_num: 0, high_num: 99_999 }],
+          subjects: ['economic aspects'],
+          include_us_uk_canada: true
+        } }
+      end
+      let(:selector) { described_class.new(selector_config:) }
+
+      it 'returns true' do
+        expect(selector.include_us_uk_canada?).to eq(true)
+      end
+    end
+    context 'a selector who defaults to not wanting US, UK, and Canada publications' do
+      it 'returns false' do
+        expect(first_selector.include_us_uk_canada?).to eq(false)
+      end
+    end
+  end
 end
