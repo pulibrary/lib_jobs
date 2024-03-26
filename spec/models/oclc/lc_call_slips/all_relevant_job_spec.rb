@@ -13,6 +13,8 @@ RSpec.describe Oclc::LcCallSlips::AllRelevantJob, type: :model, newly_cataloged:
     File.delete(new_csv_path) if File.exist?(new_csv_path)
   end
 
+  it_behaves_like 'a lib job'
+
   it 'creates a csv' do
     expect(File.exist?(new_csv_path)).to be false
     subject.run
