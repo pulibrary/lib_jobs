@@ -53,6 +53,11 @@ every :tuesday, at: '2:30 pm', roles: [:cron_prod2] do # The server is in UTC, s
   rake "lib_jobs:process_bursar_fines"
 end
 
+# Run on production Tuesday at 10:30am EST or 11:30am EDT (after the Alma report is scheduled to run)
+every :tuesday, at: '3:30 pm', roles: [:cron_prod1] do
+  rake "lib_jobs:gobi_isbn_update"
+end
+
 # Run on production Wednesday at 7:00am EST or 8:00am EDT
 # After Alma submits data to OCLC every Tuesday at 7:00 pm Eastern
 every :wednesday, at: '12:00 pm', roles: [:cron_prod2] do

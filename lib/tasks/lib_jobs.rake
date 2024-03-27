@@ -164,4 +164,10 @@ namespace :lib_jobs do
     job = AlmaSubmitCollection::AlmaSubmitCollectionJob.new
     job.run
   end
+
+  desc "Gobi ISBN update: Download CSV of newly received records from lib-sftp, create new CSV to upload to Gobi"
+  task gobi_isbn_update: [:environment] do
+    job = Gobi::IsbnReportJob.new
+    job.run
+  end
 end
