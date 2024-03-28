@@ -49,8 +49,9 @@
 ## Staging Mail Catcher
 To See mail that has been sent on the staging server you must ssh tunnel into the server
 
-ssh -L 1082:localhost:1080 pulsys@lib-jobs-staging1
-Once the tunnel is open you can see the mail that has been sent on staging [here](localhost:8082)
+    ssh -L 1082:localhost:1080 pulsys@lib-jobs-staging1
+
+Once the tunnel is open you can see the [mail that has been sent on staging here](http://localhost:1082)
 
 ## Getting Started
 
