@@ -14,7 +14,7 @@ module Oclc
       end
 
       def relevant_to_selector?(selector:)
-        location_relevant_to_selector?(selector:) && (call_number_in_range_for_selector?(selector:) || subject_relevant_to_selector?(selector:))
+        location_relevant_to_selector?(selector:) && (call_number_in_range_for_selector?(selector:) || subject_relevant_to_selector?(selector:) || keywords_relevant_to_selector?(selector:))
       end
 
       def location_relevant_to_selector?(selector:)
@@ -39,6 +39,12 @@ module Oclc
         return true if selector.classes.include?(lc_class)
 
         false
+      end
+
+      def keywords_relevant_to_selector?(selector:)
+        keywords = selector.keywords
+        return false if keywords.blank?
+        record.fields.any? { |field| KeywordField.new(field:, keywords:).match? }
       end
 
       def subject_relevant_to_selector?(selector:)

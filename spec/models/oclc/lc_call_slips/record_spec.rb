@@ -407,4 +407,69 @@ RSpec.describe Oclc::LcCallSlips::Record, type: :model, newly_cataloged: true do
       expect(oclc_record.generally_relevant?).to eq(true)
     end
   end
+
+  describe 'keywords' do
+    let(:marc_record) { MARC::Record.new_from_hash('fields' => fields) }
+    let(:fields) do
+      [
+        { '008' => '120627s2024    gerabg  ob    001 0 gre d' },
+        { '245' => { "ind1" => "1",
+                     "ind2" => "0",
+                     'subfields' => [
+                       { 'a' => 'Chinese homestyle : ',
+                         'b' => 'everyday plant-based recipes for takeout, dim sum, noodles, and more / ',
+                         'c' => 'Maggie Zhu.' }
+                     ] } }
+      ]
+    end
+    context 'with a selector with a keyword' do
+      let(:selector_config) do
+        { heijdra: {
+          keywords: ['chinese']
+        } }
+      end
+
+      it 'recognizes that it is relevant' do
+        expect(oclc_record.keywords_relevant_to_selector?(selector:)).to eq(true)
+      end
+    end
+    context 'with a selector without any keywords' do
+      let(:selector_config) do
+        { hatfield: {
+          classes: [{ class: 'PN', low_num: 6755, high_num: 6758 }]
+        } }
+      end
+      it 'does not mark a record as relevant based on its subjects' do
+        expect(oclc_record.keywords_relevant_to_selector?(selector:)).to eq(false)
+        expect(oclc_record.relevant_to_selector?(selector:)).to eq(false)
+      end
+    end
+    context 'with wildcard in the config file keywords' do
+      let(:selector_config) do
+        { heijdra: {
+          keywords: ['chin*']
+        } }
+      end
+
+      it 'matches using the wildcard' do
+        expect(oclc_record.keywords_relevant_to_selector?(selector:)).to eq(true)
+      end
+
+      context 'keyword in record contains configured keyword, but config does not have wildcard at beginning and end' do
+        let(:fields) do
+          [
+            { '008' => '120627s2024    gerabg  ob    001 0 gre d' },
+            { '245' => { "ind1" => "1",
+                         "ind2" => "0",
+                         'subfields' => [
+                           { 'a' => 'Machine learning : ' }
+                         ] } }
+          ]
+        end
+        it 'does not mark a record as relevant based on its subjects' do
+          expect(oclc_record.keywords_relevant_to_selector?(selector:)).to eq(false)
+        end
+      end
+    end
+  end
 end

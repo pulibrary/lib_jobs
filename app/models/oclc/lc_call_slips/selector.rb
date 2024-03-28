@@ -24,6 +24,10 @@ module Oclc
         call_number_ranges.pluck(:class).uniq
       end
 
+      def keywords
+        @keywords ||= selector_config[selector_key][:keywords]
+      end
+
       def subjects
         selector_config[selector_key][:subjects]
       end
