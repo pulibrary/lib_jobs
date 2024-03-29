@@ -14,8 +14,8 @@ if it is what you expect.  Note that the order
 of rows may change, and this doesn't indicate
 a problem.
 1. You may also choose to run `bundle exec rake lib_jobs:create_csv_for_selector_comparison`, which
-generates a CSV of all possible records from OCLC,
-including ones that are typically filtered out like
-juvenile materials.  You can use this one to make
+generates a CSV of possible records from OCLC,
+excluding ones that are typically filtered out like
+juvenile materials (based on the `generally_relevant?` method).  You can use this one to make
 sure that your CSV in mailcatcher includes all the
 expected rows.
