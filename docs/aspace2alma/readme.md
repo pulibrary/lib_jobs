@@ -2,22 +2,33 @@ This workflow loads select collection-level, as well as remote-storage item-leve
 
 ### Steps and Contingencies
 
-This workflow relies on a barcode report via Alma Analytics, which makes the correct timing of the steps a critical piece of this integration.
-1. Alma prepares a data snapshot at 8pm each night; it becomes available to Analytics around midnight.
-2. At 1am, Alma reports out all item barcodes associated with archivally managed items (location codes starting with "sca"). It exports the report to lib-sftp-prod1.
+The workflow relies on a barcode report via Alma Analytics, which makes the correct timing of the steps a critical piece of this integration.
+
+The steps rely on a report scheduled in Alma Analytics as well as [two cron jobs scheduled in aspace_helpers](https://github.com/pulibrary/aspace_helpers/blob/main/config/schedule.rb).
+
+The first cron job runs aspace2alma every morning except Mondays, when Alma jobs tend to be backed up, which runs the risk of dealying the Alma Analytics barcodes report, and Saturdays, when ASpace goes down for maintenance.
+
+The second cron job runs on days when we skip aspace2alma (i.e. Mondays and Saturdays) to delete the prior day's `MARC_out.xml` file. (Since aspace2alma doesn't run on those days, the file doesn't get deleted/renamed on those days, making it available for import to the Alma import job a second time. This is not allowed to happen because it might import item records a second time, which Alma permits, creating duplicate item records.)
+
+1. Alma (independently from aspace2alma) prepares a data snapshot at 8pm each night that becomes available to Analytics around midnight.
+2. At 1am, Alma (via a scheduled job) reports out all item barcodes associated with archivally managed items (location codes starting with "sca"). It exports the report to lib-sftp-prod1.
 3. At 2:30am, aspace2alma starts processing on lib-jobs-prod2:
-    1. it renames the previous MARC file on lib-sftp-prod1
-    1. it retrieves the barcodes report from lib-sftp-prod1
-        1. once downloaded, it renames the file
-        2. if it finds no current file, the process exits
+    1. it removes `MARC_out_old.xml`
+    2. it renames `MARC_out.xml` to `MARC_out_old.xml` (so that in case the export fails, Alma will not find a stale `MARC_out.xml` file to import)
+    1. it retrieves the barcodes report from lib-sftp-prod2
+        1. once the barcodes report is downloaded,
+            1. it removes `sc_active_barcodes_old.csv`
+            2. it renames `sc_active_barcodes.csv` to `sc_active_barcodes_old.csv` (to prevent the process from running if
+  either the fresh report from Alma does not arrive or the ASpace export fails)
+        3. if it finds no current `sc_active_barcodes.csv` file on lib-sftp, the process exits
     1. it retrieves collection-level records from ArchivesSpace
     1. for each top_container record, it checks these 3 things and, if true, creates a MARC item record:
         1. it has a barcode
         1. it has a ReCAP location
-        1. it does not match any item on the Alma barcode report
-    1. when finished, aspace2alma saves the current MARC file to lib-sftp-prod1
-  5. At 9:00am, Alma goes to lib-sftp-prod1:
-     1. if it finds the current MARC file (by filename), it imports the records
+        1. it does not match any item on the Alma barcode report (loaded into a variable as an array)
+    1. when finished, aspace2alma saves the current `MARC_out.xml` to lib-sftp-prod1
+  5. At 9:00am, Alma goes to lib-sftp-prod2:
+     1. if it finds the current MARC file (`MARC_out.xml`), it imports the records
      1. if it doesn't find the current MARC file, nothing gets imported
 
 ### Overview
