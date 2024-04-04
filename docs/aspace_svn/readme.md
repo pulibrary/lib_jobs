@@ -6,8 +6,10 @@ The [get_eads](https://github.com/pulibrary/lib_jobs/blob/main/lib/tasks/lib_job
 
 ### Steps
 1. authenticate to SVN and ASpace
-2. create directory structure if it doesn't already exist
-3. download EADs for all repos
-4. update SVN
-5. add and commit to SVN
+2. create directory structure if it doesn't already exist:
+   
+   The SVN directory structure organizes the EAD files into directories named after the holding repository and, in the case of Mudd only (for legacy reasons), the holding library. Saving the files into the same structure on download allows the process to commit all files at once.
+4. download EADs for all repos
+5. update SVN
+6. add and commit to SVN
 
