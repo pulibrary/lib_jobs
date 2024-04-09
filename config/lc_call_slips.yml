@@ -167,9 +167,6 @@ default: &default
         - class: HA
           low_num: 0
           high_num: 99_999
-        - class: HB
-          low_num: 0
-          high_num: 99_999
         - class: JV
           low_num: 6019
           high_num: 6019.999
