@@ -10,7 +10,7 @@
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-preset-env": "^9.3.0",
     "sass": "^1.57.1",
-    "vite": "^5.0.12",
+    "vite": "^5.0.13",
     "vite-plugin-ruby": "^5.0.0"
   }
 }
