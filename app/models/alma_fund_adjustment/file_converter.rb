@@ -18,9 +18,9 @@ module AlmaFundAdjustment
 
     private
 
-    def process_file(path, sftp)
+    def process_file(path, sftp_conn)
       data = read_file path
-      File.rename(path, "#{path}.processed") && return if data.empty?
+      mark_file_as_processed(path) && return if data.empty?
 
       adjustments = data.map { |row| FundAdjustment.new(row).adjusted_row }
       base_name = File.basename(path)
@@ -32,8 +32,8 @@ module AlmaFundAdjustment
         end
       end
 
-      sftp.upload!(adjusted_file, File.join(alma_fund_adjustment_path, base_name))
-      File.rename(path, "#{path}.processed")
+      sftp_conn.upload!(adjusted_file, File.join(alma_fund_adjustment_path, base_name))
+      mark_file_as_processed(path)
     end
 
     def read_file(path)

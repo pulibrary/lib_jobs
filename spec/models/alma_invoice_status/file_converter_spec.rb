@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe AlmaInvoiceStatus::FileConverter, type: :model do
+RSpec.describe AlmaInvoiceStatus::FileConverter, type: :model, focus: true do
   include_context 'sftp'
 
   subject(:fund_adjustment) do

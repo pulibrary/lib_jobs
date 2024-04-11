@@ -34,13 +34,13 @@ module AlmaInvoiceStatus
       data_set
     end
 
-    def process_file(path, sftp)
+    def process_file(path, sftp_conn)
       query = File.open(path) { |f| StatusQuery.new(xml_io: f) }
       alma_xml = AlmaXml.new(invoices: query.invoices)
       local_filename = File.join(output_base_dir, "#{File.basename(path)}.converted")
       File.open(local_filename, 'w') { |output| output.puts(alma_xml.build) }
-      sftp.upload!(local_filename, File.join(alma_invoice_status_path, File.basename(path)))
-      File.rename(path, "#{path}.processed")
+      sftp_conn.upload!(local_filename, File.join(alma_invoice_status_path, File.basename(path)))
+      mark_file_as_processed(path)
     end
   end
 end
