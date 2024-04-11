@@ -1,67 +1,79 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe AlmaInvoiceStatus::FileConverter, type: :model do
+RSpec.describe AlmaInvoiceStatus::FileConverter, type: :model, file_upload: true do
   include_context 'sftp'
 
   subject(:fund_adjustment) do
-    described_class.new(peoplesoft_input_base_dir: '/tmp', peoplesoft_input_file_pattern: 'test_alma*.csv',
+    described_class.new(peoplesoft_input_base_dir: 'spec/fixtures/peoplesoft_4', peoplesoft_input_file_pattern: 'test_alma*.csv',
                         alma_sftp: AlmaSftp.new(sftp_host: 'localhost', sftp_username: 'user', sftp_password: 'password'),
-                        invoice_status_path: '/alma/fp')
+                        invoice_status_path: '/alma/invoice_status')
   end
-
-  describe "#run" do
-    after do
-      File.delete("/tmp/test_alma_1.csv") if File.exist?("/tmp/test_alma_1.csv")
-      File.delete("/tmp/test_alma_2.csv") if File.exist?("/tmp/test_alma_2.csv")
-      File.delete("/tmp/test_alma_1.csv.processed") if File.exist?("/tmp/test_alma_1.csv.processed")
-      File.delete("/tmp/test_alma_2.csv.processed") if File.exist?("/tmp/test_alma_2.csv.processed")
-      File.delete("/tmp/test_alma_1.csv.converted") if File.exist?("/tmp/test_alma_1.csv.converted")
-      File.delete("/tmp/test_alma_2.csv.converted") if File.exist?("/tmp/test_alma_2.csv.converted")
+  let(:files_for_cleanup) do
+    [
+      'spec/fixtures/peoplesoft_4/test_alma_1.csv',
+      'spec/fixtures/peoplesoft_4/test_alma_2.csv',
+      'spec/fixtures/peoplesoft_4/test_alma_1.csv.processed',
+      'spec/fixtures/peoplesoft_4/test_alma_2.csv.processed',
+      'spec/fixtures/peoplesoft_4/test_alma_1.csv.converted',
+      'spec/fixtures/peoplesoft_4/test_alma_2.csv.converted',
+      'spec/fixtures/ephemeral/test_alma_1.csv',
+      'spec/fixtures/ephemeral/test_alma_1.csv.converted',
+      'spec/fixtures/ephemeral/test_alma_2.csv.converted'
+    ]
+  end
+  around do |example|
+    files_for_cleanup.each do |file_path|
+      File.delete(file_path) if File.exist?(file_path)
     end
-
+    example.run
+    files_for_cleanup.each do |file_path|
+      File.delete(file_path) if File.exist?(file_path)
+    end
+  end
+  describe "#run" do
     it "transfers a file" do
       allow(sftp_session).to receive(:upload!)
-      FileUtils.touch('/tmp/test_alma_1.csv')
+      FileUtils.touch('spec/fixtures/peoplesoft_4/test_alma_1.csv')
 
       expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
-      expect(sftp_session).to have_received(:upload!).with("/tmp/test_alma_1.csv.converted", "/alma/fp/test_alma_1.csv")
+      expect(sftp_session).to have_received(:upload!).with("spec/fixtures/ephemeral/test_alma_1.csv.converted", "/alma/invoice_status/test_alma_1.csv")
       data_set = DataSet.last
       expect(data_set.category).to eq("InvoiceStatus")
-      expect(data_set.data).to eq("Files processed: /tmp/test_alma_1.csv;  Error processing: None")
+      expect(data_set.data).to eq("Files processed: spec/fixtures/peoplesoft_4/test_alma_1.csv;  Error processing: None")
       expect(data_set.report_time).to eq(Time.zone.now.midnight)
-      expect(File.exist?('/tmp/test_alma_1.csv.processed')).to be_truthy
+      expect(File.exist?('spec/fixtures/peoplesoft_4/test_alma_1.csv.processed')).to be_truthy
     end
 
     it "transfers multiple files" do
       allow(sftp_session).to receive(:upload!).twice
-      FileUtils.touch('/tmp/test_alma_1.csv')
-      FileUtils.touch('/tmp/test_alma_2.csv')
+      FileUtils.touch('spec/fixtures/peoplesoft_4/test_alma_1.csv')
+      FileUtils.touch('spec/fixtures/peoplesoft_4/test_alma_2.csv')
 
       expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
-      expect(sftp_session).to have_received(:upload!).with("/tmp/test_alma_1.csv.converted", '/alma/fp/test_alma_1.csv')
-      expect(sftp_session).to have_received(:upload!).with("/tmp/test_alma_2.csv.converted", '/alma/fp/test_alma_2.csv')
+      expect(sftp_session).to have_received(:upload!).with("spec/fixtures/ephemeral/test_alma_1.csv.converted", '/alma/invoice_status/test_alma_1.csv')
+      expect(sftp_session).to have_received(:upload!).with("spec/fixtures/ephemeral/test_alma_2.csv.converted", '/alma/invoice_status/test_alma_2.csv')
       data_set = DataSet.last
       expect(data_set.category).to eq("InvoiceStatus")
-      expect(data_set.data).to eq("Files processed: /tmp/test_alma_1.csv, /tmp/test_alma_2.csv;  Error processing: None")
+      expect(data_set.data).to eq("Files processed: spec/fixtures/peoplesoft_4/test_alma_1.csv, spec/fixtures/peoplesoft_4/test_alma_2.csv;  Error processing: None")
       expect(data_set.report_time).to eq(Time.zone.now.midnight)
-      expect(File.exist?('/tmp/test_alma_1.csv.processed')).to be_truthy
-      expect(File.exist?('/tmp/test_alma_2.csv.processed')).to be_truthy
+      expect(File.exist?('spec/fixtures/peoplesoft_4/test_alma_1.csv.processed')).to be_truthy
+      expect(File.exist?('spec/fixtures/peoplesoft_4/test_alma_2.csv.processed')).to be_truthy
     end
 
     context "handles an ftp error" do
       it "notes the error" do
         allow(sftp_session).to receive(:upload!).and_raise(Net::SFTP::StatusException, Net::SFTP::Response.new({}, { code: 500 }))
-        FileUtils.touch('/tmp/test_alma_1.csv')
+        FileUtils.touch('spec/fixtures/peoplesoft_4/test_alma_1.csv')
 
         expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
-        expect(sftp_session).to have_received(:upload!).with("/tmp/test_alma_1.csv.converted", '/alma/fp/test_alma_1.csv')
+        expect(sftp_session).to have_received(:upload!).with("spec/fixtures/ephemeral/test_alma_1.csv.converted", '/alma/invoice_status/test_alma_1.csv')
         data_set = DataSet.last
         expect(data_set.category).to eq("InvoiceStatus")
-        expect(data_set.data).to eq("Files processed: None;  Error processing: /tmp/test_alma_1.csv")
+        expect(data_set.data).to eq("Files processed: None;  Error processing: spec/fixtures/peoplesoft_4/test_alma_1.csv")
         expect(data_set.report_time).to eq(Time.zone.now.midnight)
-        expect(File.exist?('/tmp/test_alma_1.csv.processed')).not_to be_truthy
-        expect(File.exist?('/tmp/test_alma_1.csv')).to be_truthy
+        expect(File.exist?('spec/fixtures/peoplesoft_4/test_alma_1.csv.processed')).not_to be_truthy
+        expect(File.exist?('spec/fixtures/peoplesoft_4/test_alma_1.csv')).to be_truthy
       end
     end
 
@@ -80,10 +92,10 @@ RSpec.describe AlmaInvoiceStatus::FileConverter, type: :model do
       it "generates xml" do
         pending "Should only be run locally"
         allow(sftp_session).to receive(:upload!)
-        FileUtils.copy_file(alma_invoice_xml, '/tmp/test_alma_1.csv')
+        FileUtils.copy_file(alma_invoice_xml, 'spec/fixtures/ephemeral/test_alma_1.csv')
         expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
-        expect(sftp_session).to have_received(:upload!).with("/tmp/test_alma_1.csv.converted", '/alma/fp/test_alma_1.csv')
-        expect(File.open('/tmp/test_alma_1.csv.converted').read).to eq(File.open(Rails.root.join('alma_status_query_output.xml')).read)
+        expect(sftp_session).to have_received(:upload!).with("spec/fixtures/ephemeral/test_alma_1.csv.converted", '/alma/invoice_status/test_alma_1.csv')
+        expect(File.open('spec/fixtures/ephemeral/test_alma_1.csv.converted').read).to eq(File.open(Rails.root.join('alma_status_query_output.xml')).read)
       end
     end
 
@@ -93,7 +105,7 @@ RSpec.describe AlmaInvoiceStatus::FileConverter, type: :model do
       end
       it "logs that it is turned off" do
         allow(sftp_session).to receive(:upload!)
-        FileUtils.touch('/tmp/test_alma_1.csv')
+        FileUtils.touch('spec/fixtures/ephemeral/test_alma_1.csv')
 
         fund_adjustment.run
         data_set = DataSet.last

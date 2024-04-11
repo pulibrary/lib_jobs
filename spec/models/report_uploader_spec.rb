@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe ReportUploader, type: :model do
+RSpec.describe ReportUploader, type: :model, file_upload: true do
   include_context 'sftp'
   context 'error report' do
     let(:subject) do

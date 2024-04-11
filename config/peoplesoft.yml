@@ -12,6 +12,7 @@ development:
 
 test:
   <<: *default
+  fund_adjustment_converted_path: 'spec/fixtures/ephemeral_2'
 
 staging: &staging
   <<: *default

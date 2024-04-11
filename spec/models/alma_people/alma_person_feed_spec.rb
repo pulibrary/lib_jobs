@@ -1,15 +1,35 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe AlmaPeople::AlmaPersonFeed, type: :model do
+RSpec.describe AlmaPeople::AlmaPersonFeed, type: :model, file_upload: true do
   include_context 'sftp'
 
-  subject(:alma_person_feed) { described_class.new(oit_person_feed:, output_base_dir: '/tmp') }
+  subject(:alma_person_feed) { described_class.new(oit_person_feed:, output_base_dir: 'spec/fixtures/person_feed') }
   let(:oit_person_feed) { instance_double("AlmaPeople::OitPersonFeed") }
 
   let(:yesterday) { 1.day.ago.strftime("%Y-%m-%d") }
   let(:today) { Time.zone.now.strftime("%Y-%m-%d") }
 
+  let(:files_for_cleanup) do
+    [
+      "spec/fixtures/person_feed/alma_people_#{yesterday}_#{today}_E.xml",
+      "spec/fixtures/person_feed/alma_people_#{yesterday}_#{today}_E.xml.zip",
+      "spec/fixtures/person_feed/alma_people_#{yesterday}_#{today}_I.xml",
+      "spec/fixtures/person_feed/alma_people_#{yesterday}_#{today}_I.xml.zip",
+      "spec/fixtures/person_feed/alma_people_#{yesterday}.xml",
+      "spec/fixtures/person_feed/alma_people_#{yesterday}.xml.zip"
+    ]
+  end
+
+  around do |example|
+    files_for_cleanup.each do |file_path|
+      File.delete(file_path) if File.exist?(file_path)
+    end
+    example.run
+    files_for_cleanup.each do |file_path|
+      File.delete(file_path) if File.exist?(file_path)
+    end
+  end
   describe "#run" do
     let(:oit_people) do
       [{ "PATRON_EXPIRATION_DATE" => "2022-10-31", "PATRON_PURGE_DATE" => "2021-10-31", "ELIGIBLE_INELIGIBLE" => "E", "INSERT_UPDATE_DATETIME" => "2020-12-03T08:21:02.000-05:00",
@@ -35,12 +55,12 @@ RSpec.describe AlmaPeople::AlmaPersonFeed, type: :model do
     it "generates an xml file" do
       expect(alma_person_feed.run).to be_truthy
       expect(oit_person_feed).to have_received(:get_json)
-      expect(sftp_session).to have_received(:upload!).with("/tmp/alma_people_#{yesterday}_#{today}_E.xml.zip", "/alma/people/alma_people_#{yesterday}_#{today}_E.xml.zip")
+      expect(sftp_session).to have_received(:upload!).with("spec/fixtures/person_feed/alma_people_#{yesterday}_#{today}_E.xml.zip", "/alma/people/alma_people_#{yesterday}_#{today}_E.xml.zip")
       data_set = DataSet.last
       expect(data_set.category).to eq("AlmaPersonFeed")
       expect(data_set.report_time).to eq(Time.zone.now.midnight)
       expect(data_set.data).to eq("people_updated: 1, file: alma_people_#{yesterday}_#{today}_E.xml")
-      data = File.read("/tmp/alma_people_#{yesterday}_#{today}_E.xml")
+      data = File.read("spec/fixtures/person_feed/alma_people_#{yesterday}_#{today}_E.xml")
       expect(validate_xml(data)).to be_truthy
     end
 
@@ -59,7 +79,7 @@ RSpec.describe AlmaPeople::AlmaPersonFeed, type: :model do
     end
 
     context "blank dates" do
-      subject(:alma_person_feed) { described_class.new(oit_person_feed:, output_base_dir: '/tmp', begin_date: nil, end_date: nil, enabled_flag: nil) }
+      subject(:alma_person_feed) { described_class.new(oit_person_feed:, output_base_dir: 'spec/fixtures/person_feed', begin_date: nil, end_date: nil, enabled_flag: nil) }
 
       before do
         allow(oit_person_feed).to receive(:get_json).with(begin_date: nil, end_date: nil, enabled_flag: nil).and_return(oit_people)
@@ -68,12 +88,12 @@ RSpec.describe AlmaPeople::AlmaPersonFeed, type: :model do
       it "generates an xml file" do
         expect(alma_person_feed.run).to be_truthy
         expect(oit_person_feed).to have_received(:get_json)
-        expect(sftp_session).to have_received(:upload!).with("/tmp/alma_people_#{yesterday}.xml.zip", "/alma/people/alma_people_#{yesterday}.xml.zip")
+        expect(sftp_session).to have_received(:upload!).with("spec/fixtures/person_feed/alma_people_#{yesterday}.xml.zip", "/alma/people/alma_people_#{yesterday}.xml.zip")
         data_set = DataSet.last
         expect(data_set.category).to eq("AlmaPersonFeed")
         expect(data_set.report_time).to eq(Time.zone.now.midnight)
         expect(data_set.data).to eq("people_updated: 1, file: alma_people_#{yesterday}.xml")
-        data = File.read("/tmp/alma_people_#{yesterday}.xml")
+        data = File.read("spec/fixtures/person_feed/alma_people_#{yesterday}.xml")
         expect(validate_xml(data)).to be_truthy
       end
     end
@@ -112,13 +132,13 @@ RSpec.describe AlmaPeople::AlmaPersonFeed, type: :model do
       it "generates two xml files" do
         expect(alma_person_feed.run).to be_truthy
         expect(oit_person_feed).to have_received(:get_json).twice
-        expect(sftp_session).to have_received(:upload!).once.with("/tmp/alma_people_#{yesterday}_#{today}_E.xml.zip", "/alma/people/alma_people_#{yesterday}_#{today}_E.xml.zip")
-        expect(sftp_session).to have_received(:upload!).once.with("/tmp/alma_people_#{yesterday}_#{today}_I.xml.zip", "/alma/people/alma_people_#{yesterday}_#{today}_I.xml.zip")
+        expect(sftp_session).to have_received(:upload!).once.with("spec/fixtures/person_feed/alma_people_#{yesterday}_#{today}_E.xml.zip", "/alma/people/alma_people_#{yesterday}_#{today}_E.xml.zip")
+        expect(sftp_session).to have_received(:upload!).once.with("spec/fixtures/person_feed/alma_people_#{yesterday}_#{today}_I.xml.zip", "/alma/people/alma_people_#{yesterday}_#{today}_I.xml.zip")
         data_set = DataSet.last
         expect(data_set.category).to eq("AlmaPersonFeed")
         expect(data_set.report_time).to eq(Time.zone.now.midnight)
         expect(data_set.data).to eq("people_updated: 1, file: alma_people_#{yesterday}_#{today}_E.xml, ineligible_people_updated: 1, file: alma_people_#{yesterday}_#{today}_I.xml")
-        data = File.read("/tmp/alma_people_#{yesterday}_#{today}_I.xml")
+        data = File.read("spec/fixtures/person_feed/alma_people_#{yesterday}_#{today}_I.xml")
         expect(validate_xml(data)).to be_truthy
       end
     end
