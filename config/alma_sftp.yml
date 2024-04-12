@@ -17,7 +17,7 @@ development:
 
 test:
   <<: *default
-
+  invoice_status_local_path: 'spec/fixtures/ephemeral'
 staging: &staging
   <<: *default
 
