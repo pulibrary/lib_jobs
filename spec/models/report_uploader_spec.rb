@@ -49,5 +49,43 @@ RSpec.describe ReportUploader, type: :model, file_upload: true do
         expect(subject.sftp).to be_an_instance_of(OclcSftp)
       end
     end
+
+    describe 'marking a file as processed' do
+      let(:subject) do
+        described_class.new(
+          working_file_names: [working_file_name_1, working_file_name_2],
+          working_file_directory: Rails.application.config.oclc_sftp.exceptions_working_directory,
+          output_sftp_base_dir: Rails.application.config.oclc_sftp.datasync_output_path,
+          mark_as_processed: true
+        )
+      end
+      let(:orig_file_path_1) { File.join(subject.working_file_directory, working_file_name_1) }
+      let(:processed_file_path_1) { File.join(subject.working_file_directory, "#{working_file_name_1}.processed") }
+      let(:orig_file_path_2) { File.join(subject.working_file_directory, working_file_name_2) }
+      let(:processed_file_path_2) { File.join(subject.working_file_directory, "#{working_file_name_2}.processed") }
+
+      before do
+        FileUtils.touch(orig_file_path_1)
+        FileUtils.touch(orig_file_path_2)
+      end
+
+      around do |example|
+        File.delete(orig_file_path_1) if File.exist?(orig_file_path_1)
+        File.delete(orig_file_path_2) if File.exist?(orig_file_path_2)
+        File.delete(processed_file_path_1) if File.exist?(processed_file_path_1)
+        File.delete(processed_file_path_2) if File.exist?(processed_file_path_2)
+        example.run
+        File.delete(orig_file_path_1) if File.exist?(orig_file_path_1)
+        File.delete(orig_file_path_2) if File.exist?(orig_file_path_2)
+        File.delete(processed_file_path_1) if File.exist?(processed_file_path_1)
+        File.delete(processed_file_path_2) if File.exist?(processed_file_path_2)
+      end
+      it 'can mark a file as processed' do
+        expect(subject.mark_as_processed).to eq(true)
+        expect(File.exist?(processed_file_path_1)).to be false
+        subject.run
+        expect(File.exist?(processed_file_path_1)).to be true
+      end
+    end
   end
 end
