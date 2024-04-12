@@ -16,13 +16,20 @@ RSpec.describe AlmaRenew::AlmaRenewList, type: :model do
     " Invalid reporting code: must be numeric and can not be blank,"\
     " Invalid invoice date: must be between four years old and one month into the future"
   end
+  let(:temp_file_one) { Tempfile.new(encoding: 'ascii-8bit') }
 
   before do
+    allow(Tempfile).to receive(:new).and_return(temp_file_one)
     allow(sftp_dir).to receive(:foreach).and_yield(sftp_entry1).and_yield(sftp_entry2)
     # only 1 should get downloaded
     pin_time_to_valid_invoice_list
     allow(sftp_session).to receive(:download!).with("/alma/scsb_renewals/abc.csv").and_return(Rails.root.join('spec', 'fixtures', 'renew.csv').read)
     allow(sftp_session).to receive(:rename).with("/alma/scsb_renewals/abc.csv", "/alma/scsb_renewals/abc.csv.processed")
+  end
+
+  around do |example|
+    temp_file_one.write(File.open(File.join('spec', 'fixtures', 'renew.csv')).read)
+    example.run
   end
 
   describe "#renew_item_list" do
