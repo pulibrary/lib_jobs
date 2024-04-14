@@ -11,29 +11,42 @@ module AlmaFundAdjustment
     # the output is the alma ftp server
     def initialize(peoplesoft_input_base_dir: Rails.application.config.peoplesoft.fund_adjustment_input_path,
                    peoplesoft_input_file_pattern: Rails.application.config.peoplesoft.fund_adjustment_input_file_pattern,
-                   alma_sftp: AlmaSftp.new, fund_adjustment_path: Rails.application.config.alma_sftp.fund_adjustment_path)
+                   fund_adjustment_path: Rails.application.config.alma_sftp.fund_adjustment_path,
+                   sftp: AlmaSftp.new)
       super
       @processed_directory = Rails.application.config.peoplesoft.fund_adjustment_converted_path
     end
 
     private
 
-    def process_file(path, sftp)
-      data = read_file path
-      File.rename(path, "#{path}.processed") && return if data.empty?
+    def process_file(source_file_path, sftp_conn) # rubocop:disable Metrics/MethodLength
+      adjusted_data = create_adjusted_file(source_file_path)
+      return if adjusted_data.blank?
+      working_file_name = File.basename(source_file_path)
+      adjusted_file_path = File.join(processed_directory, "#{working_file_name}.updated")
+
+      destination_file_path = File.join(output_sftp_base_dir, working_file_name)
+      sftp_conn.upload!(adjusted_file_path, destination_file_path)
+      Rails.logger.debug { "Uploaded source file: #{adjusted_file_path} to sftp path: #{destination_file_path}" }
+      mark_file_as_processed(source_file_path)
+      destination_file_path
+    end
+
+    def create_adjusted_file(source_file_path)
+      data = read_file(source_file_path)
+      mark_file_as_processed(source_file_path) && return if data.empty?
 
       adjustments = data.map { |row| FundAdjustment.new(row).adjusted_row }
-      base_name = File.basename(path)
-      adjusted_file = File.join(processed_directory, "#{base_name}.updated")
-      CSV.open(File.join(processed_directory, "#{base_name}.updated"), "wb") do |csv|
+
+      working_file_name = File.basename(source_file_path)
+      adjusted_file_path = File.join(processed_directory, "#{working_file_name}.updated")
+
+      CSV.open(adjusted_file_path, "wb") do |csv|
         csv << adjustments.first.headers
         adjustments.each do |row|
           csv << row
         end
       end
-
-      sftp.upload!(adjusted_file, File.join(alma_fund_adjustment_path, base_name))
-      File.rename(path, "#{path}.processed")
     end
 
     def read_file(path)

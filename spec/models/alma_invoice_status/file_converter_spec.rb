@@ -6,8 +6,8 @@ RSpec.describe AlmaInvoiceStatus::FileConverter, type: :model, file_upload: true
 
   subject(:fund_adjustment) do
     described_class.new(peoplesoft_input_base_dir: 'spec/fixtures/peoplesoft_4', peoplesoft_input_file_pattern: 'test_alma*.csv',
-                        alma_sftp: AlmaSftp.new(sftp_host: 'localhost', sftp_username: 'user', sftp_password: 'password'),
-                        invoice_status_path: '/alma/invoice_status')
+                        invoice_status_path: '/alma/invoice_status',
+                        sftp: AlmaSftp.new(sftp_host: 'localhost', sftp_username: 'user', sftp_password: 'password'))
   end
   let(:files_for_cleanup) do
     [

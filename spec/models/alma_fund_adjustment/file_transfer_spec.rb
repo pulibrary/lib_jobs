@@ -6,8 +6,8 @@ RSpec.describe AlmaFundAdjustment::FileTransfer, type: :model, file_upload: true
 
   subject(:file_transfer) do
     described_class.new(peoplesoft_input_base_dir: 'spec/fixtures/peoplesoft_1', peoplesoft_input_file_pattern: 'test_alma*.csv',
-                        alma_sftp: AlmaSftp.new(sftp_host: 'localhost', sftp_username: 'user', sftp_password: 'password'),
-                        fund_adjustment_path: '/alma/fund_adjustment')
+                        fund_adjustment_path: '/alma/fund_adjustment',
+                        sftp: AlmaSftp.new(sftp_host: 'localhost', sftp_username: 'user', sftp_password: 'password'))
   end
   let(:files_for_cleanup) do
     [

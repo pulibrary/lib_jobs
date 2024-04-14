@@ -10,10 +10,11 @@ module AlmaInvoiceStatus
     # the output is the alma ftp server
     def initialize(peoplesoft_input_base_dir: Rails.application.config.peoplesoft.invoice_status_input_path,
                    peoplesoft_input_file_pattern: Rails.application.config.peoplesoft.invoice_status_input_file_pattern,
-                   alma_sftp: AlmaSftp.new, invoice_status_path: Rails.application.config.alma_sftp.invoice_status_path,
-                   output_base_dir: Rails.application.config.alma_sftp.invoice_status_local_path)
+                   invoice_status_path: Rails.application.config.alma_sftp.invoice_status_path,
+                   output_base_dir: Rails.application.config.alma_sftp.invoice_status_local_path,
+                   sftp: AlmaSftp.new)
       super(peoplesoft_input_base_dir:, peoplesoft_input_file_pattern:,
-            alma_sftp:)
+            sftp:)
       @category = "InvoiceStatus"
       @alma_invoice_status_path = invoice_status_path
       @output_base_dir = output_base_dir
@@ -34,13 +35,13 @@ module AlmaInvoiceStatus
       data_set
     end
 
-    def process_file(path, sftp)
+    def process_file(path, sftp_conn)
       query = File.open(path) { |f| StatusQuery.new(xml_io: f) }
       alma_xml = AlmaXml.new(invoices: query.invoices)
       local_filename = File.join(output_base_dir, "#{File.basename(path)}.converted")
       File.open(local_filename, 'w') { |output| output.puts(alma_xml.build) }
-      sftp.upload!(local_filename, File.join(alma_invoice_status_path, File.basename(path)))
-      File.rename(path, "#{path}.processed")
+      sftp_conn.upload!(local_filename, File.join(alma_invoice_status_path, File.basename(path)))
+      mark_file_as_processed(path)
     end
   end
 end
