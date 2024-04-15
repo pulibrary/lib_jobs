@@ -15,11 +15,8 @@ RSpec.describe AlmaInvoiceStatus::FileConverter, type: :model, file_upload: true
       'spec/fixtures/peoplesoft_4/test_alma_2.csv',
       'spec/fixtures/peoplesoft_4/test_alma_1.csv.processed',
       'spec/fixtures/peoplesoft_4/test_alma_2.csv.processed',
-      'spec/fixtures/peoplesoft_4/test_alma_1.csv.converted',
-      'spec/fixtures/peoplesoft_4/test_alma_2.csv.converted',
       'spec/fixtures/ephemeral/test_alma_1.csv',
-      'spec/fixtures/ephemeral/test_alma_1.csv.converted',
-      'spec/fixtures/ephemeral/test_alma_2.csv.converted'
+      'spec/fixtures/ephemeral/test_alma_2.csv'
     ]
   end
   around do |example|
@@ -37,7 +34,7 @@ RSpec.describe AlmaInvoiceStatus::FileConverter, type: :model, file_upload: true
       FileUtils.touch('spec/fixtures/peoplesoft_4/test_alma_1.csv')
 
       expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
-      expect(sftp_session).to have_received(:upload!).with("spec/fixtures/ephemeral/test_alma_1.csv.converted", "/alma/invoice_status/test_alma_1.csv")
+      expect(sftp_session).to have_received(:upload!).with("spec/fixtures/ephemeral/test_alma_1.csv", "/alma/invoice_status/test_alma_1.csv")
       data_set = DataSet.last
       expect(data_set.category).to eq("InvoiceStatus")
       expect(data_set.data).to eq("Files processed: spec/fixtures/peoplesoft_4/test_alma_1.csv;  Error processing: None")
@@ -51,8 +48,8 @@ RSpec.describe AlmaInvoiceStatus::FileConverter, type: :model, file_upload: true
       FileUtils.touch('spec/fixtures/peoplesoft_4/test_alma_2.csv')
 
       expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
-      expect(sftp_session).to have_received(:upload!).with("spec/fixtures/ephemeral/test_alma_1.csv.converted", '/alma/invoice_status/test_alma_1.csv')
-      expect(sftp_session).to have_received(:upload!).with("spec/fixtures/ephemeral/test_alma_2.csv.converted", '/alma/invoice_status/test_alma_2.csv')
+      expect(sftp_session).to have_received(:upload!).with("spec/fixtures/ephemeral/test_alma_1.csv", '/alma/invoice_status/test_alma_1.csv')
+      expect(sftp_session).to have_received(:upload!).with("spec/fixtures/ephemeral/test_alma_2.csv", '/alma/invoice_status/test_alma_2.csv')
       data_set = DataSet.last
       expect(data_set.category).to eq("InvoiceStatus")
       expect(data_set.data).to eq("Files processed: spec/fixtures/peoplesoft_4/test_alma_1.csv, spec/fixtures/peoplesoft_4/test_alma_2.csv;  Error processing: None")
@@ -67,7 +64,7 @@ RSpec.describe AlmaInvoiceStatus::FileConverter, type: :model, file_upload: true
         FileUtils.touch('spec/fixtures/peoplesoft_4/test_alma_1.csv')
 
         expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
-        expect(sftp_session).to have_received(:upload!).with("spec/fixtures/ephemeral/test_alma_1.csv.converted", '/alma/invoice_status/test_alma_1.csv')
+        expect(sftp_session).to have_received(:upload!).with("spec/fixtures/ephemeral/test_alma_1.csv", '/alma/invoice_status/test_alma_1.csv')
         data_set = DataSet.last
         expect(data_set.category).to eq("InvoiceStatus")
         expect(data_set.data).to eq("Files processed: None;  Error processing: spec/fixtures/peoplesoft_4/test_alma_1.csv")
@@ -92,10 +89,10 @@ RSpec.describe AlmaInvoiceStatus::FileConverter, type: :model, file_upload: true
       it "generates xml" do
         pending "Should only be run locally"
         allow(sftp_session).to receive(:upload!)
-        FileUtils.copy_file(alma_invoice_xml, 'spec/fixtures/ephemeral/test_alma_1.csv')
+        FileUtils.copy_file(alma_invoice_xml, 'spec/fixtures/peoplesoft_4/test_alma_1.csv')
         expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
-        expect(sftp_session).to have_received(:upload!).with("spec/fixtures/ephemeral/test_alma_1.csv.converted", '/alma/invoice_status/test_alma_1.csv')
-        expect(File.open('spec/fixtures/ephemeral/test_alma_1.csv.converted').read).to eq(File.open(Rails.root.join('alma_status_query_output.xml')).read)
+        expect(sftp_session).to have_received(:upload!).with("spec/fixtures/ephemeral/test_alma_1.csv", '/alma/invoice_status/test_alma_1.csv')
+        expect(File.open('spec/fixtures/ephemeral/test_alma_1.csv').read).to eq(File.open(Rails.root.join('alma_status_query_output.xml')).read)
       end
     end
 
@@ -105,7 +102,6 @@ RSpec.describe AlmaInvoiceStatus::FileConverter, type: :model, file_upload: true
       end
       it "logs that it is turned off" do
         allow(sftp_session).to receive(:upload!)
-        FileUtils.touch('spec/fixtures/ephemeral/test_alma_1.csv')
 
         fund_adjustment.run
         data_set = DataSet.last

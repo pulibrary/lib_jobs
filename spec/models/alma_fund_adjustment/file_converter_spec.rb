@@ -15,8 +15,8 @@ RSpec.describe AlmaFundAdjustment::FileConverter, type: :model, file_upload: tru
       'spec/fixtures/peoplesoft_2/test_alma_2.csv',
       'spec/fixtures/peoplesoft_2/test_alma_1.csv.processed',
       'spec/fixtures/peoplesoft_2/test_alma_2.csv.processed',
-      'spec/fixtures/ephemeral_2/test_alma_1.csv.updated',
-      'spec/fixtures/ephemeral_2/test_alma_2.csv.updated'
+      'spec/fixtures/ephemeral_2/test_alma_1.csv',
+      'spec/fixtures/ephemeral_2/test_alma_2.csv'
     ]
   end
 
@@ -35,13 +35,13 @@ RSpec.describe AlmaFundAdjustment::FileConverter, type: :model, file_upload: tru
       FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions-2012-07-19-09-09-00.csv'), 'spec/fixtures/peoplesoft_2/test_alma_1.csv')
 
       expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
-      expect(sftp_session).to have_received(:upload!).with("spec/fixtures/ephemeral_2/test_alma_1.csv.updated", '/alma/fund_adjustment/test_alma_1.csv')
+      expect(sftp_session).to have_received(:upload!).with("spec/fixtures/ephemeral_2/test_alma_1.csv", '/alma/fund_adjustment/test_alma_1.csv')
       data_set = DataSet.last
       expect(data_set.category).to eq("FundAdjustment")
       expect(data_set.data).to eq("Files processed: spec/fixtures/peoplesoft_2/test_alma_1.csv;  Error processing: None")
       expect(data_set.report_time).to eq(Time.zone.now.midnight)
       expect(File.exist?('spec/fixtures/peoplesoft_2/test_alma_1.csv.processed')).to be_truthy
-      expect(File.exist?('spec/fixtures/ephemeral_2/test_alma_1.csv.updated')).to be_truthy
+      expect(File.exist?('spec/fixtures/ephemeral_2/test_alma_1.csv')).to be_truthy
     end
 
     it "transfers multiple files" do
@@ -50,16 +50,16 @@ RSpec.describe AlmaFundAdjustment::FileConverter, type: :model, file_upload: tru
       FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions-2012-07-19-09-09-00.csv'), 'spec/fixtures/peoplesoft_2/test_alma_2.csv')
 
       expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
-      expect(sftp_session).to have_received(:upload!).with("spec/fixtures/ephemeral_2/test_alma_1.csv.updated", '/alma/fund_adjustment/test_alma_1.csv')
-      expect(sftp_session).to have_received(:upload!).with("spec/fixtures/ephemeral_2/test_alma_2.csv.updated", '/alma/fund_adjustment/test_alma_2.csv')
+      expect(sftp_session).to have_received(:upload!).with("spec/fixtures/ephemeral_2/test_alma_1.csv", '/alma/fund_adjustment/test_alma_1.csv')
+      expect(sftp_session).to have_received(:upload!).with("spec/fixtures/ephemeral_2/test_alma_2.csv", '/alma/fund_adjustment/test_alma_2.csv')
       data_set = DataSet.last
       expect(data_set.category).to eq("FundAdjustment")
       expect(data_set.data).to eq("Files processed: spec/fixtures/peoplesoft_2/test_alma_1.csv, spec/fixtures/peoplesoft_2/test_alma_2.csv;  Error processing: None")
       expect(data_set.report_time).to eq(Time.zone.now.midnight)
       expect(File.exist?('spec/fixtures/peoplesoft_2/test_alma_1.csv.processed')).to be_truthy
       expect(File.exist?('spec/fixtures/peoplesoft_2/test_alma_2.csv.processed')).to be_truthy
-      expect(File.exist?('spec/fixtures/ephemeral_2/test_alma_1.csv.updated')).to be_truthy
-      expect(File.exist?('spec/fixtures/ephemeral_2/test_alma_2.csv.updated')).to be_truthy
+      expect(File.exist?('spec/fixtures/ephemeral_2/test_alma_1.csv')).to be_truthy
+      expect(File.exist?('spec/fixtures/ephemeral_2/test_alma_2.csv')).to be_truthy
     end
 
     context "handles an ftp error" do
@@ -68,14 +68,14 @@ RSpec.describe AlmaFundAdjustment::FileConverter, type: :model, file_upload: tru
         FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions-2012-07-19-09-09-00.csv'), 'spec/fixtures/peoplesoft_2/test_alma_1.csv')
 
         expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
-        expect(sftp_session).to have_received(:upload!).with("spec/fixtures/ephemeral_2/test_alma_1.csv.updated", '/alma/fund_adjustment/test_alma_1.csv')
+        expect(sftp_session).to have_received(:upload!).with("spec/fixtures/ephemeral_2/test_alma_1.csv", '/alma/fund_adjustment/test_alma_1.csv')
         data_set = DataSet.last
         expect(data_set.category).to eq("FundAdjustment")
         expect(data_set.data).to eq("Files processed: None;  Error processing: spec/fixtures/peoplesoft_2/test_alma_1.csv")
         expect(data_set.report_time).to eq(Time.zone.now.midnight)
         expect(File.exist?('spec/fixtures/ephemeral_2/test_alma_1.csv.processed')).not_to be_truthy
         expect(File.exist?('spec/fixtures/peoplesoft_2/test_alma_1.csv')).to be_truthy
-        expect(File.exist?('spec/fixtures/ephemeral_2/test_alma_1.csv.updated')).to be_truthy
+        expect(File.exist?('spec/fixtures/ephemeral_2/test_alma_1.csv')).to be_truthy
       end
     end
 
