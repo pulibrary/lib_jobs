@@ -53,10 +53,12 @@ module AlmaPeople
       Zip::File.open(filename + '.zip', Zip::File::CREATE) do |zipfile|
         zipfile.add(File.basename(filename), filename)
       end
-      alma_sftp = AlmaSftp.new
-      alma_sftp.start do |sftp|
-        sftp.upload!(filename + '.zip', File.join(Rails.application.config.alma_sftp.person_feed_path, "#{File.basename(filename)}.zip"))
-      end
+
+      working_file_names = ["#{File.basename(filename)}.zip"]
+      report_uploader = ReportUploader.new(working_file_names:,
+                                           working_file_directory: output_base_dir,
+                                           output_sftp_base_dir: Rails.application.config.alma_sftp.person_feed_path)
+      report_uploader.run
     end
 
     def convert_person_to_xml(xml:, person:)
