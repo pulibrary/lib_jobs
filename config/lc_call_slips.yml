@@ -253,6 +253,21 @@ default: &default
         - Rabbinical
         - Talmud
         include_us_uk_canada: true
+        keywords:
+        - Jewish
+        - Jews
+        - Jew
+        - Israel*
+        - Zionis*
+        - Hebrew
+        - Judaism
+        - Judaic
+        - Holocaust
+        - Antisemitism
+        - Geniza
+        - Rabbinic*
+        - Talmud
+        - Torah
     - painter:
         email: zp5928@princeton.edu
         classes:
