@@ -63,28 +63,60 @@ RSpec.describe ReportUploader, type: :model, file_upload: true do
       let(:processed_file_path_1) { File.join(subject.working_file_directory, "#{working_file_name_1}.processed") }
       let(:orig_file_path_2) { File.join(subject.working_file_directory, working_file_name_2) }
       let(:processed_file_path_2) { File.join(subject.working_file_directory, "#{working_file_name_2}.processed") }
-
+      let(:files_for_cleanup) do
+        [orig_file_path_1, orig_file_path_2, processed_file_path_1, processed_file_path_2]
+      end
       before do
         FileUtils.touch(orig_file_path_1)
         FileUtils.touch(orig_file_path_2)
       end
 
       around do |example|
-        File.delete(orig_file_path_1) if File.exist?(orig_file_path_1)
-        File.delete(orig_file_path_2) if File.exist?(orig_file_path_2)
-        File.delete(processed_file_path_1) if File.exist?(processed_file_path_1)
-        File.delete(processed_file_path_2) if File.exist?(processed_file_path_2)
+        files_for_cleanup.each do |file_path|
+          File.delete(file_path) if File.exist?(file_path)
+        end
         example.run
-        File.delete(orig_file_path_1) if File.exist?(orig_file_path_1)
-        File.delete(orig_file_path_2) if File.exist?(orig_file_path_2)
-        File.delete(processed_file_path_1) if File.exist?(processed_file_path_1)
-        File.delete(processed_file_path_2) if File.exist?(processed_file_path_2)
+        files_for_cleanup.each do |file_path|
+          File.delete(file_path) if File.exist?(file_path)
+        end
       end
       it 'can mark a file as processed' do
         expect(subject.mark_as_processed).to eq(true)
         expect(File.exist?(processed_file_path_1)).to be false
         subject.run
         expect(File.exist?(processed_file_path_1)).to be true
+      end
+
+      context 'with an sftp upload error' do
+        before do
+          allow(sftp_session).to receive(:upload!).with(new_file_for_alma_path_1, alma_upload_path_1).and_raise(Net::SFTP::StatusException, Net::SFTP::Response.new({}, { code: 500 }))
+        end
+        it 'does not include the file in the list of uploaded files' do
+          expect(subject.run).to match_array([alma_upload_path_2])
+        end
+        it 'does not mark the file with the error as processed' do
+          expect(File.exist?(processed_file_path_1)).to be false
+          expect(File.exist?(processed_file_path_2)).to be false
+          subject.run
+          expect(File.exist?(processed_file_path_1)).to be false
+          expect(File.exist?(processed_file_path_2)).to be true
+        end
+        it 'adds the file with an error to the errors for the instance' do
+          expect(subject.errors).to be_empty
+          subject.run
+          expect(subject.errors).to match_array([new_file_for_alma_path_1])
+        end
+        it 'logs the error to the rails error log' do
+          allow(Rails.logger).to receive(:error)
+          subject.run
+          expect(Rails.logger).to have_received(:error).once.with("Error uploading source file: #{new_file_for_alma_path_1} to sftp path: #{alma_upload_path_1}")
+        end
+        it 'does not log success to the debug log' do
+          allow(Rails.logger).to receive(:debug).with("Uploaded source file: #{new_file_for_alma_path_2} to sftp path: #{alma_upload_path_2}")
+          subject.run
+          expect(Rails.logger).to have_received(:debug).once.with("Uploaded source file: #{new_file_for_alma_path_2} to sftp path: #{alma_upload_path_2}")
+          expect(Rails.logger).not_to have_received(:debug).with("Uploaded source file: #{new_file_for_alma_path_1} to sftp path: #{alma_upload_path_1}")
+        end
       end
     end
   end
