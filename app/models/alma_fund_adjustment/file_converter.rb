@@ -19,7 +19,17 @@ module AlmaFundAdjustment
 
     private
 
+    # Return working_file_names Array
     def process_files
+      # working_file_names = []
+      # source_file_paths.each do |source_file_path|
+      #   adjusted_data = create_adjusted_file(source_file_path)
+      #   next if adjusted_data.blank?
+      #   source_file_name = File.basename(source_file_path)
+      #   working_file_names << source_file_name
+      #   mark_file_as_processed(source_file_path)
+      # end
+      # working_file_names
     end
 
     def process_file(source_file_path, sftp_conn) # rubocop:disable Metrics/MethodLength

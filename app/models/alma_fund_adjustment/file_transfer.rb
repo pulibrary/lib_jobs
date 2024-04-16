@@ -28,7 +28,7 @@ module AlmaFundAdjustment
     def handle(data_set:)
       data_set.report_time = Time.zone.now.midnight
       working_file_names = process_files
-      uploader = ReportUploader.new(working_file_names:, working_file_directory:, output_sftp_base_dir:, mark_as_processed: true)
+      _uploader = ReportUploader.new(working_file_names:, working_file_directory:, output_sftp_base_dir:, mark_as_processed: true)
       # uploader.run
       future_run
       data_set.data = "Files processed: #{join_list(source_file_paths - errors)};  Error processing: #{join_list(errors)}"
