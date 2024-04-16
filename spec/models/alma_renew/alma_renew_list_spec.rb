@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe AlmaRenew::AlmaRenewList, type: :model do
+RSpec.describe AlmaRenew::AlmaRenewList, type: :model, file_download: true do
   include_context 'sftp'
   subject(:alma_renew_list) { described_class.new }
 

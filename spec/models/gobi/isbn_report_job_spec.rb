@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Gobi::IsbnReportJob, type: :model do
+RSpec.describe Gobi::IsbnReportJob, type: :model, file_download: true do
   include_context 'sftp_gobi_isbn'
   let(:isbn_job) { described_class.new }
 

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe ReportDownloader, type: :model do
+RSpec.describe ReportDownloader, type: :model, file_download: true do
   context "OCLC exception report downloader" do
     subject(:downloader) do
       described_class.new(file_pattern: 'BibExceptionReport.txt$', process_class: Oclc::DataSyncExceptionFile, input_sftp_base_dir: '/xfer/metacoll/reports/', recent: true)

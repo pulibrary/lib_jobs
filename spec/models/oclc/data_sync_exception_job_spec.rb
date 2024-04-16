@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Oclc::DataSyncExceptionJob, type: :model do
+RSpec.describe Oclc::DataSyncExceptionJob, type: :model, file_download: true do
   subject(:data_sync_exception_job) { described_class.new }
   let(:working_file_name_1) { 'datasync_errors_20230713_103005835_1.mrc' }
   let(:working_file_name_2) { 'datasync_errors_20230713_103005835_2.mrc' }
