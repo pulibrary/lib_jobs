@@ -40,10 +40,12 @@ module AlmaRenew
           Rails.logger.debug { "Found matching pattern in file: #{entry.name}" }
           remote_filename = File.join(input_sftp_base_dir, entry.name)
           # ascii-8bit required for download! to succeed
-          Tempfile.new(encoding: 'ascii-8bit')
-          data = sftp_conn.download!(remote_filename)
-          CSVValidator.new(csv_string: data).require_headers ['Barcode', 'Patron Group', 'Expiry Date', 'Primary Identifier']
-          CSV.parse(data.delete_prefix(BOM), headers: true) do |row|
+          temp_file = Tempfile.new(encoding: 'ascii-8bit')
+          data = sftp_conn.download!(remote_filename, temp_file)
+          CSVValidator.new(csv_filename: data.path).require_headers ['Barcode', 'Patron Group', 'Expiry Date', 'Primary Identifier']
+          # TODO: Try the CSV.foreach method here
+          # CSV.foreach(data, headers: true, encoding: 'bom|utf-8') do |row|
+          CSV.parse(File.read(data, encoding: 'bom|utf-8'), headers: true) do |row|
             renew_item_list << Item.new(row.to_h)
           end
           remote_filenames << remote_filename
