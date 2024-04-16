@@ -76,7 +76,20 @@ RSpec.describe Oclc::DataSyncExceptionJob, type: :model do
       # The two upload paths are the same in the test environment because usually the timestamp
       # would be different, but we've frozen time for the rest of the tests & mocks to work
       expect(data_set.data).to eq("Files created and uploaded to lib-sftp: " \
-        "#{alma_upload_path_1}, #{alma_upload_path_1}")
+        "#{alma_upload_path_1}, #{alma_upload_path_1}.")
+    end
+
+    context 'with an upload error' do
+      before do
+        allow(sftp_session).to receive(:upload!).with(new_file_for_alma_path_1, alma_upload_path_1).and_raise(Net::SFTP::StatusException, Net::SFTP::Response.new({}, { code: 500 }))
+      end
+      it 'records the error in the data' do
+        data_sync_exception_job.run
+        data_set = DataSet.last
+        expect(data_set.report_time).to eq(Time.zone.now)
+        expect(data_set.data).to eq("Files created and uploaded to lib-sftp: None." \
+        " Files with upload errors: #{new_file_for_alma_path_1}, #{new_file_for_alma_path_1}.")
+      end
     end
   end
 end
