@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe AlmaRenew::RenewJob, type: :model do
+RSpec.describe AlmaRenew::RenewJob, type: :model, file_download: true do
   include_context 'sftp'
 
   let(:today) { Time.zone.now.strftime("%m%d%Y") }
@@ -27,9 +27,10 @@ RSpec.describe AlmaRenew::RenewJob, type: :model do
 
   let(:renew_csv) { Rails.root.join('spec', 'fixtures', 'renew.csv').read }
   let(:due_date_56day) { 56.days.from_now.strftime('%Y-%m-%d') }
-
+  let(:temp_file_one) { Tempfile.new(encoding: 'ascii-8bit') }
   describe "#run" do
     before do
+      allow(Tempfile).to receive(:new).and_return(temp_file_one)
       stub_request(:post, "https://princeton.alma.exlibrisgroup.com/view/NCIPServlet")
         .with { |request| request.body.include? "32044061963013" }
         .to_return(status: 200, body: valid_response, headers: {})
@@ -50,18 +51,24 @@ RSpec.describe AlmaRenew::RenewJob, type: :model do
         .with { |request| request.body.include? "CU63769408" }
         .to_return(status: 200, body: valid_response, headers: {})
       allow(sftp_dir).to receive(:foreach).and_yield(sftp_entry1)
-      allow(sftp_session).to receive(:download!).with("/alma/scsb_renewals/abc.csv").and_return(renew_csv)
+      allow(sftp_session).to receive(:download!).with("/alma/scsb_renewals/abc.csv", temp_file_one).and_return(temp_file_one)
       allow(sftp_session).to receive(:rename).with("/alma/scsb_renewals/abc.csv", "/alma/scsb_renewals/abc.csv.processed")
     end
     let(:expected_data_message) do
       "We received 5 renewal requests. We tried to send renewals for 5 items. 1 errors were encountered.\n Unknown Item (23915763110006421)"
+    end
+
+    around do |example|
+      temp_file_one.write(renew_csv)
+      temp_file_one.rewind
+      example.run
     end
     it "generates an xml file" do
       renew_job = described_class.new
       allow(renew_job).to receive(:ncip_request).and_call_original
       expect(renew_job.run).to be_truthy
       expect(renew_job).to have_received(:ncip_request).exactly(5).times
-      expect(sftp_session).to have_received(:download!).with("/alma/scsb_renewals/abc.csv")
+      expect(sftp_session).to have_received(:download!).with("/alma/scsb_renewals/abc.csv", temp_file_one)
       expect(sftp_session).to have_received(:rename).with("/alma/scsb_renewals/abc.csv", "/alma/scsb_renewals/abc.csv.processed")
       data_set = DataSet.last
       expect(data_set.category).to eq("AlmaRenew")
