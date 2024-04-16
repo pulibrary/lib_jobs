@@ -18,6 +18,15 @@ RSpec.describe Oclc::LcCallSlips::KeywordField do
     it_behaves_like 'not a match'
   end
 
+  context 'when field is a 100' do
+    let(:field) do
+      MARC::DataField.new('100', '1', '',
+            MARC::Subfield.new('a', 'Westbrook, Catherine'))
+    end
+    let(:keywords) { ['Westbrook'] }
+    it_behaves_like 'a match'
+  end
+
   context 'when field is a 245' do
     let(:field) do
       MARC::DataField.new('245', '0', '0',

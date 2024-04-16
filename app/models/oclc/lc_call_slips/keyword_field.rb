@@ -36,8 +36,12 @@ module Oclc
           # Add ^ and $ to make sure that we match the whole world,
           # then turn the * wildcard into .*
           desired_keyword_as_regexp = Regexp.new('^' + desired_keyword.gsub('*', '.*') + '$', 'i')
-          word.match? desired_keyword_as_regexp
+          normalize(word).match? desired_keyword_as_regexp
         end
+      end
+
+      def normalize(word)
+        word.sub(/[[:punct:]]?$/, '')
       end
     end
   end
