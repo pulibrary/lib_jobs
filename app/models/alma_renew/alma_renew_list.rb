@@ -31,6 +31,8 @@ module AlmaRenew
 
     # rubocop:disable Metrics/MethodLength
     def download_renew_items
+      # report_downloader = ReportDownloader.new(sftp: AlmaSftp.new, file_pattern:, process_class: AlmaRenew::AlmaRenewList, input_sftp_base_dir:)
+      # report_downloader.run
       working_file_names = []
       sftp.start do |sftp_conn|
         sftp_conn.dir.foreach(input_sftp_base_dir) do |entry|
@@ -41,13 +43,8 @@ module AlmaRenew
           remote_filename = File.join(input_sftp_base_dir, entry.name)
           # ascii-8bit required for download! to succeed
           temp_file = Tempfile.new(encoding: 'ascii-8bit')
-          data = sftp_conn.download!(remote_filename, temp_file)
-          CSVValidator.new(csv_filename: data.path).require_headers ['Barcode', 'Patron Group', 'Expiry Date', 'Primary Identifier']
-          # TODO: Try the CSV.foreach method here
-          # CSV.foreach(data, headers: true, encoding: 'bom|utf-8') do |row|
-          CSV.parse(File.read(data, encoding: 'bom|utf-8'), headers: true) do |row|
-            renew_item_list << Item.new(row.to_h)
-          end
+          sftp_conn.download!(remote_filename, temp_file)
+          process(temp_file)
           remote_filenames << remote_filename
         end
       end
@@ -57,6 +54,14 @@ module AlmaRenew
     # rubocop:enable Metrics/MethodLength
     def date_in_range?(*)
       true
+    end
+
+    def process(temp_file)
+      CSVValidator.new(csv_filename: temp_file.path).require_headers ['Barcode', 'Patron Group', 'Expiry Date', 'Primary Identifier']
+      CSV.foreach(temp_file, headers: true, encoding: 'bom|utf-8') do |row|
+        renew_item_list << Item.new(row.to_h)
+      end
+      renew_item_list
     end
   end
 end
