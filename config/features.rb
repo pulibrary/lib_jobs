@@ -31,4 +31,8 @@ Flipflop.configure do
   feature :alma_person_ineligible,
     default: false,
     description: "Generate the ineligible user report when the person feed runs"
+
+  feature :meter_files_sent_to_recap,
+    default: false,
+    description: "Send only the configured number of files to recap"
 end

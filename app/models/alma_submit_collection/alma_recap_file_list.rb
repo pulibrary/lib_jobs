@@ -11,10 +11,15 @@ module AlmaSubmitCollection
       @file_pattern = file_pattern
       @alma_sftp = alma_sftp
       @sftp_locations = []
-      @files = files || compile_file_list
+      @files = if Flipflop.meter_files_sent_to_recap?
+                 files || compile_metered_file_list
+               else
+                 files || compile_file_list
+               end
     end
 
     # @return [Array<StringIO>]
+    # Won't this be the contents of *all* the decompressed files? Maybe the source of our memory issues?
     def file_contents
       @file_contents ||= @files.map { |filename| download_and_decompress_file(filename) }
                                .flatten
@@ -36,6 +41,23 @@ module AlmaSubmitCollection
           sftp.rename(full_filename(filename), "#{full_filename(filename)}.processed")
         end
       end
+    end
+
+    def compile_metered_file_list
+      files = []
+      all_matching_files = []
+      @alma_sftp.start do |sftp|
+        all_matching_files = sftp.dir.glob(@input_sftp_base_dir, '*.tar.gz')
+      end
+      files_oldest_to_newest = all_matching_files.sort_by { |entry| entry.attributes.mtime }
+      files_oldest_to_newest.take(Rails.application.config.alma_sftp.max_files_for_recap).each do |entry|
+        next unless /#{@file_pattern}/.match?(entry.name)
+        # rubocop:disable Style/ZeroLengthPredicate -- entry.attributes is an Net::SFTP::Protocol::V01::Attributes, not an array
+        next if entry.attributes.size.zero?
+        # rubocop:enable Style/ZeroLengthPredicate
+        files << entry.name
+      end
+      files
     end
 
     private

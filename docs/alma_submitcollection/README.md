@@ -19,3 +19,7 @@ sequenceDiagram
     Lib Jobs->>+Lib Jobs: Store the final standard and boundwith files on disk for 1 month
     Lib Jobs->>+S3 bucket: Upload all standard and boundwith files
 ```
+
+### Metering
+When we have an extremely large data dump from Alma, RECAP / SCSB has a hard time keeping up, and we can overwhelm their system (see [lib-jobs issue](https://github.com/pulibrary/lib_jobs/issues/765)). In response,
+we have added metering, so that we process only the oldest configured number of files (configured in `config/alma_sftp.yml). This is also behind a feature flipper, so we can turn it on and off as needed.
