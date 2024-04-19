@@ -20,6 +20,43 @@ RSpec.describe AlmaSubmitCollection::AlmaRecapFileList, type: :model do
     allow(sftp_file_factory).to receive(:open).and_return StringIO.new
   end
 
+  context 'metering files sent to recap' do
+    before do
+      allow(Flipflop).to receive(:meter_files_sent_to_recap?).and_return(true)
+    end
+
+    context 'with more files than recap can process' do
+      let(:sftp_entry1) { instance_double("Net::SFTP::Protocol::V01::Name", name: 'incremental_recap_25908087650006421_20230420_160408[001]_new.xml.tar.gz') }
+      let(:sftp_entry2) { instance_double("Net::SFTP::Protocol::V01::Name", name: 'incremental_recap_25908087650006421_20230420_160408[002]_new.xml.tar.gz') }
+      let(:sftp_entry3) { instance_double("Net::SFTP::Protocol::V01::Name", name: 'incremental_recap_25908087650006421_20230420_160408[003]_new.xml.tar.gz') }
+      let(:sftp_entry4) { instance_double("Net::SFTP::Protocol::V01::Name", name: 'incremental_recap_25908087650006421_20230420_160408[004]_new.xml.tar.gz') }
+      let(:sftp_entry5) { instance_double("Net::SFTP::Protocol::V01::Name", name: 'incremental_recap_25908087650006421_20230420_160408[005]_new.xml.tar.gz') }
+      # Ages are in seconds from epoch
+      let(:age_1_oldest) { 1_713_400_100 }
+      let(:age_2) { 1_713_400_200 }
+      let(:age_3) { 1_713_400_300 }
+      let(:age_4) { 1_713_400_400 }
+      let(:age_5_newest) { 1_713_400_500 }
+
+      before do
+        allow(sftp_dir).to receive(:foreach).and_yield(sftp_entry1).and_yield(sftp_entry2)
+                                            .and_yield(sftp_entry3).and_yield(sftp_entry4).and_yield(sftp_entry5)
+        [sftp_entry1, sftp_entry2, sftp_entry3, sftp_entry4, sftp_entry5].each do |entry|
+          allow(entry).to receive(:attributes).and_return(file_attributes)
+        end
+        allow(sftp_dir).to receive(:glob).and_return [sftp_entry1, sftp_entry2, sftp_entry3, sftp_entry4, sftp_entry5]
+        allow(file_attributes).to receive(:mtime).and_return(age_1_oldest, age_5_newest, age_2, age_4, age_3)
+      end
+      it 'does not process more than the configured number of files' do
+        expect(alma_recap_file_list.files.count).to eq(3)
+      end
+
+      it 'processes only the oldest files' do
+        expect(alma_recap_file_list.files).to match_array([sftp_entry1.name, sftp_entry3.name, sftp_entry5.name])
+      end
+    end
+  end
+
   context 'if the file is valid' do
     it "downloads the file" do
       expect(alma_recap_file_list.files.count).to eq(1)
