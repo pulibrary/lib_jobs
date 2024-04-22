@@ -11,7 +11,7 @@ The first cron job runs aspace2alma every morning except Mondays, when Alma jobs
 The second cron job runs on days when we skip aspace2alma (i.e. Mondays and Saturdays) to delete the prior day's `MARC_out.xml` file. (Since aspace2alma doesn't run on those days, the file doesn't get deleted/renamed on those days, making it available for import to the Alma import job a second time. This is not allowed to happen because it might import item records a second time, which Alma permits, creating duplicate item records.)
 
 1. Alma (independently from aspace2alma) prepares a data snapshot at 8pm each night that becomes available to Analytics around midnight.
-2. At 1am, Alma (via a scheduled job) reports out all item barcodes associated with archivally managed items (location codes starting with "sca"). It exports the report to lib-sftp-prod1.
+2. At 1am, Alma (via a scheduled job) reports out all item barcodes associated with archivally managed items (location codes starting with "sca"). It exports the report to lib-sftp-prod2.
 3. At 2:30am, aspace2alma starts processing on lib-jobs-prod2:
     1. it removes `MARC_out_old.xml`
     2. it renames `MARC_out.xml` to `MARC_out_old.xml` (so that in case the export fails, Alma will not find a stale `MARC_out.xml` file to import)
