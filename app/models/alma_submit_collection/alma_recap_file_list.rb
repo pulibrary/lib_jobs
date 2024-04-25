@@ -47,7 +47,7 @@ module AlmaSubmitCollection
       files = []
       all_matching_files = []
       @alma_sftp.start do |sftp|
-        all_matching_files = sftp.dir.glob(@input_sftp_base_dir, '*.tar.gz')
+        all_matching_files = sftp.dir.glob(@input_sftp_base_dir, '*[^delete].xml.tar.gz')
       end
       files_oldest_to_newest = all_matching_files.sort_by { |entry| entry.attributes.mtime }
       files_oldest_to_newest.take(Rails.application.config.alma_sftp.max_files_for_recap).each do |entry|
