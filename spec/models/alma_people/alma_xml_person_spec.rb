@@ -151,5 +151,39 @@ RSpec.describe AlmaPeople::AlmaXmlPerson, type: :model do
         end
       end
     end
+
+    describe('#should_be_included?') do
+    end
+    context 'for a typical Ineligible patron' do
+      let(:oit_person) do
+        JSON.parse('{
+          "VCURSTATUS": "ACTV",
+          "ELIGIBLE_INELIGIBLE": "I",
+          "PATRON_EXPIRATION_DATE": "2024-01-01"
+        }')
+      end
+      it 'returns true' do
+        Nokogiri::XML::Builder.new do |xml|
+          alma_person = described_class.new(xml:, person: oit_person)
+          expect(alma_person.should_be_included?).to eq(true)
+        end
+      end
+    end
+
+    context 'when an otherwise Ineligible patron is a retiree and thus gets borrowing privileges' do
+      let(:oit_person) do
+        JSON.parse('{
+          "VCURSTATUS": "RETR",
+          "ELIGIBLE_INELIGIBLE": "I",
+          "PATRON_EXPIRATION_DATE": "2024-01-01"
+        }')
+      end
+      it 'returns false' do
+        Nokogiri::XML::Builder.new do |xml|
+          alma_person = described_class.new(xml:, person: oit_person)
+          expect(alma_person.should_be_included?).to eq(false)
+        end
+      end
+    end
   end
 end

@@ -141,6 +141,35 @@ RSpec.describe AlmaPeople::AlmaPersonFeed, type: :model, file_upload: true do
         data = File.read("spec/fixtures/person_feed/alma_people_#{yesterday}_#{today}_I.xml")
         expect(validate_xml(data)).to be_truthy
       end
+
+      context 'when the person is a retiree' do
+        let(:oit_ineligible_people) do
+          [{ "VCURAFFIL" => "EM",
+             "VCURGROUP" => "DF",
+             "VCURSTATUS" => "RETR",
+             "UG_CLASS_YEAR" => nil,
+             "VCLASS" => "N/A",
+             "VTITLE" => "Emeritus.",
+             "BEMERITUS" => "FEMER",
+             "VJOBFUNCTION" => "FR",
+             "PRF_OR_PRI_FIRST_NAM" => "Retiree",
+             "PATRON_EXPIRATION_DATE" => "2022-10-31",
+             "ELIGIBLE_INELIGIBLE" => "I",
+             "EMPLOYEE_TYPE" => "eme" },
+           { "PRF_OR_PRI_FIRST_NAM" => "NotRetired",
+             "PATRON_EXPIRATION_DATE" => "2022-10-31",
+             "ELIGIBLE_INELIGIBLE" => "I" }]
+        end
+        it('does not include them in the list we send to alma, so they do not lose their privileges') do
+          expect(alma_person_feed.run).to be_truthy
+          data_set = DataSet.last
+          expect(data_set.data).to eq("people_updated: 1, file: alma_people_#{yesterday}_#{today}_E.xml, ineligible_people_updated: 1, file: alma_people_#{yesterday}_#{today}_I.xml")
+          data = File.read("spec/fixtures/person_feed/alma_people_#{yesterday}_#{today}_I.xml")
+          expect(validate_xml(data)).to be_truthy
+          expect(data).to include 'NotRetired'
+          expect(data).not_to include 'Retiree'
+        end
+      end
     end
   end
 

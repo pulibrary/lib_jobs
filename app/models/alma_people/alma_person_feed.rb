@@ -14,9 +14,12 @@ module AlmaPeople
       @enabled_flag = enabled_flag
       @ineligible_flag = 'I'
       @invalid_records = []
+      @ineligible_count = 0
     end
 
     private
+
+    attr_reader :ineligible_count
 
     def handle(data_set:)
       data_set.report_time = Time.zone.now.midnight
@@ -36,7 +39,7 @@ module AlmaPeople
       builder = Nokogiri::XML::Builder.new do |xml|
         xml.users do
           oit_people.each do |person|
-            convert_person_to_xml(xml:, person:)
+            convert_person_to_xml(xml:, person:, eligibility:)
           end
         end
       end
@@ -61,10 +64,11 @@ module AlmaPeople
       report_uploader.run
     end
 
-    def convert_person_to_xml(xml:, person:)
+    def convert_person_to_xml(xml:, person:, eligibility:)
       alma_person = AlmaPeople::AlmaXmlPerson.new(xml:, person:)
-      if alma_person.valid?
+      if alma_person.valid? && alma_person.should_be_included?
         alma_person.convert
+        handle_ineligible_patron_converted if eligibility == 'I'
       else
         @invalid_records << alma_person
       end
@@ -80,7 +84,11 @@ module AlmaPeople
       oit_people_ineligible = oit_person_feed.get_json(begin_date:, end_date:, enabled_flag: @ineligible_flag)
       full_path = build_xml(oit_people: oit_people_ineligible, eligibility: @ineligible_flag)
       transfer_alma_person_file(filename: full_path)
-      ", ineligible_people_updated: #{oit_people_ineligible.count}, file: #{File.basename(full_path)}"
+      ", ineligible_people_updated: #{ineligible_count}, file: #{File.basename(full_path)}"
+    end
+
+    def handle_ineligible_patron_converted
+      @ineligible_count = ineligible_count + 1
     end
   end
 end
