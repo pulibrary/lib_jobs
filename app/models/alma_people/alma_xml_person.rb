@@ -38,6 +38,13 @@ module AlmaPeople
       end
     end
 
+    # #should_be_included? checks to make sure the person meets
+    # our business logic rules.  This is different than #valid?,
+    # which checks to make sure the data about the person is correct
+    def should_be_included?
+      eligible? || not_a_retiree?
+    end
+
     private
 
     def create_status(status_flag:)
@@ -138,6 +145,14 @@ module AlmaPeople
     end
     # rubocop:enable Metrics/ParameterLists
     # rubocop:enable Metrics/MethodLength
+
+    def eligible?
+      person["ELIGIBLE_INELIGIBLE"] == 'E'
+    end
+
+    def not_a_retiree?
+      person["VCURSTATUS"] != 'RETR'
+    end
   end
 end
 # rubocop:enable Metrics/AbcSize
