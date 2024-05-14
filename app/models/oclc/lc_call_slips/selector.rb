@@ -4,8 +4,17 @@ module Oclc
   module LcCallSlips
     class Selector
       attr_reader :selector_config
+
       def initialize(selector_config:)
         @selector_config = selector_config
+      end
+
+      def valid?
+        (selector_config[selector_key].keys & required_config_keys) == required_config_keys
+      end
+
+      def required_config_keys
+        [:email, :classes]
       end
 
       def name

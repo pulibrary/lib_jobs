@@ -18,4 +18,4 @@ generates a CSV of possible records from OCLC,
 excluding ones that are typically filtered out like
 juvenile materials (based on the `generally_relevant?` method).  You can use this one to make
 sure that your CSV in mailcatcher includes all the
-expected rows.
+expected rows. It is generally put in the `/tmp/oclc/` directory on staging and production.
