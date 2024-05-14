@@ -19,8 +19,8 @@ module IlsApps
     # mode. Set to `true` to always raise errors, or `false` to always warn.
     config.flipflop.raise_strategy_errors = false
 
-    def config_for(*args)
-      build = super(*args)
+    def config_for(name, env: Rails.env)
+      build = super(name, env:)
       OpenStruct.new(build)
     end
 
