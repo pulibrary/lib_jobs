@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Oclc::LcCallSlips::SelectorFile, type: :model, newly_cataloged: true do
+RSpec.describe Oclc::LcCallSlips::SelectorFile, type: :model, lc_call_slips: true do
   subject(:newly_cataloged_file) { described_class.new(temp_file:) }
   let(:oclc_fixture_file_path) { Rails.root.join('spec', 'fixtures', 'oclc', 'metacoll.PUL.new.D20230718.T213016.MZallDLC.1.mrc') }
   let(:temp_file) { Tempfile.new(encoding: 'ascii-8bit') }

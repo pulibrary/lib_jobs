@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Oclc::LcCallSlips::SelectorCSV, type: :model, newly_cataloged: true do
+RSpec.describe Oclc::LcCallSlips::SelectorCSV, type: :model, lc_call_slips: true do
   let(:subject) { described_class.new(selector_config:) }
   let(:new_csv_path_string) { 'spec/fixtures/oclc/2023-07-12-newly-cataloged-by-lc-bordelon.csv' }
   let(:new_csv_path_1) { Rails.root.join('spec', 'fixtures', 'oclc', '2023-07-12-newly-cataloged-by-lc-bordelon.csv') }

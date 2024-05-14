@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Oclc::LcCallSlips::AllRelevantJob, type: :model, newly_cataloged: true, file_download: true do
+RSpec.describe Oclc::LcCallSlips::AllRelevantJob, type: :model, lc_call_slips: true, file_download: true do
   include_context 'sftp_newly_cataloged'
 
   subject(:newly_cataloged_job_all) { described_class.new }

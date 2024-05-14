@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Oclc::LcCallSlips::Record, type: :model, newly_cataloged: true do
+RSpec.describe Oclc::LcCallSlips::Record, type: :model, lc_call_slips: true do
   let(:marc_record) { marc_reader.first }
   let(:marc_reader) { MARC::Reader.new(oclc_fixture_file_path.to_s, external_encoding: 'UTF-8') }
   let(:selector_config) do
