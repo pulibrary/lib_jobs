@@ -112,7 +112,7 @@ RSpec.describe ReportUploader, type: :model, file_upload: true do
           expect(Rails.logger).to have_received(:error).once.with("Error uploading source file: #{new_file_for_alma_path_1} to sftp path: #{alma_upload_path_1}")
         end
         it 'does not log success to the debug log' do
-          allow(Rails.logger).to receive(:debug).with("Uploaded source file: #{new_file_for_alma_path_2} to sftp path: #{alma_upload_path_2}")
+          allow(Rails.logger).to receive(:debug)
           subject.run
           expect(Rails.logger).to have_received(:debug).once.with("Uploaded source file: #{new_file_for_alma_path_2} to sftp path: #{alma_upload_path_2}")
           expect(Rails.logger).not_to have_received(:debug).with("Uploaded source file: #{new_file_for_alma_path_1} to sftp path: #{alma_upload_path_1}")

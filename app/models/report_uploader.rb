@@ -23,7 +23,9 @@ class ReportUploader
 
   def upload_file(working_file_name, sftp_conn)
     source_file_path = File.join(working_file_directory, working_file_name)
+    Rails.logger.debug { "Source file path for sftp upload: #{source_file_path}" }
     destination_file_path = File.join(output_sftp_base_dir, working_file_name)
+    Rails.logger.debug { "Destination file path for sftp upload: #{destination_file_path}" }
     sftp_conn.upload!(source_file_path, destination_file_path)
     @uploaded_file_paths << destination_file_path
     Rails.logger.debug("Uploaded source file: #{source_file_path} to sftp path: #{destination_file_path}") # rubocop:disable Rails/EagerEvaluationLogMessage
