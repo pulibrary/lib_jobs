@@ -27,6 +27,19 @@ RSpec.describe Oclc::DataSyncExceptionFile, type: :model do
       File.delete(new_file_for_alma_path_2) if File.exist?(new_file_for_alma_path_2)
     end
 
+    context 'with a file that only has a zero mms_id' do
+      let(:oclc_fixture_file_path) { 'spec/fixtures/oclc/PUL-PUL.1012676.IN.BIB.D20240529.T011306010.1012676.pul.non-pcc_37850317700006421_new.mrc_247.BibExceptionReport.txt' }
+
+      it 'does not save a new file' do
+        temp_file.rewind
+        expect(File.exist?(new_file_for_alma_path_1)).to be false
+        expect(File.exist?(new_file_for_alma_path_2)).to be false
+        expect(exception_file.process).to be nil
+        expect(File.exist?(new_file_for_alma_path_1)).to be false
+        expect(File.exist?(new_file_for_alma_path_2)).to be false
+      end
+    end
+
     it 'creates a file to be submitted to alma' do
       expect(File.exist?(new_file_for_alma_path_1)).to be false
       expect(File.exist?(new_file_for_alma_path_2)).to be false

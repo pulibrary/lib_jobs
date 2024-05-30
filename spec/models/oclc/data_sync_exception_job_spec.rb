@@ -21,6 +21,7 @@ RSpec.describe Oclc::DataSyncExceptionJob, type: :model, file_download: true do
     let(:file_full_path_one) { "#{input_sftp_base_dir}#{file_name_to_download_one}" }
     let(:file_full_path_two) { "#{input_sftp_base_dir}#{file_name_to_download_two}" }
     let(:oclc_fixture_file_path) { 'spec/fixtures/oclc/PUL-PUL.1012676.IN.BIB.D20230712.T115732756.1012676.pul.non-pcc_27837389230006421_new.mrc_1.BibExceptionReport.txt' }
+    let(:oclc_fixture_file_path_two) { 'spec/fixtures/oclc/PUL-PUL.1012676.IN.BIB.D20230712.T115712289.1012676.pul.non-pcc_27837389230006421_new.mrc_2.BibExceptionReport.txt' }
     let(:file_name_to_download_one) { 'PUL-PUL.1012676.IN.BIB.D20230712.T115712289.1012676.pul.non-pcc_27837389230006421_new.mrc_2.BibExceptionReport.txt' }
     let(:file_name_to_download_two) { 'PUL-PUL.1012676.IN.BIB.D20230712.T115732756.1012676.pul.non-pcc_27837389230006421_new.mrc_1.BibExceptionReport.txt' }
     # too old
@@ -39,6 +40,9 @@ RSpec.describe Oclc::DataSyncExceptionJob, type: :model, file_download: true do
       File.delete(new_file_for_alma_path_1) if File.exist?(new_file_for_alma_path_1)
       File.delete(new_file_for_alma_path_2) if File.exist?(new_file_for_alma_path_2)
       temp_file_one.write(File.open(oclc_fixture_file_path).read)
+      temp_file_two.write(File.open(oclc_fixture_file_path_two).read)
+      temp_file_one.rewind
+      temp_file_two.rewind
       Timecop.freeze(freeze_time) do
         example.run
       end
@@ -49,14 +53,27 @@ RSpec.describe Oclc::DataSyncExceptionJob, type: :model, file_download: true do
     before do
       allow(Tempfile).to receive(:new).and_return(temp_file_one, temp_file_two)
       allow(sftp_dir).to receive(:foreach).and_yield(sftp_entry1).and_yield(sftp_entry2).and_yield(sftp_entry3).and_yield(sftp_entry4)
-      allow(sftp_session).to receive(:download!).with(file_full_path_one, temp_file_one)
-      allow(sftp_session).to receive(:download!).with(file_full_path_two, temp_file_two)
+      allow(sftp_session).to receive(:download!).with(file_full_path_one, temp_file_one).and_return(File.read(temp_file_one))
+      allow(sftp_session).to receive(:download!).with(file_full_path_two, temp_file_two).and_return(File.read(temp_file_two))
       allow(sftp_session).to receive(:upload!).twice
+    end
+
+    context 'with a file with no valid errors' do
+      let(:oclc_fixture_file_path) { 'spec/fixtures/oclc/PUL-PUL.1012676.IN.BIB.D20240529.T011306010.1012676.pul.non-pcc_37850317700006421_new.mrc_247.BibExceptionReport.txt' }
+      it 'does the right thing' do
+        expect(data_sync_exception_job.run).to be_truthy
+        expect(sftp_session).to have_received(:download!).with(file_full_path_one, temp_file_one)
+        expect(sftp_session).to have_received(:download!).with(file_full_path_two, temp_file_two)
+        # Only expect this once, not twice, since only one file has valid errors
+        expect(sftp_session).to have_received(:upload!).with(new_file_for_alma_path_1, alma_upload_path_1).once
+      end
     end
 
     it_behaves_like 'a lib job'
 
     it 'downloads only the relevant files' do
+      temp_file_one.rewind
+      temp_file_two.rewind
       expect(data_sync_exception_job.run).to be_truthy
       expect(sftp_session).to have_received(:download!).with(file_full_path_one, temp_file_one)
       expect(sftp_session).to have_received(:download!).with(file_full_path_two, temp_file_two)
