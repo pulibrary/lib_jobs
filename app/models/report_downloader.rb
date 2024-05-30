@@ -33,7 +33,7 @@ class ReportDownloader
         remote_filenames << remote_filename
       end
     end
-    working_file_names
+    working_file_names.compact
   end
 
   def date_in_range?(file_name:)

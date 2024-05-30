@@ -43,6 +43,8 @@ module Oclc
       current_working_file_name = working_file_name
       rec_num = 0
       writer = nil
+      return nil if @error_accumulator.empty?
+
       @error_accumulator.each do |mms_id, errors|
         writer = marc_writer(rec_num:, writer:)
         record = marc_record(mms_id:, errors:)
