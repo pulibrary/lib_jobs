@@ -17,6 +17,7 @@ gem 'capistrano-yarn', '~> 2.0'
 gem 'devise', '>= 4.6.0'
 gem 'ed25519', '~> 1.3'
 gem 'faraday', '~> 2.7'
+gem 'ffi'
 gem "flipflop", git: "https://github.com/voormedia/flipflop.git", ref: "0d70d8e33483a9c0282ed8d6bca9c5ccd61e61e8"
 gem 'foreman'
 gem 'honeybadger'

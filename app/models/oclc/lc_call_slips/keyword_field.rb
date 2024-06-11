@@ -5,6 +5,11 @@ module Oclc
     # Marc::DataField for the keywords that a selector
     # is interested in.
     class KeywordField
+      extend FFI::Library
+      c_lib_extension = /darwin/.match?(RUBY_PLATFORM) ? 'dylib' : 'so'
+      ffi_lib Rails.root.join('lib_jobs_rs', 'target', 'release', "liblib_jobs.#{c_lib_extension}")
+      attach_function :normalize_keyword, [:string], :strptr
+
       def initialize(field:, keywords:)
         @field = field
         @keywords = keywords
@@ -41,7 +46,7 @@ module Oclc
       end
 
       def normalize(word)
-        word.sub(/[[:punct:]]?$/, '')
+        normalize_keyword(word)[0]
       end
     end
   end

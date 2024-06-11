@@ -55,3 +55,4 @@ node_modules
 
 # SVN working copy
 /subversion_eads/*
+lib_jobs_rs/target

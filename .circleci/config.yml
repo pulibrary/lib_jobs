@@ -26,7 +26,7 @@ commands:
     description: "Install correct version of bundler and load from cache or bundle install"
     steps:
       - run: sudo apt-get --allow-releaseinfo-change update
-      - run: sudo apt-get install cifs-utils unixodbc unixodbc-dev
+      - run: sudo apt-get install cifs-utils unixodbc unixodbc-dev cargo
       - run:
           name: Configure Bundler
           command: |
