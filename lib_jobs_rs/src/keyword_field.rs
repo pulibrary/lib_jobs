@@ -18,21 +18,14 @@ use std::ffi::{CStr, CString};
 /// <https://doc.rust-lang.org/std/ffi/struct.CStr.html#method.from_ptr>
 #[no_mangle]
 pub unsafe extern "C" fn normalize_keyword(raw_string_ptr: *const i8) -> *const i8 {
-    let original_string = match unsafe { CStr::from_ptr(raw_string_ptr) }.to_str() {
-        Ok(string) => string,
-        Err(_) => ""
-    };
+    let original_string = unsafe { CStr::from_ptr(raw_string_ptr) }.to_str().unwrap_or("");
     CString::new(normalize_string(original_string))
         .expect("Could not create a CString, check for 0 byte errors")
         .into_raw()
 }
 
 fn normalize_string(original_string: &str) -> &str {
-    match original_string.strip_suffix(|last_character: char| last_character.is_ascii_punctuation())
-    {
-        Some(cleaned) => cleaned,
-        None => original_string,
-    }
+    original_string.strip_suffix(|last_character: char| last_character.is_ascii_punctuation()).unwrap_or(original_string)
 }
 
 #[cfg(test)]
