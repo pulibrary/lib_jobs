@@ -17,7 +17,8 @@ class ApplicationController < ActionController::Base
       {
         name: 'Log In',
         component: 'Log In',
-        href: new_user_session_path
+        href: new_user_session_path,
+        method: 'post'
       }
     end
   end
