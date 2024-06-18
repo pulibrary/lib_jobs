@@ -35,6 +35,7 @@ gem 'net-sftp'
 gem 'nokogiri', '~> 1.16'
 gem 'omniauth'
 gem 'omniauth-cas'
+gem 'omniauth-rails_csrf_protection'
 gem 'open3'
 gem 'pg'
 # Use Puma as the app server

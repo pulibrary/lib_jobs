@@ -307,6 +307,9 @@ GEM
       addressable (~> 2.8)
       nokogiri (~> 1.12)
       omniauth (~> 2.1)
+    omniauth-rails_csrf_protection (1.0.2)
+      actionpack (>= 4.2)
+      omniauth (~> 2.0)
     open3 (0.2.1)
     orm_adapter (0.5.0)
     parallel (1.24.0)
@@ -585,6 +588,7 @@ DEPENDENCIES
   nokogiri (~> 1.16)
   omniauth
   omniauth-cas
+  omniauth-rails_csrf_protection
   open3
   pg
   pry-byebug
