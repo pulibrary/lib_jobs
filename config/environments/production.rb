@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-Rails.application.configure do
+Rails.application.configure do # rubocop:disable Metrics/BlockLength
   # Settings specified here will take precedence over those in config/application.rb.
 
   # Code is not reloaded between requests.
@@ -64,7 +64,8 @@ Rails.application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: 'lib-ponyexpr.princeton.edu'
+    address: 'lib-ponyexpr-prod.princeton.edu',
+    enable_starttls: false
   }
 
   # Ignore bad email addresses and do not raise email delivery errors.
