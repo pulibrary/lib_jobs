@@ -33,7 +33,7 @@ RSpec.describe "Users", type: :request do
         )
         allow(User).to receive(:from_omniauth).and_return(user)
 
-        get user_cas_omniauth_authorize_path
+        post user_cas_omniauth_authorize_path
       end
 
       after do
