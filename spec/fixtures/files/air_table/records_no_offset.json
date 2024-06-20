@@ -1,0 +1,21 @@
+{
+    "records": [
+        {
+            "id": "recrhIUhcJw3lUlRE",
+            "createdTime": "2024-01-30T22:16:16.000Z",
+            "fields": {
+                "Address": "123 Stokes",
+                "Area of Study": ["Virtual Reality"],
+                "Division": "Stokes",
+                "pul:Building": "Stokes",
+                "Last Name": "Librarian",
+                "First Name": "Phillip",
+                "University ID": "123",
+                "netid": "ab123",
+                "University Phone": "(123) 123-1234",
+                "pul:Preferred Name": "Phillip Librarian",
+                "Email": "ab123@princeton.edu"
+            }
+         }
+    ]
+}

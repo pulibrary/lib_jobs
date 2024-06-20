@@ -1,0 +1,21 @@
+{
+    "records": [
+        {
+            "id": "recrhIUhcJw3lUlRE",
+            "createdTime": "2025-01-30T22:16:16.000Z",
+            "fields": {
+                "Address": "Firestone A floor",
+                "Area of Study": ["Cinema history", "Robots"],
+                "Division": "Special Collections",
+                "pul:Building": "Firestone",
+                "Last Name": "Carmant",
+                "First Name": "Drema",
+                "University ID": "456",
+                "netid": "zz99",
+                "University Phone": "(123) 555-5555",
+                "pul:Preferred Name": "Drema Carmant",
+                "Email": "zz99@princeton.edu"
+            }
+         }
+    ], "offset": "naeQu2ul/Ash6eiQu"
+}
