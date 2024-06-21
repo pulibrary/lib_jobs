@@ -28,6 +28,7 @@ defaults: &defaults
   alma_region: <%= ENV["ALMA_REGION"] %>
   alma_api_key: <%= ENV["ALMA_CONFIG_API_KEY"] || "1234" %>
   alma_bib_api_key: <%= ENV["ALMA_BIB_API_KEY"] || "1234" %>
+  airtable_token: <%= ENV["AIRTABLE_TOKEN"] || 'FAKE_AIRTABLE_TOKEN' %>
 development:
   <<: *defaults
 
