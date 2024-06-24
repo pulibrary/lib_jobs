@@ -35,4 +35,8 @@ Flipflop.configure do
   feature :meter_files_sent_to_recap,
     default: false,
     description: "Send only the configured number of files to recap"
+
+  feature :air_table_staff_list,
+    default: false,
+    description: "Generate a staff list CSV based on the data in Airtable"
 end
