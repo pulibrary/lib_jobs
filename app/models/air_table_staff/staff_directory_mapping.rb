@@ -24,6 +24,7 @@ module AirTableStaff
         { airtable_field: :'pul:Department', our_field: :division },
         { airtable_field: :'pul:Unit', our_field: :unit },
         { airtable_field: :'pul:Team', our_field: :team },
+        { airtable_field: :Title, our_field: :title },
         { airtable_field: :'Area of Study', our_field: :areasOfStudy, transformer: ->(areas) { areas&.join('//') } }
       ]
     end

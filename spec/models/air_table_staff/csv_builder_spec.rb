@@ -13,8 +13,8 @@ RSpec.describe AirTableStaff::CSVBuilder do
   end
   it 'creates a CSV object with data from the HTTP API' do
     expected = <<~END_CSV
-            puid,netid,phone,name,lastName,firstName,email,address,building,department,division,unit,team,areasOfStudy
-            123,ab123,(123) 123-1234,Phillip Librarian,Librarian,Phillip,ab123@princeton.edu,123 Stokes,Stokes,Stokes,,,,Virtual Reality
+            puid,netid,phone,name,lastName,firstName,email,address,building,department,division,unit,team,title,areasOfStudy
+            123,ab123,(123) 123-1234,Phillip Librarian,Librarian,Phillip,ab123@princeton.edu,123 Stokes,Stokes,Stokes,,,,Library Collections Specialist V,Virtual Reality
         END_CSV
     directory = described_class.new
     expect(directory.to_csv).to eq(expected)

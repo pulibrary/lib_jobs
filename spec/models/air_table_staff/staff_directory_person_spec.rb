@@ -18,6 +18,7 @@ RSpec.describe AirTableStaff::StaffDirectoryPerson do
         'pul:Department': 'Cataloging and Metadata Services',
         'pul:Unit': 'Rare Books Cataloging Team',
         'pul:Team': 'IT, Discovery and Access Services',
+        'Title': 'Library Software Engineer',
         'Area of Study': ['Chemistry', 'African American Studies']
       }
       expected = [
@@ -34,6 +35,7 @@ RSpec.describe AirTableStaff::StaffDirectoryPerson do
         'Cataloging and Metadata Services', # division
         'Rare Books Cataloging Team', # unit
         'IT, Discovery and Access Services', # team
+        'Library Software Engineer', # title
         'Chemistry//African American Studies' # areasOfStudy
       ]
 
