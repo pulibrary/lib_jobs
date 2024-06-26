@@ -19,6 +19,10 @@ RSpec.describe AirTableStaff::StaffDirectoryPerson do
         'pul:Unit': 'Rare Books Cataloging Team',
         'pul:Team': 'IT, Discovery and Access Services',
         'Title': 'Library Software Engineer',
+        'Expertise': ['Discovery', 'Library Systems'],
+        'Bios': "Kevin has worked at Princeton since 2011. He has a M.S. in Library and Information Science from the University of Illinois at Urbana-Champaign." \
+          "\n\nKevin heads the Discovery and Access Services Team that supports the Library Catalog. \n",
+        'Website URL': 'https://github.com/kevinreiss',
         'Area of Study': ['Chemistry', 'African American Studies']
       }
       expected = [
@@ -36,7 +40,14 @@ RSpec.describe AirTableStaff::StaffDirectoryPerson do
         'Rare Books Cataloging Team', # unit
         'IT, Discovery and Access Services', # team
         'Library Software Engineer', # title
-        'Chemistry//African American Studies' # areasOfStudy
+        'Chemistry//African American Studies', # areasOfStudy
+        'https://github.com/kevinreiss', # websiteUrl
+        "Kevin has worked at Princeton since 2011. "\
+          "He has a M.S. in Library and Information Science "\
+          "from the University of Illinois at Urbana-Champaign."\
+          "\n\nKevin heads the Discovery and Access Services Team "\
+          "that supports the Library Catalog. \n", # bios
+        'Discovery//Library Systems' # expertise
       ]
 
       expect(described_class.new(json).to_a).to eq(expected)
