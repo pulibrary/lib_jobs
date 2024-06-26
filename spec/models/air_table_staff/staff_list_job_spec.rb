@@ -22,7 +22,8 @@ RSpec.describe AirTableStaff::StaffListJob, type: :model do
       let(:first_row) do
         [
           '123', 'ab123', '(123) 123-1234', 'Phillip Librarian', 'Librarian', 'Phillip', 'ab123@princeton.edu',
-          '123 Stokes', 'Stokes', 'Stokes', nil, nil, nil, 'Library Collections Specialist V', 'Virtual Reality'
+          '123 Stokes', 'Stokes', 'Stokes', nil, nil, nil, 'Library Collections Specialist V', 'Virtual Reality',
+          nil, "Hello\nMy research interests\nare\n\nfantastic!", nil
         ]
       end
 
