@@ -3,6 +3,22 @@
   creates a CSV that can then be used by the OIT WDS-hosted
   library website.
 
+## Accessing the data in the Airtable UI and API
+
+* [Airtable UI for staff directory data](https://airtable.com/appv7XA5FWS7DG9oe/tblM0iymGN5oqDUVm/viwHf9IPWSnVpidzL?blocks=hide)
+* [API docs for Library Staff Airtable](https://airtable.com/appv7XA5FWS7DG9oe/api/docs)
+* [Auth docs for Airtable](https://airtable.com/developers/web/api/authentication)
+
+If you don't have access to the above, @jpstroop can
+set you up.
+
+Lib-jobs uses a personal access token (PAT) from a service
+account to authenticate into airtable.  For local
+development, you can use that token, or create your
+own PAT in the Airtable UI.  Instructions for rotating
+the airtable service account PAT can be found in the
+lib-jobs ansible vault.
+
 ## Sequence of events
 
 The steps to maintain this list, as illustrated in the sequence diagram below.
