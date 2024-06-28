@@ -21,7 +21,8 @@ RSpec.describe AirTableStaff::StaffListJob, type: :model do
       let(:file_path) { Pathname.new(Rails.root.join('tmp', "airtable_staff.csv")) }
       let(:first_row) do
         [
-          '123', 'ab123', '(123) 123-1234', 'Phillip Librarian', 'Librarian', 'Phillip', 'ab123@princeton.edu', '123 Stokes', 'Stokes', 'Stokes', nil, nil, nil, 'Virtual Reality'
+          '123', 'ab123', '(123) 123-1234', 'Phillip Librarian', 'Librarian', 'Phillip', 'ab123@princeton.edu',
+          '123 Stokes', 'Stokes', 'Stokes', nil, nil, nil, 'https://example.com', 'Virtual Reality'
         ]
       end
 

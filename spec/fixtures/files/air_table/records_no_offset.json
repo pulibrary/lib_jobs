@@ -14,7 +14,8 @@
                 "netid": "ab123",
                 "University Phone": "(123) 123-1234",
                 "pul:Preferred Name": "Phillip Librarian",
-                "Email": "ab123@princeton.edu"
+                "Email": "ab123@princeton.edu",
+                "My Scheduler Link": "https://example.com"
             }
          }
     ]
