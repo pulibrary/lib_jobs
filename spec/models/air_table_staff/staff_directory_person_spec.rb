@@ -23,7 +23,8 @@ RSpec.describe AirTableStaff::StaffDirectoryPerson do
         'Bios': "Kevin has worked at Princeton since 2011. He has a M.S. in Library and Information Science from the University of Illinois at Urbana-Champaign." \
           "\n\nKevin heads the Discovery and Access Services Team that supports the Library Catalog. \n",
         'Website URL': 'https://github.com/kevinreiss',
-        'Area of Study': ['Chemistry', 'African American Studies']
+        'Area of Study': ['Chemistry', 'African American Studies'],
+        'My Scheduler Link': 'https://example.com'
       }
       expected = [
         '987654321', # puid
@@ -47,7 +48,8 @@ RSpec.describe AirTableStaff::StaffDirectoryPerson do
           "from the University of Illinois at Urbana-Champaign."\
           "\n\nKevin heads the Discovery and Access Services Team "\
           "that supports the Library Catalog. \n", # bios
-        'Discovery//Library Systems' # expertise
+        'Discovery//Library Systems', # expertise
+        'https://example.com' # mySchedulerLink
       ]
 
       expect(described_class.new(json).to_a).to eq(expected)

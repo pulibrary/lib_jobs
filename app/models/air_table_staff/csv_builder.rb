@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+require 'csv'
 module AirTableStaff
   # This class is responsible for creating a CSV out of the
   # data from Airtable
