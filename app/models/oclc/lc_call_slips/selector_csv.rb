@@ -1,5 +1,5 @@
 # frozen_string_literal: false
-
+require 'csv'
 module Oclc
   module LcCallSlips
     class SelectorCSV

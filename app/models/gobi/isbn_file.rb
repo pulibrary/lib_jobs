@@ -1,5 +1,5 @@
 # frozen_string_literal: false
-
+require 'csv'
 module Gobi
   class IsbnFile
     attr_reader :received_items_file, :bib_hash
