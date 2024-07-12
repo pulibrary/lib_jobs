@@ -37,15 +37,6 @@
   * Various text file formats for SFTP/Fileshare Processing
   * MarcXML for various purposes
 
-## Prerequisites
-- Ruby (3.1.0 or later)
-- Python (3.11.1 or later)
-- Postgres
-  ```
-  brew install postgresql@version-number
-  brew services start postgresql@version-number
-  ```
-
 ## Staging Mail Catcher
 To See mail that has been sent on the staging server you must ssh tunnel into the server
 
