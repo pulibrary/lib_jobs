@@ -24,7 +24,8 @@ RSpec.describe AirTableStaff::StaffDirectoryPerson do
           "\n\nKevin heads the Discovery and Access Services Team that supports the Library Catalog. \n",
         'Website URL': 'https://github.com/kevinreiss',
         'Area of Study': ['Chemistry', 'African American Studies'],
-        'My Scheduler Link': 'https://example.com'
+        'My Scheduler Link': 'https://example.com',
+        'Other Entities': ['Industrial Relations', 'James Madison Program']
       }
       expected = [
         '987654321', # puid
@@ -49,7 +50,8 @@ RSpec.describe AirTableStaff::StaffDirectoryPerson do
           "\n\nKevin heads the Discovery and Access Services Team "\
           "that supports the Library Catalog. \n", # bios
         'Discovery//Library Systems', # expertise
-        'https://example.com' # mySchedulerLink
+        'https://example.com', # mySchedulerLink
+        'Industrial Relations//James Madison Program' # otherEntities
       ]
 
       expect(described_class.new(json).to_a).to eq(expected)
