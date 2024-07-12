@@ -17,7 +17,8 @@
                 "pul:Preferred Name": "Phillip Librarian",
                 "Email": "ab123@princeton.edu",
                 "Bios": "Hello\nMy research interests\nare\n\nfantastic!",
-                "My Scheduler Link": "https://example.com"
+                "My Scheduler Link": "https://example.com",
+                "Other Entities": ["Industrial Relations", "James Madison Program"]
             }
          }
     ]

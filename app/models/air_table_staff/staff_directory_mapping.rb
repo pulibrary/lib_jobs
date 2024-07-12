@@ -28,8 +28,9 @@ module AirTableStaff
         { airtable_field: :'Area of Study', our_field: :areasOfStudy, transformer: ->(areas) { areas&.join('//') } },
         { airtable_field: :'Website URL', our_field: :websiteUrl },
         { airtable_field: :Bios, our_field: :bios },
-        { airtable_field: :Expertise, our_field: :expertise, transformer: ->(areas) { areas&.join('//') } },
-        { airtable_field: :'My Scheduler Link', our_field: :mySchedulerLink }
+        { airtable_field: :Expertise, our_field: :expertise, transformer: ->(expertises) { expertises&.join('//') } },
+        { airtable_field: :'My Scheduler Link', our_field: :mySchedulerLink },
+        { airtable_field: :'Other Entities', our_field: :otherEntities, transformer: ->(entities) { entities&.join('//') } }
       ]
     end
     # rubocop:enable Metrics/MethodLength
