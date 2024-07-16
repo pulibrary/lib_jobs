@@ -36,6 +36,7 @@ test:
   <<: *defaults
   open_marc_records_location: "spec/fixtures/open_marc_records"
   alma_region: "https://api-na.hosted.exlibrisgroup.com"
+  airtable_token: "FAKE_AIRTABLE_TOKEN"
 
 production: &production
   <<: *defaults
