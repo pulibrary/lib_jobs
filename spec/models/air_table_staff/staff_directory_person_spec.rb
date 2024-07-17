@@ -5,27 +5,27 @@ RSpec.describe AirTableStaff::StaffDirectoryPerson do
   describe '#to_a' do
     it 'uses the order from the mapping' do
       json = {
-        'pul:Preferred Name': 'Sage Archivist',
-        'University ID': '987654321',
-        'netid': 'ab1234',
-        'University Phone': '(609) 555-1234',
-        'Last Name': 'Archivist',
-        'First Name': 'Phoenix',
-        'Email': 'test@princeton.edu',
-        'Address': '123 Lewis Library',
-        'pul:Building': 'Stokes Library',
-        'Division': 'ReCAP',
-        'pul:Department': 'Cataloging and Metadata Services',
-        'pul:Unit': 'Rare Books Cataloging Team',
-        'pul:Team': 'IT, Discovery and Access Services',
-        'Title': 'Library Software Engineer',
-        'Expertise': ['Discovery', 'Library Systems'],
-        'Bios': "Kevin has worked at Princeton since 2011. He has a M.S. in Library and Information Science from the University of Illinois at Urbana-Champaign." \
+        'fldL7tm4jVvYksIwl': 'Sage Archivist',
+        'fldbquJ6Hn2eq1V2h': '987654321',
+        'fldgarsg3FzD8xpE4': 'ab1234',
+        'fldqulY6ehd5aIbR1': '(609) 555-1234',
+        'fldcGj6p3JRzHzmZ8': 'Archivist',
+        'fldL5IJdMuz8UCM81': 'Phoenix',
+        'fldbnDHHhDNlc2Lx8': 'test@princeton.edu',
+        'fldKZxmtofNbXW4qS': '123 Lewis Library',
+        'fldz6yBenvTjdClXZ': 'Stokes Library',
+        'fldxpCzkJmhEkVqZt': 'ReCAP',
+        'fld9NYFQePrPxbJJW': 'Cataloging and Metadata Services',
+        'fldusiuPpfSql6vSk': 'Rare Books Cataloging Team',
+        'fldGzh0SHZqlFk3aU': 'IT, Discovery and Access Services',
+        'fldw0mjDdB48HstnB': 'Library Software Engineer',
+        'fldypTXdkQGpYgVDC': ['Discovery', 'Library Systems'],
+        'fld4JloN0LxiFaTiw': "Kevin has worked at Princeton since 2011. He has a M.S. in Library and Information Science from the University of Illinois at Urbana-Champaign." \
           "\n\nKevin heads the Discovery and Access Services Team that supports the Library Catalog. \n",
-        'Website URL': 'https://github.com/kevinreiss',
-        'Area of Study': ['Chemistry', 'African American Studies'],
-        'My Scheduler Link': 'https://example.com',
-        'Other Entities': ['Industrial Relations', 'James Madison Program']
+        'fld0MfgMlZd364YTR': 'https://github.com/kevinreiss',
+        'fldCCTbVNKKBFXxrp': ['Chemistry', 'African American Studies'],
+        'fldULoOUDSpoEpdAP': 'https://example.com',
+        'fldXw9janMHvhBWvO': ['Industrial Relations', 'James Madison Program']
       }
       expected = [
         '987654321', # puid

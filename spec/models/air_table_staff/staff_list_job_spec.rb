@@ -4,13 +4,7 @@ require 'rails_helper'
 
 RSpec.describe AirTableStaff::StaffListJob, type: :model do
   before do
-    stub_request(:get, 'https://api.airtable.com/v0/appv7XA5FWS7DG9oe/Synchronized%20Staff%20Directory%20View?view=Grid%20view')
-      .with(
-     headers: {
-       'Authorization' => 'Bearer FAKE_AIRTABLE_TOKEN'
-     }
-   )
-      .to_return(status: 200, body: File.read(file_fixture('air_table/records_no_offset.json')), headers: {})
+    stub_airtable
   end
 
   context 'job is turned off' do

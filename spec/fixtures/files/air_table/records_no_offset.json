@@ -4,21 +4,21 @@
             "id": "recrhIUhcJw3lUlRE",
             "createdTime": "2024-01-30T22:16:16.000Z",
             "fields": {
-                "Address": "123 Stokes",
-                "Area of Study": ["Virtual Reality"],
-                "Division": "Stokes",
-                "pul:Building": "Stokes",
-                "Last Name": "Librarian",
-                "First Name": "Phillip",
-                "Title": "Library Collections Specialist V",
-                "University ID": "123",
-                "netid": "ab123",
-                "University Phone": "(123) 123-1234",
-                "pul:Preferred Name": "Phillip Librarian",
-                "Email": "ab123@princeton.edu",
-                "Bios": "Hello\nMy research interests\nare\n\nfantastic!",
-                "My Scheduler Link": "https://example.com",
-                "Other Entities": ["Industrial Relations", "James Madison Program"]
+                "fldKZxmtofNbXW4qS": "123 Stokes",
+                "fldCCTbVNKKBFXxrp": ["Virtual Reality"],
+                "fldxpCzkJmhEkVqZt": "Stokes",
+                "fldz6yBenvTjdClXZ": "Stokes",
+                "fldcGj6p3JRzHzmZ8": "Librarian",
+                "fldL5IJdMuz8UCM81": "Phillip",
+                "fldw0mjDdB48HstnB": "Library Collections Specialist V",
+                "fldbquJ6Hn2eq1V2h": "123",
+                "fldgarsg3FzD8xpE4": "ab123",
+                "fldqulY6ehd5aIbR1": "(123) 123-1234",
+                "fldL7tm4jVvYksIwl": "Phillip Librarian",
+                "fldbnDHHhDNlc2Lx8": "ab123@princeton.edu",
+                "fld4JloN0LxiFaTiw": "Hello\nMy research interests\nare\n\nfantastic!",
+                "fldULoOUDSpoEpdAP": "https://example.com",
+                "fldXw9janMHvhBWvO": ["Industrial Relations", "James Madison Program"]
             }
          }
     ]
