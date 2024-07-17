@@ -10,11 +10,12 @@ module AirTableStaff
     def base_url
       @base_url ||= begin
         base_id = 'appv7XA5FWS7DG9oe'
-        table_name = 'Synchronized%20Staff%20Directory%20View'
-        query_hash = { "view": "Grid view" }
+        table_id = 'tblM0iymGN5oqDUVm'
+        fields_to_use = StaffDirectoryMapping.new.fields.map { |field| field[:airtable_field_id].to_s }
+        query_hash = { "fields": fields_to_use, "returnFieldsByFieldId": "true" }
         URI::HTTPS.build(
           host: 'api.airtable.com',
-          path: "/v0/#{base_id}/#{table_name}",
+          path: "/v0/#{base_id}/#{table_id}",
           query: query_hash.to_query
         )
       end

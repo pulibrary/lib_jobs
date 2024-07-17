@@ -3,13 +3,7 @@ require 'rails_helper'
 
 RSpec.describe AirTableStaff::CSVBuilder do
   before do
-    stub_request(:get, "https://api.airtable.com/v0/appv7XA5FWS7DG9oe/Synchronized%20Staff%20Directory%20View?view=Grid%20view")
-      .with(
-       headers: {
-         'Authorization' => 'Bearer FAKE_AIRTABLE_TOKEN'
-       }
-     )
-      .to_return(status: 200, body: File.read(file_fixture('air_table/records_no_offset.json')), headers: {})
+    stub_airtable
   end
   it 'creates a CSV string with data from the HTTP API' do
     # The following CSV contains new lines within a single cell.

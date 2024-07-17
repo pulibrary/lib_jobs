@@ -10,7 +10,7 @@ module AirTableStaff
     end
 
     def extract
-      raw_value = json[field[:airtable_field]]
+      raw_value = json[field[:airtable_field_id]]
       transformer = field[:transformer]
       transformer ? transformer.call(raw_value) : raw_value
     end
