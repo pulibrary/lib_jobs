@@ -10,7 +10,7 @@ RSpec.describe AirTableStaff::StaffDirectoryPerson do
         'fldgarsg3FzD8xpE4': 'ab1234',
         'fldqulY6ehd5aIbR1': '(609) 555-1234',
         'fldcGj6p3JRzHzmZ8': 'Archivist',
-        'fldL5IJdMuz8UCM81': 'Phoenix',
+        'fldnKprqGraSvNTJK': 'Phoenix',
         'fldbnDHHhDNlc2Lx8': 'test@princeton.edu',
         'fldKZxmtofNbXW4qS': '123 Lewis Library',
         'fldz6yBenvTjdClXZ': 'Stokes Library',
