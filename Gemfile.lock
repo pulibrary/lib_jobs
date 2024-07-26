@@ -257,9 +257,6 @@ GEM
       kramdown (~> 2.0)
     language_server-protocol (3.17.0.3)
     library_stdnums (1.6.0)
-    listen (3.9.0)
-      rb-fsevent (~> 0.10, >= 0.10.3)
-      rb-inotify (~> 0.9, >= 0.9.10)
     logger (1.6.0)
     loofah (2.22.0)
       crass (~> 1.0.2)
@@ -381,9 +378,6 @@ GEM
       zeitwerk (~> 2.6)
     rainbow (3.1.1)
     rake (13.2.1)
-    rb-fsevent (0.11.2)
-    rb-inotify (0.11.1)
-      ffi (~> 1.0)
     rbs (2.8.4)
     rdoc (6.7.0)
       psych (>= 4.0.0)
@@ -581,7 +575,6 @@ DEPENDENCIES
   jbuilder (~> 2.5)
   jwt
   library_stdnums
-  listen (>= 3.0.5)
   marc
   marc_cleanup!
   matrix

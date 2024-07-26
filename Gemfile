@@ -67,7 +67,6 @@ group :development do
   gem 'capistrano-passenger'
   gem 'capistrano-rails'
   gem 'database_cleaner-active_record'
-  gem 'listen', '>= 3.0.5'
   gem 'rspec-rails'
   gem 'web-console', '>= 3.3.0'
 end
