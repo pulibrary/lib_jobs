@@ -37,8 +37,8 @@ RSpec.describe AirTableStaff::StaffDirectoryPerson do
         'test@princeton.edu', # email
         '123 Lewis Library', # address
         'Stokes Library', # building
-        'ReCAP', # department
-        'Cataloging and Metadata Services', # division
+        'Cataloging and Metadata Services', # department
+        'ReCAP', # division
         'Rare Books Cataloging Team', # unit
         'IT, Discovery and Access Services', # team
         'Library Software Engineer', # title

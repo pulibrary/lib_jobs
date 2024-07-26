@@ -11,7 +11,7 @@ RSpec.describe AirTableStaff::CSVBuilder do
     # as a single cell within a single row"
     expected = <<~END_CSV
             puid,netid,phone,name,lastName,firstName,email,address,building,department,division,unit,team,title,areasOfStudy,websiteUrl,bios,expertise,mySchedulerLink,otherEntities
-            123,ab123,(123) 123-1234,Phillip Librarian,Librarian,Phillip,ab123@princeton.edu,123 Stokes,Stokes,Stokes,,,,Library Collections Specialist V,Virtual Reality,,"Hello
+            123,ab123,(123) 123-1234,Phillip Librarian,Librarian,Phillip,ab123@princeton.edu,123 Stokes,Stokes,Special Collections,Special and Distinctive Collections,,,Library Collections Specialist V,Virtual Reality,,"Hello
             My research interests
             are
 
