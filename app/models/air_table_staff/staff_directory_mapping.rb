@@ -17,7 +17,7 @@ module AirTableStaff
         { airtable_field: :netid, airtable_field_id: :fldgarsg3FzD8xpE4, our_field: :netid },
         { airtable_field: :'University Phone', airtable_field_id: :fldqulY6ehd5aIbR1, our_field: :phone },
         { airtable_field: :'pul:Preferred Name', airtable_field_id: :fldL7tm4jVvYksIwl, our_field: :name },
-        { airtable_field: :'Last Name', airtable_field_id: :fldcGj6p3JRzHzmZ8, our_field: :lastName },
+        { airtable_field: :'pul:Last Name', airtable_field_id: :fldvENk2uiLDHmYSw, our_field: :lastName },
         { airtable_field: :'pul:First Name', airtable_field_id: :fldnKprqGraSvNTJK, our_field: :firstName },
         { airtable_field: :Email, airtable_field_id: :fldbnDHHhDNlc2Lx8, our_field: :email },
         { airtable_field: :Address, airtable_field_id: :fldKZxmtofNbXW4qS, our_field: :address },
