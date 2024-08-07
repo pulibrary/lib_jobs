@@ -186,5 +186,48 @@
     "internal_note": "",
     "library_review": "",
     "alt_names": "Deutsche Literatur des 18. Jahrhunderts Online; Eighteenth Century German Literature Online"
+  },
+  {
+    "id": "74881720",
+    "name": "Chosŏn ŏllon chŏngbo kiji",
+    "description": "Chosŏn ŏllon chŏngbo kiji is a full-text database of North Korean newspapers and periodicals: 5 major newspapers (4 in Korean and 1 in English), 20+ periodicals in humanities and social science, 40+ periodicals in science and medicines.",
+    "url": "https://dprkmedia.com/",
+    "site_id": "77",
+    "type_id": "10",
+    "owner_id": "231",
+    "az_vendor_id": "0",
+    "meta": {
+      "target": "0",
+      "enable_proxy": "1",
+      "tn_url": "",
+      "tn_height": "",
+      "tn_width": "",
+      "tn_alt_text": "",
+      "more_info": "",
+      "desc_pos": "1"
+    },
+    "created": "2014-06-13 02:57:45",
+    "updated": "2023-01-25 17:29:18",
+    "slug_id": "74881720",
+    "enable_hidden": "0",
+    "az_vendor_name": null,
+    "subjects": [
+      {
+        "id": "74881720",
+        "site_id": "77",
+        "parent_id": "0",
+        "name": "Korean Studies",
+        "ordering": "0",
+        "slug_id": "74881720",
+        "subject_id": "74881720",
+        "content_id": "74881720",
+        "featured": "0",
+        "content_id_count": "1"
+      }
+    ],
+    "friendly_url": "https://libguides.princeton.edu/resource/74881720",
+    "internal_note": "",
+    "library_review": "",
+    "alt_names": ""
   }
 ]
