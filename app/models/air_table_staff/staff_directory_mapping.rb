@@ -32,7 +32,8 @@ module AirTableStaff
         { airtable_field: :Bios, airtable_field_id: :fld4JloN0LxiFaTiw, our_field: :bios },
         { airtable_field: :Expertise, airtable_field_id: :fldypTXdkQGpYgVDC, our_field: :expertise, transformer: ->(expertises) { expertises&.join('//') } },
         { airtable_field: :'My Scheduler Link', airtable_field_id: :fldULoOUDSpoEpdAP, our_field: :mySchedulerLink },
-        { airtable_field: :'Other Entities', airtable_field_id: :fldXw9janMHvhBWvO, our_field: :otherEntities, transformer: ->(entities) { entities&.join('//') } }
+        { airtable_field: :'Other Entities', airtable_field_id: :fldXw9janMHvhBWvO, our_field: :otherEntities, transformer: ->(entities) { entities&.join('//') } },
+        { airtable_field: :Pronouns, airtable_field_id: :fldavR3Hqxd7igWxB, our_field: :pronouns }
       ]
     end
     # rubocop:enable Metrics/MethodLength
