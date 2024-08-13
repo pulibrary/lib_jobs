@@ -27,7 +27,8 @@ module AirTableStaff
     def to_a(offset: nil)
       @as_array ||= begin
         json = get_json(offset:)
-        records = json[:records].map do |row|
+        json_records = json[:records].select { |record| record[:fields].present? && (record[:fields][:fldvENk2uiLDHmYSw] || record[:fields][:fldnKprqGraSvNTJK]) }
+        records = json_records.map do |row|
           AirTableStaff::StaffDirectoryPerson.new(row[:fields])
         end
         offset = json[:offset]
