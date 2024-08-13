@@ -58,4 +58,14 @@ RSpec.describe AirTableStaff::RecordList do
       end
     end
   end
+  context 'when the airtable contains empty records' do
+    before do
+      stub_airtable(empty: true)
+    end
+    it 'does not include empty records' do
+      list = described_class.new.to_a
+
+      expect(list.length).to eq(1)
+    end
+  end
 end

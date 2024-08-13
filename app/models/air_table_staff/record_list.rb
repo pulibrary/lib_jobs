@@ -27,7 +27,12 @@ module AirTableStaff
     def to_a(offset: nil)
       @as_array ||= begin
         json = get_json(offset:)
-        records = json[:records].map do |row|
+        json_records = json[:records].select do |record|
+          record_present = record[:fields].present? && (record[:fields][:fldvENk2uiLDHmYSw] || record[:fields][:fldnKprqGraSvNTJK])
+          Rails.logger.error("This record #{record[:fields]} is missing first and/or last name. It will not be included.") unless record_present
+          record_present
+        end
+        records = json_records.map do |row|
           AirTableStaff::StaffDirectoryPerson.new(row[:fields])
         end
         offset = json[:offset]
