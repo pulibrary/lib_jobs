@@ -12,7 +12,7 @@ RSpec.describe AirTableStaff::StaffDirectoryPerson do
         'fldvENk2uiLDHmYSw': 'Archivist',
         'fldnKprqGraSvNTJK': 'Phoenix',
         'fldbnDHHhDNlc2Lx8': 'test@princeton.edu',
-        'fldKZxmtofNbXW4qS': '123 Lewis Library',
+        'fldOgGLwFSWgJoWpH': 'A-14J-5 Lewis Library',
         'fldz6yBenvTjdClXZ': 'Stokes Library',
         'fldxpCzkJmhEkVqZt': 'ReCAP',
         'fld9NYFQePrPxbJJW': 'Cataloging and Metadata Services',
@@ -36,7 +36,7 @@ RSpec.describe AirTableStaff::StaffDirectoryPerson do
         'Archivist', # lastName
         'Phoenix', # firstName
         'test@princeton.edu', # email
-        '123 Lewis Library', # address
+        'A-14J-5 Lewis Library', # address
         'Stokes Library', # building
         'Cataloging and Metadata Services', # department
         'ReCAP', # division
