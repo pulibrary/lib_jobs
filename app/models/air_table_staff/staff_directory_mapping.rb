@@ -20,7 +20,7 @@ module AirTableStaff
         { airtable_field: :'pul:Last Name', airtable_field_id: :fldvENk2uiLDHmYSw, our_field: :lastName },
         { airtable_field: :'pul:First Name', airtable_field_id: :fldnKprqGraSvNTJK, our_field: :firstName },
         { airtable_field: :Email, airtable_field_id: :fldbnDHHhDNlc2Lx8, our_field: :email },
-        { airtable_field: :Address, airtable_field_id: :fldKZxmtofNbXW4qS, our_field: :address },
+        { airtable_field: :'pul:Address', airtable_field_id: :fldOgGLwFSWgJoWpH, our_field: :address },
         { airtable_field: :'pul:Building', airtable_field_id: :fldz6yBenvTjdClXZ, our_field: :building },
         { airtable_field: :'pul:Department', airtable_field_id: :fld9NYFQePrPxbJJW, our_field: :department },
         { airtable_field: :Division, airtable_field_id: :fldxpCzkJmhEkVqZt, our_field: :division },
