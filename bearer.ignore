@@ -1,0 +1,8 @@
+{
+  "060fd7d66f86896cc409bf987e379a2d_0": {
+    "author": "Max Kadel",
+    "comment": "File is accessed via index on a list of files in a known directory",
+    "false_positive": true,
+    "ignored_at": "2024-09-18T19:03:36Z"
+  }
+}
