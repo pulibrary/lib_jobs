@@ -1,0 +1,33 @@
+disable-version-check: false
+log-level: info
+report:
+    fail-on-severity: critical,high,medium,low
+    format: ""
+    no-color: false
+    output: ""
+    report: security
+    severity: critical,high,medium,low,warning
+rule:
+    disable-default-rules: false
+    only-rule: []
+    # Tickets to remediate these rules and remove from this stanza:
+    #   ruby_lang_weak_hash_md - https://github.com/pulibrary/lib_jobs/issues/842
+    #   ruby_rails_password_length - https://github.com/pulibrary/lib_jobs/issues/843
+    #   ruby_rails_default_encryption - https://github.com/pulibrary/lib_jobs/issues/844
+    skip-rule: [ruby_lang_weak_hash_md, ruby_rails_password_length, ruby_rails_default_encryption]
+scan:
+    context: ""
+    data_subject_mapping: ""
+    disable-domain-resolution: true
+    domain-resolution-timeout: 3s
+    exit-code: -1
+    external-rule-dir: []
+    force: false
+    hide_progress_bar: false
+    internal-domains: []
+    parallel: 0
+    quiet: false
+    scanner:
+        - sast
+    skip-path: []
+    skip-test: true
