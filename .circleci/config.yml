@@ -147,6 +147,15 @@ jobs:
       - setup-bundler
       - run: bundle exec brakeman
 
+  semgrep:
+    docker:
+        - image: returntocorp/semgrep
+    steps:
+      - checkout
+      - run:
+          name: Check code against community-provided and custom semgrep rules
+          command: semgrep ci --config auto
+
   bearer:
     docker:
       - image: cimg/ruby:3.2
@@ -163,6 +172,7 @@ workflows:
     jobs:
       - bearer
       - build
+      - semgrep
       - rubocop:
          requires:
           - build
