@@ -7,4 +7,5 @@ RSpec.describe "Health Check", type: :request do
       get "/health.json"
       expect(response).to be_successful
     end
+  end
 end

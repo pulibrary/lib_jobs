@@ -10,6 +10,8 @@ spec/
 # Semgrep-action log folder
 .semgrep_logs/
 
+freedesktop.org.xml
+
 # Tickets to remediate these rules and remove from this list
 config/
 # https://github.com/pulibrary/lib_jobs/issues/847
