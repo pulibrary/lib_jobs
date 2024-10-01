@@ -19,6 +19,7 @@ gem 'ed25519', '~> 1.3'
 gem 'faraday', '~> 2.7'
 gem "flipflop", git: "https://github.com/voormedia/flipflop.git", ref: "0d70d8e33483a9c0282ed8d6bca9c5ccd61e61e8"
 gem 'foreman'
+gem "health-monitor-rails"
 gem 'honeybadger'
 gem 'icalendar'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder

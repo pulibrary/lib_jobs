@@ -228,6 +228,8 @@ GEM
       activesupport (>= 6.1)
     hashdiff (1.1.0)
     hashie (5.0.0)
+    health-monitor-rails (12.3.0)
+      railties (>= 6.1)
     honeybadger (5.13.0)
     httparty (0.22.0)
       csv
@@ -570,6 +572,7 @@ DEPENDENCIES
   faraday (~> 2.7)
   flipflop!
   foreman
+  health-monitor-rails
   honeybadger
   icalendar
   jbuilder (~> 2.5)
