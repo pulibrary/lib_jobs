@@ -10,6 +10,7 @@ spec/
 # Semgrep-action log folder
 .semgrep_logs/
 
+# False positive (semgrep thinks this has a leaked private key, but it does not)
 freedesktop.org.xml
 
 # Tickets to remediate these rules and remove from this list
