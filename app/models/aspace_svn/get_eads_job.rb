@@ -75,7 +75,9 @@ module AspaceSvn
     # then write the results to the file
     def write_eads_to_file(dir, repo, id)
       Rails.logger.info("Now processing #{repo}/#{id}")
-      record = @client.get("/repositories/#{repo}/resource_descriptions/#{id}.xml")
+      record = @client.get("/repositories/#{repo}/resource_descriptions/#{id}.xml", {
+                             query: { include_daos: true }
+                           })
       ead = Nokogiri::XML(record.body)
       ead.remove_namespaces!
       eadid = ead.at_xpath('//eadid/text()')
