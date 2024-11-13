@@ -13,7 +13,34 @@ set :deploy_to, "/opt/lib-jobs"
 
 # Default value for :format is :airbrussh.
 # set :format, :airbrussh
+#
+#   # You can/ should apply this command to a subset of hosts
+# cap --hosts=lib-jobs-staging2.lib.princeton.edu staging application:remove_from_nginx
+desc "Marks the server(s) to be removed from the loadbalancer"
+task :remove_from_nginx do
+  count = 0
+  on roles(:app) do
+    count += 1
+  end
+  raise "You must run this command on individual servers utilizing the --hosts= switch" if count > (roles(:app).length / 2)
+  on roles(:app) do
+    within release_path do
+      execute :touch, "public/remove-from-nginx"
+    end
+  end
+end
+# You can/ should apply this command to a subset of hosts
+# cap --hosts=lib-jobs-staging2.lib.princeton.edu staging application:serve_from_nginx
+desc "Marks the server(s) to be added back to the loadbalancer"
+task :serve_from_nginx do
+  on roles(:app) do
+    within release_path do
+      execute :rm, "-f public/remove-from-nginx"
+    end
+  end
+end
 
+before "deploy:reverted", "deploy:assets:precompile"
 # You can configure the Airbrussh format using :format_options.
 # These are the defaults.
 # set :format_options, command_output: true, log_file: "log/capistrano.log", color: :auto, truncate: :auto

@@ -228,7 +228,7 @@ GEM
       activesupport (>= 6.1)
     hashdiff (1.1.0)
     hashie (5.0.0)
-    health-monitor-rails (12.3.0)
+    health-monitor-rails (12.4.0)
       railties (>= 6.1)
     honeybadger (5.13.0)
     httparty (0.22.0)
@@ -546,6 +546,7 @@ PLATFORMS
   arm64-darwin-21
   arm64-darwin-22
   arm64-darwin-23
+  arm64-darwin-24
   x86_64-darwin-21
   x86_64-linux
 
@@ -572,7 +573,7 @@ DEPENDENCIES
   faraday (~> 2.7)
   flipflop!
   foreman
-  health-monitor-rails
+  health-monitor-rails (= 12.4.0)
   honeybadger
   icalendar
   jbuilder (~> 2.5)
