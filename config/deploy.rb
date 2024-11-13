@@ -33,7 +33,7 @@ desc "Marks the server(s) to be removed from the loadbalancer"
   end
  # You can/ should apply this command to a subset of hosts
   # cap --hosts=lib-jobs-staging2.lib.princeton.edu staging application:serve_from_nginx
-  desc "Marks the server(s) to be removed from the loadbalancer"
+  desc "Marks the server(s) to be added back to the loadbalancer"
   task :serve_from_nginx do
     on roles(:app) do
       within release_path do
