@@ -162,7 +162,7 @@ default: &default
         - policy
         - government
     - donatiello:
-        email: jdonatie@princeton.edu
+        email: bordelon@princeton.edu
         classes:
         - class: HA
           low_num: 0
