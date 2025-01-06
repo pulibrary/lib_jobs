@@ -8,7 +8,7 @@
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
 server "lib-jobs-prod1.princeton.edu", user: "deploy", roles: %w[cron_prod1 app web]
-server "lib-jobs-prod2.princeton.edu", user: "deploy", roles: %w[cron_prod2 app db web]
+# server "lib-jobs-prod2.princeton.edu", user: "deploy", roles: %w[cron_prod2 app db web]
 
 # role-based syntax
 # ==================
