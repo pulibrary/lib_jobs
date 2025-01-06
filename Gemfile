@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.1'
+gem 'rails', '~> 7.2.2'
 
 gem 'archivesspace-client'
 gem 'aws-sdk-s3'
@@ -27,7 +27,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'jwt'
 gem 'library_stdnums'
 gem 'marc'
-gem 'marc_cleanup', github: "pulibrary/marc_cleanup", tag: 'v0.9.1'
+gem 'marc_cleanup', github: "pulibrary/marc_cleanup", tag: 'v0.9.3', require: false
 # Use ActiveStorage variant
 gem 'matrix'
 gem 'multipart-post'

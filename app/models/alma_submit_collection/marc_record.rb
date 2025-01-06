@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+require "marc_cleanup"
+
 module AlmaSubmitCollection
   # This class is responsible for
   # making various corrections and
