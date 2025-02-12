@@ -13,8 +13,7 @@ rule:
     # Tickets to remediate these rules and remove from this stanza:
     #   ruby_lang_weak_hash_md - https://github.com/pulibrary/lib_jobs/issues/842
     #   ruby_rails_password_length - https://github.com/pulibrary/lib_jobs/issues/843
-    #   ruby_rails_default_encryption - https://github.com/pulibrary/lib_jobs/issues/844
-    skip-rule: [ruby_lang_weak_hash_md, ruby_rails_password_length, ruby_rails_default_encryption]
+    skip-rule: [ruby_lang_weak_hash_md, ruby_rails_password_length]
 scan:
     context: ""
     data_subject_mapping: ""

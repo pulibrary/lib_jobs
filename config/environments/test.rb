@@ -46,6 +46,13 @@ Rails.application.configure do
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
 
+  config.active_record.encryption.encrypt_fixtures = true
+
+  # fake credentials just for testing encryption
+  config.active_record.encryption.primary_key = 'testingone'
+  config.active_record.encryption.deterministic_key = 'testingtwo'
+  config.active_record.encryption.key_derivation_salt = 'testingthree'
+
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
 end

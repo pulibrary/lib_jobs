@@ -47,6 +47,15 @@ module IlsApps
     config.pod = config_for(:pod)
     config.aspace = config_for(:aspace)
     config.scsb_s3 = config_for(:scsb_s3)
+
+    # The following two settings - support_unencrypted_data and extend_queries - should
+    # *only* be set to true during the transition period to using encrypted data
+    config.active_record.encryption.support_unencrypted_data = true
+    config.active_record.encryption.extend_queries = true
+    # Use environment variables from Princeton Ansible for encryption
+    config.active_record.encryption.primary_key = ENV['ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY']
+    config.active_record.encryption.deterministic_key = ENV['ACTIVE_RECORD_ENCRYPTION_DETERMINISTIC_KEY']
+    config.active_record.encryption.key_derivation_salt = ENV['ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT']
   end
 end
 
