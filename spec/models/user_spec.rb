@@ -37,6 +37,14 @@ RSpec.describe User, type: :model do
         expect(persisted.email).to eq('user@princeton.edu')
       end
     end
+    context 'with an existing user' do
+      it 'does not create a new user with the same email' do
+        persisted
+        expect do
+          described_class.from_omniauth(access_token)
+        end.not_to change(User, :count)
+      end
+    end
   end
 
   describe '#decoded_token' do

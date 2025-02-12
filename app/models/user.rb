@@ -3,6 +3,7 @@ require 'jwt'
 
 class User < ApplicationRecord
   validates :email, presence: true
+  encrypts :email, deterministic: true, downcase: true
 
   after_validation do
     if token.nil?
