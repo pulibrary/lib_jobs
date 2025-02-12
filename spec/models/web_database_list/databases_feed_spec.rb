@@ -14,7 +14,8 @@ RSpec.describe WebDatabaseList::DatabasesFeed, type: :model do
        nil,
        'http://www.africaknowledgeproject.org',
        'https://libguides.princeton.edu/resource/5014',
-       'African Studies']
+       'African Studies',
+       'https://libguides.princeton.edu/az/africa-knowledge-project']
     end
     let(:feed) do
       database_list = JSON.parse(File.read(file_fixture('libguides_databases.json')))
@@ -34,7 +35,7 @@ RSpec.describe WebDatabaseList::DatabasesFeed, type: :model do
 
     it 'the CSV file has a header row and one row for each database' do
       feed.run
-      expect(CSV.read(filename).length).to eq(5)
+      expect(CSV.read(filename).length).to eq(6)
     end
 
     it 'the first row of data is correct' do
