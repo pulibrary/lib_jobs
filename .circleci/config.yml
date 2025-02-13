@@ -184,9 +184,7 @@ jobs:
 workflows:
   build_accept:
     jobs:
-      - bearer
       - build
-      - semgrep
       - rubocop:
          requires:
           - build
@@ -203,3 +201,5 @@ workflows:
            branches:
              only:
                - main
+      - bearer
+      - semgrep
