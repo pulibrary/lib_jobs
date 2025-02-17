@@ -20,13 +20,6 @@ executors:
           POSTGRES_DB: libjobs_test
           POSTGRES_HOST_AUTH_METHOD: trust
     working_directory: ~/project
-  basic-executor:
-    docker:
-      - image: cimg/ruby:3.4.0-browsers
-        environment:
-          RAILS_ENV: test
-    resource_class: large
-    working_directory: ~/project
 
 commands:
   setup-bundler:
@@ -175,7 +168,8 @@ jobs:
       - run: CURRENT_BRANCH=$CIRCLE_BRANCH SHA=$CIRCLE_SHA1 /tmp/bearer scan .
 
   deploy:
-    executor: basic-executor
+    docker:
+      - image: cimg/ruby:3.4.0
     steps:
       - run:
           name: Deploy to Staging
