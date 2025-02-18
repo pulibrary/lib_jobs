@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "lux-design-system": "^4.5.0",
-    "vue": "^2.6.12",
+    "vue": "^3.0.0",
     "vue-template-compiler": "^2.6.12"
   },
   "devDependencies": {
