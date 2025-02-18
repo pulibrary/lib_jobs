@@ -81,3 +81,14 @@ Run brakeman normally; to ignore false positives run
 `brakeman -I`
 
 See [brakeman ignoring false positives documentation](https://brakemanscanner.org/docs/ignoring_false_positives/)
+
+## Deploy
+### Local
+For local deploy, ensure you have all gems installed using `bundle install`, then
+
+```bash
+BRANCH=[branchname] bundle exec cap [environment] deploy
+BRANCH=my_excellent_fix bundle exec cap staging deploy
+```
+### Ansible Tower
+For deploy using Ansible Tower, after [logging in](https://ansible-tower.princeton.edu/#/login), go to the [deploy template](https://ansible-tower.princeton.edu/#/templates/job_template/13/details), click "Launch", fill in the form, click "Next", then click "Launch"
