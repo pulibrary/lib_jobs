@@ -14,7 +14,6 @@ default: &default
     10: "selectors"
     11: "ga"
     12: "ea"
-      
 
 development:
   <<: *default
@@ -33,4 +32,3 @@ staging:
 
 production:
   <<: *default
-  

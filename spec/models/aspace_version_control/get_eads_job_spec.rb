@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 require 'rails_helper'
-require_relative '../../../app/models/aspace_svn/get_eads_job.rb'
+require_relative '../../../app/models/aspace_version_control/get_eads_job.rb'
 
-RSpec.describe AspaceSvn::GetEadsJob do
+RSpec.describe AspaceVersionControl::GetEadsJob do
   let(:status) { double }
   let(:repos) { Rails.application.config.aspace.repos }
   before do
