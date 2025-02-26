@@ -118,7 +118,7 @@ namespace :lib_jobs do
 
   desc "send ead files from aspace to svn"
   task send_eads: [:environment] do
-    job = AspaceSvn::GetEadsJob.new
+    job = AspaceVersionControl::GetEadsJob.new
     job.run
   end
 
