@@ -224,6 +224,11 @@ GEM
     ffi (1.17.1-x86_64-darwin)
     ffi (1.17.1-x86_64-linux-gnu)
     foreman (0.88.1)
+    git (2.3.3)
+      activesupport (>= 5.0)
+      addressable (~> 2.8)
+      process_executer (~> 1.1)
+      rchardet (~> 1.8)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashdiff (1.1.2)
@@ -326,6 +331,7 @@ GEM
       ast (~> 2.4.1)
       racc
     pg (1.5.9)
+    process_executer (1.2.0)
     pry (0.14.2)
       coderay (~> 1.1)
       method_source (~> 1.0)
@@ -385,6 +391,7 @@ GEM
     rainbow (3.1.1)
     rake (13.2.1)
     rbs (2.8.4)
+    rchardet (1.9.0)
     rdoc (6.10.0)
       psych (>= 4.0.0)
     regexp_parser (2.10.0)
@@ -580,6 +587,7 @@ DEPENDENCIES
   faraday (~> 2.7)
   flipflop!
   foreman
+  git
   health-monitor-rails (= 12.4.0)
   honeybadger
   icalendar

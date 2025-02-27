@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 require 'rails_helper'
-# require_relative '../../../app/models/aspace_version_control/get_eads_job.rb'
 
 RSpec.describe AspaceVersionControl::Svn do
   let(:status) { double }

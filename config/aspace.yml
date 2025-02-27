@@ -1,8 +1,11 @@
 default: &default
-  aspace_files_output_path: subversion_eads
+  aspace_svn_files_output_path: subversion_eads
   svn_username: <%= ENV["SVN_USERNAME"] || 'libjobs' %>
   svn_password: <%= ENV["SVN_PASSWORD"] %>
   svn_host: <%= ENV["SVN_HOST"] %>
+  gitlab_host: 'gitlab.lib.princeton.edu'
+  gitlab_destination_path: gitlab_eads
+  gitlab_source_path: scua/libsvn
   repos: 
     3: "mudd/publicpolicy"
     4: "mudd/univarchives"
@@ -19,16 +22,22 @@ development:
   <<: *default
   repos: 
     12: "ea"
+  gitlab_host: 'gitlab-staging-vm.lib.princeton.edu'
 
 test:
   <<: *default
-  aspace_files_output_path: tmp/subversion_eads
+  aspace_svn_files_output_path: tmp/subversion_eads
   svn_username: "test-username"
   svn_password: "test-password"
   svn_host: "pretend-svn-host1.princeton.edu"
+  gitlab_host: 'gitlab-staging-vm.lib.princeton.edu'
+  gitlab_destination_path: tmp/gitlab_eads
+  gitlab_source_path: mk8066/test-project-for-cloning
 
 staging:
   <<: *default
+  gitlab_host: 'gitlab-staging-vm.lib.princeton.edu'
 
 production:
   <<: *default
+  gitlab_host: 'gitlab.lib.princeton.edu'
