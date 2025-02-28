@@ -37,7 +37,10 @@ module AspaceVersionControl
         # get eads from ids
         get_eads_from_ids(@dir, repo, @resource_ids)
         svn_errors = Svn.new.commit_eads_to_svn(path:)
+        GitLab.new.commit_eads_to_git(path:)
         @errors << svn_errors unless svn_errors.empty?
+      rescue Git::Error => error
+        Rails.logger.error("Error updating EADS using GitLab for repo #{repo} at path #{path}.\nError: #{error}")
       end
       data_set.data = report
       data_set.report_time = Time.zone.now

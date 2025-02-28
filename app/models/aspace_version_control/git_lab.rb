@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module AspaceVersionControl
-  # This class is responsible for committing EADs to SVN for version control
+  # This class is responsible for committing EADs to GitLab for version control
   class GitLab
     def commit_eads_to_git(path:)
       update
