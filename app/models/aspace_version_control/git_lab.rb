@@ -46,7 +46,7 @@ module AspaceVersionControl
     end
 
     def self.git_repo_path
-      @git_repo_path ||= config.git_lab_local_repo_path
+      @git_repo_path ||= config.local_git_lab_dir
     end
 
     def self.config

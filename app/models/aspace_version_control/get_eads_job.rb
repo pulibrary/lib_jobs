@@ -3,13 +3,16 @@ require 'archivesspace/client'
 require 'nokogiri'
 require 'fileutils'
 
+# rubocop:disable Metrics/ClassLength
 module AspaceVersionControl
   class GetEadsJob < LibJob
     attr_reader :repos
-    def initialize(aspace_output_base_dir_svn: Rails.application.config.aspace.aspace_files_output_path_svn)
+    def initialize(local_svn_dir: Rails.application.config.aspace.local_svn_dir,
+                   local_git_lab_dir: Rails.application.config.aspace.local_git_lab_dir)
       super(category: "EAD_export")
       @errors = []
-      @aspace_output_base_dir_svn = aspace_output_base_dir_svn
+      @local_svn_dir = local_svn_dir
+      @local_git_lab_dir = local_git_lab_dir
       @repos = Rails.application.config.aspace.repos
     end
 
@@ -35,27 +38,23 @@ module AspaceVersionControl
     def handle(data_set:)
       aspace_login
       repos.each do |repo, path|
-        # make directories if they don't already exist
-        make_directories(path)
-        # get resource ids
         get_resource_ids_for_repo(repo)
         next unless @resource_ids
-        # get eads from ids
-        get_eads_from_ids(@svn_dir, repo, @resource_ids)
-        svn_errors = Svn.new.commit_eads_to_svn(path:)
-        GitLab.new.commit_eads_to_git(path:)
-        @errors << svn_errors unless svn_errors.empty?
-      rescue Git::Error => error
-        Rails.logger.error("Error updating EADS using GitLab for repo #{repo} at path #{path}.\nError: #{error}")
+
+        prepare_and_commit_to_svn(repo, path)
+        prepare_and_commit_to_git_lab(repo, path)
       end
       data_set.data = report
       data_set.report_time = Time.zone.now
       data_set
     end
 
-    def make_directories(path)
-      @svn_dir = "#{@aspace_output_base_dir_svn}/#{path}"
-      FileUtils.mkdir_p(@svn_dir) unless Dir.exist?(@svn_dir)
+    def repo_path(dir, path)
+      "#{dir}/#{path}"
+    end
+
+    def make_directories(dir)
+      FileUtils.mkdir_p(dir) unless Dir.exist?(dir)
     end
 
     def get_resource_ids_for_repo(repo)
@@ -63,7 +62,6 @@ module AspaceVersionControl
       @resource_ids = @client.get("/repositories/#{repo}/resources", {
                                     query: { all_ids: true }
                                   }).parsed
-
       @resource_ids
     rescue Net::ReadTimeout => error
       while (retries += 1) <= 3
@@ -87,6 +85,24 @@ module AspaceVersionControl
     end
 
     private
+
+    # TODO: Remove SVN version once the GitLab version has run successfully for awhile
+    def prepare_and_commit_to_svn(repo, path)
+      svn_repo_path = repo_path(@local_svn_dir, path)
+      make_directories(svn_repo_path)
+      get_eads_from_ids(svn_repo_path, repo, @resource_ids)
+      svn_errors = Svn.new.commit_eads_to_svn(path:)
+      @errors << svn_errors unless svn_errors.empty?
+    end
+
+    def prepare_and_commit_to_git_lab(repo, path)
+      git_lab_repo_path = repo_path(@local_git_lab_dir, path)
+      make_directories(git_lab_repo_path)
+      get_eads_from_ids(git_lab_repo_path, repo, @resource_ids)
+      GitLab.new.commit_eads_to_git(path:)
+    rescue Git::Error => error
+      Rails.logger.error("Error updating EADS using GitLab for repo #{repo} at path #{path}.\nError: #{error}")
+    end
 
     # Replace the namespace with the correct loc.gov one,
     # then write the results to the file
@@ -121,3 +137,4 @@ module AspaceVersionControl
     end
   end
 end
+# rubocop:enable Metrics/ClassLength

@@ -146,9 +146,9 @@ RSpec.describe AspaceVersionControl::GetEadsJob do
         it "records the error and completes the job" do
           out = described_class.new
           out.handle(data_set: DataSet.new(category: "EAD_export"))
-          expect(out.report).to eq "Unable to process XML for record 6/1234, please check the source XML for errors"
+          expect(out.report).to include "Unable to process XML for record 6/1234, please check the source XML for errors"
 
-          # Ensure the process continutes after logging exception
+          # Ensure the process continues after logging exception
           expect(FileUtils.identical?(Rails.root.join('tmp', 'subversion_eads', 'selectors', 'MyEadID.EAD.xml'),
                                       file_fixture('ead_corrected.xml'))).to be true
         end
