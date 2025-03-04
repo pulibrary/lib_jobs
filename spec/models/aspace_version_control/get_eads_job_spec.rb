@@ -5,7 +5,17 @@ require_relative '../../../app/models/aspace_version_control/get_eads_job.rb'
 RSpec.describe AspaceVersionControl::GetEadsJob do
   let(:status) { double }
   let(:repos) { Rails.application.config.aspace.repos }
+  let(:git_lab_repo) { Git.init('tmp/gitlab_eads') }
+
   before do
+    # GitLab mocks
+    allow(Git).to receive(:clone).and_return(git_lab_repo)
+    allow(git_lab_repo).to receive(:pull).and_return("Already up to date.")
+    allow(git_lab_repo).to receive(:add).and_return("")
+    allow(git_lab_repo).to receive(:commit).and_return("[main b1b385c] monthly snapshot of ASpace EADs\n 1 file changed, 0 insertions(+), 0 deletions(-)\n create mode 100644 testing")
+    allow(git_lab_repo).to receive(:push).and_return(nil)
+    # end GitLab mocks
+    # Subversion (SVN) mocks
     allow(status).to receive(:success?).and_return(true)
     allow(Open3).to receive(:capture3).with("svn update tmp/subversion_eads").and_return(["Updating 'subversion_eads':\nAt revision 18345.\n", "", status])
     allow(Open3).to receive(:capture3).with("svn add --force tmp/subversion_eads").and_return(["", "", status])
@@ -15,6 +25,7 @@ RSpec.describe AspaceVersionControl::GetEadsJob do
         .with(commit_command)
         .and_return(["Sending        subversion_eads/ea/EA01.EAD.xml\nTransmitting file data .done\nCommitting transaction...\nCommitted revision 18347.\n", "", status])
     end
+    # end Subversion (SVN) mocks
   end
   describe "#run" do
     before do
@@ -98,6 +109,27 @@ RSpec.describe AspaceVersionControl::GetEadsJob do
           out.handle(data_set: DataSet.new(category: "EAD_export"))
           expect(out.report).to include "svn: E155007: None of the targets are working copies\n, Update failed, SVN Add failed, " \
                                    "svn: E170001: Commit failed (details follow):\nsvn: E170001: Can't get username or password\n, Commit failed"
+        end
+      end
+    end
+    describe '#get_resource_ids_for_repo' do
+      context 'with a timeout error' do
+        let(:eads_job) { described_class.new }
+        let(:aspace_client) { eads_job.aspace_login }
+        before do
+          allow(Rails.logger).to receive(:warn).and_call_original
+          allow(ArchivesSpace::Client).to receive(:new).and_return(aspace_client)
+          allow(aspace_client).to receive(:get).and_raise(Net::ReadTimeout)
+          allow(Rails.logger).to receive(:warn).and_call_original
+          allow(Rails.logger).to receive(:error).and_call_original
+        end
+
+        it 'retries' do
+          expect do
+            eads_job.get_resource_ids_for_repo(3)
+          end.not_to raise_error
+          expect(Rails.logger).to have_received(:warn).exactly(3).times
+          expect(Rails.logger).to have_received(:error).once
         end
       end
     end

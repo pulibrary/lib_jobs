@@ -14,7 +14,7 @@ module AspaceVersionControl
 
     def initialize
       config = Rails.application.config.aspace
-      @aspace_output_base_dir = config.aspace_files_output_path
+      @aspace_output_base_dir = config.aspace_files_output_path_svn
       @svn_username = config.svn_username
       @svn_password = config.svn_password
       @errors = []
