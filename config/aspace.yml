@@ -3,8 +3,8 @@ default: &default
   svn_username: <%= ENV["SVN_USERNAME"] || 'libjobs' %>
   svn_password: <%= ENV["SVN_PASSWORD"] %>
   svn_host: <%= ENV["SVN_HOST"] %>
-  git_lab_host: 'gitlab.lib.princeton.edu'
-  git_lab_source_path: scua/libsvn
+  git_lab_host: <%= ENV["GIT_LAB_HOST"] || 'gitlab-prod-vm.lib.princeton.edu' %>
+  git_lab_source_path: scua/eads
   git_lab_local_repo_path: git_lab_eads
   repos: 
     3: "mudd/publicpolicy"
@@ -22,7 +22,7 @@ development:
   <<: *default
   repos: 
     12: "ea"
-  git_lab_host: 'gitlab-staging-vm.lib.princeton.edu'
+  git_lab_host: <%= ENV["GIT_LAB_HOST"] || 'gitlab-staging-vm.lib.princeton.edu' %>
   git_lab_local_repo_path: tmp/gitlab_eads
 
 test:
@@ -37,7 +37,7 @@ test:
 
 staging:
   <<: *default
-  git_lab_host: 'gitlab-staging-vm.lib.princeton.edu'
+  git_lab_host: <%= ENV["GIT_LAB_HOST"] || 'gitlab-staging-vm.lib.princeton.edu' %>
 
 production:
   <<: *default
