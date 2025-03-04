@@ -112,6 +112,27 @@ RSpec.describe AspaceVersionControl::GetEadsJob do
         end
       end
     end
+    describe '#get_resource_ids_for_repo' do
+      context 'with a timeout error' do
+        let(:eads_job) { described_class.new }
+        let(:aspace_client) { eads_job.aspace_login }
+        before do
+          allow(Rails.logger).to receive(:warn).and_call_original
+          allow(ArchivesSpace::Client).to receive(:new).and_return(aspace_client)
+          allow(aspace_client).to receive(:get).and_raise(Net::ReadTimeout)
+          allow(Rails.logger).to receive(:warn).and_call_original
+          allow(Rails.logger).to receive(:error).and_call_original
+        end
+
+        it 'retries' do
+          expect do
+            eads_job.get_resource_ids_for_repo(3)
+          end.not_to raise_error
+          expect(Rails.logger).to have_received(:warn).exactly(3).times
+          expect(Rails.logger).to have_received(:error).once
+        end
+      end
+    end
     describe "write_eads_to_file" do
       context "with XML syntax errors" do
         let(:dir) { "tmp/subversion_eads/rarebooks" }

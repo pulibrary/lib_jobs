@@ -36,8 +36,9 @@ module AspaceVersionControl
 
     def changes?(path:)
       changed = repo.status.changed?(path) || repo.status.untracked?(path)
-      return changed if changed
+      return true if changed
       Rails.logger.info("No changes present for #{path}")
+      false
     end
 
     def self.git_uri
