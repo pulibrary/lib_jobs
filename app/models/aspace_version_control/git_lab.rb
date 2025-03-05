@@ -35,7 +35,8 @@ module AspaceVersionControl
     delegate :push, to: :repo
 
     def changes?(path:)
-      changed = repo.status.changed?(path) || repo.status.untracked?(path)
+      repo_status = repo.status
+      changed = repo_status.changed.present? || repo_status.untracked.present?
       return true if changed
       Rails.logger.info("No changes present for #{path}")
       false
