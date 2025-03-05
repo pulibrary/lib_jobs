@@ -3,7 +3,7 @@
 module AspaceVersionControl
   # This class is responsible for committing EADs to SVN for version control
   class Svn
-    attr_reader :aspace_output_base_dir, :svn_username, :svn_password, :errors
+    attr_reader :local_svn_dir, :svn_username, :svn_password, :errors
 
     def commit_eads_to_svn(path: nil)
       svn_update
@@ -14,7 +14,7 @@ module AspaceVersionControl
 
     def initialize
       config = Rails.application.config.aspace
-      @aspace_output_base_dir = config.aspace_files_output_path
+      @local_svn_dir = config.local_svn_dir
       @svn_username = config.svn_username
       @svn_password = config.svn_password
       @errors = []
@@ -23,19 +23,19 @@ module AspaceVersionControl
     private
 
     def svn_update
-      capture_output = Open3.capture3("svn update #{aspace_output_base_dir}")
+      capture_output = Open3.capture3("svn update #{local_svn_dir}")
       failure_comment = "Update failed"
       log_svn(capture_output, failure_comment)
     end
 
     def svn_add
-      capture_output = Open3.capture3("svn add --force #{aspace_output_base_dir}")
+      capture_output = Open3.capture3("svn add --force #{local_svn_dir}")
       failure_comment = "SVN Add failed"
       log_svn(capture_output, failure_comment)
     end
 
     def svn_commit(path: nil)
-      command = "svn commit #{aspace_output_base_dir}/#{path} -m 'monthly snapshot of ASpace EADs' --username #{svn_username} --password #{svn_password}"
+      command = "svn commit #{local_svn_dir}/#{path} -m 'monthly snapshot of ASpace EADs' --username #{svn_username} --password #{svn_password}"
       capture_output = Open3.capture3(command)
       failure_comment = "Commit failed"
       log_svn(capture_output, failure_comment)
