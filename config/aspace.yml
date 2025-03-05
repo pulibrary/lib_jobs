@@ -47,9 +47,8 @@ staging:
   <<: *default
   git_lab_host: <%= ENV["GIT_LAB_HOST"] || 'gitlab-staging-vm.lib.princeton.edu' %>
   repos: 
-    3: "mudd/publicpolicy"
+    10: "selectors"
     11: "ga"
-    12: "ea"
 
 production:
   <<: *default
