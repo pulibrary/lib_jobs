@@ -108,15 +108,27 @@ module AspaceVersionControl
     # then write the results to the file
     def write_eads_to_file(dir, repo, id)
       Rails.logger.info("Now processing #{repo}/#{id}")
-      record = @client.get("/repositories/#{repo}/resource_descriptions/#{id}.xml", {
-                             query: { include_daos: true }
-                           })
+      record = aspace_record(repo, id)
       ead = Nokogiri::XML(record.body)
       rewrite_namespace(dir:, ead:)
     rescue Nokogiri::XML::SyntaxError
       err = "Unable to process XML for record #{repo}/#{id}, please check the source XML for errors"
       log_stdout(err)
       log_stderr(err)
+    end
+
+    def aspace_record(repo, id)
+      retries ||= 0
+      @client.get("/repositories/#{repo}/resource_descriptions/#{id}.xml", {
+                    query: { include_daos: true }
+                  })
+    rescue Net::ReadTimeout => error
+      while (retries += 1) <= 3
+        Rails.logger.warn("Encountered #{error.class}: '#{error.message}' when connecting at #{Time.now.utc}, retrying in #{retries} second(s)...")
+        sleep(retries)
+        retry
+      end
+      Rails.logger.error("Encountered #{error.class}: '#{error.message}' at #{Time.now.utc}, unsuccessful in connecting after #{retries} retries")
     end
 
     def rewrite_namespace(dir:, ead:)

@@ -65,13 +65,7 @@ RSpec.describe AspaceVersionControl::GetEadsJob do
     it "creates directories for all relevant ead repos" do
       described_class.new.run
       expect(File).to exist(Rails.root.join('tmp', 'subversion_eads', 'mudd', 'publicpolicy'))
-      expect(File).to exist(Rails.root.join('tmp', 'subversion_eads', 'mudd', 'univarchives'))
-      expect(File).to exist(Rails.root.join('tmp', 'subversion_eads', 'mss'))
       expect(File).to exist(Rails.root.join('tmp', 'subversion_eads', 'rarebooks'))
-      expect(File).to exist(Rails.root.join('tmp', 'subversion_eads', 'cotsen'))
-      expect(File).to exist(Rails.root.join('tmp', 'subversion_eads', 'lae'))
-      expect(File).to exist(Rails.root.join('tmp', 'subversion_eads', 'eng'))
-      expect(File).to exist(Rails.root.join('tmp', 'subversion_eads', 'selectors'))
       expect(File).to exist(Rails.root.join('tmp', 'subversion_eads', 'ga'))
       expect(File).to exist(Rails.root.join('tmp', 'subversion_eads', 'ea'))
     end
@@ -149,7 +143,7 @@ RSpec.describe AspaceVersionControl::GetEadsJob do
           expect(out.report).to include "Unable to process XML for record 6/1234, please check the source XML for errors"
 
           # Ensure the process continues after logging exception
-          expect(FileUtils.identical?(Rails.root.join('tmp', 'subversion_eads', 'selectors', 'MyEadID.EAD.xml'),
+          expect(FileUtils.identical?(Rails.root.join('tmp', 'subversion_eads', 'ea', 'MyEadID.EAD.xml'),
                                       file_fixture('ead_corrected.xml'))).to be true
         end
       end

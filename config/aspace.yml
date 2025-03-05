@@ -37,10 +37,19 @@ test:
   git_lab_source_path: mk8066/test-project-for-cloning
   local_git_lab_dir: tmp/gitlab_eads
   git_lab_local_repo_path: tmp/gitlab_eads
+  repos: 
+    3: "mudd/publicpolicy"
+    6: "rarebooks"
+    11: "ga"
+    12: "ea"
 
 staging:
   <<: *default
   git_lab_host: <%= ENV["GIT_LAB_HOST"] || 'gitlab-staging-vm.lib.princeton.edu' %>
+  repos: 
+    3: "mudd/publicpolicy"
+    11: "ga"
+    12: "ea"
 
 production:
   <<: *default
