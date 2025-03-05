@@ -97,6 +97,8 @@ module AspaceVersionControl
 
     def prepare_and_commit_to_git_lab(repo, path)
       git_lab_repo_path = repo_path(@local_git_lab_dir, path)
+      Rails.logger.info("Preparing commit to GitLab for #{git_lab_repo_path}")
+
       make_directories(git_lab_repo_path)
       get_eads_from_ids(git_lab_repo_path, repo, @resource_ids)
       GitLab.new.commit_eads_to_git(path:)
