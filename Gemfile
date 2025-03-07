@@ -19,6 +19,7 @@ gem 'ed25519', '~> 1.3'
 gem 'faraday', '~> 2.7'
 gem "flipflop", git: "https://github.com/voormedia/flipflop.git", ref: "0d70d8e33483a9c0282ed8d6bca9c5ccd61e61e8"
 gem 'foreman'
+gem 'git'
 gem "health-monitor-rails", "12.4.0"
 gem 'honeybadger'
 gem 'icalendar'
