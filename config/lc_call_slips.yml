@@ -383,6 +383,70 @@ default: &default
         - Rare Earth Metal
         - Radioactive Dating 
         - Isotope Geology
+    - friedman:
+        email: rfriedma@princeton.edu
+        classes:
+          - class: AM
+            low_num: 0
+            high_num: 99_999
+          - class: CC
+            low_num: 0
+            high_num: 99_999
+          - class: GR
+            low_num: 420
+            high_num: 426
+          - class: GT
+            low_num: 165
+            high_num: 476
+          - class: GT
+            low_num: 500
+            high_num: 2370
+          - class: GV
+            low_num: 1800
+            high_num: 1860
+          - class: N
+            low_num: 0
+            high_num: 99_999
+          - class: NA
+            low_num: 0
+            high_num: 99_999
+          - class: NB
+            low_num: 0
+            high_num: 99_999
+          - class: NC
+            low_num: 0
+            high_num: 99_999
+          - class: ND
+            low_num: 0
+            high_num: 99_999
+          - class: NE
+            low_num: 0
+            high_num: 99_999
+          - class: NK
+            low_num: 0
+            high_num: 99_999
+          - class: NX
+            low_num: 0
+            high_num: 99_999
+          - class: SB
+            low_num: 0
+            high_num: 99_999
+          - class: TR
+            low_num: 0
+            high_num: 99_999
+          - class: TT
+            low_num: 0
+            high_num: 99_999
+        excluded_languages:
+          - ara
+          - heb
+          - jpn
+          - kor
+          - urd
+          - chi
+          - tur
+          - hin
+          - per
 development:
   <<: *default
   selector_csv_path: 'tmp/oclc/'
