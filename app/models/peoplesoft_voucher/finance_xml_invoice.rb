@@ -52,11 +52,11 @@ module PeoplesoftVoucher
       xml.vchr_line_stg(class: 'r') do
         xml.business_unit "PRINU"
         xml.voucher_line_num line_no
-        xml.descr (line_item[:po_line_number]).to_s
+        xml.descr line_item[:po_line_number].to_s
         xml.merchandise_amt line_item[:total_local_amount_str]
         xml.business_unit_gl "PRINU"
         xml.voucher_id voucher_id
-        xml.descr254_mixed (line_item[:title]).to_s
+        xml.descr254_mixed line_item[:title].to_s
         line_item[:fund_list].each_with_index do |fund, fund_idex|
           fund_no = (fund_idex + 1).to_s
           build_voucher_distribution(line_no:, line_item:, fund:, voucher_id:, fund_no:)
@@ -72,11 +72,11 @@ module PeoplesoftVoucher
         xml.voucher_line_num line_no
         xml.distrib_line_num fund_no
         xml.business_unit_gl "PRINU"
-        xml.account (line_item[:reporting_code]).to_s
-        xml.deptid (fund[:prime_dept]).to_s
-        xml.merchandise_amt (fund[:usd_amount]).to_s
-        xml.fund_code (fund[:prime_fund]).to_s
-        xml.program_code (fund[:prime_program]).to_s
+        xml.account line_item[:reporting_code].to_s
+        xml.deptid fund[:prime_dept].to_s
+        xml.merchandise_amt fund[:usd_amount].to_s
+        xml.fund_code fund[:prime_fund].to_s
+        xml.program_code fund[:prime_program].to_s
         xml.voucher_id voucher_id
       end
     end
