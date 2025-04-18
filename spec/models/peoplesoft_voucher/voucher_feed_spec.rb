@@ -10,6 +10,7 @@ RSpec.describe PeoplesoftVoucher::VoucherFeed, type: :model do
 
   describe "#run" do
     it "generates an xml file" do
+      travel_to Time.zone.local(2024)
       allow(sftp_dir).to receive(:foreach).and_yield(sftp_entry1)
       # only 1 & 3 should get downloaded
       allow(sftp_session).to receive(:download!).with("/alma/invoices/abc.xml").and_return(Rails.root.join('spec', 'fixtures', 'invoice_export_202118300518.xml').read)
@@ -34,6 +35,7 @@ RSpec.describe PeoplesoftVoucher::VoucherFeed, type: :model do
       expect(confirm_email.subject).to eq("Alma to Peoplesoft Voucher Feed Results")
       expect(confirm_email.html_part.body.to_s).to include("No errors were found with the invoices")
       expect(confirm_email.html_part.body.to_s).not_to include("No invoices available to process")
+      travel_back
     end
 
     it "does not generates xml files if no invoices are present" do
