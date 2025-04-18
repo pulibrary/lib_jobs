@@ -12,8 +12,6 @@ gem 'bcrypt_pbkdf', '~> 1.1'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'cancancan'
-# Should this be in the development block with the other capistrano dependencies?
-gem 'capistrano-yarn', '~> 2.0'
 gem 'devise', '>= 4.6.0'
 gem 'ed25519', '~> 1.3'
 gem 'faraday', '~> 2.7'
@@ -45,10 +43,8 @@ gem 'puma'
 gem 'rubyzip'
 # Use SCSS for stylesheets
 gem 'sass-rails'
-gem 'terser'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
-gem 'vite_rails', '~> 3.0'
 gem 'whenever'
 
 group :development, :test do

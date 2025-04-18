@@ -67,6 +67,4 @@ set :linked_dirs, %w[open_marc_records subversion_eads git_lab_eads]
 # Uncomment the following to require manually verifying the host key before first deploy.
 # set :ssh_options, verify_host_key: :secure
 
-set :yarn_flags, '--silent --no-progress'
-
 set :whenever_roles, -> { [:cron_prod1, :cron_prod2, :cron_staging2] }

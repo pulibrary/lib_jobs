@@ -13,3 +13,10 @@
 //= require rails-ujs
 //= require activestorage
 //= require_tree .
+
+window.addEventListener('load', () => {
+  const { createApp } = Vue
+  document.querySelectorAll('.lux').forEach(mountpoint => {
+    createApp().use(Lux.default).mount(mountpoint)
+  })
+})

@@ -2,7 +2,6 @@
 version: 2.1
 orbs:
   browser-tools: circleci/browser-tools@1.5.2
-  node: circleci/node@5.1.0
 executors:
   lib-jobs-executor:
     docker:
@@ -44,24 +43,6 @@ commands:
           keys:
             - lib-jobs-bundle-v3-{{ checksum "Gemfile.lock" }}
             - lib-jobs-bundle-v3-
-  setup-node:
-    description: "Install the correct release of NodeJS and install the JavaScript package dependencies"
-    steps:
-      - node/install:
-          install-yarn: true
-          node-version: '18.19.1'
-      - restore_cache:
-          name: Restore Yarn Package Cache
-          keys:
-            - lib-jobs-node-{{ checksum "yarn.lock" }}
-      - run:
-          name: Install the NPM package dependencies
-          command: yarn install --frozen-lockfile
-      - save_cache:
-          name: Save Yarn Package Cache
-          key: lib-jobs-node-{{ checksum "yarn.lock" }}
-          paths:
-            - ~/.cache/yarn
 
       - run:
           name: Bundle Install
@@ -81,7 +62,6 @@ jobs:
           at: '~/project'
       - checkout
       - setup-bundler
-      - setup-node
       - persist_to_workspace:
           root: '~/project'
           paths: 
@@ -93,7 +73,6 @@ jobs:
       - attach_workspace:
           at: '~/project'
       - setup-bundler
-      - setup-node
       - browser-tools/install-browser-tools
       - run:
           command: |
