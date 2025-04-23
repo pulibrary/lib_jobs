@@ -2,6 +2,7 @@
 version: 2.1
 orbs:
   browser-tools: circleci/browser-tools@1.5.2
+  coveralls: coveralls/coveralls@2.2.5
 executors:
   lib-jobs-executor:
     docker:
@@ -94,6 +95,7 @@ jobs:
           command: |
             bundle list
             bundle exec rspec
+      - coveralls/upload
 
       # Save coverage artifacts
       - store_artifacts:

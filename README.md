@@ -1,5 +1,7 @@
 # ILS Jobs
 
+[![Coverage Status](https://coveralls.io/repos/github/pulibrary/lib_jobs/badge.svg?branch=main)](https://coveralls.io/github/pulibrary/lib_jobs?branch=main)
+
 ## Connects to
   * Alma SFTP for file based integrations
   * Alma NCIP 
