@@ -1,6 +1,8 @@
 # Alma Normalization Process
   The purpose of this job is to move OCLC numbers from the 914 field into the 035 file and remove any existing 035 fields that have an OCLC field. The job is called via Alma's "config" API.  At some future time it may be utilized to disable accounts.
 
+This job can be kicked off any time via the rake task `lib_jobs:alma_bib_norm`.  However, don't kick it off twice in rapid succession.
+
 ## Flow Diagrams
 
 
