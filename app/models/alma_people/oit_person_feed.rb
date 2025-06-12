@@ -32,7 +32,7 @@ module AlmaPeople
         http.request(request)
       end
       if result.instance_of?(Net::HTTPOK)
-        JSON.parse(result.body)
+        JSON.parse(result.body)['records']
       else
         Rails.logger.error("Unable to get person data with parameters #{uri}.  Error: #{result.message}")
         {}
