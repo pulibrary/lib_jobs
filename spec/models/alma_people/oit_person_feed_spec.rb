@@ -5,7 +5,7 @@ RSpec.describe AlmaPeople::OitPersonFeed do
   subject(:feed) { described_class.new(base_url: 'https://example.com', path: '/person_feed', access_token: token) }
   let(:token) { instance_double("AccessToken") }
 
-  let(:body) { '{"records":[ ]}' }
+  let(:body) { '{"records": {"record": [ ]}}' }
 
   describe "get" do
     before do
@@ -30,7 +30,7 @@ RSpec.describe AlmaPeople::OitPersonFeed do
 
     context "with people in the response" do
       let(:body) do
-        "{\"records\":[{  \"PATRON_EXPIRATION_DATE\": \"2022-10-31\",\n     \"PATRON_PURGE_DATE\": \"2021-10-31\",\n     \"ELIGIBLE_INELIGIBLE\": \"E\",\n"\
+        "{\"records\": \"record\": {[{  \"PATRON_EXPIRATION_DATE\": \"2022-10-31\",\n     \"PATRON_PURGE_DATE\": \"2021-10-31\",\n     \"ELIGIBLE_INELIGIBLE\": \"E\",\n"\
         "    \"INSERT_UPDATE_DATETIME\": \"2020-12-03T08:21:02.000-05:00\",\n     \"PVSTATCATEGORY\": \"EM\",\n     \"ADDRESS_END_DATE\": \"2021-10-31\",\n"\
         "     \"PVPATRONGROUP\": \"P\",\n     \"DEPTID\": \"9999\",\n     \"DEPT_DESCR\": \"PRINCO\",\n     \"EMPLID\": \"999999999\",\n"\
         "     \"PRF_OR_PRI_FIRST_NAM\": \"Sally\",\n     \"PRF_OR_PRI_LAST_NAME\": \"Smith\",\n     \"PRF_OR_PRI_MIDDLE_NAME\": \"Doe\",\n"\
@@ -45,7 +45,7 @@ RSpec.describe AlmaPeople::OitPersonFeed do
         "     \"PERM_STATE\": \"FL\",\n     \"PERM_POSTAL\": \"34209\",\n     \"PERM_COUNTRY_DESCR\": \"United States\",\n     \"PERM_STATE_DESCR\": \"Florida\",\n"\
         "     \"PERM_PHONE\": \"123/456-7890\",\n     \"DORM_COUNTRY\": null,\n     \"DORM_ADDRESS1\": null,\n     \"DORM_ADDRESS2\": null,\n     \"DORM_ADDRESS3\": null,\n"\
         "     \"DORM_ADDRESS4\": null,\n     \"DORM_CITY\": null,\n     \"DORM_COUNTY\": null,\n     \"DORM_STATE\": null,\n     \"DORM_POSTAL\": null,\n"\
-        "     \"DORM_COUNTRY_DESCR\": null,\n     \"DORM_STATE_DESCR\": null,\n     \"EMAIL_ADDRESS_END_DATE\": \"2022-10-30T20:00:00.000-04:00\"\n   }]}"
+        "     \"DORM_COUNTRY_DESCR\": null,\n     \"DORM_STATE_DESCR\": null,\n     \"EMAIL_ADDRESS_END_DATE\": \"2022-10-30T20:00:00.000-04:00\"\n   }]}}"
       end
 
       it "gets json data from the api" do
