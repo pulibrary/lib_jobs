@@ -30,7 +30,7 @@ RSpec.describe AlmaPeople::OitPersonFeed do
 
     context "with people in the response" do
       let(:body) do
-        "{\"records\": \"record\": {[{  \"PATRON_EXPIRATION_DATE\": \"2022-10-31\",\n     \"PATRON_PURGE_DATE\": \"2021-10-31\",\n     \"ELIGIBLE_INELIGIBLE\": \"E\",\n"\
+        "{\"records\": {\"record\": [{  \"PATRON_EXPIRATION_DATE\": \"2022-10-31\",\n     \"PATRON_PURGE_DATE\": \"2021-10-31\",\n     \"ELIGIBLE_INELIGIBLE\": \"E\",\n"\
         "    \"INSERT_UPDATE_DATETIME\": \"2020-12-03T08:21:02.000-05:00\",\n     \"PVSTATCATEGORY\": \"EM\",\n     \"ADDRESS_END_DATE\": \"2021-10-31\",\n"\
         "     \"PVPATRONGROUP\": \"P\",\n     \"DEPTID\": \"9999\",\n     \"DEPT_DESCR\": \"PRINCO\",\n     \"EMPLID\": \"999999999\",\n"\
         "     \"PRF_OR_PRI_FIRST_NAM\": \"Sally\",\n     \"PRF_OR_PRI_LAST_NAME\": \"Smith\",\n     \"PRF_OR_PRI_MIDDLE_NAME\": \"Doe\",\n"\
@@ -73,7 +73,7 @@ RSpec.describe AlmaPeople::OitPersonFeed do
       end
 
       let(:body2) do
-        "{\"records\":[{ \"EMPLID\": \"99998888\"\n   }]}"
+        "{\"records\":{\"record\":[{ \"EMPLID\": \"99998888\"\n   }]}}"
       end
 
       it "gets an new token and then gets data from the api" do
@@ -102,7 +102,7 @@ RSpec.describe AlmaPeople::OitPersonFeed do
       end
 
       let(:body3) do
-        "{\"records\":[{ \"EMPLID\": \"11112222\"\n   }]}"
+        "{\"records\":{\"record\":[{ \"EMPLID\": \"11112222\"\n   }]}}"
       end
 
       it "gets an new token and then gets data from the api" do
@@ -131,7 +131,7 @@ RSpec.describe AlmaPeople::OitPersonFeed do
       end
 
       let(:body3) do
-        "{\"records\":[{ \"EMPLID\": \"55556666\"\n   }]}"
+        "{\"records\":{\"record\":[{ \"EMPLID\": \"55556666\"\n   }]}}"
       end
 
       it "gets an new token and then gets data from the api" do
