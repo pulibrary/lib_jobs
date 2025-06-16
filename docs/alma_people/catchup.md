@@ -4,6 +4,7 @@ June 13, 2025, run:
 
 ```
 cd /opt/lib-jobs/current
+bundle exec rails c
 AlmaPeople::AlmaPersonFeed.new(begin_date: "2025-05-20", end_date: "2025-06-13").run
 ```
 
