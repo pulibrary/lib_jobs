@@ -28,13 +28,13 @@ module AlmaPeople
       transfer_alma_person_file(filename: full_path)
       ineligible_user_message = ineligible_user if Flipflop.alma_person_ineligible?
       AlmaPeopleMailer.error_notification(invalid_records: @invalid_records).deliver
-      data_set.data = "people_updated: #{oit_people.count}, file: #{File.basename(full_path)}"
+      data_set.data = "people_updated: #{oit_people&.count || 0}, file: #{File.basename(full_path)}"
       data_set.data << ineligible_user_message if Flipflop.alma_person_ineligible?
       data_set
     end
 
     def build_xml(oit_people:, eligibility:)
-      return "" if oit_people.empty?
+      return "" if oit_people.blank?
 
       builder = Nokogiri::XML::Builder.new do |xml|
         xml.users do

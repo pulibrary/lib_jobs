@@ -78,6 +78,20 @@ RSpec.describe AlmaPeople::AlmaPersonFeed, type: :model, file_upload: true do
       end
     end
 
+    context "nil response from OIT" do
+      let(:oit_people) { nil }
+
+      it "generates no xml file" do
+        expect(alma_person_feed.run).to be_truthy
+        expect(oit_person_feed).to have_received(:get_json)
+        expect(sftp_session).not_to have_received(:upload!)
+        data_set = DataSet.last
+        expect(data_set.category).to eq("AlmaPersonFeed")
+        expect(data_set.report_time).to eq(Time.zone.now.midnight)
+        expect(data_set.data).to eq("people_updated: 0, file: ")
+      end
+    end
+
     context "blank dates" do
       subject(:alma_person_feed) { described_class.new(oit_person_feed:, output_base_dir: 'spec/fixtures/person_feed', begin_date: nil, end_date: nil, enabled_flag: nil) }
 
