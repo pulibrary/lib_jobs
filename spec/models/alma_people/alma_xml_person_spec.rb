@@ -152,6 +152,32 @@ RSpec.describe AlmaPeople::AlmaXmlPerson, type: :model do
       end
     end
 
+    context 'null expiration date and ineligible' do
+      let(:oit_person) do
+        JSON.parse('{
+          "VCURSTATUS": "ACTV",
+          "ELIGIBLE_INELIGIBLE": "I",
+          "PATRON_EXPIRATION_DATE": null
+        }')
+      end
+      it 'is valid' do
+        Nokogiri::XML::Builder.new do |xml|
+          alma_person = described_class.new(xml:, person: oit_person)
+          expect(alma_person.valid?).to eq(true)
+        end
+      end
+      it "defaults expiration date to today" do
+        travel_to Time.zone.local(2025)
+        builder = Nokogiri::XML::Builder.new do |xml|
+          alma_person = described_class.new(xml:, person: oit_person)
+          alma_person.convert
+        end
+        xml = Nokogiri::XML.parse(builder.to_xml)
+        expect(xml.xpath('//expiry_date').first.text).to eq '2025-01-01'
+        travel_back
+      end
+    end
+
     describe('#should_be_included?') do
     end
     context 'for a typical Ineligible patron' do

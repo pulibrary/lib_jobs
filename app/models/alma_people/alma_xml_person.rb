@@ -10,7 +10,7 @@ module AlmaPeople
   class AlmaXmlPerson
     include ActiveModel::Validations
     validates_each :person do |record, attr, value|
-      record.errors.add attr, :no_expiration_date, message: "doesn't have an expiration date" if value['PATRON_EXPIRATION_DATE'].blank?
+      record.errors.add attr, :no_expiration_date, message: "doesn't have an expiration date" if value['PATRON_EXPIRATION_DATE'].blank? && value["ELIGIBLE_INELIGIBLE"] == 'E'
     end
 
     attr_reader :xml, :person
@@ -24,7 +24,7 @@ module AlmaPeople
 
     def convert
       xml.user do
-        xml.expiry_date person["PATRON_EXPIRATION_DATE"] if person["PATRON_EXPIRATION_DATE"].present?
+        xml.expiry_date expiry_date if expiry_date
         xml.purge_date person["PATRON_PURGE_DATE"] if person["PATRON_PURGE_DATE"].present?
         create_status(status_flag: person["ELIGIBLE_INELIGIBLE"])
         create_user_statistics(statistic_category: person["PVSTATCATEGORY"])
@@ -148,6 +148,17 @@ module AlmaPeople
 
     def eligible?
       person["ELIGIBLE_INELIGIBLE"] == 'E'
+    end
+
+    def expiry_date
+      if person["PATRON_EXPIRATION_DATE"].present?
+        person["PATRON_EXPIRATION_DATE"]
+      elsif not_a_retiree? && !eligible?
+        # If the patron is not eligible, and doesn't have special retiree privileges,
+        # and no expiration date has been provided, assume that their account should
+        # expire today
+        Time.zone.now.strftime("%Y-%m-%d")
+      end
     end
 
     def not_a_retiree?
