@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-require 'pry-byebug'
 require "webmock/rspec"
 require "simplecov"
 require 'database_cleaner/active_record'
