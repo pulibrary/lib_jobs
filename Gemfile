@@ -52,11 +52,9 @@ group :development, :test do
   gem 'brakeman'
   gem 'dotenv-rails'
   gem 'factory_bot_rails'
-  gem 'pry-byebug'
   gem 'rspec'
   gem 'rubocop', '~> 1.22'
   gem 'rubocop-rails'
-  gem 'solargraph'
 end
 
 group :development do
