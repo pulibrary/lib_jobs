@@ -91,9 +91,9 @@ every '0 6 1-7 * */6', roles: [:cron_prod2] do
 end
 
 # Run on production every Thursday at 3am EST or 4am EDT
-every :thursday, at: '8:00 am', roles: [:cron_prod2] do # The server is in UTC, so that is 8:00 UTC
-  rake "lib_jobs:alma_bib_norm"
-end
+# every :thursday, at: '8:00 am', roles: [:cron_prod2] do # The server is in UTC, so that is 8:00 UTC
+#   rake "lib_jobs:alma_bib_norm"
+# end
 
 # Run on production every day at 7:00am EST or 8:00am EDT
 every 1.day, at: '12:00 pm', roles: [:cron_prod2] do
