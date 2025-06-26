@@ -43,10 +43,10 @@ every 1.day, at: '1:00 pm', roles: [:cron_prod2] do # The server is in UTC, so t
   rake " lib_jobs:renew_alma_requests"
 end
 
-# # Run on production at 6am EST or 7am EDT
-# every :monday, at: '11:00 am', roles: [:cron_prod2] do
-#   rake "lib_jobs:process_newly_cataloged_records"
-# end
+# Run on production at 6am EST or 7am EDT
+every :monday, at: '11:00 am', roles: [:cron_prod2] do
+  rake "lib_jobs:process_newly_cataloged_records"
+end
 
 # Run on production Tuesday at 9:30am EST or 10:30am EDT (after the records are published on Sunday)
 every :tuesday, at: '2:30 pm', roles: [:cron_prod2] do # The server is in UTC, so this is 14:30 UTC
