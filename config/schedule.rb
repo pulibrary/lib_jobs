@@ -54,7 +54,7 @@ every :tuesday, at: '2:30 pm', roles: [:cron_prod2] do # The server is in UTC, s
 end
 
 # Run on production Tuesday at 10:30am EST or 11:30am EDT (after the Alma report is scheduled to run)
-every :tuesday, at: '3:30 pm', roles: [:cron_prod1] do
+every :tuesday, at: '3:30 pm', roles: [:cron_prod2] do
   rake "lib_jobs:gobi_isbn_update"
 end
 
