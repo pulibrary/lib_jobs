@@ -11,19 +11,19 @@ RSpec.describe "Filter and Sort Data Sets", type: :system do
     FactoryBot.create :data_set, category: 'abc'
     visit "/"
 
-    expect(page.body).to include('<td>123</td>').once
-    expect(page.body).to include('<td>abc</td>').once
+    expect(page).to have_selector 'td', text: '123', count: 1
+    expect(page).to have_selector 'td', text: 'abc', count: 1
 
     select "abc", from: "category"
     click_button "Filter"
 
-    expect(page.body).not_to include('<td>123</td>')
-    expect(page.body).to include('<td>abc</td>').once
+    expect(page).not_to have_selector 'td', text: '123'
+    expect(page).to have_selector 'td', text: 'abc', count: 1
 
     click_button "Clear Filters"
 
-    expect(page.body).to include('<td>123</td>').once
-    expect(page.body).to include('<td>abc</td>').once
+    expect(page).to have_selector 'td', text: '123', count: 1
+    expect(page).to have_selector 'td', text: 'abc', count: 1
   end
 
   describe "sorting" do

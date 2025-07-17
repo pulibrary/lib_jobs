@@ -82,12 +82,12 @@ end
 
 # Run every day at 12pm and 6pm UTC, 7am and 1pm EST, and 8am and 2pm EDT
 every 1.day, at: ['12:00 pm', '6:00 pm'], roles: [:cron_prod2] do
-  rake " lib_jobs:generate_database_list_csv"
+  rake "lib_jobs:generate_database_list_csv"
 end
 
-# Run once a month on the first Saturday
-every '0 6 1-7 * */6', roles: [:cron_prod2] do
-  rake " lib_jobs:send_eads"
+# Run daily at 1pm UTC
+every 1.day, at: ['1:00 pm'], roles: [:cron_prod2] do
+  rake "lib_jobs:send_eads"
 end
 
 # Run on production every Thursday at 3am EST or 4am EDT

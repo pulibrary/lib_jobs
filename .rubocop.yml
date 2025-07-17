@@ -43,6 +43,7 @@ Metrics/MethodLength:
   Exclude:
     - 'app/controllers/application_controller.rb'
     - 'app/models/aspace_svn/get_eads_job.rb'
+    - 'app/models/aspace_version_control/get_eads_job.rb'
 
 Metrics/PerceivedComplexity:
   Exclude:
