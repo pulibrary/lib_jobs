@@ -85,8 +85,8 @@ every 1.day, at: ['12:00 pm', '6:00 pm'], roles: [:cron_prod2] do
   rake "lib_jobs:generate_database_list_csv"
 end
 
-# Run daily at 1pm UTC
-every 1.day, at: ['1:00 pm'], roles: [:cron_prod2] do
+# Run daily at 9pm UTC
+every 1.month, at: ['9:00 pm'], roles: [:cron_prod2] do
   rake "lib_jobs:send_eads"
 end
 
