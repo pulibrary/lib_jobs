@@ -7,11 +7,9 @@ require 'fileutils'
 module AspaceVersionControl
   class GetEadsJob < LibJob
     attr_reader :repos
-    def initialize(local_svn_dir: Rails.application.config.aspace.local_svn_dir,
-                   local_git_lab_dir: Rails.application.config.aspace.local_git_lab_dir)
+    def initialize(local_git_lab_dir: Rails.application.config.aspace.local_git_lab_dir)
       super(category: "EAD_export")
       @errors = []
-      @local_svn_dir = local_svn_dir
       @local_git_lab_dir = local_git_lab_dir
       @repos = Rails.application.config.aspace.repos
     end
@@ -41,7 +39,6 @@ module AspaceVersionControl
         get_resource_ids_for_repo(repo)
         next unless @resource_ids
 
-        prepare_and_commit_to_svn(repo, path)
         prepare_and_commit_to_git_lab(repo, path)
       end
       data_set.data = report
@@ -85,15 +82,6 @@ module AspaceVersionControl
     end
 
     private
-
-    # TODO: Remove SVN version once the GitLab version has run successfully for awhile
-    def prepare_and_commit_to_svn(repo, path)
-      svn_repo_path = repo_path(@local_svn_dir, path)
-      make_directories(svn_repo_path)
-      get_eads_from_ids(svn_repo_path, repo, @resource_ids)
-      svn_errors = Svn.new.commit_eads_to_svn(path:)
-      @errors << svn_errors unless svn_errors.empty?
-    end
 
     def prepare_and_commit_to_git_lab(repo, path)
       git_lab_repo_path = repo_path(@local_git_lab_dir, path)
