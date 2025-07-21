@@ -15,17 +15,6 @@ RSpec.describe AspaceVersionControl::GetEadsJob do
     allow(git_lab_repo).to receive(:commit).and_return("[main b1b385c] monthly snapshot of ASpace EADs\n 1 file changed, 0 insertions(+), 0 deletions(-)\n create mode 100644 testing")
     allow(git_lab_repo).to receive(:push).and_return(nil)
     # end GitLab mocks
-    # Subversion (SVN) mocks
-    allow(status).to receive(:success?).and_return(true)
-    allow(Open3).to receive(:capture3).with("svn update tmp/subversion_eads").and_return(["Updating 'subversion_eads':\nAt revision 18345.\n", "", status])
-    allow(Open3).to receive(:capture3).with("svn add --force tmp/subversion_eads").and_return(["", "", status])
-    repos.each do |_repo, path|
-      commit_command = "svn commit tmp/subversion_eads/#{path} -m 'monthly snapshot of ASpace EADs' --username test-username --password test-password"
-      allow(Open3).to receive(:capture3)
-        .with(commit_command)
-        .and_return(["Sending        subversion_eads/ea/EA01.EAD.xml\nTransmitting file data .done\nCommitting transaction...\nCommitted revision 18347.\n", "", status])
-    end
-    # end Subversion (SVN) mocks
   end
   describe "#run" do
     before do
@@ -58,24 +47,24 @@ RSpec.describe AspaceVersionControl::GetEadsJob do
         .and_return("password")
     end
     around do |example|
-      Rails.root.glob('tmp/subversion_eads/*').each { |directory| FileUtils.rm_r(directory) }
+      Rails.root.glob('tmp/gitlab_eads/*').each { |directory| FileUtils.rm_r(directory) }
       example.run
-      Rails.root.glob('tmp/subversion_eads/*').each { |directory| FileUtils.rm_r(directory) }
+      Rails.root.glob('tmp/gitlab_eads/*').each { |directory| FileUtils.rm_r(directory) }
     end
     it "creates directories for all relevant ead repos" do
       described_class.new.run
-      expect(File).to exist(Rails.root.join('tmp', 'subversion_eads', 'mudd', 'publicpolicy'))
-      expect(File).to exist(Rails.root.join('tmp', 'subversion_eads', 'rarebooks'))
-      expect(File).to exist(Rails.root.join('tmp', 'subversion_eads', 'ga'))
-      expect(File).to exist(Rails.root.join('tmp', 'subversion_eads', 'ea'))
+      expect(File).to exist(Rails.root.join('tmp', 'gitlab_eads', 'mudd', 'publicpolicy'))
+      expect(File).to exist(Rails.root.join('tmp', 'gitlab_eads', 'rarebooks'))
+      expect(File).to exist(Rails.root.join('tmp', 'gitlab_eads', 'ga'))
+      expect(File).to exist(Rails.root.join('tmp', 'gitlab_eads', 'ea'))
     end
     it "gets filename from the eadid element in the EAD xml api response" do
       described_class.new.run
-      expect(File).to exist(Rails.root.join('tmp', 'subversion_eads', 'mudd', 'publicpolicy', 'MyEadID.EAD.xml'))
+      expect(File).to exist(Rails.root.join('tmp', 'gitlab_eads', 'mudd', 'publicpolicy', 'MyEadID.EAD.xml'))
     end
     it "puts the EAD xml file with corrected namespace into the file" do
       described_class.new.run
-      expect(FileUtils.identical?(Rails.root.join('tmp', 'subversion_eads', 'mudd', 'publicpolicy', 'MyEadID.EAD.xml'),
+      expect(FileUtils.identical?(Rails.root.join('tmp', 'gitlab_eads', 'mudd', 'publicpolicy', 'MyEadID.EAD.xml'),
                                   file_fixture('ead_corrected.xml'))).to be true
     end
     describe "report" do
@@ -83,27 +72,6 @@ RSpec.describe AspaceVersionControl::GetEadsJob do
         out = described_class.new
         out.handle(data_set: DataSet.new(category: "EAD_export"))
         expect(out.report).to eq "EADs successfully exported."
-      end
-    end
-    describe "commit_eads_to_svn" do
-      context "failed to connect to SVN" do
-        before do
-          allow(status).to receive(:success?).and_return(false)
-          allow(Open3).to receive(:capture3).with("svn update tmp/subversion_eads").and_return(["Skipped 'tmp/subversion_eads'\n", "svn: E155007: None of the targets are working copies\n", status])
-          allow(Open3).to receive(:capture3).with("svn add --force tmp/subversion_eads").and_return(["", "", status])
-          repos.each do |_repo, path|
-            commit_command = "svn commit tmp/subversion_eads/#{path} -m 'monthly snapshot of ASpace EADs' --username test-username --password test-password"
-            allow(Open3).to receive(:capture3)
-              .with(commit_command)
-              .and_return(["", "svn: E170001: Commit failed (details follow):\nsvn: E170001: Can't get username or password\n", status])
-          end
-        end
-        it "reports failure" do
-          out = described_class.new
-          out.handle(data_set: DataSet.new(category: "EAD_export"))
-          expect(out.report).to include "svn: E155007: None of the targets are working copies\n, Update failed, SVN Add failed, " \
-                                   "svn: E170001: Commit failed (details follow):\nsvn: E170001: Can't get username or password\n, Commit failed"
-        end
       end
     end
     describe '#get_resource_ids_for_repo' do
@@ -129,7 +97,7 @@ RSpec.describe AspaceVersionControl::GetEadsJob do
     end
     describe "write_eads_to_file" do
       context "with XML syntax errors" do
-        let(:dir) { "tmp/subversion_eads/rarebooks" }
+        let(:dir) { "tmp/gitlab_eads/rarebooks" }
         let(:repo) { 6 }
         let(:id) { 1234 }
         before do
@@ -143,7 +111,7 @@ RSpec.describe AspaceVersionControl::GetEadsJob do
           expect(out.report).to include "Unable to process XML for record 6/1234, please check the source XML for errors"
 
           # Ensure the process continues after logging exception
-          expect(FileUtils.identical?(Rails.root.join('tmp', 'subversion_eads', 'ea', 'MyEadID.EAD.xml'),
+          expect(FileUtils.identical?(Rails.root.join('tmp', 'gitlab_eads', 'ea', 'MyEadID.EAD.xml'),
                                       file_fixture('ead_corrected.xml'))).to be true
         end
       end
