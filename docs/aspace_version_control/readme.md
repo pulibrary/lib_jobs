@@ -13,7 +13,7 @@ The [get_eads](https://github.com/pulibrary/lib_jobs/blob/main/lib/tasks/lib_job
 6. adds and commits to GitLab
 
 ### To Run Manually
-1. ssh into lib-jobs-prod2 (don't forget VPN)
+1. `ssh deploy@lib-jobs-prod2.princeton.edu` (don't forget VPN)
 2. `cd /opt/lib-jobs/current/`
 3. `bundle exec rake lib_jobs:send_eads`
 
