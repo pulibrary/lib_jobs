@@ -1,7 +1,7 @@
 This process sends ArchivesSpace records, serialized as EAD, to GitLab once a month.
 
 ### Summary
-The [get_eads](https://github.com/pulibrary/lib_jobs/blob/main/lib/tasks/lib_jobs.rake) task runs the [get_eads_job](https://github.com/pulibrary/lib_jobs/blob/main/app/models/aspace_svn/get_eads_job.rb
+The [get_eads](https://github.com/pulibrary/lib_jobs/blob/main/lib/tasks/lib_jobs.rake) task runs the [get_eads_job](https://github.com/pulibrary/lib_jobs/blob/main/app/models/aspace_version_control/get_eads_job.rb
 ). It is [scheduled](https://github.com/pulibrary/lib_jobs/blob/main/config/schedule.rb) to run on the first day of the month.
 
 ### Steps
