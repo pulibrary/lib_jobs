@@ -15,7 +15,7 @@ module AspaceVersionControl
       @repo ||=
         begin
           Git.clone(GitLab.git_uri, GitLab.git_repo_path)
-        rescue Git::Error
+        rescue Git::Error, Git::FailedError
           Git.open(GitLab.git_repo_path)
         end
     end
