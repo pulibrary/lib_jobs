@@ -31,8 +31,8 @@ test:
   <<: *default
   git_lab_host: 'gitlab-staging-vm.lib.princeton.edu'
   git_lab_source_path: mk8066/test-project-for-cloning
-  local_git_lab_dir: tmp/gitlab_eads
-  git_lab_local_repo_path: tmp/gitlab_eads
+  local_git_lab_dir: /tmp/gitlab_eads
+  git_lab_local_repo_path: /tmp/gitlab_eads
   repos: 
     3: "mudd/publicpolicy"
     6: "rarebooks"

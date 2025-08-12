@@ -7,15 +7,6 @@ RSpec.describe AspaceVersionControl::GetEadsJob do
   let(:repos) { Rails.application.config.aspace.repos }
   let(:git_lab_repo) { Git.init('tmp/gitlab_eads') }
 
-  before do
-    # GitLab mocks
-    allow(Git).to receive(:clone).and_return(git_lab_repo)
-    allow(git_lab_repo).to receive(:pull).and_return("Already up to date.")
-    allow(git_lab_repo).to receive(:add).and_return("")
-    allow(git_lab_repo).to receive(:commit).and_return("[main b1b385c] monthly snapshot of ASpace EADs\n 1 file changed, 0 insertions(+), 0 deletions(-)\n create mode 100644 testing")
-    allow(git_lab_repo).to receive(:push).and_return(nil)
-    # end GitLab mocks
-  end
   describe "#run" do
     before do
       stub_request(:post, %r{\Ahttps://aspace-staging\.princeton\.edu/staff/api/users/})
@@ -47,24 +38,24 @@ RSpec.describe AspaceVersionControl::GetEadsJob do
         .and_return("password")
     end
     around do |example|
-      Rails.root.glob('tmp/gitlab_eads/*').each { |directory| FileUtils.rm_r(directory) }
+      Dir.glob('/tmp/gitlab_eads/*').each { |directory| FileUtils.rm_r(directory) }
       example.run
-      Rails.root.glob('tmp/gitlab_eads/*').each { |directory| FileUtils.rm_r(directory) }
+      Dir.glob('tmp/gitlab_eads/*').each { |directory| FileUtils.rm_r(directory) }
     end
     it "creates directories for all relevant ead repos" do
       described_class.new.run
-      expect(File).to exist(Rails.root.join('tmp', 'gitlab_eads', 'mudd', 'publicpolicy'))
-      expect(File).to exist(Rails.root.join('tmp', 'gitlab_eads', 'rarebooks'))
-      expect(File).to exist(Rails.root.join('tmp', 'gitlab_eads', 'ga'))
-      expect(File).to exist(Rails.root.join('tmp', 'gitlab_eads', 'ea'))
+      expect(File).to exist('/tmp/gitlab_eads/mudd/publicpolicy')
+      expect(File).to exist('/tmp/gitlab_eads/rarebooks')
+      expect(File).to exist('/tmp/gitlab_eads/ga')
+      expect(File).to exist('/tmp/gitlab_eads/ea')
     end
     it "gets filename from the eadid element in the EAD xml api response" do
       described_class.new.run
-      expect(File).to exist(Rails.root.join('tmp', 'gitlab_eads', 'mudd', 'publicpolicy', 'MyEadID.EAD.xml'))
+      expect(File).to exist('/tmp/gitlab_eads/mudd/publicpolicy/MyEadID.EAD.xml')
     end
     it "puts the EAD xml file with corrected namespace into the file" do
       described_class.new.run
-      expect(FileUtils.identical?(Rails.root.join('tmp', 'gitlab_eads', 'mudd', 'publicpolicy', 'MyEadID.EAD.xml'),
+      expect(FileUtils.identical?('/tmp/gitlab_eads/mudd/publicpolicy/MyEadID.EAD.xml',
                                   file_fixture('ead_corrected.xml'))).to be true
     end
     describe "report" do
@@ -111,7 +102,7 @@ RSpec.describe AspaceVersionControl::GetEadsJob do
           expect(out.report).to include "Unable to process XML for record 6/1234, please check the source XML for errors"
 
           # Ensure the process continues after logging exception
-          expect(FileUtils.identical?(Rails.root.join('tmp', 'gitlab_eads', 'ea', 'MyEadID.EAD.xml'),
+          expect(FileUtils.identical?('/tmp/gitlab_eads/ea/MyEadID.EAD.xml',
                                       file_fixture('ead_corrected.xml'))).to be true
         end
       end
