@@ -58,6 +58,15 @@ RSpec.describe AspaceVersionControl::GetEadsJob do
       expect(File).to exist(Rails.root.join('tmp', 'gitlab_eads', 'ga'))
       expect(File).to exist(Rails.root.join('tmp', 'gitlab_eads', 'ea'))
     end
+    it "works even if the gitlab_eads folder has not yet been initialized as a git repo" do
+      allow(Git).to receive(:clone).and_raise Git::FailedError, Git::CommandLineResult.new("clone", double(), "", "gitlab_eads already exists and is not an empty directory.")
+      allow(Git).to receive(:open).and_raise ArgumentError, "gitlab_eads is not in a git working tree"
+      described_class.new.run
+      expect(File).to exist(Rails.root.join('tmp', 'gitlab_eads', 'mudd', 'publicpolicy'))
+      expect(File).to exist(Rails.root.join('tmp', 'gitlab_eads', 'rarebooks'))
+      expect(File).to exist(Rails.root.join('tmp', 'gitlab_eads', 'ga'))
+      expect(File).to exist(Rails.root.join('tmp', 'gitlab_eads', 'ea'))
+    end
     it "gets filename from the eadid element in the EAD xml api response" do
       described_class.new.run
       expect(File).to exist(Rails.root.join('tmp', 'gitlab_eads', 'mudd', 'publicpolicy', 'MyEadID.EAD.xml'))
