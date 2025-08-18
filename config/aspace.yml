@@ -8,21 +8,21 @@ default: &default
   local_git_lab_dir: git_lab_eads
   git_lab_local_repo_path: git_lab_eads
   repos: 
-    3: "eads/mudd/publicpolicy"
-    4: "eads/mudd/univarchives"
-    5: "eads/mss"
-    6: "eads/rarebooks"
-    7: "eads/cotsen"
-    8: "eads/lae"
-    9: "eads/eng"
-    10: "eads/selectors"
-    11: "eads/ga"
-    12: "eads/ea"
+    3: "libsvn/eads/mudd/publicpolicy"
+    4: "libsvn/eads/mudd/univarchives"
+    5: "libsvn/eads/mss"
+    6: "libsvn/eads/rarebooks"
+    7: "libsvn/eads/cotsen"
+    8: "libsvn/eads/lae"
+    9: "libsvn/eads/eng"
+    10: "libsvn/eads/selectors"
+    11: "libsvn/eads/ga"
+    12: "libsvn/eads/ea"
 
 development:
   <<: *default
   repos: 
-    12: "ea"
+    12: "libsvn/eads/ea"
   git_lab_host: <%= ENV["GIT_LAB_HOST"] || 'gitlab-staging-vm.lib.princeton.edu' %>
   local_git_lab_dir: tmp/gitlab_eads
   git_lab_local_repo_path: tmp/gitlab_eads
@@ -34,17 +34,17 @@ test:
   local_git_lab_dir: tmp/gitlab_eads
   git_lab_local_repo_path: tmp/gitlab_eads
   repos: 
-    3: "mudd/publicpolicy"
-    6: "rarebooks"
-    11: "ga"
-    12: "ea"
+    3: "libsvn/eads/mudd/publicpolicy"
+    6: "libsvn/eads/rarebooks"
+    11: "libsvn/eads/ga"
+    12: "libsvn/eads/ea"
 
 staging:
   <<: *default
   git_lab_host: <%= ENV["GIT_LAB_HOST"] || 'gitlab-staging-vm.lib.princeton.edu' %>
   repos: 
-    10: "selectors"
-    11: "ga"
+    10: "libsvn/eads/selectors"
+    11: "libsvn/eads/ga"
 
 production:
   <<: *default
