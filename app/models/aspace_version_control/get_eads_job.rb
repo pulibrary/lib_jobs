@@ -35,6 +35,7 @@ module AspaceVersionControl
 
     def handle(data_set:)
       aspace_login
+      GitLab.new.update
       repos.each do |repo, path|
         get_resource_ids_for_repo(repo)
         next unless @resource_ids
