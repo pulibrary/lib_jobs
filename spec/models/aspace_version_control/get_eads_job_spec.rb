@@ -47,24 +47,24 @@ RSpec.describe AspaceVersionControl::GetEadsJob do
         .and_return("password")
     end
     around do |example|
-      Dir.glob('tmp/gitlab_eads/libsvn/eads*').each { |directory| FileUtils.rm_r(directory) }
+      Dir.glob('tmp/gitlab_eads/eads*').each { |directory| FileUtils.rm_r(directory) }
       example.run
-      Dir.glob('tmp/gitlab_eads/libsvn/eads*').each { |directory| FileUtils.rm_r(directory) }
+      Dir.glob('tmp/gitlab_eads/eads*').each { |directory| FileUtils.rm_r(directory) }
     end
     it "creates directories for all relevant ead repos" do
       described_class.new.run
-      expect(File).to exist('tmp/gitlab_eads/libsvn/eads/mudd/publicpolicy')
-      expect(File).to exist('tmp/gitlab_eads/libsvn/eads/rarebooks')
-      expect(File).to exist('tmp/gitlab_eads/libsvn/eads/ga')
-      expect(File).to exist('tmp/gitlab_eads/libsvn/eads/ea')
+      expect(File).to exist('tmp/gitlab_eads/eads/mudd/publicpolicy')
+      expect(File).to exist('tmp/gitlab_eads/eads/rarebooks')
+      expect(File).to exist('tmp/gitlab_eads/eads/ga')
+      expect(File).to exist('tmp/gitlab_eads/eads/ea')
     end
     it "gets filename from the eadid element in the EAD xml api response" do
       described_class.new.run
-      expect(File).to exist('tmp/gitlab_eads/libsvn/eads/mudd/publicpolicy/MyEadID.EAD.xml')
+      expect(File).to exist('tmp/gitlab_eads/eads/mudd/publicpolicy/MyEadID.EAD.xml')
     end
     it "puts the EAD xml file with corrected namespace into the file" do
       described_class.new.run
-      expect(FileUtils.identical?('tmp/gitlab_eads/libsvn/eads/mudd/publicpolicy/MyEadID.EAD.xml',
+      expect(FileUtils.identical?('tmp/gitlab_eads/eads/mudd/publicpolicy/MyEadID.EAD.xml',
                                   file_fixture('ead_corrected.xml'))).to be true
     end
     describe "report" do
@@ -97,7 +97,7 @@ RSpec.describe AspaceVersionControl::GetEadsJob do
     end
     describe "write_eads_to_file" do
       context "with XML syntax errors" do
-        let(:dir) { "tmp/gitlab_eads/libsvn/eads/rarebooks" }
+        let(:dir) { "tmp/gitlab_eads/eads/rarebooks" }
         let(:repo) { 6 }
         let(:id) { 1234 }
         before do
@@ -111,7 +111,7 @@ RSpec.describe AspaceVersionControl::GetEadsJob do
           expect(out.report).to include "Unable to process XML for record 6/1234, please check the source XML for errors"
 
           # Ensure the process continues after logging exception
-          expect(FileUtils.identical?('tmp/gitlab_eads/libsvn/eads/ea/MyEadID.EAD.xml',
+          expect(FileUtils.identical?('tmp/gitlab_eads/eads/ea/MyEadID.EAD.xml',
                                       file_fixture('ead_corrected.xml'))).to be true
         end
       end
