@@ -47,7 +47,7 @@ module AlmaSubmitCollection
     end
 
     def retention_reasons
-      %w[ReCAPItalianImprints IPLCBrill ReCAPSACAP IPLCBrazil ReCAPCSEEB ReCAPCCIAB ReCAPTICC]
+      %w[ReCAPItalianImprints IPLCBrill ReCAPSACAP IPLCBrazil ReCAPCSEEB ReCAPCCIAB ReCAPTICC ReCAPFrenchImprints]
     end
 
     def committed_cgd?
