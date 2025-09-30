@@ -21,6 +21,7 @@ module AspaceVersionControl
     end
 
     def update
+      repo.checkout('HEAD')
       repo.pull
     end
 
