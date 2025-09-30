@@ -63,12 +63,12 @@ accDescr {
 }
 Alma->>lib-sftp: Alma Analytics sends barcode report at 1am daily
 Lib Jobs->>lib-sftp: aspace2alma renames old MARC-XML file on lib-sftp-prod1
-Lib Jobs->>lib-sftp: aspace2alma requests barcode report at 2:30am daily, renames report once downloaded
+Lib Jobs->>lib-sftp: aspace2alma requests barcode report at 2:30am daily, renames report once downloaded; lib-jobs makes the barcode report available
 Lib Jobs->>ASpace: aspace2alma requests MARC-XML for all collection-level ASpace records at 2:30am daily
 loop each Item
   Lib Jobs->>+Lib Jobs: applies Special Collections changes to default MARC-XML export
   Lib Jobs->>+Lib Jobs: gets top_container records from ASpace
-  Lib Jobs->>+Lib Jobs: constructs item records from top_container records that 1.are at ReCAP 2. have a barcode 3.are not on the Alma barcode report
+  Lib Jobs->>+Lib Jobs: constructs item records from top_container records that 1.are at ReCAP 2. have a barcode 3.are not on the Alma barcode report as confirmed via API call to lib-jobs
   Lib Jobs->>+Lib Jobs: adds select records to a single <marc:collection> wrapper
 end
 Lib Jobs->>lib-sftp: sends MARC-XML file to lib-sftp
