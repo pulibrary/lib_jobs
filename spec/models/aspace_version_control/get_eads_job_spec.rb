@@ -14,6 +14,7 @@ RSpec.describe AspaceVersionControl::GetEadsJob do
     allow(git_lab_repo).to receive(:add).and_return("")
     allow(git_lab_repo).to receive(:commit).and_return("[main b1b385c] monthly snapshot of ASpace EADs\n 1 file changed, 0 insertions(+), 0 deletions(-)\n create mode 100644 testing")
     allow(git_lab_repo).to receive(:push).and_return(nil)
+    allow(git_lab_repo).to receive(:checkout).and_return("Updated 0 paths from")
     # end GitLab mocks
   end
   describe "#run" do
