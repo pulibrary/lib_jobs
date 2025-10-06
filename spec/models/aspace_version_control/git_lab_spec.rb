@@ -44,9 +44,9 @@ RSpec.describe AspaceVersionControl::GitLab do
         allow(repo).to receive(:pull).and_return("Already up to date.")
         allow(repo).to receive(:checkout).and_return("Updated 0 paths from")
         git_lab = described_class.new
-        git_lab.update
+        git_lab.update(path: 'testing')
         expect(repo).to have_received(:pull)
-        expect(repo).to have_received(:checkout).with('HEAD')
+        expect(repo).to have_received(:checkout).with('HEAD', { path: "testing" })
       end
       context 'with no changes' do
         before do
@@ -66,7 +66,7 @@ RSpec.describe AspaceVersionControl::GitLab do
           expect(repo).not_to have_received(:add)
           expect(repo).not_to have_received(:commit)
           expect(repo).not_to have_received(:push)
-          expect(repo).to have_received(:checkout).with('HEAD')
+          expect(repo).to have_received(:checkout).with('HEAD', { path: "testing" })
           expect(Rails.logger).to have_received(:info)
         end
       end
@@ -104,7 +104,7 @@ RSpec.describe AspaceVersionControl::GitLab do
             expect(repo).to have_received(:add).with('testing')
             expect(repo).to have_received(:commit).with('monthly snapshot of ASpace EADs')
             expect(repo).to have_received(:push)
-            expect(repo).to have_received(:checkout).with('HEAD')
+            expect(repo).to have_received(:checkout).with('HEAD', { path: "testing" })
           end
         end
       end

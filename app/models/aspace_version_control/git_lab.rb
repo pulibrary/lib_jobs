@@ -20,7 +20,7 @@ module AspaceVersionControl
         end
     end
 
-    def update(path = '.')
+    def update(path:)
       repo.checkout('HEAD', path:)
       repo.pull
     end
