@@ -4,7 +4,7 @@ module AspaceVersionControl
   # This class is responsible for committing EADs to GitLab for version control
   class GitLab
     def commit_eads_to_git(path:)
-      update
+      update(path:)
       return unless changes?(path:)
       add(path:)
       commit
@@ -20,7 +20,8 @@ module AspaceVersionControl
         end
     end
 
-    def update
+    def update(path:)
+      repo.checkout('HEAD', path:)
       repo.pull
     end
 
