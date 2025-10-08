@@ -17,3 +17,7 @@ The [get_eads](https://github.com/pulibrary/lib_jobs/blob/main/lib/tasks/lib_job
 2. `cd /opt/lib-jobs/current/`
 3. `bundle exec rake lib_jobs:send_eads`
 
+### To Test Against the Staging Repo in Production
+1. `ssh deploy@lib-jobs-prod2.princeton.edu` (don't forget VPN)
+2. `cd /opt/lib-jobs/current/`
+3. `GIT_LAB_DIR=tmp/git_lab_staging_eads bundle exec rake lib_jobs:send_eads`

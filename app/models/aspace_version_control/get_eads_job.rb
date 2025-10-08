@@ -10,7 +10,7 @@ module AspaceVersionControl
     def initialize(local_git_lab_dir: Rails.application.config.aspace.local_git_lab_dir)
       super(category: "EAD_export")
       @errors = []
-      @local_git_lab_dir = local_git_lab_dir
+      @local_git_lab_dir = ENV['GIT_LAB_DIR'] || local_git_lab_dir
       @repos = Rails.application.config.aspace.repos
     end
 
