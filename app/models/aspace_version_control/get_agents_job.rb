@@ -1,13 +1,18 @@
 # frozen_string_literal: true
 require 'archivesspace/client'
 require 'nokogiri'
+require 'fileutils'
 
 module AspaceVersionControl
   # rubocop:disable Metrics/ClassLength
   class GetAgentsJob < LibJob
-    def initialize
+    attr_reader :repo_eacs
+
+    def initialize(local_git_lab_eacs_dir: Rails.application.config.aspace.local_git_lab_eacs_dir)
       super(category: "Agents_export")
       @errors = []
+      @local_git_lab_eacs_dir = local_git_lab_eacs_dir
+      @repo_eacs = Rails.application.config.aspace.repo_eacs
     end
 
     def aspace_login
@@ -36,7 +41,13 @@ module AspaceVersionControl
 
     def handle(data_set:)
       aspace_login
-      # TODO:  agent job
+      Rails.logger.info("Opening Repo at #{@local_git_lab_eacs_dir}")
+      GitLab.new(repo_path: @local_git_lab_eacs_dir).update(path: @local_git_lab_eacs_dir)
+
+      repo_eacs.each do |repo, path|
+        prepare_and_commit_to_git_lab(repo, path)
+      end
+
       data_set.data = report
       data_set.report_time = Time.zone.now
       data_set
@@ -154,6 +165,35 @@ module AspaceVersionControl
     end
 
     private
+
+    def prepare_and_commit_to_git_lab(repo, path)
+      git_lab_repo_path = repo_path(@local_git_lab_eacs_dir, path)
+      Rails.logger.info("Preparing commit to GitLab for #{git_lab_repo_path}")
+
+      make_directories(git_lab_repo_path)
+      process_all_agent_types_to_directory(git_lab_repo_path)
+      GitLab.new(repo_path: @local_git_lab_eacs_dir).commit_eacs_to_git(path: path)
+    rescue Git::Error => error
+      Rails.logger.error("Error updating EACs using GitLab for repo #{repo} at path #{path}.\nError: #{error}")
+    end
+
+    def process_all_agent_types_to_directory(output_dir)
+      Rails.logger.info("Processing all agent types to #{output_dir}")
+
+      # Process each agent type and save to the output directory
+      ['people', 'families', 'corporate_entities'].each do |agent_type|
+        Rails.logger.info("Processing #{agent_type} agents")
+        process_all_cpf_files(agent_type, output_dir, chunk_size: 500, start_from: 0)
+      end
+    end
+
+    def repo_path(local_git_lab_dir, path)
+      File.join(local_git_lab_dir, path)
+    end
+
+    def make_directories(git_lab_repo_path)
+      FileUtils.mkdir_p(git_lab_repo_path)
+    end
 
     def get_agent_ids_by_type(agent_type)
       case agent_type

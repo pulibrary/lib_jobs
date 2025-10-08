@@ -362,9 +362,15 @@ RSpec.describe AspaceVersionControl::GetAgentsJob do
 
   describe "#handle" do
     let(:data_set) { DataSet.new(category: "Agents_export") }
+    let(:mock_gitlab) { double('GitLab') }
 
     before do
       allow(agents_job).to receive(:aspace_login).and_return(mock_client)
+      allow(AspaceVersionControl::GitLab).to receive(:new).and_return(mock_gitlab)
+      allow(mock_gitlab).to receive(:update)
+      allow(mock_gitlab).to receive(:commit_eacs_to_git)
+      allow(agents_job).to receive(:process_all_agent_types_to_directory)
+      allow(FileUtils).to receive(:mkdir_p)
     end
 
     it "processes the data set and sets report time" do
