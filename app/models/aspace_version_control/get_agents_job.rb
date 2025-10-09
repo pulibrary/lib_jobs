@@ -266,21 +266,40 @@ module AspaceVersionControl
     def generate_cpf_filename(doc, id, agent_type)
       namespace = { 'eac' => 'urn:isbn:1-931666-33-4' }
 
-      surname = doc.at_xpath('//eac:nameEntry/eac:part[@localType="surname"]', namespace)&.text
-      forename = doc.at_xpath('//eac:nameEntry/eac:part[@localType="forename"]', namespace)&.text
+      name_parts = case agent_type
+                   when 'corporate_entities'
+                     concat_corporate_name_parts(doc, namespace)
+                   when 'families', 'people'
+                     concat_family_person_name_parts(doc, namespace)
+                   else
+                     []
+                   end
 
-      # Build name parts if they exist
-      name_parts = []
-      name_parts << surname.gsub(/\s+/, '').upcase if surname
-      name_parts << forename.gsub(/\s+/, '').upcase if forename
-
-      # Concatenate name parts, agent_type, and agent_id
       filename_parts = []
       filename_parts << name_parts.join('_') if name_parts.any?
       filename_parts << agent_type
       filename_parts << id.to_s
-
       filename_parts.join('_')
+    end
+
+    def concat_corporate_name_parts(doc, namespace)
+      primary_name = doc.at_xpath('//eac:nameEntry/eac:part[@localType="primary_name"]', namespace)&.text
+      subordinate_name = doc.at_xpath('//eac:nameEntry/eac:part[@localType="subordinate_name_1"]', namespace)&.text
+
+      name_parts = []
+      name_parts << primary_name.gsub(/\s+/, '').upcase if primary_name
+      name_parts << subordinate_name.gsub(/\s+/, '').upcase if subordinate_name
+      name_parts
+    end
+
+    def concat_family_person_name_parts(doc, namespace)
+      surname = doc.at_xpath('//eac:nameEntry/eac:part[@localType="surname"]', namespace)&.text
+      forename = doc.at_xpath('//eac:nameEntry/eac:part[@localType="forename"]', namespace)&.text
+
+      name_parts = []
+      name_parts << surname.gsub(/\s+/, '').upcase if surname
+      name_parts << forename.gsub(/\s+/, '').upcase if forename
+      name_parts
     end
 
     def log_stderr(stderr_str)

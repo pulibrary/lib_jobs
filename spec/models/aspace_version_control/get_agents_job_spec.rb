@@ -7,7 +7,7 @@ RSpec.describe AspaceVersionControl::GetAgentsJob do
   let(:mock_client) { double('ArchivesSpace::Client') }
   let(:mock_config) { double('ArchivesSpace::Configuration') }
 
-  # Sample CPF XML response
+  # Sample CPF XML response for person
   let(:cpf_xml_body) do
     <<~XML
       <?xml version="1.0" encoding="UTF-8"?>
@@ -31,8 +31,106 @@ RSpec.describe AspaceVersionControl::GetAgentsJob do
     XML
   end
 
+  # Sample CPF XML response for family
+  let(:family_cpf_xml_body) do
+    <<~XML
+      <?xml version="1.0" encoding="UTF-8"?>
+      <eac-cpf xmlns="urn:isbn:1-931666-33-4" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xml:lang="eng" xsi:schemaLocation="urn:isbn:1-931666-33-4 https://eac.staatsbibliothek-berlin.de/schema/cpf.xsd">
+        <control>
+          <recordId>GULICKFAMILY</recordId>
+          <maintenanceStatus>revised</maintenanceStatus>
+          <maintenanceAgency>
+            <agencyName>Princeton University Library</agencyName>
+          </maintenanceAgency>
+          <maintenanceHistory>
+            <maintenanceEvent>
+              <eventType>updated</eventType>
+              <eventDateTime standardDateTime="2020-01-01T00:00:00+00:00"/>
+              <agentType>machine</agentType>
+              <agent>system</agent>
+              <eventDescription>Migrated records from a spreadsheet created from native EAC-CPF via OpenRefine.</eventDescription>
+            </maintenanceEvent>
+          </maintenanceHistory>
+        </control>
+        <cpfDescription>
+          <identity>
+            <entityId>GULICKFAMILY</entityId>
+            <entityType>family</entityType>
+            <nameEntry>
+              <part localType="surname">Gulick (family)</part>
+              <authorizedForm>local</authorizedForm>
+            </nameEntry>
+          </identity>
+          <description>
+            <biogHist>
+              <p>&lt;p&gt;The Gulick family was of German and Dutch descent, most likely having its origins in the Duchy of Gulick in Germany.&lt;/p&gt;</p>
+            </biogHist>
+          </description>
+          <relations>
+            <resourceRelation resourceRelationType="creatorOf" xlink:href="https://aspace-staging.princeton.edu/public/repositories/5/resources/3685" xlink:type="simple">
+              <relationEntry>Gulick Family Papers</relationEntry>
+            </resourceRelation>
+          </relations>
+        </cpfDescription>
+      </eac-cpf>
+    XML
+  end
+
+  # Sample CPF XML response for corporate entity
+  let(:corporate_cpf_xml_body) do
+    <<~XML
+      <?xml version="1.0" encoding="UTF-8"?>
+      <eac-cpf xmlns="urn:isbn:1-931666-33-4" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xml:lang="eng" xsi:schemaLocation="urn:isbn:1-931666-33-4 https://eac.staatsbibliothek-berlin.de/schema/cpf.xsd">
+        <control>
+          <recordId>PRINCETONUNIVERSITYOFFICEOFRESEARCHANDPROJECTADMINISTRATION</recordId>
+          <maintenanceStatus>revised</maintenanceStatus>
+          <maintenanceAgency>
+            <agencyName>Princeton University Library</agencyName>
+          </maintenanceAgency>
+          <maintenanceHistory>
+            <maintenanceEvent>
+              <eventType>updated</eventType>
+              <eventDateTime standardDateTime="2020-01-01T00:00:00+00:00"/>
+              <agentType>machine</agentType>
+              <agent>system</agent>
+              <eventDescription>Migrated records from a spreadsheet created from native EAC-CPF via OpenRefine.</eventDescription>
+            </maintenanceEvent>
+            <maintenanceEvent>
+              <eventType>updated</eventType>
+              <eventDateTime standardDateTime="2023-04-28T00:00:00+00:00"/>
+              <agentType>machine</agentType>
+              <agent>system</agent>
+              <eventDescription>Upgraded records to re-populate the required CPF and ASpace fields that were lost during data import via OpenRefine.</eventDescription>
+            </maintenanceEvent>
+          </maintenanceHistory>
+        </control>
+        <cpfDescription>
+          <identity>
+            <entityId>PRINCETONUNIVERSITYOFFICEOFRESEARCHANDPROJECTADMINISTRATION</entityId>
+            <entityType>corporateBody</entityType>
+            <nameEntry>
+              <part localType="primary_name">Princeton University</part>
+              <part localType="subordinate_name_1">Office of Research and Project Administration</part>
+              <authorizedForm>local</authorizedForm>
+            </nameEntry>
+          </identity>
+          <description/>
+          <relations/>
+        </cpfDescription>
+      </eac-cpf>
+    XML
+  end
+
   let(:cpf_response) do
     double('ArchivesSpace::Response', body: cpf_xml_body)
+  end
+
+  let(:family_cpf_response) do
+    double('ArchivesSpace::Response', body: family_cpf_xml_body)
+  end
+
+  let(:corporate_cpf_response) do
+    double('ArchivesSpace::Response', body: corporate_cpf_xml_body)
   end
 
   let(:agent_ids_response) do
@@ -139,6 +237,8 @@ RSpec.describe AspaceVersionControl::GetAgentsJob do
     before do
       agents_job.instance_variable_set(:@client, mock_client)
       allow(mock_client).to receive(:get).with("/repositories/1/archival_contexts/people/13.xml").and_return(cpf_response)
+      allow(mock_client).to receive(:get).with("/repositories/1/archival_contexts/families/68.xml").and_return(family_cpf_response)
+      allow(mock_client).to receive(:get).with("/repositories/1/archival_contexts/corporate_entities/210.xml").and_return(corporate_cpf_response)
     end
 
     it "returns XML content and filename for person agent" do
@@ -151,8 +251,29 @@ RSpec.describe AspaceVersionControl::GetAgentsJob do
       expect(result[:filename]).to eq('SMITH_HENRYBRADFORD_people_13.CPF.xml')
     end
 
+    it "returns XML content and filename for family agent" do
+      result = agents_job.get_archival_context_xml(68, 'families')
+
+      expect(result[:xml_content]).to include('<?xml version="1.0" encoding="UTF-8"?>')
+      expect(result[:xml_content]).to include('<part localType="surname">Gulick (family)</part>')
+      expect(result[:xml_content]).to include('<entityId>GULICKFAMILY</entityId>')
+      expect(result[:xml_content]).to include('<authorizedForm>local</authorizedForm>')
+      expect(result[:filename]).to eq('GULICK(FAMILY)_families_68.CPF.xml')
+    end
+
+    it "returns XML content and filename for corporate entity agent" do
+      result = agents_job.get_archival_context_xml(210, 'corporate_entities')
+
+      expect(result[:xml_content]).to include('<?xml version="1.0" encoding="UTF-8"?>')
+      expect(result[:xml_content]).to include('<part localType="primary_name">Princeton University</part>')
+      expect(result[:xml_content]).to include('<part localType="subordinate_name_1">Office of Research and Project Administration</part>')
+      expect(result[:xml_content]).to include('<entityId>PRINCETONUNIVERSITYOFFICEOFRESEARCHANDPROJECTADMINISTRATION</entityId>')
+      expect(result[:xml_content]).to include('<authorizedForm>local</authorizedForm>')
+      expect(result[:filename]).to eq('PRINCETONUNIVERSITY_OFFICEOFRESEARCHANDPROJECTADMINISTRATION_corporate_entities_210.CPF.xml')
+    end
+
     it "makes correct API call for different agent types" do
-      expect(mock_client).to receive(:get).with("/repositories/1/archival_contexts/families/13.xml").and_return(cpf_response)
+      expect(mock_client).to receive(:get).with("/repositories/1/archival_contexts/families/13.xml").and_return(family_cpf_response)
       agents_job.get_archival_context_xml(13, 'families')
     end
   end
