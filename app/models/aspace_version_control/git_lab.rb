@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module AspaceVersionControl
-  # This class is responsible for committing EADs to GitLab for version control
+  # This class is responsible for committing EADs and EACs to GitLab for version control
   class GitLab
     def initialize(repo_path: nil)
       @custom_repo_path = repo_path
@@ -16,6 +16,7 @@ module AspaceVersionControl
     end
 
     def commit_eacs_to_git(path:)
+      git_config
       update(path:)
       return unless changes?(path:)
       add(path:)
@@ -33,8 +34,7 @@ module AspaceVersionControl
     end
 
     def git_config
-      @repo.config('user.name', 'scuaAPI')
-      @repo.config('user.email', 'heberlen@princeton.edu')
+      configure_git_user(repo)
     end
 
     def current_repo_path
@@ -78,6 +78,13 @@ module AspaceVersionControl
 
     def self.config
       @config ||= Rails.application.config.aspace
+    end
+
+    private
+
+    def configure_git_user(repo)
+      repo.config('user.name', 'scuaAPI')
+      repo.config('user.email', 'heberlen@princeton.edu')
     end
   end
 end

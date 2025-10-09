@@ -148,6 +148,7 @@ RSpec.describe AspaceVersionControl::GitLab do
           allow(eacs_repo).to receive(:commit).and_call_original
           allow(eacs_repo).to receive(:push).and_call_original
           allow(eacs_repo).to receive(:checkout).and_return("Updated 0 paths from")
+          allow(eacs_repo).to receive(:config).and_return(nil)
 
           custom_git_lab.commit_eacs_to_git(path: 'eacs')
 
@@ -179,6 +180,7 @@ RSpec.describe AspaceVersionControl::GitLab do
           # rubocop:enable Layout/LineLength:
           allow(eacs_repo).to receive(:push).and_return(nil)
           allow(eacs_repo).to receive(:checkout).and_return("Updated 0 paths from")
+          allow(eacs_repo).to receive(:config).and_return(nil)
 
           custom_git_lab.commit_eacs_to_git(path: 'eacs')
 
