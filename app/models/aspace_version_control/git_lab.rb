@@ -32,6 +32,11 @@ module AspaceVersionControl
         end
     end
 
+    def git_config
+      @repo.config('user.name', 'scuaAPI')
+      @repo.config('user.email', 'heberlen@princeton.edu')
+    end
+
     def current_repo_path
       @custom_repo_path || GitLab.git_repo_path
     end
