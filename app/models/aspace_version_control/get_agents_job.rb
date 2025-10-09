@@ -12,7 +12,6 @@ module AspaceVersionControl
       super(category: "Agents_export")
       @errors = []
       @local_git_lab_eacs_dir = local_git_lab_eacs_dir
-      @repo_eacs = Rails.application.config.aspace.repo_eacs
     end
 
     def aspace_login
@@ -44,9 +43,8 @@ module AspaceVersionControl
       Rails.logger.info("Opening Repo at #{@local_git_lab_eacs_dir}")
       GitLab.new(repo_path: @local_git_lab_eacs_dir).update(path: @local_git_lab_eacs_dir)
 
-      repo_eacs.each do |repo, path|
-        prepare_and_commit_to_git_lab(repo, path)
-      end
+      # We only have one repo for EACs
+      prepare_and_commit_to_git_lab(1, "eacs")
 
       data_set.data = report
       data_set.report_time = Time.zone.now
@@ -166,6 +164,8 @@ module AspaceVersionControl
 
     private
 
+    # even though we could use the hardcoded repo 1 and path eacs,
+    # keep the method more generic for possible future use
     def prepare_and_commit_to_git_lab(repo, path)
       git_lab_repo_path = repo_path(@local_git_lab_eacs_dir, path)
       Rails.logger.info("Preparing commit to GitLab for #{git_lab_repo_path}")

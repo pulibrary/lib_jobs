@@ -19,8 +19,7 @@ default: &default
     10: "eads/selectors"
     11: "eads/ga"
     12: "eads/ea"
-  repo_eacs:
-    1: "eacs"
+
 
 development:
   <<: *default
