@@ -90,6 +90,11 @@ every 1.month, at: ['9:00 pm'], roles: [:cron_prod2] do
   rake "lib_jobs:send_eads"
 end
 
+# Run every 1st Monday of the month at 10pm UTC
+every '0 22 * * 1#1', roles: [:cron_prod2] do
+  rake "lib_jobs:pull_and_send_agents"
+end
+
 # Run on production every Thursday at 3am EST or 4am EDT
 # every :thursday, at: '8:00 am', roles: [:cron_prod2] do # The server is in UTC, so that is 8:00 UTC
 #   rake "lib_jobs:alma_bib_norm"
