@@ -53,7 +53,7 @@ before "deploy:reverted", "deploy:assets:precompile"
 
 # Default value for linked_dirs is []
 # append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "public/system"
-set :linked_dirs, %w[open_marc_records subversion_eads git_lab_eads]
+set :linked_dirs, %w[open_marc_records subversion_eads git_lab_eads git_lab_staging_eads]
 
 # Default value for default_env is {}
 # set :default_env, { path: "/opt/ruby/bin:$PATH" }
