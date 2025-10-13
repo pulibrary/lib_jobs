@@ -5,6 +5,7 @@ RSpec.describe AspaceVersionControl::GitLab do
   it 'can access configuration' do
     expect(described_class.git_uri).to eq('git@gitlab-staging-vm.lib.princeton.edu:mk8066/test-project-for-cloning.git')
     expect(described_class.git_repo_path).to eq('tmp/gitlab_eads')
+    expect(described_class.git_repo_eacs_path).to eq('tmp/gitlab_eacs')
   end
   context 'calling original methods' do
     let(:repo) { Git.init('tmp/gitlab_eads') }
@@ -106,6 +107,87 @@ RSpec.describe AspaceVersionControl::GitLab do
             expect(repo).to have_received(:push)
             expect(repo).to have_received(:checkout).with('HEAD', { path: "testing" })
           end
+        end
+      end
+    end
+  end
+
+  context 'with custom repo path for EACs' do
+    let(:eacs_repo) { Git.init('tmp/gitlab_eacs') }
+    let(:custom_git_lab) { described_class.new(repo_path: 'tmp/gitlab_eacs') }
+
+    before do
+      FileUtils.rm_rf('tmp/gitlab_eacs')
+      eacs_repo
+    end
+
+    after do
+      FileUtils.rm_rf('tmp/gitlab_eacs')
+    end
+
+    it 'uses custom repo path instead of default' do
+      allow(Git).to receive(:clone).and_raise(Git::Error)
+      allow(Git).to receive(:open).and_return(eacs_repo)
+
+      expect(custom_git_lab.current_repo_path).to eq('tmp/gitlab_eacs')
+      expect(custom_git_lab.repo).to be_an_instance_of(Git::Base)
+      expect(Git).to have_received(:open).with('tmp/gitlab_eacs')
+    end
+
+    context 'commit_eacs_to_git method' do
+      context 'with no changes' do
+        before do
+          eacs_repo.reset_hard
+        end
+
+        it 'does not attempt to add, commit, or push for EACs' do
+          allow(Rails.logger).to receive(:info)
+          allow(Git).to receive(:clone).and_return(eacs_repo)
+          allow(eacs_repo).to receive(:pull).and_return("Already up to date.")
+          allow(eacs_repo).to receive(:add).and_call_original
+          allow(eacs_repo).to receive(:commit).and_call_original
+          allow(eacs_repo).to receive(:push).and_call_original
+          allow(eacs_repo).to receive(:checkout).and_return("Updated 0 paths from")
+          allow(eacs_repo).to receive(:config).and_return(nil)
+
+          custom_git_lab.commit_eacs_to_git(path: 'eacs')
+
+          expect(eacs_repo).to have_received(:pull)
+          expect(eacs_repo).not_to have_received(:add)
+          expect(eacs_repo).not_to have_received(:commit)
+          expect(eacs_repo).not_to have_received(:push)
+          expect(eacs_repo).to have_received(:checkout).with('HEAD', { path: "eacs" })
+          expect(Rails.logger).to have_received(:info)
+        end
+      end
+
+      context 'with changes' do
+        before do
+          FileUtils.mkdir_p('tmp/gitlab_eacs')
+          FileUtils.touch('tmp/gitlab_eacs/test_agent.cpf.xml')
+        end
+
+        after do
+          eacs_repo.reset_hard
+        end
+
+        it 'commits EACs with appropriate message' do
+          allow(Git).to receive(:clone).and_return(eacs_repo)
+          allow(eacs_repo).to receive(:pull).and_return("Already up to date.")
+          allow(eacs_repo).to receive(:add).and_return("")
+          # rubocop:disable Layout/LineLength:
+          allow(eacs_repo).to receive(:commit).and_return("[main abc123] monthly snapshot of ASpace Agent EACs\n 1 file changed, 0 insertions(+), 0 deletions(-)\n create mode 100644 test_agent.cpf.xml")
+          # rubocop:enable Layout/LineLength:
+          allow(eacs_repo).to receive(:push).and_return(nil)
+          allow(eacs_repo).to receive(:checkout).and_return("Updated 0 paths from")
+          allow(eacs_repo).to receive(:config).and_return(nil)
+
+          custom_git_lab.commit_eacs_to_git(path: 'eacs')
+
+          expect(eacs_repo).to have_received(:add).with('eacs')
+          expect(eacs_repo).to have_received(:commit).with('monthly snapshot of ASpace Agent EACs')
+          expect(eacs_repo).to have_received(:push)
+          expect(eacs_repo).to have_received(:checkout).with('HEAD', { path: "eacs" })
         end
       end
     end

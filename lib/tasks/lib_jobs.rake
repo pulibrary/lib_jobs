@@ -122,6 +122,12 @@ namespace :lib_jobs do
     job.run
   end
 
+  desc "pull agents archival context from aspace and commit to gitlab"
+  task pull_and_send_agents: [:environment] do
+    job = AspaceVersionControl::GetAgentsJob.new
+    job.run
+  end
+
   desc "POSTs to Alma to move OCLC numbers from the 914 field to the 035 field"
   task alma_bib_norm: [:environment] do
     job = AlmaBibNorm::AlmaBibNorm.new

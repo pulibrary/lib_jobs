@@ -1,13 +1,17 @@
 # frozen_string_literal: true
 require 'archivesspace/client'
 require 'nokogiri'
+require 'fileutils'
 
 module AspaceVersionControl
   # rubocop:disable Metrics/ClassLength
   class GetAgentsJob < LibJob
-    def initialize
+    attr_reader :repo_eacs
+
+    def initialize(local_git_lab_eacs_dir: Rails.application.config.aspace.local_git_lab_eacs_dir)
       super(category: "Agents_export")
       @errors = []
+      @local_git_lab_eacs_dir = local_git_lab_eacs_dir
     end
 
     def aspace_login
@@ -36,7 +40,12 @@ module AspaceVersionControl
 
     def handle(data_set:)
       aspace_login
-      # TODO:  agent job
+      Rails.logger.info("Opening Repo at #{@local_git_lab_eacs_dir}")
+      GitLab.new(repo_path: @local_git_lab_eacs_dir).update(path: @local_git_lab_eacs_dir)
+
+      # We only have one repo for EACs
+      prepare_and_commit_to_git_lab(1, "eacs")
+
       data_set.data = report
       data_set.report_time = Time.zone.now
       data_set
@@ -155,6 +164,37 @@ module AspaceVersionControl
 
     private
 
+    # even though we could use the hardcoded repo 1 and path eacs,
+    # keep the method more generic for possible future use
+    def prepare_and_commit_to_git_lab(repo, path)
+      git_lab_repo_path = repo_path(@local_git_lab_eacs_dir, path)
+      Rails.logger.info("Preparing commit to GitLab for #{git_lab_repo_path}")
+
+      make_directories(git_lab_repo_path)
+      process_all_agent_types_to_directory(git_lab_repo_path)
+      GitLab.new(repo_path: @local_git_lab_eacs_dir).commit_eacs_to_git(path: path)
+    rescue Git::Error => error
+      Rails.logger.error("Error updating EACs using GitLab for repo #{repo} at path #{path}.\nError: #{error}")
+    end
+
+    def process_all_agent_types_to_directory(output_dir)
+      Rails.logger.info("Processing all agent types to #{output_dir}")
+
+      # Process each agent type and save to the output directory
+      ['people', 'families', 'corporate_entities'].each do |agent_type|
+        Rails.logger.info("Processing #{agent_type} agents")
+        process_all_cpf_files(agent_type, output_dir, chunk_size: 500, start_from: 0)
+      end
+    end
+
+    def repo_path(local_git_lab_dir, path)
+      File.join(local_git_lab_dir, path)
+    end
+
+    def make_directories(git_lab_repo_path)
+      FileUtils.mkdir_p(git_lab_repo_path)
+    end
+
     def get_agent_ids_by_type(agent_type)
       case agent_type
       when 'people'
@@ -226,21 +266,40 @@ module AspaceVersionControl
     def generate_cpf_filename(doc, id, agent_type)
       namespace = { 'eac' => 'urn:isbn:1-931666-33-4' }
 
-      surname = doc.at_xpath('//eac:nameEntry/eac:part[@localType="surname"]', namespace)&.text
-      forename = doc.at_xpath('//eac:nameEntry/eac:part[@localType="forename"]', namespace)&.text
+      name_parts = case agent_type
+                   when 'corporate_entities'
+                     concat_corporate_name_parts(doc, namespace)
+                   when 'families', 'people'
+                     concat_family_person_name_parts(doc, namespace)
+                   else
+                     []
+                   end
 
-      # Build name parts if they exist
-      name_parts = []
-      name_parts << surname.gsub(/\s+/, '').upcase if surname
-      name_parts << forename.gsub(/\s+/, '').upcase if forename
-
-      # Concatenate name parts, agent_type, and agent_id
       filename_parts = []
       filename_parts << name_parts.join('_') if name_parts.any?
       filename_parts << agent_type
       filename_parts << id.to_s
-
       filename_parts.join('_')
+    end
+
+    def concat_corporate_name_parts(doc, namespace)
+      primary_name = doc.at_xpath('//eac:nameEntry/eac:part[@localType="primary_name"]', namespace)&.text
+      subordinate_name = doc.at_xpath('//eac:nameEntry/eac:part[@localType="subordinate_name_1"]', namespace)&.text
+
+      name_parts = []
+      name_parts << primary_name.gsub(/\s+/, '').upcase if primary_name
+      name_parts << subordinate_name.gsub(/\s+/, '').upcase if subordinate_name
+      name_parts
+    end
+
+    def concat_family_person_name_parts(doc, namespace)
+      surname = doc.at_xpath('//eac:nameEntry/eac:part[@localType="surname"]', namespace)&.text
+      forename = doc.at_xpath('//eac:nameEntry/eac:part[@localType="forename"]', namespace)&.text
+
+      name_parts = []
+      name_parts << surname.gsub(/\s+/, '').upcase if surname
+      name_parts << forename.gsub(/\s+/, '').upcase if forename
+      name_parts
     end
 
     def log_stderr(stderr_str)
