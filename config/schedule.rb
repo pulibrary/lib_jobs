@@ -90,8 +90,8 @@ every 1.month, at: ['9:00 pm'], roles: [:cron_prod2] do
   rake "lib_jobs:send_eads"
 end
 
-# Run every 1st Monday of the month at 10pm UTC
-every '0 22 * * 1#1', roles: [:cron_prod2] do
+# Run every month at 10pm UTC
+every :month, at: '10:00 pm', roles: [:cron_prod2] do
   rake "lib_jobs:pull_and_send_agents"
 end
 
