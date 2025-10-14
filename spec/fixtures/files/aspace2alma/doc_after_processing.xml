@@ -1,0 +1,344 @@
+<collection xmlns="http://www.loc.gov/MARC21/slim" xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/MARC21/slim http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd"><record>
+  <leader>00000npcaa2200000 u 4500</leader>
+  <controlfield tag="001">MC001.01</controlfield>
+  <controlfield tag="003">PULFA</controlfield>
+  <controlfield tag="008">221215i19171950xx                  eng d</controlfield>
+  <datafield ind1=" " ind2=" " tag="035">
+          <subfield code="a">(PULFA)MC001.01</subfield>
+          </datafield>
+  <datafield ind1=" " ind2=" " tag="040">
+              <subfield code="a">NjP</subfield>
+              <subfield code="b">eng</subfield>
+              <subfield code="e">dacs</subfield>
+              <subfield code="c">NjP</subfield>
+            </datafield>
+  <datafield ind1=" " ind2=" " tag="041">
+    <subfield code="a">eng</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="046">
+              <subfield code="a">i</subfield>
+              <subfield code="c">1917</subfield>
+              <subfield code="e">1950</subfield>
+            </datafield>
+  <datafield ind1=" " ind2=" " tag="099">
+    <subfield code="a">MC001.01</subfield>
+  </datafield>
+  <datafield ind1="2" ind2=" " tag="110">
+    <subfield code="a">American civil liberties union,</subfield>
+    <subfield code="e">Creator.</subfield>
+    <subfield code="4">cre</subfield>
+    <subfield code="0">https://viaf.org/viaf/124191829</subfield>
+  </datafield>
+  <datafield ind1="1" ind2="0" tag="245">
+    <subfield code="a">American Civil Liberties Union Records: Subgroup 1, The Roger Baldwin Years,</subfield>
+    <subfield code="f">1917-1950</subfield>
+    <subfield code="g">(mostly 1930-1950)</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="300">
+    <subfield code="a">22</subfield>
+    <subfield code="f">boxes</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="300">
+    <subfield code="a">46</subfield>
+    <subfield code="f">items</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="300">
+    <subfield code="a">5</subfield>
+    <subfield code="f">Reels</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="300">
+    <subfield code="a">1928</subfield>
+    <subfield code="f">Volumes</subfield>
+  </datafield>
+  <datafield ind1=" " ind2=" " tag="506">
+    <subfield code="a">Subgroup 1 is open for research use.</subfield>
+  </datafield>
+  <datafield ind1="3" ind2=" " tag="520">
+    <subfield code="a">The American Civil Liberties Union Records, The Roger Baldwin years, document the activities of the ACLU from 1917 through 1950. The files contain materials on conscientious objection, freedom of speech, academic freedom, censorship, and labor concerns. The files reflect work on litigation, advocacy, and public policy. Materials include correspondence and newspaper clippings. Subgroup 1 has been digitized in its entirety and is available for members of the Princeton community to view  here . To view the database from outside Princeton University, please see the  Guide to the American Civil Liberties Union Records .</subfield>
+  </datafield>
+  <datafield ind1="2" ind2=" " tag="520">
+    <subfield code="a">The American Civil Liberties Union Records, The Roger Baldwin years, document the activities of the ACLU from 1917 through 1950. The files contain materials on conscientious objection, freedom of speech, academic and religious freedom, censorship, labor rights, the Espionage Act of 1917, political demonstrations, political propaganda, the Ku Klux Klan and other patrioteering organizations, mob violence, racism, lynching, and other civil liberty issues. Materials include correspondence and newspaper clippings. Please see the series descriptions for additional descriptive information.  This collection consists of 1,886 bound volumes of records from the years 1917-1946, 226 volumes of loose records from 1946-1950, and three boxes (Appendixes 1-3) that contain material primarily from 1940-1946, much of which are available on microfilm. The microfilm does not include complete runs of administrative material such as board minutes, some materials relating to files on the removal of Elizabeth Gurley Flynn from the board, various labor issues, and radio censorship. There are 228 reels of microfilm in the collection.</subfield>
+  </datafield>
+  <datafield ind1="0" ind2=" " tag="555">
+    <subfield code="a">The ACLU Card Index (1917-1946) lists materials in this collection first chronologically and then by subject or name (original index cards are now located in AC123, Library Records). Please use the linked  Card Index Subjects list  and  Names list  (individuals are found under the heading "people" in the index) to identify relevant index terms and the years in which they appear. The cards provide reel (r), volume, and page numbers for each subject. This index has several limitations. Names are not indexed exhaustively, and material from 1946-1950 is not included. To gain access to these years, please use the Reel Contents and Series lists.  This finding aid describes a portion of the American Civil Liberties Union Records held at the Seeley G. Mudd Manuscript Library. For an overview of the entire collection, instructions on searching the collection and requesting materials, and other information, please see the  Guide to the American Civil Liberties Union Records .</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">African Americans</subfield>
+    <subfield code="x">Civil rights</subfield>
+    <subfield code="x">History</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">African Americans</subfield>
+    <subfield code="x">Legal status, laws, etc.</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Noncitizens</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="x">Civil rights</subfield>
+    <subfield code="x">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Amnesty</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Anti-Communist movements</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="x">History</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Assembly, Right of</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Censorship</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Church and state</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Citizen suits (Civil procedure)</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Civil rights</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Civil rights movements</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="x">History</subfield>
+    <subfield code="x">20th century</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Civil rights workers</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th Century</subfield>
+    <subfield code="x">Correspondence.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Communism</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Conscientious objectors</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Constitutional law</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Discrimination</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Draft resisters</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="x">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Due process of law</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Equality before the law</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Freedom of association</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Freedom of information</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Freedom of movement</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Freedom of religion</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Freedom of speech</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Freedom of the press</subfield>
+    <subfield code="x">Minnesota</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Indians of North America</subfield>
+    <subfield code="x">Civil rights</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Labor laws and legislation</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Law</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="x">Cases</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Lawyers</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century</subfield>
+    <subfield code="x">Correspondence.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Legal aid</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Legal services</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Loyalty oaths</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Minorities</subfield>
+    <subfield code="x">Legal status, laws, etc.</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Police power</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Political questions and judicial power</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Privacy, Right of</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Race discrimination</subfield>
+    <subfield code="x">Law and legislation</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Records</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="x">Access control</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Freedom of religion</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Sacco-Vanzetti Trial, Dedham, Mass., 1921.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Scottsboro Trial, Scottsboro, Ala., 1931.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Sex discrimination</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Strikes and lockouts</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="x">Cases</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Subversive activities</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="x">History</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Teaching, Freedom of</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Textile workers</subfield>
+    <subfield code="x">Labor unions</subfield>
+    <subfield code="x">New Jersey</subfield>
+    <subfield code="x">Patterson</subfield>
+    <subfield code="x">History</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="0" tag="650">
+    <subfield code="a">Trials</subfield>
+    <subfield code="x">United States</subfield>
+    <subfield code="y">20th century.</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="7" tag="655">
+    <subfield code="a">Briefs.</subfield>
+    <subfield code="2">aat</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="7" tag="655">
+    <subfield code="a">Correspondence.</subfield>
+    <subfield code="2">aat</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="7" tag="655">
+    <subfield code="a">Clippings.</subfield>
+    <subfield code="2">aat</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="7" tag="655">
+    <subfield code="a">Legal correspondence.</subfield>
+    <subfield code="2">aat</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="7" tag="655">
+    <subfield code="a">Legal documents.</subfield>
+    <subfield code="2">aat</subfield>
+  </datafield>
+  <datafield ind1=" " ind2="7" tag="655">
+    <subfield code="a">Records.</subfield>
+    <subfield code="2">aat</subfield>
+  </datafield>
+  <datafield ind1="4" ind2="2" tag="856">
+            <subfield code="z">Search and Request</subfield>
+            <subfield code="u">http://arks.princeton.edu/ark:/88435/rj430454b</subfield>
+            <subfield code="y">Princeton University Library Finding Aids</subfield>
+          </datafield>
+  <datafield ind1=" " ind2=" " tag="982">
+    <subfield code="c">scarcpph</subfield>
+  </datafield>
+</record></collection>

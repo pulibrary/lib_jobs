@@ -1,0 +1,470 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://www.loc.gov/MARC21/slim" xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/MARC21/slim http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">
+  <record>
+    <leader>00000npcaa2200000 u 4500</leader>
+    <controlfield tag="008">221215i19471995xx                  eng d</controlfield>
+    <datafield ind1=" " ind2=" " tag="040">
+      <subfield code="b">eng</subfield>
+      <subfield code="e">Finding aid content adheres to that prescribed by Describing Archives: A Content Standard.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="041">
+      <subfield code="a">eng</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="049"/>
+    <datafield ind1=" " ind2=" " tag="099">
+      <subfield code="a">MC001.02.01</subfield>
+    </datafield>
+    <datafield ind1="2" ind2=" " tag="110">
+      <subfield code="a">American civil liberties union,</subfield>
+      <subfield code="e">Creator.</subfield>
+      <subfield code="4">cre</subfield>
+      <subfield code="0">https://viaf.org/viaf/124191829</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="0" tag="245">
+      <subfield code="a">American Civil Liberties Union Records: Subgroup 2, Organizational Matters Series,</subfield>
+      <subfield code="f">1947-1995</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="300">
+      <subfield code="a">582</subfield>
+      <subfield code="f">boxes</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="300">
+      <subfield code="a">8</subfield>
+      <subfield code="f">items</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Location of resource: scamudd.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="506">
+      <subfield code="a">Subgroup 2 is open for research use.</subfield>
+    </datafield>
+    <datafield ind1="3" ind2=" " tag="520">
+      <subfield code="a">The American Civil Liberties Union Records document the activities of the Union in protecting individual rights from 1920 through 1995. The files contain materials on freedom of speech, expression, and association; due process of law; equality before the law; legal case files; and organizational records. Within these categories files reflect subject areas such as academic freedom, censorship, racial discrimination, aliens' rights, privacy concerns, labor concerns, amnesty, and government loyalty and security. The files reflect work on litigation, advocacy and public policy, and subject files on various areas of interest connected with civil liberties. Materials include correspondence, court documents, memoranda, printed matter, minutes, reports, briefs, and legal files. Also included are materials from ACLU affiliate organizations, and the Lawyers Constitutional Defense Committee.</subfield>
+    </datafield>
+    <datafield ind1="2" ind2=" " tag="520">
+      <subfield code="a">These Records document the activities of the American Civil Liberties Union (ACLU) in protecting individual rights between 1947 and 1995. The collection contains correspondence, clippings, court documents, memoranda, printed matter, minutes, reports, briefs, legal files, exhibit materials, and audio-visual materials. Also included are materials from ACLU affiliate organizations, the Lawyers Constitutional Defense Committee and national office legal department records (1945-1960).
+
+ Due to the exceptionally large volume within the ACLU Records, succinct series and subseries descriptions have been written, providing a basic outline of the records available. The researcher should always consult the folder list to ascertain if the records contain a topic of interest since not all subjects are mentioned in these brief descriptions.
+
+ The researcher should also be aware that many topics may be covered in more than one series or subseries. For instance, materials concerning freedom of the press are located in both the Mass Communications and Censorship subseries. Often the series descriptions note similar materials found in other parts of this collection. Due to limitations in processing time, not every file is in exact chronological or alphabetical order.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="524">
+      <subfield code="a">Identification of specific item; Date (if known); American Civil Liberties Union Records, Box and Folder Number; Public Policy Papers, Special Collections, Princeton University Library.</subfield>
+    </datafield>
+    <datafield ind1="2" ind2=" " tag="535">
+      <subfield code="a">Public records of the ACLU from 1917 to 1989, have been microfilmed by the Microfilming Corporation of America (MCA) and University Microfilms International (UMI). These records include minutes of the board of directors, mailings to the board of directors, biennial conference papers, policy guides, the national legal docket, organization manuals, constitution and bylaws, legal briefs, and publications. The American Civil Liberties Union Records and Publications 1917-1975: A Guide to the Microfilm Edition and succeeding guides to these materials are available in the reference room, and the microfilm itself is located in the microforms reading room.
+
+ The bound volumes of ACLU records covering 1917 through 1946 (volumes 1-2762) have been microfilmed and researchers must use the microfilm in order to prevent further deterioration of the these fragile volumes. Researchers should consult the finding aid to the earlier ACLU records (1917-1946) for their description and arrangement.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="540">
+      <subfield code="a">Single photocopies may be made for research purposes. For quotations that are fair use as defined under  U. S. Copyright Law , no permission to cite or publish is required. For those few instances beyond fair use, researchers are responsible for determining who may hold the copyright and obtaining approval from them. Researchers do not need anything further from the Mudd Library to move forward with their use.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="544">
+      <subfield code="d">American Civil Liberties Union, Washington, D.C. Office Records
+
+ American United for the Separation of Church and State Records
+
+ Roger N. Baldwin Papers
+
+ Osmond K. Fraenkel Diaries
+
+ Fund for the Republic Records
+
+ Arthur Garfield Hays Papers
+
+ Peggy Lamson Collection on Roger N. Baldwin
+
+ Law Students Civil Rights Research Council Records
+
+ PEN American Center Records (at Firestone Library).</subfield>
+    </datafield>
+    <datafield ind1="0" ind2=" " tag="555">
+      <subfield code="a">This finding aid describes a portion of the American Civil Liberties Union Records held at the Seeley G. Mudd Manuscript Library. For an overview of the entire collection, instructions on searching the collection and requesting materials, and other information, please see the  Guide to the American Civil Liberties Union Records .</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="583">
+      <subfield code="a">During the processing of this collection, many items were discarded, including newspaper clippings from the New York Times and other major newspapers, government publications, well- known serial publications, and publications and large distribution memoranda from well-known and well-documented organizations such as the American Jewish Committee or Americans United for the Separation of Church and State.</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Baldwin, Roger N. (Roger Nash), 1884-1981.</subfield>
+      <subfield code="0">https://viaf.org/viaf/109866015</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Dorsen, Norman.</subfield>
+      <subfield code="0">https://viaf.org/viaf/108321613</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Dulles, John Foster, 1888-1959.</subfield>
+      <subfield code="0">https://viaf.org/viaf/62342717</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Ennis, Bruce J., 1941-.</subfield>
+      <subfield code="0">https://viaf.org/viaf/62786381</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Epperson, Susan.</subfield>
+      <subfield code="0">https://viaf.org/viaf/73168501</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Escobedo, Danny.</subfield>
+      <subfield code="2">local</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Everson, Arch R.</subfield>
+      <subfield code="2">local</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Gault, Gerald Francis, 1949 or 50-.</subfield>
+      <subfield code="2">local</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Gideon, Clarence Earl.</subfield>
+      <subfield code="0">https://viaf.org/viaf/16014417</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Griswold, Estelle.</subfield>
+      <subfield code="0">https://viaf.org/viaf/41094475</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Hays, Arthur Garfield, 1881-1954.</subfield>
+      <subfield code="0">http://viaf.org/viaf/11182237</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Holtzman, Elizabeth.</subfield>
+      <subfield code="0">https://viaf.org/79426346</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Jacobellis, Nico.</subfield>
+      <subfield code="2">local</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Levy, Herbert Monte, 1923-.</subfield>
+      <subfield code="0">https://viaf.org/viaf/70267189</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Malin, Patrick Murphy, 1903-1964.</subfield>
+      <subfield code="0">https://viaf.org/viaf/44691882</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Miranda, Ernesto.</subfield>
+      <subfield code="2">local</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Neier, Aryeh, 1937- .</subfield>
+      <subfield code="0">https://viaf.org/viaf/273017674</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Neuborne, Burt, 1941-.</subfield>
+      <subfield code="0">https://viaf.org/viaf/77597758</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Nixon, Richard M. Richard Milhous 1913-1994.</subfield>
+      <subfield code="0">https://viaf.org/viaf/44303100</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Pemberton, John de J., Jr., 1919-2009.</subfield>
+      <subfield code="0">https://viaf.org/viaf/7244585</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Perry, Richard L.</subfield>
+      <subfield code="0">https://viaf.org/viaf/18767616</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Pound, Ezra, 1885-1972.</subfield>
+      <subfield code="0">https://viaf.org/viaf/24606774</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Powell, John A. (John Anthony)</subfield>
+      <subfield code="0">https://viaf.org/viaf/47647785</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Reitman, Alan.</subfield>
+      <subfield code="0">https://viaf.org/viaf/18518249</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Schempp, Edward L.</subfield>
+      <subfield code="2">local</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Schwarzschild, Henry.</subfield>
+      <subfield code="0">https://viaf.org/viaf/43465470</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Scopes, John Thomas, 1900-1970.</subfield>
+      <subfield code="2">local</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Seeger, Daniel A.</subfield>
+      <subfield code="0">https://viaf.org/viaf/1639216</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Tinker, John Frederick.</subfield>
+      <subfield code="0">https://viaf.org/viaf/4128475</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="0" tag="600">
+      <subfield code="a">Wulf, Melvin A.</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">American Union Against Militarism.</subfield>
+      <subfield code="0">https://viaf.org/viaf/134951307</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">United States. | Constitution. 1st-10th Amendments.</subfield>
+      <subfield code="2">local</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">Marshall Civil Liberties Trust Fund.</subfield>
+      <subfield code="2">local</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">National Civil Liberties Bureau (U.S.).</subfield>
+      <subfield code="0">https://viaf.org/viaf/168245714</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">New York Times company.</subfield>
+      <subfield code="0">https://viaf.org/viaf/192149064</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Abortion -- Law and legislation -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">African Americans -- Civil rights -- History 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">African Americans -- Legal status, laws, etc. -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Noncitizens</subfield>
+      <subfield code="x">United States</subfield>
+      <subfield code="x">Civil rights</subfield>
+      <subfield code="x">20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Amnesty -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Anti-Communist movements</subfield>
+      <subfield code="z">United States</subfield>
+      <subfield code="x">History</subfield>
+      <subfield code="y">20th century</subfield>
+      <subfield code="v">Sources</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Apportionment (Election law) -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Assembly, Right of -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Censorship -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Church and state --United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Citizen suits (Civil procedure) -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Civil rights -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Civil rights movements -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Civil rights workers -- United States -- 20th Century -- Correspondence.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Communism -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Conscientious objectors -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Constitutional law -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Discrimination -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Discrimination in employment - Law and legislation - United States - 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Draft resisters</subfield>
+      <subfield code="x">United States</subfield>
+      <subfield code="x">20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Due process of law -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Equality before the law -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Freedom of association -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Freedom of information -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Freedom of movement -- United States --20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Freedom of religion -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Gay rights -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Homosexuality -- Government policy -- History -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Indians of North America -- Civil rights -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Insanity -- Jurisprudence -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Internal security -- United States -- History -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Jews -- Legal status, laws, etc. -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Labor laws and legislation -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Law -- United States -- Cases -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Legal aid -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Legal services -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Loyalty oaths -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Mental health laws -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Minorities -- Legal status, laws, etc. -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Police power -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Political questions and judicial power -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Political refugees -- Legal status, laws, etc. -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Political rights -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Political rights, Loss of -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Privacy, Right of - United States - 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Race discrimination -- Law and legislation -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Records -- Access control -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Sacco-Vanzetti Trial, Dedham, Mass., 1921.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Sex discrimination -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Strikes and lockouts -- United States -- Cases - 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Subversive activities -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Teaching, Freedom of -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Television in politics -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Trials -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Vietnam War, 1961-1975 -- United States.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Women's rights -- United States -- 20th century.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">United States</subfield>
+      <subfield code="z">Armed forces</subfield>
+      <subfield code="z">Gays.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="655">
+      <subfield code="a">Audiovisual materials.</subfield>
+      <subfield code="2">aat</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="655">
+      <subfield code="a">Briefs.</subfield>
+      <subfield code="2">aat</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="655">
+      <subfield code="a">Correspondence.</subfield>
+      <subfield code="2">aat</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="655">
+      <subfield code="a">Legal files.</subfield>
+      <subfield code="2">aat</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="655">
+      <subfield code="a">Memorandums.</subfield>
+      <subfield code="2">aat</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="655">
+      <subfield code="a">Minutes.</subfield>
+      <subfield code="2">aat</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="655">
+      <subfield code="a">Reports.</subfield>
+      <subfield code="2">aat</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="852">
+      <subfield code="a">Princeton University Library.  Department of Rare Books and Special Collections</subfield>
+      <subfield code="b">Public Policy Papers</subfield>
+    </datafield>
+    <datafield ind1="4" ind2="2" tag="856">
+      <subfield code="z">Finding aid online:</subfield>
+      <subfield code="u">http://arks.princeton.edu/ark:/88435/7d278t03z</subfield>
+    </datafield>
+  </record>
+</collection>
