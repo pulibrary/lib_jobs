@@ -43,11 +43,11 @@ RSpec.describe AspaceVersionControl::GitLab do
       it 'can update from the repository' do
         allow(Git).to receive(:clone).and_return(repo)
         allow(repo).to receive(:pull).and_return("Already up to date.")
-        allow(repo).to receive(:reset).and_return("Updated 0 paths from")
+        allow(repo).to receive(:reset_hard).and_return("Updated 0 paths from")
         git_lab = described_class.new
-        git_lab.update({ path: 'tmp/gitlab_eads' })
+        git_lab.update
         expect(repo).to have_received(:pull)
-        expect(repo).to have_received(:reset).with("HEAD -- tmp/gitlab_eads", { hard: true })
+        expect(repo).to have_received(:reset_hard)
       end
       context 'with no changes' do
         before do

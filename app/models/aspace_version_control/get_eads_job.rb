@@ -36,7 +36,7 @@ module AspaceVersionControl
     def handle(data_set:)
       aspace_login
       Rails.logger.info("Opening Repo at #{@local_git_lab_dir}")
-      GitLab.new.update(path: @local_git_lab_dir)
+      GitLab.new.update
       repos.each do |repo, path|
         get_resource_ids_for_repo(repo)
         next unless @resource_ids
