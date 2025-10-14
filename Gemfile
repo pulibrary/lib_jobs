@@ -51,6 +51,7 @@ gem 'whenever'
 group :development, :test do
   gem 'bixby'
   gem 'brakeman'
+  gem 'byebug'
   gem 'dotenv-rails'
   gem 'factory_bot_rails'
   gem 'rspec'
