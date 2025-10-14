@@ -7,6 +7,7 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 gem 'rails', '~> 7.2.2'
 
 gem 'archivesspace-client'
+gem 'aspace_helper_methods', github: 'pulibrary/aspace_helpers', glob: 'packages/aspace_helper_methods/*.gemspec'
 gem 'aws-sdk-s3'
 gem 'bcrypt_pbkdf', '~> 1.1'
 # Reduces boot times through caching; required in config/boot.rb

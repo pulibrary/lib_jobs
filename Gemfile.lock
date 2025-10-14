@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/pulibrary/aspace_helpers.git
+  revision: 8a5dcaa3e519ea83982121f70efc7b9d9943c764
+  glob: packages/aspace_helper_methods/*.gemspec
+  specs:
+    aspace_helper_methods (0.1.0)
+      archivesspace-client
+
+GIT
   remote: https://github.com/pulibrary/marc_cleanup.git
   revision: 39cd9ff4569d894bd4c04aec6aa823b2ef5937ed
   tag: v0.9.3
@@ -511,6 +519,7 @@ PLATFORMS
 
 DEPENDENCIES
   archivesspace-client
+  aspace_helper_methods!
   aws-sdk-s3
   axe-core-api
   axe-core-rspec
