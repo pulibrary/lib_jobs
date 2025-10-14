@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'byebug'
 
 module AspaceVersionControl
   # This class is responsible for committing EADs and EACs to GitLab for version control
@@ -17,7 +18,7 @@ module AspaceVersionControl
 
     def commit_eacs_to_git(path:)
       git_config
-      update(path:)
+      pull
       return unless changes?(path:)
       add(path:)
       commit('monthly snapshot of ASpace Agent EACs')
@@ -41,8 +42,8 @@ module AspaceVersionControl
       @custom_repo_path || GitLab.git_repo_path
     end
 
-    def update(path:)
-      repo.checkout('HEAD', path:)
+    def update(path)
+      repo.reset("HEAD -- #{path[:path]}", { hard: true })
       pull
     end
 
