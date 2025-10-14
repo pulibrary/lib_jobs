@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 module Aspace2alma
+  # rubocop:disable Metrics/ClassLength
+  # rubocop:disable Metrics/MethodLength
   class SendMarcxmlToAlmaJob < LibJob
     def initialize
       super(category: 'Aspace2Alma')
@@ -24,7 +26,9 @@ module Aspace2alma
       resources = get_resource_uris_for_all_repos
 
       file =  File.open(filename, "w")
+      # rubocop:disable Layout/LineLength
       file << '<collection xmlns="http://www.loc.gov/MARC21/slim" xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/MARC21/slim http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">'
+      # rubocop:enable Layout/LineLength
 
       resources.each do |resource_uri|
         process_resource(resource_uri, file, log_out, barcode_duplicate_check)
@@ -42,6 +46,9 @@ module Aspace2alma
       data_set
     end
 
+    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable Metrics/PerceivedComplexity
     def process_resource(resource, file, log_out, barcode_duplicate_check)
       retries ||= 0
 
@@ -232,9 +239,14 @@ module Aspace2alma
       end
       log_out.puts "Encountered #{error.class}: '#{error.message}' at #{Time.zone.now}, unsuccessful in retrieving resource #{resource} after #{retries} retries"
     end
+    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/CyclomaticComplexity
+    # rubocop:enable Metrics/PerceivedComplexity
 
     def barcode_duplicate_check
       @barcode_duplicate_check ||= AlmaDuplicateBarcodeCheck.new
     end
   end
+  # rubocop:enable Metrics/ClassLength
+  # rubocop:enable Metrics/MethodLength
 end
