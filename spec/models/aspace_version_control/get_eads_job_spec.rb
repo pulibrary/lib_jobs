@@ -68,6 +68,22 @@ RSpec.describe AspaceVersionControl::GetEadsJob do
       expect(FileUtils.identical?('tmp/gitlab_eads/eads/mudd/publicpolicy/MyEadID.EAD.xml',
                                   file_fixture('ead_corrected.xml'))).to be true
     end
+    it "raises an error if the local_git_lab_dir is not valid" do
+      allow(ENV)
+        .to receive(:[])
+        .with("GIT_LAB_DIR")
+        .and_return("invalid")
+
+      expect { described_class.new }.to raise_error(ArgumentError)
+    end
+    it "does not raise an error if the local_git_lab_dir is valid" do
+      allow(ENV)
+        .to receive(:[])
+        .with("GIT_LAB_DIR")
+        .and_return("git_lab_eads")
+
+      expect { described_class.new }.not_to raise_error
+    end
     describe "report" do
       it "reports success" do
         out = described_class.new

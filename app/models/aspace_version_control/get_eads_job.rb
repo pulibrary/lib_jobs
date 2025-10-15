@@ -10,7 +10,7 @@ module AspaceVersionControl
     def initialize(local_git_lab_dir: Rails.application.config.aspace.local_git_lab_dir)
       super(category: "EAD_export")
       @errors = []
-      @local_git_lab_dir = ENV['GIT_LAB_DIR'] || local_git_lab_dir
+      assign_local_git_lab_dir(local_git_lab_dir)
       @repos = Rails.application.config.aspace.repos
     end
 
@@ -84,6 +84,12 @@ module AspaceVersionControl
     end
 
     private
+
+    def assign_local_git_lab_dir(local_git_lab_dir)
+      valid_directories = ['git_lab_eads', 'git_lab_staging_eads', 'tmp/gitlab_eads']
+      @local_git_lab_dir = ENV['GIT_LAB_DIR'] || local_git_lab_dir
+      raise ArgumentError, "#{@local_git_lab_dir} is not a valid directory for eads" unless valid_directories.include?(@local_git_lab_dir)
+    end
 
     def prepare_and_commit_to_git_lab(repo, path)
       git_lab_repo_path = repo_path(@local_git_lab_dir, path)
