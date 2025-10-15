@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Aspace2alma
   # This class is responsible for removing a recently generated aspace2alma file from SFTP.
   # This is useful in cases where there is an existing file on SFTP that Alma has already
