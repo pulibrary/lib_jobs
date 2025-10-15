@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 7.2.2'
+gem 'rails', '~> 8.0.3'
 
 gem 'archivesspace-client'
 gem 'aspace_helper_methods', github: 'pulibrary/aspace_helpers', glob: 'packages/aspace_helper_methods/*.gemspec'
@@ -19,7 +19,7 @@ gem 'faraday', '~> 2.7'
 gem "flipflop", git: "https://github.com/voormedia/flipflop.git", ref: "0d70d8e33483a9c0282ed8d6bca9c5ccd61e61e8"
 gem 'foreman'
 gem 'git'
-gem "health-monitor-rails", "12.4.0"
+gem "health-monitor-rails"
 gem 'honeybadger'
 gem 'icalendar'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
