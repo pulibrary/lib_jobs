@@ -176,4 +176,10 @@ namespace :lib_jobs do
     job = Gobi::IsbnReportJob.new
     job.run
   end
+
+  desc "aspace2alma: send collection-level MarcXML records from aspace to alma"
+  task aspace2alma: [:environment] do
+    job = Aspace2alma::SendMarcxmlToAlmaJob.new
+    job.run
+  end
 end
