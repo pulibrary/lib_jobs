@@ -11,7 +11,6 @@ module Aspace2alma
 
     def handle(data_set:)
       filename = "MARC_out.xml"
-      byebug
       # rename MARC file:
       # in case the export fails, this ensures that
       # Alma will not find a stale file to import
