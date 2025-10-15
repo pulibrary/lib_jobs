@@ -47,7 +47,7 @@ module AlmaSubmitCollection
       MarcCleanup.empty_subfield_fix(@record)
       MarcCleanup.leaderfix(@record)
       MarcCleanup.extra_space_fix(@record)
-      MarcCleanup.bad_utf8_fix(@record)
+      MarcCleanup.bad_utf8_scrub(@record)
       MarcCleanup.invalid_xml_fix(@record)
       MarcCleanup.composed_chars_normalize(@record)
       MarcCleanup.tab_newline_fix(@record)
