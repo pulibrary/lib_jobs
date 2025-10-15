@@ -182,4 +182,12 @@ namespace :lib_jobs do
     job = Aspace2alma::SendMarcxmlToAlmaJob.new
     job.run
   end
+
+  namespace :aspace2alma do
+    desc "remove a stale aspace2alma file from SFTP, so that Alma does not process it a second time"
+    task remove_stale_file: [:environment] do
+      job = Aspace2alma::RemoveFileJob.new
+      job.run
+    end
+  end
 end

@@ -100,6 +100,12 @@ every '30 10 * * 0-5', roles: [:cron_prod2] do
   rake "lib_jobs:aspace2alma"
 end
 
+# Run on production at 10:30am UTC (6:30 EDT / 5:30 EST) on days we are skipping aspace2alma:
+# Saturday (ASpace maintenance window)
+every :saturday, at: '10:30 am' do
+  rake "lib_jobs:aspace2alma:remove_stale_file"
+end
+
 # Run on production every Thursday at 3am EST or 4am EDT
 # every :thursday, at: '8:00 am', roles: [:cron_prod2] do # The server is in UTC, so that is 8:00 UTC
 #   rake "lib_jobs:alma_bib_norm"
