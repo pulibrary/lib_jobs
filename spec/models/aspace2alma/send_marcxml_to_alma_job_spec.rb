@@ -98,17 +98,17 @@ RSpec.describe Aspace2alma::SendMarcxmlToAlmaJob do
   end
 
   context 'when aspace is down' do
-      before do
-        allow_any_instance_of(described_class).to receive(:aspace_login).and_raise(RuntimeError)
-      end
-      it 'deletes the MARCxml file from lib-sftp' do
-        expect{described_class.new.run}.to raise_error
-        expect(sftp_session).to have_received(:remove!)
-        .with("/alma/aspace/MARC_out_old.xml")
-        expect(sftp_session).to have_received(:rename!)
-        .with("/alma/aspace/MARC_out.xml", "/alma/aspace/MARC_out_old.xml")
-      end
+    before do
+      allow_any_instance_of(described_class).to receive(:aspace_login).and_raise(RuntimeError)
     end
+    it 'deletes the MARCxml file from lib-sftp' do
+      expect { described_class.new.run }.to raise_error
+      expect(sftp_session).to have_received(:remove!)
+        .with("/alma/aspace/MARC_out_old.xml")
+      expect(sftp_session).to have_received(:rename!)
+        .with("/alma/aspace/MARC_out.xml", "/alma/aspace/MARC_out_old.xml")
+    end
+  end
 
   describe 'ItemRecordConstructor' do
     let(:resource_uri) { "/repositories/3/resources/1511" }
