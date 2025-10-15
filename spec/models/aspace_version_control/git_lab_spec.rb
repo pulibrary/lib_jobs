@@ -43,11 +43,11 @@ RSpec.describe AspaceVersionControl::GitLab do
       it 'can update from the repository' do
         allow(Git).to receive(:clone).and_return(repo)
         allow(repo).to receive(:pull).and_return("Already up to date.")
-        allow(repo).to receive(:checkout).and_return("Updated 0 paths from")
+        allow(repo).to receive(:reset_hard).and_return("Updated 0 paths from")
         git_lab = described_class.new
-        git_lab.update(path: 'testing')
+        git_lab.update
         expect(repo).to have_received(:pull)
-        expect(repo).to have_received(:checkout).with('HEAD', { path: "testing" })
+        expect(repo).to have_received(:reset_hard)
       end
       context 'with no changes' do
         before do
@@ -61,13 +61,11 @@ RSpec.describe AspaceVersionControl::GitLab do
           allow(repo).to receive(:add).and_call_original
           allow(repo).to receive(:commit).and_call_original
           allow(repo).to receive(:push).and_call_original
-          allow(repo).to receive(:checkout).and_return("Updated 0 paths from")
           described_class.new.commit_eads_to_git(path: 'testing')
           expect(repo).to have_received(:pull)
           expect(repo).not_to have_received(:add)
           expect(repo).not_to have_received(:commit)
           expect(repo).not_to have_received(:push)
-          expect(repo).to have_received(:checkout).with('HEAD', { path: "testing" })
           expect(Rails.logger).to have_received(:info)
         end
       end
@@ -100,12 +98,10 @@ RSpec.describe AspaceVersionControl::GitLab do
             allow(repo).to receive(:add).and_return("")
             allow(repo).to receive(:commit).and_return("[main b1b385c] monthly snapshot of ASpace EADs\n 1 file changed, 0 insertions(+), 0 deletions(-)\n create mode 100644 testing")
             allow(repo).to receive(:push).and_return(nil)
-            allow(repo).to receive(:checkout).and_return("Updated 0 paths from")
             described_class.new.commit_eads_to_git(path: 'testing')
             expect(repo).to have_received(:add).with('testing')
             expect(repo).to have_received(:commit).with('monthly snapshot of ASpace EADs')
             expect(repo).to have_received(:push)
-            expect(repo).to have_received(:checkout).with('HEAD', { path: "testing" })
           end
         end
       end
@@ -147,7 +143,6 @@ RSpec.describe AspaceVersionControl::GitLab do
           allow(eacs_repo).to receive(:add).and_call_original
           allow(eacs_repo).to receive(:commit).and_call_original
           allow(eacs_repo).to receive(:push).and_call_original
-          allow(eacs_repo).to receive(:checkout).and_return("Updated 0 paths from")
           allow(eacs_repo).to receive(:config).and_return(nil)
 
           custom_git_lab.commit_eacs_to_git(path: 'eacs')
@@ -156,7 +151,6 @@ RSpec.describe AspaceVersionControl::GitLab do
           expect(eacs_repo).not_to have_received(:add)
           expect(eacs_repo).not_to have_received(:commit)
           expect(eacs_repo).not_to have_received(:push)
-          expect(eacs_repo).to have_received(:checkout).with('HEAD', { path: "eacs" })
           expect(Rails.logger).to have_received(:info)
         end
       end
@@ -179,7 +173,6 @@ RSpec.describe AspaceVersionControl::GitLab do
           allow(eacs_repo).to receive(:commit).and_return("[main abc123] monthly snapshot of ASpace Agent EACs\n 1 file changed, 0 insertions(+), 0 deletions(-)\n create mode 100644 test_agent.cpf.xml")
           # rubocop:enable Layout/LineLength:
           allow(eacs_repo).to receive(:push).and_return(nil)
-          allow(eacs_repo).to receive(:checkout).and_return("Updated 0 paths from")
           allow(eacs_repo).to receive(:config).and_return(nil)
 
           custom_git_lab.commit_eacs_to_git(path: 'eacs')
@@ -187,7 +180,6 @@ RSpec.describe AspaceVersionControl::GitLab do
           expect(eacs_repo).to have_received(:add).with('eacs')
           expect(eacs_repo).to have_received(:commit).with('monthly snapshot of ASpace Agent EACs')
           expect(eacs_repo).to have_received(:push)
-          expect(eacs_repo).to have_received(:checkout).with('HEAD', { path: "eacs" })
         end
       end
     end

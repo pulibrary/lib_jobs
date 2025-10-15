@@ -8,7 +8,7 @@ module AspaceVersionControl
     end
 
     def commit_eads_to_git(path:)
-      update(path:)
+      pull
       return unless changes?(path:)
       add(path:)
       commit('monthly snapshot of ASpace EADs')
@@ -17,7 +17,7 @@ module AspaceVersionControl
 
     def commit_eacs_to_git(path:)
       git_config
-      update(path:)
+      pull
       return unless changes?(path:)
       add(path:)
       commit('monthly snapshot of ASpace Agent EACs')
@@ -41,10 +41,12 @@ module AspaceVersionControl
       @custom_repo_path || GitLab.git_repo_path
     end
 
-    def update(path:)
-      repo.checkout('HEAD', path:)
-      repo.pull
+    def update
+      repo.reset_hard
+      pull
     end
+
+    delegate :pull, to: :repo
 
     def add(path:)
       repo.add(path)
@@ -69,7 +71,7 @@ module AspaceVersionControl
     end
 
     def self.git_repo_path
-      @git_repo_path ||= config.local_git_lab_dir
+      @git_repo_path ||= ENV['GIT_LAB_DIR'] || config.local_git_lab_dir
     end
 
     def self.git_repo_eacs_path

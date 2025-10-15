@@ -14,7 +14,7 @@ RSpec.describe AspaceVersionControl::GetEadsJob do
     allow(git_lab_repo).to receive(:add).and_return("")
     allow(git_lab_repo).to receive(:commit).and_return("[main b1b385c] monthly snapshot of ASpace EADs\n 1 file changed, 0 insertions(+), 0 deletions(-)\n create mode 100644 testing")
     allow(git_lab_repo).to receive(:push).and_return(nil)
-    allow(git_lab_repo).to receive(:checkout).and_return("Updated 0 paths from")
+    allow(git_lab_repo).to receive(:reset).and_return("Updated 0 paths from")
     # end GitLab mocks
   end
   describe "#run" do
@@ -67,6 +67,22 @@ RSpec.describe AspaceVersionControl::GetEadsJob do
       described_class.new.run
       expect(FileUtils.identical?('tmp/gitlab_eads/eads/mudd/publicpolicy/MyEadID.EAD.xml',
                                   file_fixture('ead_corrected.xml'))).to be true
+    end
+    it "raises an error if the local_git_lab_dir is not valid" do
+      allow(ENV)
+        .to receive(:[])
+        .with("GIT_LAB_DIR")
+        .and_return("invalid")
+
+      expect { described_class.new }.to raise_error(ArgumentError)
+    end
+    it "does not raise an error if the local_git_lab_dir is valid" do
+      allow(ENV)
+        .to receive(:[])
+        .with("GIT_LAB_DIR")
+        .and_return("git_lab_eads")
+
+      expect { described_class.new }.not_to raise_error
     end
     describe "report" do
       it "reports success" do
