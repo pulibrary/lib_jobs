@@ -10,17 +10,18 @@ module Aspace2alma
     private
 
     def handle(data_set:)
-      # open a quasi log to receive progress output
-      log_out = File.open("log_out.txt", "w")
-      aspace_login
-      # log when the process started
-      log_out.puts "Process started fetching records at #{Time.zone.now}"
       filename = "MARC_out.xml"
       # rename MARC file:
       # in case the export fails, this ensures that
       # Alma will not find a stale file to import
       Aspace2almaHelper.remove_file("/alma/aspace/MARC_out_old.xml")
       Aspace2almaHelper.rename_file("/alma/aspace/#{filename}", "/alma/aspace/MARC_out_old.xml")
+
+      # open a quasi log to receive progress output
+      log_out = File.open("log_out.txt", "w")
+      aspace_login
+      # log when the process started
+      log_out.puts "Process started fetching records at #{Time.zone.now}"
 
       # get collection records from ASpace
       resources = get_resource_uris_for_all_repos

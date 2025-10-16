@@ -40,8 +40,10 @@ RSpec.describe Aspace2alma::SendMarcxmlToAlmaJob do
     allow(Aspace2alma::AlmaDuplicateBarcodeCheck).to receive(:new).and_return(instance_double(Aspace2alma::AlmaDuplicateBarcodeCheck, duplicate?: true))
     allow(sftp_session).to receive(:stat)
       .with("/alma/aspace/MARC_out.xml")
+      .and_yield(instance_double(Net::SFTP::Response, ok?: true))
     allow(sftp_session).to receive(:stat)
       .with("/alma/aspace/MARC_out_old.xml")
+      .and_yield(instance_double(Net::SFTP::Response, ok?: true))
     allow(sftp_session).to receive(:remove!)
       .with("/alma/aspace/MARC_out_old.xml")
     allow(sftp_session).to receive(:rename!)
@@ -92,6 +94,19 @@ RSpec.describe Aspace2alma::SendMarcxmlToAlmaJob do
       it 'creates the expected document' do
         expect(File.read(doc_file)).to eq(File.read(doc_after_processing_fixture))
       end
+    end
+  end
+
+  context 'when aspace is down' do
+    before do
+      allow_any_instance_of(described_class).to receive(:aspace_login).and_raise(RuntimeError)
+    end
+    it 'deletes the MARCxml file from lib-sftp' do
+      expect { described_class.new.run }.to raise_error
+      expect(sftp_session).to have_received(:remove!)
+        .with("/alma/aspace/MARC_out_old.xml")
+      expect(sftp_session).to have_received(:rename!)
+        .with("/alma/aspace/MARC_out.xml", "/alma/aspace/MARC_out_old.xml")
     end
   end
 
