@@ -1,5 +1,5 @@
 # Alma People
-  This job moves updates from Peoplesoft API Store to Alma to keep the accounts in alma up to date.  This currently just adds and updates accounts.  At some future time it may be utilized to disable accounts.
+  This job moves updates from Peoplesoft API Store to Alma to keep the accounts in alma up to date.  It adds new accounts, updates existing accounts, and deactivates accounts of users who have left the University according to library policies on access.
 
 ## Flow Diagrams
 
