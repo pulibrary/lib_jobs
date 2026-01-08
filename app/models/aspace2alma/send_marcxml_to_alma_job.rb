@@ -54,8 +54,7 @@ module Aspace2alma
       retries ||= 0
 
       my_resource = Resource.new(resource, @client, file, log_out)
-      # uri = my_resource.marc_uri
-      # marc_record = @client.get(uri)
+
       doc = my_resource.marc_xml
 
       # set up variables (these may return a sequence)
