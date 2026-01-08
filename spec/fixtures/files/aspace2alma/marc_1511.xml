@@ -20,6 +20,12 @@
       <subfield code="4">cre</subfield>
       <subfield code="0">https://viaf.org/viaf/124191829</subfield>
     </datafield>
+    <datafield ind1="2" ind2="7" tag="100">
+      <subfield code="a">test</subfield>
+      <subfield code="e">Creator.</subfield>
+      <subfield code="4">cre</subfield>
+      <subfield code="2">local</subfield>
+    </datafield>
     <datafield ind1="1" ind2="0" tag="245">
       <subfield code="a">American Civil Liberties Union Records: Subgroup 1, The Roger Baldwin Years,</subfield>
       <subfield code="f">1917-1950</subfield>
