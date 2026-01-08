@@ -191,6 +191,7 @@ RSpec.describe Oclc::LcCallSlips::Record, type: :model, lc_call_slips: true do
         expect(oclc_record.audiobook?).to eq(false)
         expect(oclc_record.published_in_us_uk_or_canada?).to eq(false)
         expect(oclc_record.monograph?).to eq(true)
+
         expect(oclc_record.within_last_two_years?).to eq(true)
         expect(oclc_record.generally_relevant?).to eq(true)
         expect(oclc_record.relevant_to_selector?(selector:)).to eq(true)
