@@ -29,7 +29,7 @@
     <subfield code="4">cre</subfield>
     <subfield code="0">https://viaf.org/viaf/124191829</subfield>
   </datafield>
-   <datafield ind1="2" ind2="7" tag="100">
+  <datafield ind1="2" ind2="7" tag="100">
     <subfield code="a">test</subfield>
     <subfield code="e">Creator.</subfield>
     <subfield code="4">cre</subfield>
