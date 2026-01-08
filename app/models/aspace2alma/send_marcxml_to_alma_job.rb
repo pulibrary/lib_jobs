@@ -166,13 +166,10 @@ module Aspace2alma
           subfield2.remove
           ind2.content = '0' if ind2.content == '7'
         end
-
-        # add punctuation to the last subfield except $2
-        # if tag6xx.children[-1].attribute('code') == '2'
-        #   tag6xx.children[-2].content << '.' unless ['?', '-', '.'].include?(tag6xx.children[-2].content[-1])
-        # else
-        #   tag6xx.children[-1].content << '.' unless ['?', '-', '.'].include?(tag6xx.children[-1].content[-1])
-        # end
+        # addresses github #991
+        if ind2.content == '7' and /^local$/.match?(subfield2.content)
+          tag6xx.children.last.next = ("<subfield code='5'>NjP</subfield>")
+        end
       end
 
       # addresses github #132
