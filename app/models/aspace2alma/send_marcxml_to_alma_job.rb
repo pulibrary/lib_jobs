@@ -81,6 +81,7 @@ module Aspace2alma
       tag856 = my_resource.tag856
       tags6_7xx = my_resource.tags6_7xx
       my_resource.subfields
+      my_resource.datafields
 
       # do stuff
       ##################
@@ -120,6 +121,16 @@ module Aspace2alma
               <subfield code='c'>#{my_resource.tag008.content[7..10]}</subfield>
               <subfield code='e'>#{my_resource.tag008.content[11..14]}</subfield>
             </datafield>")
+
+      # addresses github #991
+      my_resource.datafields.each do |datafield|
+        next unless datafield.at_xpath('marc:subfield[@code="2"][.="local"]')
+        subfield2 = datafield.at_xpath('marc:subfield[@code="2"]')
+        ind2 = datafield.at_xpath('@ind2')
+        if ind2.content == '7' and /^local$/.match?(subfield2.content)
+          datafield.children.last.next = ('<subfield code="5">NjP</subfield>')
+        end
+      end
 
       # addresses github #
       tag245_g.content = "(mostly #{tag245_g.content})" unless tag245_g.nil?
@@ -165,10 +176,6 @@ module Aspace2alma
         if /^viaf$/.match?(subfield2.content)
           subfield2.remove
           ind2.content = '0' if ind2.content == '7'
-        end
-        # addresses github #991
-        if ind2.content == '7' and /^local$/.match?(subfield2.content)
-          tag6xx.children.last.next = ("<subfield code='5'>NjP</subfield>")
         end
       end
 
