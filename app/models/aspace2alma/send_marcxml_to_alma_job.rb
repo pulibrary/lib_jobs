@@ -127,9 +127,7 @@ module Aspace2alma
         next unless datafield.at_xpath('marc:subfield[@code="2"][.="local"]')
         subfield2 = datafield.at_xpath('marc:subfield[@code="2"]')
         ind2 = datafield.at_xpath('@ind2')
-        if ind2.content == '7' and /^local$/.match?(subfield2.content)
-          datafield.children.last.next = ('<subfield code="5">NjP</subfield>')
-        end
+        datafield.children.last.next = ('<subfield code="5">NjP</subfield>') if (ind2.content == '7') && /^local$/.match?(subfield2.content)
       end
 
       # addresses github #
