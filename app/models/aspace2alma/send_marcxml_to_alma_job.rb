@@ -54,8 +54,7 @@ module Aspace2alma
       retries ||= 0
 
       my_resource = Resource.new(resource, @client, file, log_out)
-      # uri = my_resource.marc_uri
-      # marc_record = @client.get(uri)
+
       doc = my_resource.marc_xml
 
       # set up variables (these may return a sequence)
@@ -81,6 +80,7 @@ module Aspace2alma
       tag856 = my_resource.tag856
       tags6_7xx = my_resource.tags6_7xx
       my_resource.subfields
+      my_resource.datafields
 
       # do stuff
       ##################
@@ -120,6 +120,14 @@ module Aspace2alma
               <subfield code='c'>#{my_resource.tag008.content[7..10]}</subfield>
               <subfield code='e'>#{my_resource.tag008.content[11..14]}</subfield>
             </datafield>")
+
+      # addresses github #991
+      my_resource.datafields.each do |datafield|
+        next unless datafield.at_xpath('marc:subfield[@code="2"][.="local"]')
+        subfield2 = datafield.at_xpath('marc:subfield[@code="2"]')
+        ind2 = datafield.at_xpath('@ind2')
+        datafield.children.last.next = ('<subfield code="5">NjP</subfield>') if (ind2.content == '7') && /^local$/.match?(subfield2.content)
+      end
 
       # addresses github #
       tag245_g.content = "(mostly #{tag245_g.content})" unless tag245_g.nil?
@@ -166,13 +174,6 @@ module Aspace2alma
           subfield2.remove
           ind2.content = '0' if ind2.content == '7'
         end
-
-        # add punctuation to the last subfield except $2
-        # if tag6xx.children[-1].attribute('code') == '2'
-        #   tag6xx.children[-2].content << '.' unless ['?', '-', '.'].include?(tag6xx.children[-2].content[-1])
-        # else
-        #   tag6xx.children[-1].content << '.' unless ['?', '-', '.'].include?(tag6xx.children[-1].content[-1])
-        # end
       end
 
       # addresses github #132

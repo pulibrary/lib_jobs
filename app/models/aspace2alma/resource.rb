@@ -99,6 +99,10 @@ module Aspace2alma
       @subfields ||= marc_xml.xpath('//marc:subfield')
     end
 
+    def datafields
+      @datafields ||= marc_xml.xpath('//marc:datafield')
+    end
+
     # use node.attributes.blank? for all attributes
     def remove_empty_elements(node)
       node.children.map { |child| remove_empty_elements(child) }

@@ -20,6 +20,12 @@
       <subfield code="4">cre</subfield>
       <subfield code="0">https://viaf.org/viaf/124191829</subfield>
     </datafield>
+    <datafield ind1="2" ind2="7" tag="100">
+      <subfield code="a">test</subfield>
+      <subfield code="e">Creator.</subfield>
+      <subfield code="4">cre</subfield>
+      <subfield code="2">local</subfield>
+    </datafield>
     <datafield ind1="1" ind2="0" tag="245">
       <subfield code="a">American Civil Liberties Union Records: Subgroup 1, The Roger Baldwin Years,</subfield>
       <subfield code="f">1917-1950</subfield>
@@ -82,6 +88,10 @@
 
  This finding aid describes a portion of the American Civil Liberties Union Records held at the Seeley G. Mudd Manuscript Library. For an overview of the entire collection, instructions on searching the collection and requesting materials, and other information, please see the  Guide to the American Civil Liberties Union Records .</subfield>
     </datafield>
+     <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">Princeton University. Class of 1953.</subfield>
+      <subfield code="2">local</subfield>
+  </datafield>
     <datafield ind1=" " ind2="0" tag="650">
       <subfield code="a">African Americans -- Civil rights -- History -- 20th century.</subfield>
     </datafield>

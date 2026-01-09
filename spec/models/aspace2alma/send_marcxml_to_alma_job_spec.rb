@@ -91,6 +91,10 @@ RSpec.describe Aspace2alma::SendMarcxmlToAlmaJob do
         expect(doc.at(subfield_b_xpath).to_s).to eq('eng')
         expect(doc.at(subfield_e_xpath).to_s).to eq('dacs')
       end
+      it 'adds a $5 if ind2=7 and $2=local' do
+        subfield_5_xpath = '//marc:datafield[marc:subfield[@code="2"][.="local"]]/marc:subfield[@code="5"]/text()'
+        expect(doc.at(subfield_5_xpath).to_s).to eq("NjP")
+      end
       it 'creates the expected document' do
         expect(File.read(doc_file)).to eq(File.read(doc_after_processing_fixture))
       end
