@@ -12,7 +12,6 @@ module Aspace2alma
     def handle(data_set:)
       filename = "MARC_out.xml"
       # rename MARC file:
-      # in case the export fails, this ensures that
       # Alma will not find a stale file to import
       Aspace2almaHelper.remove_file("/alma/aspace/MARC_out_old.xml")
       Aspace2almaHelper.rename_file("/alma/aspace/#{filename}", "/alma/aspace/MARC_out_old.xml")
@@ -229,8 +228,8 @@ module Aspace2alma
       sleep(0.25)
 
       # append record to file
-      # the unless clause addresses #186, #268, #284, #548, #553
-      file << doc.at_xpath('//marc:record') unless tag099_a.content =~ /^(C0140|C1771|AC214|AC364|C0744.06|C0935|C1296|WC059|RBD1|RBD1.1|C0723.1-47)$/ || tag856.nil?
+      # the unless clause addresses #186, #268, #284, #548, #553, #805
+      file << doc.at_xpath('//marc:record') unless tag099_a.content =~ /^(C0140|C1771|AC214|AC364|C0744.06|C0935|C1296|WC059|RBD1|RBD1.1|C0723.1-47|LAE\d+)$/ || tag856.nil?
       file.flush
       log_out.flush
     rescue Errno::ECONNRESET, Errno::ECONNABORTED, Errno::ETIMEDOUT, Errno::ECONNREFUSED => error
