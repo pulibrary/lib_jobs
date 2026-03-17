@@ -36,9 +36,9 @@ RSpec.describe "StaffDirectories", type: :request do
       expect(response).to have_http_status(:success)
     end
     it "denies access from other ips" do
-      expect {
+      expect do
         get "/pul-staff-report", env: { "REMOTE_ADDR" => "104.16.90.41" }
-      }.to raise_error(ActionController::RoutingError)
+      end.to raise_error(ActionController::RoutingError)
     end
   end
 end

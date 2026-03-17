@@ -1,8 +1,9 @@
+# frozen_string_literal: true
 require 'ipaddr'
 
 class IpConstraint
   def initialize
-    @allowed_ips = LibJobs.config[:staff_allowed_ips]&.split(" ").map { |ip| IPAddr.new(ip) }
+    @allowed_ips = LibJobs.config[:staff_allowed_ips]&.split(" ")&.map { |ip| IPAddr.new(ip) }
   end
 
   def matches?(request)
