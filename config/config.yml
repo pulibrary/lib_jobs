@@ -29,14 +29,19 @@ defaults: &defaults
   alma_api_key: <%= ENV["ALMA_CONFIG_API_KEY"] || "1234" %>
   alma_bib_api_key: <%= ENV["ALMA_BIB_API_KEY"] || "1234" %>
   airtable_token: <%= ENV["AIRTABLE_TOKEN"] || 'FAKE_AIRTABLE_TOKEN' %>
+
+  staff_allowed_ips: <%= ENV["STAFF_ALLOWED_IPS"] || "" %>
 development:
   <<: *defaults
+  staff_allowed_ips: <%= ENV["STAFF_ALLOWED_IPS"] || "127.0.0.1" %>
 
 test:
   <<: *defaults
   open_marc_records_location: "spec/fixtures/open_marc_records"
   alma_region: "https://api-na.hosted.exlibrisgroup.com"
   airtable_token: "FAKE_AIRTABLE_TOKEN"
+
+  staff_allowed_ips: <%= ENV["STAFF_ALLOWED_IPS"] || "127.0.0.1" %>
 
 production: &production
   <<: *defaults
