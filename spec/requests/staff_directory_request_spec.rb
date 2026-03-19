@@ -29,4 +29,16 @@ RSpec.describe "StaffDirectories", type: :request do
       expect(response.body).to eq('fouid,otherid')
     end
   end
+
+  describe "staff report with ip filtering" do
+    it "allows access from localhost" do
+      get "/pul-staff-report", env: { "REMOTE_ADDR" => "127.0.0.1" }
+      expect(response).to have_http_status(:success)
+    end
+    it "denies access from other ips" do
+      expect do
+        get "/pul-staff-report", env: { "REMOTE_ADDR" => "104.16.90.41" }
+      end.to raise_error(ActionController::RoutingError)
+    end
+  end
 end
