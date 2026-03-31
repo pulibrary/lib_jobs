@@ -53,7 +53,7 @@ RSpec.describe AirTableStaff::StaffListJob, type: :model do
         it 'records that time in the database' do
           job = described_class.new(filename: file_path)
           job.run
-          expect(DataSet.order('created_at').last.report_time).to eq(run_time)
+          expect(DataSet.order(:created_at).last.report_time).to eq(run_time)
         end
       end
 

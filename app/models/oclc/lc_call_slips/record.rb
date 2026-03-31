@@ -104,7 +104,7 @@ module Oclc
       def pub_field
         return record['260'] if record['260']
 
-        record.fields('264').min_by(&:indicator2) if record.fields('264').present?
+        record.fields('264').presence&.min_by(&:indicator2)
       end
 
       def pub_place
