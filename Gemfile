@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 8.0.3'
+gem 'rails', '~> 8.1'
 
 gem 'archivesspace-client'
 gem 'aspace_helper_methods', github: 'pulibrary/aspace_helpers', glob: 'packages/aspace_helper_methods/*.gemspec'
