@@ -66,7 +66,7 @@ RSpec.describe WebEvents::EventsFeedGenerator, type: :model do
       it 'records that time in the database' do
         generator = described_class.new(filename: file_path)
         generator.run
-        expect(DataSet.order('created_at').last.report_time).to eq(run_time)
+        expect(DataSet.order(:created_at).last.report_time).to eq(run_time)
       end
     end
 

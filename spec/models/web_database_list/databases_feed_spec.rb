@@ -61,7 +61,7 @@ RSpec.describe WebDatabaseList::DatabasesFeed, type: :model do
       end
       it 'records that time in the database' do
         feed.run
-        expect(DataSet.order('created_at').last.report_time).to eq(run_time)
+        expect(DataSet.order(:created_at).last.report_time).to eq(run_time)
       end
     end
 
