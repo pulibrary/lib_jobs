@@ -20,4 +20,9 @@ RSpec.describe RecentJobStatus do
     result = described_class.find_by job: :MyNiceJob
     expect(result.status).to eq 'success'
   end
+  it 'does not register nonsense' do
+    expect do
+      described_class.register job: :MyNonsenseJob, status: 'I AM A BUNCH OF NONSENSE'
+    end.to raise_error
+  end
 end
