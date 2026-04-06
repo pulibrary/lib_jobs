@@ -19,6 +19,8 @@ own PAT in the Airtable UI.  Instructions for rotating
 the airtable service account PAT can be found in the
 lib-jobs ansible vault.
 
+Note that we use separate PATs for each Airtable Base.
+
 ## Sequence of events
 
 The steps to maintain this list, as illustrated in the sequence diagram below.
