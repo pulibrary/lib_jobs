@@ -291,7 +291,7 @@ GEM
       net-imap
       net-pop
       net-smtp
-    marc (1.3.0)
+    marc (1.4.0)
       nokogiri (~> 1.0)
       rexml
     marcel (1.1.0)
