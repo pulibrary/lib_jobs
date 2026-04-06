@@ -146,7 +146,6 @@ GEM
     bcrypt (3.1.22)
     bcrypt_pbkdf (1.1.1)
     bigdecimal (4.1.0)
-    bindex (0.8.1)
     bixby (5.0.0)
       rubocop (>= 1, < 2)
       rubocop-ast
@@ -522,11 +521,6 @@ GEM
       descendants_tracker (~> 0.0, >= 0.0.3)
     warden (1.2.9)
       rack (>= 2.0.9)
-    web-console (4.2.1)
-      actionview (>= 6.0.0)
-      activemodel (>= 6.0.0)
-      bindex (>= 0.4.0)
-      railties (>= 6.0.0)
     webmock (3.25.1)
       addressable (>= 2.8.0)
       crack (>= 0.3.2)
@@ -583,7 +577,6 @@ DEPENDENCIES
   library_stdnums
   marc
   marc_cleanup!
-  matrix
   multipart-post
   net-ldap
   net-sftp
@@ -605,7 +598,6 @@ DEPENDENCIES
   simplecov
   timecop
   tzinfo-data
-  web-console (>= 3.3.0)
   webmock
   whenever
 

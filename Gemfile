@@ -28,7 +28,6 @@ gem 'library_stdnums'
 gem 'marc'
 gem 'marc_cleanup', github: "pulibrary/marc_cleanup", branch: 'main', require: false
 # Use ActiveStorage variant
-gem 'matrix'
 gem 'multipart-post'
 gem 'net-ldap'
 gem 'net-sftp'
@@ -59,13 +58,11 @@ group :development, :test do
 end
 
 group :development do
-  # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'capistrano'
   gem 'capistrano-passenger'
   gem 'capistrano-rails'
   gem 'database_cleaner-active_record'
   gem 'rspec-rails'
-  gem 'web-console', '>= 3.3.0'
 end
 
 group :test do
