@@ -1,14 +1,4 @@
 # frozen_string_literal: true
-TMAS_LOCATIONS = {
-  'ARCH0000' => 'Architecture',
-  'ANXN0000' => 'Commons',
-  'COTSEN' => 'Cotsen',
-  'PLLR0000' => 'East Asian Library',
-  'LEWIS' => 'Lewis and Engineering',
-  'RHED0000' => 'Marquand',
-  'MEND0000' => 'Mendel',
-  'SLES0000' => 'Stokes Library'
-}.freeze
 
 PRINCETON_TIMEZONE = ActiveSupport::TimeZone.new('Eastern Time (US & Canada)')
 
