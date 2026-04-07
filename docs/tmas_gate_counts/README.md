@@ -3,6 +3,21 @@ This gets data about foot traffic at our branch libraries from the
 TMAS system, then writes it to AirTable where it can be analyzed.
 
 
+## Airtable
+
+* [Airtable UI for counter data](https://airtable.com/appAqHrmsuH7VsZOB/tblLkWS3cZh8YqlgN/viw3hQqzoWCWFMjuo) - its name is Pearl People Counter Data
+* [API docs for counter data](https://airtable.com/appAqHrmsuH7VsZOB/api/docs)
+* [Auth docs for Airtable](https://airtable.com/developers/web/api/authentication)
+
+Lib-jobs uses a personal access token (PAT) from a service
+account to authenticate into airtable.  For local
+development, you can use that token, or create your
+own PAT in the Airtable UI.  Instructions for rotating
+the airtable service account PAT can be found in the
+lib-jobs ansible vault.
+
+Note that we use separate PATs for each Airtable Base.
+
 ## Sequence of events
 
 The steps of this job, as illustrated in the sequence diagram below.
@@ -33,3 +48,7 @@ sequenceDiagram
         lj->>airtable: push the JSON data
     end
 ```
+
+## Further reading
+
+* [TMAS API Documentation](https://help.storetraffic.com/es_ES/administrar-la-ubicacion/tmas-api-web)
