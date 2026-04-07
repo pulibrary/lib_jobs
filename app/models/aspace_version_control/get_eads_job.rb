@@ -59,7 +59,7 @@ module AspaceVersionControl
     def get_resource_ids_for_repo(repo)
       retries ||= 0
       @resource_ids = @client.get("/repositories/#{repo}/resources", {
-                                    query: { 
+                                    query: {
                                       all_ids: true,
                                       include_unpublished: true,
                                       include_daos: true,
