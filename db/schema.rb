@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_04_06_173307) do
+ActiveRecord::Schema[8.1].define(version: 2026_04_07_025552) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -34,6 +34,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_04_06_173307) do
     t.boolean "enabled", default: false, null: false
     t.string "key", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "next_date_to_process", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "job", null: false
+    t.date "next", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job"], name: "index_next_date_to_process_on_job", unique: true
   end
 
   create_table "peoplesoft_transactions", force: :cascade do |t|

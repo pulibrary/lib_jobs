@@ -9,12 +9,12 @@ module TMASGateCounts
     end
 
     # Returns Success([String]) or Failure
-    def call(first:, last: 1.day.ago, locations: TMAS_LOCATIONS.keys)
-      responses = Traverse.new.call(locations) { |location| client.fetch_data(date: first, location:) }
-      if responses.success && first < last
+    def call(start_date:, end_date: 1.day.ago, locations: TMAS_LOCATIONS.keys)
+      responses = Traverse.new.call(locations) { |location| client.fetch_data(date: start_date, location:) }
+      if responses.success && start_date < end_date
         responses.and call(
-            first: first + 1.day,
-            last:,
+            start_date: start_date + 1.day,
+            end_date:,
             locations:
           ) do |x, y|
             x + y
