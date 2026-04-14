@@ -17,7 +17,7 @@ RSpec.describe TMASGateCounts::FetchTMASCounts do
                         .to_return(status: 200, body: 'XML 2')
     results = described_class
               .new(client:)
-              .call(first: Date.parse('2026-04-01'), last: Date.parse('2026-04-02'), locations: ['mend0000'])
+              .call(start_date: Date.parse('2026-04-01'), end_date: Date.parse('2026-04-02'), locations: ['mend0000'])
 
     expect(april_first_mock).to have_been_requested
     expect(april_second_mock).to have_been_requested
@@ -33,7 +33,7 @@ RSpec.describe TMASGateCounts::FetchTMASCounts do
       ).to_return(status: 500)
     results = described_class
               .new(client:)
-              .call(first: Date.parse('2026-04-01'), last: Date.parse('2026-04-02'), locations: ['mend0000'])
+              .call(start_date: Date.parse('2026-04-01'), end_date: Date.parse('2026-04-02'), locations: ['mend0000'])
 
     expect(april_first_mock).to have_been_requested
 
