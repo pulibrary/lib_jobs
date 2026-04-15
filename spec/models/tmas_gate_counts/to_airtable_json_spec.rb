@@ -35,35 +35,35 @@ END_XML
 RSpec.describe TMASGateCounts::ToAirtableJson do
   it 'converts xml to json' do
     expected = [[
-      { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T00:00:00-04:00', fldwUTBK3mvfpN3Y8: 0 },
-      { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T01:00:00-04:00', fldwUTBK3mvfpN3Y8: 0 },
-      { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T02:00:00-04:00', fldwUTBK3mvfpN3Y8: 0 },
-      { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T03:00:00-04:00', fldwUTBK3mvfpN3Y8: 0 },
-      { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T04:00:00-04:00', fldwUTBK3mvfpN3Y8: 1 },
-      { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T05:00:00-04:00', fldwUTBK3mvfpN3Y8: 2 },
-      { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T06:00:00-04:00', fldwUTBK3mvfpN3Y8: 12 },
-      { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T07:00:00-04:00', fldwUTBK3mvfpN3Y8: 6 },
-      { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T08:00:00-04:00', fldwUTBK3mvfpN3Y8: 41 },
-      { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T09:00:00-04:00', fldwUTBK3mvfpN3Y8: 86 }
-    ].to_json, [
-      { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T10:00:00-04:00', fldwUTBK3mvfpN3Y8: 128 },
-      { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T11:00:00-04:00', fldwUTBK3mvfpN3Y8: 48 },
-      { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T12:00:00-04:00', fldwUTBK3mvfpN3Y8: 80 },
-      { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T13:00:00-04:00', fldwUTBK3mvfpN3Y8: 90 },
-      { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T14:00:00-04:00', fldwUTBK3mvfpN3Y8: 70 },
-      { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T15:00:00-04:00', fldwUTBK3mvfpN3Y8: 41 },
-      { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T16:00:00-04:00', fldwUTBK3mvfpN3Y8: 67 },
-      { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T17:00:00-04:00', fldwUTBK3mvfpN3Y8: 25 },
-      { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T18:00:00-04:00', fldwUTBK3mvfpN3Y8: 21 },
-      { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T19:00:00-04:00', fldwUTBK3mvfpN3Y8: 24 }
+      { fields: { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T00:00:00-04:00', fldwUTBK3mvfpN3Y8: 0 } },
+      { fields: { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T01:00:00-04:00', fldwUTBK3mvfpN3Y8: 0 } },
+      { fields: { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T02:00:00-04:00', fldwUTBK3mvfpN3Y8: 0 } },
+      { fields: { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T03:00:00-04:00', fldwUTBK3mvfpN3Y8: 0 } },
+      { fields: { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T04:00:00-04:00', fldwUTBK3mvfpN3Y8: 1 } },
+      { fields: { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T05:00:00-04:00', fldwUTBK3mvfpN3Y8: 2 } },
+      { fields: { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T06:00:00-04:00', fldwUTBK3mvfpN3Y8: 12 } },
+      { fields: { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T07:00:00-04:00', fldwUTBK3mvfpN3Y8: 6 } },
+      { fields: { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T08:00:00-04:00', fldwUTBK3mvfpN3Y8: 41 } },
+      { fields: { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T09:00:00-04:00', fldwUTBK3mvfpN3Y8: 86 } }
+    ], [
+      { fields: { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T10:00:00-04:00', fldwUTBK3mvfpN3Y8: 128 } },
+      { fields: { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T11:00:00-04:00', fldwUTBK3mvfpN3Y8: 48 } },
+      { fields: { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T12:00:00-04:00', fldwUTBK3mvfpN3Y8: 80 } },
+      { fields: { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T13:00:00-04:00', fldwUTBK3mvfpN3Y8: 90 } },
+      { fields: { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T14:00:00-04:00', fldwUTBK3mvfpN3Y8: 70 } },
+      { fields: { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T15:00:00-04:00', fldwUTBK3mvfpN3Y8: 41 } },
+      { fields: { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T16:00:00-04:00', fldwUTBK3mvfpN3Y8: 67 } },
+      { fields: { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T17:00:00-04:00', fldwUTBK3mvfpN3Y8: 25 } },
+      { fields: { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T18:00:00-04:00', fldwUTBK3mvfpN3Y8: 21 } },
+      { fields: { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T19:00:00-04:00', fldwUTBK3mvfpN3Y8: 24 } }
 
-    ].to_json, [
-      { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T20:00:00-04:00', fldwUTBK3mvfpN3Y8: 18 },
-      { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T21:00:00-04:00', fldwUTBK3mvfpN3Y8: 1 },
-      { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T22:00:00-04:00', fldwUTBK3mvfpN3Y8: 0 },
-      { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T23:00:00-04:00', fldwUTBK3mvfpN3Y8: 0 }
+    ], [
+      { fields: { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T20:00:00-04:00', fldwUTBK3mvfpN3Y8: 18 } },
+      { fields: { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T21:00:00-04:00', fldwUTBK3mvfpN3Y8: 1 } },
+      { fields: { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T22:00:00-04:00', fldwUTBK3mvfpN3Y8: 0 } },
+      { fields: { fld5OFSWCZzeQb1Dq: 'Lewis and Engineering', fldemkioYkKtAfesm: '2026-04-01T23:00:00-04:00', fldwUTBK3mvfpN3Y8: 0 } }
 
-    ].to_json]
+    ]]
     expect(described_class.new.call(TMAS_XML).value!).to eq(expected)
   end
 end
