@@ -7,12 +7,12 @@ RSpec.describe TMASGateCounts::FetchTMASCounts do
     client = TMASGateCounts::TMASClient.new(api_key: 'MY_KEY', wait_for_rate_limit: ->() {})
     april_first_mock = stub_request(
         :get,
-        'https://www.smssoftware.net/tms/manTrafExp?fromDate=04/01/2026&toDate=04/01/2026&interval=60&hours=0&reqType=td&apiKey=MY_KEY&locationId=mend0000'
+        'https://www.smssoftware.net/tms/manTrafExp?fromDate=04/01/2026&toDate=04/01/2026&interval=60&hours=0&reqType=tds&apiKey=MY_KEY&locationId=mend0000'
       )
                        .to_return(status: 200, body: 'XML 1')
     april_second_mock = stub_request(
         :get,
-        'https://www.smssoftware.net/tms/manTrafExp?fromDate=04/02/2026&toDate=04/02/2026&interval=60&hours=0&reqType=td&apiKey=MY_KEY&locationId=mend0000'
+        'https://www.smssoftware.net/tms/manTrafExp?fromDate=04/02/2026&toDate=04/02/2026&interval=60&hours=0&reqType=tds&apiKey=MY_KEY&locationId=mend0000'
       )
                         .to_return(status: 200, body: 'XML 2')
     results = described_class
@@ -29,7 +29,7 @@ RSpec.describe TMASGateCounts::FetchTMASCounts do
     client = TMASGateCounts::TMASClient.new(api_key: 'MY_KEY', wait_for_rate_limit: ->() {})
     april_first_mock = stub_request(
         :get,
-        'https://www.smssoftware.net/tms/manTrafExp?fromDate=04/01/2026&toDate=04/01/2026&interval=60&hours=0&reqType=td&apiKey=MY_KEY&locationId=mend0000'
+        'https://www.smssoftware.net/tms/manTrafExp?fromDate=04/01/2026&toDate=04/01/2026&interval=60&hours=0&reqType=tds&apiKey=MY_KEY&locationId=mend0000'
       ).to_return(status: 500)
     results = described_class
               .new(client:)

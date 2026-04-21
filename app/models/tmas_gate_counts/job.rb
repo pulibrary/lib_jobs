@@ -18,7 +18,7 @@ module TMASGateCounts
       fetch_tmas_counts.call(start_date:)
                        .bind do |responses|
                          responses.each do |response|
-                           to_airtable_json
+                           to_airtable_hashes
                              .call(response)
                              .bind { |batches| batches.each { |batch| airtable_client.call(json: { records: batch }.to_json) } }
                          end
@@ -39,8 +39,8 @@ module TMASGateCounts
       @post_to_airtable ||= post_to_airtable_class.new
     end
 
-    def to_airtable_json
-      @to_airtable_json = ToAirtableJson.new
+    def to_airtable_hashes
+      @to_airtable_hashes = ToAirtableHashes.new
     end
 
     def start_date
