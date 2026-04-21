@@ -3,28 +3,16 @@
 PRINCETON_TIMEZONE = ActiveSupport::TimeZone.new('Eastern Time (US & Canada)')
 
 module TMASGateCounts
-  # This struct represents an hourly summary of gate counts
+  # This struct represents an hourly summary of gate counts from a single sensor (could be IN or OUT sensor)
   HourlySummary = Struct.new(:location, :time, :count) do
-    def to_h
-      { columns[:location] => location, columns[:time] => time.iso8601, columns[:count] => count }
-    end
-
     # From an XML entry
     def self.from_entry(entry)
+      library_code = entry.attr('storeId').partition('|').first.upcase
       HourlySummary.new(
-          TMAS_LOCATIONS[entry.attr('storeId')],
+          TMAS_LOCATIONS[library_code],
           PRINCETON_TIMEZONE.parse(entry.attr('trafficDate')),
           entry.attr('trafficValue').gsub(/\.\d+/, '').to_i
         )
-    end
-
-      private
-
-    # Airtable uses unique ids for each column which should persist even if somebody renames
-    # the column.
-    # These column identifiers can be found at https://airtable.com/appv7XA5FWS7DG9oe/api/docs
-    def columns
-      { location: :fld5OFSWCZzeQb1Dq, time: :fldemkioYkKtAfesm, count: :fldwUTBK3mvfpN3Y8 }
     end
   end
 end
