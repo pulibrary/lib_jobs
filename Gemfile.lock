@@ -8,13 +8,12 @@ GIT
 
 GIT
   remote: https://github.com/pulibrary/marc_cleanup.git
-  revision: f2763cefea9b48ca324d477bd66ef279b4efe243
+  revision: 13daf8c1101c4a5215d29776550b5cfb7b96babd
   branch: main
   specs:
-    marc_cleanup (1.0.0)
+    marc_cleanup (1.0.1)
       marc (~> 1.0)
       nokogiri
-      unf (= 0.1.4)
 
 GIT
   remote: https://github.com/voormedia/flipflop.git
@@ -519,9 +518,6 @@ GEM
     tsort (0.2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    unf (0.1.4)
-      unf_ext
-    unf_ext (0.0.9.1)
     unicode-display_width (2.6.0)
     uri (1.1.1)
     useragent (0.16.11)
