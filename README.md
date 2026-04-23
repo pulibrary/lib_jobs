@@ -16,6 +16,7 @@
   * Platform for Open Data (POD) API
   * Springshare Libguides and Libcal APIs
   * Library 
+  * AirTable
 
 ## Tasks
   * Alma Fund Adjustment
@@ -32,7 +33,7 @@
   * OCLC Data Sync Failed Record Update Processing
   * Library Current Event List
   * Library Databases List Publishing
-  * Library Staff List 
+  * Airtable Staff List
 
 ## Output
   * CSV Files for download by other applications

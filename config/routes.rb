@@ -8,9 +8,7 @@ Rails.application.routes.draw do
   resources :data_sets
   get '/data_sets/latest/:category', to: 'data_sets#latest', defaults: { format: 'text' }
 
-  get '/staff-directory', to: 'staff_directory#index', defaults: { format: 'csv' }
   get '/pul-staff-report', to: 'staff_directory#pul_staff_report', defaults: { format: 'csv' }
-  get '/removed-staff', to: 'staff_directory#removed', defaults: { format: 'text' }
 
   get '/library-events', to: 'library_events#index', defaults: { format: 'csv' }
   get '/library-databases', to: 'library_databases#index', defaults: { format: 'csv' }

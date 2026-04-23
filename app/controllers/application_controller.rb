@@ -53,11 +53,6 @@ class ApplicationController < ActionController::Base
         component: 'Data Sets',
         href: data_sets_path
       },
-      {
-        name: 'Staff Directory',
-        component: 'Staff Directory',
-        href: staff_directory_path
-      },
       header_user_menu_item
     ]
   end
