@@ -53,7 +53,7 @@ module AlmaPeople
     def transfer_alma_person_file(filename:)
       return if filename.blank?
 
-      Zip::File.open(filename + '.zip', Zip::File::CREATE) do |zipfile|
+      Zip::File.open(filename + '.zip', create: true) do |zipfile|
         zipfile.add(File.basename(filename), filename)
       end
 
