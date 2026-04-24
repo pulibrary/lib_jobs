@@ -13,6 +13,7 @@ RSpec.describe(AlmaSubmitCollection::MarcS3Writer) do
       s3_client.stub_responses(
         :put_object, lambda { |context|
           files_sent_to_s3 << Zlib::GzipReader.new(StringIO.new(context.params[:body]))
+          {}
         }
       )
 

@@ -35,6 +35,7 @@ RSpec.describe AlmaSubmitCollection::MarcFileProcessor, type: :model do
       s3_client.stub_responses(
         :put_object, lambda { |context|
           files_sent_to_s3 << Zlib::GzipReader.new(StringIO.new(context.params[:body]))
+          {}
         }
       )
     end
