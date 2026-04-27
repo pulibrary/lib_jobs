@@ -20,11 +20,15 @@ module TMASGateCounts
                          responses.each do |response|
                            to_airtable_hashes
                              .call(response)
-                             .bind { |batches| batches.each { |batch| airtable_client.call(json: { records: batch }.to_json) } }
+                             .bind { send_batches_to_airtable.call(batches) }
                          end
                        end
 
       data_set
+    end
+
+    def send_batches_to_airtable
+      SendBatchesToAirtable.new(airtable_client)
     end
 
     def airtable_client

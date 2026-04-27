@@ -2,6 +2,7 @@
 require "webmock/rspec"
 require "simplecov"
 require 'database_cleaner/active_record'
+require 'dry-monads'
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new(
   [
@@ -124,3 +125,5 @@ end
 
 WebMock.disable_net_connect!(allow_localhost: true,
                              allow: "chromedriver.storage.googleapis.com")
+
+Dry::Monads.load_extensions(:rspec)
