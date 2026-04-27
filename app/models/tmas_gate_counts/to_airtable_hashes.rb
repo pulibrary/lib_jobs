@@ -11,9 +11,6 @@ module TMASGateCounts
       Success(
         in_summaries.zip(out_summaries)
           .map { |summaries| CombineSensorData.new.call(summaries) }
-          # The Airtable API can only handle 10 records at once, so
-          # we group our JSON into chunks of 10 records
-          .then { |summaries| summaries.each_slice(10).to_a }
       )
     end
 

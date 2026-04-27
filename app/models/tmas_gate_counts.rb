@@ -10,4 +10,6 @@ module TMASGateCounts
     'MEND0000' => 'Mendel',
     'SLES0000' => 'Stokes Library'
   }.freeze
+
+  PRINCETON_TIMEZONE = ActiveSupport::TimeZone.new('Eastern Time (US & Canada)')
 end

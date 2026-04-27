@@ -15,14 +15,15 @@ module TMASGateCounts
     private
 
     def handle(data_set:)
-      fetch_tmas_counts.call(start_date:)
-                       .bind do |responses|
-                         responses.each do |response|
-                           to_airtable_hashes
-                             .call(response)
-                             .bind { send_batches_to_airtable.call(batches) }
-                         end
-                       end
+      fetch_tmas_counts.call(start_date:) do |response|
+        response
+          .bind { |branches| Traverse.new.call(branches) { |branch| to_airtable_hashes.call(branch) } }
+          # The Airtable API only can handle 10 records at a time
+          .fmap { |all_data| all_data.flatten.each_slice(10).map { { records: it }.to_json } }
+          .bind { |batches| send_batches_to_airtable.call(batches) }
+        # .bind { update next day to process }
+        # .or { handle the failure, no matter where in the process it came from, break }
+      end
 
       data_set
     end
