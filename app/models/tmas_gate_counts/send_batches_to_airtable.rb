@@ -5,7 +5,7 @@ module TMASGateCounts
   class SendBatchesToAirtable
     include Dry::Monads[:result]
 
-    def initialize(client)
+    def initialize(client = AirtableClient.new)
       @client = client
     end
 

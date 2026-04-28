@@ -14,7 +14,7 @@ module TMASGateCounts
     def call(start_date:, end_date: PRINCETON_TIMEZONE.yesterday, locations: TMAS_LOCATIONS.keys)
       (start_date..end_date).each do |date|
         response = Traverse.new.call(locations) { |location| client.fetch_data(date:, location:) }
-        yield response
+        yield response, date
         break if response.failure?
       end
     end
