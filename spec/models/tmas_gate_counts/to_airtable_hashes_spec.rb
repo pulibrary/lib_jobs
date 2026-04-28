@@ -34,7 +34,7 @@ END_XML
 
 RSpec.describe TMASGateCounts::ToAirtableHashes do
   it 'converts xml to an array of hashes' do
-    expected = [[
+    expected = [
       { fields: { fld5OFSWCZzeQb1Dq: 'Architecture', fldemkioYkKtAfesm: '2026-04-15T09:00:00-04:00', fldwUTBK3mvfpN3Y8: 9, fldat8beQUOCWvdjm: 7 } },
       { fields: { fld5OFSWCZzeQb1Dq: 'Architecture', fldemkioYkKtAfesm: '2026-04-15T10:00:00-04:00', fldwUTBK3mvfpN3Y8: 12, fldat8beQUOCWvdjm: 20 } },
       { fields: { fld5OFSWCZzeQb1Dq: 'Architecture', fldemkioYkKtAfesm: '2026-04-15T11:00:00-04:00', fldwUTBK3mvfpN3Y8: 6, fldat8beQUOCWvdjm: 27 } },
@@ -44,11 +44,10 @@ RSpec.describe TMASGateCounts::ToAirtableHashes do
       { fields: { fld5OFSWCZzeQb1Dq: 'Architecture', fldemkioYkKtAfesm: '2026-04-15T15:00:00-04:00', fldwUTBK3mvfpN3Y8: 14, fldat8beQUOCWvdjm: 25 } },
       { fields: { fld5OFSWCZzeQb1Dq: 'Architecture', fldemkioYkKtAfesm: '2026-04-15T16:00:00-04:00', fldwUTBK3mvfpN3Y8: 13, fldat8beQUOCWvdjm: 19 } },
       { fields: { fld5OFSWCZzeQb1Dq: 'Architecture', fldemkioYkKtAfesm: '2026-04-15T17:00:00-04:00', fldwUTBK3mvfpN3Y8: 7, fldat8beQUOCWvdjm: 14 } },
-      { fields: { fld5OFSWCZzeQb1Dq: 'Architecture', fldemkioYkKtAfesm: '2026-04-15T18:00:00-04:00', fldwUTBK3mvfpN3Y8: 9, fldat8beQUOCWvdjm: 20 } }
-    ], [
+      { fields: { fld5OFSWCZzeQb1Dq: 'Architecture', fldemkioYkKtAfesm: '2026-04-15T18:00:00-04:00', fldwUTBK3mvfpN3Y8: 9, fldat8beQUOCWvdjm: 20 } },
       { fields: { fld5OFSWCZzeQb1Dq: 'Architecture', fldemkioYkKtAfesm: '2026-04-15T19:00:00-04:00', fldwUTBK3mvfpN3Y8: 4, fldat8beQUOCWvdjm: 19 } },
       { fields: { fld5OFSWCZzeQb1Dq: 'Architecture', fldemkioYkKtAfesm: '2026-04-15T20:00:00-04:00', fldwUTBK3mvfpN3Y8: 2, fldat8beQUOCWvdjm: 9 } }
-    ]]
+    ]
     expect(described_class.new.call(TMAS_XML).value!).to eq(expected)
   end
 end

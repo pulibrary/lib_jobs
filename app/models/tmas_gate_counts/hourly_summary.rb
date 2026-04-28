@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-PRINCETON_TIMEZONE = ActiveSupport::TimeZone.new('Eastern Time (US & Canada)')
-
 module TMASGateCounts
   # This struct represents an hourly summary of gate counts from a single sensor (could be IN or OUT sensor)
   HourlySummary = Struct.new(:location, :time, :count) do
