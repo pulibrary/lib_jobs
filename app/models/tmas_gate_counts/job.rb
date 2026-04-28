@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 module TMASGateCounts
   class Job < LibJob
+    include Dry::Monads[:result]
+
     def initialize(
       fetch_tmas_counts_class: FetchTMASCounts,
       next_date_class: NextDateToProcess,
@@ -22,10 +24,20 @@ module TMASGateCounts
           .fmap { |all_data| all_data.flatten.each_slice(10).map { { records: it }.to_json } }
           .bind { |batches| send_batches_to_airtable.call(batches) }
           .bind { |_airtable_ids| next_date_class.set(job: category, next: (date + 1.day)) }
-        # .or { handle the failure, no matter where in the process it came from, break }
+          .or do |failure|
+            handle_failure(failure)
+            return data_set
+          end
       end
 
+      RecentJobStatus.register(job: category, status: Success())
       data_set
+    end
+
+    def handle_failure(failure)
+      TMASAirtableErrorMailer.error_notification(failure)
+      Honeybadger.notify("#{category}: #{failure}")
+      RecentJobStatus.register(job: category, status: Failure(failure))
     end
 
     def send_batches_to_airtable
