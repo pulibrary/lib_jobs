@@ -49,6 +49,27 @@ sequenceDiagram
     end
 ```
 
+## Re-running the job
+
+Re-running the job is safe to do.  However, to avoid duplicate data,
+it will not re-process any days that it knows that it has already
+processed.
+
+If you need to re-add data to Airtable for the most recent `n` days:
+
+1. In airtable, delete all data for those days
+1. `bundle exec rails c`
+1. Set the next day to process to `n` days ago.  For example, if you want
+   to re-add data for the past 4 days: `NextDateToProcess.set(job:'TMASGateCounts', next: 4.days.ago)`
+1. Run the job
+
+If you need to re-create the data from scratch:
+
+1. In airtable, delete all data
+1. `bundle exec rails c`
+1. `NextDateToProcess.where(job: 'TMASGateCounts').destroy_all`
+1. Run the job
+
 ## Further reading
 
 * [TMAS API Documentation](https://help.storetraffic.com/es_ES/administrar-la-ubicacion/tmas-api-web)
