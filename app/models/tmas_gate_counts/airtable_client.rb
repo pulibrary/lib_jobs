@@ -11,18 +11,7 @@ module TMASGateCounts
       uri = uri_builder.call(BASE_ID, TABLE_ID)
       request = request_class.new(uri, { 'Authorization' => "Bearer #{env['PEOPLE_COUNTER_AIRTABLE_TOKEN']}", 'Content-Type' => 'application/json' })
       request.body = json if json
-      Rails.logger.debug("Sending request to airtable: #{request}")
-      response = Net::HTTP.start(uri.hostname, uri.port, { use_ssl: true }) do |http|
-        http.request(request)
-      end
-      case response.code
-      in '200'
-        Success(response.body)
-      else
-        error = "Got response #{response.code} from the Airtable API while attempting #{request_class}"
-        Rails.logger.error error
-        Failure(error)
-      end
+      send request, uri
     end
 
     def self.default_uri_builder
@@ -38,6 +27,21 @@ module TMASGateCounts
     TABLE_ID = 'tblLkWS3cZh8YqlgN'
 
     private
+
+    def send(request, uri)
+      Rails.logger.debug { "Sending request to airtable: #{request}" }
+      response = Net::HTTP.start(uri.hostname, uri.port, { use_ssl: true }) do |http|
+        http.request(request)
+      end
+      case response.code
+      in '200'
+        Success(response.body)
+      else
+        error = "Got response #{response.code} from the Airtable API while attempting #{request.class}"
+        Rails.logger.error error
+        Failure(error)
+      end
+    end
 
     attr_reader :env
   end
