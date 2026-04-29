@@ -20,6 +20,7 @@ module TMASGateCounts
           return response
         end
       end
+      Rails.logger.info("Sent #{ids.count} records to airtable")
       Success(ids)
     end
 

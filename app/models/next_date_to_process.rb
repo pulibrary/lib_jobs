@@ -2,7 +2,7 @@
 # This class is responsible for keeping track of the next
 # date that you should process something
 class NextDateToProcess < ApplicationRecord
-  extend Dry::Monads[:maybe]
+  extend Dry::Monads[:maybe, :result]
 
   self.table_name = 'next_date_to_process'
 

@@ -11,6 +11,7 @@ module TMASGateCounts
       uri = uri_builder.call(BASE_ID, TABLE_ID)
       request = request_class.new(uri, { 'Authorization' => "Bearer #{env['PEOPLE_COUNTER_AIRTABLE_TOKEN']}", 'Content-Type' => 'application/json' })
       request.body = json if json
+      Rails.logger.debug("Sending request to airtable: #{request}")
       response = Net::HTTP.start(uri.hostname, uri.port, { use_ssl: true }) do |http|
         http.request(request)
       end
