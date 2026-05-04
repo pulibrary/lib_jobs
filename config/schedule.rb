@@ -3,11 +3,6 @@
 set :output, '/opt/lib-jobs/shared/tmp/cron_log.log'
 env :PATH, ENV["PATH"]
 
-# Run at 9:05 am EST or 10:05 EDT (after the 6am staff report is generated)
-every 1.day, at: '02:05 pm', roles: [:cron_prod2] do
-  rake "lib_jobs:generate_staff_report"
-end
-
 # Run on production at 7:00 am EST or 8:00 am EDT
 every 1.day, at: '12:00 pm', roles: [:cron_prod2] do
   rake "lib_jobs:alma_fund_adjustment"
