@@ -115,3 +115,8 @@ end
 every 1.day, at: '12:00 pm', roles: [:cron_prod2] do
   rake "lib_jobs:process_submit_collection"
 end
+
+# Run on production at 2:00 am EST or 3:00 am EDT
+every 1.day, at: '7:00 am', roles: [:cron_prod2] do
+  rake " lib_jobs:tmas_gate_counts"
+end

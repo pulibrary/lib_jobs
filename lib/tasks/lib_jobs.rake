@@ -167,6 +167,11 @@ namespace :lib_jobs do
     job.run
   end
 
+  desc "TMAS Gate counter statistics: Send to Airtable for analysis"
+  task tmas_gate_counts: [:environment] do
+    TMASGateCounts::Job.new.run
+  end
+
   desc "aspace2alma: send collection-level MarcXML records from aspace to alma"
   task aspace2alma: [:environment] do
     job = Aspace2alma::SendMarcxmlToAlmaJob.new
