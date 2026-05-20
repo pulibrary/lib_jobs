@@ -47,34 +47,6 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe '#decoded_token' do
-    it 'accesses the decoded JSON web token' do
-      expect(user.decoded_token).to eq(
-        [
-          "3d494700a68028e04fc1c444f8cd1cad",
-          {
-            "alg" => "HS256"
-          }
-        ]
-      )
-    end
-
-    context 'when the JSON Web Token cannot be decoded' do
-      let(:logger) { instance_double(ActiveSupport::Logger) }
-
-      before do
-        allow(logger).to receive(:warn)
-        allow(Rails).to receive(:logger).and_return(logger)
-        allow(JWT).to receive(:decode).and_raise(JWT::DecodeError)
-      end
-
-      it 'logs a warning and returns the encoded JSON web token' do
-        expect(user.decoded_token).to eq('eyJhbGciOiJIUzI1NiJ9.IjNkNDk0NzAwYTY4MDI4ZTA0ZmMxYzQ0NGY4Y2QxY2FkIg.T2mp-OpT2WiKrGHW6PN5VJm-NVqed8E2aTaoRkoNPD8')
-        expect(logger).to have_received(:warn).with('Failed to decode the JSON Web Token for the user user@princeton.edu: JWT::DecodeError')
-      end
-    end
-  end
-
   describe('#admin?') do
     it 'returns true if user is in the list of netids' do
       subject.instance_variable_set(:@netids, %w[user user2])

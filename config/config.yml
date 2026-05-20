@@ -1,8 +1,6 @@
 ---
 defaults: &defaults
 
-  hmac_secret: <%= ENV["HMAC_SECRET"] || 'secret' %>
-
   voucher_feed_recipients: <%= ENV.fetch('VOUCHER_FEED_RECIPIENTS', 'test_user@princeton.edu').split(',') %>
   alma_people_error_notification_recipients: <%= ENV.fetch('PEOPLE_ERROR_NOTIFICATION_RECIPIENTS', 'test_user@princeton.edu').split(',') %>
   peoplesoft_bursar_recipients: <%= ENV.fetch('PEOPLESOFT_BURSAR_RECIPIENTS', 'test_user@princeton.edu').split(',') %>

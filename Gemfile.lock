@@ -277,8 +277,6 @@ GEM
       activesupport (>= 5.0.0)
     jmespath (1.6.2)
     json (2.19.5)
-    jwt (3.1.2)
-      base64
     language_server-protocol (3.17.0.5)
     library_stdnums (1.6.0)
     lint_roller (1.1.0)
@@ -584,7 +582,6 @@ DEPENDENCIES
   honeybadger
   icalendar
   jbuilder (~> 2.5)
-  jwt
   library_stdnums
   marc
   marc_cleanup!
