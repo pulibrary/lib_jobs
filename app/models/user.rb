@@ -1,22 +1,8 @@
 # frozen_string_literal: true
-require 'jwt'
 
 class User < ApplicationRecord
   validates :email, presence: true
   encrypts :email, deterministic: true, downcase: true
-
-  after_validation do
-    if token.nil?
-      self.token = JWT.encode(digest, self.class.hmac_secret, 'HS256')
-    else
-      # Validate the token
-      raise ActionController::InvalidAuthenticityToken unless token_valid?
-    end
-  end
-
-  def self.hmac_secret
-    LibJobs.config[:hmac_secret]
-  end
 
   def self.institutional_email_domain
     "princeton.edu"
@@ -40,19 +26,6 @@ class User < ApplicationRecord
 
   def digest
     Digest::MD5.hexdigest(email)
-  end
-
-  def decoded_token
-    JWT.decode(token, self.class.hmac_secret, true, { algorithm: 'HS256' })
-  rescue JWT::DecodeError => decode_error
-    Rails.logger.warn("Failed to decode the JSON Web Token for the user #{email}: #{decode_error}")
-    token
-  end
-
-  def token_valid?
-    return false if token.nil?
-
-    decoded_token != token
   end
 
   def admin?

@@ -24,7 +24,6 @@ gem 'honeybadger'
 gem 'icalendar'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
-gem 'jwt'
 gem 'library_stdnums'
 gem 'marc'
 gem 'marc_cleanup', github: "pulibrary/marc_cleanup", branch: 'main', require: false
