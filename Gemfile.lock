@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/pulibrary/aspace_helpers.git
-  revision: 8a5dcaa3e519ea83982121f70efc7b9d9943c764
+  revision: 3ac5832884a9d2c0ad00b388f4517b464f3794eb
   glob: packages/aspace_helper_methods/*.gemspec
   specs:
     aspace_helper_methods (0.1.0)
