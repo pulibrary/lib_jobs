@@ -41,7 +41,7 @@ module AspaceVersionControl
     def handle(data_set:)
       aspace_login
       Rails.logger.info("Opening Repo at #{@local_git_lab_eacs_dir}")
-      GitLab.new(repo_path: @local_git_lab_eacs_dir).update(path: @local_git_lab_eacs_dir)
+      GitLab.new(repo_path: @local_git_lab_eacs_dir).update
 
       # We only have one repo for EACs
       prepare_and_commit_to_git_lab(1, "eacs")
