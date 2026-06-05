@@ -8,7 +8,7 @@ RSpec.describe '/status', type: :request do
     RecentJobStatus.register job: :MyBadJob, status: Failure(:oh_no)
 
     get '/status'
-    parsed = Nokogiri::HTML(response.body)
+    parsed = response.parsed_body
     rows = parsed.css('tr')
                  .map { |tr| tr.css('td').map(&:text) }
     expect(rows[0]).to eq(['MyNiceJob', 'success'])
