@@ -109,7 +109,7 @@ class DataSetsController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_data_set
-    @data_set = DataSet.find(params[:id])
+    @data_set = DataSet.find(params.expect(:id))
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
