@@ -19,9 +19,6 @@ gem 'ed25519', '~> 1.4'
 gem 'faraday', '~> 2.14'
 gem "flipflop", git: "https://github.com/voormedia/flipflop.git", ref: "0d70d8e33483a9c0282ed8d6bca9c5ccd61e61e8"
 gem 'git'
-gem 'hanami', '~> 2.3'
-gem 'hanami-controller' # NOTE: this will be renamed to hanami-action in hanami 3.0
-gem 'hanami-router'
 gem "health-monitor-rails"
 gem 'honeybadger'
 gem 'icalendar'

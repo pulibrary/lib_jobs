@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   get '/pul-staff-report', to: 'staff_directory#pul_staff_report', defaults: { format: 'csv' }
 
-  get '/library-events', to: Hanami.app.slices[:library_events].rack_app, via: :all
+  get '/library-events', to: 'library_events#index', defaults: { format: 'csv' }
   get '/library-databases', to: 'library_databases#index', defaults: { format: 'csv' }
 
   get '/open-marc-records', to: 'open_marc_records#index'
