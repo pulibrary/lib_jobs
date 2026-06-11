@@ -22,6 +22,7 @@ gem 'git'
 gem 'hanami', '~> 2.3'
 gem 'hanami-controller' # NOTE: this will be renamed to hanami-action in hanami 3.0
 gem 'hanami-router'
+gem 'hanami-view'
 gem "health-monitor-rails"
 gem 'honeybadger'
 gem 'icalendar'
