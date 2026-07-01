@@ -7,7 +7,7 @@ html {
     margin-left: 0;
     margin-right: 0;
 
-    &__header {
+    .page__header {
       margin-bottom: 2.1rem;
 
       .lux-header-content[data-v-47080ee1] {
@@ -26,7 +26,7 @@ html {
       }
     }
 
-    &__content {
+    .page__content {
       margin-left: 2.1rem;
       margin-right: 2.1rem;
 
@@ -34,7 +34,7 @@ html {
       min-height: 100%;
     }
 
-    &__footer {
+    .page__footer {
       margin-top: 2.1rem;
     }
   }
