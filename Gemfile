@@ -6,7 +6,9 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 8.1'
 
-gem 'archivesspace-client'
+# Move to a released version as soon as https://github.com/lyrasis/archivesspace-client/pull/34 is released
+gem 'archivesspace-client', github: 'lyrasis/archivesspace-client'
+
 gem 'aspace_helper_methods', github: 'pulibrary/aspace_helpers', glob: 'packages/aspace_helper_methods/*.gemspec'
 gem 'aws-sdk-s3'
 gem 'bcrypt_pbkdf', '~> 1.1'
@@ -19,6 +21,10 @@ gem 'ed25519', '~> 1.4'
 gem 'faraday', '~> 2.14'
 gem "flipflop", git: "https://github.com/voormedia/flipflop.git", ref: "0d70d8e33483a9c0282ed8d6bca9c5ccd61e61e8"
 gem 'git'
+gem 'hanami', require: false
+gem 'hanami-action', require: false
+gem 'hanami-router', require: false
+gem 'hanami-view', require: false
 gem "health-monitor-rails"
 gem 'honeybadger'
 gem 'icalendar'
