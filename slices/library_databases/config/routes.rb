@@ -2,7 +2,6 @@
 
 module LibraryDatabases
   class Routes < Hanami::Routes
-    get '/library-databases', to: 'index'
-    get '/library-databases.csv', to: 'index'
+    get '/library-databases(.:format)', to: 'index'
   end
 end
