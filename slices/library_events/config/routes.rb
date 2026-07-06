@@ -2,6 +2,6 @@
 
 module LibraryEvents
   class Routes < Hanami::Routes
-    get '/library-events', to: 'index'
+    get '/library-events(.:format)', to: 'index'
   end
 end
