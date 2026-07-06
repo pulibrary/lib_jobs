@@ -17,6 +17,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'cancancan'
 gem 'devise', '>= 4.6.0'
 gem 'dry-monads'
+gem 'dry-types'
+gem 'dry-validation'
 gem 'ed25519', '~> 1.4'
 gem 'faraday', '~> 2.14'
 gem "flipflop", git: "https://github.com/voormedia/flipflop.git", ref: "0d70d8e33483a9c0282ed8d6bca9c5ccd61e61e8"
