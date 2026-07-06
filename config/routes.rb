@@ -13,8 +13,8 @@ Rails.application.routes.draw do
   get '/library-events', to: Hanami.app.slices[:library_events].rack_app, via: :all
   get '/library-databases', to: Hanami.app.slices[:library_databases].rack_app, via: :all
 
-  get '/open-marc-records', to: 'open_marc_records#index'
-  get '/open-marc-records/download/:index', to: 'open_marc_records#download'
+  get '/open-marc-records', to: Hanami.app.slices[:open_marc_records].rack_app, via: :all
+  get '/open-marc-records/download/:id', to: Hanami.app.slices[:open_marc_records].rack_app, via: :all
 
   get '/status', to: 'recent_job_status#index'
 

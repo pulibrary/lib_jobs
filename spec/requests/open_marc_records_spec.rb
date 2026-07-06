@@ -8,13 +8,12 @@ RSpec.describe 'Open Marc Records', type: :request do
   end
   it 'downloads a file' do
     get '/open-marc-records/download/0'
-    expect(response.headers['Content-Type']).to eq 'application/gzip'
+    expect(response.headers['Content-Type']).to eq 'application/x-gzip'
     expect(response.headers['Content-Disposition']).to eq "attachment; filename=\"test.tar.gz\"; filename*=UTF-8''test.tar.gz"
   end
 
-  it 'raises an error for non-existant file' do
-    expect do
-      get '/open-marc-records/download/5'
-    end.to raise_error(ActiveStorage::FileNotFoundError)
+  it 'returns a 404 for nonexistant file' do
+    get '/open-marc-records/download/5'
+    expect(response.code).to eq '404'
   end
 end

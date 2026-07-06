@@ -1,0 +1,8 @@
+<h1>PUL Open Dataset Download</h1>
+<ul>
+  <% files.each_with_index do |file_name, id| %>
+    <li>
+    <%= link_to file_name, "/open-marc-records/download/#{id}" %>
+    </li>
+  <% end %>
+</ul>
