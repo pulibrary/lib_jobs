@@ -156,7 +156,6 @@ GEM
     builder (3.3.0)
     byebug (13.0.0)
       reline (>= 0.6.0)
-    cancancan (3.6.1)
     capistrano (3.20.1)
       airbrussh (>= 1.0.0)
       i18n
@@ -639,7 +638,6 @@ DEPENDENCIES
   bootsnap (>= 1.1.0)
   brakeman
   byebug
-  cancancan
   capistrano
   capistrano-passenger
   capistrano-rails

@@ -14,7 +14,6 @@ gem 'aws-sdk-s3'
 gem 'bcrypt_pbkdf', '~> 1.1'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
-gem 'cancancan'
 gem 'devise', '>= 4.6.0'
 gem 'dry-monads'
 gem 'dry-types'
