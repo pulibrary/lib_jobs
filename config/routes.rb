@@ -6,7 +6,6 @@ Rails.application.routes.draw do
   root 'data_sets#index'
 
   resources :data_sets, only: [:index, :show]
-  get '/data_sets/latest/:category', to: 'data_sets#latest', defaults: { format: 'text' }
 
   get '/pul-staff-report', to: 'staff_directory#pul_staff_report', defaults: { format: 'csv' }
 
