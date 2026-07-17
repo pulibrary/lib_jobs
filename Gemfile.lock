@@ -37,21 +37,6 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    action_text-trix (2.1.18)
-      railties
-    actioncable (8.1.3)
-      actionpack (= 8.1.3)
-      activesupport (= 8.1.3)
-      nio4r (~> 2.0)
-      websocket-driver (>= 0.6.1)
-      zeitwerk (~> 2.6)
-    actionmailbox (8.1.3)
-      actionpack (= 8.1.3)
-      activejob (= 8.1.3)
-      activerecord (= 8.1.3)
-      activestorage (= 8.1.3)
-      activesupport (= 8.1.3)
-      mail (>= 2.8.0)
     actionmailer (8.1.3)
       actionpack (= 8.1.3)
       actionview (= 8.1.3)
@@ -69,14 +54,6 @@ GEM
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
       useragent (~> 0.16)
-    actiontext (8.1.3)
-      action_text-trix (~> 2.1.15)
-      actionpack (= 8.1.3)
-      activerecord (= 8.1.3)
-      activestorage (= 8.1.3)
-      activesupport (= 8.1.3)
-      globalid (>= 0.6.0)
-      nokogiri (>= 1.8.5)
     actionview (8.1.3)
       activesupport (= 8.1.3)
       builder (~> 3.1)
@@ -92,12 +69,6 @@ GEM
       activemodel (= 8.1.3)
       activesupport (= 8.1.3)
       timeout (>= 0.4.0)
-    activestorage (8.1.3)
-      actionpack (= 8.1.3)
-      activejob (= 8.1.3)
-      activerecord (= 8.1.3)
-      activesupport (= 8.1.3)
-      marcel (~> 1.0)
     activesupport (8.1.3)
       base64
       bigdecimal
@@ -377,7 +348,6 @@ GEM
     marc (1.4.0)
       nokogiri (~> 1.0)
       rexml
-    marcel (1.1.0)
     matrix (0.4.2)
     mini_mime (1.1.5)
     minitest (6.0.6)
@@ -458,20 +428,6 @@ GEM
       rack (>= 1.3)
     rackup (2.3.1)
       rack (>= 3)
-    rails (8.1.3)
-      actioncable (= 8.1.3)
-      actionmailbox (= 8.1.3)
-      actionmailer (= 8.1.3)
-      actionpack (= 8.1.3)
-      actiontext (= 8.1.3)
-      actionview (= 8.1.3)
-      activejob (= 8.1.3)
-      activemodel (= 8.1.3)
-      activerecord (= 8.1.3)
-      activestorage (= 8.1.3)
-      activesupport (= 8.1.3)
-      bundler (>= 1.15.0)
-      railties (= 8.1.3)
     rails-dom-testing (2.3.0)
       activesupport (>= 5.0.0)
       minitest
@@ -608,10 +564,6 @@ GEM
       crack (>= 0.3.2)
       hashdiff (>= 0.4.0, < 2.0.0)
     websocket (1.2.11)
-    websocket-driver (0.8.0)
-      base64
-      websocket-extensions (>= 0.1.0)
-    websocket-extensions (0.1.5)
     whenever (1.1.2)
       chronic (>= 0.6.3)
     xpath (3.2.0)
@@ -628,6 +580,11 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  actionmailer
+  actionpack
+  actionview
+  activerecord
+  activesupport
   archivesspace-client!
   aspace_helper_methods!
   aws-sdk-s3
@@ -674,7 +631,6 @@ DEPENDENCIES
   open3
   pg
   puma
-  rails (~> 8.1)
   rspec
   rspec-rails
   rubocop (~> 1.88)

@@ -3,8 +3,11 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 8.1'
+gem 'actionmailer'
+gem 'actionpack'
+gem 'actionview'
+gem 'activerecord'
+gem 'activesupport'
 
 # Move to a released version as soon as https://github.com/lyrasis/archivesspace-client/pull/34 is released
 gem 'archivesspace-client', github: 'lyrasis/archivesspace-client'
