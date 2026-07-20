@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   get '/open-marc-records', to: Hanami.app.slices[:open_marc_records].rack_app, via: :all
   get '/open-marc-records/download/:id', to: Hanami.app.slices[:open_marc_records].rack_app, via: :all
 
-  get '/status', to: 'recent_job_status#index'
+  get '/status', to: Hanami.app.slices[:recent_job_statuses].rack_app, via: :all
 
   devise_for :users, controllers: { omniauth_callbacks: "users/omniauth_callbacks" }, skip: [:passwords, :registration]
   devise_scope :user do
