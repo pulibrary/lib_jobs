@@ -250,7 +250,7 @@ GEM
       logger
     faraday-net_http (3.4.4)
       net-http (~> 0.5)
-    git (4.3.2)
+    git (4.4.0)
       activesupport (>= 5.0)
       addressable (~> 2.8)
       process_executer (~> 4.0)
@@ -410,7 +410,7 @@ GEM
       prettyprint
     prettyprint (0.2.0)
     prism (1.9.0)
-    process_executer (4.0.2)
+    process_executer (4.0.4)
       track_open_instances (~> 0.1)
     public_suffix (7.0.5)
     puma (8.0.2)
@@ -450,7 +450,7 @@ GEM
       logger
       prism (>= 1.6.0)
       tsort
-    rchardet (1.10.0)
+    rchardet (1.10.2)
     rdoc (8.0.0)
       erb
       prism (>= 1.6.0)
