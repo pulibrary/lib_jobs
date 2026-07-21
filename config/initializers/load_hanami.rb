@@ -18,9 +18,24 @@ module LibJobsHanami
     prepare_container do |container|
       container.autoloader.ignore('app')
     end
+
+    config.actions.content_security_policy[:script_src] = "'self' 'nonce' https: 'unsafe-eval'"
+    config.actions.finalize!(config)
   end
 
   class Action < Hanami::Action
+  end
+
+  module Views
+    class Context < Hanami::View::Context
+      def library_header_menu_items
+        Shared::LibraryHeaderMenuItems.new(env: request.env).call
+      end
+
+      def content_security_policy_nonce
+        request.env['hanami.content_security_policy_nonce']
+      end
+    end
   end
 end
 
