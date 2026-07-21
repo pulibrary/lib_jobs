@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 module Shared
   class LibraryHeaderMenuItems
-    def initialize(env: request.env)
+    def initialize(env:)
       @env = env
     end
 

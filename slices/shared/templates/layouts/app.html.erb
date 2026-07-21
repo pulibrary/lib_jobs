@@ -1,0 +1,33 @@
+<html lang="en">
+  <head>
+    <%# nosemgrep -- content_security_policy_nonce is not controlled by the user %>
+    <script type="importmap" nonce="<%= content_security_policy_nonce %>">
+        {
+            "imports": {
+                "vue": "https://unpkg.com/vue@3.5.40/dist/vue.esm-browser.prod.js",
+                "lux-design-system": "https://unpkg.com/lux-design-system@7.7.1/dist/lux-styleguidist.mjs"
+            }
+        }
+    </script>
+    <%# nosemgrep -- content_security_policy_nonce is not controlled by the user %>
+    <script type="module" nonce="<%= content_security_policy_nonce %>">
+        import { createApp } from 'vue';
+        import lux from 'lux-design-system';
+
+        const app = createApp({});
+        app.use(lux)
+        .mount('.lux');
+    </script>
+    <link rel="stylesheet" href="https://unpkg.com/lux-design-system@7.7.1/dist/style.css" />
+  </head>
+  <body>
+    <header class="lux">
+        <lux-library-header app-name="Lib Jobs" app-url="/" theme="dark" max-width="inherit">
+            <lux-menu-bar type="main-menu" :menu-items="<%= library_header_menu_items %>"></lux-menu-bar>
+        </lux-library-header>
+    </header>
+
+
+    <%= yield %>
+  </body>
+</html>
