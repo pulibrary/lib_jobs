@@ -10,63 +10,8 @@ class ApplicationController < ActionController::Base
     Time.zone.today.year
   end
 
-  def header_user_menu_item
-    if current_user
-      logged_in_user_menu_item
-    else
-      {
-        name: 'Log In',
-        component: 'Log In',
-        href: new_user_session_path,
-        method: 'post'
-      }
-    end
-  end
-
-  def logged_in_user_menu_item
-    children = [
-      {
-        name: 'Log out',
-        component: 'Log out',
-        href: destroy_user_session_path
-      }
-    ]
-    if current_user.admin?
-      children << {
-        name: 'Turn jobs on and off',
-        component: 'Turn jobs on and off',
-        href: '/features'
-      }
-    end
-    {
-      name: current_user.email,
-      component: current_user.email,
-      href: '#',
-      children:
-    }
-  end
-
   def library_header_menu_items
-    [
-      {
-        name: 'Data Sets',
-        component: 'Data Sets',
-        href: data_sets_path
-      },
-      header_user_menu_item
-    ]
-  end
-
-  def library_header_attributes
-    {
-      'menu-items': header_menu_items
-    }
-  end
-
-  def current_user
-    return super if current_user_params.nil?
-
-    @current_user ||= find_user
+    Shared::LibraryHeaderMenuItems.new(env: request.env).call
   end
 
   def new_session_path(_scope)
@@ -74,29 +19,6 @@ class ApplicationController < ActionController::Base
   end
 
   private
-
-  def current_user_params
-    params.permit(user: [:id, :token])[:user]
-  end
-
-  def current_user_id
-    current_user_params[:id]
-  end
-
-  def token_header
-    value = request.headers['Authorization']
-    return if value.nil?
-
-    value.gsub(/\s*?Bearer\s*/i, '')
-  end
-
-  def current_user_token
-    token_header || current_user_params[:token]
-  end
-
-  def find_user
-    User.find_by(id: current_user_id, token: current_user_token)
-  end
 
   def verify_admin!
     authenticate_user!
