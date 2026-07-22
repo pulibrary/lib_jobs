@@ -27,6 +27,7 @@ gem "flipflop", git: "https://github.com/voormedia/flipflop.git", ref: "0d70d8e3
 gem 'git'
 gem 'hanami', require: false
 gem 'hanami-action', require: false
+gem 'hanami-mailer', require: false
 gem 'hanami-router', require: false
 gem 'hanami-view', require: false
 gem "health-monitor-rails"
