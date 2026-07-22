@@ -285,6 +285,10 @@ GEM
       rackup
       rake (~> 13.0)
       zeitwerk (~> 2.6)
+    hanami-mailer (3.0.0)
+      dry-configurable (~> 1.0)
+      mail (~> 2.7)
+      zeitwerk
     hanami-router (3.0.0)
       csv (~> 3.3)
       mustermann (~> 3.1)
@@ -612,6 +616,7 @@ DEPENDENCIES
   git
   hanami
   hanami-action
+  hanami-mailer
   hanami-router
   hanami-view
   health-monitor-rails
