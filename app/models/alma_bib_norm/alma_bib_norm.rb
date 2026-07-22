@@ -25,7 +25,7 @@ module AlmaBibNorm
         data_set.status = false
         error_message = Nokogiri::XML(response.body).xpath("web_service_result//errorList//error//errorMessage").text
         data_set.data = "Job failed with response code: #{response.status}, and body: #{error_message}"
-        AlmaBibNormMailer.error_notification(response.status, error_message)
+        Slice['mailers.error_notification'].deliver(error_code: response.status, error_message:)
       end
 
       data_set
