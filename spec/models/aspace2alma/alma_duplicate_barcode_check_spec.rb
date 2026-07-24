@@ -56,6 +56,7 @@ RSpec.describe Aspace2alma::AlmaDuplicateBarcodeCheck do
   end
 
   it 'raises an error if we are missing the api key' do
+    allow(ENV).to receive(:fetch) { nil }
     expect { described_class.new.duplicate? 'barcode99999' }.to raise_error 'Missing the ALMA_CONFIG_API_KEY environment variable; please set it to a valid api key with config read permissions'
   end
 

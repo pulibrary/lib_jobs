@@ -19,6 +19,7 @@ gem 'bcrypt_pbkdf', '~> 1.1'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'devise', '>= 4.6.0'
 gem 'dry-monads'
+gem 'dry-operation'
 gem 'dry-types'
 gem 'dry-validation'
 gem 'ed25519', '~> 1.4'
