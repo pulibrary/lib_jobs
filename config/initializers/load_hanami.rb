@@ -22,6 +22,10 @@ module LibJobsHanami
     config.actions.content_security_policy[:script_src] = "'self' 'nonce' https: 'unsafe-eval'"
     config.actions.finalize!(config)
 
+    config.inflections do |inflections|
+      inflections.acronym 'TMAS'
+    end
+
     config.shared_app_component_keys += ['mailers.delivery_method']
   end
 
