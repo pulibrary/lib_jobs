@@ -21,7 +21,6 @@ defaults: &defaults
   libguides_client_secret: <%= ENV["LIBGUIDES_CLIENT_SECRET"] %>
 
   alma_region: <%= ENV["ALMA_REGION"] %>
-  alma_api_key: <%= ENV["ALMA_CONFIG_API_KEY"] || "1234" %>
   alma_bib_api_key: <%= ENV["ALMA_BIB_API_KEY"] || "1234" %>
   airtable_token: <%= ENV["AIRTABLE_TOKEN"] || 'FAKE_AIRTABLE_TOKEN' %>
 development:
@@ -29,7 +28,6 @@ development:
 
 test:
   <<: *defaults
-  alma_region: "https://api-na.hosted.exlibrisgroup.com"
   airtable_token: "FAKE_AIRTABLE_TOKEN"
 
 production: &production

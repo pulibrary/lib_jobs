@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 class LibJob
-  attr_reader :category
-  def initialize(category:)
+  def initialize(category: nil)
     @category = category
   end
 
@@ -33,4 +32,8 @@ class LibJob
   # Expect subclass to implement handle to do the actual data set creation
   # def handle(data_set:)
   # end
+
+  def category
+    @category || raise('You must supply a category, either as an argument to the initializer, or by overriding the #category method')
+  end
 end

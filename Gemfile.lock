@@ -206,6 +206,9 @@ GEM
       dry-configurable (~> 1.0, < 2)
       dry-core (~> 1.0, < 2)
       dry-events (~> 1.0, < 2)
+    dry-operation (1.1.0)
+      dry-monads (~> 1.6)
+      zeitwerk (~> 2.6)
     dry-schema (1.16.0)
       concurrent-ruby (~> 1.0)
       dry-configurable (~> 1.0, >= 1.0.1)
@@ -607,6 +610,7 @@ DEPENDENCIES
   devise (>= 4.6.0)
   dotenv-rails
   dry-monads
+  dry-operation
   dry-types
   dry-validation
   ed25519 (~> 1.4)
