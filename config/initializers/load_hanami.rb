@@ -21,6 +21,8 @@ module LibJobsHanami
 
     config.actions.content_security_policy[:script_src] = "'self' 'nonce' https: 'unsafe-eval'"
     config.actions.finalize!(config)
+
+    config.shared_app_component_keys += ['mailers.delivery_method']
   end
 
   class Action < Hanami::Action
