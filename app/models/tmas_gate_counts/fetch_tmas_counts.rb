@@ -9,7 +9,7 @@ module TMASGateCounts
     include Deps['princeton_timezone', 'tmas_locations', client: 'models.tmas_client']
 
     # Yields a Success([String]) for each day's statistics (or Failure() if there was a problem)
-    def call(start_date:, end_date: princeton_timezone.yesterday, locations: TMAS_LOCATIONS.keys)
+    def call(start_date:, end_date: princeton_timezone.yesterday, locations: tmas_locations.keys)
       (start_date..end_date).each do |date|
         response = Traverse.new.call(locations) { |location| client.fetch_data(date:, location:) }
         yield response, date

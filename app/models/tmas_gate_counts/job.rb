@@ -35,7 +35,7 @@ module TMASGateCounts
     end
 
     def handle_failure(failure)
-      TMASAirtableErrorMailer.error_notification(failure)
+      Slice['mailers.error_notification'].deliver(failure:)
       Honeybadger.notify("#{category}: #{failure}")
       RecentJobStatus.register(job: category, status: Failure(failure))
     end
