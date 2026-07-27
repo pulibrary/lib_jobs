@@ -7,8 +7,8 @@ module TMASGateCounts
     def self.from_entry(entry)
       library_code = entry.attr('storeId').partition('|').first.upcase
       HourlySummary.new(
-          TMAS_LOCATIONS[library_code],
-          PRINCETON_TIMEZONE.parse(entry.attr('trafficDate')),
+          Slice['tmas_locations'][library_code],
+          Slice['princeton_timezone'].parse(entry.attr('trafficDate')),
           entry.attr('trafficValue').gsub(/\.\d+/, '').to_i
         )
     end

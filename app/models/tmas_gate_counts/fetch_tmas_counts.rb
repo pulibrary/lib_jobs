@@ -6,21 +6,15 @@ module TMASGateCounts
   class FetchTMASCounts
     include Dry::Monads[:result]
 
-    def initialize(client: TMASClient.new)
-      @client = client
-    end
+    include Deps['princeton_timezone', 'tmas_locations', client: 'models.tmas_client']
 
     # Yields a Success([String]) for each day's statistics (or Failure() if there was a problem)
-    def call(start_date:, end_date: PRINCETON_TIMEZONE.yesterday, locations: TMAS_LOCATIONS.keys)
+    def call(start_date:, end_date: princeton_timezone.yesterday, locations: TMAS_LOCATIONS.keys)
       (start_date..end_date).each do |date|
         response = Traverse.new.call(locations) { |location| client.fetch_data(date:, location:) }
         yield response, date
         break if response.failure?
       end
     end
-
-    private
-
-    attr_reader :client
   end
 end
