@@ -152,6 +152,94 @@ RSpec.describe AlmaPeople::AlmaXmlPerson, type: :model do
       end
     end
 
+    context "staff with a deptid that should be in LIB patron group" do
+      let(:oit_person) do
+        JSON.parse('{
+          "PATRON_EXPIRATION_DATE": "2022-10-31",
+          "PATRON_PURGE_DATE": null,
+          "ELIGIBLE_INELIGIBLE": "E",
+          "INSERT_UPDATE_DATETIME": "2021-04-02T08:44:50.000-04:00",
+          "PVSTATCATEGORY": null,
+          "ADDRESS_END_DATE": null,
+          "PVPATRONGROUP": "P Faculty & Professional",
+          "DEPTID": "41006",
+          "DEPT_DESCR": null,
+          "EMPLID": "999999999",
+          "PRF_OR_PRI_FIRST_NAM": "First",
+          "PRF_OR_PRI_LAST_NAME": "Last",
+          "PRF_OR_PRI_MIDDLE_NAME": "Middle",
+          "PU_BARCODE": null,
+          "CAMPUS_ID": "patron",
+          "CAMP_COUNTRY": "USA",
+          "CAMP_ADDRESS1": "Unspecified Dept - Undergrads",
+          "CAMP_ADDRESS2": "For Payroll Use Only",
+          "CAMP_ADDRESS3": null,
+          "CAMP_ADDRESS4": null,
+          "CAMP_CITY": "Princeton",
+          "CAMP_COUNTY": null,
+          "CAMP_STATE": "NJ",
+          "CAMP_POSTAL": "08544",
+          "CAMP_COUNTRY_DESCR": "United States",
+          "CAMP_STATE_DESCR": "New Jersey"
+        }')
+      end
+
+      it 'has patron group LIB' do
+        builder = Nokogiri::XML::Builder.new do |xml|
+          alma_person = described_class.new(xml:, person: oit_person)
+          alma_person.convert
+          expect(alma_person.valid?).to eq(true)
+        end
+        xml = Nokogiri::XML.parse(builder.to_xml)
+
+        expect(xml.xpath('//user_group').first.text).to eq 'LIB'
+      end
+    end
+
+    context "person without deptid should be in PVPATRONGROUP" do
+      let(:oit_person) do
+        JSON.parse('{
+          "PATRON_EXPIRATION_DATE": "2022-10-31",
+          "PATRON_PURGE_DATE": null,
+          "ELIGIBLE_INELIGIBLE": "E",
+          "INSERT_UPDATE_DATETIME": "2021-04-02T08:44:50.000-04:00",
+          "PVSTATCATEGORY": null,
+          "ADDRESS_END_DATE": null,
+          "PVPATRONGROUP": "P Faculty & Professional",
+          "DEPTID": null,
+          "DEPT_DESCR": null,
+          "EMPLID": "999999999",
+          "PRF_OR_PRI_FIRST_NAM": "First",
+          "PRF_OR_PRI_LAST_NAME": "Last",
+          "PRF_OR_PRI_MIDDLE_NAME": "Middle",
+          "PU_BARCODE": null,
+          "CAMPUS_ID": "patron",
+          "CAMP_COUNTRY": "USA",
+          "CAMP_ADDRESS1": "Unspecified Dept - Undergrads",
+          "CAMP_ADDRESS2": "For Payroll Use Only",
+          "CAMP_ADDRESS3": null,
+          "CAMP_ADDRESS4": null,
+          "CAMP_CITY": "Princeton",
+          "CAMP_COUNTY": null,
+          "CAMP_STATE": "NJ",
+          "CAMP_POSTAL": "08544",
+          "CAMP_COUNTRY_DESCR": "United States",
+          "CAMP_STATE_DESCR": "New Jersey"
+        }')
+      end
+
+      it 'has patron group P' do
+        builder = Nokogiri::XML::Builder.new do |xml|
+          alma_person = described_class.new(xml:, person: oit_person)
+          alma_person.convert
+          expect(alma_person.valid?).to eq(true)
+        end
+        xml = Nokogiri::XML.parse(builder.to_xml)
+
+        expect(xml.xpath('//user_group').first.text).to eq 'P Faculty & Professional'
+      end
+    end
+
     context 'null expiration date and ineligible' do
       let(:oit_person) do
         JSON.parse('{
