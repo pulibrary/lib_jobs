@@ -28,7 +28,7 @@ module AlmaPeople
         xml.purge_date person["PATRON_PURGE_DATE"] if person["PATRON_PURGE_DATE"].present?
         create_status(status_flag: person["ELIGIBLE_INELIGIBLE"])
         create_user_statistics(statistic_category: person["PVSTATCATEGORY"])
-        xml.user_group person["PVPATRONGROUP"]
+        create_patron_group
         xml.primary_id person["EMPLID"]
         xml.first_name person["PRF_OR_PRI_FIRST_NAM"] if person["PRF_OR_PRI_FIRST_NAM"].present? # _NAM is not a typo
         xml.last_name person["PRF_OR_PRI_LAST_NAME"] if person["PRF_OR_PRI_LAST_NAME"].present?
@@ -46,6 +46,15 @@ module AlmaPeople
     end
 
     private
+
+    def create_patron_group
+      lib_patrons = ["41000", "41004", "41006", "41014", "10001", "41032", "41034", "26700"]
+      if lib_patrons.include?(person["DEPTID"])
+        xml.user_group "LIB"
+      else
+        xml.user_group person["PVPATRONGROUP"]
+      end
+    end
 
     def create_status(status_flag:)
       return if status_flag.blank?
