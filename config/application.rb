@@ -12,6 +12,8 @@ Bundler.require(*Rails.groups)
 require 'zip'
 
 module IlsApps
+  # The configuration and coordination of Lib-jobs Rails application.
+  # See config/app for the Lib-jobs Hanami application.
   class Application < Rails::Application
     config.flipflop.dashboard_access_filter = :verify_admin!
 
