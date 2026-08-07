@@ -19,7 +19,7 @@ module TMASGateCounts
     def handle(data_set:)
       fetch_tmas_counts.call(start_date:) do |response, date|
         response
-          .bind { |branches| Traverse.new.call(branches) { |branch| to_airtable_hashes.call(branch) } }
+          .bind { |branches| traverse.call(branches) { |branch| to_airtable_hashes.call(branch) } }
           # The Airtable API only can handle 10 records at a time
           .fmap { |all_data| all_data.flatten.each_slice(10).map { { records: it }.to_json } }
           .bind { |batches| send_batches_to_airtable.call(batches) }
@@ -58,6 +58,8 @@ module TMASGateCounts
         # The first day we started using TMAS
         .value_or(Date.parse('2025-09-01'))
     end
+
+    def traverse = Shared::Slice['traverse']
 
     attr_reader :fetch_tmas_counts, :next_date_class, :send_batches_to_airtable_class
   end

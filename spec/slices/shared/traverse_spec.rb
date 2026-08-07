@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
-RSpec.describe Traverse do
-  include Dry::Monads[:result]
+RSpec.describe Shared::Traverse do
   it 'returns an array wrapped in Success if everything is Success' do
     my_array = [1, 2, 3]
     processed = []
