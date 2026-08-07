@@ -6,7 +6,7 @@ module TMASGateCounts
   class FetchTMASCounts
     include Dry::Monads[:result]
 
-    include Deps['princeton_timezone', 'tmas_locations', client: 'models.tmas_client']
+    include Deps['princeton_timezone', 'tmas_locations', client: 'tmas_client']
 
     # Yields a Success([String]) for each day's statistics (or Failure() if there was a problem)
     def call(start_date:, end_date: princeton_timezone.yesterday, locations: tmas_locations.keys)

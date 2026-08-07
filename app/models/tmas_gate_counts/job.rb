@@ -4,11 +4,11 @@ module TMASGateCounts
     include Dry::Monads[:result]
 
     def initialize(
-      fetch_tmas_counts_class: FetchTMASCounts,
+      fetch_tmas_counts: Slice['fetch_tmas_counts'],
       next_date_class: NextDateToProcess,
       send_batches_to_airtable_class: SendBatchesToAirtable
     )
-      @fetch_tmas_counts_class = fetch_tmas_counts_class
+      @fetch_tmas_counts = fetch_tmas_counts
       @next_date_class = next_date_class
       @send_batches_to_airtable_class = send_batches_to_airtable_class
       super(category: 'TMASGateCounts')
@@ -44,10 +44,6 @@ module TMASGateCounts
       send_batches_to_airtable_class.new
     end
 
-    def fetch_tmas_counts
-      @fetch_tmas_counts ||= fetch_tmas_counts_class.new
-    end
-
     def post_to_airtable
       @post_to_airtable ||= post_to_airtable_class.new
     end
@@ -63,6 +59,6 @@ module TMASGateCounts
         .value_or(Date.parse('2025-09-01'))
     end
 
-    attr_reader :fetch_tmas_counts_class, :next_date_class, :send_batches_to_airtable_class
+    attr_reader :fetch_tmas_counts, :next_date_class, :send_batches_to_airtable_class
   end
 end

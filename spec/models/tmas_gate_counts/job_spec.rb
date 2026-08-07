@@ -13,9 +13,8 @@ RSpec.describe TMASGateCounts::Job do
       next_date_class = class_double(NextDateToProcess, next: Some(first_date_to_process), set: Success())
       fetch_tmas_counts = instance_double(TMASGateCounts::FetchTMASCounts)
       allow(fetch_tmas_counts).to receive(:call).and_yield(Success([]), first_date_to_process)
-      fetch_tmas_counts_class = class_double(TMASGateCounts::FetchTMASCounts, new: fetch_tmas_counts)
 
-      described_class.new(next_date_class:, fetch_tmas_counts_class:).run
+      described_class.new(next_date_class:, fetch_tmas_counts:).run
 
       expect(fetch_tmas_counts).to have_received(:call).with(start_date: Date.parse('2020-01-01'))
     end
@@ -25,9 +24,8 @@ RSpec.describe TMASGateCounts::Job do
       next_date_class = class_double(NextDateToProcess, next: Some(first_date_to_process), set: Success())
       fetch_tmas_counts = instance_double(TMASGateCounts::FetchTMASCounts)
       allow(fetch_tmas_counts).to receive(:call).and_yield(Success([]), first_date_to_process)
-      fetch_tmas_counts_class = class_double(TMASGateCounts::FetchTMASCounts, new: fetch_tmas_counts)
 
-      described_class.new(next_date_class:, fetch_tmas_counts_class:).run
+      described_class.new(next_date_class:, fetch_tmas_counts:).run
 
       expect(next_date_class).to have_received(:set).with(job: 'TMASGateCounts', next: Date.parse('2020-01-02'))
     end
@@ -37,9 +35,8 @@ RSpec.describe TMASGateCounts::Job do
       next_date_class = class_double(NextDateToProcess, next: None(), set: Success())
       fetch_tmas_counts = instance_double(TMASGateCounts::FetchTMASCounts)
       allow(fetch_tmas_counts).to receive(:call).and_yield(Success([]), first_date_to_process)
-      fetch_tmas_counts_class = class_double(TMASGateCounts::FetchTMASCounts, new: fetch_tmas_counts)
 
-      described_class.new(next_date_class:, fetch_tmas_counts_class:).run
+      described_class.new(next_date_class:, fetch_tmas_counts:).run
 
       expect(fetch_tmas_counts).to have_received(:call).with(start_date: Date.parse('2025-09-01'))
     end
@@ -49,10 +46,9 @@ RSpec.describe TMASGateCounts::Job do
       next_date_class = class_double(NextDateToProcess, next: Some(first_date_to_process), set: Success())
       fetch_tmas_counts = instance_double(TMASGateCounts::FetchTMASCounts)
       allow(fetch_tmas_counts).to receive(:call).and_yield(Failure('OH NO!!!!'), first_date_to_process)
-      fetch_tmas_counts_class = class_double(TMASGateCounts::FetchTMASCounts, new: fetch_tmas_counts)
       allow(Honeybadger).to receive(:notify)
 
-      described_class.new(next_date_class:, fetch_tmas_counts_class:).run
+      described_class.new(next_date_class:, fetch_tmas_counts:).run
 
       expect(Honeybadger).to have_received(:notify).with('TMASGateCounts: OH NO!!!!')
     end
