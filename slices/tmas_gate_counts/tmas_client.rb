@@ -4,21 +4,12 @@ module TMASGateCounts
   # desired data from TMAS
   class TMASClient
     include Dry::Monads[:result]
-
-    def initialize(
-      api_key: ENV['TMAS_API_KEY'],
-      # The TMAS documentation says:
-      # "The T.M.A.S. Web API has a rate limit of one call every two seconds."
-      wait_for_rate_limit: ->() { sleep 2 }
-    )
-      @api_key = api_key
-      @wait_for_rate_limit = wait_for_rate_limit
-    end
+    include Deps['settings', 'tmas_client.wait_for_rate_limit']
 
     def fetch_data(date:, location:)
       Rails.logger.debug { "requesting from TMAS for #{date} in #{location}" }
       wait_for_rate_limit.call
-      uri = URI "https://www.smssoftware.net/tms/manTrafExp?fromDate=#{date.strftime('%m/%d/%Y')}&toDate=#{date.strftime('%m/%d/%Y')}&interval=60&hours=0&reqType=tds&apiKey=#{api_key}&locationId=#{location}"
+      uri = URI "https://www.smssoftware.net/tms/manTrafExp?fromDate=#{date.strftime('%m/%d/%Y')}&toDate=#{date.strftime('%m/%d/%Y')}&interval=60&hours=0&reqType=tds&apiKey=#{settings.tmas_api_key}&locationId=#{location}"
       response = Net::HTTP.get_response uri
       if response.code == '200'
         Success(response.body)
@@ -28,9 +19,5 @@ module TMASGateCounts
         Failure("Got response #{response.code} from the TMAS API")
       end
     end
-
-      private
-
-    attr_reader :api_key, :wait_for_rate_limit
   end
 end

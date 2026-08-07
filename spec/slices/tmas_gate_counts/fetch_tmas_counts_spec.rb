@@ -4,7 +4,7 @@ require 'rails_helper'
 RSpec.describe TMASGateCounts::FetchTMASCounts do
   include Dry::Monads[:result]
   it 'retrieves the TMAS Gate Counts' do
-    client = TMASGateCounts::TMASClient.new(api_key: 'MY_KEY', wait_for_rate_limit: ->() {})
+    client = TMASGateCounts::TMASClient.new(wait_for_rate_limit: ->() {})
     april_first_mock = stub_request(
         :get,
         'https://www.smssoftware.net/tms/manTrafExp?fromDate=04/01/2026&toDate=04/01/2026&interval=60&hours=0&reqType=tds&apiKey=MY_KEY&locationId=mend0000'
@@ -33,7 +33,7 @@ RSpec.describe TMASGateCounts::FetchTMASCounts do
   end
 
   it 'short-circuits and returns Failure if request does not go through' do
-    client = TMASGateCounts::TMASClient.new(api_key: 'MY_KEY', wait_for_rate_limit: ->() {})
+    client = TMASGateCounts::TMASClient.new(wait_for_rate_limit: ->() {})
     april_first_mock = stub_request(
         :get,
         'https://www.smssoftware.net/tms/manTrafExp?fromDate=04/01/2026&toDate=04/01/2026&interval=60&hours=0&reqType=tds&apiKey=MY_KEY&locationId=mend0000'
