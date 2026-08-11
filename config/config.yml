@@ -14,9 +14,6 @@ defaults: &defaults
   pod_default_stream: <%= ENV["POD_DEFAULT_STREAM"] || "princeton-prod-0223" %>
   pod_test_stream: <%= ENV["POD_TEST_STREAM"] || "princeton-test-set" %>
 
-  libcal_cid: <%= ENV["LIBCAL_CID"] || "12260" %>
-  libcal_k: <%= ENV["LIBCAL_K"] || "79a5e62a54" %>
-
   libguides_client_id: <%= ENV["LIBGUIDES_CLIENT_ID"] || "630" %>
   libguides_client_secret: <%= ENV["LIBGUIDES_CLIENT_SECRET"] %>
 

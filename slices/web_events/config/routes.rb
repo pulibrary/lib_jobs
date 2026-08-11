@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module LibraryEvents
+module WebEvents
   class Routes < Hanami::Routes
     get '/library-events(.:format)', to: 'index'
   end
