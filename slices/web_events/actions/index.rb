@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-module LibraryEvents
+module WebEvents
   module Actions
     class Index < LibJobsHanami::Action
       def handle(_request, response)
