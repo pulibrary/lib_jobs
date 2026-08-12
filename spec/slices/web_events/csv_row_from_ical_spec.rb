@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.describe WebEvents::Event, type: :model do
-  describe '#to_csv' do
+RSpec.describe WebEvents::CSVRowFromIcal, type: :model do
+  describe '#call' do
     let(:categories) { ['Workshops', 'Events'] }
     let(:ical_event) do
       calendar = Icalendar::Calendar.new
@@ -32,16 +32,16 @@ RSpec.describe WebEvents::Event, type: :model do
       ]
     end
     it 'converts an Ical event to an array' do
-      event = described_class.new(ical_event)
-      expect(event.to_a).to eq(csv_row)
+      event = described_class.new
+      expect(event.call(ical_event)).to eq(csv_row)
     end
 
     context 'category has extra spaces' do
       let(:categories) { [' Workshops', 'Events '] }
 
       it 'trims extra space' do
-        event = described_class.new(ical_event)
-        expect(event.to_a.last).to eq("Workshops\tEvents")
+        event = described_class.new
+        expect(event.call(ical_event).last).to eq("Workshops\tEvents")
       end
     end
   end
