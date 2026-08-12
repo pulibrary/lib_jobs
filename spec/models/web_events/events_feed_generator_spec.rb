@@ -12,7 +12,7 @@ RSpec.describe WebEvents::EventsFeedGenerator, type: :model do
   it('can fetch events') do
     generator = described_class.new
     expect(generator.events.length).to eq(6)
-    expect(generator.events.first.class).to eq(WebEvents::Event)
+    expect(generator.events.first[1]).to eq('30 Minutes Towards Better Bibliographies and Footnotes! (online)')
   end
 
   describe('CSV file generation') do

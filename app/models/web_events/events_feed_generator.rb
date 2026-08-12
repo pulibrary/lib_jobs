@@ -11,7 +11,7 @@ class WebEvents::EventsFeedGenerator < LibJob
   def events
     @events = WebEvents::Slice['libcal_url'].open do |file|
       raw_events = Icalendar::Calendar.parse(file).first.events
-      raw_events.map { |event| WebEvents::Event.new(event) }
+      raw_events.map { |event| WebEvents::Slice['csv_row_from_ical'].call(event) }
     end
   end
 
@@ -29,7 +29,7 @@ class WebEvents::EventsFeedGenerator < LibJob
     CSV.open(Pathname.new(@report_filename), 'wb') do |csv|
       csv << csv_headers
       events.each do |event|
-        csv << event.to_a
+        csv << event
       end
     end
   end
