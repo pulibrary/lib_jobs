@@ -7,7 +7,7 @@ module TMASGateCounts
         'ANXN0000' => 'Commons',
         'COTSEN' => 'Cotsen',
         'ENG0000' => 'Engineering',
-        'MAKER0000' => 'Makerspace',
+        'MAKER000' => 'Makerspace',
         'PLLR0000' => 'East Asian Library',
         'LEWIS' => 'Lewis',
         'RHED0000' => 'Marquand',
