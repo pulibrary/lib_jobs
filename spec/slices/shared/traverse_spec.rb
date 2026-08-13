@@ -28,4 +28,22 @@ RSpec.describe Shared::Traverse do
     expect(result).to eq(Failure('Found a value higher than 1!'))
     expect(processed).to eq([1, 2])
   end
+  it 'can create an array of arrays' do
+    my_array = [1, 2, 3]
+    result = described_class.new.call(my_array) { Success(['hello', 'from', it]) }
+    expect(result).to eq(Success([
+                                   ['hello', 'from', 1],
+                                   ['hello', 'from', 2],
+                                   ['hello', 'from', 3]
+                                 ]))
+  end
+  it 'can create an array of hashes' do
+    my_array = [1, 2, 3]
+    result = described_class.new.call(my_array) { Success({ my_favorite: it }) }
+    expect(result).to eq(Success([
+                                   { my_favorite: 1 },
+                                   { my_favorite: 2 },
+                                   { my_favorite: 3 }
+                                 ]))
+  end
 end
