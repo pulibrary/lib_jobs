@@ -6,8 +6,10 @@ module TMASGateCounts
         'ARCH0000' => 'Architecture',
         'ANXN0000' => 'Commons',
         'COTSEN' => 'Cotsen',
+        'ENG0000' => 'Engineering',
+        'MAKER0000' => 'Makerspace',
         'PLLR0000' => 'East Asian Library',
-        'LEWIS' => 'Lewis and Engineering',
+        'LEWIS' => 'Lewis',
         'RHED0000' => 'Marquand',
         'MEND0000' => 'Mendel',
         'SLES0000' => 'Stokes Library'
