@@ -12,8 +12,8 @@ module Shared
       array.reduce(Success([])) do |accumulator, el|
         result = yield(el)
         case result
-        in Success(Object => value)
-          accumulator.fmap { |accumulated| accumulated.push(value) }
+        in Success
+          accumulator.fmap { |accumulated| accumulated.push(result.value!) }
         else
           break result
         end
