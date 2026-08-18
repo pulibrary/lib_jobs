@@ -526,7 +526,7 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 4.0)
       websocket (~> 1.0)
-    simplecov (1.0.3)
+    simplecov (1.1.0)
     sprockets (4.2.2)
       concurrent-ruby (~> 1.0)
       logger
