@@ -1,0 +1,29 @@
+{
+  "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.18.0/.schema/devbox.schema.json",
+  "packages": [
+    "postgresql@latest",
+    "ruby@3.4.1",
+    "git@latest",
+    "mailcatcher@latest"
+  ],
+  "shell": {
+    "init_hook": [
+      "echo 'Welcome to devbox!' > /dev/null"
+    ],
+    "scripts": {
+      "dev": [
+        "test -f \"$PGDATA/PG_VERSION\" || initdb",
+        "bundle",
+        "mailcatcher",
+        "bundle exec rake db:migrate",
+        "bundle exec rails s"
+      ],
+      "test": [
+        "test -f \"$PGDATA/PG_VERSION\" || initdb",
+        "bundle",
+        "RAILS_ENV=test bundle exec rake db:migrate",
+        "bundle exec rspec"
+      ]
+    }
+  }
+}

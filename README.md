@@ -84,6 +84,14 @@ Run brakeman normally; to ignore false positives run
 
 See [brakeman ignoring false positives documentation](https://brakemanscanner.org/docs/ignoring_false_positives/)
 
+## Using devbox
+
+1. [Install devbox](https://www.jetify.com/devbox)
+1. `devbox shell`
+1. `devbox services up`
+1. To run tests: `devbox run test`
+1. To run the application: `devbox run dev`
+
 ## Deploy
 ### Local
 For local deploy, ensure you have all gems installed using `bundle install`, then
