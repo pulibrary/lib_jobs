@@ -12,13 +12,9 @@ module AirTableStaff
     private
 
     def handle(data_set:)
-      if Flipflop.air_table_staff_list?
-        return most_recent_dataset if most_recent_dataset && recent_enough?(most_recent_dataset&.data_file)
-        write_csv_to_disk
-        data_set.data_file = report_filename
-      else
-        data_set.data = 'Airtable-based staff list is typically scheduled for this time, but it is turned off.  Go to /features to turn it back on.'
-      end
+      return most_recent_dataset if most_recent_dataset && recent_enough?(most_recent_dataset&.data_file)
+      write_csv_to_disk
+      data_set.data_file = report_filename
       data_set.report_time = Time.zone.now
       data_set
     end
