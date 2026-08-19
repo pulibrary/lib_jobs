@@ -38,8 +38,8 @@ module AirTableStaff
     end
     # rubocop:enable Metrics/MethodLength
 
-    def to_a
-      @as_array ||= fields.pluck(:our_field)
-    end
+    def csv_headers = fields.map { it[:our_field] }
+
+    def airtable_field_ids = fields.map { it[:airtable_field_id].to_s }
   end
 end

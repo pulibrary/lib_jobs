@@ -7,7 +7,7 @@ module AirTableStaff
     def to_csv
       @csv ||= CSV.generate do |csv|
         # Add the headers...
-        csv << StaffDirectoryMapping.new.to_a
+        csv << AirTableStaff::Slice['staff_directory_mapping'].csv_headers
 
         # Then add the data
         AirTableStaff::RecordList.new.to_a.each do |record|
