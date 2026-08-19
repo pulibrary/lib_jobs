@@ -6,17 +6,16 @@ module AirTableStaff
   class StaffDirectoryPerson
     def initialize(json)
       @json = json
-      @mapping = StaffDirectoryMapping.new
     end
 
     def to_a
-      @array_version ||= mapping.fields.map do |field|
+      @array_version ||= AirTableStaff::Slice['staff_directory_mapping'].fields.map do |field|
         AirTableStaff::Slice['json_value_extractor'].call(field:, json:)
       end
     end
 
     private
 
-    attr_reader :json, :mapping
+    attr_reader :json
   end
 end

@@ -11,7 +11,7 @@ module AirTableStaff
       @base_url ||= begin
         base_id = 'appv7XA5FWS7DG9oe'
         table_id = 'tblM0iymGN5oqDUVm'
-        fields_to_use = StaffDirectoryMapping.new.fields.map { |field| field[:airtable_field_id].to_s }
+        fields_to_use = AirTableStaff::Slice['staff_directory_mapping'].airtable_field_ids
         query_hash = { "fields": fields_to_use, "returnFieldsByFieldId": "true" }
         URI::HTTPS.build(
           host: 'api.airtable.com',
