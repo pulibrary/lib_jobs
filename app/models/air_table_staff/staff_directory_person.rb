@@ -11,7 +11,7 @@ module AirTableStaff
 
     def to_a
       @array_version ||= mapping.fields.map do |field|
-        JsonValueExtractor.new(field:, json:).extract
+        AirTableStaff::Slice['json_value_extractor'].call(field:, json:)
       end
     end
 
