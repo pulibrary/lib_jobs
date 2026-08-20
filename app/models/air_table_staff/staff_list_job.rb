@@ -20,7 +20,7 @@ module AirTableStaff
     end
 
     def write_csv_to_disk
-      File.open(report_filename, 'w') { |file| file.write(CSVBuilder.new.to_csv) }
+      File.open(report_filename, 'w') { |file| file.write(AirTableStaff::Slice[:csv_builder].call) }
     end
 
     def report_filename

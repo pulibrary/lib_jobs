@@ -18,6 +18,6 @@ RSpec.describe AirTableStaff::CSVBuilder do
             fantastic!",,https://example.com,Industrial Relations//James Madison Program,he/him/his
         END_CSV
     directory = described_class.new
-    expect(directory.to_csv).to eq(expected)
+    expect(directory.call).to eq(expected)
   end
 end

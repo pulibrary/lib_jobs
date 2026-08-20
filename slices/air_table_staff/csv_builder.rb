@@ -4,10 +4,12 @@ module AirTableStaff
   # This class is responsible for creating a CSV out of the
   # data from Airtable
   class CSVBuilder
-    def to_csv
+    include Deps['staff_directory_mapping']
+
+    def call
       @csv ||= CSV.generate do |csv|
         # Add the headers...
-        csv << AirTableStaff::Slice['staff_directory_mapping'].csv_headers
+        csv << staff_directory_mapping.csv_headers
 
         # Then add the data
         AirTableStaff::RecordList.new.to_a.each do |record|
