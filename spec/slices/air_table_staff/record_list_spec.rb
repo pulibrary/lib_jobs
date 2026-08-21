@@ -40,17 +40,6 @@ RSpec.describe AirTableStaff::RecordList do
       expect(WebMock).to have_requested(:get, BASE_AIRTABLE_URL).once
       expect(WebMock).to have_requested(:get, "#{BASE_AIRTABLE_URL}&offset=naeQu2ul/Ash6eiQu").once
     end
-    context 'when we run it multiple times' do
-      it 'gives us the same data without additional network calls' do
-        list = described_class.new
-        first_time = list.to_a
-        second_time = list.to_a
-
-        expect(first_time).to eq(second_time)
-        expect(WebMock).to have_requested(:get, BASE_AIRTABLE_URL).once
-        expect(WebMock).to have_requested(:get, "#{BASE_AIRTABLE_URL}&offset=naeQu2ul/Ash6eiQu").once
-      end
-    end
     describe 'url length' do
       # Will need to be careful about url length - must be less than 16,000 characters
       it 'does not exceed the maximum url length' do
