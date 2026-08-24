@@ -4,18 +4,11 @@ module AirTableStaff
   # a person from the airtable staff directory JSON, according
   # to the mapping from the StaffDirectoryMapping class.
   class StaffDirectoryPerson
-    def initialize(json)
-      @json = json
-    end
-
-    def to_a
-      @array_version ||= AirTableStaff::Slice['staff_directory_mapping'].fields.map do |field|
-        AirTableStaff::Slice['json_value_extractor'].call(field:, json:)
+    include Deps['staff_directory_mapping', 'json_value_extractor']
+    def call(json)
+      staff_directory_mapping.fields.map do |field|
+        json_value_extractor.call(field:, json:)
       end
     end
-
-    private
-
-    attr_reader :json
   end
 end

@@ -2,7 +2,7 @@
 require 'rails_helper'
 
 RSpec.describe AirTableStaff::StaffDirectoryPerson do
-  describe '#to_a' do
+  describe '#call' do
     it 'uses the order from the mapping' do
       json = {
         'fldL7tm4jVvYksIwl': 'Sage Archivist',
@@ -56,7 +56,7 @@ RSpec.describe AirTableStaff::StaffDirectoryPerson do
         'he/him'
       ]
 
-      expect(described_class.new(json).to_a).to eq(expected)
+      expect(described_class.new.call(json)).to eq(expected)
     end
   end
 end

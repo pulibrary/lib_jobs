@@ -3,7 +3,7 @@ module AirTableStaff
   # This class is responsible for maintaining a list
   # of staff records taken from the Airtable API
   class RecordList
-    include Deps['settings', 'staff_directory_mapping']
+    include Deps['settings', 'staff_directory_mapping', 'staff_directory_person']
 
     def base_url
       @base_url ||= begin
@@ -27,7 +27,7 @@ module AirTableStaff
         record_present
       end
       records = json_records.map do |row|
-        AirTableStaff::StaffDirectoryPerson.new(row[:fields])
+        staff_directory_person.call(row[:fields])
       end
       offset = json[:offset]
 
