@@ -3,7 +3,6 @@ require 'csv'
 
 module AlmaFundAdjustment
   class AdjustmentCheck
-    
     include Deps['settings']
 
     def run
