@@ -3,17 +3,10 @@ require 'csv'
 
 module AlmaFundAdjustment
   class AdjustmentCheck
-    attr_reader :peoplesoft_input_base_dir, :peoplesoft_input_file_pattern
-
-    # the inputs are ftp
-    def initialize(peoplesoft_input_base_dir: Rails.application.config.peoplesoft.fund_adjustment_input_path,
-                   peoplesoft_input_file_pattern: Rails.application.config.peoplesoft.fund_adjustment_input_file_pattern)
-      @peoplesoft_input_base_dir = peoplesoft_input_base_dir
-      @peoplesoft_input_file_pattern = peoplesoft_input_file_pattern.gsub("\\*", "*")
-    end
+    include Deps['settings']
 
     def run
-      files = Dir.glob(File.join(peoplesoft_input_base_dir, peoplesoft_input_file_pattern))
+      files = Dir.glob(File.join(settings.fund_adjustment_peoplesoft_input_dir, settings.fund_adjustment_peoplesoft_input_file_pattern.gsub("\\*", "*")))
       status = true
       files.each do |file|
         status &&= process_file(file)
