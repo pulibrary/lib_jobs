@@ -3,7 +3,7 @@ require 'rails_helper'
 
 # doesn't actually use file_upload, but want to make sure it keeps working while working on that
 RSpec.describe AlmaFundAdjustment::AdjustmentCheck, type: :model, file_upload: true do
-  subject(:adjustment_check) { described_class.new(peoplesoft_input_base_dir: 'spec/fixtures/peoplesoft_3', peoplesoft_input_file_pattern: 'test_alma*.csv') }
+  subject(:adjustment_check) { described_class.new }
   let(:files_for_cleanup) do
     [
       'spec/fixtures/peoplesoft_3/test_alma_1.csv',
