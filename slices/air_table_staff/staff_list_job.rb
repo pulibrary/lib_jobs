@@ -4,12 +4,15 @@ module AirTableStaff
   # recording the results of Airtable-based
   # CSV file generation
   class StaffListJob < LibJob
-    def initialize(filename: nil)
+    def initialize(filename: nil, csv_builder: AirTableStaff::Slice[:csv_builder])
       super(category: 'AirTableStaffDirectory')
       @report_filename = filename if filename
+      @csv_builder = csv_builder
     end
 
     private
+
+    attr_reader :csv_builder
 
     def handle(data_set:)
       return most_recent_dataset if most_recent_dataset && recent_enough?(most_recent_dataset&.data_file)
@@ -20,7 +23,7 @@ module AirTableStaff
     end
 
     def write_csv_to_disk
-      File.open(report_filename, 'w') { |file| file.write(AirTableStaff::Slice[:csv_builder].call) }
+      File.open(report_filename, 'w') { |file| file.write(csv_builder.call) }
     end
 
     def report_filename
