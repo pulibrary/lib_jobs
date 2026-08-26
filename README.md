@@ -88,7 +88,8 @@ See [brakeman ignoring false positives documentation](https://brakemanscanner.or
 
 1. [Install devbox](https://www.jetify.com/devbox)
 1. `devbox shell`
-1. `devbox services up`
+1. If you have postgres running elsewhere, give this one on a different port with `export PGPORT=51515`
+1. `devbox services up` or `devbox services up -b` (if you want it to run in the background)
 1. To run tests: `devbox run test`
 1. To run the application: `devbox run dev`
 

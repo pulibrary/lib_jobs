@@ -6,7 +6,7 @@ default: &default
   reaping_frequency: <%= Integer(ENV.fetch("DB_REAPING_FREQUENCY", 10)) %>
   timeout: 5000
   host: <%= ENV["lando_libjobs_database_conn_host"] || "localhost" %>
-  port: <%= ENV["lando_libjobs_database_conn_port"] || 5432 %>
+  port: <%= ENV["lando_libjobs_database_conn_port"] || ENV['PGPORT'] || 5432 %>
   username: <%= ENV["lando_libjobs_database_creds_user"] %>
   password: <%= ENV["lando_libjobs_database_creds_password"] %>
 
