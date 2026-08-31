@@ -10,7 +10,7 @@ GIT
 
 GIT
   remote: https://github.com/pulibrary/aspace_helpers.git
-  revision: 15ef2a40a282380af89319eda4c184e337e4a8e0
+  revision: 4fc1660ad5dbd4c32de237f1c8b9acaaa784e817
   glob: packages/aspace_helper_methods/*.gemspec
   specs:
     aspace_helper_methods (0.1.0)
@@ -155,7 +155,7 @@ GEM
       bigdecimal
       rexml
     crass (1.0.7)
-    csv (3.3.5)
+    csv (3.3.6)
     database_cleaner-active_record (2.2.2)
       activerecord (>= 5.a)
       database_cleaner-core (~> 2.0)
