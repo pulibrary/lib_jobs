@@ -3,7 +3,7 @@ require 'csv'
 
 module AlmaFundAdjustment
   class AdjustmentCheck
-    include Deps['settings']
+    include Deps['settings', 'fund_adjustment']
 
     def run
       files = Dir.glob(File.join(settings.fund_adjustment_peoplesoft_input_dir, settings.fund_adjustment_peoplesoft_input_file_pattern.gsub("\\*", "*")))
@@ -20,7 +20,7 @@ module AlmaFundAdjustment
       return log_job_is_turned_off unless Flipflop.alma_fund_adjustment?
       status = true
       data = read_file(file)
-      adjustments = data.map { |row| FundAdjustment.new(row) }
+      adjustments = data.map { |row| fund_adjustment.call(row) }
       ids = adjustments.map(&:unique_id)
       already_processed = ids.select { |id| PeoplesoftTransaction.where(transaction_id: id).count.positive? }
       if already_processed.count.positive?
