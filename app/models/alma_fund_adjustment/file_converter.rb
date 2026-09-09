@@ -22,7 +22,7 @@ module AlmaFundAdjustment
       data = read_file path
       File.rename(path, "#{path}.processed") && return if data.empty?
 
-      adjustments = data.map { |row| FundAdjustment.new(row).adjusted_row }
+      adjustments = data.map { |row| Slice['fund_adjustment'].call(row).adjusted_row }
       base_name = File.basename(path)
       adjusted_file = File.join(processed_directory, "#{base_name}.updated")
       CSV.open(File.join(processed_directory, "#{base_name}.updated"), "wb") do |csv|
