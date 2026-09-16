@@ -61,7 +61,6 @@ module AspaceVersionControl
       @resource_ids = @client.get("/repositories/#{repo}/resources", {
                                     query: {
                                       all_ids: true,
-                                      include_unpublished: true,
                                       include_daos: true,
                                       include_uris: true
                                     }
@@ -123,7 +122,7 @@ module AspaceVersionControl
     def aspace_record(repo, id)
       retries ||= 0
       @client.get("/repositories/#{repo}/resource_descriptions/#{id}.xml", {
-                    query: { include_daos: true }
+                    query: { include_daos: true, include_unpublished: true }
                   })
     rescue Net::ReadTimeout => error
       while (retries += 1) <= 3

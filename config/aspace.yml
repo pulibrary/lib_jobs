@@ -19,6 +19,7 @@ default: &default
     10: "eads/selectors"
     11: "eads/ga"
     12: "eads/ea"
+    13: "eads/sppe"
 
 
 development:
