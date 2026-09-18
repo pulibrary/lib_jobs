@@ -44,7 +44,7 @@ module Oclc
       def keywords_relevant_to_selector?(selector:)
         keywords = selector.keywords
         return false if keywords.blank?
-        record.fields.any? { |field| KeywordField.new(field:, keywords:).match? }
+        record.fields.any? { |field| Slice['lc_call_slips.keyword_field'].match?(field:, keywords:) }
       end
 
       def subject_relevant_to_selector?(selector:)

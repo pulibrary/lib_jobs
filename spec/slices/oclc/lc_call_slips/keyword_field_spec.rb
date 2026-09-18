@@ -4,12 +4,12 @@ require 'rails_helper'
 RSpec.describe Oclc::LcCallSlips::KeywordField do
   shared_examples 'a match' do
     it 'match? returns true' do
-      expect(described_class.new(field:, keywords:).match?).to eq(true)
+      expect(described_class.new.match?(field:, keywords:)).to eq(true)
     end
   end
   shared_examples 'not a match' do
     it 'match? returns false' do
-      expect(described_class.new(field:, keywords:).match?).to eq(false)
+      expect(described_class.new.match?(field:, keywords:)).to eq(false)
     end
   end
   context 'when field is a control field' do
