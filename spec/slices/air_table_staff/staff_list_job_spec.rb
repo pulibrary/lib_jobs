@@ -4,9 +4,9 @@ require 'rails_helper'
 
 RSpec.describe AirTableStaff::StaffListJob, type: :model do
   describe('CSV file generation') do
-    # before do
-    #   stub_airtable
-    # end
+    before do
+      stub_airtable
+    end
     let(:file_path) { Pathname.new(Rails.root.join('tmp', "airtable_staff.csv")) }
     let(:first_row) do
       [
@@ -23,9 +23,11 @@ RSpec.describe AirTableStaff::StaffListJob, type: :model do
     end
 
     it 'creates a CSV file' do
+      stub_airtable_without_offset
       job = described_class.new(filename: file_path)
       job.run
       expect(File.exist?(file_path)).to be true
+      WebMock.reset!
     end
 
     it 'the CSV file has a header row and a data row' do
@@ -43,7 +45,6 @@ RSpec.describe AirTableStaff::StaffListJob, type: :model do
     context 'when run at a particular time' do
       let(:run_time) { Time.zone.local(2022, 3, 14, 15, 9, 26) }
       before do
-        stub_airtable
         allow(Time).to receive(:now).and_return(run_time)
       end
       it 'records that time in the database' do

@@ -8,7 +8,6 @@ module AirtableStubbing
       stub_airtable_without_offset_empty_records
     else
       stub_airtable_without_offset
-      stub_airtable_private_contact_info
     end
   end
 

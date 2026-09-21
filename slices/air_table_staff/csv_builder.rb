@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require 'csv'
 module AirTableStaff
   # This class is responsible for creating a CSV out of the
@@ -7,7 +8,7 @@ module AirTableStaff
     include Deps['record_list', 'staff_directory_mapping']
 
     def call
-      @csv ||= CSV.generate do |csv|
+      CSV.generate do |csv|
         # Add the headers...
         csv << staff_directory_mapping.csv_headers
 
