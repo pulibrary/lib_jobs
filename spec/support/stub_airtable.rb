@@ -29,7 +29,7 @@ module AirtableStubbing
 
   def stub_airtable_private_contact_info
     private_contact_info_path = Pathname.new(file_fixture_path).join("air_table", 'records_private_contact_info.json')
-    stub_request(:get, "#{BASE_AIRTABLE_URL}")
+    stub_request(:get, BASE_AIRTABLE_URL)
       .with(headers: {
               'Authorization' => 'Bearer FAKE_AIRTABLE_TOKEN'
             })
