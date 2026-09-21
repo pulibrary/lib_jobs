@@ -10,7 +10,7 @@ module TMASGateCounts
       out_summaries = entries(tmas_xml).select { |entry| sensor(entry) == :out }.map { |entry| HourlySummary.from_entry(entry) }
       Success(
         in_summaries.zip(out_summaries)
-          .map { |summaries| CombineSensorData.new.call(summaries) }
+          .map { |summaries| Slice['combine_sensor_data'].call(summaries) }
       )
     end
 
