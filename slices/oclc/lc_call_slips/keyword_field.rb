@@ -5,33 +5,26 @@ module Oclc
     # Marc::DataField for the keywords that a selector
     # is interested in.
     class KeywordField
-      def initialize(field:, keywords:)
-        @field = field
-        @keywords = keywords
-      end
-
-      def match?
-        keyword_field? && field_contains_keywords?
+      def match?(field:, keywords:)
+        keyword_field?(field:) && field_contains_keywords?(field:, keywords:)
       end
 
       private
 
-      attr_reader :field, :keywords
-
-      def keyword_field?
+      def keyword_field?(field:)
         field.is_a?(MARC::DataField) && field.tag.match?(/^[12578]/)
       end
 
-      def field_contains_keywords?
-        field.any? { |subfield| subfield_contains_keywords?(subfield) }
+      def field_contains_keywords?(field:, keywords:)
+        field.any? { |subfield| subfield_contains_keywords?(subfield:, keywords:) }
       end
 
-      def subfield_contains_keywords?(subfield)
+      def subfield_contains_keywords?(subfield:, keywords:)
         words_in_subfield = subfield.value.split(' ')
-        words_in_subfield.any? { |found_word| word_is_keyword? found_word }
+        words_in_subfield.any? { |found_word| word_is_keyword?(found_word, keywords:) }
       end
 
-      def word_is_keyword?(word)
+      def word_is_keyword?(word, keywords:)
         keywords.any? do |desired_keyword|
           # Add ^ and $ to make sure that we match the whole world,
           # then turn the * wildcard into .*
