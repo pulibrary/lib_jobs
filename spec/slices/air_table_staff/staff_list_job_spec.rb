@@ -3,11 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe AirTableStaff::StaffListJob, type: :model do
-  before do
-    stub_airtable
-  end
-
   describe('CSV file generation') do
+    # before do
+    #   stub_airtable
+    # end
     let(:file_path) { Pathname.new(Rails.root.join('tmp', "airtable_staff.csv")) }
     let(:first_row) do
       [
@@ -44,6 +43,7 @@ RSpec.describe AirTableStaff::StaffListJob, type: :model do
     context 'when run at a particular time' do
       let(:run_time) { Time.zone.local(2022, 3, 14, 15, 9, 26) }
       before do
+        stub_airtable
         allow(Time).to receive(:now).and_return(run_time)
       end
       it 'records that time in the database' do
@@ -69,6 +69,27 @@ RSpec.describe AirTableStaff::StaffListJob, type: :model do
         job = described_class.new(filename: file_path)
         expect { job.run }.not_to change { DataSet.count }
       end
+    end
+  end
+  describe('record has private contact info - optInContactInfo is false') do
+    before do
+      stub_airtable_private_contact_info
+    end
+    let(:file_path) { Pathname.new(Rails.root.join('tmp', "airtable_staff.csv")) }
+    around do |example|
+      File.delete(file_path) if File.exist?(file_path)
+      example.run
+      File.delete(file_path) if File.exist?(file_path)
+    end
+
+    it 'record does not include Email, Address, Building, University Phone' do
+      job = described_class.new(filename: file_path)
+      job.run
+      csv_data = CSV.read(file_path)
+      expect(csv_data[1][6]).to be_empty # Email
+      expect(csv_data[1][7]).to be_empty # pul:Address
+      expect(csv_data[1][8]).to be_empty # pul:Building
+      expect(csv_data[1][2]).to be_empty # University Phone
     end
   end
 end

@@ -8,6 +8,7 @@ module AirtableStubbing
       stub_airtable_without_offset_empty_records
     else
       stub_airtable_without_offset
+      stub_airtable_private_contact_info
     end
   end
 
@@ -25,6 +26,15 @@ module AirtableStubbing
               'Authorization' => 'Bearer FAKE_AIRTABLE_TOKEN'
             })
       .to_return(status: 200, body: File.read(without_offset_airtable_path))
+  end
+
+  def stub_airtable_private_contact_info
+    private_contact_info_path = Pathname.new(file_fixture_path).join("air_table", 'records_private_contact_info.json')
+    stub_request(:get, "#{BASE_AIRTABLE_URL}")
+      .with(headers: {
+              'Authorization' => 'Bearer FAKE_AIRTABLE_TOKEN'
+            })
+      .to_return(status: 200, body: File.read(private_contact_info_path))
   end
 
   def stub_airtable_without_offset
