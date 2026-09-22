@@ -5,15 +5,6 @@ module AirTableStaff
   class RecordList
     include Deps['settings', 'staff_directory_mapping', 'staff_directory_person']
 
-    PRIVATE_CONTACT_FIELDS = %i[
-      fldbnDHHhDNlc2Lx8 # Email
-      fldOgGLwFSWgJoWpH # pul:Address
-      fldz6yBenvTjdClXZ # pul:Building
-      fldqulY6ehd5aIbR1 # University Phone
-    ].freeze
-
-    OPT_IN_CONTACT_INFO_FIELD = :fldVSWFK1JeJcN0pZ
-
     def base_url
       @base_url ||= begin
         query_hash = { "fields": staff_directory_mapping.airtable_field_ids, "returnFieldsByFieldId": "true" }
@@ -36,8 +27,7 @@ module AirTableStaff
         record_present
       end
       records = json_records.map do |row|
-        fields = fields_for_directory(row[:fields])
-        staff_directory_person.call(fields)
+        staff_directory_person.call(row[:fields])
       end
       offset = json[:offset]
 
@@ -49,20 +39,6 @@ module AirTableStaff
     end
 
     private
-
-    def fields_for_directory(fields)
-      unless opt_in_contact_info?(fields)
-        PRIVATE_CONTACT_FIELDS.each do |field|
-          fields[field] = ""
-        end
-      end
-
-      fields
-    end
-
-    def opt_in_contact_info?(fields)
-      fields[OPT_IN_CONTACT_INFO_FIELD] == true
-    end
 
     def get_json(offset: nil)
       JSON.parse(response(offset:).body, symbolize_names: true)
