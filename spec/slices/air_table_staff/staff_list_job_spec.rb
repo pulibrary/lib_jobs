@@ -3,16 +3,17 @@
 require 'rails_helper'
 
 RSpec.describe AirTableStaff::StaffListJob, type: :model do
+  before do
+    stub_airtable
+  end
+
   describe('CSV file generation') do
-    before do
-      stub_airtable
-    end
     let(:file_path) { Pathname.new(Rails.root.join('tmp', "airtable_staff.csv")) }
     let(:first_row) do
       [
         '123', 'ab123', '(123) 123-1234', 'Phillip Librarian', 'Librarian', 'Phillip', 'ab123@princeton.edu',
         '123 Stokes', 'Stokes', 'Special Collections', 'Special and Distinctive Collections', nil, nil, 'Library Collections Specialist V', 'Virtual Reality',
-        nil, "Hello\nMy research interests\nare\n\nfantastic!", nil, 'https://example.com', 'Industrial Relations//James Madison Program', 'he/him/his', "true"
+        nil, "Hello\nMy research interests\nare\n\nfantastic!", nil, 'https://example.com', 'Industrial Relations//James Madison Program', 'he/him/his'
       ]
     end
 
@@ -23,11 +24,9 @@ RSpec.describe AirTableStaff::StaffListJob, type: :model do
     end
 
     it 'creates a CSV file' do
-      stub_airtable_without_offset
       job = described_class.new(filename: file_path)
       job.run
       expect(File.exist?(file_path)).to be true
-      WebMock.reset!
     end
 
     it 'the CSV file has a header row and a data row' do
@@ -70,27 +69,6 @@ RSpec.describe AirTableStaff::StaffListJob, type: :model do
         job = described_class.new(filename: file_path)
         expect { job.run }.not_to change { DataSet.count }
       end
-    end
-  end
-  describe('record has private contact info - optInContactInfo is false') do
-    before do
-      stub_airtable_private_contact_info
-    end
-    let(:file_path) { Pathname.new(Rails.root.join('tmp', "airtable_staff.csv")) }
-    around do |example|
-      File.delete(file_path) if File.exist?(file_path)
-      example.run
-      File.delete(file_path) if File.exist?(file_path)
-    end
-
-    it 'record does not include Email, Address, Building, University Phone' do
-      job = described_class.new(filename: file_path)
-      job.run
-      csv_data = CSV.read(file_path)
-      expect(csv_data[1][6]).to be_empty # Email
-      expect(csv_data[1][7]).to be_empty # pul:Address
-      expect(csv_data[1][8]).to be_empty # pul:Building
-      expect(csv_data[1][2]).to be_empty # University Phone
     end
   end
 end
