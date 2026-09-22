@@ -7,7 +7,7 @@ module AirTableStaff
     include Deps['record_list', 'staff_directory_mapping']
 
     def call
-      @csv ||= CSV.generate do |csv|
+      CSV.generate do |csv|
         # Add the headers...
         csv << staff_directory_mapping.csv_headers
 
