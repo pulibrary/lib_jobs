@@ -370,9 +370,6 @@ GEM
     net-imap (0.6.6)
       date
       net-protocol
-    net-ldap (0.20.0)
-      base64
-      ostruct
     net-pop (0.1.2)
       net-protocol
     net-protocol (0.2.2)
@@ -627,7 +624,6 @@ DEPENDENCIES
   marc
   marc_cleanup!
   multipart-post
-  net-ldap
   net-sftp
   nokogiri (~> 1.19)
   omniauth
