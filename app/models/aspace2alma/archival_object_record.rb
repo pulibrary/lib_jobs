@@ -13,13 +13,9 @@ module Aspace2alma
     SUBJECT_TERM_TYPES = %w[cultural_context topical geographic genre_form].freeze
 
     TAG008_MATERIAL = {
-      # Books: 29 conference publication, 30 festschrift, 31 index, 33 literary form
       'books' => '     |     ||| | ',
-      # Music: 18-19 form of composition, 20 format of music
       'music' => '|||  |           ',
-      # Computer files: 26 type of computer file
       'computer_files' => '     |  |        ',
-      # Visual materials: 18-20 running time, 33 type of visual material, 34 technique
       'visual_materials' => '|||  |         ||'
     }.freeze
 
@@ -38,15 +34,9 @@ module Aspace2alma
     end
 
     def self.collection_to_marc(ao_jsons)
-      header = '<collection xmlns="http://www.loc.gov/MARC21/slim"
-                            xmlns:marc="http://www.loc.gov/MARC21/slim"
-                            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                            xsi:schemaLocation="http://www.loc.gov/MARC21/slim http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">'
-      footer = '</collection>'
-
       records = ao_jsons.map { |ao_json| new(ao_json).to_marc }.join("\n")
 
-      [header, records, footer].join("\n")
+      [Marcxml::COLLECTION_START, records, Marcxml::COLLECTION_END].join("\n")
     end
 
     def initialize(json)

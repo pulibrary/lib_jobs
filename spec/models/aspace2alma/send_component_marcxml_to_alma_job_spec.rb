@@ -80,7 +80,7 @@ RSpec.describe Aspace2alma::SendComponentMarcxmlToAlmaJob do
       expect(Aspace2almaHelper).to have_received(:alma_sftp).with('marcao_export.xml').ordered
     end
 
-    #catch aos that were edited while an export was running
+    # catch aos that were edited while an export was running
     it 'tells the next run to look back to the start of the last run' do
       allow(job).to receive(:get_resolved_objects_from_ids)
         .with('5', [1_074_411], 'archival_objects', Aspace2alma::ArchivalObjectRecord.resolves) do
@@ -121,12 +121,10 @@ RSpec.describe Aspace2alma::SendComponentMarcxmlToAlmaJob do
     end
 
     context 'when the previous run succeeded' do
-      # 2026-06-08T09:00:00Z - WINDW=OWS_SECONDS (5.seconds)
       let(:since_in_solr_format) { '2026-06-08T08:59:55Z' }
 
       before do
         DataSet.create!(category: 'Aspace2Alma_component', status: true, report_time: Time.utc(2026, 6, 8, 9, 0, 0))
-        # a failed run must not move the window forward
         DataSet.create!(category: 'Aspace2Alma_component', status: false, report_time: Time.utc(2026, 6, 8, 11, 0, 0))
       end
 

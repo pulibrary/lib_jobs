@@ -2,11 +2,11 @@
 module Aspace2alma
   # Exports marcXML for archival_objects
   class SendComponentMarcxmlToAlmaJob < LibJob
+    include Aspace2alma::Retries
+
     CATEGORY = 'Aspace2Alma_component'
 
     FILENAME = 'marcao_export.xml'
-    OLD_FILENAME = 'marcao_export_old.xml'
-    SFTP_DIR = '/alma/aspace'
 
     # ArchivesSpace stores Solr dates in UTC ("2026-06-01T00:00:00Z")
     SOLR_TIME_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
@@ -16,12 +16,6 @@ module Aspace2alma
 
     # how far back to look on the very first run
     DEFAULT_LOOKBACK = 1.day
-
-    # retries
-    RETRY_ATTEMPTS = 3
-    NETWORK_ERRORS = [Errno::ECONNRESET, Errno::ECONNABORTED, Errno::ETIMEDOUT, Errno::ECONNREFUSED].freeze
-    ASPACE_ERRORS = [Net::ReadTimeout, Net::OpenTimeout, *NETWORK_ERRORS].freeze
-    SFTP_ERRORS = [Net::SSH::Disconnect, Net::SSH::ConnectionTimeout, *NETWORK_ERRORS].freeze
 
     def initialize
       super(category: CATEGORY)
@@ -109,10 +103,7 @@ module Aspace2alma
 
     # don't send the same file twice
     def rename_previous_file
-      with_retries(SFTP_ERRORS, 'rename old file') do
-        Aspace2almaHelper.remove_file("#{SFTP_DIR}/#{OLD_FILENAME}")
-        Aspace2almaHelper.rename_file("#{SFTP_DIR}/#{FILENAME}", "#{SFTP_DIR}/#{OLD_FILENAME}")
-      end
+      with_retries(SFTP_ERRORS, 'rename old file') { Aspace2almaHelper.rotate_file(FILENAME) }
     end
 
     def deliver(ao_jsons)
@@ -120,24 +111,8 @@ module Aspace2alma
       with_retries(SFTP_ERRORS, "uploading #{FILENAME}") { Aspace2almaHelper.alma_sftp(FILENAME) }
     end
 
-    def with_retries(errors, description)
-      attempt = 0
-      begin
-        yield
-      rescue *errors => error
-        attempt += 1
-        raise if attempt > RETRY_ATTEMPTS
-
-        Rails.logger.warn("#{self.class}: #{error.class} ('#{error.message}') while #{description}, " \
-                          "retry #{attempt} of #{RETRY_ATTEMPTS} in #{attempt} second(s)")
-        sleep(attempt)
-        retry
-      end
-    end
-
     def last_run_time
-      last_success = DataSet.where(category: CATEGORY, status: true).order(report_time: :desc).first
-      (last_success&.report_time || DEFAULT_LOOKBACK.ago) - WINDOW_SECONDS
+      (last_successful_run_time || DEFAULT_LOOKBACK.ago) - WINDOW_SECONDS
     end
   end
 end
