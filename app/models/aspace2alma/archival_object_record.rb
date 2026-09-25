@@ -102,25 +102,29 @@ module Aspace2alma
 
     def parsed_dates
       @parsed_dates ||= begin
-        date1 = '    '
-        date2 = '    '
-        tag008_date_type = '|'
+        dates = json['dates']
+        creation_dates = dates.select { |date| date['label'] == 'creation' }
+        dates = creation_dates if creation_dates.any?
+        non_bulk_dates = dates.reject { |date| date['date_type'] == 'bulk' }
+        dates = non_bulk_dates if non_bulk_dates.any?
 
-        if (first_date = json['dates'].first)
-          date_type = first_date['date_type']
-          tag008_date_type =
-            if date_type.match?(/undated|(dates not examined)/i) || first_date['begin'].nil?
-              'n'
-            else
-              'e'
-            end
+        begin_years = dates.filter_map { |date| year(date['begin']) }
+        end_years = dates.filter_map { |date| year(date['end']) || year(date['begin']) }
 
-          date1 = first_date['begin']&.gsub(/(^)(\d{4})(.*$)/, '\2') || '    '
-          date2 = first_date['end']&.gsub(/(^)(\d{4})(.*$)/, '\2') || date1
+        if dates.empty?
+          ['    ', '    ', '|']
+        elsif begin_years.empty?
+          %w[uuuu uuuu n]
+        elsif dates.all? { |date| date['date_type'] == 'single' } && begin_years.min == end_years.max
+          [begin_years.min, '    ', 's']
+        else
+          [begin_years.min, end_years.max, 'i']
         end
-
-        [date1, date2, tag008_date_type]
       end
+    end
+
+    def year(date)
+      date.to_s[/\A\d{4}/]
     end
 
     def date1
@@ -182,11 +186,28 @@ module Aspace2alma
           'family_name' => name['family_name'],
           'primary_name' => name['primary_name'],
           'rest_of_name' => name['rest_of_name'],
-          'name_dates' => name['use_dates'].empty? ? nil : name['use_dates'][0]['structured_date_range']['begin_date_expression'],
+          'name_dates' => name_dates(agent['_resolved'], name),
+          'qualifier' => name['qualifier'],
           'sort_name' => name['sort_name'],
           'identifier' => name['authority_id'],
           'name_order' => name['name_order']
         }
+      end
+    end
+
+    def name_dates(agent_record, name)
+      use_date = name['use_dates'].first
+      return use_date.dig('structured_date_range', 'begin_date_expression') if use_date
+
+      existence = agent_record['dates_of_existence']&.first
+      return if existence.nil?
+
+      if (range = existence['structured_date_range'])
+        start = range['begin_date_expression'] || range['begin_date_standardized']
+        finish = range['end_date_expression'] || range['end_date_standardized']
+        [start, finish].compact.join('-').presence
+      elsif (single = existence['structured_date_single'])
+        single['date_expression'] || single['date_standardized']
       end
     end
 
@@ -279,12 +300,14 @@ module Aspace2alma
     end
 
     def tag046
-      return unless tag008.content[7..10] =~ /\d{4}/ || tag008.content[11..14] =~ /\d{4}/
+      return unless date1.match?(/\d{4}/)
+
+      end_date = "<subfield code='e'>#{date2}</subfield>" if date2.match?(/\d{4}/)
 
       "<datafield ind1=' ' ind2=' ' tag='046'>
-                <subfield code='a'>i</subfield>
-                <subfield code='c'>#{tag008.content[7..10]}</subfield>
-                <subfield code='e'>#{tag008.content[11..14]}</subfield>
+                <subfield code='a'>#{tag008_date_type}</subfield>
+                <subfield code='c'>#{date1}</subfield>
+                #{end_date}
               </datafield>"
     end
 
@@ -296,10 +319,10 @@ module Aspace2alma
 
     def tag245
       subfield_f =
-        if date1 == date2 && date1 != '    '
-          "<subfield code = 'f'>#{date1}</subfield>"
-        elsif date2 && date1 != '    '
+        if date2.match?(/\d{4}/) && date2 != date1
           "<subfield code = 'f'>#{date1}-#{date2}</subfield>"
+        elsif date1.match?(/\d{4}/)
+          "<subfield code = 'f'>#{date1}</subfield>"
         end
 
       "<datafield ind1=' ' ind2=' ' tag='245'>
@@ -403,7 +426,7 @@ module Aspace2alma
               2
             end
 
-          source_code = agent['source'] == 'lcnaf' ? 0 : 7
+          source_code = %w[lcnaf viaf].include?(agent['source']) ? 0 : 7
 
           name =
             if agent['family_name']
@@ -423,25 +446,34 @@ module Aspace2alma
             else
               "<subfield code='e'>#{agent['relator']}</subfield>"
             end
+          subfield_g = "<subfield code='g'>#{xml_escape(agent['qualifier'])}</subfield>" if agent['qualifier']
           subfield_2 = source_code == 7 ? "<subfield code = '2'>#{agent['source']}</subfield>" : nil
-          add_punctuation = agent['name_dates'].nil? ? '.' : ','
-          subfield_0 = agent['identifier'].nil? ? nil : "<subfield code = '0'>#{agent['identifier']}</subfield>"
+          add_punctuation = agent['name_dates'].nil? && agent['qualifier'].nil? ? '.' : ','
+          subfield_0 =
+            if agent['identifier'].nil?
+              nil
+            elsif agent['identifier'].include?('viaf.org')
+              "<subfield code = '1'>#{agent['identifier']}</subfield>"
+            else
+              "<subfield code = '0'>#{agent['identifier']}</subfield>"
+            end
           subfield_5 = '<subfield code="5">NjP</subfield>' if agent['source'] == 'local'
 
           if agent['role'] == 'creator'
-            tag1xx << "<datafield ind1='#{name_type}' ind2='#{source_code}' tag='1#{tag.to_s[1..2]}'>
+            tag1xx << "<datafield ind1='#{name_type}' ind2=' ' tag='1#{tag.to_s[1..2]}'>
                     <subfield code = 'a'>#{xml_escape(name)}#{add_punctuation unless /[.,)-]/.match?(name[-1])}</subfield>
                     #{dates unless agent['name_dates'].nil?}
+                    #{subfield_g}
                     #{subfield_e || ''}
                     #{subfield_2 || ''}
                     #{subfield_0 || ''}
-                    #{subfield_5}
                   </datafield>"
           end
 
           "<datafield ind1='#{name_type}' ind2='#{tag.to_s[0] == '7' ? ' ' : source_code}' tag='#{tag}'>
                 <subfield code = 'a'>#{xml_escape(name)}#{add_punctuation unless /[.,)-]/.match?(name[-1])}</subfield>
                 #{dates unless agent['name_dates'].nil?}
+                #{subfield_g}
                 #{subfield_e || ''}
                 #{subfield_2 || ''}
                 #{subfield_0 || ''}
