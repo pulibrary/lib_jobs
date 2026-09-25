@@ -23,7 +23,7 @@ module Aspace2alma
       'visual_materials' => '|||  |         ||'
     }.freeze
 
-    # leader/06 
+    # leader/06
     TAG008_FORMATS = {
       'a' => 'books', 't' => 'books',
       'i' => 'music',
