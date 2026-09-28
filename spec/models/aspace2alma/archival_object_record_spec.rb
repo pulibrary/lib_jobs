@@ -100,7 +100,7 @@ RSpec.describe Aspace2alma::ArchivalObjectRecord do
       expect(tag110.at_xpath("subfield[@code='4']").content).to eq('cre')
     end
 
-    it 'puts a VIAF URI in $1, without $0 or $2, in the 1xx' do
+    it 'puts a VIAF URI in $1 in the 1xx' do
       tag110 = marc.at_xpath("//datafield[@tag='110']")
 
       expect(tag110.at_xpath("subfield[@code='1']").content).to eq('http://viaf.org/viaf/128547839')
@@ -189,6 +189,65 @@ RSpec.describe Aspace2alma::ArchivalObjectRecord do
       it 'puts $5 in 7xx only' do
         expect(marc.at_xpath("//datafield[@tag='110']/subfield[@code='5']")).to be_nil
         expect(marc.at_xpath("//datafield[@tag='710']/subfield[@code='5']").content).to eq('NjP')
+      end
+    end
+
+    describe 'agent identifiers' do
+      let(:resolved_ao_json) do
+        json = JSON.parse(file_fixture('aspace2alma/resolved_archival_object.json').read)
+        json['linked_agents'][0]['_resolved']['names'][0]['authority_id'] = identifier
+        json
+      end
+      let(:tag110) { marc.at_xpath("//datafield[@tag='110']") }
+
+      before { allow(Rails.logger).to receive(:warn) }
+
+      [
+        'https://viaf.org/viaf/128547839',
+        'http://www.viaf.org/viaf/128547839/',
+        'viaf 128547839',
+        'VIAF:128547839',
+        '(viaf)128547839'
+      ].each do |viaf_form|
+        context "when it is #{viaf_form}" do
+          let(:identifier) { viaf_form }
+
+          it 'puts the canonical VIAF URI in $1' do
+            expect(tag110.at_xpath("subfield[@code='1']").content).to eq('http://viaf.org/viaf/128547839')
+            expect(tag110.at_xpath("subfield[@code='0']")).to be_nil
+          end
+        end
+      end
+
+      [
+        'https://example.com/viaf.org/128547839',
+        'https://viaf.org/search?q=Province',
+        'viaf number unknown'
+      ].each do |malformed|
+        context "when it is the malformed VIAF identifier #{malformed}" do
+          let(:identifier) { malformed }
+
+          it 'drops it and logs a warning' do
+            expect(tag110.xpath("subfield[@code='0' or @code='1']")).to be_empty
+            expect(Rails.logger).to have_received(:warn)
+              .with(/dropped malformed VIAF identifier '#{Regexp.escape(malformed)}' for Province of New Jersey on C0140_c03353/)
+              .at_least(:once)
+          end
+        end
+      end
+
+      [
+        'http://id.loc.gov/authorities/names/n79041954',
+        '(DLC)n  79041954'
+      ].each do |other|
+        context "when it is #{other}" do
+          let(:identifier) { other }
+
+          it 'puts it in $0 unchanged' do
+            expect(tag110.at_xpath("subfield[@code='0']").content).to eq(other)
+            expect(tag110.at_xpath("subfield[@code='1']")).to be_nil
+          end
+        end
       end
     end
 

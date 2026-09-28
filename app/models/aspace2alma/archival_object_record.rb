@@ -11,6 +11,7 @@ module Aspace2alma
   class ArchivalObjectRecord
     DEFAULT_RESTRICTION = 'Collection is open for research use.'
     SUBJECT_TERM_TYPES = %w[cultural_context topical geographic genre_form].freeze
+    VIAF_HOSTS = %w[viaf.org www.viaf.org].freeze
 
     TAG008_MATERIAL = {
       'books' => '     |     ||| | ',
@@ -439,14 +440,7 @@ module Aspace2alma
           subfield_g = "<subfield code='g'>#{xml_escape(agent['qualifier'])}</subfield>" if agent['qualifier']
           subfield_2 = source_code == 7 ? "<subfield code = '2'>#{agent['source']}</subfield>" : nil
           add_punctuation = agent['name_dates'].nil? && agent['qualifier'].nil? ? '.' : ','
-          subfield_0 =
-            if agent['identifier'].nil?
-              nil
-            elsif agent['identifier'].include?('viaf.org')
-              "<subfield code = '1'>#{agent['identifier']}</subfield>"
-            else
-              "<subfield code = '0'>#{agent['identifier']}</subfield>"
-            end
+          subfield_0 = identifier_subfield(agent['identifier'], name)
           subfield_5 = '<subfield code="5">NjP</subfield>' if agent['source'] == 'local'
 
           if agent['role'] == 'creator'
@@ -548,6 +542,32 @@ module Aspace2alma
       return if top_container_location_code.nil?
 
       "<datafield ind1=' ' ind2=' ' tag='982'><subfield code='c'>#{top_container_location_code}</subfield></datafield>"
+    end
+
+    #handle viaf identifiers
+    def identifier_subfield(identifier, name)
+      return if identifier.blank?
+
+      if (viaf_id = viaf_number(identifier))
+        "<subfield code = '1'>http://viaf.org/viaf/#{viaf_id}</subfield>"
+      elsif identifier.match?(/viaf/i)
+        Rails.logger.warn("#{self.class}: dropped malformed VIAF identifier '#{identifier}' for #{name} on #{ref_id}")
+        nil
+      else
+        "<subfield code = '0'>#{identifier}</subfield>"
+      end
+    end
+
+    def viaf_number(identifier)
+      bare_number = identifier.strip[/\A\(?viaf\)?[\s:]*(\d+)\z/i, 1]
+      return bare_number if bare_number
+
+      uri = URI.parse(identifier.strip)
+      return unless VIAF_HOSTS.include?(uri.host&.downcase)
+
+      uri.path[%r{\A/viaf/(\d+)/?\z}, 1]
+    rescue URI::InvalidURIError
+      nil
     end
 
     # remove EAD markup
