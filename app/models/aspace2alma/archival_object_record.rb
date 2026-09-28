@@ -544,7 +544,7 @@ module Aspace2alma
       "<datafield ind1=' ' ind2=' ' tag='982'><subfield code='c'>#{top_container_location_code}</subfield></datafield>"
     end
 
-    #handle viaf identifiers
+    # handle viaf identifiers
     def identifier_subfield(identifier, name)
       return if identifier.blank?
 
