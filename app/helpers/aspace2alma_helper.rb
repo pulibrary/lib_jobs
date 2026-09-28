@@ -9,7 +9,7 @@ module Aspace2almaHelper
       sftp.upload!(filename, File.join(SFTP_DIR, File.basename(filename)))
     end
   end
-  
+
   # rename old file
   def self.rotate_file(filename)
     old_filename = "#{File.basename(filename, '.*')}_old#{File.extname(filename)}"
