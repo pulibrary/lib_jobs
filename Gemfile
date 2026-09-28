@@ -41,7 +41,6 @@ gem 'marc'
 gem 'marc_cleanup', github: "pulibrary/marc_cleanup", branch: 'main', require: false
 # Use ActiveStorage variant
 gem 'multipart-post'
-gem 'net-ldap'
 gem 'net-sftp'
 gem 'nokogiri', '~> 1.19'
 gem 'omniauth'

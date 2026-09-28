@@ -34,21 +34,11 @@ Metrics/ClassLength:
     - 'app/models/staff_directory_generator.rb'
     - 'app/models/aspace_svn/get_eads_job.rb'
 
-Metrics/CyclomaticComplexity:
-  Exclude:
-    - 'app/models/ability.rb'
-    - 'app/models/web_staff/ldap.rb'
-
 Metrics/MethodLength:
   Exclude:
     - 'app/controllers/application_controller.rb'
     - 'app/models/aspace_svn/get_eads_job.rb'
     - 'app/models/aspace_version_control/get_eads_job.rb'
-
-Metrics/PerceivedComplexity:
-  Exclude:
-    - 'app/models/ability.rb'
-    - 'app/models/web_staff/ldap.rb'
 
 RSpec/ExampleLength:
   Max: 100
