@@ -29,6 +29,10 @@ class LibJob
     data_set
   end
 
+  def last_successful_run_time
+    DataSet.where(category:, status: true).order(report_time: :desc).pick(:report_time)
+  end
+
   # Expect subclass to implement handle to do the actual data set creation
   # def handle(data_set:)
   # end
