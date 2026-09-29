@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 module AirtableStubbing
-  BASE_AIRTABLE_URL = "https://api.airtable.com/v0/appv7XA5FWS7DG9oe/tblM0iymGN5oqDUVm?fields%5B%5D=fld0MfgMlZd364YTR&fields%5B%5D=fld4JloN0LxiFaTiw&fields%5B%5D=fld9NYFQePrPxbJJW&fields%5B%5D=fldCCTbVNKKBFXxrp&fields%5B%5D=fldGzh0SHZqlFk3aU&fields%5B%5D=fldOgGLwFSWgJoWpH&fields%5B%5D=fldL7tm4jVvYksIwl&fields%5B%5D=fldULoOUDSpoEpdAP&fields%5B%5D=fldXw9janMHvhBWvO&fields%5B%5D=fldavR3Hqxd7igWxB&fields%5B%5D=fldbnDHHhDNlc2Lx8&fields%5B%5D=fldbquJ6Hn2eq1V2h&fields%5B%5D=fldgarsg3FzD8xpE4&fields%5B%5D=fldnKprqGraSvNTJK&fields%5B%5D=fldqulY6ehd5aIbR1&fields%5B%5D=fldusiuPpfSql6vSk&fields%5B%5D=fldvENk2uiLDHmYSw&fields%5B%5D=fldw0mjDdB48HstnB&fields%5B%5D=fldxpCzkJmhEkVqZt&fields%5B%5D=fldypTXdkQGpYgVDC&fields%5B%5D=fldz6yBenvTjdClXZ&returnFieldsByFieldId=true"
+  BASE_AIRTABLE_URL = "https://api.airtable.com/v0/appv7XA5FWS7DG9oe/tblM0iymGN5oqDUVm?fields%5B%5D=fld0MfgMlZd364YTR&fields%5B%5D=fld4JloN0LxiFaTiw&fields%5B%5D=fld9NYFQePrPxbJJW&fields%5B%5D=fldCCTbVNKKBFXxrp&fields%5B%5D=fldGzh0SHZqlFk3aU&fields%5B%5D=fldOgGLwFSWgJoWpH&fields%5B%5D=fldL7tm4jVvYksIwl&fields%5B%5D=fldULoOUDSpoEpdAP&fields%5B%5D=fldXw9janMHvhBWvO&fields%5B%5D=fldavR3Hqxd7igWxB&fields%5B%5D=fldbnDHHhDNlc2Lx8&fields%5B%5D=fldbquJ6Hn2eq1V2h&fields%5B%5D=fldgarsg3FzD8xpE4&fields%5B%5D=fldnKprqGraSvNTJK&fields%5B%5D=fldqulY6ehd5aIbR1&fields%5B%5D=fldusiuPpfSql6vSk&fields%5B%5D=fldvENk2uiLDHmYSw&fields%5B%5D=fldw0mjDdB48HstnB&fields%5B%5D=fldxpCzkJmhEkVqZt&fields%5B%5D=fldypTXdkQGpYgVDC&fields%5B%5D=fldz6yBenvTjdClXZ&fields%5B%5D=fldVSWFK1JeJcN0pZ&returnFieldsByFieldId=true"
   def stub_airtable(offset: false, empty: false)
     if offset
       stub_airtable_with_offset
@@ -8,6 +8,7 @@ module AirtableStubbing
       stub_airtable_without_offset_empty_records
     else
       stub_airtable_without_offset
+      stub_airtable_private_contact_info
     end
   end
 
@@ -25,6 +26,15 @@ module AirtableStubbing
               'Authorization' => 'Bearer FAKE_AIRTABLE_TOKEN'
             })
       .to_return(status: 200, body: File.read(without_offset_airtable_path))
+  end
+
+  def stub_airtable_private_contact_info
+    private_contact_info_path = Pathname.new(file_fixture_path).join("air_table", 'records_private_contact_info.json')
+    stub_request(:get, BASE_AIRTABLE_URL.to_s)
+      .with(headers: {
+              'Authorization' => 'Bearer FAKE_AIRTABLE_TOKEN'
+            })
+      .to_return(status: 200, body: File.read(private_contact_info_path))
   end
 
   def stub_airtable_without_offset
