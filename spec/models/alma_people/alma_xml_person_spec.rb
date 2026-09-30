@@ -240,6 +240,24 @@ RSpec.describe AlmaPeople::AlmaXmlPerson, type: :model do
       end
     end
 
+    context 'Plasma Physics Faculty member' do
+      let(:oit_person) do
+        JSON.parse('{
+          "VCURGROUP": "PL",
+          "PVSTATCATEGORY":"EM"
+          }')
+      end
+      it 'has two statistical categories' do
+        builder = Nokogiri::XML::Builder.new do |xml|
+          alma_person = described_class.new(xml:, person: oit_person)
+          alma_person.convert
+        end
+        xml = Nokogiri::XML.parse(builder.to_xml)
+        statistics = xml.xpath('//user_statistic').map { |stat| stat.text.strip }
+        expect(statistics.sort).to eq %w[EM PPPL]
+      end
+    end
+
     context 'null expiration date and ineligible' do
       let(:oit_person) do
         JSON.parse('{
