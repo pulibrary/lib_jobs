@@ -4,7 +4,7 @@ module Aspace2alma
   class Resource
     attr_reader :resource_uri, :aspace_client
 
-    def initialize(resource_uri, aspace_client, _file, _log_out)
+    def initialize(resource_uri, aspace_client)
       @resource_uri = resource_uri
       @aspace_client = aspace_client
     end
@@ -93,10 +93,6 @@ module Aspace2alma
       @tags6_7xx ||= marc_xml.xpath('//marc:datafield[@tag = "700" or @tag = "650" or
          @tag = "651" or @tag = "600" or @tag = "610" or @tag = "630" or @tag = "648" or
          @tag = "655" or @tag = "656" or @tag = "657"]')
-    end
-
-    def subfields
-      @subfields ||= marc_xml.xpath('//marc:subfield')
     end
 
     def datafields
