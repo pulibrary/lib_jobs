@@ -106,7 +106,7 @@ RSpec.describe Aspace2alma::Resource do
     end
   end
 
-  describe 'remove linebreaks' do
+  describe 'squish subfields' do
     let(:node) do
       xml = <<~XML
         <datafield xmlns:marc="http://www.loc.gov/MARC21/slim" ><marc:subfield code="a">
@@ -118,10 +118,11 @@ RSpec.describe Aspace2alma::Resource do
       Nokogiri.parse(xml).first_element_child
     end
 
-    it 'removes hard linebreaks from text nodes' do
+    it 'removes hard linebreaks, extra spaces and surrounding whitespace from text nodes' do
       expect(node.content.scan(/[\n\r]+/).size).to eq(3)
-      our_resource.remove_linebreaks(node)
-      expect(node.content.scan(/[\n\r]+/).size).to eq(0)
+      our_resource.squish_subfields(node)
+      expect(node.content).to eq('These Records document the activities of the American Civil Liberties Union (ACLU) ' \
+                                 'in protecting individual rights between 1947 and 1995.')
     end
   end
 end

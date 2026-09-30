@@ -111,10 +111,10 @@ module Aspace2alma
       node.attribute('@code').blank?)
     end
 
-    # node is a Nokogiri::XML::Element
-    def remove_linebreaks(node)
+    # trim subfields and collapse their whitespace
+    def squish_subfields(node)
       node.xpath("//marc:subfield/text()").map do |text|
-        text.content = text.content.gsub(/[\n\r]+/, " ")
+        text.content = text.content.squish
       end
     end
   end
