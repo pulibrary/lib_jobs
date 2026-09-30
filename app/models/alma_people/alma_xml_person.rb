@@ -67,8 +67,11 @@ module AlmaPeople
 
     def user_statistics
       statistics = [person['PVSTATCATEGORY'].to_s]
-      statistics << 'PPPL' if person['VCURGROUP'] == 'PL'
-      statistics.delete_if(&:empty?)
+      if person['VCURGROUP'] == 'PL'
+        statistics + ['PPPL']
+      else
+        statistics
+      end.select { !it.empty? }
     end
 
     def create_user_statistics
