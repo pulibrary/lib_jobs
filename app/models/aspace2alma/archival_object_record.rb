@@ -21,7 +21,8 @@ module Aspace2alma
       'books' => '     |     ||| | ',
       'music' => '|||  |           ',
       'computer_files' => '     |  |        ',
-      'visual_materials' => '|||  |         ||'
+      'visual_materials' => '|||  |         ||',
+      'mixed_materials' => '     |           '
     }.freeze
 
     # leader/06
@@ -29,7 +30,8 @@ module Aspace2alma
       'a' => 'books', 't' => 'books',
       'i' => 'music',
       'm' => 'computer_files',
-      'g' => 'visual_materials', 'k' => 'visual_materials'
+      'g' => 'visual_materials', 'k' => 'visual_materials',
+      'p' => 'mixed_materials'
     }.freeze
 
     # the resolved archival object
@@ -258,6 +260,7 @@ module Aspace2alma
       when 'computer_disks' then 'm'
       when 'graphic_materials' then 'k'
       when 'microform', 'moving_images' then 'g'
+      when 'mixed_materials' then 'p'
       else 't'
       end
     end
@@ -480,7 +483,7 @@ module Aspace2alma
         subfield_g: ("<subfield code='g'>#{xml_escape(agent['qualifier'])}</subfield>" if agent['qualifier']),
         subfield_e: subfield_e,
         subfield_2: (source_code == 7 ? "<subfield code = '2'>#{agent['source']}</subfield>" : nil),
-        subfield_0: identifier_subfield(agent['identifier'], agent['source'], name),
+        subfield_0: identifier_subfield(agent['identifier'], agent['source']),
         subfield_5: ('<subfield code="5">NjP</subfield>' if agent['source'] == 'local')
       }
     end
@@ -555,19 +558,13 @@ module Aspace2alma
     end
 
     # handle viaf and other authority identifiers
-    def identifier_subfield(identifier, source, name)
+    def identifier_subfield(identifier, source)
       return if identifier.blank?
 
       if (viaf_id = viaf_number(identifier, source))
         "<subfield code = '1'>http://viaf.org/viaf/#{viaf_id}</subfield>"
-      elsif identifier.match?(/viaf/i) || source == 'viaf'
-        Rails.logger.warn("#{self.class}: dropped malformed VIAF identifier '#{identifier}' for #{name} on #{ref_id}")
-        nil
-      elsif web_uri?(identifier)
+      elsif web_uri?(identifier) && !identifier.match?(/viaf/i) && source != 'viaf'
         "<subfield code = '0'>#{xml_escape(identifier.strip)}</subfield>"
-      else
-        Rails.logger.warn("#{self.class}: dropped identifier that is not a URI '#{identifier}' for #{name} on #{ref_id}")
-        nil
       end
     end
 

@@ -82,7 +82,7 @@ RSpec.describe Aspace2alma::ArchivalObjectRecord do
     describe 'controlfield 008/18-34' do
       # some of these need "|" not " "
       [
-        ['mixed_materials', 't', [23, 29, 30, 31, 33]],
+        ['mixed_materials', 'p', [23]],
         ['books', 'a', [23, 29, 30, 31, 33]],
         ['audio', 'i', [18, 19, 20, 23]],
         ['computer_disks', 'm', [23, 26]],
@@ -528,8 +528,6 @@ RSpec.describe Aspace2alma::ArchivalObjectRecord do
       let(:source) { 'viaf' }
       let(:tag110) { marc.at_xpath("//datafield[@tag='110']") }
 
-      before { allow(Rails.logger).to receive(:warn) }
-
       [
         'https://viaf.org/viaf/128547839',
         'http://www.viaf.org/viaf/128547839/',
@@ -555,11 +553,8 @@ RSpec.describe Aspace2alma::ArchivalObjectRecord do
         context "when it is the malformed VIAF identifier #{malformed}" do
           let(:identifier) { malformed }
 
-          it 'drops it and logs a warning' do
+          it 'drops it' do
             expect(tag110.xpath("subfield[@code='0' or @code='1']")).to be_empty
-            expect(Rails.logger).to have_received(:warn)
-              .with(/dropped malformed VIAF identifier '#{Regexp.escape(malformed)}' for Province of New Jersey on C0140_c03353/)
-              .at_least(:once)
           end
         end
       end
@@ -569,11 +564,8 @@ RSpec.describe Aspace2alma::ArchivalObjectRecord do
           let(:identifier) { not_a_uri }
           let(:source) { 'lcnaf' }
 
-          it 'drops it and logs a warning' do
+          it 'drops it' do
             expect(tag110.xpath("subfield[@code='0' or @code='1']")).to be_empty
-            expect(Rails.logger).to have_received(:warn)
-              .with(/dropped identifier that is not a URI '#{Regexp.escape(not_a_uri)}' for Province of New Jersey on C0140_c03353/)
-              .at_least(:once)
           end
         end
       end
@@ -612,13 +604,8 @@ RSpec.describe Aspace2alma::ArchivalObjectRecord do
     context 'when a viaf-sourced name has an identifier that is not VIAF' do
       let(:resolved_ao_json) { fixture_json('archival_object_lccn_labeled_viaf') }
 
-      before { allow(Rails.logger).to receive(:warn) }
-
-      it 'drops it and logs a warning' do
+      it 'drops it' do
         expect(marc.xpath("//datafield/subfield[@code='0' or @code='1']")).to be_empty
-        expect(Rails.logger).to have_received(:warn)
-          .with(/dropped malformed VIAF identifier 'nr97033759' for Greene, Belle da Costa on C0140_c48824-37511/)
-          .at_least(:once)
       end
     end
 
