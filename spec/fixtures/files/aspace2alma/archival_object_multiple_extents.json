@@ -1,0 +1,631 @@
+{
+  "lock_version": 5,
+  "position": 3883,
+  "publish": true,
+  "ref_id": "C0140_c93081-14624",
+  "title": "Simón Bolívar letter",
+  "display_string": "Simón Bolívar letter, 1828 August 24",
+  "restrictions_apply": false,
+  "create_time": "2023-10-23T19:37:29Z",
+  "system_mtime": "2026-09-24T14:15:54Z",
+  "user_mtime": "2023-10-23T20:32:46Z",
+  "suppressed": false,
+  "is_slug_auto": false,
+  "level": "item",
+  "jsonmodel_type": "archival_object",
+  "external_ids": [],
+  "subjects": [
+    {
+      "ref": "/subjects/11682",
+      "_resolved": {
+        "lock_version": 68,
+        "title": "Letters -- 19th century",
+        "create_time": "2021-01-24T01:49:44Z",
+        "system_mtime": "2026-09-24T18:15:29Z",
+        "user_mtime": "2026-09-24T14:15:54Z",
+        "is_slug_auto": true,
+        "source": "aat",
+        "jsonmodel_type": "subject",
+        "external_ids": [],
+        "publish": true,
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "terms": [
+          {
+            "lock_version": 0,
+            "term": "Letters",
+            "create_time": "2021-01-24T00:26:30Z",
+            "system_mtime": "2021-01-24T00:26:30Z",
+            "user_mtime": "2021-01-24T00:26:30Z",
+            "term_type": "genre_form",
+            "jsonmodel_type": "term",
+            "uri": "/terms/8985",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "19th century",
+            "create_time": "2021-02-10T16:22:45Z",
+            "system_mtime": "2021-02-10T16:22:45Z",
+            "user_mtime": "2021-02-10T16:22:45Z",
+            "term_type": "temporal",
+            "jsonmodel_type": "term",
+            "uri": "/terms/17864",
+            "vocabulary": "/vocabularies/1"
+          }
+        ],
+        "external_documents": [],
+        "metadata_rights_declarations": [],
+        "uri": "/subjects/11682",
+        "vocabulary": "/vocabularies/1",
+        "is_linked_to_published_record": true
+      }
+    }
+  ],
+  "linked_events": [],
+  "extents": [
+    {
+      "lock_version": 0,
+      "number": "0.05",
+      "create_time": "2023-10-23T20:32:46Z",
+      "system_mtime": "2023-10-23T20:32:46Z",
+      "user_mtime": "2023-10-23T20:32:46Z",
+      "portion": "whole",
+      "extent_type": "linear feet",
+      "jsonmodel_type": "extent"
+    },
+    {
+      "lock_version": 0,
+      "number": "1",
+      "create_time": "2023-10-23T20:32:46Z",
+      "system_mtime": "2023-10-23T20:32:46Z",
+      "user_mtime": "2023-10-23T20:32:46Z",
+      "portion": "whole",
+      "extent_type": "item",
+      "jsonmodel_type": "extent"
+    }
+  ],
+  "lang_materials": [],
+  "dates": [
+    {
+      "lock_version": 0,
+      "expression": "1828 August 24",
+      "begin": "1828-08-24",
+      "create_time": "2023-10-23T20:32:46Z",
+      "system_mtime": "2023-10-23T20:32:46Z",
+      "user_mtime": "2023-10-23T20:32:46Z",
+      "date_type": "single",
+      "label": "creation",
+      "jsonmodel_type": "date"
+    }
+  ],
+  "external_documents": [],
+  "rights_statements": [],
+  "linked_agents": [
+    {
+      "is_primary": false,
+      "role": "creator",
+      "relator": "cre",
+      "terms": [],
+      "ref": "/agents/people/32714",
+      "_resolved": {
+        "lock_version": 24,
+        "publish": true,
+        "create_time": "2021-06-10T16:24:28Z",
+        "system_mtime": "2025-08-18T15:56:28Z",
+        "user_mtime": "2025-08-18T15:56:28Z",
+        "is_slug_auto": false,
+        "jsonmodel_type": "agent_person",
+        "agent_contacts": [],
+        "agent_record_controls": [
+          {
+            "maintenance_agency": "NjP",
+            "agency_name": "Princeton University Library",
+            "create_time": "2025-08-18T15:56:28Z",
+            "system_mtime": "2025-08-18T15:56:28Z",
+            "user_mtime": "2025-08-18T15:56:28Z",
+            "lock_version": 0,
+            "maintenance_status": "upgraded",
+            "jsonmodel_type": "agent_record_control"
+          }
+        ],
+        "agent_alternate_sets": [],
+        "agent_conventions_declarations": [],
+        "agent_other_agency_codes": [],
+        "agent_maintenance_histories": [
+          {
+            "event_date": "2020-01-01 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Migrated records from a spreadsheet created from native EAC-CPF via OpenRefine.",
+            "create_time": "2025-08-18T15:56:28Z",
+            "system_mtime": "2025-08-18T15:56:28Z",
+            "user_mtime": "2025-08-18T15:56:28Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          },
+          {
+            "event_date": "2023-04-26 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Upgraded records to re-populate the required CPF and ASpace fields that were lost during data import via OpenRefine.",
+            "create_time": "2025-08-18T15:56:28Z",
+            "system_mtime": "2025-08-18T15:56:28Z",
+            "user_mtime": "2025-08-18T15:56:28Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          },
+          {
+            "event_date": "2024-07-24 13:04:37 UTC",
+            "agent": "system",
+            "descriptive_note": "Agents remediation",
+            "create_time": "2025-08-18T15:56:28Z",
+            "system_mtime": "2025-08-18T15:56:28Z",
+            "user_mtime": "2025-08-18T15:56:28Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          },
+          {
+            "event_date": "2025-08-18 15:56:28 UTC",
+            "agent": "system",
+            "descriptive_note": "restore authority id, source, or rules to the names subrecord",
+            "create_time": "2025-08-18T15:56:28Z",
+            "system_mtime": "2025-08-18T15:56:28Z",
+            "user_mtime": "2025-08-18T15:56:28Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          }
+        ],
+        "agent_record_identifiers": [
+          {
+            "primary_identifier": true,
+            "record_identifier": "BOLIVARSIMON35731693",
+            "create_time": "2025-08-18T15:56:28Z",
+            "system_mtime": "2025-08-18T15:56:28Z",
+            "user_mtime": "2025-08-18T15:56:28Z",
+            "lock_version": 0,
+            "source": "viaf",
+            "jsonmodel_type": "agent_record_identifier"
+          }
+        ],
+        "agent_identifiers": [
+          {
+            "entity_identifier": "BOLIVARSIMON35731693",
+            "create_time": "2025-08-18T15:56:28Z",
+            "system_mtime": "2025-08-18T15:56:28Z",
+            "user_mtime": "2025-08-18T15:56:28Z",
+            "lock_version": 0,
+            "jsonmodel_type": "agent_identifier"
+          }
+        ],
+        "agent_sources": [],
+        "agent_places": [],
+        "agent_occupations": [],
+        "agent_functions": [],
+        "agent_topics": [],
+        "agent_resources": [],
+        "linked_agent_roles": [
+          "creator",
+          "subject"
+        ],
+        "external_documents": [],
+        "notes": [],
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "dates_of_existence": [
+          {
+            "create_time": "2025-08-18T15:56:28Z",
+            "system_mtime": "2025-08-18T15:56:28Z",
+            "user_mtime": "2025-08-18T15:56:28Z",
+            "lock_version": 0,
+            "date_type_structured": "range",
+            "date_label": "existence",
+            "jsonmodel_type": "structured_date_label",
+            "structured_date_range": {
+              "begin_date_standardized": "1783",
+              "end_date_standardized": "1830",
+              "create_time": "2025-08-18T15:56:28Z",
+              "system_mtime": "2025-08-18T15:56:28Z",
+              "user_mtime": "2025-08-18T15:56:28Z",
+              "lock_version": 0,
+              "begin_date_standardized_type": "standard",
+              "end_date_standardized_type": "standard",
+              "jsonmodel_type": "structured_date_range"
+            }
+          }
+        ],
+        "used_languages": [],
+        "metadata_rights_declarations": [],
+        "names": [
+          {
+            "lock_version": 2,
+            "primary_name": "Bolívar",
+            "rest_of_name": "Simón",
+            "sort_name": "Bolívar, Simón (1783-1830)",
+            "sort_name_auto_generate": true,
+            "create_time": "2025-08-18T15:56:28Z",
+            "system_mtime": "2025-08-18T15:56:28Z",
+            "user_mtime": "2025-08-18T15:56:28Z",
+            "authorized": true,
+            "is_display_name": true,
+            "source": "viaf",
+            "name_order": "inverted",
+            "jsonmodel_type": "name_person",
+            "use_dates": [],
+            "parallel_names": [],
+            "authority_id": "https://viaf.org/viaf/35731693"
+          }
+        ],
+        "agent_genders": [],
+        "related_agents": [],
+        "uri": "/agents/people/32714",
+        "agent_type": "agent_person",
+        "is_linked_to_published_record": true,
+        "display_name": {
+          "lock_version": 2,
+          "primary_name": "Bolívar",
+          "rest_of_name": "Simón",
+          "sort_name": "Bolívar, Simón (1783-1830)",
+          "sort_name_auto_generate": true,
+          "create_time": "2025-08-18T15:56:28Z",
+          "system_mtime": "2025-08-18T15:56:28Z",
+          "user_mtime": "2025-08-18T15:56:28Z",
+          "authorized": true,
+          "is_display_name": true,
+          "source": "viaf",
+          "name_order": "inverted",
+          "jsonmodel_type": "name_person",
+          "use_dates": [],
+          "parallel_names": [],
+          "authority_id": "https://viaf.org/viaf/35731693"
+        },
+        "title": "Bolívar, Simón (1783-1830)"
+      }
+    },
+    {
+      "is_primary": false,
+      "role": "subject",
+      "terms": [],
+      "ref": "/agents/people/32714",
+      "_resolved": {
+        "lock_version": 24,
+        "publish": true,
+        "create_time": "2021-06-10T16:24:28Z",
+        "system_mtime": "2025-08-18T15:56:28Z",
+        "user_mtime": "2025-08-18T15:56:28Z",
+        "is_slug_auto": false,
+        "jsonmodel_type": "agent_person",
+        "agent_contacts": [],
+        "agent_record_controls": [
+          {
+            "maintenance_agency": "NjP",
+            "agency_name": "Princeton University Library",
+            "create_time": "2025-08-18T15:56:28Z",
+            "system_mtime": "2025-08-18T15:56:28Z",
+            "user_mtime": "2025-08-18T15:56:28Z",
+            "lock_version": 0,
+            "maintenance_status": "upgraded",
+            "jsonmodel_type": "agent_record_control"
+          }
+        ],
+        "agent_alternate_sets": [],
+        "agent_conventions_declarations": [],
+        "agent_other_agency_codes": [],
+        "agent_maintenance_histories": [
+          {
+            "event_date": "2020-01-01 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Migrated records from a spreadsheet created from native EAC-CPF via OpenRefine.",
+            "create_time": "2025-08-18T15:56:28Z",
+            "system_mtime": "2025-08-18T15:56:28Z",
+            "user_mtime": "2025-08-18T15:56:28Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          },
+          {
+            "event_date": "2023-04-26 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Upgraded records to re-populate the required CPF and ASpace fields that were lost during data import via OpenRefine.",
+            "create_time": "2025-08-18T15:56:28Z",
+            "system_mtime": "2025-08-18T15:56:28Z",
+            "user_mtime": "2025-08-18T15:56:28Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          },
+          {
+            "event_date": "2024-07-24 13:04:37 UTC",
+            "agent": "system",
+            "descriptive_note": "Agents remediation",
+            "create_time": "2025-08-18T15:56:28Z",
+            "system_mtime": "2025-08-18T15:56:28Z",
+            "user_mtime": "2025-08-18T15:56:28Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          },
+          {
+            "event_date": "2025-08-18 15:56:28 UTC",
+            "agent": "system",
+            "descriptive_note": "restore authority id, source, or rules to the names subrecord",
+            "create_time": "2025-08-18T15:56:28Z",
+            "system_mtime": "2025-08-18T15:56:28Z",
+            "user_mtime": "2025-08-18T15:56:28Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          }
+        ],
+        "agent_record_identifiers": [
+          {
+            "primary_identifier": true,
+            "record_identifier": "BOLIVARSIMON35731693",
+            "create_time": "2025-08-18T15:56:28Z",
+            "system_mtime": "2025-08-18T15:56:28Z",
+            "user_mtime": "2025-08-18T15:56:28Z",
+            "lock_version": 0,
+            "source": "viaf",
+            "jsonmodel_type": "agent_record_identifier"
+          }
+        ],
+        "agent_identifiers": [
+          {
+            "entity_identifier": "BOLIVARSIMON35731693",
+            "create_time": "2025-08-18T15:56:28Z",
+            "system_mtime": "2025-08-18T15:56:28Z",
+            "user_mtime": "2025-08-18T15:56:28Z",
+            "lock_version": 0,
+            "jsonmodel_type": "agent_identifier"
+          }
+        ],
+        "agent_sources": [],
+        "agent_places": [],
+        "agent_occupations": [],
+        "agent_functions": [],
+        "agent_topics": [],
+        "agent_resources": [],
+        "linked_agent_roles": [
+          "creator",
+          "subject"
+        ],
+        "external_documents": [],
+        "notes": [],
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "dates_of_existence": [
+          {
+            "create_time": "2025-08-18T15:56:28Z",
+            "system_mtime": "2025-08-18T15:56:28Z",
+            "user_mtime": "2025-08-18T15:56:28Z",
+            "lock_version": 0,
+            "date_type_structured": "range",
+            "date_label": "existence",
+            "jsonmodel_type": "structured_date_label",
+            "structured_date_range": {
+              "begin_date_standardized": "1783",
+              "end_date_standardized": "1830",
+              "create_time": "2025-08-18T15:56:28Z",
+              "system_mtime": "2025-08-18T15:56:28Z",
+              "user_mtime": "2025-08-18T15:56:28Z",
+              "lock_version": 0,
+              "begin_date_standardized_type": "standard",
+              "end_date_standardized_type": "standard",
+              "jsonmodel_type": "structured_date_range"
+            }
+          }
+        ],
+        "used_languages": [],
+        "metadata_rights_declarations": [],
+        "names": [
+          {
+            "lock_version": 2,
+            "primary_name": "Bolívar",
+            "rest_of_name": "Simón",
+            "sort_name": "Bolívar, Simón (1783-1830)",
+            "sort_name_auto_generate": true,
+            "create_time": "2025-08-18T15:56:28Z",
+            "system_mtime": "2025-08-18T15:56:28Z",
+            "user_mtime": "2025-08-18T15:56:28Z",
+            "authorized": true,
+            "is_display_name": true,
+            "source": "viaf",
+            "name_order": "inverted",
+            "jsonmodel_type": "name_person",
+            "use_dates": [],
+            "parallel_names": [],
+            "authority_id": "https://viaf.org/viaf/35731693"
+          }
+        ],
+        "agent_genders": [],
+        "related_agents": [],
+        "uri": "/agents/people/32714",
+        "agent_type": "agent_person",
+        "is_linked_to_published_record": true,
+        "display_name": {
+          "lock_version": 2,
+          "primary_name": "Bolívar",
+          "rest_of_name": "Simón",
+          "sort_name": "Bolívar, Simón (1783-1830)",
+          "sort_name_auto_generate": true,
+          "create_time": "2025-08-18T15:56:28Z",
+          "system_mtime": "2025-08-18T15:56:28Z",
+          "user_mtime": "2025-08-18T15:56:28Z",
+          "authorized": true,
+          "is_display_name": true,
+          "source": "viaf",
+          "name_order": "inverted",
+          "jsonmodel_type": "name_person",
+          "use_dates": [],
+          "parallel_names": [],
+          "authority_id": "https://viaf.org/viaf/35731693"
+        },
+        "title": "Bolívar, Simón (1783-1830)"
+      }
+    }
+  ],
+  "import_previous_arks": [],
+  "ancestors": [
+    {
+      "ref": "/repositories/5/resources/3950",
+      "level": "collection"
+    }
+  ],
+  "instances": [
+    {
+      "lock_version": 0,
+      "create_time": "2023-10-23T20:32:46Z",
+      "system_mtime": "2023-10-23T20:32:46Z",
+      "user_mtime": "2023-10-23T20:32:46Z",
+      "instance_type": "mixed_materials",
+      "jsonmodel_type": "instance",
+      "is_representative": false,
+      "sub_container": {
+        "lock_version": 0,
+        "indicator_2": "3",
+        "create_time": "2023-10-23T20:32:46Z",
+        "system_mtime": "2023-10-23T20:32:46Z",
+        "user_mtime": "2023-10-23T20:32:46Z",
+        "type_2": "folder",
+        "jsonmodel_type": "sub_container",
+        "top_container": {
+          "ref": "/repositories/5/top_containers/122381",
+          "_resolved": {
+            "lock_version": 34,
+            "barcode": "32101103193833",
+            "indicator": "B-002045",
+            "create_time": "2023-10-09T13:56:11Z",
+            "system_mtime": "2026-09-24T18:15:30Z",
+            "user_mtime": "2023-10-09T14:02:02Z",
+            "created_for_collection": "/repositories/5/resources/3950",
+            "type": "box",
+            "jsonmodel_type": "top_container",
+            "active_restrictions": [
+              {
+                "id": 1688775,
+                "resource_id": 3950,
+                "restriction_note_type": "accessrestrict",
+                "jsonmodel_type": "rights_restriction",
+                "local_access_restriction_type": [
+                  "Open"
+                ],
+                "linked_records": {
+                  "ref": "/repositories/5/resources/3950"
+                }
+              }
+            ],
+            "container_locations": [
+              {
+                "jsonmodel_type": "container_location",
+                "status": "current",
+                "start_date": "2023-10-09",
+                "system_mtime": "2023-10-09 14:02:02 UTC",
+                "user_mtime": "2023-10-09 14:02:02 UTC",
+                "ref": "/locations/23648",
+                "_resolved": {
+                  "lock_version": 9,
+                  "building": "Firestone Library",
+                  "title": "Firestone Library, Vault, Manuscripts Archival [scamss]",
+                  "room": "Vault",
+                  "area": "Manuscripts Archival",
+                  "classification": "scamss",
+                  "create_time": "2021-01-22T22:29:47Z",
+                  "system_mtime": "2022-11-16T16:53:06Z",
+                  "user_mtime": "2022-11-16T16:53:06Z",
+                  "jsonmodel_type": "location",
+                  "external_ids": [],
+                  "functions": [],
+                  "uri": "/locations/23648"
+                }
+              }
+            ],
+            "series": [],
+            "collection": [
+              {
+                "ref": "/repositories/5/resources/3950",
+                "identifier": "C0140",
+                "display_string": "General Manuscripts Miscellaneous Collection"
+              }
+            ],
+            "uri": "/repositories/5/top_containers/122381",
+            "repository": {
+              "ref": "/repositories/5"
+            },
+            "container_profile": {
+              "ref": "/container_profiles/17"
+            },
+            "restricted": true,
+            "is_linked_to_published_record": true,
+            "display_string": "Box B-002045: [Barcode: 32101103193833]",
+            "long_display_string": "Box B-002045 [Barcode: 32101103193833], Standard manuscript, Firestone Library, Vault, Manuscripts Archival [scamss], C0140, General Manuscripts Miscellaneous Collection"
+          }
+        }
+      }
+    }
+  ],
+  "notes": [
+    {
+      "jsonmodel_type": "note_multipart",
+      "persistent_id": "d7cdd81a68db407f3e74bb63de36e563",
+      "label": "Content Description",
+      "type": "scopecontent",
+      "subnotes": [
+        {
+          "jsonmodel_type": "note_text",
+          "content": "Contains a letter signed by Simón Bolívar, in which he announces to his friend Álamo that he will soon proclaim himself dictator. Housed in a custom-made folder, with a reproduction of a portrait of Bolívar on the inner front panel.",
+          "publish": true
+        }
+      ],
+      "publish": true
+    },
+    {
+      "jsonmodel_type": "note_multipart",
+      "persistent_id": "f097d82ec1bfa9a1049d308f5acc60ee",
+      "type": "acqinfo",
+      "subnotes": [
+        {
+          "jsonmodel_type": "note_text",
+          "content": "Purchased from Földvári Books in June 2023 (AM 2024-026).",
+          "publish": true
+        }
+      ],
+      "publish": true
+    },
+    {
+      "jsonmodel_type": "note_multipart",
+      "persistent_id": "b15214adae68f38a1f481ef5f45c7498",
+      "type": "processinfo",
+      "subnotes": [
+        {
+          "jsonmodel_type": "note_text",
+          "content": "Item processed by Armando Suárez in October 2023.",
+          "publish": true
+        }
+      ],
+      "publish": true
+    }
+  ],
+  "accession_links": [
+    {
+      "ref": "/repositories/5/accessions/20021"
+    }
+  ],
+  "uri": "/repositories/5/archival_objects/1489977",
+  "repository": {
+    "ref": "/repositories/5"
+  },
+  "resource": {
+    "ref": "/repositories/5/resources/3950"
+  },
+  "has_unpublished_ancestor": false
+}

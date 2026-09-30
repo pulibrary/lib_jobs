@@ -29,6 +29,7 @@ class LibJob
     data_set
   end
 
+  # start of the last successful run
   def last_successful_run_time
     DataSet.where(category:, status: true).order(report_time: :desc).pick(:report_time)
   end

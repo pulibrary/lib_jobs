@@ -1,0 +1,672 @@
+{
+  "lock_version": 22,
+  "position": 3767,
+  "publish": true,
+  "ref_id": "C0140_c48824-37511",
+  "title": "Ephemera and letters on Belle da Costa Greene",
+  "display_string": "Ephemera and letters on Belle da Costa Greene, 1923-1954",
+  "restrictions_apply": false,
+  "create_time": "2022-12-20T15:18:41Z",
+  "system_mtime": "2026-09-24T14:48:31Z",
+  "user_mtime": "2023-02-02T18:48:30Z",
+  "suppressed": false,
+  "is_slug_auto": false,
+  "level": "file",
+  "jsonmodel_type": "archival_object",
+  "external_ids": [],
+  "subjects": [
+    {
+      "ref": "/subjects/19167",
+      "_resolved": {
+        "lock_version": 38,
+        "title": "Librarians -- 20th century -- Sources",
+        "create_time": "2021-12-21T21:28:28Z",
+        "system_mtime": "2024-08-13T01:42:25Z",
+        "user_mtime": "2021-12-21T21:28:28Z",
+        "is_slug_auto": false,
+        "source": "lcsh",
+        "jsonmodel_type": "subject",
+        "external_ids": [],
+        "publish": true,
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "terms": [
+          {
+            "lock_version": 0,
+            "term": "Librarians",
+            "create_time": "2016-06-27T14:40:09Z",
+            "system_mtime": "2016-06-27T14:40:09Z",
+            "user_mtime": "2016-06-27T14:40:09Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/273",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "20th century",
+            "create_time": "2021-02-10T19:32:00Z",
+            "system_mtime": "2021-02-10T19:32:00Z",
+            "user_mtime": "2021-02-10T19:32:00Z",
+            "term_type": "temporal",
+            "jsonmodel_type": "term",
+            "uri": "/terms/17868",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "Sources",
+            "create_time": "2021-02-10T16:28:28Z",
+            "system_mtime": "2021-02-10T16:28:28Z",
+            "user_mtime": "2021-02-10T16:28:28Z",
+            "term_type": "genre_form",
+            "jsonmodel_type": "term",
+            "uri": "/terms/17865",
+            "vocabulary": "/vocabularies/1"
+          }
+        ],
+        "external_documents": [],
+        "metadata_rights_declarations": [],
+        "uri": "/subjects/19167",
+        "vocabulary": "/vocabularies/1",
+        "is_linked_to_published_record": true
+      }
+    },
+    {
+      "ref": "/subjects/4051",
+      "_resolved": {
+        "lock_version": 56,
+        "title": "Private libraries",
+        "authority_id": "http://id.loc.gov/authorities/subjects/sh85076565",
+        "create_time": "2021-01-23T08:44:30Z",
+        "system_mtime": "2026-09-24T18:16:51Z",
+        "user_mtime": "2026-09-24T14:48:31Z",
+        "is_slug_auto": true,
+        "source": "lcsh",
+        "jsonmodel_type": "subject",
+        "external_ids": [],
+        "publish": true,
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "terms": [
+          {
+            "lock_version": 0,
+            "term": "Private libraries",
+            "create_time": "2026-09-24T14:48:31Z",
+            "system_mtime": "2026-09-24T14:48:31Z",
+            "user_mtime": "2026-09-24T14:48:31Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/26604",
+            "vocabulary": "/vocabularies/1"
+          }
+        ],
+        "external_documents": [],
+        "metadata_rights_declarations": [],
+        "uri": "/subjects/4051",
+        "vocabulary": "/vocabularies/1",
+        "is_linked_to_published_record": true
+      }
+    },
+    {
+      "ref": "/subjects/1860",
+      "_resolved": {
+        "lock_version": 52,
+        "title": "Libraries",
+        "authority_id": "http://id.loc.gov/authorities/subjects/sh2002006394",
+        "create_time": "2016-06-27T14:44:16Z",
+        "system_mtime": "2026-09-24T14:43:41Z",
+        "user_mtime": "2026-09-24T14:43:41Z",
+        "is_slug_auto": false,
+        "source": "lcsh",
+        "jsonmodel_type": "subject",
+        "external_ids": [
+          {
+            "external_id": "1873",
+            "source": "Archivists Toolkit Database::SUBJECT",
+            "create_time": "2026-09-24T14:43:41Z",
+            "system_mtime": "2026-09-24T14:43:41Z",
+            "user_mtime": "2026-09-24T14:43:41Z",
+            "jsonmodel_type": "external_id"
+          }
+        ],
+        "publish": true,
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "terms": [
+          {
+            "lock_version": 0,
+            "term": "Libraries",
+            "create_time": "2022-01-05T18:14:17Z",
+            "system_mtime": "2022-01-05T18:14:17Z",
+            "user_mtime": "2022-01-05T18:14:17Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/18201",
+            "vocabulary": "/vocabularies/1"
+          }
+        ],
+        "external_documents": [],
+        "metadata_rights_declarations": [],
+        "uri": "/subjects/1860",
+        "vocabulary": "/vocabularies/1",
+        "is_linked_to_published_record": true
+      }
+    }
+  ],
+  "linked_events": [],
+  "extents": [
+    {
+      "lock_version": 0,
+      "number": "1",
+      "create_time": "2023-02-02T18:48:31Z",
+      "system_mtime": "2023-02-02T18:48:31Z",
+      "user_mtime": "2023-02-02T18:48:31Z",
+      "portion": "whole",
+      "extent_type": "folder",
+      "jsonmodel_type": "extent"
+    }
+  ],
+  "lang_materials": [
+    {
+      "lock_version": 0,
+      "create_time": "2023-02-02T18:48:31Z",
+      "system_mtime": "2023-02-02T18:48:31Z",
+      "user_mtime": "2023-02-02T18:48:31Z",
+      "jsonmodel_type": "lang_material",
+      "notes": [],
+      "language_and_script": {
+        "lock_version": 0,
+        "create_time": "2023-02-02T18:48:31Z",
+        "system_mtime": "2023-02-02T18:48:31Z",
+        "user_mtime": "2023-02-02T18:48:31Z",
+        "language": "eng",
+        "script": "Latn",
+        "jsonmodel_type": "language_and_script"
+      }
+    }
+  ],
+  "dates": [
+    {
+      "lock_version": 0,
+      "expression": "1923-1954",
+      "begin": "1923",
+      "end": "1954",
+      "create_time": "2023-02-02T18:48:31Z",
+      "system_mtime": "2023-02-02T18:48:31Z",
+      "user_mtime": "2023-02-02T18:48:31Z",
+      "date_type": "inclusive",
+      "label": "creation",
+      "jsonmodel_type": "date"
+    }
+  ],
+  "external_documents": [],
+  "rights_statements": [],
+  "linked_agents": [
+    {
+      "is_primary": false,
+      "role": "creator",
+      "terms": [],
+      "ref": "/agents/people/33242",
+      "_resolved": {
+        "lock_version": 60,
+        "publish": true,
+        "create_time": "2022-12-06T21:41:40Z",
+        "system_mtime": "2023-04-27T03:10:56Z",
+        "user_mtime": "2023-04-27T03:10:56Z",
+        "is_slug_auto": false,
+        "jsonmodel_type": "agent_person",
+        "agent_contacts": [],
+        "agent_record_controls": [
+          {
+            "maintenance_agency": "NjP",
+            "agency_name": "Princeton University Library",
+            "create_time": "2023-04-27T03:10:56Z",
+            "system_mtime": "2023-04-27T03:10:56Z",
+            "user_mtime": "2023-04-27T03:10:56Z",
+            "lock_version": 0,
+            "maintenance_status": "upgraded",
+            "jsonmodel_type": "agent_record_control"
+          }
+        ],
+        "agent_alternate_sets": [],
+        "agent_conventions_declarations": [],
+        "agent_other_agency_codes": [],
+        "agent_maintenance_histories": [
+          {
+            "event_date": "2020-01-01 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Migrated records from a spreadsheet created from native EAC-CPF via OpenRefine.",
+            "create_time": "2023-04-27T03:10:56Z",
+            "system_mtime": "2023-04-27T03:10:56Z",
+            "user_mtime": "2023-04-27T03:10:56Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          },
+          {
+            "event_date": "2023-04-26 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Upgraded records to re-populate the required CPF and ASpace fields that were lost during data import via OpenRefine.",
+            "create_time": "2023-04-27T03:10:56Z",
+            "system_mtime": "2023-04-27T03:10:56Z",
+            "user_mtime": "2023-04-27T03:10:56Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          }
+        ],
+        "agent_record_identifiers": [
+          {
+            "primary_identifier": true,
+            "record_identifier": "GREENEBELLEDACOSTA97033759",
+            "create_time": "2023-04-27T03:10:56Z",
+            "system_mtime": "2023-04-27T03:10:56Z",
+            "user_mtime": "2023-04-27T03:10:56Z",
+            "lock_version": 0,
+            "source": "viaf",
+            "jsonmodel_type": "agent_record_identifier"
+          }
+        ],
+        "agent_identifiers": [
+          {
+            "entity_identifier": "GREENEBELLEDACOSTA97033759",
+            "create_time": "2023-04-27T03:10:56Z",
+            "system_mtime": "2023-04-27T03:10:56Z",
+            "user_mtime": "2023-04-27T03:10:56Z",
+            "lock_version": 0,
+            "jsonmodel_type": "agent_identifier"
+          }
+        ],
+        "agent_sources": [],
+        "agent_places": [],
+        "agent_occupations": [],
+        "agent_functions": [],
+        "agent_topics": [],
+        "agent_resources": [],
+        "linked_agent_roles": [
+          "creator",
+          "subject"
+        ],
+        "external_documents": [],
+        "notes": [
+          {
+            "jsonmodel_type": "note_bioghist",
+            "persistent_id": "4fa8b4d2aeebded2f870739e9106126b",
+            "label": "Biographical Note",
+            "subnotes": [
+              {
+                "jsonmodel_type": "note_text",
+                "content": "Belle da Costa Greene was born in 1879 to Genivieve Ida Fleet Greener and Richard T. Greener and grew up in a predomintantly African American community in Washignton, D. C.  Her parents separated when she was a teenager and her mother, Ida, changed the family's last name to Greene and the family began describing themsevles as Americans of Portugese descent.  Greene was employed at the Princeton University Library for a time before J. P. Morgan's nephew Junius Spencer Morgan hired her as his assistant.  She eventually became J. P. Morgan's private librarian and continued as private librarian to his son J. P. Morgan Jr.  In 1924, Greene became the first director of the Pierpont Morgan Library, a position she held until 1948.  She built the Morgan Library's collection into one of the most prominent in the United States and transformed it into a major public resource.",
+                "publish": true
+              }
+            ],
+            "publish": true
+          }
+        ],
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "dates_of_existence": [],
+        "used_languages": [],
+        "metadata_rights_declarations": [],
+        "names": [
+          {
+            "lock_version": 0,
+            "primary_name": "Greene",
+            "rest_of_name": "Belle da Costa",
+            "sort_name": "Greene, Belle da Costa",
+            "sort_name_auto_generate": true,
+            "create_time": "2023-04-27T03:10:56Z",
+            "system_mtime": "2023-04-27T03:10:56Z",
+            "user_mtime": "2023-04-27T03:10:56Z",
+            "authorized": true,
+            "is_display_name": true,
+            "source": "viaf",
+            "rules": "rda",
+            "name_order": "inverted",
+            "jsonmodel_type": "name_person",
+            "use_dates": [],
+            "parallel_names": [],
+            "authority_id": "nr97033759"
+          }
+        ],
+        "agent_genders": [],
+        "related_agents": [],
+        "uri": "/agents/people/33242",
+        "agent_type": "agent_person",
+        "is_linked_to_published_record": true,
+        "display_name": {
+          "lock_version": 0,
+          "primary_name": "Greene",
+          "rest_of_name": "Belle da Costa",
+          "sort_name": "Greene, Belle da Costa",
+          "sort_name_auto_generate": true,
+          "create_time": "2023-04-27T03:10:56Z",
+          "system_mtime": "2023-04-27T03:10:56Z",
+          "user_mtime": "2023-04-27T03:10:56Z",
+          "authorized": true,
+          "is_display_name": true,
+          "source": "viaf",
+          "rules": "rda",
+          "name_order": "inverted",
+          "jsonmodel_type": "name_person",
+          "use_dates": [],
+          "parallel_names": [],
+          "authority_id": "nr97033759"
+        },
+        "title": "Greene, Belle da Costa"
+      }
+    },
+    {
+      "is_primary": false,
+      "role": "subject",
+      "terms": [],
+      "ref": "/agents/people/33242",
+      "_resolved": {
+        "lock_version": 60,
+        "publish": true,
+        "create_time": "2022-12-06T21:41:40Z",
+        "system_mtime": "2023-04-27T03:10:56Z",
+        "user_mtime": "2023-04-27T03:10:56Z",
+        "is_slug_auto": false,
+        "jsonmodel_type": "agent_person",
+        "agent_contacts": [],
+        "agent_record_controls": [
+          {
+            "maintenance_agency": "NjP",
+            "agency_name": "Princeton University Library",
+            "create_time": "2023-04-27T03:10:56Z",
+            "system_mtime": "2023-04-27T03:10:56Z",
+            "user_mtime": "2023-04-27T03:10:56Z",
+            "lock_version": 0,
+            "maintenance_status": "upgraded",
+            "jsonmodel_type": "agent_record_control"
+          }
+        ],
+        "agent_alternate_sets": [],
+        "agent_conventions_declarations": [],
+        "agent_other_agency_codes": [],
+        "agent_maintenance_histories": [
+          {
+            "event_date": "2020-01-01 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Migrated records from a spreadsheet created from native EAC-CPF via OpenRefine.",
+            "create_time": "2023-04-27T03:10:56Z",
+            "system_mtime": "2023-04-27T03:10:56Z",
+            "user_mtime": "2023-04-27T03:10:56Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          },
+          {
+            "event_date": "2023-04-26 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Upgraded records to re-populate the required CPF and ASpace fields that were lost during data import via OpenRefine.",
+            "create_time": "2023-04-27T03:10:56Z",
+            "system_mtime": "2023-04-27T03:10:56Z",
+            "user_mtime": "2023-04-27T03:10:56Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          }
+        ],
+        "agent_record_identifiers": [
+          {
+            "primary_identifier": true,
+            "record_identifier": "GREENEBELLEDACOSTA97033759",
+            "create_time": "2023-04-27T03:10:56Z",
+            "system_mtime": "2023-04-27T03:10:56Z",
+            "user_mtime": "2023-04-27T03:10:56Z",
+            "lock_version": 0,
+            "source": "viaf",
+            "jsonmodel_type": "agent_record_identifier"
+          }
+        ],
+        "agent_identifiers": [
+          {
+            "entity_identifier": "GREENEBELLEDACOSTA97033759",
+            "create_time": "2023-04-27T03:10:56Z",
+            "system_mtime": "2023-04-27T03:10:56Z",
+            "user_mtime": "2023-04-27T03:10:56Z",
+            "lock_version": 0,
+            "jsonmodel_type": "agent_identifier"
+          }
+        ],
+        "agent_sources": [],
+        "agent_places": [],
+        "agent_occupations": [],
+        "agent_functions": [],
+        "agent_topics": [],
+        "agent_resources": [],
+        "linked_agent_roles": [
+          "creator",
+          "subject"
+        ],
+        "external_documents": [],
+        "notes": [
+          {
+            "jsonmodel_type": "note_bioghist",
+            "persistent_id": "4fa8b4d2aeebded2f870739e9106126b",
+            "label": "Biographical Note",
+            "subnotes": [
+              {
+                "jsonmodel_type": "note_text",
+                "content": "Belle da Costa Greene was born in 1879 to Genivieve Ida Fleet Greener and Richard T. Greener and grew up in a predomintantly African American community in Washignton, D. C.  Her parents separated when she was a teenager and her mother, Ida, changed the family's last name to Greene and the family began describing themsevles as Americans of Portugese descent.  Greene was employed at the Princeton University Library for a time before J. P. Morgan's nephew Junius Spencer Morgan hired her as his assistant.  She eventually became J. P. Morgan's private librarian and continued as private librarian to his son J. P. Morgan Jr.  In 1924, Greene became the first director of the Pierpont Morgan Library, a position she held until 1948.  She built the Morgan Library's collection into one of the most prominent in the United States and transformed it into a major public resource.",
+                "publish": true
+              }
+            ],
+            "publish": true
+          }
+        ],
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "dates_of_existence": [],
+        "used_languages": [],
+        "metadata_rights_declarations": [],
+        "names": [
+          {
+            "lock_version": 0,
+            "primary_name": "Greene",
+            "rest_of_name": "Belle da Costa",
+            "sort_name": "Greene, Belle da Costa",
+            "sort_name_auto_generate": true,
+            "create_time": "2023-04-27T03:10:56Z",
+            "system_mtime": "2023-04-27T03:10:56Z",
+            "user_mtime": "2023-04-27T03:10:56Z",
+            "authorized": true,
+            "is_display_name": true,
+            "source": "viaf",
+            "rules": "rda",
+            "name_order": "inverted",
+            "jsonmodel_type": "name_person",
+            "use_dates": [],
+            "parallel_names": [],
+            "authority_id": "nr97033759"
+          }
+        ],
+        "agent_genders": [],
+        "related_agents": [],
+        "uri": "/agents/people/33242",
+        "agent_type": "agent_person",
+        "is_linked_to_published_record": true,
+        "display_name": {
+          "lock_version": 0,
+          "primary_name": "Greene",
+          "rest_of_name": "Belle da Costa",
+          "sort_name": "Greene, Belle da Costa",
+          "sort_name_auto_generate": true,
+          "create_time": "2023-04-27T03:10:56Z",
+          "system_mtime": "2023-04-27T03:10:56Z",
+          "user_mtime": "2023-04-27T03:10:56Z",
+          "authorized": true,
+          "is_display_name": true,
+          "source": "viaf",
+          "rules": "rda",
+          "name_order": "inverted",
+          "jsonmodel_type": "name_person",
+          "use_dates": [],
+          "parallel_names": [],
+          "authority_id": "nr97033759"
+        },
+        "title": "Greene, Belle da Costa"
+      }
+    }
+  ],
+  "import_previous_arks": [],
+  "ancestors": [
+    {
+      "ref": "/repositories/5/resources/3950",
+      "level": "collection"
+    }
+  ],
+  "instances": [
+    {
+      "lock_version": 0,
+      "create_time": "2023-02-02T18:48:31Z",
+      "system_mtime": "2023-02-02T18:48:31Z",
+      "user_mtime": "2023-02-02T18:48:31Z",
+      "instance_type": "mixed_materials",
+      "jsonmodel_type": "instance",
+      "is_representative": false,
+      "sub_container": {
+        "lock_version": 0,
+        "indicator_2": "1",
+        "create_time": "2023-02-02T18:48:31Z",
+        "system_mtime": "2023-02-02T18:48:31Z",
+        "user_mtime": "2023-02-02T18:48:31Z",
+        "type_2": "folder",
+        "jsonmodel_type": "sub_container",
+        "top_container": {
+          "ref": "/repositories/5/top_containers/121473",
+          "_resolved": {
+            "lock_version": 38,
+            "barcode": "32101078586763",
+            "indicator": "B-002028",
+            "create_time": "2023-01-23T20:16:42Z",
+            "system_mtime": "2026-09-24T18:15:30Z",
+            "user_mtime": "2023-01-23T20:47:31Z",
+            "created_for_collection": "/repositories/5/resources/3950",
+            "type": "box",
+            "jsonmodel_type": "top_container",
+            "active_restrictions": [
+              {
+                "id": 1688775,
+                "resource_id": 3950,
+                "restriction_note_type": "accessrestrict",
+                "jsonmodel_type": "rights_restriction",
+                "local_access_restriction_type": [
+                  "Open"
+                ],
+                "linked_records": {
+                  "ref": "/repositories/5/resources/3950"
+                }
+              }
+            ],
+            "container_locations": [
+              {
+                "jsonmodel_type": "container_location",
+                "status": "current",
+                "start_date": "2023-01-23",
+                "system_mtime": "2023-01-23 20:47:31 UTC",
+                "user_mtime": "2023-01-23 20:47:31 UTC",
+                "ref": "/locations/23648",
+                "_resolved": {
+                  "lock_version": 9,
+                  "building": "Firestone Library",
+                  "title": "Firestone Library, Vault, Manuscripts Archival [scamss]",
+                  "room": "Vault",
+                  "area": "Manuscripts Archival",
+                  "classification": "scamss",
+                  "create_time": "2021-01-22T22:29:47Z",
+                  "system_mtime": "2022-11-16T16:53:06Z",
+                  "user_mtime": "2022-11-16T16:53:06Z",
+                  "jsonmodel_type": "location",
+                  "external_ids": [],
+                  "functions": [],
+                  "uri": "/locations/23648"
+                }
+              }
+            ],
+            "series": [],
+            "collection": [
+              {
+                "ref": "/repositories/5/resources/3950",
+                "identifier": "C0140",
+                "display_string": "General Manuscripts Miscellaneous Collection"
+              }
+            ],
+            "uri": "/repositories/5/top_containers/121473",
+            "repository": {
+              "ref": "/repositories/5"
+            },
+            "container_profile": {
+              "ref": "/container_profiles/17"
+            },
+            "restricted": true,
+            "is_linked_to_published_record": true,
+            "display_string": "Box B-002028: [Barcode: 32101078586763]",
+            "long_display_string": "Box B-002028 [Barcode: 32101078586763], Standard manuscript, Firestone Library, Vault, Manuscripts Archival [scamss], C0140, General Manuscripts Miscellaneous Collection"
+          }
+        }
+      }
+    }
+  ],
+  "notes": [
+    {
+      "jsonmodel_type": "note_multipart",
+      "persistent_id": "aeccaf5569f3079f3da17aee4d494e3c",
+      "type": "acqinfo",
+      "subnotes": [
+        {
+          "jsonmodel_type": "note_text",
+          "content": "Purchased from Mony Maron Saad in 2022 (AM2023-061).",
+          "publish": true
+        }
+      ],
+      "publish": true
+    },
+    {
+      "jsonmodel_type": "note_multipart",
+      "persistent_id": "3e5b6d764340b07f6f1d0f13cc83fde2",
+      "type": "processinfo",
+      "subnotes": [
+        {
+          "jsonmodel_type": "note_text",
+          "content": "Processed and described by Alexis Antracoli in December 2022. The following sources were consulted when drafting the description and biographical note: Website of the <extref href=\"https://www.themorgan.org/belle-greene\" type=\"simple\">Morgan Library and Museum.</extref>",
+          "publish": true
+        }
+      ],
+      "publish": true
+    },
+    {
+      "jsonmodel_type": "note_multipart",
+      "persistent_id": "0c689c585f2965267bd684c22dc34cc5",
+      "type": "scopecontent",
+      "subnotes": [
+        {
+          "jsonmodel_type": "note_text",
+          "content": "Consists of two letters about Belle da Costa Greene, one letter written by her, and several newspaper clippings and other ephemera related to the Pierpont Morgan Library.",
+          "publish": true
+        }
+      ],
+      "publish": true
+    }
+  ],
+  "accession_links": [
+    {
+      "ref": "/repositories/5/accessions/19868"
+    }
+  ],
+  "uri": "/repositories/5/archival_objects/1475430",
+  "repository": {
+    "ref": "/repositories/5"
+  },
+  "resource": {
+    "ref": "/repositories/5/resources/3950"
+  },
+  "has_unpublished_ancestor": false
+}

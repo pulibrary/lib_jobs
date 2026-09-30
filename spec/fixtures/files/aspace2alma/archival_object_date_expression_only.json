@@ -1,0 +1,205 @@
+{
+  "lock_version": 5,
+  "position": 7,
+  "publish": true,
+  "ref_id": "AC364_c592",
+  "title": "Report of the Treasurer",
+  "display_string": "Report of the Treasurer, 1906-1907, 1912, 1924-1930, 1974-1998",
+  "restrictions_apply": true,
+  "create_time": "2021-01-23T23:58:08Z",
+  "system_mtime": "2026-03-03T21:51:45Z",
+  "user_mtime": "2025-12-09T21:39:48Z",
+  "suppressed": false,
+  "is_slug_auto": false,
+  "level": "file",
+  "jsonmodel_type": "archival_object",
+  "external_ids": [],
+  "subjects": [],
+  "linked_events": [],
+  "extents": [
+    {
+      "lock_version": 0,
+      "number": "1",
+      "create_time": "2025-12-09T21:39:48Z",
+      "system_mtime": "2025-12-09T21:39:48Z",
+      "user_mtime": "2025-12-09T21:39:48Z",
+      "portion": "whole",
+      "extent_type": "box",
+      "jsonmodel_type": "extent"
+    }
+  ],
+  "lang_materials": [],
+  "dates": [
+    {
+      "lock_version": 0,
+      "expression": "1906-1907",
+      "begin": "1906",
+      "create_time": "2025-12-09T21:39:48Z",
+      "system_mtime": "2025-12-09T21:39:48Z",
+      "user_mtime": "2025-12-09T21:39:48Z",
+      "date_type": "inclusive",
+      "label": "creation",
+      "jsonmodel_type": "date"
+    },
+    {
+      "lock_version": 0,
+      "expression": "1912",
+      "create_time": "2025-12-09T21:39:48Z",
+      "system_mtime": "2025-12-09T21:39:48Z",
+      "user_mtime": "2025-12-09T21:39:48Z",
+      "date_type": "single",
+      "label": "creation",
+      "jsonmodel_type": "date"
+    },
+    {
+      "lock_version": 0,
+      "expression": "1924-1930",
+      "create_time": "2025-12-09T21:39:48Z",
+      "system_mtime": "2025-12-09T21:39:48Z",
+      "user_mtime": "2025-12-09T21:39:48Z",
+      "date_type": "inclusive",
+      "label": "creation",
+      "jsonmodel_type": "date"
+    },
+    {
+      "lock_version": 0,
+      "expression": "1974-1998",
+      "create_time": "2025-12-09T21:39:48Z",
+      "system_mtime": "2025-12-09T21:39:48Z",
+      "user_mtime": "2025-12-09T21:39:48Z",
+      "date_type": "inclusive",
+      "label": "creation",
+      "jsonmodel_type": "date"
+    }
+  ],
+  "external_documents": [],
+  "rights_statements": [],
+  "linked_agents": [],
+  "import_previous_arks": [],
+  "ancestors": [
+    {
+      "ref": "/repositories/4/archival_objects/770558",
+      "level": "series"
+    },
+    {
+      "ref": "/repositories/4/resources/2214",
+      "level": "collection"
+    }
+  ],
+  "instances": [
+    {
+      "lock_version": 0,
+      "create_time": "2025-12-09T21:39:48Z",
+      "system_mtime": "2025-12-09T21:39:48Z",
+      "user_mtime": "2025-12-09T21:39:48Z",
+      "instance_type": "mixed_materials",
+      "jsonmodel_type": "instance",
+      "is_representative": false,
+      "sub_container": {
+        "lock_version": 0,
+        "create_time": "2025-12-09T21:39:48Z",
+        "system_mtime": "2025-12-09T21:39:48Z",
+        "user_mtime": "2025-12-09T21:39:48Z",
+        "jsonmodel_type": "sub_container",
+        "top_container": {
+          "ref": "/repositories/4/top_containers/78200",
+          "_resolved": {
+            "lock_version": 10,
+            "barcode": "32101105963852",
+            "ils_holding_id": "AC364_i82",
+            "indicator": "74",
+            "create_time": "2021-01-23T23:57:53Z",
+            "system_mtime": "2026-09-11T03:53:23Z",
+            "user_mtime": "2021-01-25T04:21:38Z",
+            "type": "box",
+            "jsonmodel_type": "top_container",
+            "active_restrictions": [
+              {
+                "id": 1683068,
+                "resource_id": 2214,
+                "restriction_note_type": "accessrestrict",
+                "jsonmodel_type": "rights_restriction",
+                "local_access_restriction_type": [
+                  "Review"
+                ],
+                "linked_records": {
+                  "ref": "/repositories/4/resources/2214"
+                }
+              }
+            ],
+            "container_locations": [
+              {
+                "jsonmodel_type": "container_location",
+                "status": "current",
+                "start_date": "2021-01-24",
+                "system_mtime": "2021-01-25 04:21:38 UTC",
+                "user_mtime": "2021-01-25 04:21:38 UTC",
+                "ref": "/locations/23649",
+                "_resolved": {
+                  "lock_version": 2,
+                  "building": "Seeley G. Mudd Manuscript Library",
+                  "title": "Seeley G. Mudd Manuscript Library, Mudd Archival [scamudd]",
+                  "area": "Mudd Archival",
+                  "classification": "scamudd",
+                  "create_time": "2021-01-22T22:29:47Z",
+                  "system_mtime": "2024-06-24T14:57:09Z",
+                  "user_mtime": "2024-06-24T14:57:09Z",
+                  "jsonmodel_type": "location",
+                  "external_ids": [],
+                  "functions": [],
+                  "uri": "/locations/23649"
+                }
+              }
+            ],
+            "series": [],
+            "collection": [
+              {
+                "ref": "/repositories/4/resources/2214",
+                "identifier": "AC364",
+                "display_string": "Princeton University Publications Collection"
+              }
+            ],
+            "uri": "/repositories/4/top_containers/78200",
+            "repository": {
+              "ref": "/repositories/4"
+            },
+            "container_profile": {
+              "ref": "/container_profiles/3"
+            },
+            "restricted": true,
+            "is_linked_to_published_record": true,
+            "display_string": "Box 74: [Barcode: 32101105963852]",
+            "long_display_string": "Box 74 [Barcode: 32101105963852], NBox, Seeley G. Mudd Manuscript Library, Mudd Archival [scamudd], AC364, Princeton University Publications Collection"
+          }
+        }
+      }
+    }
+  ],
+  "notes": [
+    {
+      "jsonmodel_type": "note_multipart",
+      "persistent_id": "871f9bdbb8ed51362c2b83c30772cf7a",
+      "type": "scopecontent",
+      "subnotes": [
+        {
+          "jsonmodel_type": "note_text",
+          "content": "As well as Reports of the Treasurer, sometimes called \"Audited Financial Statements,\" this box contains booklets titled \"Endowment Funds,\" \"Gifts and Legacies,\" \"Investments,\" and \"Supplementary Financial Information\" for certain years in the 1970s. ",
+          "publish": true
+        }
+      ],
+      "publish": true
+    }
+  ],
+  "accession_links": [],
+  "uri": "/repositories/4/archival_objects/771109",
+  "repository": {
+    "ref": "/repositories/4"
+  },
+  "resource": {
+    "ref": "/repositories/4/resources/2214"
+  },
+  "parent": {
+    "ref": "/repositories/4/archival_objects/770558"
+  },
+  "has_unpublished_ancestor": false
+}

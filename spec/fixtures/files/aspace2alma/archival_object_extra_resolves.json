@@ -1,0 +1,2361 @@
+{
+  "lock_version": 41,
+  "position": 1569,
+  "publish": true,
+  "ref_id": "C0140_c03353",
+  "title": "Deed from Matappeas, Tawapung, and Seapoekne to John Bowne, Richard Hartshorne, and James Grover for Land in Toponemus (Monmouth County, New Jersey)",
+  "display_string": "Deed from Matappeas, Tawapung, and Seapoekne to John Bowne, Richard Hartshorne, and James Grover for Land in Toponemus (Monmouth County, New Jersey), 1674 August 24, 1677 March 2",
+  "restrictions_apply": false,
+  "create_time": "2021-01-24T09:20:28Z",
+  "system_mtime": "2026-09-24T15:42:01Z",
+  "user_mtime": "2025-03-20T22:46:53Z",
+  "suppressed": false,
+  "is_slug_auto": false,
+  "level": "item",
+  "jsonmodel_type": "archival_object",
+  "external_ids": [],
+  "subjects": [
+    {
+      "ref": "/subjects/10063",
+      "_resolved": {
+        "lock_version": 80,
+        "title": "Delaware Indians",
+        "create_time": "2021-01-24T01:01:06Z",
+        "system_mtime": "2026-08-13T14:22:19Z",
+        "user_mtime": "2021-01-24T01:01:06Z",
+        "is_slug_auto": true,
+        "source": "lcsh",
+        "jsonmodel_type": "subject",
+        "external_ids": [],
+        "publish": true,
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "terms": [
+          {
+            "lock_version": 0,
+            "term": "Delaware Indians",
+            "create_time": "2016-06-27T14:44:55Z",
+            "system_mtime": "2016-06-27T14:44:55Z",
+            "user_mtime": "2016-06-27T14:44:55Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/1835",
+            "vocabulary": "/vocabularies/1"
+          }
+        ],
+        "external_documents": [],
+        "metadata_rights_declarations": [],
+        "uri": "/subjects/10063",
+        "vocabulary": "/vocabularies/1",
+        "is_linked_to_published_record": true
+      }
+    },
+    {
+      "ref": "/subjects/19579",
+      "_resolved": {
+        "lock_version": 27,
+        "title": "Indians of North America -- Colonization",
+        "create_time": "2022-08-08T19:35:40Z",
+        "system_mtime": "2025-03-20T22:46:53Z",
+        "user_mtime": "2022-08-08T19:35:40Z",
+        "is_slug_auto": false,
+        "source": "lcsh",
+        "jsonmodel_type": "subject",
+        "external_ids": [],
+        "publish": true,
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "terms": [
+          {
+            "lock_version": 0,
+            "term": "Indians of North America",
+            "create_time": "2016-06-27T14:41:15Z",
+            "system_mtime": "2016-06-27T14:41:15Z",
+            "user_mtime": "2016-06-27T14:41:15Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/719",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "Colonization",
+            "create_time": "2022-03-28T19:25:00Z",
+            "system_mtime": "2022-03-28T19:25:00Z",
+            "user_mtime": "2022-03-28T19:25:00Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/18336",
+            "vocabulary": "/vocabularies/1"
+          }
+        ],
+        "external_documents": [],
+        "metadata_rights_declarations": [],
+        "uri": "/subjects/19579",
+        "vocabulary": "/vocabularies/1",
+        "is_linked_to_published_record": true
+      }
+    },
+    {
+      "ref": "/subjects/3375",
+      "_resolved": {
+        "lock_version": 44,
+        "title": "Indians of North America -- New Jersey",
+        "create_time": "2021-01-23T02:35:17Z",
+        "system_mtime": "2025-03-20T22:46:53Z",
+        "user_mtime": "2022-08-08T19:36:18Z",
+        "is_slug_auto": false,
+        "source": "lcsh",
+        "jsonmodel_type": "subject",
+        "external_ids": [],
+        "publish": true,
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "terms": [
+          {
+            "lock_version": 0,
+            "term": "Indians of North America",
+            "create_time": "2016-06-27T14:41:15Z",
+            "system_mtime": "2016-06-27T14:41:15Z",
+            "user_mtime": "2016-06-27T14:41:15Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/719",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "New Jersey",
+            "create_time": "2016-06-27T14:40:41Z",
+            "system_mtime": "2016-06-27T14:40:41Z",
+            "user_mtime": "2016-06-27T14:40:41Z",
+            "term_type": "geographic",
+            "jsonmodel_type": "term",
+            "uri": "/terms/517",
+            "vocabulary": "/vocabularies/1"
+          }
+        ],
+        "external_documents": [],
+        "metadata_rights_declarations": [],
+        "uri": "/subjects/3375",
+        "vocabulary": "/vocabularies/1",
+        "is_linked_to_published_record": true
+      }
+    },
+    {
+      "ref": "/subjects/19578",
+      "_resolved": {
+        "lock_version": 75,
+        "title": "Indigenous Studies",
+        "create_time": "2022-08-08T19:22:26Z",
+        "system_mtime": "2026-09-03T19:19:22Z",
+        "user_mtime": "2022-08-08T20:14:57Z",
+        "is_slug_auto": false,
+        "source": "local",
+        "jsonmodel_type": "subject",
+        "external_ids": [],
+        "publish": true,
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "terms": [
+          {
+            "lock_version": 0,
+            "term": "Indigenous Studies",
+            "create_time": "2022-08-08T19:22:26Z",
+            "system_mtime": "2022-08-08T19:22:26Z",
+            "user_mtime": "2022-08-08T19:22:26Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/18508",
+            "vocabulary": "/vocabularies/1"
+          }
+        ],
+        "external_documents": [],
+        "metadata_rights_declarations": [],
+        "uri": "/subjects/19578",
+        "vocabulary": "/vocabularies/1",
+        "is_linked_to_published_record": true
+      }
+    },
+    {
+      "ref": "/subjects/19581",
+      "_resolved": {
+        "lock_version": 26,
+        "title": "Land tenure -- New Jersey -- Monmouth County -- History -- 17th century -- Sources",
+        "create_time": "2022-08-08T19:41:02Z",
+        "system_mtime": "2025-03-20T22:46:53Z",
+        "user_mtime": "2022-08-08T19:41:02Z",
+        "is_slug_auto": false,
+        "source": "lcsh",
+        "jsonmodel_type": "subject",
+        "external_ids": [],
+        "publish": true,
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "terms": [
+          {
+            "lock_version": 0,
+            "term": "Land tenure",
+            "create_time": "2016-06-27T14:43:32Z",
+            "system_mtime": "2016-06-27T14:43:32Z",
+            "user_mtime": "2016-06-27T14:43:32Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/1389",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "New Jersey",
+            "create_time": "2016-06-27T14:40:41Z",
+            "system_mtime": "2016-06-27T14:40:41Z",
+            "user_mtime": "2016-06-27T14:40:41Z",
+            "term_type": "geographic",
+            "jsonmodel_type": "term",
+            "uri": "/terms/517",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "Monmouth County",
+            "create_time": "2022-08-08T19:41:02Z",
+            "system_mtime": "2022-08-08T19:41:02Z",
+            "user_mtime": "2022-08-08T19:41:02Z",
+            "term_type": "geographic",
+            "jsonmodel_type": "term",
+            "uri": "/terms/18510",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "History",
+            "create_time": "2016-06-27T14:39:48Z",
+            "system_mtime": "2016-06-27T14:39:48Z",
+            "user_mtime": "2016-06-27T14:39:48Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/157",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "17th century",
+            "create_time": "2021-12-06T21:10:18Z",
+            "system_mtime": "2021-12-06T21:10:18Z",
+            "user_mtime": "2021-12-06T21:10:18Z",
+            "term_type": "temporal",
+            "jsonmodel_type": "term",
+            "uri": "/terms/18107",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "Sources",
+            "create_time": "2021-02-10T16:28:28Z",
+            "system_mtime": "2021-02-10T16:28:28Z",
+            "user_mtime": "2021-02-10T16:28:28Z",
+            "term_type": "genre_form",
+            "jsonmodel_type": "term",
+            "uri": "/terms/17865",
+            "vocabulary": "/vocabularies/1"
+          }
+        ],
+        "external_documents": [],
+        "metadata_rights_declarations": [],
+        "uri": "/subjects/19581",
+        "vocabulary": "/vocabularies/1",
+        "is_linked_to_published_record": true
+      }
+    },
+    {
+      "ref": "/subjects/19584",
+      "_resolved": {
+        "lock_version": 37,
+        "title": "Munsee Indians",
+        "create_time": "2022-08-08T19:47:23Z",
+        "system_mtime": "2026-08-05T13:34:43Z",
+        "user_mtime": "2022-08-08T19:47:23Z",
+        "is_slug_auto": false,
+        "source": "lcsh",
+        "jsonmodel_type": "subject",
+        "external_ids": [],
+        "publish": true,
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "terms": [
+          {
+            "lock_version": 0,
+            "term": "Munsee Indians",
+            "create_time": "2016-06-27T14:44:59Z",
+            "system_mtime": "2016-06-27T14:44:59Z",
+            "user_mtime": "2016-06-27T14:44:59Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/1852",
+            "vocabulary": "/vocabularies/1"
+          }
+        ],
+        "external_documents": [],
+        "metadata_rights_declarations": [],
+        "uri": "/subjects/19584",
+        "vocabulary": "/vocabularies/1",
+        "is_linked_to_published_record": true
+      }
+    },
+    {
+      "ref": "/subjects/19585",
+      "_resolved": {
+        "lock_version": 25,
+        "title": "Navesink",
+        "scope_note": "Alternative spelling: Navisink.",
+        "create_time": "2022-08-08T19:50:03Z",
+        "system_mtime": "2025-03-20T22:46:53Z",
+        "user_mtime": "2022-08-22T20:12:15Z",
+        "is_slug_auto": false,
+        "source": "local",
+        "jsonmodel_type": "subject",
+        "external_ids": [],
+        "publish": true,
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "terms": [
+          {
+            "lock_version": 0,
+            "term": "Navesink",
+            "create_time": "2022-08-08T19:50:03Z",
+            "system_mtime": "2022-08-08T19:50:03Z",
+            "user_mtime": "2022-08-08T19:50:03Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/18513",
+            "vocabulary": "/vocabularies/1"
+          }
+        ],
+        "external_documents": [],
+        "metadata_rights_declarations": [],
+        "uri": "/subjects/19585",
+        "vocabulary": "/vocabularies/1",
+        "is_linked_to_published_record": true
+      }
+    },
+    {
+      "ref": "/subjects/19583",
+      "_resolved": {
+        "lock_version": 25,
+        "title": "Monmouth County (N.J.) -- History -- 17th century",
+        "create_time": "2022-08-08T19:46:23Z",
+        "system_mtime": "2025-03-20T22:46:53Z",
+        "user_mtime": "2022-08-08T19:46:23Z",
+        "is_slug_auto": false,
+        "source": "lcsh",
+        "jsonmodel_type": "subject",
+        "external_ids": [],
+        "publish": true,
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "terms": [
+          {
+            "lock_version": 0,
+            "term": "Monmouth County (N.J.)",
+            "create_time": "2022-08-08T19:46:23Z",
+            "system_mtime": "2022-08-08T19:46:23Z",
+            "user_mtime": "2022-08-08T19:46:23Z",
+            "term_type": "geographic",
+            "jsonmodel_type": "term",
+            "uri": "/terms/18512",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "History",
+            "create_time": "2016-06-27T14:39:48Z",
+            "system_mtime": "2016-06-27T14:39:48Z",
+            "user_mtime": "2016-06-27T14:39:48Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/157",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "17th century",
+            "create_time": "2021-12-06T21:10:18Z",
+            "system_mtime": "2021-12-06T21:10:18Z",
+            "user_mtime": "2021-12-06T21:10:18Z",
+            "term_type": "temporal",
+            "jsonmodel_type": "term",
+            "uri": "/terms/18107",
+            "vocabulary": "/vocabularies/1"
+          }
+        ],
+        "external_documents": [],
+        "metadata_rights_declarations": [],
+        "uri": "/subjects/19583",
+        "vocabulary": "/vocabularies/1",
+        "is_linked_to_published_record": true
+      }
+    },
+    {
+      "ref": "/subjects/19580",
+      "_resolved": {
+        "lock_version": 29,
+        "title": "Deeds -- New Jersey -- 17th century",
+        "create_time": "2022-08-08T19:38:21Z",
+        "system_mtime": "2026-09-24T15:42:01Z",
+        "user_mtime": "2026-09-24T15:42:01Z",
+        "is_slug_auto": false,
+        "source": "lcsh",
+        "jsonmodel_type": "subject",
+        "external_ids": [],
+        "publish": true,
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "terms": [
+          {
+            "lock_version": 0,
+            "term": "Deeds",
+            "create_time": "2021-01-23T09:31:09Z",
+            "system_mtime": "2021-01-23T09:31:09Z",
+            "user_mtime": "2021-01-23T09:31:09Z",
+            "term_type": "genre_form",
+            "jsonmodel_type": "term",
+            "uri": "/terms/6933",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "New Jersey",
+            "create_time": "2016-06-27T14:40:41Z",
+            "system_mtime": "2016-06-27T14:40:41Z",
+            "user_mtime": "2016-06-27T14:40:41Z",
+            "term_type": "geographic",
+            "jsonmodel_type": "term",
+            "uri": "/terms/517",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "17th century",
+            "create_time": "2021-12-06T21:10:18Z",
+            "system_mtime": "2021-12-06T21:10:18Z",
+            "user_mtime": "2021-12-06T21:10:18Z",
+            "term_type": "temporal",
+            "jsonmodel_type": "term",
+            "uri": "/terms/18107",
+            "vocabulary": "/vocabularies/1"
+          }
+        ],
+        "external_documents": [],
+        "metadata_rights_declarations": [],
+        "uri": "/subjects/19580",
+        "vocabulary": "/vocabularies/1",
+        "is_linked_to_published_record": true
+      }
+    },
+    {
+      "ref": "/subjects/19582",
+      "_resolved": {
+        "lock_version": 26,
+        "title": "Land titles -- New Jersey -- History -- 17th century",
+        "create_time": "2022-08-08T19:43:54Z",
+        "system_mtime": "2025-03-20T22:46:53Z",
+        "user_mtime": "2022-08-08T19:43:54Z",
+        "is_slug_auto": false,
+        "source": "lcsh",
+        "jsonmodel_type": "subject",
+        "external_ids": [],
+        "publish": true,
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "terms": [
+          {
+            "lock_version": 0,
+            "term": "Land titles",
+            "create_time": "2022-08-08T19:43:54Z",
+            "system_mtime": "2022-08-08T19:43:54Z",
+            "user_mtime": "2022-08-08T19:43:54Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/18511",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "New Jersey",
+            "create_time": "2016-06-27T14:40:41Z",
+            "system_mtime": "2016-06-27T14:40:41Z",
+            "user_mtime": "2016-06-27T14:40:41Z",
+            "term_type": "geographic",
+            "jsonmodel_type": "term",
+            "uri": "/terms/517",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "History",
+            "create_time": "2016-06-27T14:39:48Z",
+            "system_mtime": "2016-06-27T14:39:48Z",
+            "user_mtime": "2016-06-27T14:39:48Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/157",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "17th century",
+            "create_time": "2021-12-06T21:10:18Z",
+            "system_mtime": "2021-12-06T21:10:18Z",
+            "user_mtime": "2021-12-06T21:10:18Z",
+            "term_type": "temporal",
+            "jsonmodel_type": "term",
+            "uri": "/terms/18107",
+            "vocabulary": "/vocabularies/1"
+          }
+        ],
+        "external_documents": [],
+        "metadata_rights_declarations": [],
+        "uri": "/subjects/19582",
+        "vocabulary": "/vocabularies/1",
+        "is_linked_to_published_record": true
+      }
+    }
+  ],
+  "linked_events": [],
+  "extents": [
+    {
+      "lock_version": 0,
+      "number": "1",
+      "create_time": "2025-03-20T22:46:53Z",
+      "system_mtime": "2025-03-20T22:46:53Z",
+      "user_mtime": "2025-03-20T22:46:53Z",
+      "portion": "whole",
+      "extent_type": "folder",
+      "jsonmodel_type": "extent"
+    }
+  ],
+  "lang_materials": [
+    {
+      "lock_version": 0,
+      "create_time": "2025-03-20T22:46:53Z",
+      "system_mtime": "2025-03-20T22:46:53Z",
+      "user_mtime": "2025-03-20T22:46:53Z",
+      "jsonmodel_type": "lang_material",
+      "notes": [],
+      "language_and_script": {
+        "lock_version": 0,
+        "create_time": "2025-03-20T22:46:53Z",
+        "system_mtime": "2025-03-20T22:46:53Z",
+        "user_mtime": "2025-03-20T22:46:53Z",
+        "language": "eng",
+        "jsonmodel_type": "language_and_script"
+      }
+    }
+  ],
+  "dates": [
+    {
+      "lock_version": 0,
+      "expression": "1674 August 24",
+      "begin": "1674-08-24",
+      "create_time": "2025-03-20T22:46:53Z",
+      "system_mtime": "2025-03-20T22:46:53Z",
+      "user_mtime": "2025-03-20T22:46:53Z",
+      "date_type": "single",
+      "label": "creation",
+      "jsonmodel_type": "date"
+    },
+    {
+      "lock_version": 0,
+      "expression": "1677 March 2",
+      "begin": "1677-03-02",
+      "create_time": "2025-03-20T22:46:53Z",
+      "system_mtime": "2025-03-20T22:46:53Z",
+      "user_mtime": "2025-03-20T22:46:53Z",
+      "date_type": "single",
+      "label": "record_keeping",
+      "era": "ce",
+      "calendar": "gregorian",
+      "jsonmodel_type": "date"
+    }
+  ],
+  "external_documents": [],
+  "rights_statements": [],
+  "linked_agents": [
+    {
+      "is_primary": false,
+      "role": "creator",
+      "relator": "cre",
+      "terms": [],
+      "ref": "/agents/corporate_entities/5445",
+      "_resolved": {
+        "lock_version": 38,
+        "publish": true,
+        "create_time": "2022-08-08T18:44:14Z",
+        "system_mtime": "2026-08-24T20:16:46Z",
+        "user_mtime": "2026-08-24T20:16:46Z",
+        "is_slug_auto": false,
+        "jsonmodel_type": "agent_corporate_entity",
+        "agent_contacts": [],
+        "agent_record_controls": [
+          {
+            "maintenance_agency": "NjP",
+            "agency_name": "Princeton University Library",
+            "create_time": "2026-08-24T20:16:46Z",
+            "system_mtime": "2026-08-24T20:16:46Z",
+            "user_mtime": "2026-08-24T20:16:46Z",
+            "lock_version": 0,
+            "maintenance_status": "upgraded",
+            "jsonmodel_type": "agent_record_control"
+          }
+        ],
+        "agent_alternate_sets": [],
+        "agent_conventions_declarations": [],
+        "agent_other_agency_codes": [],
+        "agent_maintenance_histories": [
+          {
+            "event_date": "2020-01-01 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Migrated records from a spreadsheet created from native EAC-CPF via OpenRefine.",
+            "create_time": "2026-08-24T20:16:46Z",
+            "system_mtime": "2026-08-24T20:16:46Z",
+            "user_mtime": "2026-08-24T20:16:46Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          },
+          {
+            "event_date": "2023-04-28 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Upgraded records to re-populate the required CPF and ASpace fields that were lost during data import via OpenRefine.",
+            "create_time": "2026-08-24T20:16:46Z",
+            "system_mtime": "2026-08-24T20:16:46Z",
+            "user_mtime": "2026-08-24T20:16:46Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          }
+        ],
+        "agent_record_identifiers": [
+          {
+            "primary_identifier": true,
+            "record_identifier": "PROVINCEOFNEWJERSEY128547839",
+            "create_time": "2026-08-24T20:16:46Z",
+            "system_mtime": "2026-08-24T20:16:46Z",
+            "user_mtime": "2026-08-24T20:16:46Z",
+            "lock_version": 0,
+            "source": "local",
+            "jsonmodel_type": "agent_record_identifier"
+          }
+        ],
+        "agent_identifiers": [
+          {
+            "entity_identifier": "PROVINCEOFNEWJERSEY128547839",
+            "create_time": "2026-08-24T20:16:46Z",
+            "system_mtime": "2026-08-24T20:16:46Z",
+            "user_mtime": "2026-08-24T20:16:46Z",
+            "lock_version": 0,
+            "jsonmodel_type": "agent_identifier"
+          }
+        ],
+        "agent_sources": [],
+        "agent_places": [],
+        "agent_occupations": [],
+        "agent_functions": [],
+        "agent_topics": [],
+        "agent_resources": [],
+        "linked_agent_roles": [
+          "creator"
+        ],
+        "external_documents": [],
+        "notes": [],
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "dates_of_existence": [],
+        "used_languages": [],
+        "metadata_rights_declarations": [],
+        "names": [
+          {
+            "lock_version": 0,
+            "primary_name": "Province of New Jersey",
+            "sort_name": "Province of New Jersey",
+            "sort_name_auto_generate": true,
+            "create_time": "2026-08-24T20:16:46Z",
+            "system_mtime": "2026-08-24T20:16:46Z",
+            "user_mtime": "2026-08-24T20:16:46Z",
+            "authorized": true,
+            "is_display_name": true,
+            "jurisdiction": false,
+            "conference_meeting": false,
+            "source": "viaf",
+            "jsonmodel_type": "name_corporate_entity",
+            "use_dates": [],
+            "parallel_names": [],
+            "authority_id": "http://viaf.org/viaf/128547839"
+          }
+        ],
+        "related_agents": [],
+        "uri": "/agents/corporate_entities/5445",
+        "agent_type": "agent_corporate_entity",
+        "is_linked_to_published_record": true,
+        "display_name": {
+          "lock_version": 0,
+          "primary_name": "Province of New Jersey",
+          "sort_name": "Province of New Jersey",
+          "sort_name_auto_generate": true,
+          "create_time": "2026-08-24T20:16:46Z",
+          "system_mtime": "2026-08-24T20:16:46Z",
+          "user_mtime": "2026-08-24T20:16:46Z",
+          "authorized": true,
+          "is_display_name": true,
+          "jurisdiction": false,
+          "conference_meeting": false,
+          "source": "viaf",
+          "jsonmodel_type": "name_corporate_entity",
+          "use_dates": [],
+          "parallel_names": [],
+          "authority_id": "http://viaf.org/viaf/128547839"
+        },
+        "title": "Province of New Jersey"
+      }
+    },
+    {
+      "is_primary": false,
+      "role": "subject",
+      "terms": [],
+      "ref": "/agents/people/33165",
+      "_resolved": {
+        "lock_version": 31,
+        "publish": true,
+        "create_time": "2022-08-08T18:48:02Z",
+        "system_mtime": "2025-03-20T22:46:53Z",
+        "user_mtime": "2023-04-27T03:09:35Z",
+        "is_slug_auto": false,
+        "jsonmodel_type": "agent_person",
+        "agent_contacts": [],
+        "agent_record_controls": [
+          {
+            "maintenance_agency": "NjP",
+            "agency_name": "Princeton University Library",
+            "create_time": "2023-04-27T03:09:35Z",
+            "system_mtime": "2023-04-27T03:09:35Z",
+            "user_mtime": "2023-04-27T03:09:35Z",
+            "lock_version": 0,
+            "maintenance_status": "upgraded",
+            "jsonmodel_type": "agent_record_control"
+          }
+        ],
+        "agent_alternate_sets": [],
+        "agent_conventions_declarations": [],
+        "agent_other_agency_codes": [],
+        "agent_maintenance_histories": [
+          {
+            "event_date": "2020-01-01 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Migrated records from a spreadsheet created from native EAC-CPF via OpenRefine.",
+            "create_time": "2023-04-27T03:09:35Z",
+            "system_mtime": "2023-04-27T03:09:35Z",
+            "user_mtime": "2023-04-27T03:09:35Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          },
+          {
+            "event_date": "2023-04-26 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Upgraded records to re-populate the required CPF and ASpace fields that were lost during data import via OpenRefine.",
+            "create_time": "2023-04-27T03:09:35Z",
+            "system_mtime": "2023-04-27T03:09:35Z",
+            "user_mtime": "2023-04-27T03:09:35Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          }
+        ],
+        "agent_record_identifiers": [
+          {
+            "primary_identifier": true,
+            "record_identifier": "MATAPPEAS",
+            "create_time": "2023-04-27T03:09:35Z",
+            "system_mtime": "2023-11-03T20:04:54Z",
+            "user_mtime": "2023-04-27T03:09:35Z",
+            "lock_version": 0,
+            "source": "local",
+            "jsonmodel_type": "agent_record_identifier"
+          }
+        ],
+        "agent_identifiers": [
+          {
+            "entity_identifier": "MATAPPEAS",
+            "create_time": "2023-04-27T03:09:35Z",
+            "system_mtime": "2023-04-27T03:09:35Z",
+            "user_mtime": "2023-04-27T03:09:35Z",
+            "lock_version": 0,
+            "jsonmodel_type": "agent_identifier"
+          }
+        ],
+        "agent_sources": [],
+        "agent_places": [],
+        "agent_occupations": [],
+        "agent_functions": [],
+        "agent_topics": [],
+        "agent_resources": [],
+        "linked_agent_roles": [
+          "subject"
+        ],
+        "external_documents": [],
+        "notes": [
+          {
+            "jsonmodel_type": "note_bioghist",
+            "subnotes": [
+              {
+                "jsonmodel_type": "note_text",
+                "content": "Matappeas was a Lenape sachem of Toponemus.",
+                "publish": true
+              }
+            ],
+            "persistent_id": "54e7e56cc501b1a5a7f2f5f03524f664",
+            "publish": true
+          }
+        ],
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "dates_of_existence": [],
+        "used_languages": [],
+        "metadata_rights_declarations": [],
+        "names": [
+          {
+            "lock_version": 0,
+            "primary_name": "Matappeas",
+            "sort_name": "Matappeas",
+            "sort_name_auto_generate": true,
+            "create_time": "2023-04-27T03:09:35Z",
+            "system_mtime": "2023-11-03T20:04:54Z",
+            "user_mtime": "2023-04-27T03:09:35Z",
+            "authorized": true,
+            "is_display_name": true,
+            "source": "local",
+            "rules": "rda",
+            "name_order": "inverted",
+            "jsonmodel_type": "name_person",
+            "use_dates": [],
+            "parallel_names": []
+          }
+        ],
+        "agent_genders": [],
+        "related_agents": [],
+        "uri": "/agents/people/33165",
+        "agent_type": "agent_person",
+        "is_linked_to_published_record": true,
+        "display_name": {
+          "lock_version": 0,
+          "primary_name": "Matappeas",
+          "sort_name": "Matappeas",
+          "sort_name_auto_generate": true,
+          "create_time": "2023-04-27T03:09:35Z",
+          "system_mtime": "2023-11-03T20:04:54Z",
+          "user_mtime": "2023-04-27T03:09:35Z",
+          "authorized": true,
+          "is_display_name": true,
+          "source": "local",
+          "rules": "rda",
+          "name_order": "inverted",
+          "jsonmodel_type": "name_person",
+          "use_dates": [],
+          "parallel_names": []
+        },
+        "title": "Matappeas"
+      }
+    },
+    {
+      "is_primary": false,
+      "role": "subject",
+      "terms": [],
+      "ref": "/agents/people/33166",
+      "_resolved": {
+        "lock_version": 34,
+        "publish": true,
+        "create_time": "2022-08-08T18:50:11Z",
+        "system_mtime": "2025-03-20T22:46:53Z",
+        "user_mtime": "2023-04-27T03:09:36Z",
+        "is_slug_auto": false,
+        "jsonmodel_type": "agent_person",
+        "agent_contacts": [],
+        "agent_record_controls": [
+          {
+            "maintenance_agency": "NjP",
+            "agency_name": "Princeton University Library",
+            "create_time": "2023-04-27T03:09:36Z",
+            "system_mtime": "2023-04-27T03:09:36Z",
+            "user_mtime": "2023-04-27T03:09:36Z",
+            "lock_version": 0,
+            "maintenance_status": "upgraded",
+            "jsonmodel_type": "agent_record_control"
+          }
+        ],
+        "agent_alternate_sets": [],
+        "agent_conventions_declarations": [],
+        "agent_other_agency_codes": [],
+        "agent_maintenance_histories": [
+          {
+            "event_date": "2020-01-01 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Migrated records from a spreadsheet created from native EAC-CPF via OpenRefine.",
+            "create_time": "2023-04-27T03:09:36Z",
+            "system_mtime": "2023-04-27T03:09:36Z",
+            "user_mtime": "2023-04-27T03:09:36Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          },
+          {
+            "event_date": "2023-04-26 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Upgraded records to re-populate the required CPF and ASpace fields that were lost during data import via OpenRefine.",
+            "create_time": "2023-04-27T03:09:36Z",
+            "system_mtime": "2023-04-27T03:09:36Z",
+            "user_mtime": "2023-04-27T03:09:36Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          }
+        ],
+        "agent_record_identifiers": [
+          {
+            "primary_identifier": true,
+            "record_identifier": "TAWAPUNG",
+            "create_time": "2023-04-27T03:09:36Z",
+            "system_mtime": "2023-11-03T20:04:54Z",
+            "user_mtime": "2023-04-27T03:09:36Z",
+            "lock_version": 0,
+            "source": "local",
+            "jsonmodel_type": "agent_record_identifier"
+          }
+        ],
+        "agent_identifiers": [
+          {
+            "entity_identifier": "TAWAPUNG",
+            "create_time": "2023-04-27T03:09:36Z",
+            "system_mtime": "2023-04-27T03:09:36Z",
+            "user_mtime": "2023-04-27T03:09:36Z",
+            "lock_version": 0,
+            "jsonmodel_type": "agent_identifier"
+          }
+        ],
+        "agent_sources": [
+          {
+            "source_entry": "Grumet, Robert. The Munsee Indians: A History. Norman: University of Oklahoma Press, 2009.",
+            "create_time": "2023-04-27T03:09:36Z",
+            "system_mtime": "2023-04-27T03:09:36Z",
+            "user_mtime": "2023-04-27T03:09:36Z",
+            "lock_version": 0,
+            "jsonmodel_type": "agent_sources"
+          }
+        ],
+        "agent_places": [],
+        "agent_occupations": [],
+        "agent_functions": [],
+        "agent_topics": [],
+        "agent_resources": [],
+        "linked_agent_roles": [
+          "subject"
+        ],
+        "external_documents": [],
+        "notes": [
+          {
+            "jsonmodel_type": "note_bioghist",
+            "persistent_id": "fdf1919cfa28c12027dfbf6cc3a9dddb",
+            "subnotes": [
+              {
+                "jsonmodel_type": "note_text",
+                "content": "Tawapung was a Lenape sachem of Toponemus. Alernative name spellings include Taptawappamund, Kekerappamand, Mattum, Taptawappaum, Tapatowwowupon, Vowavopon, Wapamuck, Waparent, Wawanecameck, Wawapa, Wawemutting, Waymote, Waymutton, Waywanotong, Waywaramong, and Wayweenatan (fl. 1667-1710).",
+                "publish": true
+              }
+            ],
+            "publish": true
+          }
+        ],
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "dates_of_existence": [],
+        "used_languages": [],
+        "metadata_rights_declarations": [],
+        "names": [
+          {
+            "lock_version": 0,
+            "primary_name": "Tawapung",
+            "sort_name": "Tawapung",
+            "sort_name_auto_generate": true,
+            "create_time": "2023-04-27T03:09:36Z",
+            "system_mtime": "2023-11-03T20:04:54Z",
+            "user_mtime": "2023-04-27T03:09:36Z",
+            "authorized": true,
+            "is_display_name": true,
+            "source": "local",
+            "rules": "rda",
+            "name_order": "inverted",
+            "jsonmodel_type": "name_person",
+            "use_dates": [],
+            "parallel_names": [
+              {
+                "lock_version": 0,
+                "primary_name": "Taptawappamund",
+                "sort_name": "Taptawappamund",
+                "sort_name_auto_generate": false,
+                "create_time": "2023-04-27T03:09:36Z",
+                "system_mtime": "2023-04-27T03:09:36Z",
+                "user_mtime": "2023-04-27T03:09:36Z",
+                "name_order": "inverted",
+                "jsonmodel_type": "parallel_name_person",
+                "use_dates": []
+              }
+            ]
+          }
+        ],
+        "agent_genders": [],
+        "related_agents": [],
+        "uri": "/agents/people/33166",
+        "agent_type": "agent_person",
+        "is_linked_to_published_record": true,
+        "display_name": {
+          "lock_version": 0,
+          "primary_name": "Tawapung",
+          "sort_name": "Tawapung",
+          "sort_name_auto_generate": true,
+          "create_time": "2023-04-27T03:09:36Z",
+          "system_mtime": "2023-11-03T20:04:54Z",
+          "user_mtime": "2023-04-27T03:09:36Z",
+          "authorized": true,
+          "is_display_name": true,
+          "source": "local",
+          "rules": "rda",
+          "name_order": "inverted",
+          "jsonmodel_type": "name_person",
+          "use_dates": [],
+          "parallel_names": [
+            {
+              "lock_version": 0,
+              "primary_name": "Taptawappamund",
+              "sort_name": "Taptawappamund",
+              "sort_name_auto_generate": false,
+              "create_time": "2023-04-27T03:09:36Z",
+              "system_mtime": "2023-04-27T03:09:36Z",
+              "user_mtime": "2023-04-27T03:09:36Z",
+              "name_order": "inverted",
+              "jsonmodel_type": "parallel_name_person",
+              "use_dates": []
+            }
+          ]
+        },
+        "title": "Tawapung"
+      }
+    },
+    {
+      "is_primary": false,
+      "role": "subject",
+      "terms": [],
+      "ref": "/agents/people/33167",
+      "_resolved": {
+        "lock_version": 30,
+        "publish": true,
+        "create_time": "2022-08-08T18:59:31Z",
+        "system_mtime": "2025-03-20T22:46:53Z",
+        "user_mtime": "2023-04-27T03:09:36Z",
+        "is_slug_auto": false,
+        "jsonmodel_type": "agent_person",
+        "agent_contacts": [],
+        "agent_record_controls": [
+          {
+            "maintenance_agency": "NjP",
+            "agency_name": "Princeton University Library",
+            "create_time": "2023-04-27T03:09:36Z",
+            "system_mtime": "2023-04-27T03:09:36Z",
+            "user_mtime": "2023-04-27T03:09:36Z",
+            "lock_version": 0,
+            "maintenance_status": "upgraded",
+            "jsonmodel_type": "agent_record_control"
+          }
+        ],
+        "agent_alternate_sets": [],
+        "agent_conventions_declarations": [],
+        "agent_other_agency_codes": [],
+        "agent_maintenance_histories": [
+          {
+            "event_date": "2020-01-01 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Migrated records from a spreadsheet created from native EAC-CPF via OpenRefine.",
+            "create_time": "2023-04-27T03:09:36Z",
+            "system_mtime": "2023-04-27T03:09:36Z",
+            "user_mtime": "2023-04-27T03:09:36Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          },
+          {
+            "event_date": "2023-04-26 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Upgraded records to re-populate the required CPF and ASpace fields that were lost during data import via OpenRefine.",
+            "create_time": "2023-04-27T03:09:36Z",
+            "system_mtime": "2023-04-27T03:09:36Z",
+            "user_mtime": "2023-04-27T03:09:36Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          }
+        ],
+        "agent_record_identifiers": [
+          {
+            "primary_identifier": true,
+            "record_identifier": "SEAPOEKNE",
+            "create_time": "2023-04-27T03:09:36Z",
+            "system_mtime": "2023-11-03T20:04:54Z",
+            "user_mtime": "2023-04-27T03:09:36Z",
+            "lock_version": 0,
+            "source": "local",
+            "jsonmodel_type": "agent_record_identifier"
+          }
+        ],
+        "agent_identifiers": [
+          {
+            "entity_identifier": "SEAPOEKNE",
+            "create_time": "2023-04-27T03:09:36Z",
+            "system_mtime": "2023-04-27T03:09:36Z",
+            "user_mtime": "2023-04-27T03:09:36Z",
+            "lock_version": 0,
+            "jsonmodel_type": "agent_identifier"
+          }
+        ],
+        "agent_sources": [],
+        "agent_places": [],
+        "agent_occupations": [],
+        "agent_functions": [],
+        "agent_topics": [],
+        "agent_resources": [],
+        "linked_agent_roles": [
+          "subject"
+        ],
+        "external_documents": [],
+        "notes": [
+          {
+            "jsonmodel_type": "note_bioghist",
+            "subnotes": [
+              {
+                "jsonmodel_type": "note_text",
+                "content": "Seapoekne was a Lenape sachem of Toponemus.",
+                "publish": true
+              }
+            ],
+            "persistent_id": "9daa4074aad85e894dcda6f091c9d941",
+            "publish": true
+          }
+        ],
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "dates_of_existence": [],
+        "used_languages": [],
+        "metadata_rights_declarations": [],
+        "names": [
+          {
+            "lock_version": 0,
+            "primary_name": "Seapoekne",
+            "sort_name": "Seapoekne",
+            "sort_name_auto_generate": true,
+            "create_time": "2023-04-27T03:09:36Z",
+            "system_mtime": "2023-11-03T20:04:54Z",
+            "user_mtime": "2023-04-27T03:09:36Z",
+            "authorized": true,
+            "is_display_name": true,
+            "source": "local",
+            "rules": "rda",
+            "name_order": "inverted",
+            "jsonmodel_type": "name_person",
+            "use_dates": [],
+            "parallel_names": [
+              {
+                "lock_version": 0,
+                "primary_name": "Sepegnona",
+                "sort_name": "Sepegnona",
+                "sort_name_auto_generate": false,
+                "create_time": "2023-04-27T03:09:36Z",
+                "system_mtime": "2023-04-27T03:09:36Z",
+                "user_mtime": "2023-04-27T03:09:36Z",
+                "name_order": "inverted",
+                "jsonmodel_type": "parallel_name_person",
+                "use_dates": []
+              }
+            ]
+          }
+        ],
+        "agent_genders": [],
+        "related_agents": [],
+        "uri": "/agents/people/33167",
+        "agent_type": "agent_person",
+        "is_linked_to_published_record": true,
+        "display_name": {
+          "lock_version": 0,
+          "primary_name": "Seapoekne",
+          "sort_name": "Seapoekne",
+          "sort_name_auto_generate": true,
+          "create_time": "2023-04-27T03:09:36Z",
+          "system_mtime": "2023-11-03T20:04:54Z",
+          "user_mtime": "2023-04-27T03:09:36Z",
+          "authorized": true,
+          "is_display_name": true,
+          "source": "local",
+          "rules": "rda",
+          "name_order": "inverted",
+          "jsonmodel_type": "name_person",
+          "use_dates": [],
+          "parallel_names": [
+            {
+              "lock_version": 0,
+              "primary_name": "Sepegnona",
+              "sort_name": "Sepegnona",
+              "sort_name_auto_generate": false,
+              "create_time": "2023-04-27T03:09:36Z",
+              "system_mtime": "2023-04-27T03:09:36Z",
+              "user_mtime": "2023-04-27T03:09:36Z",
+              "name_order": "inverted",
+              "jsonmodel_type": "parallel_name_person",
+              "use_dates": []
+            }
+          ]
+        },
+        "title": "Seapoekne"
+      }
+    },
+    {
+      "is_primary": false,
+      "role": "subject",
+      "terms": [],
+      "ref": "/agents/people/33168",
+      "_resolved": {
+        "lock_version": 30,
+        "publish": true,
+        "create_time": "2022-08-08T19:09:15Z",
+        "system_mtime": "2025-03-20T22:46:53Z",
+        "user_mtime": "2023-04-27T03:09:37Z",
+        "is_slug_auto": false,
+        "jsonmodel_type": "agent_person",
+        "agent_contacts": [],
+        "agent_record_controls": [
+          {
+            "maintenance_agency": "NjP",
+            "agency_name": "Princeton University Library",
+            "create_time": "2023-04-27T03:09:37Z",
+            "system_mtime": "2023-04-27T03:09:37Z",
+            "user_mtime": "2023-04-27T03:09:37Z",
+            "lock_version": 0,
+            "maintenance_status": "upgraded",
+            "jsonmodel_type": "agent_record_control"
+          }
+        ],
+        "agent_alternate_sets": [],
+        "agent_conventions_declarations": [],
+        "agent_other_agency_codes": [],
+        "agent_maintenance_histories": [
+          {
+            "event_date": "2020-01-01 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Migrated records from a spreadsheet created from native EAC-CPF via OpenRefine.",
+            "create_time": "2023-04-27T03:09:37Z",
+            "system_mtime": "2023-04-27T03:09:37Z",
+            "user_mtime": "2023-04-27T03:09:37Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          },
+          {
+            "event_date": "2023-04-26 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Upgraded records to re-populate the required CPF and ASpace fields that were lost during data import via OpenRefine.",
+            "create_time": "2023-04-27T03:09:37Z",
+            "system_mtime": "2023-04-27T03:09:37Z",
+            "user_mtime": "2023-04-27T03:09:37Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          }
+        ],
+        "agent_record_identifiers": [
+          {
+            "primary_identifier": true,
+            "record_identifier": "BOWNEJOHN",
+            "create_time": "2023-04-27T03:09:37Z",
+            "system_mtime": "2023-11-03T20:04:54Z",
+            "user_mtime": "2023-04-27T03:09:37Z",
+            "lock_version": 0,
+            "source": "local",
+            "jsonmodel_type": "agent_record_identifier"
+          }
+        ],
+        "agent_identifiers": [
+          {
+            "entity_identifier": "BOWNEJOHN",
+            "create_time": "2023-04-27T03:09:37Z",
+            "system_mtime": "2023-04-27T03:09:37Z",
+            "user_mtime": "2023-04-27T03:09:37Z",
+            "lock_version": 0,
+            "jsonmodel_type": "agent_identifier"
+          }
+        ],
+        "agent_sources": [],
+        "agent_places": [],
+        "agent_occupations": [],
+        "agent_functions": [],
+        "agent_topics": [],
+        "agent_resources": [],
+        "linked_agent_roles": [
+          "subject"
+        ],
+        "external_documents": [],
+        "notes": [
+          {
+            "jsonmodel_type": "note_bioghist",
+            "subnotes": [
+              {
+                "jsonmodel_type": "note_text",
+                "content": "John Bowne was a settler associated with the Monmouth Patent in New Jersey.",
+                "publish": true
+              }
+            ],
+            "persistent_id": "553eb7a36e66fa34b100e6cb031286c1",
+            "publish": true
+          }
+        ],
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "dates_of_existence": [],
+        "used_languages": [],
+        "metadata_rights_declarations": [],
+        "names": [
+          {
+            "lock_version": 0,
+            "primary_name": "Bowne",
+            "rest_of_name": "John",
+            "sort_name": "Bowne, John",
+            "sort_name_auto_generate": true,
+            "create_time": "2023-04-27T03:09:37Z",
+            "system_mtime": "2023-11-03T20:04:54Z",
+            "user_mtime": "2023-04-27T03:09:37Z",
+            "authorized": true,
+            "is_display_name": true,
+            "source": "local",
+            "rules": "rda",
+            "name_order": "inverted",
+            "jsonmodel_type": "name_person",
+            "use_dates": [],
+            "parallel_names": []
+          }
+        ],
+        "agent_genders": [],
+        "related_agents": [],
+        "uri": "/agents/people/33168",
+        "agent_type": "agent_person",
+        "is_linked_to_published_record": true,
+        "display_name": {
+          "lock_version": 0,
+          "primary_name": "Bowne",
+          "rest_of_name": "John",
+          "sort_name": "Bowne, John",
+          "sort_name_auto_generate": true,
+          "create_time": "2023-04-27T03:09:37Z",
+          "system_mtime": "2023-11-03T20:04:54Z",
+          "user_mtime": "2023-04-27T03:09:37Z",
+          "authorized": true,
+          "is_display_name": true,
+          "source": "local",
+          "rules": "rda",
+          "name_order": "inverted",
+          "jsonmodel_type": "name_person",
+          "use_dates": [],
+          "parallel_names": []
+        },
+        "title": "Bowne, John"
+      }
+    },
+    {
+      "is_primary": false,
+      "role": "subject",
+      "terms": [],
+      "ref": "/agents/people/33170",
+      "_resolved": {
+        "lock_version": 31,
+        "publish": true,
+        "create_time": "2022-08-08T19:18:05Z",
+        "system_mtime": "2025-08-18T15:26:05Z",
+        "user_mtime": "2025-08-18T15:26:05Z",
+        "is_slug_auto": false,
+        "jsonmodel_type": "agent_person",
+        "agent_contacts": [],
+        "agent_record_controls": [
+          {
+            "maintenance_agency": "NjP",
+            "agency_name": "Princeton University Library",
+            "create_time": "2025-08-18T15:26:05Z",
+            "system_mtime": "2025-08-18T15:26:05Z",
+            "user_mtime": "2025-08-18T15:26:05Z",
+            "lock_version": 0,
+            "maintenance_status": "upgraded",
+            "jsonmodel_type": "agent_record_control"
+          }
+        ],
+        "agent_alternate_sets": [],
+        "agent_conventions_declarations": [],
+        "agent_other_agency_codes": [],
+        "agent_maintenance_histories": [
+          {
+            "event_date": "2020-01-01 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Migrated records from a spreadsheet created from native EAC-CPF via OpenRefine.",
+            "create_time": "2025-08-18T15:26:05Z",
+            "system_mtime": "2025-08-18T15:26:05Z",
+            "user_mtime": "2025-08-18T15:26:05Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          },
+          {
+            "event_date": "2023-04-26 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Upgraded records to re-populate the required CPF and ASpace fields that were lost during data import via OpenRefine.",
+            "create_time": "2025-08-18T15:26:05Z",
+            "system_mtime": "2025-08-18T15:26:05Z",
+            "user_mtime": "2025-08-18T15:26:05Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          },
+          {
+            "event_date": "2024-07-24 13:33:28 UTC",
+            "agent": "system",
+            "descriptive_note": "Agents remediation",
+            "create_time": "2025-08-18T15:26:05Z",
+            "system_mtime": "2025-08-18T15:26:05Z",
+            "user_mtime": "2025-08-18T15:26:05Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          },
+          {
+            "event_date": "2025-08-18 15:26:05 UTC",
+            "agent": "system",
+            "descriptive_note": "restore authority id, source, or rules to the names subrecord",
+            "create_time": "2025-08-18T15:26:05Z",
+            "system_mtime": "2025-08-18T15:26:05Z",
+            "user_mtime": "2025-08-18T15:26:05Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          }
+        ],
+        "agent_record_identifiers": [
+          {
+            "primary_identifier": true,
+            "record_identifier": "GROVERJAMES",
+            "create_time": "2025-08-18T15:26:05Z",
+            "system_mtime": "2025-08-18T15:26:05Z",
+            "user_mtime": "2025-08-18T15:26:05Z",
+            "lock_version": 0,
+            "source": "local",
+            "jsonmodel_type": "agent_record_identifier"
+          }
+        ],
+        "agent_identifiers": [
+          {
+            "entity_identifier": "GROVERJAMES",
+            "create_time": "2025-08-18T15:26:05Z",
+            "system_mtime": "2025-08-18T15:26:05Z",
+            "user_mtime": "2025-08-18T15:26:05Z",
+            "lock_version": 0,
+            "jsonmodel_type": "agent_identifier"
+          }
+        ],
+        "agent_sources": [],
+        "agent_places": [],
+        "agent_occupations": [],
+        "agent_functions": [],
+        "agent_topics": [],
+        "agent_resources": [],
+        "linked_agent_roles": [
+          "subject"
+        ],
+        "external_documents": [],
+        "notes": [
+          {
+            "jsonmodel_type": "note_bioghist",
+            "subnotes": [
+              {
+                "jsonmodel_type": "note_text",
+                "content": "James Grover was an English settler associated with the Monmouth Patent in New Jersey.",
+                "publish": true
+              }
+            ],
+            "persistent_id": "ebdaa0e5a43dbde5431e810819a0b18d",
+            "publish": true
+          }
+        ],
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "dates_of_existence": [
+          {
+            "create_time": "2025-08-18T15:26:05Z",
+            "system_mtime": "2025-08-18T15:26:05Z",
+            "user_mtime": "2025-08-18T15:26:05Z",
+            "lock_version": 0,
+            "date_type_structured": "range",
+            "date_label": "existence",
+            "jsonmodel_type": "structured_date_label",
+            "structured_date_range": {
+              "begin_date_standardized": "1611",
+              "end_date_standardized": "1685",
+              "create_time": "2025-08-18T15:26:05Z",
+              "system_mtime": "2025-08-18T15:26:05Z",
+              "user_mtime": "2025-08-18T15:26:05Z",
+              "lock_version": 0,
+              "begin_date_standardized_type": "standard",
+              "end_date_standardized_type": "standard",
+              "jsonmodel_type": "structured_date_range"
+            }
+          }
+        ],
+        "used_languages": [],
+        "metadata_rights_declarations": [],
+        "names": [
+          {
+            "lock_version": 2,
+            "primary_name": "Grover",
+            "rest_of_name": "James",
+            "sort_name": "Grover, James (1611-1685)",
+            "sort_name_auto_generate": true,
+            "create_time": "2025-08-18T15:26:05Z",
+            "system_mtime": "2025-08-18T15:26:05Z",
+            "user_mtime": "2025-08-18T15:26:05Z",
+            "authorized": true,
+            "is_display_name": true,
+            "source": "local",
+            "rules": "rda",
+            "name_order": "inverted",
+            "jsonmodel_type": "name_person",
+            "use_dates": [],
+            "parallel_names": []
+          }
+        ],
+        "agent_genders": [],
+        "related_agents": [],
+        "uri": "/agents/people/33170",
+        "agent_type": "agent_person",
+        "is_linked_to_published_record": true,
+        "display_name": {
+          "lock_version": 2,
+          "primary_name": "Grover",
+          "rest_of_name": "James",
+          "sort_name": "Grover, James (1611-1685)",
+          "sort_name_auto_generate": true,
+          "create_time": "2025-08-18T15:26:05Z",
+          "system_mtime": "2025-08-18T15:26:05Z",
+          "user_mtime": "2025-08-18T15:26:05Z",
+          "authorized": true,
+          "is_display_name": true,
+          "source": "local",
+          "rules": "rda",
+          "name_order": "inverted",
+          "jsonmodel_type": "name_person",
+          "use_dates": [],
+          "parallel_names": []
+        },
+        "title": "Grover, James (1611-1685)"
+      }
+    },
+    {
+      "is_primary": false,
+      "role": "subject",
+      "terms": [],
+      "ref": "/agents/people/33169",
+      "_resolved": {
+        "lock_version": 30,
+        "publish": true,
+        "create_time": "2022-08-08T19:13:44Z",
+        "system_mtime": "2025-03-20T22:46:53Z",
+        "user_mtime": "2023-04-27T03:09:38Z",
+        "is_slug_auto": false,
+        "jsonmodel_type": "agent_person",
+        "agent_contacts": [],
+        "agent_record_controls": [
+          {
+            "maintenance_agency": "NjP",
+            "agency_name": "Princeton University Library",
+            "create_time": "2023-04-27T03:09:38Z",
+            "system_mtime": "2023-04-27T03:09:38Z",
+            "user_mtime": "2023-04-27T03:09:38Z",
+            "lock_version": 0,
+            "maintenance_status": "upgraded",
+            "jsonmodel_type": "agent_record_control"
+          }
+        ],
+        "agent_alternate_sets": [],
+        "agent_conventions_declarations": [],
+        "agent_other_agency_codes": [],
+        "agent_maintenance_histories": [
+          {
+            "event_date": "2020-01-01 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Migrated records from a spreadsheet created from native EAC-CPF via OpenRefine.",
+            "create_time": "2023-04-27T03:09:38Z",
+            "system_mtime": "2023-04-27T03:09:38Z",
+            "user_mtime": "2023-04-27T03:09:38Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          },
+          {
+            "event_date": "2023-04-26 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Upgraded records to re-populate the required CPF and ASpace fields that were lost during data import via OpenRefine.",
+            "create_time": "2023-04-27T03:09:38Z",
+            "system_mtime": "2023-04-27T03:09:38Z",
+            "user_mtime": "2023-04-27T03:09:38Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          }
+        ],
+        "agent_record_identifiers": [
+          {
+            "primary_identifier": true,
+            "record_identifier": "HARTSHORNERICHARDOFNEWJERSEY9730823",
+            "create_time": "2023-04-27T03:09:38Z",
+            "system_mtime": "2023-04-27T03:09:38Z",
+            "user_mtime": "2023-04-27T03:09:38Z",
+            "lock_version": 0,
+            "source": "viaf",
+            "jsonmodel_type": "agent_record_identifier"
+          }
+        ],
+        "agent_identifiers": [
+          {
+            "entity_identifier": "HARTSHORNERICHARDOFNEWJERSEY9730823",
+            "create_time": "2023-04-27T03:09:38Z",
+            "system_mtime": "2023-04-27T03:09:38Z",
+            "user_mtime": "2023-04-27T03:09:38Z",
+            "lock_version": 0,
+            "jsonmodel_type": "agent_identifier"
+          }
+        ],
+        "agent_sources": [],
+        "agent_places": [],
+        "agent_occupations": [],
+        "agent_functions": [],
+        "agent_topics": [],
+        "agent_resources": [],
+        "linked_agent_roles": [
+          "subject"
+        ],
+        "external_documents": [],
+        "notes": [
+          {
+            "jsonmodel_type": "note_bioghist",
+            "subnotes": [
+              {
+                "jsonmodel_type": "note_text",
+                "content": "Richard Hartshorne was an English Quaker, early Monmouth County settler, and the founder of the Hartshorne family in America, arriving in 1669.",
+                "publish": true
+              }
+            ],
+            "persistent_id": "f5955802bbccb149b3526e48fda2cf0b",
+            "publish": true
+          }
+        ],
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "dates_of_existence": [],
+        "used_languages": [],
+        "metadata_rights_declarations": [],
+        "names": [
+          {
+            "lock_version": 0,
+            "primary_name": "Hartshorne",
+            "rest_of_name": "Richard",
+            "qualifier": "of New Jersey",
+            "sort_name": "Hartshorne, Richard (of New Jersey)",
+            "sort_name_auto_generate": true,
+            "create_time": "2023-04-27T03:09:38Z",
+            "system_mtime": "2023-04-27T03:09:38Z",
+            "user_mtime": "2023-04-27T03:09:38Z",
+            "authorized": true,
+            "is_display_name": true,
+            "source": "viaf",
+            "name_order": "inverted",
+            "jsonmodel_type": "name_person",
+            "use_dates": [],
+            "parallel_names": [],
+            "authority_id": "http://viaf.org/viaf/9730823"
+          }
+        ],
+        "agent_genders": [],
+        "related_agents": [],
+        "uri": "/agents/people/33169",
+        "agent_type": "agent_person",
+        "is_linked_to_published_record": true,
+        "display_name": {
+          "lock_version": 0,
+          "primary_name": "Hartshorne",
+          "rest_of_name": "Richard",
+          "qualifier": "of New Jersey",
+          "sort_name": "Hartshorne, Richard (of New Jersey)",
+          "sort_name_auto_generate": true,
+          "create_time": "2023-04-27T03:09:38Z",
+          "system_mtime": "2023-04-27T03:09:38Z",
+          "user_mtime": "2023-04-27T03:09:38Z",
+          "authorized": true,
+          "is_display_name": true,
+          "source": "viaf",
+          "name_order": "inverted",
+          "jsonmodel_type": "name_person",
+          "use_dates": [],
+          "parallel_names": [],
+          "authority_id": "http://viaf.org/viaf/9730823"
+        },
+        "title": "Hartshorne, Richard (of New Jersey)"
+      }
+    },
+    {
+      "is_primary": false,
+      "role": "subject",
+      "terms": [],
+      "ref": "/agents/corporate_entities/5446",
+      "_resolved": {
+        "lock_version": 28,
+        "publish": true,
+        "create_time": "2022-08-08T19:31:32Z",
+        "system_mtime": "2025-03-20T22:46:53Z",
+        "user_mtime": "2023-04-28T22:32:44Z",
+        "is_slug_auto": false,
+        "jsonmodel_type": "agent_corporate_entity",
+        "agent_contacts": [],
+        "agent_record_controls": [
+          {
+            "maintenance_agency": "NjP",
+            "agency_name": "Princeton University Library",
+            "create_time": "2023-04-28T22:32:44Z",
+            "system_mtime": "2023-04-28T22:32:44Z",
+            "user_mtime": "2023-04-28T22:32:44Z",
+            "lock_version": 0,
+            "maintenance_status": "upgraded",
+            "jsonmodel_type": "agent_record_control"
+          }
+        ],
+        "agent_alternate_sets": [],
+        "agent_conventions_declarations": [],
+        "agent_other_agency_codes": [],
+        "agent_maintenance_histories": [
+          {
+            "event_date": "2020-01-01 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Migrated records from a spreadsheet created from native EAC-CPF via OpenRefine.",
+            "create_time": "2023-04-28T22:32:44Z",
+            "system_mtime": "2023-04-28T22:32:44Z",
+            "user_mtime": "2023-04-28T22:32:44Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          },
+          {
+            "event_date": "2023-04-28 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Upgraded records to re-populate the required CPF and ASpace fields that were lost during data import via OpenRefine.",
+            "create_time": "2023-04-28T22:32:44Z",
+            "system_mtime": "2023-04-28T22:32:44Z",
+            "user_mtime": "2023-04-28T22:32:44Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          }
+        ],
+        "agent_record_identifiers": [
+          {
+            "primary_identifier": true,
+            "record_identifier": "SANDHILLINDIANS",
+            "create_time": "2023-04-28T22:32:44Z",
+            "system_mtime": "2023-11-03T20:04:54Z",
+            "user_mtime": "2023-04-28T22:32:44Z",
+            "lock_version": 0,
+            "source": "local",
+            "jsonmodel_type": "agent_record_identifier"
+          }
+        ],
+        "agent_identifiers": [
+          {
+            "entity_identifier": "SANDHILLINDIANS",
+            "create_time": "2023-04-28T22:32:44Z",
+            "system_mtime": "2023-04-28T22:32:44Z",
+            "user_mtime": "2023-04-28T22:32:44Z",
+            "lock_version": 0,
+            "jsonmodel_type": "agent_identifier"
+          }
+        ],
+        "agent_sources": [
+          {
+            "source_entry": "Sand Hill Indian Historical Association. \"Sand Hill Indian History.\"",
+            "file_uri": "https://sandhillindianhistory.org/",
+            "create_time": "2023-04-28T22:32:44Z",
+            "system_mtime": "2023-04-28T22:32:44Z",
+            "user_mtime": "2023-04-28T22:32:44Z",
+            "lock_version": 0,
+            "jsonmodel_type": "agent_sources"
+          }
+        ],
+        "agent_places": [],
+        "agent_occupations": [],
+        "agent_functions": [],
+        "agent_topics": [],
+        "agent_resources": [],
+        "linked_agent_roles": [
+          "subject"
+        ],
+        "external_documents": [],
+        "notes": [],
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "dates_of_existence": [],
+        "used_languages": [],
+        "metadata_rights_declarations": [],
+        "names": [
+          {
+            "lock_version": 0,
+            "primary_name": "Sand Hill Indians",
+            "sort_name": "Sand Hill Indians",
+            "sort_name_auto_generate": true,
+            "create_time": "2023-04-28T22:32:44Z",
+            "system_mtime": "2023-11-03T20:04:54Z",
+            "user_mtime": "2023-04-28T22:32:44Z",
+            "authorized": true,
+            "is_display_name": true,
+            "jurisdiction": false,
+            "conference_meeting": false,
+            "source": "local",
+            "rules": "rda",
+            "jsonmodel_type": "name_corporate_entity",
+            "use_dates": [],
+            "parallel_names": [
+              {
+                "lock_version": 0,
+                "jurisdiction": false,
+                "conference_meeting": false,
+                "primary_name": "Sand Hill Band of Lenape and Cherokee Indians",
+                "sort_name": "Sand Hill Band of Lenape and Cherokee Indians",
+                "sort_name_auto_generate": false,
+                "create_time": "2023-04-28T22:32:44Z",
+                "system_mtime": "2023-04-28T22:32:44Z",
+                "user_mtime": "2023-04-28T22:32:44Z",
+                "jsonmodel_type": "parallel_name_corporate_entity",
+                "use_dates": []
+              }
+            ]
+          }
+        ],
+        "related_agents": [],
+        "uri": "/agents/corporate_entities/5446",
+        "agent_type": "agent_corporate_entity",
+        "is_linked_to_published_record": true,
+        "display_name": {
+          "lock_version": 0,
+          "primary_name": "Sand Hill Indians",
+          "sort_name": "Sand Hill Indians",
+          "sort_name_auto_generate": true,
+          "create_time": "2023-04-28T22:32:44Z",
+          "system_mtime": "2023-11-03T20:04:54Z",
+          "user_mtime": "2023-04-28T22:32:44Z",
+          "authorized": true,
+          "is_display_name": true,
+          "jurisdiction": false,
+          "conference_meeting": false,
+          "source": "local",
+          "rules": "rda",
+          "jsonmodel_type": "name_corporate_entity",
+          "use_dates": [],
+          "parallel_names": [
+            {
+              "lock_version": 0,
+              "jurisdiction": false,
+              "conference_meeting": false,
+              "primary_name": "Sand Hill Band of Lenape and Cherokee Indians",
+              "sort_name": "Sand Hill Band of Lenape and Cherokee Indians",
+              "sort_name_auto_generate": false,
+              "create_time": "2023-04-28T22:32:44Z",
+              "system_mtime": "2023-04-28T22:32:44Z",
+              "user_mtime": "2023-04-28T22:32:44Z",
+              "jsonmodel_type": "parallel_name_corporate_entity",
+              "use_dates": []
+            }
+          ]
+        },
+        "title": "Sand Hill Indians"
+      }
+    },
+    {
+      "is_primary": false,
+      "role": "subject",
+      "terms": [],
+      "ref": "/agents/corporate_entities/5447",
+      "_resolved": {
+        "lock_version": 28,
+        "publish": true,
+        "create_time": "2022-08-08T19:33:46Z",
+        "system_mtime": "2025-03-20T22:46:53Z",
+        "user_mtime": "2023-04-28T22:32:44Z",
+        "is_slug_auto": false,
+        "jsonmodel_type": "agent_corporate_entity",
+        "agent_contacts": [],
+        "agent_record_controls": [
+          {
+            "maintenance_agency": "NjP",
+            "agency_name": "Princeton University Library",
+            "create_time": "2023-04-28T22:32:44Z",
+            "system_mtime": "2023-04-28T22:32:44Z",
+            "user_mtime": "2023-04-28T22:32:44Z",
+            "lock_version": 0,
+            "maintenance_status": "upgraded",
+            "jsonmodel_type": "agent_record_control"
+          }
+        ],
+        "agent_alternate_sets": [],
+        "agent_conventions_declarations": [],
+        "agent_other_agency_codes": [],
+        "agent_maintenance_histories": [
+          {
+            "event_date": "2020-01-01 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Migrated records from a spreadsheet created from native EAC-CPF via OpenRefine.",
+            "create_time": "2023-04-28T22:32:44Z",
+            "system_mtime": "2023-04-28T22:32:44Z",
+            "user_mtime": "2023-04-28T22:32:44Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          },
+          {
+            "event_date": "2023-04-28 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Upgraded records to re-populate the required CPF and ASpace fields that were lost during data import via OpenRefine.",
+            "create_time": "2023-04-28T22:32:44Z",
+            "system_mtime": "2023-04-28T22:32:44Z",
+            "user_mtime": "2023-04-28T22:32:44Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          }
+        ],
+        "agent_record_identifiers": [
+          {
+            "primary_identifier": true,
+            "record_identifier": "TOPONEMUS",
+            "create_time": "2023-04-28T22:32:44Z",
+            "system_mtime": "2023-04-28T22:32:44Z",
+            "user_mtime": "2023-04-28T22:32:44Z",
+            "lock_version": 0,
+            "source": "local",
+            "jsonmodel_type": "agent_record_identifier"
+          }
+        ],
+        "agent_identifiers": [
+          {
+            "entity_identifier": "TOPONEMUS",
+            "create_time": "2023-04-28T22:32:44Z",
+            "system_mtime": "2023-04-28T22:32:44Z",
+            "user_mtime": "2023-04-28T22:32:44Z",
+            "lock_version": 0,
+            "jsonmodel_type": "agent_identifier"
+          }
+        ],
+        "agent_sources": [],
+        "agent_places": [],
+        "agent_occupations": [],
+        "agent_functions": [],
+        "agent_topics": [],
+        "agent_resources": [],
+        "linked_agent_roles": [
+          "subject"
+        ],
+        "external_documents": [],
+        "notes": [],
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "dates_of_existence": [],
+        "used_languages": [],
+        "metadata_rights_declarations": [],
+        "names": [
+          {
+            "lock_version": 0,
+            "primary_name": "Toponemus",
+            "sort_name": "Toponemus",
+            "sort_name_auto_generate": true,
+            "create_time": "2023-04-28T22:32:44Z",
+            "system_mtime": "2023-04-28T22:32:44Z",
+            "user_mtime": "2023-04-28T22:32:44Z",
+            "authorized": true,
+            "is_display_name": true,
+            "jurisdiction": false,
+            "conference_meeting": false,
+            "source": "local",
+            "rules": "rda",
+            "jsonmodel_type": "name_corporate_entity",
+            "use_dates": [],
+            "parallel_names": [
+              {
+                "lock_version": 0,
+                "jurisdiction": false,
+                "conference_meeting": false,
+                "primary_name": "Toponemose",
+                "sort_name": "Toponemose",
+                "sort_name_auto_generate": false,
+                "create_time": "2023-04-28T22:32:44Z",
+                "system_mtime": "2023-04-28T22:32:44Z",
+                "user_mtime": "2023-04-28T22:32:44Z",
+                "jsonmodel_type": "parallel_name_corporate_entity",
+                "use_dates": []
+              },
+              {
+                "lock_version": 0,
+                "jurisdiction": false,
+                "conference_meeting": false,
+                "primary_name": "Topanemus",
+                "sort_name": "Topanemus",
+                "sort_name_auto_generate": false,
+                "create_time": "2023-04-28T22:32:44Z",
+                "system_mtime": "2023-04-28T22:32:44Z",
+                "user_mtime": "2023-04-28T22:32:44Z",
+                "jsonmodel_type": "parallel_name_corporate_entity",
+                "use_dates": []
+              },
+              {
+                "lock_version": 0,
+                "jurisdiction": false,
+                "conference_meeting": false,
+                "primary_name": "Toponemesing",
+                "sort_name": "Toponemesing",
+                "sort_name_auto_generate": false,
+                "create_time": "2023-04-28T22:32:44Z",
+                "system_mtime": "2023-04-28T22:32:44Z",
+                "user_mtime": "2023-04-28T22:32:44Z",
+                "jsonmodel_type": "parallel_name_corporate_entity",
+                "use_dates": []
+              }
+            ]
+          }
+        ],
+        "related_agents": [],
+        "uri": "/agents/corporate_entities/5447",
+        "agent_type": "agent_corporate_entity",
+        "is_linked_to_published_record": true,
+        "display_name": {
+          "lock_version": 0,
+          "primary_name": "Toponemus",
+          "sort_name": "Toponemus",
+          "sort_name_auto_generate": true,
+          "create_time": "2023-04-28T22:32:44Z",
+          "system_mtime": "2023-04-28T22:32:44Z",
+          "user_mtime": "2023-04-28T22:32:44Z",
+          "authorized": true,
+          "is_display_name": true,
+          "jurisdiction": false,
+          "conference_meeting": false,
+          "source": "local",
+          "rules": "rda",
+          "jsonmodel_type": "name_corporate_entity",
+          "use_dates": [],
+          "parallel_names": [
+            {
+              "lock_version": 0,
+              "jurisdiction": false,
+              "conference_meeting": false,
+              "primary_name": "Toponemose",
+              "sort_name": "Toponemose",
+              "sort_name_auto_generate": false,
+              "create_time": "2023-04-28T22:32:44Z",
+              "system_mtime": "2023-04-28T22:32:44Z",
+              "user_mtime": "2023-04-28T22:32:44Z",
+              "jsonmodel_type": "parallel_name_corporate_entity",
+              "use_dates": []
+            },
+            {
+              "lock_version": 0,
+              "jurisdiction": false,
+              "conference_meeting": false,
+              "primary_name": "Topanemus",
+              "sort_name": "Topanemus",
+              "sort_name_auto_generate": false,
+              "create_time": "2023-04-28T22:32:44Z",
+              "system_mtime": "2023-04-28T22:32:44Z",
+              "user_mtime": "2023-04-28T22:32:44Z",
+              "jsonmodel_type": "parallel_name_corporate_entity",
+              "use_dates": []
+            },
+            {
+              "lock_version": 0,
+              "jurisdiction": false,
+              "conference_meeting": false,
+              "primary_name": "Toponemesing",
+              "sort_name": "Toponemesing",
+              "sort_name_auto_generate": false,
+              "create_time": "2023-04-28T22:32:44Z",
+              "system_mtime": "2023-04-28T22:32:44Z",
+              "user_mtime": "2023-04-28T22:32:44Z",
+              "jsonmodel_type": "parallel_name_corporate_entity",
+              "use_dates": []
+            }
+          ]
+        },
+        "title": "Toponemus"
+      }
+    }
+  ],
+  "import_previous_arks": [],
+  "ancestors": [
+    {
+      "ref": "/repositories/5/resources/3950",
+      "level": "collection"
+    }
+  ],
+  "instances": [
+    {
+      "lock_version": 0,
+      "create_time": "2025-03-20T22:46:53Z",
+      "system_mtime": "2025-03-20T22:46:53Z",
+      "user_mtime": "2025-03-20T22:46:53Z",
+      "instance_type": "mixed_materials",
+      "jsonmodel_type": "instance",
+      "is_representative": false,
+      "sub_container": {
+        "lock_version": 0,
+        "create_time": "2025-03-20T22:46:53Z",
+        "system_mtime": "2025-03-20T22:46:53Z",
+        "user_mtime": "2025-03-20T22:46:53Z",
+        "jsonmodel_type": "sub_container",
+        "top_container": {
+          "ref": "/repositories/5/top_containers/98348",
+          "_resolved": {
+            "lock_version": 44,
+            "barcode": "32101080827437",
+            "ils_holding_id": "C0140_i29",
+            "indicator": "59",
+            "create_time": "2021-01-24T09:19:33Z",
+            "system_mtime": "2026-09-24T18:15:30Z",
+            "user_mtime": "2023-11-14T14:59:52Z",
+            "type": "box",
+            "jsonmodel_type": "top_container",
+            "active_restrictions": [
+              {
+                "id": 1688775,
+                "resource_id": 3950,
+                "restriction_note_type": "accessrestrict",
+                "jsonmodel_type": "rights_restriction",
+                "local_access_restriction_type": [
+                  "Open"
+                ],
+                "linked_records": {
+                  "ref": "/repositories/5/resources/3950"
+                }
+              }
+            ],
+            "container_locations": [
+              {
+                "jsonmodel_type": "container_location",
+                "status": "current",
+                "start_date": "2021-01-24",
+                "note": "South Oversize 3",
+                "system_mtime": "2023-11-14 14:59:52 UTC",
+                "user_mtime": "2023-11-14 14:59:52 UTC",
+                "ref": "/locations/23647",
+                "_resolved": {
+                  "lock_version": 1,
+                  "building": "Firestone Library",
+                  "title": "Firestone Library, High Security Vault, Manuscripts Archival [scahsvm]",
+                  "room": "High Security Vault",
+                  "area": "Manuscripts Archival",
+                  "classification": "scahsvm",
+                  "create_time": "2021-01-22T22:29:47Z",
+                  "system_mtime": "2022-11-16T17:01:34Z",
+                  "user_mtime": "2022-11-16T17:01:34Z",
+                  "jsonmodel_type": "location",
+                  "external_ids": [],
+                  "functions": [],
+                  "uri": "/locations/23647"
+                }
+              }
+            ],
+            "series": [],
+            "collection": [
+              {
+                "ref": "/repositories/5/resources/3950",
+                "identifier": "C0140",
+                "display_string": "General Manuscripts Miscellaneous Collection"
+              }
+            ],
+            "uri": "/repositories/5/top_containers/98348",
+            "repository": {
+              "ref": "/repositories/5"
+            },
+            "container_profile": {
+              "ref": "/container_profiles/11"
+            },
+            "restricted": true,
+            "is_linked_to_published_record": true,
+            "display_string": "Box 59: [Barcode: 32101080827437]",
+            "long_display_string": "Box 59 [Barcode: 32101080827437], Double Elephant size box, Firestone Library, High Security Vault, Manuscripts Archival [scahsvm], C0140, General Manuscripts Miscellaneous Collection"
+          }
+        }
+      }
+    },
+    {
+      "lock_version": 0,
+      "create_time": "2025-03-20T22:46:53Z",
+      "system_mtime": "2025-03-20T22:46:53Z",
+      "user_mtime": "2025-03-20T22:46:53Z",
+      "instance_type": "digital_object",
+      "jsonmodel_type": "instance",
+      "is_representative": false,
+      "digital_object": {
+        "ref": "/repositories/5/digital_objects/56865",
+        "_resolved": {
+          "lock_version": 53,
+          "digital_object_id": "d52cb8e3-b182-44cb-9a59-399811a7c572",
+          "title": "View digital content",
+          "publish": true,
+          "restrictions": false,
+          "create_time": "2021-07-19T20:25:49Z",
+          "system_mtime": "2025-03-20T22:46:53Z",
+          "user_mtime": "2025-03-20T22:46:53Z",
+          "suppressed": false,
+          "is_slug_auto": true,
+          "jsonmodel_type": "digital_object",
+          "external_ids": [],
+          "subjects": [],
+          "linked_events": [],
+          "extents": [],
+          "lang_materials": [],
+          "dates": [],
+          "external_documents": [],
+          "rights_statements": [],
+          "linked_agents": [],
+          "file_versions": [
+            {
+              "lock_version": 0,
+              "file_uri": "https://figgy.princeton.edu/concern/scanned_resources/d52cb8e3-b182-44cb-9a59-399811a7c572/manifest",
+              "publish": true,
+              "create_time": "2025-03-20T22:46:53Z",
+              "system_mtime": "2025-03-20T22:46:53Z",
+              "user_mtime": "2025-03-20T22:46:53Z",
+              "use_statement": "https://iiif.io/api/presentation/2.1/",
+              "jsonmodel_type": "file_version",
+              "is_representative": false,
+              "identifier": "296083"
+            }
+          ],
+          "classifications": [],
+          "notes": [],
+          "collection": [
+            {
+              "ref": "/repositories/5/resources/3950"
+            }
+          ],
+          "linked_instances": [
+            {
+              "ref": "/repositories/5/archival_objects/1074411"
+            }
+          ],
+          "metadata_rights_declarations": [],
+          "uri": "/repositories/5/digital_objects/56865",
+          "repository": {
+            "ref": "/repositories/5"
+          },
+          "tree": {
+            "ref": "/repositories/5/digital_objects/56865/tree"
+          }
+        }
+      }
+    }
+  ],
+  "notes": [
+    {
+      "jsonmodel_type": "note_multipart",
+      "persistent_id": "7b19a49b44001db1ca5b254b1b040d93",
+      "type": "scopecontent",
+      "subnotes": [
+        {
+          "jsonmodel_type": "note_text",
+          "content": "Consists of a deed transferring land from Matappeas, Tawapung (Taptawappamund), and Seapoekne (Sepegnona), sachems of Toponemus (Toponemose, Topanemus, Toponemesing), to John Bowne, Richard Hartshorne, and James Grover of Middletown. The land described includes Worumenonnung, now Tinton Falls, and land occupied by the ironworks, which became Tinton Manor Ironworks. It is also part of the ancestral territory of the Sand Hill Indians, Lenape and Cherokee families living on the northern shores of Monmouth County. The deed records an event that took place on August 24, 1674, and was entered into the records of the Province of New Jersey by James Bollen on March 2, 1677. Witnesses were Samuel Hopkins and Thimothy Chandler. ",
+          "publish": true
+        }
+      ],
+      "publish": true
+    },
+    {
+      "jsonmodel_type": "note_multipart",
+      "persistent_id": "6550a3113351f70cfd897b3a37018e96",
+      "type": "acqinfo",
+      "subnotes": [
+        {
+          "jsonmodel_type": "note_text",
+          "content": "Gift of Harry Irvin Caesar, Class of 1913, in 1956 (AM 15674).",
+          "publish": true
+        }
+      ],
+      "publish": true
+    },
+    {
+      "jsonmodel_type": "note_multipart",
+      "persistent_id": "cbd5d788acaea4bdb5f08d814e863399",
+      "type": "processinfo",
+      "subnotes": [
+        {
+          "jsonmodel_type": "note_text",
+          "content": "This item was redescribed by Kelly Bolding and Faith Charlton in July 2022. Sources consulted include a transcription of the deed provided by Suzanne Conklin Akbari (Institute for Advanced Study), the website of the Sand Hill Indian Historical Association (https://sandhillindianhistory.org/), and Robert S. Grumet’s The Munsee Indians (Norman: University of Oklahoma P, 2009).",
+          "publish": true
+        }
+      ],
+      "publish": true
+    },
+    {
+      "jsonmodel_type": "note_multipart",
+      "persistent_id": "fc159a64ddc216c3fe82bcff6f76e040",
+      "type": "scopecontent",
+      "subnotes": [
+        {
+          "jsonmodel_type": "note_text",
+          "content": "Visit <extref xmlns:xlin=\"http://www.w3.org/1999/xlink\" xlin:href=\"https://dpul.princeton.edu/lenape/catalog/70795j14c\" xlin:type=\"simple\">Digital PUL</extref> for more information about the Sand Hill Indians.  ",
+          "publish": true
+        }
+      ],
+      "publish": true
+    }
+  ],
+  "accession_links": [],
+  "uri": "/repositories/5/archival_objects/1074411",
+  "repository": {
+    "ref": "/repositories/5"
+  },
+  "resource": {
+    "ref": "/repositories/5/resources/3950"
+  },
+  "has_unpublished_ancestor": false
+}

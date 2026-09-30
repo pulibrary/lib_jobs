@@ -187,7 +187,8 @@ namespace :lib_jobs do
 
     desc "aspace2alma: send component-level marcXML records from aspace to alma"
     task components: [:environment] do
-      job = Aspace2alma::SendComponentMarcxmlToAlmaJob.new
+      since = ENV['SINCE'].presence&.then { |value| Time.zone.parse(value) || raise(ArgumentError, "SINCE is not a time: #{value}") }
+      job = Aspace2alma::SendComponentMarcxmlToAlmaJob.new(since:)
       job.run
     end
   end

@@ -2,6 +2,10 @@
 require 'rails_helper'
 
 RSpec.describe Aspace2alma::SendComponentMarcxmlToAlmaJob do
+  def fixture_json(name)
+    JSON.parse(file_fixture("aspace2alma/#{name}.json").read)
+  end
+
   subject(:job) { described_class.new }
 
   let(:frozen_time) { Time.utc(2026, 6, 8, 12, 0, 0) }
@@ -9,7 +13,7 @@ RSpec.describe Aspace2alma::SendComponentMarcxmlToAlmaJob do
 
   let(:flagged_resource) { { 'uri' => '/repositories/5/resources/3950', 'user_defined' => { 'boolean_1' => true } } }
   let(:unflagged_resource) { { 'uri' => '/repositories/5/resources/3207', 'user_defined' => { 'boolean_1' => false } } }
-  let(:resolved_ao_json) { JSON.parse(file_fixture('aspace2alma/resolved_archival_object.json').read) }
+  let(:resolved_ao_json) { fixture_json('resolved_archival_object') }
   let(:client) { instance_double('ArchivesSpace::Client') }
 
   let(:search_query) do
@@ -71,7 +75,24 @@ RSpec.describe Aspace2alma::SendComponentMarcxmlToAlmaJob do
       expect(collection.at_xpath('//marc:controlfield[@tag="001"]').content).to eq('C0140_c03353')
     end
 
-    it 'renames previous file and sftpss the new one' do
+    context 'when the component records no language but its collection does' do
+      let(:flagged_resource) do
+        { 'uri' => '/repositories/5/resources/3950', 'user_defined' => { 'boolean_1' => true },
+          'lang_materials' => [{ 'language_and_script' => { 'language' => 'spa' } }] }
+      end
+      let(:resolved_ao_json) do
+        fixture_json('resolved_archival_object').merge('lang_materials' => [])
+      end
+
+      it "uses the collection's language" do
+        job.run
+
+        collection = Nokogiri::XML(File.read(described_class::FILENAME))
+        expect(collection.at_xpath('//marc:controlfield[@tag="008"]').content[35..37]).to eq('spa')
+      end
+    end
+
+    it "renames previous file and sftp's the new one" do
       job.run
 
       expect(Aspace2almaHelper).to have_received(:remove_file).with('/alma/aspace/marcao_export_old.xml').ordered
@@ -112,7 +133,7 @@ RSpec.describe Aspace2alma::SendComponentMarcxmlToAlmaJob do
         expect(File).not_to exist(described_class::FILENAME)
       end
 
-      it 'renames the previous file so Alma cant import it a second time' do
+      it "renames the previous file so Alma can't import it a second time" do
         job.run
 
         expect(Aspace2almaHelper).to have_received(:rename_file)
@@ -121,11 +142,11 @@ RSpec.describe Aspace2alma::SendComponentMarcxmlToAlmaJob do
     end
 
     context 'when the previous run succeeded' do
-      let(:since_in_solr_format) { '2026-06-08T08:59:55Z' }
+      let(:since_in_solr_format) { '2026-06-06T03:29:55Z' }
 
       before do
-        DataSet.create!(category: 'Aspace2Alma_component', status: true, report_time: Time.utc(2026, 6, 8, 9, 0, 0))
-        DataSet.create!(category: 'Aspace2Alma_component', status: false, report_time: Time.utc(2026, 6, 8, 11, 0, 0))
+        DataSet.create!(category: 'Aspace2Alma_component', status: true, report_time: Time.utc(2026, 6, 6, 3, 30, 0))
+        DataSet.create!(category: 'Aspace2Alma_component', status: false, report_time: Time.utc(2026, 6, 7, 3, 30, 0))
       end
 
       it 'searches from the start of the last successful run' do
@@ -135,7 +156,23 @@ RSpec.describe Aspace2alma::SendComponentMarcxmlToAlmaJob do
       end
     end
 
-    context 'when the resource itself changed since the last run (this inlcudes that the checkbox was checked)' do
+    context 'when given a since time' do
+      subject(:job) { described_class.new(since: Time.utc(2026, 5, 1, 23, 30, 0)) }
+
+      let(:since_in_solr_format) { '2026-05-01T23:30:00Z' }
+
+      before do
+        DataSet.create!(category: 'Aspace2Alma_component', status: true, report_time: Time.utc(2026, 6, 8, 9, 0, 0))
+      end
+
+      it 'searches from that time instead of the last successful run' do
+        job.run
+
+        expect(client).to have_received(:get).with('/repositories/5/search', query: search_query)
+      end
+    end
+
+    context 'when the resource itself changed since the last run (this includes that the checkbox was checked)' do
       let(:flagged_resource) do
         { 'uri' => '/repositories/5/resources/3950', 'system_mtime' => '2026-06-08T10:00:00Z',
           'user_defined' => { 'boolean_1' => true } }
@@ -162,6 +199,11 @@ RSpec.describe Aspace2alma::SendComponentMarcxmlToAlmaJob do
         job.run
 
         expect(client).to have_received(:get).with('/repositories/5/search', query: search_query)
+        expect(job).to have_received(:get_resolved_objects_from_ids)
+          .with('5', [1_074_411], 'archival_objects', Aspace2alma::ArchivalObjectRecord.resolves)
+        collection = Nokogiri::XML(File.read(described_class::FILENAME))
+        expect(collection.xpath('//marc:controlfield[@tag="001"]').map(&:content)).to eq(['C0140_c03353'])
+        expect(Aspace2almaHelper).to have_received(:alma_sftp).with('marcao_export.xml')
       end
     end
 
@@ -208,6 +250,8 @@ RSpec.describe Aspace2alma::SendComponentMarcxmlToAlmaJob do
       it 'fails' do
         expect { job.run }.to raise_error(Net::ReadTimeout)
 
+        expect(Aspace2almaHelper).to have_received(:rename_file)
+          .with('/alma/aspace/marcao_export.xml', '/alma/aspace/marcao_export_old.xml')
         expect(Aspace2almaHelper).not_to have_received(:alma_sftp)
         expect(DataSet.where(category: 'Aspace2Alma_component')).to be_empty
       end

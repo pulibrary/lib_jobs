@@ -46,6 +46,7 @@ module Aspace2alma
       data_set
     end
 
+    # retry a resource, then skip it
     def process_resource(resource, file, log_out, barcode_duplicate_check)
       with_retries(NETWORK_ERRORS, "retrieving resource #{resource}") do
         append_record(resource, file, log_out, barcode_duplicate_check)
@@ -55,6 +56,7 @@ module Aspace2alma
                    "unsuccessful in retrieving resource #{resource} after #{RETRY_ATTEMPTS} retries"
     end
 
+    # build and write a resource's record
     # rubocop:disable Metrics/AbcSize
     # rubocop:disable Metrics/CyclomaticComplexity
     # rubocop:disable Metrics/PerceivedComplexity

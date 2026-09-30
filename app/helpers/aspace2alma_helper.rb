@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Aspace2almaHelper
+  # Alma's pickup directory on sftp
   SFTP_DIR = '/alma/aspace'
 
   # configure sendoff to alma

@@ -1,0 +1,712 @@
+{
+  "lock_version": 8,
+  "position": 3783,
+  "publish": true,
+  "ref_id": "C0140_c77428-94303",
+  "title": "Elizabeth Cook Commonplace Book",
+  "display_string": "Elizabeth Cook Commonplace Book, 1805-1824",
+  "restrictions_apply": false,
+  "create_time": "2023-01-13T17:27:52Z",
+  "system_mtime": "2026-09-24T16:02:36Z",
+  "user_mtime": "2023-01-17T18:17:18Z",
+  "suppressed": false,
+  "is_slug_auto": false,
+  "level": "item",
+  "jsonmodel_type": "archival_object",
+  "external_ids": [],
+  "subjects": [
+    {
+      "ref": "/subjects/9093",
+      "_resolved": {
+        "lock_version": 29,
+        "title": "Commonplace books -- 19th century",
+        "create_time": "2021-01-24T00:24:32Z",
+        "system_mtime": "2026-09-24T16:02:36Z",
+        "user_mtime": "2026-09-24T16:02:36Z",
+        "is_slug_auto": true,
+        "source": "aat",
+        "jsonmodel_type": "subject",
+        "external_ids": [],
+        "publish": true,
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "terms": [
+          {
+            "lock_version": 0,
+            "term": "Commonplace books",
+            "create_time": "2026-09-24T14:57:32Z",
+            "system_mtime": "2026-09-24T14:57:32Z",
+            "user_mtime": "2026-09-24T14:57:32Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/26834",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "19th century",
+            "create_time": "2021-02-10T16:22:45Z",
+            "system_mtime": "2021-02-10T16:22:45Z",
+            "user_mtime": "2021-02-10T16:22:45Z",
+            "term_type": "temporal",
+            "jsonmodel_type": "term",
+            "uri": "/terms/17864",
+            "vocabulary": "/vocabularies/1"
+          }
+        ],
+        "external_documents": [],
+        "metadata_rights_declarations": [],
+        "uri": "/subjects/9093",
+        "vocabulary": "/vocabularies/1",
+        "is_linked_to_published_record": true
+      }
+    },
+    {
+      "ref": "/subjects/19712",
+      "_resolved": {
+        "lock_version": 9,
+        "title": "Feminism -- United States -- History -- 19th century -- Sources",
+        "create_time": "2023-01-13T17:42:07Z",
+        "system_mtime": "2023-10-25T18:50:24Z",
+        "user_mtime": "2023-01-13T17:42:07Z",
+        "is_slug_auto": false,
+        "source": "lcsh",
+        "jsonmodel_type": "subject",
+        "external_ids": [],
+        "publish": true,
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "terms": [
+          {
+            "lock_version": 0,
+            "term": "Feminism",
+            "create_time": "2021-01-23T08:44:39Z",
+            "system_mtime": "2021-01-23T08:44:39Z",
+            "user_mtime": "2021-01-23T08:44:39Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/4569",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "United States",
+            "create_time": "2016-06-27T14:39:34Z",
+            "system_mtime": "2016-06-27T14:39:34Z",
+            "user_mtime": "2016-06-27T14:39:34Z",
+            "term_type": "geographic",
+            "jsonmodel_type": "term",
+            "uri": "/terms/44",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "History",
+            "create_time": "2016-06-27T14:39:48Z",
+            "system_mtime": "2016-06-27T14:39:48Z",
+            "user_mtime": "2016-06-27T14:39:48Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/157",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "19th century",
+            "create_time": "2021-02-10T16:22:45Z",
+            "system_mtime": "2021-02-10T16:22:45Z",
+            "user_mtime": "2021-02-10T16:22:45Z",
+            "term_type": "temporal",
+            "jsonmodel_type": "term",
+            "uri": "/terms/17864",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "Sources",
+            "create_time": "2021-02-10T16:28:28Z",
+            "system_mtime": "2021-02-10T16:28:28Z",
+            "user_mtime": "2021-02-10T16:28:28Z",
+            "term_type": "genre_form",
+            "jsonmodel_type": "term",
+            "uri": "/terms/17865",
+            "vocabulary": "/vocabularies/1"
+          }
+        ],
+        "external_documents": [],
+        "metadata_rights_declarations": [],
+        "uri": "/subjects/19712",
+        "vocabulary": "/vocabularies/1",
+        "is_linked_to_published_record": true
+      }
+    },
+    {
+      "ref": "/subjects/18895",
+      "_resolved": {
+        "lock_version": 6,
+        "title": "Women -- New Jersey -- History -- 19th century -- Sources",
+        "create_time": "2021-03-24T17:32:49Z",
+        "system_mtime": "2023-01-17T18:17:18Z",
+        "user_mtime": "2021-03-24T17:32:49Z",
+        "is_slug_auto": false,
+        "source": "lcsh",
+        "jsonmodel_type": "subject",
+        "external_ids": [],
+        "publish": true,
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "terms": [
+          {
+            "lock_version": 0,
+            "term": "Women",
+            "create_time": "2016-06-27T14:39:49Z",
+            "system_mtime": "2016-06-27T14:39:49Z",
+            "user_mtime": "2016-06-27T14:39:49Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/162",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "New Jersey",
+            "create_time": "2016-06-27T14:40:41Z",
+            "system_mtime": "2016-06-27T14:40:41Z",
+            "user_mtime": "2016-06-27T14:40:41Z",
+            "term_type": "geographic",
+            "jsonmodel_type": "term",
+            "uri": "/terms/517",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "History",
+            "create_time": "2016-06-27T14:39:48Z",
+            "system_mtime": "2016-06-27T14:39:48Z",
+            "user_mtime": "2016-06-27T14:39:48Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/157",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "19th century",
+            "create_time": "2021-02-10T16:22:45Z",
+            "system_mtime": "2021-02-10T16:22:45Z",
+            "user_mtime": "2021-02-10T16:22:45Z",
+            "term_type": "temporal",
+            "jsonmodel_type": "term",
+            "uri": "/terms/17864",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "Sources",
+            "create_time": "2021-02-10T16:28:28Z",
+            "system_mtime": "2021-02-10T16:28:28Z",
+            "user_mtime": "2021-02-10T16:28:28Z",
+            "term_type": "genre_form",
+            "jsonmodel_type": "term",
+            "uri": "/terms/17865",
+            "vocabulary": "/vocabularies/1"
+          }
+        ],
+        "external_documents": [],
+        "metadata_rights_declarations": [],
+        "uri": "/subjects/18895",
+        "vocabulary": "/vocabularies/1",
+        "is_linked_to_published_record": true
+      }
+    },
+    {
+      "ref": "/subjects/19713",
+      "_resolved": {
+        "lock_version": 3,
+        "title": "Women and literature -- New Jersey -- History -- 19th century -- Sources",
+        "create_time": "2023-01-13T17:48:08Z",
+        "system_mtime": "2023-01-17T18:17:18Z",
+        "user_mtime": "2023-01-13T17:48:08Z",
+        "is_slug_auto": false,
+        "source": "lcsh",
+        "jsonmodel_type": "subject",
+        "external_ids": [],
+        "publish": true,
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "terms": [
+          {
+            "lock_version": 0,
+            "term": "Women and literature",
+            "create_time": "2021-01-23T08:44:33Z",
+            "system_mtime": "2021-01-23T08:44:33Z",
+            "user_mtime": "2021-01-23T08:44:33Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/3944",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "New Jersey",
+            "create_time": "2016-06-27T14:40:41Z",
+            "system_mtime": "2016-06-27T14:40:41Z",
+            "user_mtime": "2016-06-27T14:40:41Z",
+            "term_type": "geographic",
+            "jsonmodel_type": "term",
+            "uri": "/terms/517",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "History",
+            "create_time": "2016-06-27T14:39:48Z",
+            "system_mtime": "2016-06-27T14:39:48Z",
+            "user_mtime": "2016-06-27T14:39:48Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/157",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "19th century",
+            "create_time": "2021-02-10T16:22:45Z",
+            "system_mtime": "2021-02-10T16:22:45Z",
+            "user_mtime": "2021-02-10T16:22:45Z",
+            "term_type": "temporal",
+            "jsonmodel_type": "term",
+            "uri": "/terms/17864",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "Sources",
+            "create_time": "2021-02-10T16:28:28Z",
+            "system_mtime": "2021-02-10T16:28:28Z",
+            "user_mtime": "2021-02-10T16:28:28Z",
+            "term_type": "genre_form",
+            "jsonmodel_type": "term",
+            "uri": "/terms/17865",
+            "vocabulary": "/vocabularies/1"
+          }
+        ],
+        "external_documents": [],
+        "metadata_rights_declarations": [],
+        "uri": "/subjects/19713",
+        "vocabulary": "/vocabularies/1",
+        "is_linked_to_published_record": true
+      }
+    },
+    {
+      "ref": "/subjects/19714",
+      "_resolved": {
+        "lock_version": 3,
+        "title": "Women -- New Jersey -- Intellectual life -- Sources",
+        "create_time": "2023-01-13T17:50:12Z",
+        "system_mtime": "2023-01-17T18:17:18Z",
+        "user_mtime": "2023-01-13T17:50:12Z",
+        "is_slug_auto": false,
+        "source": "lcsh",
+        "jsonmodel_type": "subject",
+        "external_ids": [],
+        "publish": true,
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "terms": [
+          {
+            "lock_version": 0,
+            "term": "Women",
+            "create_time": "2016-06-27T14:39:49Z",
+            "system_mtime": "2016-06-27T14:39:49Z",
+            "user_mtime": "2016-06-27T14:39:49Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/162",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "New Jersey",
+            "create_time": "2016-06-27T14:40:41Z",
+            "system_mtime": "2016-06-27T14:40:41Z",
+            "user_mtime": "2016-06-27T14:40:41Z",
+            "term_type": "geographic",
+            "jsonmodel_type": "term",
+            "uri": "/terms/517",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "Intellectual life",
+            "create_time": "2023-01-13T17:50:12Z",
+            "system_mtime": "2023-01-13T17:50:12Z",
+            "user_mtime": "2023-01-13T17:50:12Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/18626",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "Sources",
+            "create_time": "2021-02-10T16:28:28Z",
+            "system_mtime": "2021-02-10T16:28:28Z",
+            "user_mtime": "2021-02-10T16:28:28Z",
+            "term_type": "genre_form",
+            "jsonmodel_type": "term",
+            "uri": "/terms/17865",
+            "vocabulary": "/vocabularies/1"
+          }
+        ],
+        "external_documents": [],
+        "metadata_rights_declarations": [],
+        "uri": "/subjects/19714",
+        "vocabulary": "/vocabularies/1",
+        "is_linked_to_published_record": true
+      }
+    }
+  ],
+  "linked_events": [],
+  "extents": [
+    {
+      "lock_version": 0,
+      "number": "1",
+      "container_summary": "1 volume",
+      "create_time": "2023-01-17T18:17:18Z",
+      "system_mtime": "2023-01-17T18:17:18Z",
+      "user_mtime": "2023-01-17T18:17:18Z",
+      "portion": "whole",
+      "extent_type": "folder",
+      "jsonmodel_type": "extent"
+    }
+  ],
+  "lang_materials": [],
+  "dates": [
+    {
+      "lock_version": 0,
+      "expression": "1805-1824",
+      "begin": "1805",
+      "end": "1824",
+      "create_time": "2023-01-17T18:17:18Z",
+      "system_mtime": "2023-01-17T18:17:18Z",
+      "user_mtime": "2023-01-17T18:17:18Z",
+      "date_type": "inclusive",
+      "label": "creation",
+      "era": "ce",
+      "calendar": "gregorian",
+      "jsonmodel_type": "date"
+    }
+  ],
+  "external_documents": [],
+  "rights_statements": [],
+  "linked_agents": [
+    {
+      "is_primary": false,
+      "role": "creator",
+      "relator": "cre",
+      "terms": [],
+      "ref": "/agents/people/33274",
+      "_resolved": {
+        "lock_version": 17,
+        "publish": true,
+        "create_time": "2023-01-12T16:56:35Z",
+        "system_mtime": "2023-04-27T03:11:23Z",
+        "user_mtime": "2023-04-27T03:11:23Z",
+        "is_slug_auto": false,
+        "jsonmodel_type": "agent_person",
+        "agent_contacts": [],
+        "agent_record_controls": [
+          {
+            "maintenance_agency": "NjP",
+            "agency_name": "Princeton University Library",
+            "create_time": "2023-04-27T03:11:23Z",
+            "system_mtime": "2023-04-27T03:11:23Z",
+            "user_mtime": "2023-04-27T03:11:23Z",
+            "lock_version": 0,
+            "maintenance_status": "upgraded",
+            "jsonmodel_type": "agent_record_control"
+          }
+        ],
+        "agent_alternate_sets": [],
+        "agent_conventions_declarations": [],
+        "agent_other_agency_codes": [],
+        "agent_maintenance_histories": [
+          {
+            "event_date": "2020-01-01 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Migrated records from a spreadsheet created from native EAC-CPF via OpenRefine.",
+            "create_time": "2023-04-27T03:11:23Z",
+            "system_mtime": "2023-04-27T03:11:23Z",
+            "user_mtime": "2023-04-27T03:11:23Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          },
+          {
+            "event_date": "2023-04-26 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Upgraded records to re-populate the required CPF and ASpace fields that were lost during data import via OpenRefine.",
+            "create_time": "2023-04-27T03:11:23Z",
+            "system_mtime": "2023-04-27T03:11:23Z",
+            "user_mtime": "2023-04-27T03:11:23Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          }
+        ],
+        "agent_record_identifiers": [
+          {
+            "primary_identifier": true,
+            "record_identifier": "COOKELIZABETHMARY",
+            "create_time": "2023-04-27T03:11:23Z",
+            "system_mtime": "2023-11-03T20:04:54Z",
+            "user_mtime": "2023-04-27T03:11:23Z",
+            "lock_version": 0,
+            "source": "local",
+            "jsonmodel_type": "agent_record_identifier"
+          }
+        ],
+        "agent_identifiers": [
+          {
+            "entity_identifier": "COOKELIZABETHMARY",
+            "create_time": "2023-04-27T03:11:23Z",
+            "system_mtime": "2023-04-27T03:11:23Z",
+            "user_mtime": "2023-04-27T03:11:23Z",
+            "lock_version": 0,
+            "jsonmodel_type": "agent_identifier"
+          }
+        ],
+        "agent_sources": [],
+        "agent_places": [],
+        "agent_occupations": [],
+        "agent_functions": [],
+        "agent_topics": [],
+        "agent_resources": [],
+        "linked_agent_roles": [
+          "creator"
+        ],
+        "external_documents": [],
+        "notes": [
+          {
+            "jsonmodel_type": "note_bioghist",
+            "persistent_id": "ce8bb00baf31630ab3c77d662cc3db0c",
+            "subnotes": [
+              {
+                "jsonmodel_type": "note_text",
+                "content": "Cook lived in Rahaway, New Jersey, from at least 1805 to 1824.",
+                "publish": true
+              }
+            ],
+            "publish": true
+          }
+        ],
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "dates_of_existence": [],
+        "used_languages": [],
+        "metadata_rights_declarations": [],
+        "names": [
+          {
+            "lock_version": 0,
+            "primary_name": "Cook",
+            "rest_of_name": "Elizabeth Mary",
+            "sort_name": "Cook, Elizabeth Mary",
+            "sort_name_auto_generate": true,
+            "create_time": "2023-04-27T03:11:23Z",
+            "system_mtime": "2023-11-03T20:04:54Z",
+            "user_mtime": "2023-04-27T03:11:23Z",
+            "authorized": true,
+            "is_display_name": true,
+            "source": "local",
+            "rules": "rda",
+            "name_order": "inverted",
+            "jsonmodel_type": "name_person",
+            "use_dates": [],
+            "parallel_names": []
+          }
+        ],
+        "agent_genders": [],
+        "related_agents": [],
+        "uri": "/agents/people/33274",
+        "agent_type": "agent_person",
+        "is_linked_to_published_record": true,
+        "display_name": {
+          "lock_version": 0,
+          "primary_name": "Cook",
+          "rest_of_name": "Elizabeth Mary",
+          "sort_name": "Cook, Elizabeth Mary",
+          "sort_name_auto_generate": true,
+          "create_time": "2023-04-27T03:11:23Z",
+          "system_mtime": "2023-11-03T20:04:54Z",
+          "user_mtime": "2023-04-27T03:11:23Z",
+          "authorized": true,
+          "is_display_name": true,
+          "source": "local",
+          "rules": "rda",
+          "name_order": "inverted",
+          "jsonmodel_type": "name_person",
+          "use_dates": [],
+          "parallel_names": []
+        },
+        "title": "Cook, Elizabeth Mary"
+      }
+    }
+  ],
+  "import_previous_arks": [],
+  "ancestors": [
+    {
+      "ref": "/repositories/5/resources/3950",
+      "level": "collection"
+    }
+  ],
+  "instances": [
+    {
+      "lock_version": 0,
+      "create_time": "2023-01-17T18:17:18Z",
+      "system_mtime": "2023-01-17T18:17:18Z",
+      "user_mtime": "2023-01-17T18:17:18Z",
+      "instance_type": "mixed_materials",
+      "jsonmodel_type": "instance",
+      "is_representative": false,
+      "sub_container": {
+        "lock_version": 0,
+        "indicator_2": "5",
+        "create_time": "2023-01-17T18:17:18Z",
+        "system_mtime": "2023-01-17T18:17:18Z",
+        "user_mtime": "2023-01-17T18:17:18Z",
+        "type_2": "folder",
+        "jsonmodel_type": "sub_container",
+        "top_container": {
+          "ref": "/repositories/5/top_containers/121045",
+          "_resolved": {
+            "lock_version": 53,
+            "barcode": "32101080852591",
+            "indicator": "B-002017",
+            "create_time": "2022-12-06T16:10:58Z",
+            "system_mtime": "2026-09-24T18:15:30Z",
+            "user_mtime": "2022-12-06T17:10:30Z",
+            "created_for_collection": "/repositories/5/resources/3950",
+            "type": "box",
+            "jsonmodel_type": "top_container",
+            "active_restrictions": [
+              {
+                "id": 1688775,
+                "resource_id": 3950,
+                "restriction_note_type": "accessrestrict",
+                "jsonmodel_type": "rights_restriction",
+                "local_access_restriction_type": [
+                  "Open"
+                ],
+                "linked_records": {
+                  "ref": "/repositories/5/resources/3950"
+                }
+              }
+            ],
+            "container_locations": [
+              {
+                "jsonmodel_type": "container_location",
+                "status": "current",
+                "start_date": "2022-12-06",
+                "system_mtime": "2022-12-06 17:10:30 UTC",
+                "user_mtime": "2022-12-06 17:10:30 UTC",
+                "ref": "/locations/23648",
+                "_resolved": {
+                  "lock_version": 9,
+                  "building": "Firestone Library",
+                  "title": "Firestone Library, Vault, Manuscripts Archival [scamss]",
+                  "room": "Vault",
+                  "area": "Manuscripts Archival",
+                  "classification": "scamss",
+                  "create_time": "2021-01-22T22:29:47Z",
+                  "system_mtime": "2022-11-16T16:53:06Z",
+                  "user_mtime": "2022-11-16T16:53:06Z",
+                  "jsonmodel_type": "location",
+                  "external_ids": [],
+                  "functions": [],
+                  "uri": "/locations/23648"
+                }
+              }
+            ],
+            "series": [],
+            "collection": [
+              {
+                "ref": "/repositories/5/resources/3950",
+                "identifier": "C0140",
+                "display_string": "General Manuscripts Miscellaneous Collection"
+              }
+            ],
+            "uri": "/repositories/5/top_containers/121045",
+            "repository": {
+              "ref": "/repositories/5"
+            },
+            "container_profile": {
+              "ref": "/container_profiles/17"
+            },
+            "restricted": true,
+            "is_linked_to_published_record": true,
+            "display_string": "Box B-002017: [Barcode: 32101080852591]",
+            "long_display_string": "Box B-002017 [Barcode: 32101080852591], Standard manuscript, Firestone Library, Vault, Manuscripts Archival [scamss], C0140, General Manuscripts Miscellaneous Collection"
+          }
+        }
+      }
+    }
+  ],
+  "notes": [
+    {
+      "jsonmodel_type": "note_multipart",
+      "persistent_id": "ce46dae9fcbd62e0695ac54f48d36b97",
+      "label": "Content Description",
+      "type": "scopecontent",
+      "subnotes": [
+        {
+          "jsonmodel_type": "note_text",
+          "content": "The commonplace book of Elizabeth Cook from Rahway, New Jersey, which she started June 12, 1805. Entries date through 1824. 8vo (8” x 6.25”) full brown leather. 165 pages of manuscript on 83 leaves.\n\nCook documents the feminist \"Chaponeon Society\" of Perth Amboy, New Jersey; a group inspired by the life and works of English author Hester Chapone (1727–1801) of which Cook was a member. Entries include \"Duties of the Chaponeon Society” (dated 1810); Cook’s addresses to the Society, such as “An Address to Winter by the Young Ladies of the Chaponeon Society in the city of Perth Amboy”; and poetry and prose authored by Cook, Society members, and others, such as: “Friendship addressed to Mira”; “A Mothers Soliloquy over her dying infant”; “The Distressed Mother”; “Winters Walk” (attributed to a “Dr. Johnston”); “Joseph a type of Jesus”; “The Souls, Welcome to God”; “To Miranda”; “Ode for May”; “In the Oratorio of Abel”; “The Farmers Prayer”; “Mercy”; “Indolence”; and “Sincerity”; among others.\n\nAlso included in the volume are memorial texts such as “Contemporary verses on the death of Joseph P. Waln of Philadelphia aged about 10 years…1783”; “On the Death of Susanna James Youngest Daughter of Abel and Rebecca James of Philadelphia who departed this life…1774 in the 13th year of her age”; “An Epitaph On William Cook, who died on the 25th of Sept. 1795, aged 8 years”; “The Farewell to Rachel Wilson,” and “the Death of the unfortunate Mary Blandry [1720–1752] who was executed for poisoning her father.” Entries on more contemporary deaths include: “Verses over the grave of my beloved friend Ms. Margaretta Manning” (dated 30 May 1818 at Bay Mahant, Guadeloupe, France); “An Elegy on the Death of Miss. L. Barlow” (attributed to Rev. Gilbert Hunt Sayres), and “Lines on the Death of Miss Isabella Edgar who departed this life Sept. 22 1821.” Several entries of a religious nature are signed by Eliza M. Edgar, presumably the sister of the late Isabella Edgar.",
+          "publish": true
+        }
+      ],
+      "publish": true
+    },
+    {
+      "jsonmodel_type": "note_multipart",
+      "persistent_id": "6e806fde7bb754f7c0b9e6c4540a9fde",
+      "type": "processinfo",
+      "subnotes": [
+        {
+          "jsonmodel_type": "note_text",
+          "content": "Item processed and described by Faith Charlton in January 2023, incorporating description provided by the dealer.",
+          "publish": true
+        }
+      ],
+      "publish": true
+    },
+    {
+      "jsonmodel_type": "note_multipart",
+      "persistent_id": "58c178ef54d9d4440d38024cd85f7355",
+      "type": "acqinfo",
+      "subnotes": [
+        {
+          "jsonmodel_type": "note_text",
+          "content": "Purchased from James E. Arsenault & Company in 2022 (AM 2023-078).",
+          "publish": true
+        }
+      ],
+      "publish": true
+    }
+  ],
+  "accession_links": [
+    {
+      "ref": "/repositories/5/accessions/19899"
+    }
+  ],
+  "uri": "/repositories/5/archival_objects/1476180",
+  "repository": {
+    "ref": "/repositories/5"
+  },
+  "resource": {
+    "ref": "/repositories/5/resources/3950"
+  },
+  "has_unpublished_ancestor": false
+}

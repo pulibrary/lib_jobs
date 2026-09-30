@@ -1,0 +1,673 @@
+{
+  "lock_version": 8,
+  "position": 39,
+  "publish": true,
+  "ref_id": "C1771_c31589-89333",
+  "title": "John Hancock Letter to Benjamin Guerard",
+  "display_string": "John Hancock Letter to Benjamin Guerard, 1784 March 30",
+  "restrictions_apply": false,
+  "create_time": "2024-10-28T16:32:57Z",
+  "system_mtime": "2026-09-24T14:44:32Z",
+  "user_mtime": "2024-12-13T17:25:48Z",
+  "suppressed": false,
+  "is_slug_auto": false,
+  "level": "item",
+  "jsonmodel_type": "archival_object",
+  "external_ids": [],
+  "subjects": [
+    {
+      "ref": "/subjects/20097",
+      "_resolved": {
+        "lock_version": 11,
+        "title": "Government correspondence",
+        "authority_id": "http://id.loc.gov/authorities/subjects/sh85056058",
+        "create_time": "2024-10-28T16:30:31Z",
+        "system_mtime": "2026-09-24T14:44:32Z",
+        "user_mtime": "2026-09-24T14:44:32Z",
+        "is_slug_auto": false,
+        "source": "lcsh",
+        "jsonmodel_type": "subject",
+        "external_ids": [],
+        "publish": true,
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "terms": [
+          {
+            "lock_version": 0,
+            "term": "Government correspondence",
+            "create_time": "2026-09-24T14:44:32Z",
+            "system_mtime": "2026-09-24T14:44:32Z",
+            "user_mtime": "2026-09-24T14:44:32Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/26430",
+            "vocabulary": "/vocabularies/1"
+          }
+        ],
+        "external_documents": [],
+        "metadata_rights_declarations": [],
+        "uri": "/subjects/20097",
+        "vocabulary": "/vocabularies/1",
+        "is_linked_to_published_record": true
+      }
+    },
+    {
+      "ref": "/subjects/20098",
+      "_resolved": {
+        "lock_version": 9,
+        "title": "Enslaved persons -- Legal status, laws, etc. -- Massachusetts",
+        "create_time": "2024-10-28T16:31:13Z",
+        "system_mtime": "2024-12-13T17:25:48Z",
+        "user_mtime": "2024-10-28T16:31:13Z",
+        "is_slug_auto": false,
+        "source": "lcsh",
+        "jsonmodel_type": "subject",
+        "external_ids": [],
+        "publish": true,
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "terms": [
+          {
+            "lock_version": 0,
+            "term": "Enslaved persons",
+            "create_time": "2021-06-21T15:49:37Z",
+            "system_mtime": "2021-06-21T15:49:37Z",
+            "user_mtime": "2021-06-21T15:49:37Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/17980",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "Legal status, laws, etc.",
+            "create_time": "2016-06-27T14:41:13Z",
+            "system_mtime": "2016-06-27T14:41:13Z",
+            "user_mtime": "2016-06-27T14:41:13Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/696",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "Massachusetts",
+            "create_time": "2021-01-23T01:34:55Z",
+            "system_mtime": "2021-01-23T01:34:55Z",
+            "user_mtime": "2021-01-23T01:34:55Z",
+            "term_type": "geographic",
+            "jsonmodel_type": "term",
+            "uri": "/terms/2433",
+            "vocabulary": "/vocabularies/1"
+          }
+        ],
+        "external_documents": [],
+        "metadata_rights_declarations": [],
+        "uri": "/subjects/20098",
+        "vocabulary": "/vocabularies/1",
+        "is_linked_to_published_record": true
+      }
+    }
+  ],
+  "linked_events": [],
+  "extents": [
+    {
+      "lock_version": 0,
+      "number": "1",
+      "physical_details": "1 page",
+      "dimensions": "21 x 16 cm",
+      "create_time": "2024-12-13T17:25:48Z",
+      "system_mtime": "2024-12-13T17:25:48Z",
+      "user_mtime": "2024-12-13T17:25:48Z",
+      "portion": "whole",
+      "extent_type": "item",
+      "jsonmodel_type": "extent"
+    }
+  ],
+  "lang_materials": [
+    {
+      "lock_version": 0,
+      "create_time": "2024-12-13T17:25:48Z",
+      "system_mtime": "2024-12-13T17:25:48Z",
+      "user_mtime": "2024-12-13T17:25:48Z",
+      "jsonmodel_type": "lang_material",
+      "notes": [],
+      "language_and_script": {
+        "lock_version": 0,
+        "create_time": "2024-12-13T17:25:48Z",
+        "system_mtime": "2024-12-13T17:25:48Z",
+        "user_mtime": "2024-12-13T17:25:48Z",
+        "language": "eng",
+        "script": "Latn",
+        "jsonmodel_type": "language_and_script"
+      }
+    }
+  ],
+  "dates": [
+    {
+      "lock_version": 0,
+      "expression": "1784 March 30",
+      "begin": "1784-03-30",
+      "create_time": "2024-12-13T17:25:48Z",
+      "system_mtime": "2024-12-13T17:25:48Z",
+      "user_mtime": "2024-12-13T17:25:48Z",
+      "date_type": "single",
+      "label": "creation",
+      "era": "ce",
+      "calendar": "gregorian",
+      "jsonmodel_type": "date"
+    }
+  ],
+  "external_documents": [],
+  "rights_statements": [],
+  "linked_agents": [
+    {
+      "is_primary": false,
+      "role": "creator",
+      "relator": "cre",
+      "terms": [],
+      "ref": "/agents/people/10720",
+      "_resolved": {
+        "lock_version": 42,
+        "publish": true,
+        "create_time": "2021-01-25T17:15:20Z",
+        "system_mtime": "2025-08-18T16:20:53Z",
+        "user_mtime": "2025-08-18T16:20:53Z",
+        "is_slug_auto": false,
+        "jsonmodel_type": "agent_person",
+        "agent_contacts": [],
+        "agent_record_controls": [
+          {
+            "maintenance_agency": "NjP",
+            "agency_name": "Princeton University Library",
+            "create_time": "2025-08-18T16:20:53Z",
+            "system_mtime": "2025-08-18T16:20:53Z",
+            "user_mtime": "2025-08-18T16:20:53Z",
+            "lock_version": 0,
+            "maintenance_status": "upgraded",
+            "jsonmodel_type": "agent_record_control"
+          }
+        ],
+        "agent_alternate_sets": [],
+        "agent_conventions_declarations": [],
+        "agent_other_agency_codes": [],
+        "agent_maintenance_histories": [
+          {
+            "event_date": "2020-01-01 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Migrated records from a spreadsheet created from native EAC-CPF via OpenRefine.",
+            "create_time": "2025-08-18T16:20:53Z",
+            "system_mtime": "2025-08-18T16:20:53Z",
+            "user_mtime": "2025-08-18T16:20:53Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          },
+          {
+            "event_date": "2023-04-25 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Upgraded records to re-populate the required CPF and ASpace fields that were lost during data import via OpenRefine.",
+            "create_time": "2025-08-18T16:20:53Z",
+            "system_mtime": "2025-08-18T16:20:53Z",
+            "user_mtime": "2025-08-18T16:20:53Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          },
+          {
+            "event_date": "2024-07-24 13:34:47 UTC",
+            "agent": "system",
+            "descriptive_note": "Agents remediation",
+            "create_time": "2025-08-18T16:20:53Z",
+            "system_mtime": "2025-08-18T16:20:53Z",
+            "user_mtime": "2025-08-18T16:20:53Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          },
+          {
+            "event_date": "2025-08-18 16:20:52 UTC",
+            "agent": "system",
+            "descriptive_note": "restore authority id, source, or rules to the names subrecord",
+            "create_time": "2025-08-18T16:20:53Z",
+            "system_mtime": "2025-08-18T16:20:53Z",
+            "user_mtime": "2025-08-18T16:20:53Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          }
+        ],
+        "agent_record_identifiers": [
+          {
+            "primary_identifier": true,
+            "record_identifier": "HANCOCKJOHN72204820",
+            "create_time": "2025-08-18T16:20:53Z",
+            "system_mtime": "2025-08-18T16:20:53Z",
+            "user_mtime": "2025-08-18T16:20:53Z",
+            "lock_version": 0,
+            "source": "viaf",
+            "jsonmodel_type": "agent_record_identifier"
+          }
+        ],
+        "agent_identifiers": [
+          {
+            "entity_identifier": "HANCOCKJOHN72204820",
+            "create_time": "2025-08-18T16:20:53Z",
+            "system_mtime": "2025-08-18T16:20:53Z",
+            "user_mtime": "2025-08-18T16:20:53Z",
+            "lock_version": 0,
+            "jsonmodel_type": "agent_identifier"
+          }
+        ],
+        "agent_sources": [],
+        "agent_places": [],
+        "agent_occupations": [],
+        "agent_functions": [],
+        "agent_topics": [],
+        "agent_resources": [],
+        "linked_agent_roles": [
+          "creator",
+          "subject"
+        ],
+        "external_documents": [],
+        "notes": [
+          {
+            "jsonmodel_type": "note_bioghist",
+            "persistent_id": "61f19c54e4769544adb608ff12e837d5",
+            "subnotes": [
+              {
+                "jsonmodel_type": "note_text",
+                "content": "<p>John Hancock was an American patriot, statesman, and signer of the Declaration of Independence. Born on January 23, 1737, in Braintree, Mass., he was educated at Harvard College (now Harvard University). In 1766 he was elected to the Massachusetts legislature, and from 1775 to 1780 Hancock was a member of the Continental Congress, serving as a presiding officer. By virtue of this office, he was the first to sign the Declaration of Independence, which he did boldly in large strokes. He was the first governor of the state of Massachusetts, holding that office from 1780 to 1785 and from 1789 until his death.</p>",
+                "publish": true
+              }
+            ],
+            "publish": true
+          }
+        ],
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "dates_of_existence": [
+          {
+            "create_time": "2025-08-18T16:20:53Z",
+            "system_mtime": "2025-08-18T16:20:53Z",
+            "user_mtime": "2025-08-18T16:20:53Z",
+            "lock_version": 0,
+            "date_type_structured": "range",
+            "date_label": "existence",
+            "jsonmodel_type": "structured_date_label",
+            "structured_date_range": {
+              "begin_date_standardized": "1737",
+              "end_date_standardized": "1793",
+              "create_time": "2025-08-18T16:20:53Z",
+              "system_mtime": "2025-08-18T16:20:53Z",
+              "user_mtime": "2025-08-18T16:20:53Z",
+              "lock_version": 0,
+              "begin_date_standardized_type": "standard",
+              "end_date_standardized_type": "standard",
+              "jsonmodel_type": "structured_date_range"
+            }
+          }
+        ],
+        "used_languages": [],
+        "metadata_rights_declarations": [],
+        "names": [
+          {
+            "lock_version": 3,
+            "primary_name": "Hancock",
+            "rest_of_name": "John",
+            "sort_name": "Hancock, John (1737-1793)",
+            "sort_name_auto_generate": true,
+            "create_time": "2025-08-18T16:20:53Z",
+            "system_mtime": "2025-08-18T16:20:53Z",
+            "user_mtime": "2025-08-18T16:20:53Z",
+            "authorized": true,
+            "is_display_name": true,
+            "source": "viaf",
+            "name_order": "inverted",
+            "jsonmodel_type": "name_person",
+            "use_dates": [],
+            "parallel_names": [],
+            "authority_id": "https://viaf.org/viaf/72204820"
+          }
+        ],
+        "agent_genders": [],
+        "related_agents": [],
+        "uri": "/agents/people/10720",
+        "agent_type": "agent_person",
+        "is_linked_to_published_record": true,
+        "display_name": {
+          "lock_version": 3,
+          "primary_name": "Hancock",
+          "rest_of_name": "John",
+          "sort_name": "Hancock, John (1737-1793)",
+          "sort_name_auto_generate": true,
+          "create_time": "2025-08-18T16:20:53Z",
+          "system_mtime": "2025-08-18T16:20:53Z",
+          "user_mtime": "2025-08-18T16:20:53Z",
+          "authorized": true,
+          "is_display_name": true,
+          "source": "viaf",
+          "name_order": "inverted",
+          "jsonmodel_type": "name_person",
+          "use_dates": [],
+          "parallel_names": [],
+          "authority_id": "https://viaf.org/viaf/72204820"
+        },
+        "title": "Hancock, John (1737-1793)"
+      }
+    },
+    {
+      "is_primary": false,
+      "role": "subject",
+      "relator": "rcp",
+      "terms": [],
+      "ref": "/agents/people/33574",
+      "_resolved": {
+        "lock_version": 9,
+        "publish": true,
+        "create_time": "2024-10-24T20:25:59Z",
+        "system_mtime": "2024-12-13T17:25:48Z",
+        "user_mtime": "2024-10-24T20:25:59Z",
+        "is_slug_auto": false,
+        "jsonmodel_type": "agent_person",
+        "agent_contacts": [],
+        "agent_record_controls": [],
+        "agent_alternate_sets": [],
+        "agent_conventions_declarations": [],
+        "agent_other_agency_codes": [],
+        "agent_maintenance_histories": [],
+        "agent_record_identifiers": [],
+        "agent_identifiers": [],
+        "agent_sources": [],
+        "agent_places": [],
+        "agent_occupations": [],
+        "agent_functions": [],
+        "agent_topics": [],
+        "agent_resources": [],
+        "linked_agent_roles": [
+          "subject"
+        ],
+        "external_documents": [],
+        "notes": [],
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "dates_of_existence": [],
+        "used_languages": [],
+        "metadata_rights_declarations": [],
+        "names": [
+          {
+            "lock_version": 0,
+            "primary_name": "Guerard",
+            "rest_of_name": "Benjamin",
+            "dates": "approximately 1733-1788",
+            "sort_name": "Guerard, Benjamin, approximately 1733-1788",
+            "sort_name_auto_generate": true,
+            "create_time": "2024-10-24T20:25:59Z",
+            "system_mtime": "2024-10-24T20:25:59Z",
+            "user_mtime": "2024-10-24T20:25:59Z",
+            "authorized": true,
+            "is_display_name": true,
+            "source": "lcnaf",
+            "name_order": "inverted",
+            "jsonmodel_type": "name_person",
+            "use_dates": [],
+            "parallel_names": [],
+            "authority_id": "http://viaf.org/viaf/6496900"
+          }
+        ],
+        "agent_genders": [],
+        "related_agents": [],
+        "uri": "/agents/people/33574",
+        "agent_type": "agent_person",
+        "is_linked_to_published_record": true,
+        "display_name": {
+          "lock_version": 0,
+          "primary_name": "Guerard",
+          "rest_of_name": "Benjamin",
+          "dates": "approximately 1733-1788",
+          "sort_name": "Guerard, Benjamin, approximately 1733-1788",
+          "sort_name_auto_generate": true,
+          "create_time": "2024-10-24T20:25:59Z",
+          "system_mtime": "2024-10-24T20:25:59Z",
+          "user_mtime": "2024-10-24T20:25:59Z",
+          "authorized": true,
+          "is_display_name": true,
+          "source": "lcnaf",
+          "name_order": "inverted",
+          "jsonmodel_type": "name_person",
+          "use_dates": [],
+          "parallel_names": [],
+          "authority_id": "http://viaf.org/viaf/6496900"
+        },
+        "title": "Guerard, Benjamin, approximately 1733-1788"
+      }
+    },
+    {
+      "is_primary": false,
+      "role": "subject",
+      "terms": [],
+      "ref": "/agents/corporate_entities/5565",
+      "_resolved": {
+        "lock_version": 9,
+        "publish": true,
+        "create_time": "2024-10-28T16:29:45Z",
+        "system_mtime": "2024-12-13T17:25:48Z",
+        "user_mtime": "2024-10-28T16:29:45Z",
+        "is_slug_auto": false,
+        "jsonmodel_type": "agent_corporate_entity",
+        "agent_contacts": [],
+        "agent_record_controls": [],
+        "agent_alternate_sets": [],
+        "agent_conventions_declarations": [],
+        "agent_other_agency_codes": [],
+        "agent_maintenance_histories": [],
+        "agent_record_identifiers": [],
+        "agent_identifiers": [],
+        "agent_sources": [],
+        "agent_places": [],
+        "agent_occupations": [],
+        "agent_functions": [],
+        "agent_topics": [],
+        "agent_resources": [],
+        "linked_agent_roles": [
+          "subject"
+        ],
+        "external_documents": [],
+        "notes": [],
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "dates_of_existence": [],
+        "used_languages": [],
+        "metadata_rights_declarations": [],
+        "names": [
+          {
+            "lock_version": 0,
+            "primary_name": "Massachusetts",
+            "subordinate_name_1": "General Court",
+            "sort_name": "Massachusetts. General Court",
+            "sort_name_auto_generate": true,
+            "create_time": "2024-10-28T16:29:45Z",
+            "system_mtime": "2024-10-28T16:29:45Z",
+            "user_mtime": "2024-10-28T16:29:45Z",
+            "authorized": true,
+            "is_display_name": true,
+            "jurisdiction": false,
+            "conference_meeting": false,
+            "source": "lcsh",
+            "jsonmodel_type": "name_corporate_entity",
+            "use_dates": [],
+            "parallel_names": []
+          }
+        ],
+        "related_agents": [],
+        "uri": "/agents/corporate_entities/5565",
+        "agent_type": "agent_corporate_entity",
+        "is_linked_to_published_record": true,
+        "display_name": {
+          "lock_version": 0,
+          "primary_name": "Massachusetts",
+          "subordinate_name_1": "General Court",
+          "sort_name": "Massachusetts. General Court",
+          "sort_name_auto_generate": true,
+          "create_time": "2024-10-28T16:29:45Z",
+          "system_mtime": "2024-10-28T16:29:45Z",
+          "user_mtime": "2024-10-28T16:29:45Z",
+          "authorized": true,
+          "is_display_name": true,
+          "jurisdiction": false,
+          "conference_meeting": false,
+          "source": "lcsh",
+          "jsonmodel_type": "name_corporate_entity",
+          "use_dates": [],
+          "parallel_names": []
+        },
+        "title": "Massachusetts. General Court"
+      }
+    }
+  ],
+  "import_previous_arks": [],
+  "ancestors": [
+    {
+      "ref": "/repositories/5/resources/4374",
+      "level": "collection"
+    }
+  ],
+  "instances": [
+    {
+      "lock_version": 0,
+      "create_time": "2024-12-13T17:25:48Z",
+      "system_mtime": "2024-12-13T17:25:48Z",
+      "user_mtime": "2024-12-13T17:25:48Z",
+      "instance_type": "mixed_materials",
+      "jsonmodel_type": "instance",
+      "is_representative": false,
+      "sub_container": {
+        "lock_version": 0,
+        "indicator_2": "8",
+        "create_time": "2024-12-13T17:25:48Z",
+        "system_mtime": "2024-12-13T17:25:48Z",
+        "user_mtime": "2024-12-13T17:25:48Z",
+        "type_2": "folder",
+        "jsonmodel_type": "sub_container",
+        "top_container": {
+          "ref": "/repositories/5/top_containers/122836",
+          "_resolved": {
+            "lock_version": 127,
+            "barcode": "32101114892548",
+            "indicator": "B-002106",
+            "create_time": "2024-09-05T14:41:41Z",
+            "system_mtime": "2026-09-24T18:15:33Z",
+            "user_mtime": "2024-09-05T14:44:22Z",
+            "created_for_collection": "/repositories/5/resources/4374",
+            "type": "box",
+            "jsonmodel_type": "top_container",
+            "active_restrictions": [],
+            "container_locations": [
+              {
+                "jsonmodel_type": "container_location",
+                "status": "current",
+                "start_date": "2024-09-05",
+                "system_mtime": "2024-09-05 14:44:22 UTC",
+                "user_mtime": "2024-09-05 14:44:22 UTC",
+                "ref": "/locations/23648",
+                "_resolved": {
+                  "lock_version": 9,
+                  "building": "Firestone Library",
+                  "title": "Firestone Library, Vault, Manuscripts Archival [scamss]",
+                  "room": "Vault",
+                  "area": "Manuscripts Archival",
+                  "classification": "scamss",
+                  "create_time": "2021-01-22T22:29:47Z",
+                  "system_mtime": "2022-11-16T16:53:06Z",
+                  "user_mtime": "2022-11-16T16:53:06Z",
+                  "jsonmodel_type": "location",
+                  "external_ids": [],
+                  "functions": [],
+                  "uri": "/locations/23648"
+                }
+              }
+            ],
+            "series": [],
+            "collection": [
+              {
+                "ref": "/repositories/5/resources/4374",
+                "identifier": "C1771",
+                "display_string": "Princeton University Library Single Item Acquisitions"
+              }
+            ],
+            "uri": "/repositories/5/top_containers/122836",
+            "repository": {
+              "ref": "/repositories/5"
+            },
+            "container_profile": {
+              "ref": "/container_profiles/17"
+            },
+            "restricted": false,
+            "is_linked_to_published_record": true,
+            "display_string": "Box B-002106: [Barcode: 32101114892548]",
+            "long_display_string": "Box B-002106 [Barcode: 32101114892548], Standard manuscript, Firestone Library, Vault, Manuscripts Archival [scamss], C1771, Princeton University Library Single Item Acquisitions"
+          }
+        }
+      }
+    }
+  ],
+  "notes": [
+    {
+      "jsonmodel_type": "note_multipart",
+      "persistent_id": "60739c03c93ad40ab620c31d35720394",
+      "label": "Content Description",
+      "type": "scopecontent",
+      "subnotes": [
+        {
+          "jsonmodel_type": "note_text",
+          "content": "Letter from Massachusetts Governor John Hancock to South Carolina Governor Benjamin Guerard, written March 30, 1784, Boston, regarding a group of enslaved people. Hancock states that he brought forth to the General Court a letter from Guerard and encloses “the whole of the transactions respecting the negroes” at the court's request.\n\nIncludes only the 1-page letter, not the document from the General Court.\n\nSigned with initials by John Hancock and addressed to Benjamin Guerard, Esq. \nDocket title on the back: “To the Governor of South Carolina, 1784.”",
+          "publish": true
+        }
+      ],
+      "publish": true
+    },
+    {
+      "jsonmodel_type": "note_multipart",
+      "persistent_id": "167052ab5b53991594132aa3e0475cc8",
+      "type": "acqinfo",
+      "subnotes": [
+        {
+          "jsonmodel_type": "note_text",
+          "content": "Purchased from James Cummins Bookseller in July 2023 (AM 2025-002).",
+          "publish": true
+        }
+      ],
+      "publish": true
+    },
+    {
+      "jsonmodel_type": "note_multipart",
+      "persistent_id": "216c904101fd9ce57d75c62a6e951eea",
+      "type": "processinfo",
+      "subnotes": [
+        {
+          "jsonmodel_type": "note_text",
+          "content": "Item processed and described by Lauren C. Williams in October 2024, incorporating some description provided by the dealer.",
+          "publish": true
+        }
+      ],
+      "publish": true
+    }
+  ],
+  "accession_links": [
+    {
+      "ref": "/repositories/5/accessions/20107"
+    }
+  ],
+  "uri": "/repositories/5/archival_objects/1497404",
+  "repository": {
+    "ref": "/repositories/5"
+  },
+  "resource": {
+    "ref": "/repositories/5/resources/4374"
+  },
+  "has_unpublished_ancestor": false
+}
