@@ -27,7 +27,7 @@ module AlmaPeople
         xml.expiry_date expiry_date if expiry_date
         xml.purge_date person["PATRON_PURGE_DATE"] if person["PATRON_PURGE_DATE"].present?
         create_status(status_flag: person["ELIGIBLE_INELIGIBLE"])
-        create_user_statistics(statistic_category: person["PVSTATCATEGORY"])
+        create_user_statistics
         create_patron_group
         xml.primary_id person["EMPLID"]
         xml.first_name person["PRF_OR_PRI_FIRST_NAM"] if person["PRF_OR_PRI_FIRST_NAM"].present? # _NAM is not a typo
@@ -65,11 +65,20 @@ module AlmaPeople
       end
     end
 
-    def create_user_statistics(statistic_category:)
-      return if statistic_category.blank?
+    def user_statistics
+      statistics = [person['PVSTATCATEGORY'].to_s]
+      statistics << 'PPPL' if person['VCURGROUP'] == 'PL'
+      statistics.delete_if(&:empty?)
+    end
+
+    def create_user_statistics
+      return if user_statistics.empty?
+
       xml.user_statistics do
-        xml.user_statistic(segment_type: "External") do
-          xml.statistic_category(desc: statistic_category) { xml.text statistic_category }
+        user_statistics.each do |statistic_category|
+          xml.user_statistic(segment_type: "External") do
+            xml.statistic_category(desc: statistic_category) { xml.text statistic_category }
+          end
         end
       end
     end
