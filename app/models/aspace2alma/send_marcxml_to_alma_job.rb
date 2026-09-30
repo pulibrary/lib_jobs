@@ -64,7 +64,7 @@ module Aspace2alma
     # rubocop:disable Metrics/CyclomaticComplexity
     # rubocop:disable Metrics/PerceivedComplexity
     def append_record(resource, file, log_out, barcode_duplicate_check)
-      my_resource = Resource.new(resource, @client, file, log_out)
+      my_resource = Resource.new(resource, @client)
 
       doc = my_resource.marc_xml
 
@@ -90,8 +90,6 @@ module Aspace2alma
       tags852 = my_resource.tags852
       tag856 = my_resource.tag856
       tags6_7xx = my_resource.tags6_7xx
-      my_resource.subfields
-      my_resource.datafields
 
       # do stuff
       ##################
@@ -173,10 +171,11 @@ module Aspace2alma
         segments = subfield_a.content.split('--')
         segments.each(&:strip!)
         subfield_a.content = segments[0]
-        segments[1..].each do |segment|
-          code = /^[0-9]{2}/.match?(segment) ? 'y' : 'x'
-          tag6xx.children.last.next = "<subfield code='#{code}'/>"
-          tag6xx.children.last.content = segment
+        segments[1..].inject(subfield_a) do |previous, segment|
+          subfield = subfield_a.dup
+          subfield['code'] = /^[0-9]{2}/.match?(segment) ? 'y' : 'x'
+          subfield.content = segment
+          previous.add_next_sibling(subfield)
         end
       end
 

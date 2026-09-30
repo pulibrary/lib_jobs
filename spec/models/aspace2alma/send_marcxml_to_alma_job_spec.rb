@@ -149,8 +149,8 @@ RSpec.describe Aspace2alma::SendMarcxmlToAlmaJob do
       expect(subfields(field)).to include(%w[2 lcsh])
     end
 
-    it 'splits headings at --' do
-      expect(subfields(datafield('650', 'Peace'))).to include(%w[a Peace], ['x', 'Societies, etc..'])
+    it 'splits headings at -- into subfields that follow the $a' do
+      expect(subfields(datafield('650', 'Peace'))).to eq([%w[a Peace], ['x', 'Societies, etc..'], ['y', '20th century']])
     end
 
     it 'adds a 046 with the dates from the 008' do
