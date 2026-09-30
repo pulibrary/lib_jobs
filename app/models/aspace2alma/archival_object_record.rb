@@ -495,7 +495,7 @@ module Aspace2alma
           end
 
         source_code =
-          if subject['source'] == 'lcsh' || subject['source'] == 'Library of Congress Subject Headings'
+          if MarcRules.lc_source?(subject['source']) || subject['source'] == 'Library of Congress Subject Headings'
             0
           else
             7
