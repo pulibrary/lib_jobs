@@ -48,6 +48,6 @@ class ReportDownloader
   end
 
   def process(temp_file)
-    process_class.new(temp_file:).process
+    process_class.new.process(temp_file:)
   end
 end

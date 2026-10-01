@@ -12,14 +12,9 @@ require 'csv'
 
 module AlmaRenew
   class RenewFile
-    attr_reader :temp_file, :renew_item_list
-    def initialize(temp_file:)
-      @temp_file = temp_file
-      @renew_item_list = []
-    end
-
-    def process
+    def process(temp_file:)
       CSVValidator.new(csv_filename: temp_file.path).require_headers ['Barcode', 'Patron Group', 'Expiry Date', 'Primary Identifier']
+      renew_item_list = []
       CSV.foreach(temp_file, headers: true, encoding: 'bom|utf-8') do |row|
         renew_item_list << Item.new(row.to_h)
       end
