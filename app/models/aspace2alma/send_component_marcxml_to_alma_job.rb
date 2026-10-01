@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 module Aspace2alma
   # Exports marcXML for archival_objects
+  # rubocop:disable Metrics/ClassLength
   class SendComponentMarcxmlToAlmaJob < LibJob
     include Aspace2alma::Retries
 
@@ -19,7 +20,7 @@ module Aspace2alma
     # how far back to look on the very first run
     DEFAULT_LOOKBACK = 1.day
 
-    # since overrides the last run time
+    # since can only reach further back than the last run
     def initialize(since: nil)
       super(category: CATEGORY)
       @since = since
@@ -31,16 +32,19 @@ module Aspace2alma
     def handle(data_set:)
       started_at = Time.zone.now
 
-      # rename old file
-      rename_previous_file
-
       with_retries(ASPACE_ERRORS, 'logging into ArchivesSpace') { aspace_login }
-      since = @since || last_run_time
+      since = [@since, window_start].compact.min
 
       ao_jsons = get_all_repo_uris.flat_map { |repo_uri| modified_archival_objects_for_repo(repo_uri:, since:) }
-      deliver(ao_jsons) unless ao_jsons.empty?
+      if ao_jsons.any?
+        deliver(ao_jsons)
+      elsif !unimported?(last_successful_run)
+        rename_previous_file
+      end
 
-      Rails.logger.info("#{self.class}: exported #{ao_jsons.size} archival object record(s) modified since #{since}")
+      report = "exported #{ao_jsons.size} archival object record(s) modified since #{since.utc.iso8601}"
+      Rails.logger.info("#{self.class}: #{report}")
+      data_set.data = report
       data_set.report_time = started_at
       data_set
     end
@@ -123,15 +127,38 @@ module Aspace2alma
       @collection_languages ||= {}
     end
 
-    # write and upload the file
+    # write the file, then replace the old one
     def deliver(ao_jsons)
       File.write(FILENAME, Aspace2alma::ArchivalObjectRecord.collection_to_marc(ao_jsons, collection_languages:))
+      rename_previous_file
       with_retries(SFTP_ERRORS, "uploading #{FILENAME}") { Aspace2almaHelper.alma_sftp(FILENAME) }
     end
 
     # where this run starts looking
-    def last_run_time
-      (last_successful_run_time || DEFAULT_LOOKBACK.ago) - WINDOW_SECONDS
+    def window_start
+      last_run = last_successful_run
+      return DEFAULT_LOOKBACK.ago - WINDOW_SECONDS unless last_run
+      return window_start_of(last_run) if unimported?(last_run) && window_start_of(last_run)
+
+      last_run.report_time - WINDOW_SECONDS
+    end
+
+    # finished after Alma's last pickup?
+    def unimported?(run)
+      run.present? && run.created_at > last_pickup_time
+    end
+
+    # where a run started looking
+    def window_start_of(run)
+      Time.zone.parse(run.data.to_s[/since (\S+)\z/, 1].to_s)
+    end
+
+    # Alma's most recent daily import
+    def last_pickup_time
+      zone = ActiveSupport::TimeZone[Rails.application.config.aspace.component_export_pickup_time_zone]
+      pickup = zone.parse(Rails.application.config.aspace.component_export_pickup_time)
+      pickup > Time.current ? pickup - 1.day : pickup
     end
   end
+  # rubocop:enable Metrics/ClassLength
 end

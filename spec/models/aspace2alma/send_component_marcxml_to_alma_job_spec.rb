@@ -123,6 +123,93 @@ RSpec.describe Aspace2alma::SendComponentMarcxmlToAlmaJob do
       expect(Rails.logger).to have_received(:info).with(/exported 1 archival object record\(s\) modified since/)
     end
 
+    it 'records where it started looking' do
+      job.run
+
+      expect(DataSet.find_by(category: 'Aspace2Alma_component').data)
+        .to eq('exported 1 archival object record(s) modified since 2026-06-07T11:59:55Z')
+    end
+
+    context 'when the same job runs again after Alma picked up its file' do
+      let(:second_query) do
+        { q: %(resource:"/repositories/5/resources/3950" AND system_mtime:[2026-06-08T11:59:55Z TO *]),
+          type: ['archival_object'], page: 1, page_size: 250 }
+      end
+
+      before do
+        allow(client).to receive(:get)
+          .with('/repositories/5/search', query: second_query)
+          .and_return(instance_double('ArchivesSpace::Response', parsed: search_results))
+      end
+
+      it 'searches from the start of its previous run' do
+        job.run
+        Timecop.freeze(Time.utc(2026, 6, 8, 16, 0, 0))
+        job.run
+
+        expect(client).to have_received(:get).with('/repositories/5/search', query: search_query).once
+        expect(client).to have_received(:get).with('/repositories/5/search', query: second_query).once
+      end
+    end
+
+    context 'when the same job runs again before Alma picked up its file' do
+      it "searches the previous run's window again" do
+        job.run
+        Timecop.freeze(frozen_time + 2.hours)
+        job.run
+
+        expect(client).to have_received(:get).with('/repositories/5/search', query: search_query).twice
+      end
+    end
+
+    context "when Alma hasn't picked up the evening run's file yet" do
+      let(:since_in_solr_format) { '2026-06-07T03:29:55Z' }
+
+      before do
+        DataSet.create!(category: 'Aspace2Alma_component', status: true, report_time: Time.utc(2026, 6, 8, 3, 30, 0),
+                        created_at: Time.utc(2026, 6, 8, 3, 40, 0),
+                        data: 'exported 2 archival object record(s) modified since 2026-06-07T03:29:55Z')
+      end
+
+      it "covers the evening run's changes too" do
+        job.run
+
+        expect(client).to have_received(:get).with('/repositories/5/search', query: search_query)
+        expect(Aspace2almaHelper).to have_received(:alma_sftp).with('marcao_export.xml')
+      end
+
+      context 'and no aos have changed' do
+        let(:search_results) { { 'this_page' => 1, 'last_page' => 1, 'results' => [] } }
+
+        it 'leaves the file for Alma' do
+          job.run
+
+          expect(Aspace2almaHelper).not_to have_received(:rename_file)
+        end
+      end
+
+      context 'and the run fails' do
+        before { allow(job).to receive(:aspace_login).and_raise(Errno::ECONNREFUSED) }
+
+        it 'leaves the file for Alma' do
+          expect { job.run }.to raise_error(Errno::ECONNREFUSED)
+
+          expect(Aspace2almaHelper).not_to have_received(:rename_file)
+        end
+      end
+
+      context 'and Alma picks it up before the next run' do
+        let(:frozen_time) { Time.utc(2026, 6, 8, 16, 0, 0) }
+        let(:since_in_solr_format) { '2026-06-08T03:29:55Z' }
+
+        it 'searches from the start of the evening run' do
+          job.run
+
+          expect(client).to have_received(:get).with('/repositories/5/search', query: search_query)
+        end
+      end
+    end
+
     context 'when no aos have changed' do
       let(:search_results) { { 'this_page' => 1, 'last_page' => 1, 'results' => [] } }
 
@@ -145,14 +232,26 @@ RSpec.describe Aspace2alma::SendComponentMarcxmlToAlmaJob do
       let(:since_in_solr_format) { '2026-06-06T03:29:55Z' }
 
       before do
-        DataSet.create!(category: 'Aspace2Alma_component', status: true, report_time: Time.utc(2026, 6, 6, 3, 30, 0))
-        DataSet.create!(category: 'Aspace2Alma_component', status: false, report_time: Time.utc(2026, 6, 7, 3, 30, 0))
+        DataSet.create!(category: 'Aspace2Alma_component', status: true, report_time: Time.utc(2026, 6, 6, 3, 30, 0),
+                        created_at: Time.utc(2026, 6, 6, 3, 40, 0))
+        DataSet.create!(category: 'Aspace2Alma_component', status: false, report_time: Time.utc(2026, 6, 7, 3, 30, 0),
+                        created_at: Time.utc(2026, 6, 7, 3, 40, 0))
       end
 
       it 'searches from the start of the last successful run' do
         job.run
 
         expect(client).to have_received(:get).with('/repositories/5/search', query: search_query)
+      end
+
+      context 'and the given since time is later' do
+        subject(:job) { described_class.new(since: Time.utc(2026, 6, 8, 9, 0, 0)) }
+
+        it 'still searches from the start of the last successful run' do
+          job.run
+
+          expect(client).to have_received(:get).with('/repositories/5/search', query: search_query)
+        end
       end
     end
 
@@ -214,8 +313,7 @@ RSpec.describe Aspace2alma::SendComponentMarcxmlToAlmaJob do
         expect { job.run }.to raise_error(Errno::ECONNREFUSED)
 
         expect(job).to have_received(:aspace_login).exactly(described_class::RETRY_ATTEMPTS + 1).times
-        expect(Aspace2almaHelper).to have_received(:rename_file)
-          .with('/alma/aspace/marcao_export.xml', '/alma/aspace/marcao_export_old.xml')
+        expect(Aspace2almaHelper).not_to have_received(:rename_file)
         expect(DataSet.where(category: 'Aspace2Alma_component')).to be_empty
       end
     end
@@ -250,8 +348,7 @@ RSpec.describe Aspace2alma::SendComponentMarcxmlToAlmaJob do
       it 'fails' do
         expect { job.run }.to raise_error(Net::ReadTimeout)
 
-        expect(Aspace2almaHelper).to have_received(:rename_file)
-          .with('/alma/aspace/marcao_export.xml', '/alma/aspace/marcao_export_old.xml')
+        expect(Aspace2almaHelper).not_to have_received(:rename_file)
         expect(Aspace2almaHelper).not_to have_received(:alma_sftp)
         expect(DataSet.where(category: 'Aspace2Alma_component')).to be_empty
       end
