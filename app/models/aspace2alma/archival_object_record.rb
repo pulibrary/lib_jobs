@@ -21,8 +21,7 @@ module Aspace2alma
       'books' => '     |     ||| | ',
       'music' => '|||  |           ',
       'computer_files' => '     |  |        ',
-      'visual_materials' => '|||  |         ||',
-      'mixed_materials' => '     |           '
+      'visual_materials' => '|||  |         ||'
     }.freeze
 
     # leader/06
@@ -30,8 +29,7 @@ module Aspace2alma
       'a' => 'books', 't' => 'books',
       'i' => 'music',
       'm' => 'computer_files',
-      'g' => 'visual_materials', 'k' => 'visual_materials',
-      'p' => 'mixed_materials'
+      'g' => 'visual_materials', 'k' => 'visual_materials'
     }.freeze
 
     # the resolved archival object
@@ -260,7 +258,6 @@ module Aspace2alma
       when 'computer_disks' then 'm'
       when 'graphic_materials' then 'k'
       when 'microform', 'moving_images' then 'g'
-      when 'mixed_materials' then 'p'
       else 't'
       end
     end

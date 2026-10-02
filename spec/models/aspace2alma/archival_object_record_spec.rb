@@ -82,7 +82,7 @@ RSpec.describe Aspace2alma::ArchivalObjectRecord do
     describe 'controlfield 008/18-34' do
       # some of these need "|" not " "
       [
-        ['mixed_materials', 'p', [23]],
+        ['mixed_materials', 't', [23, 29, 30, 31, 33]],
         ['books', 'a', [23, 29, 30, 31, 33]],
         ['audio', 'i', [18, 19, 20, 23]],
         ['computer_disks', 'm', [23, 26]],
