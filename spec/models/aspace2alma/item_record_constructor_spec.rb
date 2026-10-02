@@ -11,7 +11,7 @@ RSpec.shared_context 'with common mocks' do
   let(:mock_doc) { instance_spy(Nokogiri::XML::Document) }
   let(:mock_tag099_a) { instance_spy(Nokogiri::XML::Element, content: 'C0001') }
   let(:mock_log_out) { instance_spy(File) }
-  let(:params) { Aspace2alma::ItemParams.new(mock_doc, mock_tag099_a, mock_log_out, nil) }
+  let(:params) { Aspace2alma::ItemParams.new(mock_doc, mock_tag099_a, mock_log_out) }
   let(:mock_top_container) { instance_spy(Aspace2alma::TopContainer) }
 end
 
@@ -47,9 +47,6 @@ RSpec.describe Aspace2alma::ItemRecordConstructor do
     include_context 'with container data'
 
     before do
-      # Create a test CSV file
-      FileUtils.mkdir_p('spec/fixtures')
-
       # Mock TopContainer class
       allow(Aspace2alma::TopContainer).to receive(:new).and_return(mock_top_container)
       allow(mock_top_container).to receive_messages(valid?: true, item_record: '<item>test</item>')
@@ -161,7 +158,7 @@ RSpec.describe Aspace2alma::ItemRecordConstructor do
       let(:real_doc) { Aspace2alma::Resource.new(resource_uri, real_client, '', '').marc_xml }
       let(:real_tag099_a) { real_doc.at_xpath('//marc:datafield[@tag="099"]/marc:subfield[@code="a"]') }
       let(:real_log_out) { StringIO.new }
-      let(:real_params) { Aspace2alma::ItemParams.new(real_doc, real_tag099_a, real_log_out, nil) }
+      let(:real_params) { Aspace2alma::ItemParams.new(real_doc, real_tag099_a, real_log_out) }
 
       before do
         # Stub the ArchivesSpace API calls
@@ -227,10 +224,48 @@ RSpec.describe Aspace2alma::ItemRecordConstructor do
     end
   end
 
+  describe 'comparing barcodes with Alma' do
+    let(:client) { instance_double(ArchivesSpace::Client) }
+    let(:duplicate_check) { instance_double(Aspace2alma::AlmaDuplicateBarcodeCheck) }
+    let(:doc) do
+      Nokogiri::XML(<<~XML)
+        <record xmlns="http://www.loc.gov/MARC21/slim" xmlns:marc="http://www.loc.gov/MARC21/slim">
+          <datafield ind1=" " ind2=" " tag="099"><subfield code="a">C0001</subfield></datafield>
+        </record>
+      XML
+    end
+    let(:params) do
+      Aspace2alma::ItemParams.new(doc, doc.at_xpath('//marc:datafield[@tag="099"]/marc:subfield[@code="a"]'), StringIO.new)
+    end
+
+    def container(indicator, barcode, location)
+      { 'json' => { 'type' => 'box', 'indicator' => indicator, 'barcode' => barcode,
+                    'container_locations' => [{ '_resolved' => { 'classification' => location } }] }.to_json }
+    end
+
+    before do
+      containers = [container('1', '32101000000001', 'scarcpxm'), container('2', '32101000000002', 'scarcpxm'),
+                    container('3', '32101000000003', 'scamss')]
+      allow(client).to receive(:get)
+        .with('repositories/2/top_containers/search', query: { q: 'collection_uri_u_sstr:"/repositories/2/resources/123"' })
+        .and_return(instance_double(ArchivesSpace::Response, parsed: { 'response' => { 'docs' => containers } }))
+      allow(duplicate_check).to receive(:duplicate?).with('32101000000001').and_return(true)
+      allow(duplicate_check).to receive(:duplicate?).with('32101000000002').and_return(false)
+    end
+
+    it 'adds items only for ReCAP barcodes that Alma does not have yet' do
+      described_class.new(client, duplicate_check).construct_item_records('/repositories/2/resources/123', params)
+
+      items = doc.xpath('//marc:datafield[@tag="949"]').map do |field|
+        field.xpath('marc:subfield').to_h { |subfield| [subfield['code'], subfield.content] }
+      end
+      expect(items).to eq([{ 'a' => '32101000000002', 'b' => 'box 2', 'c' => 'scarcpxm', 'd' => '(PULFA)C0001' }])
+      expect(duplicate_check).not_to have_received(:duplicate?).with('32101000000003')
+    end
+  end
+
   describe Aspace2alma::ItemRecordUtils do
     include_context 'with common mocks'
-
-    let(:alma_barcodes_set) { Set.new(['12345', '67890']) }
 
     describe '.extract_repository_id' do
       it 'extracts repository ID from resource URI' do
@@ -288,27 +323,14 @@ RSpec.describe Aspace2alma::ItemRecordConstructor do
     let(:mock_doc) { instance_spy(Nokogiri::XML::Document) }
     let(:mock_tag) { instance_spy(Nokogiri::XML::Element) }
     let(:mock_log) { instance_spy(File) }
-    let(:barcode_set) { Set.new(['123', '456']) }
 
     describe 'initialization' do
       it 'creates a struct with all required fields' do
-        params = described_class.new(mock_doc, mock_tag, mock_log, barcode_set)
+        params = described_class.new(mock_doc, mock_tag, mock_log)
 
         expect(params.doc).to eq(mock_doc)
         expect(params.tag099_a).to eq(mock_tag)
         expect(params.log_out).to eq(mock_log)
-        expect(params.alma_barcodes_set).to eq(barcode_set)
-      end
-    end
-
-    describe 'field access' do
-      let(:params) { described_class.new(mock_doc, mock_tag, mock_log, nil) }
-
-      it 'allows reading and writing alma_barcodes_set' do
-        expect(params.alma_barcodes_set).to be_nil
-
-        params.alma_barcodes_set = barcode_set
-        expect(params.alma_barcodes_set).to eq(barcode_set)
       end
     end
   end

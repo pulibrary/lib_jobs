@@ -207,7 +207,7 @@ module Aspace2alma
       end
 
       # addresses github #397
-      params = ItemParams.new(doc, tag099_a, log_out, nil)
+      params = ItemParams.new(doc, tag099_a, log_out)
       item_constructor = ItemRecordConstructor.new(@client, barcode_duplicate_check)
       item_constructor.construct_item_records(resource, params)
 
