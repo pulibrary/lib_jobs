@@ -14,6 +14,7 @@ module Aspace2alma
                         Errno::EHOSTUNREACH, Errno::ENETUNREACH].freeze
     TRANSIENT_HTTP_STATUSES = %w[429 500 502 503 504].freeze
 
+    # if we can't reach Alma, we send no barcodes (i.e. we treat them all as if they were duplicates)
     def duplicate?(barcode)
       check_variables
       return true if alma_barcodes.nil?
