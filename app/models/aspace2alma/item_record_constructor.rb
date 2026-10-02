@@ -3,18 +3,17 @@ module Aspace2alma
   # This class processes archival containers and constructs MARC XML item records.
   #
   # Class workflow:
-  # 1. Load and validate Alma barcode data from CSV files
-  # 2. Fetch container records from ArchivesSpace API for a specific resource
-  # 3. Sort containers by indicator number for consistent processing order
-  # 4. Process each container individually, creating MARC records for valid ones
-  # 5. Log successful item record creation for audit and monitoring
+  # 1. Fetch container records from ArchivesSpace API for a specific resource
+  # 2. Sort containers by indicator number for consistent processing order
+  # 3. Skip containers that aren't at ReCAP, have no barcode, or whose barcode
+  #    is already in Alma (checked through the Alma API by AlmaDuplicateBarcodeCheck)
+  # 4. Add a 949 item record for each remaining container and log it
   #
-
   # @example Basic usage
   #   client = ArchivesSpace::Client.new(config)
-  #   params = ItemParams.new(marc_doc, tag099_a, logger, nil)
-  #   constructor = ItemRecordConstructor.new(client)
-  #   constructor.construct_item_records("barcodes.csv", "/repositories/2/resources/123", params)
+  #   params = ItemParams.new(marc_doc, tag099_a, logger)
+  #   constructor = ItemRecordConstructor.new(client, AlmaDuplicateBarcodeCheck.new)
+  #   constructor.construct_item_records("/repositories/2/resources/123", params)
   #
   # @see ItemRecordUtils for utility functions
   # @see TopContainer for container-specific logic

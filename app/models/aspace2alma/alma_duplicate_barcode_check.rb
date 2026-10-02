@@ -8,8 +8,17 @@ module Aspace2alma
   # set that contains all items in SC locations with barcodes.  This way, we can
   # avoid adding duplicate barcodes to Alma.
   class AlmaDuplicateBarcodeCheck
+    RETRY_ATTEMPTS = 3
+    TRANSIENT_ERRORS = [Net::OpenTimeout, Net::ReadTimeout, SocketError, EOFError, OpenSSL::SSL::SSLError, JSON::ParserError,
+                        Errno::ECONNRESET, Errno::ECONNABORTED, Errno::ETIMEDOUT, Errno::ECONNREFUSED,
+                        Errno::EHOSTUNREACH, Errno::ENETUNREACH].freeze
+    TRANSIENT_HTTP_STATUSES = %w[429 500 502 503 504].freeze
+
+    # if we can't reach Alma, we send no barcodes (i.e. we treat them all as if they were duplicates)
     def duplicate?(barcode)
       check_variables
+      return true if alma_barcodes.nil?
+
       alma_barcodes.include? barcode
     end
 
@@ -39,16 +48,47 @@ module Aspace2alma
     private
 
     def alma_barcodes
-      @alma_barcodes ||= begin
-        offsets_to_request.each do |offset|
-          sleep 1 until can_make_another_request?
-          request_threads << Thread.new do
-            response = AlmaMemberSetResponse.from_uri uri(offset)
-            response.barcodes
-          end
+      return @alma_barcodes if defined?(@alma_barcodes)
+
+      @alma_barcodes = fetch_alma_barcodes
+    rescue StandardError => error
+      raise unless transient?(error)
+
+      message = "#{self.class}: Alma unreachable after #{RETRY_ATTEMPTS} retries (#{error.class}: #{error.message}), " \
+                'adding no item records this run'
+      Rails.logger.error(message)
+      Honeybadger.notify(message)
+      @alma_barcodes = nil
+    end
+
+    def fetch_alma_barcodes
+      request_threads = []
+      offsets_to_request.each do |offset|
+        sleep 1 until can_make_another_request?(request_threads)
+        request_threads << Thread.new do
+          with_retries { AlmaMemberSetResponse.from_uri(uri(offset)).barcodes }
         end
-        request_threads.map(&:value).flatten.to_set
       end
+      request_threads.map(&:value).flatten.to_set
+    end
+
+    def with_retries
+      attempt = 0
+      begin
+        yield
+      rescue StandardError => error
+        attempt += 1
+        raise unless transient?(error) && attempt <= RETRY_ATTEMPTS
+
+        sleep(attempt)
+        retry
+      end
+    end
+
+    def transient?(error)
+      return TRANSIENT_HTTP_STATUSES.include?(error.io.status.first) if error.is_a?(OpenURI::HTTPError)
+
+      TRANSIENT_ERRORS.any? { |transient_error| error.is_a?(transient_error) }
     end
 
     def offsets_to_request
@@ -60,11 +100,7 @@ module Aspace2alma
       (0..total_barcode_count).step(alma_page_size)
     end
 
-    def request_threads
-      @request_threads ||= []
-    end
-
-    def can_make_another_request?
+    def can_make_another_request?(request_threads)
       # Alma only allows 10 API requests per second for all of the
       # PUL sandbox.
       # So we make sure that there are only 5 active request threads
@@ -76,7 +112,7 @@ module Aspace2alma
     end
 
     def total_barcode_count
-      @total_barcode_count ||= AlmaMemberSetResponse.from_uri(uri(0)).total_barcode_count
+      @total_barcode_count ||= with_retries { AlmaMemberSetResponse.from_uri(uri(0)).total_barcode_count }
     end
 
     def uri(offset)

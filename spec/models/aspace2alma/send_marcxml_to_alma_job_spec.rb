@@ -126,7 +126,7 @@ RSpec.describe Aspace2alma::SendMarcxmlToAlmaJob do
       doc = Nokogiri::XML('<test/>')
       tag099_a = doc.at_xpath('//test')
 
-      expect { Aspace2alma::ItemParams.new(doc, tag099_a, log_out, nil) }.not_to raise_error
+      expect { Aspace2alma::ItemParams.new(doc, tag099_a, log_out) }.not_to raise_error
     end
   end
 
