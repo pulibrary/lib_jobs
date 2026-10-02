@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://www.loc.gov/MARC21/slim" xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/MARC21/slim https://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">
+  <record>
+    <leader>00000npcaa2200000 u 4500</leader>
+    <controlfield tag="008">260924i19221972xx                  eng d</controlfield>
+    <datafield ind1=" " ind2=" " tag="040">
+      <subfield code="b">eng</subfield>
+      <subfield code="e">Finding aid content adheres to that prescribed by Describing Archives: A Content Standard.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="041">
+      <subfield code="a">eng</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="099">
+      <subfield code="a">MC153</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="100">
+      <subfield code="a">Moore, Hugh,</subfield>
+      <subfield code="e">creator</subfield>
+      <subfield code="0">MOOREHUGH70595093.</subfield>
+      <subfield code="4">cre</subfield>
+      <subfield code="0">https://viaf.org/viaf/70595093</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="0" tag="245">
+      <subfield code="a">Hugh Moore Fund Collection,</subfield>
+      <subfield code="f">1922-1972</subfield>
+      <subfield code="g">1939-1970</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="300">
+      <subfield code="a">32</subfield>
+      <subfield code="f">boxes</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="300">
+      <subfield code="a">2</subfield>
+      <subfield code="f">folders</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="300">
+      <subfield code="a">10</subfield>
+      <subfield code="f">items</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Physical Characteristics / Technical Requirements: For preservation reasons, original analog
+and digital media may not be read or played back in the
+reading room. Users may visually inspect physical media
+but may not remove it from its enclosure. All analog
+audiovisual media must be digitized to preservation-quality
+standards prior to use. Audiovisual digitization requests
+are processed by an approved third-party vendor. Please note,
+the transfer time required can be as little as several weeks
+to as long as several months and there may be financial costs
+associated with the process.
+Requests should be directed through the
+ Ask Us Form .</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Location of resource: scamudd.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Processing Information: This collection was processed by Melissa Johnson during 1994 and 1995. Finding aid written by Melissa Johnson during 1995. The finding aid was updated by Maureen Callahan in April 2004 in order to incorporate materials in the April 2012 accession. These materials were re-housed in archival folders and boxes at this time.
+
+The 2024 addition was processed by Will Clements.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="506">
+      <subfield code="a">Collection is open for research use.</subfield>
+    </datafield>
+    <datafield ind1="3" ind2=" " tag="520">
+      <subfield code="a">The Hugh Moore Fund Collection consists of the files that belonged to Hugh Moore relating to his strong interest in the areas of world peace and world population. Moore established The Hugh Moore Fund in 1944 as a means of funding a number of organizations relating to these interests. Some of the materials in this collection pre-date 1944; these are the papers of organizations to which Moore belonged and which The Hugh Moore Fund supported.</subfield>
+    </datafield>
+    <datafield ind1="2" ind2=" " tag="520">
+      <subfield code="a">Consists of correspondence, memoranda, articles, speeches, photographs, and posters belonging to Moore, relating to his interest in the areas of world peace and world population. The organizations which the Hugh Moore Fund supported or on which Hugh Moore served include the United Nations Association, the League of Nations, American Council on NATO, the Atlantic Citizen's Congress, the Atlantic Institute, and the Atlantic Union Committee. The subject files relating to the United Nations contain materials relating to Moore's involvement with the American Association for the United Nations (1937-1962), formerly known as the League of Nations Association and the United Nations Association. Materials relating to Moore's role as a consultant to the U.S. Delegation at the 1945 San Francisco conference to establish the United Nations are found as well, located under the Americans United for World Organization.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="524">
+      <subfield code="a">Identification of specific item; Date (if known); Hugh Moore Fund Collection; Box and Folder Number; Public Policy Papers, Special Collections, Princeton University Library.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="540">
+      <subfield code="a"> Single copies may be made for research purposes. To cite or publish quotations that fall within Fair Use, as defined under  U. S. Copyright Law , no permission is required. For instances beyond Fair Use, it is the responsibility of the researcher to determine whether any permissions related to copyright, privacy, publicity, or any other rights are necessary for their intended use of the Library's materials, and to obtain all required permissions from any existing rights holders, if they have not already done so. Princeton University Library’s Special Collections does not charge any permission or use fees for the publication of images of materials from our collections, nor does it require researchers to obtain its permission for said use. The department does request that its collections be properly cited and images credited. More detailed information can be found on the  Copyright, Credit and Citations Guidelines  page on our website. If you have any questions, please feel free to contact us through the  Ask Us! form . .</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="541">
+      <subfield code="a">The Hugh Moore Fund Collection was donated to Mudd Library by Hugh Moore and Louise Moore Pine in a series of accessions from 1975 to 1994. Earlier accessions were integrated and processed as one collection. Later, additional accessions were simply added to the collection. In 1994 a final accession was received. All accessions have now been integrated to form one collection. As a result, materials have been rearranged and placed into an order that is as straightforward and accessible as possible.
+
+ The materials in Series 6 came from the estate of Louise W. Moore Pine (Hugh Moore's widow) via her executrix, Antonia Grifo in  April 2012 . The accession number associated with this gift is ML.2012.018.
+ 
+An addition, consisting of an account ledger, was donated by Scott Moore in 2024. The accession number associated with this gift is ML-2024-010.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="544">
+      <subfield code="d">Related material can be found in The Committee to Defend America by Aiding the Allies Collection [MC011]. Columbia University holds materials related to the Declaration of Atlantic Unity.
+
+ Related publications include Lawrence Lader's book, Breeding Ourselves to Death published in New York by Ballantine Books 1971).</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="583">
+      <subfield code="a">Materials relating to the Dixie Cup Corporation were removed from the collection in 1995. The Dixie Cup Records are located in the archives at Lafayette College in Easton, Pa. Please contact the Archives and Special Collections at Lafayette College for information regarding this collection.
+
+ A small group of materials relating to the Committee on the Marshall Plan, of which Moore served as treasurer, were separated from the collection in April, 1994, and sent to the Truman Presidential Library in Independence, Missouri where they will complement the other holdings on the Marshall Plan that Moore had sent to that library at an earlier date.
+
+ Several books that came in the April 2012 accession were sent to the book sale.</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Canfield, Cass</subfield>
+      <subfield code="0">CANFIELDCASS20931128.</subfield>
+      <subfield code="0">https://viaf.org/viaf/20931128</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Clayton, Will</subfield>
+      <subfield code="0">CLAYTONWILL47566690.</subfield>
+      <subfield code="0">https://viaf.org/viaf/47566690</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Draper, William F.</subfield>
+      <subfield code="0">DRAPERWILLIAMF96001633.</subfield>
+      <subfield code="0">https://viaf.org/viaf/96001633</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Kefauver, Estes</subfield>
+      <subfield code="0">KEFAUVERESTES57132725.</subfield>
+      <subfield code="0">https://viaf.org/viaf/57132725</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Lader, Lawrence</subfield>
+      <subfield code="0">LADERLAWRENCE44424990.</subfield>
+      <subfield code="0">https://viaf.org/viaf/44424990</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Marts, Arnauld C.</subfield>
+      <subfield code="0">MARTSARNAULDC.</subfield>
+      <subfield code="2">local</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Osborne, Lithgow</subfield>
+      <subfield code="0">OSBORNELITHGOW5155409714208742362.</subfield>
+      <subfield code="0">https://viaf.org/viaf/5155409714208742362</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Rockefeller, John D.</subfield>
+      <subfield code="b">III</subfield>
+      <subfield code="q">(John Davison)</subfield>
+      <subfield code="0">ROCKEFELLERJOHNDIIIJOHNDAVISON110397434.</subfield>
+      <subfield code="0">https://viaf.org/viaf/110397434</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Roper, Elmo</subfield>
+      <subfield code="0">ROPERELMO93042560.</subfield>
+      <subfield code="0">https://viaf.org/viaf/93042560</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Sanger, Margaret</subfield>
+      <subfield code="0">SANGERMARGARET64013684.</subfield>
+      <subfield code="0">https://viaf.org/viaf/64013684</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">Committee to Defend America by Aiding the Allies.</subfield>
+      <subfield code="0">COMMITTEETODEFENDAMERICABYAIDINGTHEALLIES150244299</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">Council on foreign relations.</subfield>
+      <subfield code="0">COUNCILONFOREIGNRELATIONS123753286</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">American Association for the United Nations.</subfield>
+      <subfield code="0">AMERICANASSOCIATIONFORTHEUNITEDNATIONS140147729</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">Americans United for World Organization (U.S.).</subfield>
+      <subfield code="0">AMERICANSUNITEDFORWORLDORGANIZATIONUS</subfield>
+      <subfield code="2">local</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">Atlantic Citizens' Congress (U.S.).</subfield>
+      <subfield code="0">ATLANTICCITIZENSCONGRESSUS</subfield>
+      <subfield code="2">local</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">Atlantic Union (U.S.).</subfield>
+      <subfield code="0">ATLANTICUNIONUS151240396</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">Atlantic Union Committee.</subfield>
+      <subfield code="0">ATLANTICUNIONCOMMITTEE144394085</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">Woodrow Wilson Foundation.</subfield>
+      <subfield code="0">WOODROWWILSONFOUNDATION126123396</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">World peace foundation.</subfield>
+      <subfield code="0">WORLDPEACEFOUNDATION131945342</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">World Population Emergency Campaign (U.S.).</subfield>
+      <subfield code="0">WORLDPOPULATIONEMERGENCYCAMPAIGNUS151760051</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">United Nations association of the United States of America.</subfield>
+      <subfield code="0">UNITEDNATIONSASSOCIATIONOFTHEUNITEDSTATESOFAMERICA146405760</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">United Nations association of the United States of America.</subfield>
+      <subfield code="0">UNITEDNATIONSASSOCIATIONOFTHEUNITEDSTATESOFAMERICA146405760</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">United Nations Monetary and Financial Conference 1944 Bretton Woods, N.H.</subfield>
+      <subfield code="0">UNITEDNATIONSMONETARYANDFINANCIALCONFERENCEBRETTONWOODSNH127880546</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">United Nations.</subfield>
+      <subfield code="0">UNITEDNATIONS144904638</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">Saint Lawrence Seaway Development Corporation.</subfield>
+      <subfield code="0">SAINTLAWRENCESEAWAYDEVELOPMENTCORPORATION126670589</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">League of Nations.</subfield>
+      <subfield code="0">LEAGUEOFNATIONS245646536</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">International Free World Association.</subfield>
+      <subfield code="0">INTERNATIONALFREEWORLDASSOCIATION150099562</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">International Planned Parenthood Federation.</subfield>
+      <subfield code="0">INTERNATIONALPLANNEDPARENTHOODFEDERATION139218365</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">Hugh Moore fund.</subfield>
+      <subfield code="0">HUGHMOOREFUND143092139</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">North Atlantic Treaty Organization.</subfield>
+      <subfield code="0">NORTHATLANTICTREATYORGANIZATION148423701</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">Planned parenthood federation of America.</subfield>
+      <subfield code="0">PLANNEDPARENTHOODFEDERATIONOFAMERICA153042718</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">Population Crisis Committee.</subfield>
+      <subfield code="0">POPULATIONCRISISCOMMITTEE128435691</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Birth control</subfield>
+      <subfield code="z">United States</subfield>
+      <subfield code="y">20th century</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Peace -- Societies, etc..</subfield>
+      <subfield code="y">20th century</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Peaceful change (International relations)</subfield>
+      <subfield code="y">20th century</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Population policy</subfield>
+      <subfield code="y">20th century</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Public health</subfield>
+      <subfield code="x">International cooperation</subfield>
+      <subfield code="y">20th century</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Reconstruction (1939-1951)</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Water resources development</subfield>
+      <subfield code="z">Canada</subfield>
+      <subfield code="z">Saint Lawrence Seaway</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">World health</subfield>
+      <subfield code="y">20th century</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">World War, 1939-1945</subfield>
+      <subfield code="x">Peace</subfield>
+      <subfield code="0">http://id.loc.gov/authorities/subjects/sh85148462</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Social reformers</subfield>
+      <subfield code="z">United States</subfield>
+      <subfield code="y">20th century</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">Developing countries</subfield>
+      <subfield code="x">Population policy</subfield>
+      <subfield code="y">20th century</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">United States</subfield>
+      <subfield code="x">Foreign relations</subfield>
+      <subfield code="y">1933-1945</subfield>
+      <subfield code="0">http://id.loc.gov/authorities/subjects/sh85140096</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">United States</subfield>
+      <subfield code="x">Foreign relations</subfield>
+      <subfield code="y">1945-</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">United States</subfield>
+      <subfield code="x">Population policy</subfield>
+      <subfield code="y">20th century</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="655">
+      <subfield code="a">articles</subfield>
+      <subfield code="2">aat</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="655">
+      <subfield code="a">Correspondence</subfield>
+      <subfield code="2">aat</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="655">
+      <subfield code="a">Photographs, Original</subfield>
+      <subfield code="2">aat</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="655">
+      <subfield code="a">Posters</subfield>
+      <subfield code="2">aat</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="655">
+      <subfield code="a">Reports</subfield>
+      <subfield code="2">aat</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="655">
+      <subfield code="a">Speeches</subfield>
+      <subfield code="2">aat</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="656">
+      <subfield code="a">Public officers</subfield>
+      <subfield code="z">United States</subfield>
+      <subfield code="y">20th century</subfield>
+      <subfield code="2">lcsh</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="852">
+      <subfield code="a">Princeton University Library.  Department of Rare Books and Special Collections</subfield>
+      <subfield code="b">Public Policy Papers</subfield>
+    </datafield>
+    <datafield ind1="4" ind2="2" tag="856">
+      <subfield code="z">Finding aid online:</subfield>
+      <subfield code="u">http://arks.princeton.edu/ark:/88435/12579s25h</subfield>
+    </datafield>
+  </record>
+</collection>
+

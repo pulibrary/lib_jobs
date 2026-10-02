@@ -5,6 +5,9 @@ module Aspace2alma
   class SendMarcxmlToAlmaJob < LibJob
     include Aspace2alma::Retries
 
+    # headings whose second indicator names the thesaurus
+    THESAURUS_TAGS = %w[600 610 611 630 647 648 650 651 655].freeze
+
     def initialize
       super(category: 'Aspace2Alma')
     end
@@ -61,7 +64,7 @@ module Aspace2alma
     # rubocop:disable Metrics/CyclomaticComplexity
     # rubocop:disable Metrics/PerceivedComplexity
     def append_record(resource, file, log_out, barcode_duplicate_check)
-      my_resource = Resource.new(resource, @client, file, log_out)
+      my_resource = Resource.new(resource, @client)
 
       doc = my_resource.marc_xml
 
@@ -87,8 +90,6 @@ module Aspace2alma
       tags852 = my_resource.tags852
       tag856 = my_resource.tag856
       tags6_7xx = my_resource.tags6_7xx
-      my_resource.subfields
-      my_resource.datafields
 
       # do stuff
       ##################
@@ -98,7 +99,7 @@ module Aspace2alma
       my_resource.remove_empty_elements(doc)
 
       # addresses github #159
-      my_resource.remove_linebreaks(doc)
+      my_resource.squish_subfields(doc)
 
       # addresses github #129
       tag008.previous = ("<controlfield tag='001'>#{tag099_a.content}</controlfield>")
@@ -123,11 +124,16 @@ module Aspace2alma
       end
 
       # addresses github #134
-      tag041.next = ("<datafield ind1=' ' ind2=' ' tag='046'>
-              <subfield code='a'>i</subfield>
-              <subfield code='c'>#{my_resource.tag008.content[7..10]}</subfield>
-              <subfield code='e'>#{my_resource.tag008.content[11..14]}</subfield>
+      date1 = tag008.content[7..10]
+      date2 = tag008.content[11..14]
+      if date1.match?(/\d{4}/)
+        subfield_e = "<subfield code='e'>#{date2}</subfield>" if date2.match?(/\d{4}/)
+        tag041.next = ("<datafield ind1=' ' ind2=' ' tag='046'>
+              <subfield code='a'>#{tag008.content[6]}</subfield>
+              <subfield code='c'>#{date1}</subfield>
+              #{subfield_e}
             </datafield>")
+      end
 
       # addresses github #991
       my_resource.datafields.each do |datafield|
@@ -164,25 +170,17 @@ module Aspace2alma
         subfield_a = tag6xx.at_xpath('marc:subfield[@code="a"]')
         segments = subfield_a.content.split('--')
         segments.each(&:strip!)
-        subfield_a_text = segments[0]
-        subfield_a.replace("<subfield code='a'>#{subfield_a_text}</subfield")
-        segments[1..-1].each do |segment|
-          code = /^[0-9]{2}/.match?(segment) ? 'y' : 'x'
-          tag6xx.children.last.next = ("<subfield code='#{code}'>#{segment}</subfield>")
-        end
-        # addresses github issue #334
-        if tag6xx.at_xpath('marc:subfield[@code="0"]')
-          subfield0 = tag6xx.at_xpath('marc:subfield[@code="0"]')
-          subfield0.replace("<subfield code='1'>#{subfield0.content}</subfield>") if /viaf/.match?(subfield0.content)
-        end
-        next unless tag6xx.at_xpath('marc:subfield[@code="2"]')
-        subfield2 = tag6xx.at_xpath('marc:subfield[@code="2"]')
-        ind2 = tag6xx.at_xpath('@ind2')
-        if /^viaf$/.match?(subfield2.content)
-          subfield2.remove
-          ind2.content = '0' if ind2.content == '7'
+        subfield_a.content = segments[0]
+        segments[1..].inject(subfield_a) do |previous, segment|
+          subfield = subfield_a.dup
+          subfield['code'] = /^[0-9]{2}/.match?(segment) ? 'y' : 'x'
+          subfield.content = segment
+          previous.add_next_sibling(subfield)
         end
       end
+
+      # addresses github issue #334
+      normalize_authority_subfields(doc)
 
       # addresses github #132
       tags852.each(&:remove)
@@ -245,6 +243,37 @@ module Aspace2alma
     # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/PerceivedComplexity
+
+    # authority subfields and LC-coded sources, as in the component export
+    def normalize_authority_subfields(doc)
+      doc.xpath('//marc:datafield[starts-with(@tag, "1") or starts-with(@tag, "6") or starts-with(@tag, "7")]').each do |datafield|
+        subfield2 = datafield.at_xpath('marc:subfield[@code="2"]')
+        normalize_identifiers(datafield, subfield2&.content)
+        code_lc_source(datafield, subfield2)
+      end
+    end
+
+    # identifiers to $0 or $1, dropping the rest
+    def normalize_identifiers(datafield, source)
+      kept = []
+      datafield.xpath('marc:subfield[@code="0"]').each do |subfield0|
+        code, value = MarcRules.authority_subfield(subfield0.content, source)
+        next subfield0.remove if code.nil? || kept.include?(value)
+
+        kept << value
+        subfield0['code'] = code
+        subfield0.content = value
+      end
+    end
+
+    # LC-coded source as ind2 0 instead of $2
+    def code_lc_source(datafield, subfield2)
+      tag = datafield['tag']
+      return unless MarcRules.lc_source?(subfield2&.content) && (THESAURUS_TAGS.include?(tag) || !tag.start_with?('6'))
+
+      subfield2.remove
+      datafield['ind2'] = '0' if tag.start_with?('6') && datafield['ind2'] == '7'
+    end
 
     def barcode_duplicate_check
       @barcode_duplicate_check ||= AlmaDuplicateBarcodeCheck.new
