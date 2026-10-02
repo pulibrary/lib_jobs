@@ -18,4 +18,19 @@ RSpec.describe LibJob, type: :model do
       expect { MyClass.new(category: "cat").run }.to change { DataSet.count }.by(1)
     end
   end
+
+  describe "#last_successful_run_time" do
+    it "is nil when the job has never run" do
+      expect(job.last_successful_run_time).to be_nil
+    end
+
+    it "is the report_time of the latest successful run, skipping failed runs and other jobs" do
+      DataSet.create!(category: "MyCategory", status: true, report_time: Time.utc(2026, 6, 1))
+      DataSet.create!(category: "MyCategory", status: true, report_time: Time.utc(2026, 6, 2))
+      DataSet.create!(category: "MyCategory", status: false, report_time: Time.utc(2026, 6, 3))
+      DataSet.create!(category: "OtherCategory", status: true, report_time: Time.utc(2026, 6, 4))
+
+      expect(job.last_successful_run_time).to eq(Time.utc(2026, 6, 2))
+    end
+  end
 end

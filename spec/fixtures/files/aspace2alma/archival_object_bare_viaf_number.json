@@ -1,0 +1,593 @@
+{
+  "lock_version": 25,
+  "position": 3840,
+  "publish": true,
+  "ref_id": "C0140_c54224-11106",
+  "title": "Letter From \"Ernest\" Written on a National Freedman's Relief Association Leaflet",
+  "display_string": "Letter From \"Ernest\" Written on a National Freedman's Relief Association Leaflet, 1862 July 26",
+  "restrictions_apply": false,
+  "create_time": "2023-07-20T19:18:01Z",
+  "system_mtime": "2026-09-24T18:15:29Z",
+  "user_mtime": "2026-09-24T18:15:29Z",
+  "suppressed": false,
+  "is_slug_auto": false,
+  "level": "item",
+  "jsonmodel_type": "archival_object",
+  "external_ids": [],
+  "subjects": [
+    {
+      "ref": "/subjects/11682",
+      "_resolved": {
+        "lock_version": 68,
+        "title": "Letters -- 19th century",
+        "create_time": "2021-01-24T01:49:44Z",
+        "system_mtime": "2026-09-24T18:15:29Z",
+        "user_mtime": "2026-09-24T14:15:54Z",
+        "is_slug_auto": true,
+        "source": "aat",
+        "jsonmodel_type": "subject",
+        "external_ids": [],
+        "publish": true,
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "terms": [
+          {
+            "lock_version": 0,
+            "term": "Letters",
+            "create_time": "2021-01-24T00:26:30Z",
+            "system_mtime": "2021-01-24T00:26:30Z",
+            "user_mtime": "2021-01-24T00:26:30Z",
+            "term_type": "genre_form",
+            "jsonmodel_type": "term",
+            "uri": "/terms/8985",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "19th century",
+            "create_time": "2021-02-10T16:22:45Z",
+            "system_mtime": "2021-02-10T16:22:45Z",
+            "user_mtime": "2021-02-10T16:22:45Z",
+            "term_type": "temporal",
+            "jsonmodel_type": "term",
+            "uri": "/terms/17864",
+            "vocabulary": "/vocabularies/1"
+          }
+        ],
+        "external_documents": [],
+        "metadata_rights_declarations": [],
+        "uri": "/subjects/11682",
+        "vocabulary": "/vocabularies/1",
+        "is_linked_to_published_record": true
+      }
+    },
+    {
+      "ref": "/subjects/3890",
+      "_resolved": {
+        "lock_version": 28,
+        "title": "Immigrants -- United States",
+        "create_time": "2021-01-23T06:20:46Z",
+        "system_mtime": "2026-09-24T18:15:29Z",
+        "user_mtime": "2024-12-03T16:05:49Z",
+        "is_slug_auto": true,
+        "source": "lcsh",
+        "jsonmodel_type": "subject",
+        "external_ids": [],
+        "publish": true,
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "terms": [
+          {
+            "lock_version": 0,
+            "term": "Immigrants",
+            "create_time": "2022-07-19T13:44:13Z",
+            "system_mtime": "2022-07-19T13:44:13Z",
+            "user_mtime": "2022-07-19T13:44:13Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/18481",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "United States",
+            "create_time": "2016-06-27T14:39:34Z",
+            "system_mtime": "2016-06-27T14:39:34Z",
+            "user_mtime": "2016-06-27T14:39:34Z",
+            "term_type": "geographic",
+            "jsonmodel_type": "term",
+            "uri": "/terms/44",
+            "vocabulary": "/vocabularies/1"
+          }
+        ],
+        "external_documents": [],
+        "metadata_rights_declarations": [],
+        "uri": "/subjects/3890",
+        "vocabulary": "/vocabularies/1",
+        "is_linked_to_published_record": true
+      }
+    },
+    {
+      "ref": "/subjects/8637",
+      "_resolved": {
+        "lock_version": 120,
+        "title": "Civil War (United States, 1861-1865)",
+        "create_time": "2021-01-23T22:31:44Z",
+        "system_mtime": "2026-09-24T18:15:29Z",
+        "user_mtime": "2021-01-23T22:31:44Z",
+        "is_slug_auto": true,
+        "source": "local",
+        "jsonmodel_type": "subject",
+        "external_ids": [],
+        "publish": true,
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "terms": [
+          {
+            "lock_version": 0,
+            "term": "Civil War (United States, 1861-1865)",
+            "create_time": "2021-01-23T22:31:44Z",
+            "system_mtime": "2021-01-23T22:31:44Z",
+            "user_mtime": "2021-01-23T22:31:44Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/7966",
+            "vocabulary": "/vocabularies/1"
+          }
+        ],
+        "external_documents": [],
+        "metadata_rights_declarations": [],
+        "uri": "/subjects/8637",
+        "vocabulary": "/vocabularies/1",
+        "is_linked_to_published_record": true
+      }
+    }
+  ],
+  "linked_events": [],
+  "extents": [
+    {
+      "lock_version": 0,
+      "number": "1",
+      "create_time": "2026-09-24T18:15:29Z",
+      "system_mtime": "2026-09-24T18:15:29Z",
+      "user_mtime": "2026-09-24T18:15:29Z",
+      "portion": "whole",
+      "extent_type": "folder",
+      "jsonmodel_type": "extent"
+    }
+  ],
+  "lang_materials": [
+    {
+      "lock_version": 0,
+      "create_time": "2026-09-24T18:15:29Z",
+      "system_mtime": "2026-09-24T18:15:29Z",
+      "user_mtime": "2026-09-24T18:15:29Z",
+      "jsonmodel_type": "lang_material",
+      "notes": [],
+      "language_and_script": {
+        "lock_version": 0,
+        "create_time": "2026-09-24T18:15:29Z",
+        "system_mtime": "2026-09-24T18:15:29Z",
+        "user_mtime": "2026-09-24T18:15:29Z",
+        "language": "eng",
+        "jsonmodel_type": "language_and_script"
+      }
+    },
+    {
+      "lock_version": 0,
+      "create_time": "2026-09-24T18:15:29Z",
+      "system_mtime": "2026-09-24T18:15:29Z",
+      "user_mtime": "2026-09-24T18:15:29Z",
+      "jsonmodel_type": "lang_material",
+      "notes": [],
+      "language_and_script": {
+        "lock_version": 0,
+        "create_time": "2026-09-24T18:15:29Z",
+        "system_mtime": "2026-09-24T18:15:29Z",
+        "user_mtime": "2026-09-24T18:15:29Z",
+        "language": "ger",
+        "jsonmodel_type": "language_and_script"
+      }
+    }
+  ],
+  "dates": [
+    {
+      "lock_version": 0,
+      "expression": "1862 July 26",
+      "begin": "1862-07-26",
+      "create_time": "2026-09-24T18:15:29Z",
+      "system_mtime": "2026-09-24T18:15:29Z",
+      "user_mtime": "2026-09-24T18:15:29Z",
+      "date_type": "single",
+      "label": "creation",
+      "era": "ce",
+      "calendar": "gregorian",
+      "jsonmodel_type": "date"
+    }
+  ],
+  "external_documents": [],
+  "rights_statements": [],
+  "linked_agents": [
+    {
+      "is_primary": false,
+      "role": "subject",
+      "terms": [],
+      "ref": "/agents/corporate_entities/5516",
+      "_resolved": {
+        "lock_version": 27,
+        "publish": true,
+        "create_time": "2023-07-20T19:39:24Z",
+        "system_mtime": "2026-09-24T18:15:29Z",
+        "user_mtime": "2023-08-25T12:59:42Z",
+        "is_slug_auto": false,
+        "jsonmodel_type": "agent_corporate_entity",
+        "agent_contacts": [],
+        "agent_record_controls": [],
+        "agent_alternate_sets": [],
+        "agent_conventions_declarations": [],
+        "agent_other_agency_codes": [],
+        "agent_maintenance_histories": [],
+        "agent_record_identifiers": [],
+        "agent_identifiers": [],
+        "agent_sources": [],
+        "agent_places": [],
+        "agent_occupations": [],
+        "agent_functions": [],
+        "agent_topics": [],
+        "agent_resources": [],
+        "linked_agent_roles": [
+          "subject"
+        ],
+        "external_documents": [],
+        "notes": [
+          {
+            "jsonmodel_type": "note_bioghist",
+            "persistent_id": "a4d88121bbb9758c303e77dd67679c37",
+            "subnotes": [
+              {
+                "jsonmodel_type": "note_text",
+                "content": "The National Freedman's Relief Association was founded in 1862, and headquartered in New York City. The association's mission was to provide relief to the millions of enslaved people in the southern United States emancipated during and following the American Civil War. The National Freedman's Relief Association supplied emancipated peoples with housing, food, and clothing. They built schools to educate both Black children and adults, and erected industrial schools to teach skills such as garment-making. The National Freedman's Relief Association was the precursor to the federal Bureau of Refugees, Freedmen, and Abandoned Lands. ",
+                "publish": false
+              }
+            ],
+            "publish": false
+          }
+        ],
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "dates_of_existence": [
+          {
+            "create_time": "2023-08-25T12:59:42Z",
+            "system_mtime": "2023-08-25T12:59:42Z",
+            "user_mtime": "2023-08-25T12:59:42Z",
+            "lock_version": 0,
+            "date_type_structured": "range",
+            "date_label": "existence",
+            "jsonmodel_type": "structured_date_label",
+            "structured_date_range": {
+              "begin_date_expression": "1862",
+              "begin_date_standardized": "1862",
+              "end_date_expression": "1866",
+              "end_date_standardized": "1866",
+              "create_time": "2023-08-25T12:59:42Z",
+              "system_mtime": "2023-08-25T12:59:42Z",
+              "user_mtime": "2023-08-25T12:59:42Z",
+              "lock_version": 0,
+              "begin_date_standardized_type": "standard",
+              "end_date_standardized_type": "standard",
+              "jsonmodel_type": "structured_date_range"
+            }
+          }
+        ],
+        "used_languages": [],
+        "metadata_rights_declarations": [],
+        "names": [
+          {
+            "lock_version": 4,
+            "primary_name": "National Freedman's Relief Association",
+            "sort_name": "National Freedman's Relief Association",
+            "sort_name_auto_generate": true,
+            "create_time": "2023-08-25T12:59:42Z",
+            "system_mtime": "2023-08-25T12:59:42Z",
+            "user_mtime": "2023-08-25T12:59:42Z",
+            "authorized": true,
+            "is_display_name": true,
+            "jurisdiction": false,
+            "conference_meeting": false,
+            "source": "viaf",
+            "rules": "rda",
+            "jsonmodel_type": "name_corporate_entity",
+            "use_dates": [],
+            "parallel_names": [],
+            "authority_id": "153631640"
+          }
+        ],
+        "related_agents": [],
+        "uri": "/agents/corporate_entities/5516",
+        "agent_type": "agent_corporate_entity",
+        "is_linked_to_published_record": true,
+        "display_name": {
+          "lock_version": 4,
+          "primary_name": "National Freedman's Relief Association",
+          "sort_name": "National Freedman's Relief Association",
+          "sort_name_auto_generate": true,
+          "create_time": "2023-08-25T12:59:42Z",
+          "system_mtime": "2023-08-25T12:59:42Z",
+          "user_mtime": "2023-08-25T12:59:42Z",
+          "authorized": true,
+          "is_display_name": true,
+          "jurisdiction": false,
+          "conference_meeting": false,
+          "source": "viaf",
+          "rules": "rda",
+          "jsonmodel_type": "name_corporate_entity",
+          "use_dates": [],
+          "parallel_names": [],
+          "authority_id": "153631640"
+        },
+        "title": "National Freedman's Relief Association"
+      }
+    },
+    {
+      "is_primary": false,
+      "role": "creator",
+      "relator": "cre",
+      "terms": [],
+      "ref": "/agents/people/33374",
+      "_resolved": {
+        "lock_version": 7,
+        "publish": true,
+        "create_time": "2023-07-31T15:20:13Z",
+        "system_mtime": "2026-09-24T18:15:29Z",
+        "user_mtime": "2023-08-01T13:29:17Z",
+        "is_slug_auto": false,
+        "jsonmodel_type": "agent_person",
+        "agent_contacts": [],
+        "agent_record_controls": [],
+        "agent_alternate_sets": [],
+        "agent_conventions_declarations": [],
+        "agent_other_agency_codes": [],
+        "agent_maintenance_histories": [],
+        "agent_record_identifiers": [],
+        "agent_identifiers": [],
+        "agent_sources": [],
+        "agent_places": [],
+        "agent_occupations": [],
+        "agent_functions": [],
+        "agent_topics": [],
+        "agent_resources": [],
+        "linked_agent_roles": [
+          "creator"
+        ],
+        "external_documents": [],
+        "notes": [
+          {
+            "jsonmodel_type": "note_bioghist",
+            "persistent_id": "8642ddd049be87a4dffd1afa023c08f5",
+            "subnotes": [
+              {
+                "jsonmodel_type": "note_text",
+                "content": "Ernest was likely employed by the National Freedman Relief Association's depot in 1862. Ernest emigrated to the United States from a German-speaking country.",
+                "publish": false
+              }
+            ],
+            "publish": false
+          }
+        ],
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "dates_of_existence": [],
+        "used_languages": [],
+        "metadata_rights_declarations": [],
+        "names": [
+          {
+            "lock_version": 0,
+            "primary_name": "Ernest",
+            "sort_name": "Ernest",
+            "sort_name_auto_generate": true,
+            "create_time": "2023-08-01T13:29:17Z",
+            "system_mtime": "2023-08-01T13:29:17Z",
+            "user_mtime": "2023-08-01T13:29:17Z",
+            "authorized": true,
+            "is_display_name": true,
+            "source": "local",
+            "rules": "rda",
+            "name_order": "inverted",
+            "jsonmodel_type": "name_person",
+            "use_dates": [],
+            "parallel_names": []
+          }
+        ],
+        "agent_genders": [],
+        "related_agents": [],
+        "uri": "/agents/people/33374",
+        "agent_type": "agent_person",
+        "is_linked_to_published_record": true,
+        "display_name": {
+          "lock_version": 0,
+          "primary_name": "Ernest",
+          "sort_name": "Ernest",
+          "sort_name_auto_generate": true,
+          "create_time": "2023-08-01T13:29:17Z",
+          "system_mtime": "2023-08-01T13:29:17Z",
+          "user_mtime": "2023-08-01T13:29:17Z",
+          "authorized": true,
+          "is_display_name": true,
+          "source": "local",
+          "rules": "rda",
+          "name_order": "inverted",
+          "jsonmodel_type": "name_person",
+          "use_dates": [],
+          "parallel_names": []
+        },
+        "title": "Ernest"
+      }
+    }
+  ],
+  "import_previous_arks": [],
+  "ancestors": [
+    {
+      "ref": "/repositories/5/resources/3950",
+      "level": "collection"
+    }
+  ],
+  "instances": [
+    {
+      "lock_version": 0,
+      "create_time": "2026-09-24T18:15:29Z",
+      "system_mtime": "2026-09-24T18:15:29Z",
+      "user_mtime": "2026-09-24T18:15:29Z",
+      "instance_type": "mixed_materials",
+      "jsonmodel_type": "instance",
+      "is_representative": false,
+      "sub_container": {
+        "lock_version": 0,
+        "indicator_2": "6",
+        "create_time": "2026-09-24T18:15:29Z",
+        "system_mtime": "2026-09-24T18:15:29Z",
+        "user_mtime": "2026-09-24T18:15:29Z",
+        "type_2": "folder",
+        "jsonmodel_type": "sub_container",
+        "top_container": {
+          "ref": "/repositories/5/top_containers/122284",
+          "_resolved": {
+            "lock_version": 80,
+            "barcode": "32101080852492",
+            "indicator": "B-002038",
+            "create_time": "2023-07-19T12:51:03Z",
+            "system_mtime": "2026-09-24T18:15:30Z",
+            "user_mtime": "2023-07-19T12:59:57Z",
+            "created_for_collection": "/repositories/5/resources/3950",
+            "type": "box",
+            "jsonmodel_type": "top_container",
+            "active_restrictions": [
+              {
+                "id": 1683978,
+                "archival_object_id": 1478487,
+                "restriction_note_type": "accessrestrict",
+                "jsonmodel_type": "rights_restriction",
+                "local_access_restriction_type": [
+                  "Review"
+                ],
+                "linked_records": {
+                  "ref": "/repositories/5/archival_objects/1478487"
+                }
+              },
+              {
+                "id": 1688775,
+                "resource_id": 3950,
+                "restriction_note_type": "accessrestrict",
+                "jsonmodel_type": "rights_restriction",
+                "local_access_restriction_type": [
+                  "Open"
+                ],
+                "linked_records": {
+                  "ref": "/repositories/5/resources/3950"
+                }
+              }
+            ],
+            "container_locations": [
+              {
+                "jsonmodel_type": "container_location",
+                "status": "current",
+                "start_date": "2023-07-19",
+                "system_mtime": "2023-07-19 12:59:57 UTC",
+                "user_mtime": "2023-07-19 12:59:57 UTC",
+                "ref": "/locations/23648",
+                "_resolved": {
+                  "lock_version": 9,
+                  "building": "Firestone Library",
+                  "title": "Firestone Library, Vault, Manuscripts Archival [scamss]",
+                  "room": "Vault",
+                  "area": "Manuscripts Archival",
+                  "classification": "scamss",
+                  "create_time": "2021-01-22T22:29:47Z",
+                  "system_mtime": "2022-11-16T16:53:06Z",
+                  "user_mtime": "2022-11-16T16:53:06Z",
+                  "jsonmodel_type": "location",
+                  "external_ids": [],
+                  "functions": [],
+                  "uri": "/locations/23648"
+                }
+              }
+            ],
+            "series": [],
+            "collection": [
+              {
+                "ref": "/repositories/5/resources/3950",
+                "identifier": "C0140",
+                "display_string": "General Manuscripts Miscellaneous Collection"
+              }
+            ],
+            "uri": "/repositories/5/top_containers/122284",
+            "repository": {
+              "ref": "/repositories/5"
+            },
+            "container_profile": {
+              "ref": "/container_profiles/17"
+            },
+            "restricted": true,
+            "is_linked_to_published_record": true,
+            "display_string": "Box B-002038: [Barcode: 32101080852492]",
+            "long_display_string": "Box B-002038 [Barcode: 32101080852492], Standard manuscript, Firestone Library, Vault, Manuscripts Archival [scamss], C0140, General Manuscripts Miscellaneous Collection"
+          }
+        }
+      }
+    }
+  ],
+  "notes": [
+    {
+      "jsonmodel_type": "note_multipart",
+      "persistent_id": "15d7b289123b4114ba2b67eb416ceb48",
+      "label": "Content Description",
+      "type": "scopecontent",
+      "subnotes": [
+        {
+          "jsonmodel_type": "note_text",
+          "content": "A letter from an individual named Ernest, written in German, to a friend in Holmes' Hole, Nantucket, Massachusetts, recounting Ernest's struggles with English and his loneliness living in New York. Likley an employee of the newly-founded National Freedman's Relief Association, Ernest's letter is written on the back and front of a National Freedman's Relief Association leaflet with a list of its initial officers and addresses of the organization’s depot for the collection of donated food and clothing, and the treasurer's office or fundraising office on Wall Street. The address of the letter is 400 Broadway, which correlates to the National Freedman's Relief Assocation's \"depot\" address. ",
+          "publish": true
+        }
+      ],
+      "publish": true
+    },
+    {
+      "jsonmodel_type": "note_multipart",
+      "persistent_id": "84bc6dfbc47a6005fe1d7ff602ce90ae",
+      "type": "acqinfo",
+      "subnotes": [
+        {
+          "jsonmodel_type": "note_text",
+          "content": "Purchased from PBA Galleries in October 2022 (AM-2024-006).",
+          "publish": true
+        }
+      ],
+      "publish": true
+    },
+    {
+      "jsonmodel_type": "note_multipart",
+      "persistent_id": "1090069ceef1154ae9d64dba3e65d588",
+      "type": "processinfo",
+      "subnotes": [
+        {
+          "jsonmodel_type": "note_text",
+          "content": "These materials were processed and described by Megan Bardis in July 2023, incorporating some description from the dealer.",
+          "publish": true
+        }
+      ],
+      "publish": true
+    }
+  ],
+  "accession_links": [
+    {
+      "ref": "/repositories/5/accessions/19986"
+    }
+  ],
+  "uri": "/repositories/5/archival_objects/1488160",
+  "repository": {
+    "ref": "/repositories/5"
+  },
+  "resource": {
+    "ref": "/repositories/5/resources/3950"
+  },
+  "has_unpublished_ancestor": false
+}

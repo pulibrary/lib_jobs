@@ -3,6 +3,8 @@ module Aspace2alma
   # rubocop:disable Metrics/ClassLength
   # rubocop:disable Metrics/MethodLength
   class SendMarcxmlToAlmaJob < LibJob
+    include Aspace2alma::Retries
+
     def initialize
       super(category: 'Aspace2Alma')
     end
@@ -14,8 +16,7 @@ module Aspace2alma
       # rename MARC file:
       # in case the export fails, this ensures that
       # Alma will not find a stale file to import
-      Aspace2almaHelper.remove_file("/alma/aspace/MARC_out_old.xml")
-      Aspace2almaHelper.rename_file("/alma/aspace/#{filename}", "/alma/aspace/MARC_out_old.xml")
+      Aspace2almaHelper.rotate_file(filename)
 
       # open a quasi log to receive progress output
       log_out = File.open("log_out.txt", "w")
@@ -27,15 +28,13 @@ module Aspace2alma
       resources = get_resource_uris_for_all_repos
 
       file =  File.open(filename, "w")
-      # rubocop:disable Layout/LineLength
-      file << '<collection xmlns="http://www.loc.gov/MARC21/slim" xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/MARC21/slim http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">'
-      # rubocop:enable Layout/LineLength
+      file << Marcxml::COLLECTION_START
 
       resources.each do |resource_uri|
         process_resource(resource_uri, file, log_out, barcode_duplicate_check)
       end
 
-      file << '</collection>'
+      file << Marcxml::COLLECTION_END
       file.close
 
       # send to alma
@@ -47,12 +46,21 @@ module Aspace2alma
       data_set
     end
 
+    # retry a resource, then skip it
+    def process_resource(resource, file, log_out, barcode_duplicate_check)
+      with_retries(NETWORK_ERRORS, "retrieving resource #{resource}") do
+        append_record(resource, file, log_out, barcode_duplicate_check)
+      end
+    rescue *NETWORK_ERRORS => error
+      log_out.puts "Encountered #{error.class}: '#{error.message}' at #{Time.zone.now}, " \
+                   "unsuccessful in retrieving resource #{resource} after #{RETRY_ATTEMPTS} retries"
+    end
+
+    # build and write a resource's record
     # rubocop:disable Metrics/AbcSize
     # rubocop:disable Metrics/CyclomaticComplexity
     # rubocop:disable Metrics/PerceivedComplexity
-    def process_resource(resource, file, log_out, barcode_duplicate_check)
-      retries ||= 0
-
+    def append_record(resource, file, log_out, barcode_duplicate_check)
       my_resource = Resource.new(resource, @client, file, log_out)
 
       doc = my_resource.marc_xml
@@ -138,7 +146,7 @@ module Aspace2alma
 
       # addresses github #380 - limit scopenotes to 8000 characters
       # (9999b field size limit in Alma v. 40,000+ character notes in ASpace)
-      tags520 = tags520.each do |tag520|
+      tags520.each do |tag520|
         # ASpace exports everything to $a, so only one subfield to check
         tag520.at_xpath('marc:subfield[@code="a"]').content = tag520.at_xpath('marc:subfield[@code="a"]').content.truncate(7999)
       end
@@ -233,13 +241,6 @@ module Aspace2alma
       file << doc.at_xpath('//marc:record') unless tag099_a.content =~ /^(C0140|C1771|AC214|AC364|C0744.06|C0776|C0935|C1296|WC059|RBD1|RBD1.1|C0723.1-47|LAE\d+|SPA\d+|POR\d+)$/ || tag856.nil?
       file.flush
       log_out.flush
-    rescue Errno::ECONNRESET, Errno::ECONNABORTED, Errno::ETIMEDOUT, Errno::ECONNREFUSED => error
-      while (retries += 1) <= 3
-        log_out.puts "Encountered #{error.class}: '#{error.message}' when retrieving resource #{resource} at #{Time.zone.now}, retrying in #{retries} second(s)..."
-        sleep(retries)
-        retry
-      end
-      log_out.puts "Encountered #{error.class}: '#{error.message}' at #{Time.zone.now}, unsuccessful in retrieving resource #{resource} after #{retries} retries"
     end
     # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/CyclomaticComplexity

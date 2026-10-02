@@ -95,11 +95,17 @@ every '30 10 * * 0-5', roles: [:cron_prod2] do
   rake "lib_jobs:aspace2alma"
 end
 
-# Run on production at 10:30am UTC (6:30 EDT / 5:30 EST) on days we are skipping aspace2alma:
-# Saturday (ASpace maintenance window)
+# Run on production only on Saturday (ASpace maintenance window)
 every :saturday, at: '10:30 am' do
   rake "lib_jobs:aspace2alma:remove_stale_file"
 end
+
+# Run every evening at 3:30am UTC (11:30pm EDT / 10:30pm EST), avoiding the
+# collection-level aspace2alma run in the mornings
+# remove comment when we're ready:
+# every 1.day, at: '3:30 am', roles: [:cron_prod2] do
+#   rake "lib_jobs:aspace2alma:components"
+# end
 
 # Run on production every Thursday at 3am EST or 4am EDT
 # every :thursday, at: '8:00 am', roles: [:cron_prod2] do # The server is in UTC, so that is 8:00 UTC

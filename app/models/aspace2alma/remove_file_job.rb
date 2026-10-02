@@ -16,7 +16,7 @@ module Aspace2alma
       private
 
     def handle(data_set:)
-      Aspace2almaHelper.remove_file('/alma/aspace/MARC_out.xml')
+      Aspace2almaHelper.remove_file(File.join(Aspace2almaHelper::SFTP_DIR, 'MARC_out.xml'))
       data_set.report_time = Time.zone.now
       data_set
     end

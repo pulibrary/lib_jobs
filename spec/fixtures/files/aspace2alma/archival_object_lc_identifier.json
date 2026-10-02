@@ -1,0 +1,504 @@
+{
+  "lock_version": 5,
+  "position": 7,
+  "publish": true,
+  "ref_id": "C0140_c83344-50591",
+  "title": "Account of the hacienda of San José de Acolman and other properties confiscated from the Jesuits in Mexico",
+  "display_string": "Account of the hacienda of San José de Acolman and other properties confiscated from the Jesuits in Mexico, 1767",
+  "restrictions_apply": false,
+  "create_time": "2021-08-31T16:02:58Z",
+  "system_mtime": "2026-09-24T18:15:20Z",
+  "user_mtime": "2026-09-24T18:15:20Z",
+  "suppressed": false,
+  "is_slug_auto": false,
+  "level": "item",
+  "jsonmodel_type": "archival_object",
+  "external_ids": [],
+  "subjects": [
+    {
+      "ref": "/subjects/19024",
+      "_resolved": {
+        "lock_version": 7,
+        "title": "Haciendas -- Mexico",
+        "create_time": "2021-08-31T15:45:31Z",
+        "system_mtime": "2026-09-24T18:15:20Z",
+        "user_mtime": "2021-08-31T15:45:31Z",
+        "is_slug_auto": false,
+        "source": "lcsh",
+        "jsonmodel_type": "subject",
+        "external_ids": [],
+        "publish": true,
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "terms": [
+          {
+            "lock_version": 0,
+            "term": "Haciendas",
+            "create_time": "2021-08-31T15:45:31Z",
+            "system_mtime": "2021-08-31T15:45:31Z",
+            "user_mtime": "2021-08-31T15:45:31Z",
+            "term_type": "topical",
+            "jsonmodel_type": "term",
+            "uri": "/terms/18019",
+            "vocabulary": "/vocabularies/1"
+          },
+          {
+            "lock_version": 0,
+            "term": "Mexico",
+            "create_time": "2016-06-27T14:42:35Z",
+            "system_mtime": "2016-06-27T14:42:35Z",
+            "user_mtime": "2016-06-27T14:42:35Z",
+            "term_type": "geographic",
+            "jsonmodel_type": "term",
+            "uri": "/terms/1142",
+            "vocabulary": "/vocabularies/1"
+          }
+        ],
+        "external_documents": [],
+        "metadata_rights_declarations": [],
+        "uri": "/subjects/19024",
+        "vocabulary": "/vocabularies/1",
+        "is_linked_to_published_record": true
+      }
+    }
+  ],
+  "linked_events": [],
+  "extents": [
+    {
+      "lock_version": 0,
+      "number": "1",
+      "create_time": "2026-09-24T18:15:20Z",
+      "system_mtime": "2026-09-24T18:15:20Z",
+      "user_mtime": "2026-09-24T18:15:20Z",
+      "portion": "whole",
+      "extent_type": "folder",
+      "jsonmodel_type": "extent"
+    }
+  ],
+  "lang_materials": [
+    {
+      "lock_version": 0,
+      "create_time": "2026-09-24T18:15:20Z",
+      "system_mtime": "2026-09-24T18:15:20Z",
+      "user_mtime": "2026-09-24T18:15:20Z",
+      "jsonmodel_type": "lang_material",
+      "notes": [],
+      "language_and_script": {
+        "lock_version": 0,
+        "create_time": "2026-09-24T18:15:20Z",
+        "system_mtime": "2026-09-24T18:15:20Z",
+        "user_mtime": "2026-09-24T18:15:20Z",
+        "language": "spa",
+        "jsonmodel_type": "language_and_script"
+      }
+    }
+  ],
+  "dates": [
+    {
+      "lock_version": 0,
+      "expression": "1767",
+      "begin": "1767",
+      "create_time": "2026-09-24T18:15:20Z",
+      "system_mtime": "2026-09-24T18:15:20Z",
+      "user_mtime": "2026-09-24T18:15:20Z",
+      "date_type": "single",
+      "label": "creation",
+      "era": "ce",
+      "calendar": "gregorian",
+      "jsonmodel_type": "date"
+    }
+  ],
+  "external_documents": [],
+  "rights_statements": [],
+  "linked_agents": [
+    {
+      "is_primary": false,
+      "role": "creator",
+      "relator": "col",
+      "terms": [],
+      "ref": "/agents/corporate_entities/5331",
+      "_resolved": {
+        "lock_version": 21,
+        "publish": true,
+        "create_time": "2021-08-31T14:31:17Z",
+        "system_mtime": "2026-09-24T18:15:20Z",
+        "user_mtime": "2023-04-28T22:31:19Z",
+        "is_slug_auto": false,
+        "jsonmodel_type": "agent_corporate_entity",
+        "agent_contacts": [],
+        "agent_record_controls": [
+          {
+            "maintenance_agency": "NjP",
+            "agency_name": "Princeton University Library",
+            "create_time": "2023-04-28T22:31:20Z",
+            "system_mtime": "2023-04-28T22:31:20Z",
+            "user_mtime": "2023-04-28T22:31:20Z",
+            "lock_version": 0,
+            "maintenance_status": "upgraded",
+            "jsonmodel_type": "agent_record_control"
+          }
+        ],
+        "agent_alternate_sets": [],
+        "agent_conventions_declarations": [],
+        "agent_other_agency_codes": [],
+        "agent_maintenance_histories": [
+          {
+            "event_date": "2020-01-01 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Migrated records from a spreadsheet created from native EAC-CPF via OpenRefine.",
+            "create_time": "2023-04-28T22:31:20Z",
+            "system_mtime": "2023-04-28T22:31:20Z",
+            "user_mtime": "2023-04-28T22:31:20Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          },
+          {
+            "event_date": "2023-04-28 00:00:00 UTC",
+            "agent": "system",
+            "descriptive_note": "Upgraded records to re-populate the required CPF and ASpace fields that were lost during data import via OpenRefine.",
+            "create_time": "2023-04-28T22:31:20Z",
+            "system_mtime": "2023-04-28T22:31:20Z",
+            "user_mtime": "2023-04-28T22:31:20Z",
+            "lock_version": 0,
+            "maintenance_event_type": "updated",
+            "maintenance_agent_type": "machine",
+            "jsonmodel_type": "agent_maintenance_history"
+          }
+        ],
+        "agent_record_identifiers": [
+          {
+            "primary_identifier": true,
+            "record_identifier": "LIBRERIADEANTANO15031222",
+            "create_time": "2023-04-28T22:31:20Z",
+            "system_mtime": "2023-04-28T22:31:20Z",
+            "user_mtime": "2023-04-28T22:31:20Z",
+            "lock_version": 0,
+            "source": "viaf",
+            "jsonmodel_type": "agent_record_identifier"
+          }
+        ],
+        "agent_identifiers": [
+          {
+            "entity_identifier": "LIBRERIADEANTANO15031222",
+            "create_time": "2023-04-28T22:31:20Z",
+            "system_mtime": "2023-04-28T22:31:20Z",
+            "user_mtime": "2023-04-28T22:31:20Z",
+            "lock_version": 0,
+            "jsonmodel_type": "agent_identifier"
+          }
+        ],
+        "agent_sources": [],
+        "agent_places": [],
+        "agent_occupations": [],
+        "agent_functions": [],
+        "agent_topics": [],
+        "agent_resources": [],
+        "linked_agent_roles": [
+          "creator",
+          "source"
+        ],
+        "external_documents": [],
+        "notes": [],
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "dates_of_existence": [],
+        "used_languages": [],
+        "metadata_rights_declarations": [],
+        "names": [
+          {
+            "lock_version": 0,
+            "primary_name": "Librería de Antaño",
+            "sort_name": "Librería de Antaño",
+            "sort_name_auto_generate": true,
+            "create_time": "2023-04-28T22:31:20Z",
+            "system_mtime": "2023-04-28T22:31:20Z",
+            "user_mtime": "2023-04-28T22:31:20Z",
+            "authorized": true,
+            "is_display_name": true,
+            "jurisdiction": false,
+            "conference_meeting": false,
+            "source": "viaf",
+            "jsonmodel_type": "name_corporate_entity",
+            "use_dates": [],
+            "parallel_names": [],
+            "authority_id": "http://viaf.org/viaf/15031222"
+          }
+        ],
+        "related_agents": [],
+        "uri": "/agents/corporate_entities/5331",
+        "agent_type": "agent_corporate_entity",
+        "is_linked_to_published_record": true,
+        "display_name": {
+          "lock_version": 0,
+          "primary_name": "Librería de Antaño",
+          "sort_name": "Librería de Antaño",
+          "sort_name_auto_generate": true,
+          "create_time": "2023-04-28T22:31:20Z",
+          "system_mtime": "2023-04-28T22:31:20Z",
+          "user_mtime": "2023-04-28T22:31:20Z",
+          "authorized": true,
+          "is_display_name": true,
+          "jurisdiction": false,
+          "conference_meeting": false,
+          "source": "viaf",
+          "jsonmodel_type": "name_corporate_entity",
+          "use_dates": [],
+          "parallel_names": [],
+          "authority_id": "http://viaf.org/viaf/15031222"
+        },
+        "title": "Librería de Antaño"
+      }
+    },
+    {
+      "is_primary": false,
+      "role": "subject",
+      "terms": [
+        {
+          "id": 157,
+          "lock_version": 0,
+          "json_schema_version": 1,
+          "vocab_id": 1,
+          "term": "History",
+          "term_type_id": 1275,
+          "create_time": "2016-06-27T14:39:48Z",
+          "system_mtime": "2016-06-27T14:39:48Z",
+          "user_mtime": "2016-06-27T14:39:48Z",
+          "term_type": "topical",
+          "jsonmodel_type": "term",
+          "uri": "/terms/157",
+          "vocabulary": "/vocabularies/1"
+        },
+        {
+          "id": 17907,
+          "lock_version": 0,
+          "json_schema_version": 1,
+          "vocab_id": 1,
+          "term": "18th century",
+          "term_type_id": 1274,
+          "create_time": "2021-03-03T18:47:27Z",
+          "system_mtime": "2021-03-03T18:47:27Z",
+          "user_mtime": "2021-03-03T18:47:27Z",
+          "term_type": "temporal",
+          "jsonmodel_type": "term",
+          "uri": "/terms/17907",
+          "vocabulary": "/vocabularies/1"
+        }
+      ],
+      "ref": "/agents/corporate_entities/5665",
+      "_resolved": {
+        "lock_version": 4,
+        "publish": true,
+        "create_time": "2026-09-24T18:15:19Z",
+        "system_mtime": "2026-09-24T18:16:01Z",
+        "user_mtime": "2026-09-24T18:15:19Z",
+        "is_slug_auto": true,
+        "jsonmodel_type": "agent_corporate_entity",
+        "agent_contacts": [],
+        "agent_record_controls": [],
+        "agent_alternate_sets": [],
+        "agent_conventions_declarations": [],
+        "agent_other_agency_codes": [],
+        "agent_maintenance_histories": [],
+        "agent_record_identifiers": [],
+        "agent_identifiers": [],
+        "agent_sources": [],
+        "agent_places": [],
+        "agent_occupations": [],
+        "agent_functions": [],
+        "agent_topics": [],
+        "agent_resources": [],
+        "linked_agent_roles": [
+          "subject"
+        ],
+        "external_documents": [],
+        "notes": [],
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "dates_of_existence": [],
+        "used_languages": [],
+        "metadata_rights_declarations": [],
+        "names": [
+          {
+            "lock_version": 0,
+            "primary_name": "Jesuits",
+            "sort_name": "Jesuits",
+            "sort_name_auto_generate": false,
+            "create_time": "2026-09-24T18:15:19Z",
+            "system_mtime": "2026-09-24T18:15:19Z",
+            "user_mtime": "2026-09-24T18:15:19Z",
+            "authorized": true,
+            "is_display_name": true,
+            "jurisdiction": false,
+            "conference_meeting": false,
+            "source": "lcnaf",
+            "rules": "rda",
+            "jsonmodel_type": "name_corporate_entity",
+            "use_dates": [],
+            "parallel_names": [],
+            "authority_id": "http://id.loc.gov/authorities/names/n79046634"
+          }
+        ],
+        "related_agents": [],
+        "uri": "/agents/corporate_entities/5665",
+        "agent_type": "agent_corporate_entity",
+        "is_linked_to_published_record": true,
+        "display_name": {
+          "lock_version": 0,
+          "primary_name": "Jesuits",
+          "sort_name": "Jesuits",
+          "sort_name_auto_generate": false,
+          "create_time": "2026-09-24T18:15:19Z",
+          "system_mtime": "2026-09-24T18:15:19Z",
+          "user_mtime": "2026-09-24T18:15:19Z",
+          "authorized": true,
+          "is_display_name": true,
+          "jurisdiction": false,
+          "conference_meeting": false,
+          "source": "lcnaf",
+          "rules": "rda",
+          "jsonmodel_type": "name_corporate_entity",
+          "use_dates": [],
+          "parallel_names": [],
+          "authority_id": "http://id.loc.gov/authorities/names/n79046634"
+        },
+        "title": "Jesuits"
+      }
+    }
+  ],
+  "import_previous_arks": [],
+  "ancestors": [
+    {
+      "ref": "/repositories/5/resources/3950",
+      "level": "collection"
+    }
+  ],
+  "instances": [
+    {
+      "lock_version": 0,
+      "create_time": "2026-09-24T18:15:20Z",
+      "system_mtime": "2026-09-24T18:15:20Z",
+      "user_mtime": "2026-09-24T18:15:20Z",
+      "instance_type": "mixed_materials",
+      "jsonmodel_type": "instance",
+      "is_representative": false,
+      "sub_container": {
+        "lock_version": 0,
+        "create_time": "2026-09-24T18:15:20Z",
+        "system_mtime": "2026-09-24T18:15:20Z",
+        "user_mtime": "2026-09-24T18:15:20Z",
+        "jsonmodel_type": "sub_container",
+        "top_container": {
+          "ref": "/repositories/5/top_containers/98314",
+          "_resolved": {
+            "lock_version": 140,
+            "barcode": "32101070780000",
+            "ils_holding_id": "C0140_i1",
+            "indicator": "1",
+            "create_time": "2021-01-24T09:19:33Z",
+            "system_mtime": "2026-09-24T18:15:30Z",
+            "user_mtime": "2023-08-03T17:21:05Z",
+            "type": "box",
+            "jsonmodel_type": "top_container",
+            "active_restrictions": [
+              {
+                "id": 1688775,
+                "resource_id": 3950,
+                "restriction_note_type": "accessrestrict",
+                "jsonmodel_type": "rights_restriction",
+                "local_access_restriction_type": [
+                  "Open"
+                ],
+                "linked_records": {
+                  "ref": "/repositories/5/resources/3950"
+                }
+              }
+            ],
+            "container_locations": [
+              {
+                "jsonmodel_type": "container_location",
+                "status": "current",
+                "start_date": "2023-08-03",
+                "system_mtime": "2023-08-03 17:21:05 UTC",
+                "user_mtime": "2023-08-03 17:21:05 UTC",
+                "ref": "/locations/23648",
+                "_resolved": {
+                  "lock_version": 9,
+                  "building": "Firestone Library",
+                  "title": "Firestone Library, Vault, Manuscripts Archival [scamss]",
+                  "room": "Vault",
+                  "area": "Manuscripts Archival",
+                  "classification": "scamss",
+                  "create_time": "2021-01-22T22:29:47Z",
+                  "system_mtime": "2022-11-16T16:53:06Z",
+                  "user_mtime": "2022-11-16T16:53:06Z",
+                  "jsonmodel_type": "location",
+                  "external_ids": [],
+                  "functions": [],
+                  "uri": "/locations/23648"
+                }
+              }
+            ],
+            "series": [],
+            "collection": [
+              {
+                "ref": "/repositories/5/resources/3950",
+                "identifier": "C0140",
+                "display_string": "General Manuscripts Miscellaneous Collection"
+              }
+            ],
+            "uri": "/repositories/5/top_containers/98314",
+            "repository": {
+              "ref": "/repositories/5"
+            },
+            "container_profile": {
+              "ref": "/container_profiles/19"
+            },
+            "restricted": true,
+            "is_linked_to_published_record": true,
+            "display_string": "Box 1: [Barcode: 32101070780000]",
+            "long_display_string": "Box 1 [Barcode: 32101070780000], Standard other, Firestone Library, Vault, Manuscripts Archival [scamss], C0140, General Manuscripts Miscellaneous Collection"
+          }
+        }
+      }
+    }
+  ],
+  "notes": [
+    {
+      "jsonmodel_type": "note_multipart",
+      "persistent_id": "a3d8ac162040212150b522cf2d534348",
+      "type": "acqinfo",
+      "subnotes": [
+        {
+          "jsonmodel_type": "note_text",
+          "content": "Purchased from Librería de Antaño in 2021 (AM 2022-033).",
+          "publish": true
+        }
+      ],
+      "publish": true
+    },
+    {
+      "jsonmodel_type": "note_multipart",
+      "persistent_id": "f6fd03b18a718f6c070c9a56523ae6d1",
+      "type": "scopecontent",
+      "subnotes": [
+        {
+          "jsonmodel_type": "note_text",
+          "content": "A manuscript account of the hacienda of San José de Acolman and other properties in Mexico which were confiscated from the Jesuits, as part of the 1767 general expulsion by Charles III. The title page reads, \"Testimonio del quaderno quinto de las\ndiligencias... con arreglamiento a las superiores ordenes sobre la confiscación de las\ntemporalidades de los Religiosos de la Sagrada Compañıá de Jesús en las haciendas de San Joseph de Acolman.\"",
+          "publish": true
+        }
+      ],
+      "publish": true
+    }
+  ],
+  "accession_links": [],
+  "uri": "/repositories/5/archival_objects/1451898",
+  "repository": {
+    "ref": "/repositories/5"
+  },
+  "resource": {
+    "ref": "/repositories/5/resources/3950"
+  },
+  "has_unpublished_ancestor": false
+}
