@@ -72,20 +72,59 @@ RSpec.describe Aspace2alma::AlmaDuplicateBarcodeCheck do
     expect(duplicate_checker.duplicate?('barcode99999')).to be false
   end
 
-  it 'works again on a retry after a request fails' do
-    mock_alma_api_environment_variables
-    mock_page1
-    page2 = stub_request(:get, 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/conf/sets/43977868370006421/members')
-            .with(query: { 'limit' => 100, 'offset' => 100, 'apikey' => 'my-key' })
-            .to_raise(Errno::ECONNRESET).then
-            .to_return_json(body: { member: [{ id: '23480184420006421', description: 'barcode2a' }], total_record_count: 280 })
-    mock_page3
-    duplicate_checker = described_class.new
+  describe 'when Alma has trouble' do
+    let(:duplicate_checker) { described_class.new }
+    let(:page2_request) do
+      stub_request(:get, 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/conf/sets/43977868370006421/members')
+        .with(query: { 'limit' => 100, 'offset' => 100, 'apikey' => 'my-key' })
+    end
+    let(:page2_body) { { member: [{ id: '23480184420006421', description: 'barcode2a' }], total_record_count: 280 } }
 
-    expect { duplicate_checker.duplicate?('barcode2a') }.to raise_error(Errno::ECONNRESET)
-    expect(duplicate_checker.duplicate?('barcode2a')).to be true
-    expect(duplicate_checker.duplicate?('barcode1a')).to be true
-    expect(duplicate_checker.duplicate?('barcode3a')).to be true
-    assert_requested page2, times: 2
+    before do
+      mock_alma_api_environment_variables
+      allow(duplicate_checker).to receive(:sleep)
+      allow(Honeybadger).to receive(:notify)
+    end
+
+    it 'retries a request that fails once' do
+      mock_page1
+      page2 = page2_request.to_raise(Errno::ECONNRESET).then.to_return_json(body: page2_body)
+      mock_page3
+
+      expect(duplicate_checker.duplicate?('barcode2a')).to be true
+      expect(duplicate_checker.duplicate?('barcode1a')).to be true
+      expect(duplicate_checker.duplicate?('barcode3a')).to be true
+      assert_requested page2, times: 2
+    end
+
+    it 'retries when Alma asks it to slow down' do
+      mock_page1
+      page2 = page2_request.to_return(status: [429, 'Too Many Requests']).then.to_return_json(body: page2_body)
+      mock_page3
+
+      expect(duplicate_checker.duplicate?('barcode2a')).to be true
+      assert_requested page2, times: 2
+    end
+
+    it 'adds no item records when Alma stays unreachable' do
+      mock_page1
+      page2 = page2_request.to_raise(Net::ReadTimeout)
+      mock_page3
+
+      expect(duplicate_checker.duplicate?('barcode99999')).to be true
+      expect(duplicate_checker.duplicate?('barcode1a')).to be true
+      assert_requested page2, times: described_class::RETRY_ATTEMPTS + 1
+      expect(Honeybadger).to have_received(:notify).once.with(/Alma unreachable after 3 retries \(Net::ReadTimeout/)
+    end
+
+    it 'fails right away when Alma rejects the request' do
+      page1 = stub_request(:get, 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/conf/sets/43977868370006421/members')
+              .with(query: { 'limit' => 100, 'offset' => 0, 'apikey' => 'my-key' })
+              .to_return(status: [401, 'Unauthorized'])
+
+      expect { duplicate_checker.duplicate?('barcode1a') }.to raise_error(OpenURI::HTTPError, /401/)
+      assert_requested page1, times: 1
+      expect(Honeybadger).not_to have_received(:notify)
+    end
   end
 end
