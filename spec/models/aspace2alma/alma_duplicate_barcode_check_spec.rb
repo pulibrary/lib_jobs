@@ -71,4 +71,21 @@ RSpec.describe Aspace2alma::AlmaDuplicateBarcodeCheck do
     expect(duplicate_checker.duplicate?('barcode3a')).to be true
     expect(duplicate_checker.duplicate?('barcode99999')).to be false
   end
+
+  it 'works again on a retry after a request fails' do
+    mock_alma_api_environment_variables
+    mock_page1
+    page2 = stub_request(:get, 'https://api-na.hosted.exlibrisgroup.com/almaws/v1/conf/sets/43977868370006421/members')
+            .with(query: { 'limit' => 100, 'offset' => 100, 'apikey' => 'my-key' })
+            .to_raise(Errno::ECONNRESET).then
+            .to_return_json(body: { member: [{ id: '23480184420006421', description: 'barcode2a' }], total_record_count: 280 })
+    mock_page3
+    duplicate_checker = described_class.new
+
+    expect { duplicate_checker.duplicate?('barcode2a') }.to raise_error(Errno::ECONNRESET)
+    expect(duplicate_checker.duplicate?('barcode2a')).to be true
+    expect(duplicate_checker.duplicate?('barcode1a')).to be true
+    expect(duplicate_checker.duplicate?('barcode3a')).to be true
+    assert_requested page2, times: 2
+  end
 end

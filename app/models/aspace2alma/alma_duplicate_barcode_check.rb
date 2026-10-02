@@ -40,8 +40,9 @@ module Aspace2alma
 
     def alma_barcodes
       @alma_barcodes ||= begin
+        request_threads = []
         offsets_to_request.each do |offset|
-          sleep 1 until can_make_another_request?
+          sleep 1 until can_make_another_request?(request_threads)
           request_threads << Thread.new do
             response = AlmaMemberSetResponse.from_uri uri(offset)
             response.barcodes
@@ -60,11 +61,7 @@ module Aspace2alma
       (0..total_barcode_count).step(alma_page_size)
     end
 
-    def request_threads
-      @request_threads ||= []
-    end
-
-    def can_make_another_request?
+    def can_make_another_request?(request_threads)
       # Alma only allows 10 API requests per second for all of the
       # PUL sandbox.
       # So we make sure that there are only 5 active request threads
