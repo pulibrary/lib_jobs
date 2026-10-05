@@ -5,9 +5,6 @@ module Aspace2alma
   class SendMarcxmlToAlmaJob < LibJob
     include Aspace2alma::Retries
 
-    # headings whose second indicator names the thesaurus
-    THESAURUS_TAGS = %w[600 610 611 630 647 648 650 651 655].freeze
-
     def initialize
       super(category: 'Aspace2Alma')
     end
@@ -247,37 +244,15 @@ module Aspace2alma
     # authority subfields and LC-coded sources, as in the component export
     def normalize_authority_subfields(doc)
       doc.xpath('//marc:datafield[starts-with(@tag, "1") or starts-with(@tag, "6") or starts-with(@tag, "7")]').each do |datafield|
-        subfield2 = datafield.at_xpath('marc:subfield[@code="2"]')
-        normalize_identifiers(datafield, subfield2&.content)
-        code_lc_source(datafield, subfield2)
+        datafield.swap(normalize_authorized_field.call(datafield))
       end
-    end
-
-    # identifiers to $0 or $1, dropping the rest
-    def normalize_identifiers(datafield, source)
-      kept = []
-      datafield.xpath('marc:subfield[@code="0"]').each do |subfield0|
-        code, value = MarcRules.authority_subfield(subfield0.content, source)
-        next subfield0.remove if code.nil? || kept.include?(value)
-
-        kept << value
-        subfield0['code'] = code
-        subfield0.content = value
-      end
-    end
-
-    # LC-coded source as ind2 0 instead of $2
-    def code_lc_source(datafield, subfield2)
-      tag = datafield['tag']
-      return unless MarcRules.lc_source?(subfield2&.content) && (THESAURUS_TAGS.include?(tag) || !tag.start_with?('6'))
-
-      subfield2.remove
-      datafield['ind2'] = '0' if tag.start_with?('6') && datafield['ind2'] == '7'
     end
 
     def barcode_duplicate_check
       @barcode_duplicate_check ||= AlmaDuplicateBarcodeCheck.new
     end
+
+    def normalize_authorized_field = @normalize_authorized_field ||= NormalizeAuthorizedField.new
   end
   # rubocop:enable Metrics/ClassLength
   # rubocop:enable Metrics/MethodLength
