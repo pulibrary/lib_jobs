@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://www.loc.gov/MARC21/slim" xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/MARC21/slim https://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">
+  <record>
+    <leader>00000npcaa2200000 u 4500</leader>
+    <controlfield tag="008">260924i19681983xx                  gre d</controlfield>
+    <datafield ind1=" " ind2=" " tag="040">
+      <subfield code="b">eng</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="041">
+      <subfield code="a">gre</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="099">
+      <subfield code="a">C1715</subfield>
+    </datafield>
+    <datafield ind1="0" ind2="0" tag="245">
+      <subfield code="a">Collection of Greek Military Junta Printed Materials,</subfield>
+      <subfield code="f">1968-1983</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="300">
+      <subfield code="a">1.2</subfield>
+      <subfield code="f">linear feet</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="300">
+      <subfield code="a">3</subfield>
+      <subfield code="f">boxes</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Physical Characteristics / Technical Requirements: For preservation reasons, original analog
+and digital media may not be read or played back in the
+reading room. Users may visually inspect physical media
+but may not remove it from its enclosure. All analog
+audiovisual media must be digitized to preservation-quality
+standards prior to use. Audiovisual digitization requests
+are processed by an approved third-party vendor. Please note,
+the transfer time required can be as little as several weeks
+to as long as several months and there may be financial costs
+associated with the process.
+Requests should be directed through the
+ Ask Us Form .</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Location of resource: scamss rcpxm.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Processing Information: This collection was processed by Kalliopi Balatsouka in September 2022. Finding Aid was written by Kalliopi Balatsouka in September 2022.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="506">
+      <subfield code="a">The collection is open for research.</subfield>
+    </datafield>
+    <datafield ind1="3" ind2=" " tag="520">
+      <subfield code="a">Consists of printed materials related to the Greek military junta of 1967–1974.</subfield>
+    </datafield>
+    <datafield ind1="2" ind2=" " tag="520">
+      <subfield code="a">This collection consists of printed materials related to the Greek coup d'etat in 1967 and the following military junta that lasted seven years until 1974. Included are periodicals, reports, newsletters, newspapers, and clippings.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="540">
+      <subfield code="a"> Single copies may be made for research purposes. To cite or publish quotations that fall within Fair Use, as defined under  U. S. Copyright Law , no permission is required. For instances beyond Fair Use, it is the responsibility of the researcher to determine whether any permissions related to copyright, privacy, publicity, or any other rights are necessary for their intended use of the Library's materials, and to obtain all required permissions from any existing rights holders, if they have not already done so. Princeton University Library’s Special Collections does not charge any permission or use fees for the publication of images of materials from our collections, nor does it require researchers to obtain its permission for said use. The department does request that its collections be properly cited and images credited. More detailed information can be found on the  Copyright, Credit and Citations Guidelines  page on our website. If you have any questions, please feel free to contact us through the  Ask Us! form . .</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="541">
+      <subfield code="a">Gift of the Program in Hellenic Studies with the support of the Stanley J. Seeger Hellenic Fund. From the library of Nicolas Oikonomidès and Elisavet A. Zachariadou.</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="583">
+      <subfield code="a">No materials were removed from the collection during 2022 processing beyond routine appraisal practices.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">Greece</subfield>
+      <subfield code="x">Politics and government</subfield>
+      <subfield code="y">1967-1974</subfield>
+      <subfield code="0">http://id.loc.gov/authorities/subjects/sh85057124</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">Greece</subfield>
+      <subfield code="x">History</subfield>
+      <subfield code="y">1967-1974</subfield>
+      <subfield code="v">Sources</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="655">
+      <subfield code="a">Printed materials.</subfield>
+      <subfield code="2">aat</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="852">
+      <subfield code="a">Princeton University Library. Department of Rare Books and Special Collections.</subfield>
+      <subfield code="b">Manuscripts Division </subfield>
+    </datafield>
+    <datafield ind1="4" ind2="2" tag="856">
+      <subfield code="z">Finding aid online:</subfield>
+      <subfield code="u">http://arks.princeton.edu/ark:/88435/dcnk322q959</subfield>
+    </datafield>
+  </record>
+</collection>
+

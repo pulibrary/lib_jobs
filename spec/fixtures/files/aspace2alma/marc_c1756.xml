@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://www.loc.gov/MARC21/slim" xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/MARC21/slim https://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">
+  <record>
+    <leader>00000npcaa2200000 u 4500</leader>
+    <controlfield tag="008">260924s1950    xx                  gre d</controlfield>
+    <datafield ind1=" " ind2=" " tag="040">
+      <subfield code="b">eng</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="041">
+      <subfield code="a">gre</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="099">
+      <subfield code="a">C1756</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="100">
+      <subfield code="a">Charisiadēs, D. A.,</subfield>
+      <subfield code="e">photographer</subfield>
+      <subfield code="q">(Dēmētrēs A.)</subfield>
+      <subfield code="0">CHARISIADĒSDADĒMĒTRĒSA88122199.</subfield>
+      <subfield code="4">pht</subfield>
+      <subfield code="0">https://viaf.org/viaf/88122199</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="0" tag="245">
+      <subfield code="a">Princeton University Library Collection of Dēmētrēs A. Charisiadēs Photographs,</subfield>
+      <subfield code="f">approximately 1950</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="300">
+      <subfield code="a">1</subfield>
+      <subfield code="f">box</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="300">
+      <subfield code="a">2</subfield>
+      <subfield code="f">linear feet</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Location of resource: scamss.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Processing Information: This collection was processed and cataloged by Kalliopi Balatsouka in 2023. Finding aid written by Kalliopi Balatsouka in 2023.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="506">
+      <subfield code="a">The collection is open for research.</subfield>
+    </datafield>
+    <datafield ind1="3" ind2=" " tag="520">
+      <subfield code="a">Open, growing collection of photographs of Greece by Greek photographer Dēmētrēs A. Charisiadēs.</subfield>
+    </datafield>
+    <datafield ind1="2" ind2=" " tag="520">
+      <subfield code="a">Two photographs of Greece by Greek photographer Dēmētrēs A. Charisiadēs in 1950s comprise the collection.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="540">
+      <subfield code="a"> Single copies may be made for research purposes. To cite or publish quotations that fall within Fair Use, as defined under  U. S. Copyright Law , no permission is required. For instances beyond Fair Use, it is the responsibility of the researcher to determine whether any permissions related to copyright, privacy, publicity, or any other rights are necessary for their intended use of the Library's materials, and to obtain all required permissions from any existing rights holders, if they have not already done so. Princeton University Library’s Special Collections does not charge any permission or use fees for the publication of images of materials from our collections, nor does it require researchers to obtain its permission for said use. The department does request that its collections be properly cited and images credited. More detailed information can be found on the  Copyright, Credit and Citations Guidelines  page on our website. If you have any questions, please feel free to contact us through the  Ask Us! form . .</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="541">
+      <subfield code="a">Gift of the Program in Hellenic Studies with the support of the Stanley J. Seeger Hellenic Fund. (AM 2023-109).</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="583">
+      <subfield code="a">No materials were removed from the collection during 2023 processing beyond routine appraisal practices.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">Greece</subfield>
+      <subfield code="y">20th century</subfield>
+      <subfield code="v">photographs</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="655">
+      <subfield code="a">Photographs, Original</subfield>
+      <subfield code="2">aat</subfield>
+    </datafield>
+    <datafield ind1="2" ind2=" " tag="710">
+      <subfield code="a">Petros Vergos,</subfield>
+      <subfield code="e">auctioneer.</subfield>
+      <subfield code="0">PETROSVERGOS</subfield>
+      <subfield code="4">auc</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="852">
+      <subfield code="a">Princeton University Library. Department of Rare Books and Special Collections.</subfield>
+      <subfield code="b">Manuscripts Division </subfield>
+    </datafield>
+    <datafield ind1="4" ind2="2" tag="856">
+      <subfield code="z">Finding aid online:</subfield>
+      <subfield code="u">http://arks.princeton.edu/ark:/88435/dsp013x816q94w</subfield>
+    </datafield>
+  </record>
+</collection>
+

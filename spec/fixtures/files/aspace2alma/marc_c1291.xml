@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://www.loc.gov/MARC21/slim" xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/MARC21/slim https://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">
+  <record>
+    <leader>00000npcaa2200000 u 4500</leader>
+    <controlfield tag="008">260924i17281809xx                  eng d</controlfield>
+    <datafield ind1=" " ind2=" " tag="040">
+      <subfield code="b">eng</subfield>
+      <subfield code="e">Finding aid content adheres to that prescribed by Describing Archives: A Content Standard.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="041">
+      <subfield code="a">eng</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="099">
+      <subfield code="a">C1291</subfield>
+    </datafield>
+    <datafield ind1="2" ind2=" " tag="110">
+      <subfield code="a">Princeton University.</subfield>
+      <subfield code="b">Library.</subfield>
+      <subfield code="b">Special Collections,</subfield>
+      <subfield code="e">collector.</subfield>
+      <subfield code="0">PRINCETONUNIVERSITYLIBRARYSPECIALCOLLECTIONS6943157226626985410004</subfield>
+      <subfield code="4">col</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="0" tag="245">
+      <subfield code="a">Pennsylvania Collection,</subfield>
+      <subfield code="f">1728-1908</subfield>
+      <subfield code="g">1728-1809</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="300">
+      <subfield code="a">1</subfield>
+      <subfield code="f">box</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="300">
+      <subfield code="a">0.4</subfield>
+      <subfield code="f">linear feet</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="351">
+      <subfield code="a">Arranged in accession number order.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Physical Characteristics / Technical Requirements: For preservation reasons, original analog
+and digital media may not be read or played back in the
+reading room. Users may visually inspect physical media
+but may not remove it from its enclosure. All analog
+audiovisual media must be digitized to preservation-quality
+standards prior to use. Audiovisual digitization requests
+are processed by an approved third-party vendor. Please note,
+the transfer time required can be as little as several weeks
+to as long as several months and there may be financial costs
+associated with the process.
+Requests should be directed through the
+ Ask Us Form .</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Location of resource: scamss.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Processing Information: This collection was processed by Dina Britain on November 13, 2008. Finding aid written by Natalie Kim on Nobember 18, 2008. Folder Inventory added by Hilde Creager (2015) in 2012.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="506">
+      <subfield code="a">The collection is open for research.</subfield>
+    </datafield>
+    <datafield ind1="3" ind2=" " tag="520">
+      <subfield code="a">Consists of selected correspondence and documents from the state of Pennsylvania, the bulk of which date from the eighteenth century. Pennsylvania was founded by William Penn in 1681 in order to establish a safe haven for the English Quakers, who were being persecuted in England at the time.</subfield>
+    </datafield>
+    <datafield ind1="2" ind2=" " tag="520">
+      <subfield code="a">The collection consists of selected correspondence, deeds, and other documents dating from the Colonial and Revolutionary periods of the state of Pennsylvania. Of significance are the letters of Robert Morris, who at the time was National Superintendent of Finance, regarding the purchase of supplies and the appointment of William Churchill Houston (Princeton Class of 1768) as Receiver of Continental Taxes for New Jersey. Another letter, in French, written on Morris's behalf to the governor of Cuba, concerns the raising of funds for the United States. There are two passports for safe passage and recommendations for the Rev. Charles Beatty regarding his trips to raise funds for the College of New Jersey (now Princeton University). The first is signed by Robert Hunter Morris (1754) and the second by Richard Penn (1772). There are several documents related to taxes and their collection in Pennsylvania, and lists of persons who are delinquent on them. There is a printed form of the "Constitution" of the Philadelpia Society for the Information and Assistance of Persons Emigrating from Foreign Countries, dated 1795. A letter from the Executive Committee of Founder's Week of the 225th Anniversary of the City of Philadelphia to John Franklin Fort, Governor of New Jersey, dated October 1, 1908, concerns the celebrations in Philadelphia.
+
+ Among documents are two deeds (1735) of John White and the Rev. William Tennent for land in Warminster, Bucks County, for the "Log College," which Tennent conducted from 1726 until his death in 1745. There are three deeds of Emma Bache, William Bache, and Benjamin Franklin Bache for land in Fayette County, two deeds of Catherine Wistar for land in Northumberland County, and one of Richard Wistar which bears the seal of the "Province of Pennsylvania." Also, there are three deeds for property in Philadelphia, and one of Robert Morris and Alexander Wilcocks for property in Luzerne County, dated December 18, 1797.
+
+ In addition, there is a one-page description of a journey along the Susquehanna River in 1800; on the verso is a campaign song by Robert Morton, dated March 22, 1801.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="524">
+      <subfield code="a">Identification of specific item; Date (if known); Pennsylvania Collection, Box and Folder Number; Special Collections, Princeton University Library.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="540">
+      <subfield code="a"> Single copies may be made for research purposes. To cite or publish quotations that fall within Fair Use, as defined under  U. S. Copyright Law , no permission is required. For instances beyond Fair Use, it is the responsibility of the researcher to determine whether any permissions related to copyright, privacy, publicity, or any other rights are necessary for their intended use of the Library's materials, and to obtain all required permissions from any existing rights holders, if they have not already done so. Princeton University Library’s Special Collections does not charge any permission or use fees for the publication of images of materials from our collections, nor does it require researchers to obtain its permission for said use. The department does request that its collections be properly cited and images credited. More detailed information can be found on the  Copyright, Credit and Citations Guidelines  page on our website. If you have any questions, please feel free to contact us through the  Ask Us! form . .</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="541">
+      <subfield code="a">Log College deeds were a gift of Chas. Spencer Richardson, Princeton Class of 1903, in  March 1920 .
+
+ Deeds to Bache and Wistar were a gift of William Berryman Scott, Princeton Class of 1877, on  January 25, 1922 .
+
+ Passports signed by Morris and Penn were a gift of Mrs. Idell on  December 10, 1928 .
+
+ "Journey along the Susquehanna River" was purchased on  August 27, 1974 .
+
+ Items of Robert Morris were a gift of William Weaver, Princeton Class of 1934, in  1958 . Various AM.</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="561">
+      <subfield code="a">The collection was formed as a result of a Departmental practice of combining into one collection material of various accessions relating to a particular person, family, or subject.</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="583">
+      <subfield code="a">No appraisal information is available.</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Morris, Robert</subfield>
+      <subfield code="0">MORRISROBERT68945505.</subfield>
+      <subfield code="0">https://viaf.org/viaf/68945505</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">College of New Jersey (Princeton, N.J.).</subfield>
+      <subfield code="0">COLLEGEOFNEWJERSEYPRINCETONNJ124979307</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">Log College.</subfield>
+      <subfield code="0">LOGCOLLEGE128284215</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">Philadelpia Society for the Information and Assistance of Persons Emigrating from Foreign Countries.</subfield>
+      <subfield code="0">PHILADELPIASOCIETYFORTHEINFORMATIONANDASSISTANCEOFPERSONSEMIGRATINGFROMFOREIGNCOUNTRIES</subfield>
+      <subfield code="2">local</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Tax collection</subfield>
+      <subfield code="z">Pennsylvania</subfield>
+      <subfield code="y">18th century</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Tax collection</subfield>
+      <subfield code="z">New Jersey</subfield>
+      <subfield code="y">18th century</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Campaign songs</subfield>
+      <subfield code="z">United States</subfield>
+      <subfield code="y">1801</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">Pennsylvania -- History -- Colonial period, ca. 1600-1775.</subfield>
+      <subfield code="v">Sources</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">Philadelphia (Pa.) -- History -- Colonial period, ca. 1600-1775.</subfield>
+      <subfield code="v">Sources</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">Susquehanna River Valley</subfield>
+      <subfield code="x">Description and travel</subfield>
+      <subfield code="y">19th century</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="655">
+      <subfield code="a">Correspondence</subfield>
+      <subfield code="y">18th century</subfield>
+      <subfield code="2">aat</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="655">
+      <subfield code="a">Deeds</subfield>
+      <subfield code="z">Pennsylvania</subfield>
+      <subfield code="z">Bucks County</subfield>
+      <subfield code="y">18th century</subfield>
+      <subfield code="2">aat</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="655">
+      <subfield code="a">Deeds</subfield>
+      <subfield code="z">Pennsylvania</subfield>
+      <subfield code="z">Luzerne County</subfield>
+      <subfield code="y">18th century</subfield>
+      <subfield code="2">aat</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="655">
+      <subfield code="a">Deeds</subfield>
+      <subfield code="z">Pennsylvania</subfield>
+      <subfield code="z">Philadelphia</subfield>
+      <subfield code="y">18th century</subfield>
+      <subfield code="2">aat</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="655">
+      <subfield code="a">Documents--18th century</subfield>
+      <subfield code="2">aat</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="700">
+      <subfield code="a">Morris, Robert,</subfield>
+      <subfield code="e">associated name</subfield>
+      <subfield code="0">MORRISROBERT68945505.</subfield>
+      <subfield code="4">asn</subfield>
+      <subfield code="0">https://viaf.org/viaf/68945505</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="852">
+      <subfield code="a">Princeton University Library. Department of Rare Books and Special Collections.</subfield>
+      <subfield code="b">Manuscripts Division </subfield>
+    </datafield>
+    <datafield ind1="4" ind2="2" tag="856">
+      <subfield code="z">Finding aid online:</subfield>
+      <subfield code="u">http://arks.princeton.edu/ark:/88435/4q77fr415</subfield>
+    </datafield>
+  </record>
+</collection>
+
