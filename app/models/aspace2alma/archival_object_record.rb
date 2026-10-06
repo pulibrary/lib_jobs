@@ -13,8 +13,6 @@ module Aspace2alma
     DEFAULT_RESTRICTION = 'Collection is open for research use.'
     # subject types that get a 6xx
     SUBJECT_TERM_TYPES = %w[cultural_context topical geographic genre_form].freeze
-    # hosts of VIAF URIs
-    VIAF_HOSTS = %w[viaf.org www.viaf.org].freeze
 
     # 008/18-34 for each format
     TAG008_MATERIAL = {
@@ -444,7 +442,7 @@ module Aspace2alma
           2
         end
 
-      source_code = %w[lcnaf lcsh viaf].include?(agent['source']) ? 0 : 7
+      source_code = MarcRules.lc_source?(agent['source']) ? 0 : 7
 
       name =
         if agent['family_name']
@@ -497,7 +495,7 @@ module Aspace2alma
           end
 
         source_code =
-          if subject['source'] == 'lcsh' || subject['source'] == 'Library of Congress Subject Headings'
+          if MarcRules.lc_source?(subject['source']) || subject['source'] == 'Library of Congress Subject Headings'
             0
           else
             7
@@ -556,35 +554,8 @@ module Aspace2alma
 
     # handle viaf and other authority identifiers
     def identifier_subfield(identifier, source)
-      return if identifier.blank?
-
-      if (viaf_id = viaf_number(identifier, source))
-        "<subfield code = '1'>http://viaf.org/viaf/#{viaf_id}</subfield>"
-      elsif web_uri?(identifier) && !identifier.match?(/viaf/i) && source != 'viaf'
-        "<subfield code = '0'>#{xml_escape(identifier.strip)}</subfield>"
-      end
-    end
-
-    # http or https URI?
-    def web_uri?(identifier)
-      uri = URI.parse(identifier.strip)
-      %w[http https].include?(uri.scheme) && uri.host.present?
-    rescue URI::InvalidURIError
-      false
-    end
-
-    # VIAF number from an identifier
-    def viaf_number(identifier, source)
-      bare_number = identifier.strip[/\A\(?viaf\)?[\s:]*(\d+)\z/i, 1]
-      bare_number ||= identifier.strip[/\A\d+\z/] if source == 'viaf'
-      return bare_number if bare_number
-
-      uri = URI.parse(identifier.strip)
-      return unless VIAF_HOSTS.include?(uri.host&.downcase)
-
-      uri.path[%r{\A(?:/[a-z]{2})?/viaf/(\d+)/?\z}, 1]
-    rescue URI::InvalidURIError
-      nil
+      code, value = MarcRules.authority_subfield(identifier, source)
+      "<subfield code = '#{code}'>#{xml_escape(value)}</subfield>" if code
     end
 
     # remove EAD markup

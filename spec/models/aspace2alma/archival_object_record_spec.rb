@@ -628,6 +628,23 @@ RSpec.describe Aspace2alma::ArchivalObjectRecord do
       end
     end
 
+    %w[viaf lcnaf].each do |source|
+      context "when a subject is #{source}-sourced" do
+        let(:resolved_ao_json) do
+          fixture_json('resolved_archival_object').tap do |json|
+            json['subjects'][5]['_resolved']['source'] = source
+          end
+        end
+
+        it 'codes it like an LC heading, without $2' do
+          tag650 = marc.at_xpath("//datafield[@tag='650'][subfield[@code='a']='Munsee Indians']")
+
+          expect(tag650['ind2']).to eq('0')
+          expect(tag650.at_xpath("subfield[@code='2']")).to be_nil
+        end
+      end
+    end
+
     context 'when the creation date is a range' do
       let(:resolved_ao_json) { fixture_json('archival_object_inclusive_dates') }
 
