@@ -57,7 +57,7 @@ RSpec.describe AlmaFundAdjustment::AdjustmentCheck, type: :model, file_upload: t
       it "throws an error" do
         FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions_invalid_headers.csv'), 'spec/fixtures/peoplesoft_3/test_alma_1.csv')
 
-        expect { adjustment_check.run }.to raise_error(CSVValidator::InvalidHeadersError)
+        expect { adjustment_check.run }.to raise_error(Shared::CSVValidator::InvalidHeadersError)
       end
     end
     context "job is turned off" do

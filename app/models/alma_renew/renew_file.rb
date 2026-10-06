@@ -11,7 +11,7 @@ module AlmaRenew
     end
 
     def process
-      CSVValidator.new(csv_filename: temp_file.path).require_headers ['Barcode', 'Patron Group', 'Expiry Date', 'Primary Identifier']
+      Shared::Slice['csv_validator'].require_headers ['Barcode', 'Patron Group', 'Expiry Date', 'Primary Identifier'], csv_filename: temp_file.path
       CSV.foreach(temp_file, headers: true, encoding: 'bom|utf-8') do |row|
         renew_item_list << Item.new(row.to_h)
       end

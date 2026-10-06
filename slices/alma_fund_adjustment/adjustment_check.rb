@@ -3,7 +3,7 @@ require 'csv'
 
 module AlmaFundAdjustment
   class AdjustmentCheck
-    include Deps['settings', 'fund_adjustment']
+    include Deps['settings', 'fund_adjustment', 'shared.csv_validator']
 
     def run
       files = Dir.glob(File.join(settings.fund_adjustment_peoplesoft_input_dir, settings.fund_adjustment_peoplesoft_input_file_pattern.gsub("\\*", "*")))
@@ -35,8 +35,7 @@ module AlmaFundAdjustment
     end
 
     def read_file(file)
-      CSVValidator.new(csv_filename: file)
-                  .require_headers(['TRANSACTION_REFERENCE_NUMBER', 'TRANSACTION_NOTE', 'AMOUNT'])
+      csv_validator.require_headers(['TRANSACTION_REFERENCE_NUMBER', 'TRANSACTION_NOTE', 'AMOUNT'], csv_filename: file)
       CSV.read(file, headers: true)
     end
 
