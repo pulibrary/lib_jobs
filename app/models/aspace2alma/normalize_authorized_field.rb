@@ -18,17 +18,22 @@ module Aspace2alma
       end
 
       # Create a new Nokogiri field from scratch based on the data we have collected about the original (unnormalized) field
+      # rubocop:disable-next Metrics/MethodLength
       def to_normalized_datafield
         datafield = Nokogiri::XML::Node.new('datafield', document)
         datafield['ind1'] = ind1
-        datafield['ind2'] = lc_thesaurus? ? '0' : ind2
+        datafield['ind2'] = if lc_thesaurus? && tag.start_with?('6') && datafield['ind2'] == '7'
+                              '0'
+                            else
+                              ind2
+                            end
         datafield['tag'] = tag
 
         subfields.each do |subfield|
           datafield.add_child subfield.dup unless subfield['code'] == '2' && lc_thesaurus?
         end
         identifiers.select { it[0] }.uniq { it[1] }.each do |code, value|
-          datafield.add_child "<subfield code='#{code}'>#{value}</subfield>"
+          datafield.add_child "<subfield code='#{code}'>#{value.encode(xml: :text)}</subfield>"
         end
         datafield
       end
