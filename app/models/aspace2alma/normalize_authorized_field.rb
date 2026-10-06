@@ -22,7 +22,7 @@ module Aspace2alma
       def to_normalized_datafield
         datafield = Nokogiri::XML::Node.new('datafield', document)
         datafield['ind1'] = ind1
-        datafield['ind2'] = if lc_thesaurus? && tag.start_with?('6') && datafield['ind2'] == '7'
+        datafield['ind2'] = if lc_thesaurus? && tag.start_with?('6') && ind2 == '7'
                               '0'
                             else
                               ind2

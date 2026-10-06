@@ -22,12 +22,13 @@ RSpec.describe Aspace2alma::NormalizeAuthorizedField do
   it 'can handle an id with XML entities in it' do
     original = <<~END_ORIGINAL
           <record xmlns="http://www.loc.gov/MARC21/slim" xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/MARC21/slim http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">
-            <datafield tag="100" ind1="1" ind2=" "><subfield code="a">Rogers, Morgan</subfield><subfield code="q">(Morgan A.)</subfield><subfield code="0">(MyId)123&lt;abc&gt;</subfield></datafield>
+            <datafield tag="100" ind1="1" ind2=" "><subfield code="a">Rogers, Morgan</subfield><subfield code="q">(Morgan A.)</subfield><subfield code="0">http://example.org/names?id=123&amp;lang=en</subfield></datafield>
           </record>
         END_ORIGINAL
     datafield = Nokogiri.parse(original).xpath('//marc:datafield').first
 
     normalized = described_class.new.call(datafield)
-    expect(normalized.xpath('//marc:subfield[@code = "0"]').first.content).to eq '(MyId)123<abc>'
+    expect(normalized.element_children.select { |subfield| subfield['code'] == '0' }.map(&:content))
+      .to eq ['http://example.org/names?id=123&lang=en']
   end
 end
