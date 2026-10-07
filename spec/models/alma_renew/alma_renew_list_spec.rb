@@ -80,7 +80,7 @@ RSpec.describe AlmaRenew::AlmaRenewList, type: :model, file_download: true do
         allow(sftp_session).to receive(:download!).with("/alma/scsb_renewals/abc.csv").and_return(Rails.root.join('spec', 'fixtures', 'renew_invalid_headers.csv').read)
       end
       it "throws an error" do
-        expect { described_class.new }.to raise_error(CSVValidator::InvalidHeadersError)
+        expect { described_class.new }.to raise_error(Shared::CSVValidator::InvalidHeadersError)
       end
     end
   end

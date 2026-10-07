@@ -109,7 +109,7 @@ RSpec.describe AlmaFundAdjustment::FileConverter, type: :model, file_upload: tru
       it "throws an error" do
         FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions_invalid_headers.csv'), 'spec/fixtures/peoplesoft_2/test_alma_1.csv')
 
-        expect { expect(fund_adjustment.run) }.to raise_error(CSVValidator::InvalidHeadersError)
+        expect { expect(fund_adjustment.run) }.to raise_error(Shared::CSVValidator::InvalidHeadersError)
       end
     end
 

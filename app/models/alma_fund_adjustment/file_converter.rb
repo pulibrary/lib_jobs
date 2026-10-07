@@ -39,8 +39,8 @@ module AlmaFundAdjustment
     def read_file(path)
       data = CSV.read(path, headers: true)
       return data if data.empty?
-      CSVValidator.new(csv_filename: path)
-                  .require_headers(['TRANSACTION_REFERENCE_NUMBER', 'TRANSACTION_NOTE', 'AMOUNT'])
+      Shared::Slice['csv_validator']
+        .require_headers(['TRANSACTION_REFERENCE_NUMBER', 'TRANSACTION_NOTE', 'AMOUNT'], csv_filename: path)
       data
     end
   end
