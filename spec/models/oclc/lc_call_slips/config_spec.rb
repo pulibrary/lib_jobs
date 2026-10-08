@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require 'rails_helper'
 
+# rubocop:disable-next RSpec/DescribeClass
 RSpec.describe "configuration for lc call slips", lc_call_slips: true do
   before do
     string_inquirer = ActiveSupport::StringInquirer.new('production')

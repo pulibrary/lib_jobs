@@ -24,21 +24,21 @@ gem 'dry-types'
 gem 'dry-validation'
 gem 'ed25519', '~> 1.4'
 gem 'faraday', '~> 2.14'
-gem "flipflop", git: "https://github.com/voormedia/flipflop.git", ref: "0d70d8e33483a9c0282ed8d6bca9c5ccd61e61e8"
+gem 'flipflop', git: 'https://github.com/voormedia/flipflop.git', ref: '0d70d8e33483a9c0282ed8d6bca9c5ccd61e61e8'
 gem 'git'
 gem 'hanami', require: false
 gem 'hanami-action', require: false
 gem 'hanami-mailer', require: false
 gem 'hanami-router', require: false
 gem 'hanami-view', require: false
-gem "health-monitor-rails"
+gem 'health-monitor-rails'
 gem 'honeybadger'
 gem 'icalendar'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.15'
 gem 'library_stdnums'
 gem 'marc'
-gem 'marc_cleanup', github: "pulibrary/marc_cleanup", branch: 'main', require: false
+gem 'marc_cleanup', github: 'pulibrary/marc_cleanup', branch: 'main', require: false
 # Use ActiveStorage variant
 gem 'multipart-post'
 gem 'net-sftp'
@@ -57,14 +57,15 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'whenever'
 
 group :development, :test do
-  gem 'bixby'
   gem 'brakeman'
   gem 'byebug'
   gem 'dotenv-rails'
   gem 'factory_bot_rails'
   gem 'rspec'
-  gem 'rubocop', '~> 1.91'
+  gem 'rubocop'
+  gem 'rubocop-performance'
   gem 'rubocop-rails'
+  gem 'rubocop-rspec'
 end
 
 group :development do
