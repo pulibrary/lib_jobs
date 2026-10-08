@@ -17,7 +17,7 @@ module AlmaPodRecords
       @alma_sftp.start do |sftp|
         Rails.logger.info "Downloading POD file #{filename}"
         full_filename = File.join(@input_sftp_base_dir, filename)
-        decompressed_files.concat(Tarball.new(sftp.file.open(full_filename)).contents)
+        decompressed_files.concat(Shared::Slice['tarball'].contents(sftp.file.open(full_filename)))
       end
       decompressed_files
     end

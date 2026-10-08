@@ -30,7 +30,7 @@ module AlmaSubmitCollection
       decompressed_files = []
       @alma_sftp.start do |sftp|
         Rails.logger.info "Downloading Alma Recap file #{filename}"
-        decompressed_files.concat(Tarball.new(sftp.file.open(full_filename(filename))).contents)
+        decompressed_files.concat(Shared::Slice['tarball'].contents(sftp.file.open(full_filename(filename))))
       end
       decompressed_files
     end
