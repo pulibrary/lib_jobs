@@ -146,7 +146,6 @@ module AlmaPeople
     end
 
     # This is one logical chunk of work all about the address, so I am disabling rubocop
-    # rubocop:disable Metrics/MethodLength
     # rubocop:disable Metrics/ParameterLists
     def create_address(type:, preferred:, line1:, line2:, line3:, line4:, city:, state:, country:, postal:)
       return if line1.blank?
@@ -164,9 +163,8 @@ module AlmaPeople
         end
       end
     end
-    # rubocop:enable Metrics/ParameterLists
-    # rubocop:enable Metrics/MethodLength
 
+    # rubocop:enable Metrics/ParameterLists
     def eligible?
       person["ELIGIBLE_INELIGIBLE"] == 'E'
     end
