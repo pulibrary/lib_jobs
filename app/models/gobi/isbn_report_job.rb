@@ -7,12 +7,11 @@ module Gobi
 
     def initialize
       super(category: 'Gobi:IsbnReports')
-      @report_downloader = ReportDownloader.new(
+      @report_downloader = ReportDownloader.new(ReportDownloader::Context[
         sftp: AlmaSftp.new,
         file_pattern: 'received_items_published_last_5_years_\d{12}.csv',
         input_sftp_base_dir: '/alma/isbns',
-        process_class: Gobi::IsbnFile
-      )
+        process_class: Gobi::IsbnFile])
       @report_uploader = ReportUploader.new(
         sftp: GobiSftp.new,
         working_file_names: [IsbnReportJob.working_file_name],

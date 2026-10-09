@@ -2,20 +2,17 @@
 # This class is responsible for matching and downloading files from a remote sftp server to local temp files
 # It returns an array of temp file paths
 class ReportDownloader
-  attr_reader :input_sftp_base_dir, :file_pattern, :sftp, :process_class, :recent, :date_file_pattern, :remote_filenames
-  # TODO: Use an object so we don't have to use as many parameters
-  # rubocop:disable Metrics/ParameterLists
-  def initialize(sftp: OclcSftp.new, file_pattern:, process_class:,
-                 input_sftp_base_dir:, recent: false, date_file_pattern: '.IN.BIB.D(\d{8})')
-    @input_sftp_base_dir = input_sftp_base_dir
-    @file_pattern = file_pattern
-    @sftp = sftp
-    @process_class = process_class
-    @recent = recent
-    @date_file_pattern = date_file_pattern
+  Context = Data.define(:sftp, :file_pattern, :process_class, :input_sftp_base_dir, :recent, :date_file_pattern) do
+    def initialize(sftp: OclcSftp.new, recent: false, date_file_pattern: '.IN.BIB.D(\d{8})', **) = super
+  end
+
+  attr_reader :context, :remote_filenames
+
+  delegate :input_sftp_base_dir, :file_pattern, :sftp, :process_class, :recent, :date_file_pattern, to: :context
+  def initialize(context)
+    @context = context
     @remote_filenames = []
   end
-  # rubocop:enable Metrics/ParameterLists
 
   def run
     working_file_names = []

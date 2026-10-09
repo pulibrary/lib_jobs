@@ -4,10 +4,11 @@ require 'rails_helper'
 RSpec.describe ReportDownloader, type: :model, file_download: true do
   context "OCLC exception report downloader" do
     subject(:downloader) do
-      described_class.new(file_pattern: 'BibExceptionReport.txt$', process_class: Oclc::DataSyncExceptionFile, input_sftp_base_dir: '/xfer/metacoll/reports/', recent: true)
+      described_class.new(described_class::Context[file_pattern: 'BibExceptionReport.txt$', process_class: Oclc::DataSyncExceptionFile, input_sftp_base_dir: '/xfer/metacoll/reports/', recent: true])
     end
+
     it 'can be instantiated' do
-      expect(downloader).to be
+      expect(downloader).to be_truthy
     end
     it 'knows what directory to look in' do
       expect(downloader.input_sftp_base_dir).to eq('/xfer/metacoll/reports/')
@@ -32,10 +33,12 @@ RSpec.describe ReportDownloader, type: :model, file_download: true do
     end
 
     context 'running the downloader' do
-      include_context 'sftp'
       subject(:downloader) do
-        described_class.new(file_pattern: 'BibExceptionReport.txt', process_class: Oclc::DataSyncExceptionFile, input_sftp_base_dir: '/xfer/metacoll/reports/', recent: true)
+        described_class.new(described_class::Context[file_pattern: 'BibExceptionReport.txt', process_class: Oclc::DataSyncExceptionFile, input_sftp_base_dir: '/xfer/metacoll/reports/', recent: true])
       end
+
+      include_context 'sftp'
+
       let(:input_sftp_base_dir) { Rails.application.config.oclc_sftp.data_sync_report_path }
       let(:file_full_path_one) { "#{input_sftp_base_dir}#{file_name_to_download_one}" }
       let(:file_full_path_two) { "#{input_sftp_base_dir}#{file_name_to_download_two}" }
