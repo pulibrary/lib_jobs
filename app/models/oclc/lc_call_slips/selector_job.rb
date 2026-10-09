@@ -3,14 +3,10 @@
 module Oclc
   module LcCallSlips
     class SelectorJob < LcCallSlipJob
-      attr_reader :report_downloader, :selectors_config
-      def initialize(report_downloader: ReportDownloader.new(ReportDownloader::Context[file_pattern: Rails.application.config.oclc_sftp.lc_call_slips_file_pattern,
-                                                                                       process_class: Oclc::LcCallSlips::SelectorFile,
-                                                                                       input_sftp_base_dir: Rails.application.config.oclc_sftp.lc_call_slips_path,
-                                                                                       recent: false]),
-                     selectors_config: Rails.application.config.lc_call_slips.selectors)
-        super(category: "Oclc:LcCallSlips")
-        @report_downloader = report_downloader
+      attr_reader :selectors_config
+
+      def initialize(selectors_config: Rails.application.config.lc_call_slips.selectors)
+        super(category: 'Oclc:LcCallSlips')
         @selectors_config = selectors_config
       end
 
@@ -18,7 +14,10 @@ module Oclc
 
       def handle(data_set:)
         csvs_created = create_csvs_for_selectors
-        report_downloader.run
+        Shared::Slice['report_downloader'].run(Shared::ReportDownloader::Context[file_pattern: Rails.application.config.oclc_sftp.lc_call_slips_file_pattern,
+                                                                                 process_class: Oclc::LcCallSlips::SelectorFile,
+                                                                                 input_sftp_base_dir: Rails.application.config.oclc_sftp.lc_call_slips_path,
+                                                                                 recent: false])
         email_csvs_to_selectors
         data_set.data = "Files created and emailed to selectors: #{csvs_created.join(', ')}"
         data_set

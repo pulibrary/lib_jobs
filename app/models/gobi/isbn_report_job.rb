@@ -1,17 +1,13 @@
 # frozen_string_literal: true
+
 require 'csv'
 
 module Gobi
   class IsbnReportJob < LibJob
-    attr_reader :report_downloader, :report_uploader
+    attr_reader :report_uploader
 
     def initialize
       super(category: 'Gobi:IsbnReports')
-      @report_downloader = ReportDownloader.new(ReportDownloader::Context[
-        sftp: AlmaSftp.new,
-        file_pattern: 'received_items_published_last_5_years_\d{12}.csv',
-        input_sftp_base_dir: '/alma/isbns',
-        process_class: Gobi::IsbnFile])
       @report_uploader = ReportUploader.new(
         sftp: GobiSftp.new,
         working_file_names: [IsbnReportJob.working_file_name],
@@ -33,23 +29,27 @@ module Gobi
 
     def handle(data_set:)
       create_csv
-      report_downloader.run
+      remote_filenames = Shared::Slice['report_downloader'].run(Shared::ReportDownloader::Context[
+        sftp: AlmaSftp.new,
+        file_pattern: 'received_items_published_last_5_years_\d{12}.csv',
+        input_sftp_base_dir: '/alma/isbns',
+        process_class: Gobi::IsbnFile]).remote_filenames
       report_uploader.run
-      rename_files_on_sftp
+      rename_files_on_sftp(remote_filenames)
       data_set.data = "Number of ISBNs sent: #{CSV.read(IsbnReportJob.working_file_path).length}"
       data_set
     end
 
-    def rename_files_on_sftp
+    def rename_files_on_sftp(remote_filenames)
       AlmaSftp.new.start do |sftp|
-        report_downloader.remote_filenames.each do |file_name|
+        remote_filenames.each do |file_name|
           sftp.rename(file_name, "#{file_name}.processed")
         end
       end
     end
 
     def create_csv
-      CSV.open(IsbnReportJob.working_file_path, 'w', encoding: 'bom|utf-8', col_sep: "|")
+      CSV.open(IsbnReportJob.working_file_path, 'w', encoding: 'bom|utf-8', col_sep: '|')
     end
   end
 end
