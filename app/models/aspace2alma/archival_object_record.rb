@@ -420,11 +420,11 @@ module Aspace2alma
     # an agent's tag, indicators and subfields
     def agent_heading(agent)
       tag =
-        if (agent['role'] == 'creator' || agent['role'] == 'source') && (agent['type'] == 'agent_person' || agent['type'] == 'agent_family')
+        if ['creator', 'source'].include?(agent['role']) && ['agent_person', 'agent_family'].include?(agent['type'])
           700
-        elsif agent['role'] == 'subject' && (agent['type'] == 'agent_person' || agent['type'] == 'agent_family')
+        elsif agent['role'] == 'subject' && ['agent_person', 'agent_family'].include?(agent['type'])
           600
-        elsif (agent['role'] == 'creator' || agent['role'] == 'source') && agent['type'] == 'agent_corporate_entity'
+        elsif ['creator', 'source'].include?(agent['role']) && agent['type'] == 'agent_corporate_entity'
           710
         elsif agent['role'] == 'subject' && agent['type'] == 'agent_corporate_entity'
           610
@@ -516,7 +516,7 @@ module Aspace2alma
 
         # if there are no subfields but the main term has double dashes, compute subfields
         computed_subterms =
-          if subject['terms'].count == 1
+          if subject['terms'].one?
             segments.drop(1).map do |segment|
               subfield_code = /^[0-9]{2}/.match?(segment) ? 'y' : 'x'
               "<subfield code = '#{subfield_code}'>#{xml_escape(segment)}</subfield>"

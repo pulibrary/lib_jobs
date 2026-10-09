@@ -34,16 +34,21 @@ RSpec.describe Aspace2alma::SendComponentMarcxmlToAlmaJob do
 
     allow(Rails.application.config.aspace).to receive(:component_export_flag_field).and_return('boolean_1')
 
+    # rubocop:disable-next RSpec/SubjectStub
     allow(job).to receive(:aspace_login)
     job.instance_variable_set(:@client, client)
+    # rubocop:disable-next RSpec/SubjectStub
     allow(job).to receive(:sleep)
 
+    # rubocop:disable-next RSpec/SubjectStub
     allow(job).to receive(:get_all_repo_uris).and_return(['/repositories/5'])
+    # rubocop:disable-next RSpec/SubjectStub
     allow(job).to receive(:get_repo_id_from_uri).with('/repositories/5').and_return('5')
 
     allow(client).to receive(:get)
       .with('/repositories/5/resources', query: { all_ids: true })
       .and_return(instance_double('ArchivesSpace::Response', parsed: [3207, 3950]))
+    # rubocop:disable-next RSpec/SubjectStub
     allow(job).to receive(:get_resolved_objects_from_ids)
       .with('5', [3207, 3950], 'resources', [])
       .and_return([[flagged_resource, unflagged_resource]])
@@ -51,6 +56,7 @@ RSpec.describe Aspace2alma::SendComponentMarcxmlToAlmaJob do
     allow(client).to receive(:get)
       .with('/repositories/5/search', query: search_query)
       .and_return(instance_double('ArchivesSpace::Response', parsed: search_results))
+    # rubocop:disable-next RSpec/SubjectStub
     allow(job).to receive(:get_resolved_objects_from_ids)
       .with('5', [1_074_411], 'archival_objects', Aspace2alma::ArchivalObjectRecord.resolves)
       .and_return([[resolved_ao_json]])
@@ -103,6 +109,7 @@ RSpec.describe Aspace2alma::SendComponentMarcxmlToAlmaJob do
 
     # catch aos that were edited while an export was running
     it 'tells the next run to look back to the start of the last run' do
+      # rubocop:disable-next RSpec/SubjectStub
       allow(job).to receive(:get_resolved_objects_from_ids)
         .with('5', [1_074_411], 'archival_objects', Aspace2alma::ArchivalObjectRecord.resolves) do
           Timecop.travel(10.minutes)
@@ -189,6 +196,7 @@ RSpec.describe Aspace2alma::SendComponentMarcxmlToAlmaJob do
       end
 
       context 'and the run fails' do
+        # rubocop:disable-next RSpec/SubjectStub
         before { allow(job).to receive(:aspace_login).and_raise(Errno::ECONNREFUSED) }
 
         it 'leaves the file for Alma' do
@@ -298,6 +306,7 @@ RSpec.describe Aspace2alma::SendComponentMarcxmlToAlmaJob do
         job.run
 
         expect(client).to have_received(:get).with('/repositories/5/search', query: search_query)
+        # rubocop:disable-next RSpec/SubjectStub
         expect(job).to have_received(:get_resolved_objects_from_ids)
           .with('5', [1_074_411], 'archival_objects', Aspace2alma::ArchivalObjectRecord.resolves)
         collection = Nokogiri::XML(File.read(described_class::FILENAME))
@@ -306,6 +315,7 @@ RSpec.describe Aspace2alma::SendComponentMarcxmlToAlmaJob do
       end
     end
 
+    # rubocop:disable-next RSpec/SubjectStub
     context 'when ASpace is unreachable (e.g. during the Saturday maintenance window)' do
       before { allow(job).to receive(:aspace_login).and_raise(Errno::ECONNREFUSED) }
 
@@ -333,6 +343,7 @@ RSpec.describe Aspace2alma::SendComponentMarcxmlToAlmaJob do
         job.run
 
         expect(client).to have_received(:get).with('/repositories/5/search', query: search_query).twice
+        # rubocop:disable-next RSpec/SubjectStub
         expect(job).to have_received(:sleep).with(1).once
         expect(Aspace2almaHelper).to have_received(:alma_sftp).with('marcao_export.xml')
       end
@@ -340,6 +351,7 @@ RSpec.describe Aspace2alma::SendComponentMarcxmlToAlmaJob do
 
     context 'when an ASpace call keeps timing out' do
       before do
+        # rubocop:disable-next RSpec/SubjectStub
         allow(job).to receive(:get_resolved_objects_from_ids)
           .with('5', [1_074_411], 'archival_objects', Aspace2alma::ArchivalObjectRecord.resolves)
           .and_raise(Net::ReadTimeout)
@@ -372,6 +384,7 @@ RSpec.describe Aspace2alma::SendComponentMarcxmlToAlmaJob do
     end
 
     context 'when something hiccups and the same record gets returned twice' do
+      # rubocop:disable-next RSpec/SubjectStub
       before do
         allow(job).to receive(:get_resolved_objects_from_ids)
           .with('5', [3207, 3950], 'resources', [])
