@@ -1,11 +1,8 @@
 # frozen_string_literal: true
+
 class WebDatabaseList::LibguidesAssetsFeed
-  def initialize(access_token: nil)
-    @access_token = access_token ||
-                    AccessToken.new(client_id: LibJobs.config[:libguides_client_id],
-                                    client_secret: LibJobs.config[:libguides_client_secret],
-                                    token_host: "lgapi-us.libapps.com",
-                                    token_path: "/1.2/oauth/token")
+  def initialize(access_token: Shared::Slice['access_token'])
+    @access_token = access_token
   end
 
   def fetch
@@ -21,7 +18,12 @@ class WebDatabaseList::LibguidesAssetsFeed
 
   private
 
+  attr_reader :access_token
+
   def authorization_header
-    "Bearer #{@access_token.fetch}"
+    "Bearer #{access_token.fetch(client_id: LibJobs.config[:libguides_client_id],
+                                 client_secret: LibJobs.config[:libguides_client_secret],
+                                 token_host: 'lgapi-us.libapps.com',
+                                 token_path: '/1.2/oauth/token')}"
   end
 end

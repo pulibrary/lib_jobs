@@ -10,7 +10,7 @@ module AlmaPeople
     # @param path         [String] The path to the person feed within the api store.  (should start with /)
     # @param access_token [AccessToken] A class to give us access to the access token.  These are short lived so they are refreshed with each call
     def initialize(base_url: ENV['OIT_BASE_URL'], path: ENV['OIT_PERSON_FEED_URL'],
-                   access_token: AccessToken.new(client_id: ENV["OIT_CLIENT_KEY"], client_secret: ENV["OIT_CLIENT_SECRET"], token_host: URI.parse(ENV['OIT_BASE_URL']).host))
+                   access_token: Shared::Slice['access_token'])
       @base_url = base_url
       @path = path
       @access_token = access_token
@@ -27,7 +27,7 @@ module AlmaPeople
       request = Net::HTTP::Get.new(uri)
       request['Content-Type'] = 'application/json'
       request['Accept'] = 'application/json'
-      request['Authorization'] = "Bearer #{access_token.fetch}"
+      request['Authorization'] = "Bearer #{access_token.fetch(client_id: ENV['OIT_CLIENT_KEY'], client_secret: ENV['OIT_CLIENT_SECRET'], token_host: URI.parse(ENV['OIT_BASE_URL']).host)}"
       result = Net::HTTP.start(uri.hostname, uri.port, use_ssl: true) do |http|
         http.request(request)
       end

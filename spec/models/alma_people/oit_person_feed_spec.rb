@@ -1,15 +1,17 @@
 # frozen_string_literal: true
-require "rails_helper"
+
+require 'rails_helper'
 
 RSpec.describe AlmaPeople::OitPersonFeed do
   subject(:feed) { described_class.new(base_url: 'https://example.com', path: '/person_feed', access_token: token) }
-  let(:token) { instance_double("AccessToken") }
+
+  let(:token) { instance_double(Shared::AccessToken) }
 
   let(:body) { '{"records": {"record": [ ]}}' }
 
-  describe "get" do
+  describe 'get' do
     before do
-      stub_request(:get, "https://example.com/person_feed/E/2020-01-01/2020-02-01")
+      stub_request(:get, 'https://example.com/person_feed/E/2020-01-01/2020-02-01')
         .with(
         headers: {
           'Accept' => 'application/json',
@@ -22,13 +24,14 @@ RSpec.describe AlmaPeople::OitPersonFeed do
       )
         .to_return(status: 200, body:, headers: {})
     end
-    it "gets an new token and then gets data from the api" do
+
+    it 'gets an new token and then gets data from the api' do
       allow(token).to receive(:fetch).and_return('secret_token')
       expect(feed.get_json(begin_date: '2020-01-01', end_date: '2020-02-01').count).to eq(0)
       expect(token).to have_received(:fetch)
     end
 
-    context "with people in the response" do
+    context 'with people in the response' do
       let(:body) do
         "{\"records\": {\"record\": [{  \"PATRON_EXPIRATION_DATE\": \"2022-10-31\",\n     \"PATRON_PURGE_DATE\": \"2021-10-31\",\n     \"ELIGIBLE_INELIGIBLE\": \"E\",\n"\
         "    \"INSERT_UPDATE_DATETIME\": \"2020-12-03T08:21:02.000-05:00\",\n     \"PVSTATCATEGORY\": \"EM\",\n     \"ADDRESS_END_DATE\": \"2021-10-31\",\n"\
@@ -48,17 +51,17 @@ RSpec.describe AlmaPeople::OitPersonFeed do
         "     \"DORM_COUNTRY_DESCR\": null,\n     \"DORM_STATE_DESCR\": null,\n     \"EMAIL_ADDRESS_END_DATE\": \"2022-10-30T20:00:00.000-04:00\"\n   }]}}"
       end
 
-      it "gets json data from the api" do
+      it 'gets json data from the api' do
         allow(token).to receive(:fetch).and_return('secret_token')
         data = feed.get_json(begin_date: '2020-01-01', end_date: '2020-02-01')
         expect(data.count).to eq(1)
-        expect(data[0]["EMPLID"]).to eq("999999999")
+        expect(data[0]['EMPLID']).to eq('999999999')
       end
     end
 
-    context "without a enabled flag" do
+    context 'without a enabled flag' do
       before do
-        stub_request(:get, "https://example.com/person_feed/2020-01-01/2020-02-01")
+        stub_request(:get, 'https://example.com/person_feed/2020-01-01/2020-02-01')
           .with(
           headers: {
             'Accept' => 'application/json',
@@ -76,18 +79,18 @@ RSpec.describe AlmaPeople::OitPersonFeed do
         "{\"records\":{\"record\":[{ \"EMPLID\": \"99998888\"\n   }]}}"
       end
 
-      it "gets an new token and then gets data from the api" do
+      it 'gets an new token and then gets data from the api' do
         allow(token).to receive(:fetch).and_return('secret_token')
         data = feed.get_json(begin_date: '2020-01-01', end_date: '2020-02-01', enabled_flag: nil)
         expect(data.count).to eq(1)
-        expect(data[0]["EMPLID"]).to eq("99998888")
+        expect(data[0]['EMPLID']).to eq('99998888')
         expect(token).to have_received(:fetch)
       end
     end
 
-    context "without a begin end date" do
+    context 'without a begin end date' do
       before do
-        stub_request(:get, "https://example.com/person_feed/E")
+        stub_request(:get, 'https://example.com/person_feed/E')
           .with(
           headers: {
             'Accept' => 'application/json',
@@ -105,18 +108,18 @@ RSpec.describe AlmaPeople::OitPersonFeed do
         "{\"records\":{\"record\":[{ \"EMPLID\": \"11112222\"\n   }]}}"
       end
 
-      it "gets an new token and then gets data from the api" do
+      it 'gets an new token and then gets data from the api' do
         allow(token).to receive(:fetch).and_return('secret_token')
         data = feed.get_json(begin_date: nil, end_date: nil)
         expect(data.count).to eq(1)
-        expect(data[0]["EMPLID"]).to eq("11112222")
+        expect(data[0]['EMPLID']).to eq('11112222')
         expect(token).to have_received(:fetch)
       end
     end
 
-    context "without a begin end date or enabled flag" do
+    context 'without a begin end date or enabled flag' do
       before do
-        stub_request(:get, "https://example.com/person_feed")
+        stub_request(:get, 'https://example.com/person_feed')
           .with(
           headers: {
             'Accept' => 'application/json',
@@ -134,11 +137,11 @@ RSpec.describe AlmaPeople::OitPersonFeed do
         "{\"records\":{\"record\":[{ \"EMPLID\": \"55556666\"\n   }]}}"
       end
 
-      it "gets an new token and then gets data from the api" do
+      it 'gets an new token and then gets data from the api' do
         allow(token).to receive(:fetch).and_return('secret_token')
         data = feed.get_json(begin_date: nil, end_date: nil, enabled_flag: nil)
         expect(data.count).to eq(1)
-        expect(data[0]["EMPLID"]).to eq("55556666")
+        expect(data[0]['EMPLID']).to eq('55556666')
         expect(token).to have_received(:fetch)
       end
     end
