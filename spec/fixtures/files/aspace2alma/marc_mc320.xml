@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://www.loc.gov/MARC21/slim" xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/MARC21/slim https://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">
+  <record>
+    <leader>00000npcaa2200000 u 4500</leader>
+    <controlfield tag="008">260324i19672014xx                  eng d</controlfield>
+    <datafield ind1=" " ind2=" " tag="040">
+      <subfield code="b">eng</subfield>
+      <subfield code="e">dacs</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="041">
+      <subfield code="a">eng</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="099">
+      <subfield code="a">MC320</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="100">
+      <subfield code="a">Sims, Christopher A.,</subfield>
+      <subfield code="e">creator.</subfield>
+      <subfield code="0">http://viaf.org/viaf/76452133</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="0" tag="245">
+      <subfield code="a">Christopher A. Sims Papers,</subfield>
+      <subfield code="f">1967-2014</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="300">
+      <subfield code="a">11</subfield>
+      <subfield code="f">boxes</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Location of resource: scamudd.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Physical Characteristics / Technical Requirements: For preservation reasons, original analog
+and digital media may not be read or played back in the
+reading room. Users may visually inspect physical media
+but may not remove it from its enclosure. All analog
+audiovisual media must be digitized to preservation-quality
+standards prior to use. Audiovisual digitization requests
+are processed by an approved third-party vendor. Please note,
+the transfer time required can be as little as several weeks
+to as long as several months and there may be financial costs
+associated with the process.
+Requests should be directed through the
+ Ask Us Form .</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Processing Information: The collection was processed by Will Clements in 2025. Some materials were consolidated and housed in acid free folders, but otherwise no arrangement done at this time.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="506">
+      <subfield code="a">The collection is open for research use. Online access to any digitized portions of the collection is not permitted until 2033.</subfield>
+    </datafield>
+    <datafield ind1="3" ind2=" " tag="520">
+      <subfield code="a">Christopher A. Sims is an economist whose research and teaching has focused on econometrics and macroeconomic theory. The Christopher A. Sims Papers consist of materials related to: media and memorabilia; conferences, meetings, and visits; paper drafts and notes by Christopher Sims; papers by Christopher Sims and collaborators; professional society correspondence; general correspondence including peer review; software documentation and manuals plus other computing related docs.</subfield>
+    </datafield>
+    <datafield ind1="2" ind2=" " tag="520">
+      <subfield code="a">The Christopher A. Sims Papers consist of materials related to: media and memorabilia; conferences, meetings, and visits; paper drafts and notes by Christopher Sims; papers by Christopher Sims and collaborators; professional society correspondence; general correspondence including peer review; teaching files; software documentation and manuals plus other computing related docs.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="540">
+      <subfield code="a"> Single copies may be made for research purposes. To cite or publish quotations that fall within Fair Use, as defined under  U. S. Copyright Law , no permission is required. For instances beyond Fair Use, it is the responsibility of the researcher to determine whether any permissions related to copyright, privacy, publicity, or any other rights are necessary for their intended use of the Library's materials, and to obtain all required permissions from any existing rights holders, if they have not already done so. Princeton University Library’s Special Collections does not charge any permission or use fees for the publication of images of materials from our collections, nor does it require researchers to obtain its permission for said use. The department does request that its collections be properly cited and images credited. More detailed information can be found on the  Copyright, Credit and Citations Guidelines  page on our website. If you have any questions, please feel free to contact us through the  Ask Us! form . .</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="541">
+      <subfield code="a">The collection was donated by Catherine S. Sims in 2025. The accession number associated with this donation is ML-2025-004.</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="583">
+      <subfield code="a">No materials were separated from the collection during 2025 processing.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Macroeconomics</subfield>
+      <subfield code="0">https://lccn.loc.gov/sh85079443</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Econometrics</subfield>
+      <subfield code="0">https://lccn.loc.gov/sh85040763</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="852">
+      <subfield code="a">Princeton University Library.  Department of Rare Books and Special Collections</subfield>
+      <subfield code="b">Public Policy Papers</subfield>
+    </datafield>
+    <datafield ind1="4" ind2="2" tag="856">
+      <subfield code="z">Finding aid online:</subfield>
+      <subfield code="u">http://arks.princeton.edu/ark:/88435/dcc821gz679</subfield>
+    </datafield>
+  </record>
+</collection>
+

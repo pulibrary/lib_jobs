@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://www.loc.gov/MARC21/slim" xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/MARC21/slim https://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">
+  <record>
+    <leader>00000npcaa2200000 u 4500</leader>
+    <controlfield tag="008">260924i19671971xx                  eng d</controlfield>
+    <datafield ind1=" " ind2=" " tag="040">
+      <subfield code="b">eng</subfield>
+      <subfield code="e">dacs</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="041">
+      <subfield code="a">eng</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="099">
+      <subfield code="a">C1777</subfield>
+    </datafield>
+    <datafield ind1="0" ind2="0" tag="245">
+      <subfield code="a">Collection of Materials Relating to the Anguillan Revolution,</subfield>
+      <subfield code="f">1967-1971</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="300">
+      <subfield code="a">.4</subfield>
+      <subfield code="f">linear feet</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="300">
+      <subfield code="a">1</subfield>
+      <subfield code="f">box</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="351">
+      <subfield code="a">Materials are arranged in the order in which they were received.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Location of resource: scamss.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Processing Information: This collection was processed by Lauren C. Williams in August 2024. Finding aid written by Lauren C. Williams in August 2024, incorporating some description provided by the dealer.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="506">
+      <subfield code="a">The collection is open for research.</subfield>
+    </datafield>
+    <datafield ind1="2" ind2=" " tag="520">
+      <subfield code="a">Consists of materials relating to the Anguillan Revolution of 1967, including the Anguillan-published newspaper The Beacon, news articles from American publications, and memorabilia. Also includes policy statements on Anguilla from the British Information Services, Economic &amp; Political Affairs Division.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="540">
+      <subfield code="a"> Single copies may be made for research purposes. To cite or publish quotations that fall within Fair Use, as defined under  U. S. Copyright Law , no permission is required. For instances beyond Fair Use, it is the responsibility of the researcher to determine whether any permissions related to copyright, privacy, publicity, or any other rights are necessary for their intended use of the Library's materials, and to obtain all required permissions from any existing rights holders, if they have not already done so. Princeton University Library’s Special Collections does not charge any permission or use fees for the publication of images of materials from our collections, nor does it require researchers to obtain its permission for said use. The department does request that its collections be properly cited and images credited. More detailed information can be found on the  Copyright, Credit and Citations Guidelines  page on our website. If you have any questions, please feel free to contact us through the  Ask Us! form . .</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="541">
+      <subfield code="a">Purchased in 2023 from Ian Brabner (AM 2025-015), who compiled these materials as a collection.</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="561">
+      <subfield code="a">Address labels of Mr. Edward Munce on some issues of The Beacon.</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="583">
+      <subfield code="a">No materials were removed from the collection during 2024 processing.</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="4" tag="600">
+      <subfield code="a">Harrigan, Atlin,</subfield>
+      <subfield code="d">1939-2005.</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="4" tag="600">
+      <subfield code="a">Munce, T. Edward,</subfield>
+      <subfield code="c">Jr.,</subfield>
+      <subfield code="d">1914-1980.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">Anguilla</subfield>
+      <subfield code="x">History</subfield>
+      <subfield code="x">Revolution, 1967</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">West Indies, British</subfield>
+      <subfield code="x">History</subfield>
+      <subfield code="y">20th century</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="655">
+      <subfield code="a">Newspapers</subfield>
+      <subfield code="2">aat</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="852">
+      <subfield code="a">Princeton University Library. Department of Rare Books and Special Collections.</subfield>
+      <subfield code="b">Manuscripts Division </subfield>
+    </datafield>
+    <datafield ind1="4" ind2="2" tag="856">
+      <subfield code="z">Finding aid online:</subfield>
+      <subfield code="u">http://arks.princeton.edu/ark:/88435/dc4q77g460h</subfield>
+    </datafield>
+  </record>
+</collection>
+

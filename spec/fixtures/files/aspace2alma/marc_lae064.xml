@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://www.loc.gov/MARC21/slim" xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/MARC21/slim https://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">
+  <record>
+    <leader>00000npcaa2200000 u 4500</leader>
+    <controlfield tag="008">260924i19822008xx                  spa d</controlfield>
+    <datafield ind1=" " ind2=" " tag="040">
+      <subfield code="b">eng</subfield>
+      <subfield code="e">Finding aid content adheres to that prescribed by Describing Archives: A Content Standard.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="041">
+      <subfield code="a">spa</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="099">
+      <subfield code="a">LAE064</subfield>
+    </datafield>
+    <datafield ind1="2" ind2=" " tag="110">
+      <subfield code="a">Princeton University.</subfield>
+      <subfield code="b">Library,</subfield>
+      <subfield code="e">collector.</subfield>
+      <subfield code="0">PRINCETONUNIVERSITYLIBRARY121763554</subfield>
+      <subfield code="4">col</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="0" tag="245">
+      <subfield code="a">Indigenous Peoples and Ethnic Minorities in Peru,</subfield>
+      <subfield code="f">1982-2008</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="300">
+      <subfield code="a">2</subfield>
+      <subfield code="f">boxes</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="300">
+      <subfield code="a">0.6</subfield>
+      <subfield code="f">linear feet</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Location of resource: This collection is stored offsite at the ReCAP facility. Please allow 1-3 days for delivery.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Location of resource: scarcpxr.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Processing Information: This collection was processed by Aimée Contreras, Lauren Hooten, Monique McDermoth, and Gabrielle Winkler in 2008. The finding aid was written by Gabrielle Winkler in 2009.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="506">
+      <subfield code="a"> Images of this collection may be viewed online in the  PUL catalog  (scroll down for the image viewer) or on the  Latin American Ephemera: Digitized Microfilm Sets  site. 
+ 
+The Latin American ephemera collections are open for research use. Originals are stored offsite at the ReCAP facility. Please allow 1-3 days for delivery.
+ .</subfield>
+    </datafield>
+    <datafield ind1="3" ind2=" " tag="520">
+      <subfield code="a">This collection of Peruvian ephemera contains flyers, pamphlets, and reports, as well as magazines and serials.</subfield>
+    </datafield>
+    <datafield ind1="2" ind2=" " tag="520">
+      <subfield code="a">This collection of Peruvian ephemera contains flyers, pamphlets, and reports, as well as magazines and serials. The publications reflect the cultural reality of Peru's ethnic minority groups in the years between 1982 and 2008 and address a variety of subjects from indigenous rights movements and local handicrafts to everyday discriminatory practices. The strength of this collection lies in its Afro-Peruvian, Amazonian, and pan-ethnic emphasis. Publishers include governmental and non-governmental organizations, as well as indigenous and other rural groups. The materials are categorized by subject and, within each section, alphabetized by publisher.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="524">
+      <subfield code="a">Identification of specific item; Date (if known); Indigenous Peoples,and Ethnic Minorities in Peru; Princeton University Library.</subfield>
+    </datafield>
+    <datafield ind1="2" ind2=" " tag="535">
+      <subfield code="a"> Images of this collection may be viewed online in the  PUL catalog  (scroll down for the image viewer).  MICROFILM 12498  MICROFILM M (Master printing copy. Available for reproduction only.)  MICROFILM P  Microfilms are stored off-site and can be requested from the  Library Catalog . Please allow 1-3 days for delivery. .</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="540">
+      <subfield code="a"> Single copies may be made for research purposes. To cite or publish quotations that fall within Fair Use, as defined under  U. S. Copyright Law , no permission is required. For instances beyond Fair Use, it is the responsibility of the researcher to determine whether any permissions related to copyright, privacy, publicity, or any other rights are necessary for their intended use of the Library's materials, and to obtain all required permissions from any existing rights holders, if they have not already done so. Princeton University Library’s Special Collections does not charge any permission or use fees for the publication of images of materials from our collections, nor does it require researchers to obtain its permission for said use. The department does request that its collections be properly cited and images credited. More detailed information can be found on the  Copyright, Credit and Citations Guidelines  page on our website. If you have any questions, please feel free to contact us through the  Ask Us! form . .</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="544">
+      <subfield code="d">Researchers are encouraged to consult Princeton University Library's Finding Aids Site at http://diglib.princeton.edu/ead/, as well as the Guide to the Princeton University Latin American Microfilm Collections and its supplements.
+
+ Additional material related to the subjects addressed in this collection may be also be found in the following collections: Agrarian issues in Peru, 1955-1987: pamphlets • Agrarian issues in Peru, 1973-1986: pamphlets • Economic development and conditions in Peru, 1906-1988, II: pamphlets • Peruvian economic and social conditions, 1975-1988: pamphlets • Peruvian economic and social conditions, 1937-1991, II: pamphlets • Peruvian human rights pamphlets, 1979-1986 • Women in Peru, 1983-1985: pamphlets • Women in Peru, 1980-1990, II: pamphlets.</subfield>
+    </datafield>
+    <datafield ind1="0" ind2=" " tag="555">
+      <subfield code="a">  Main catalog: collection record  
+  Main catalog: microfilm record  .</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Blacks --Peru.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Civil rights</subfield>
+      <subfield code="z">Peru</subfield>
+      <subfield code="0">http://id.loc.gov/authorities/subjects/sh2007100358</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Ethnic groups</subfield>
+      <subfield code="z">Peru</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Human rights</subfield>
+      <subfield code="z">Peru</subfield>
+      <subfield code="0">http://id.loc.gov/authorities/subjects/sh2008105881</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Indigenous peoples</subfield>
+      <subfield code="z">Peru</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Race discrimination</subfield>
+      <subfield code="z">Peru</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Racism</subfield>
+      <subfield code="z">Peru</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">Peru</subfield>
+      <subfield code="x">Ethnic relations</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">Peru</subfield>
+      <subfield code="x">Race relations</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="651">
+      <subfield code="a">Peru</subfield>
+      <subfield code="2">local</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="852">
+      <subfield code="a">Latin American Ephemera</subfield>
+    </datafield>
+    <datafield ind1="4" ind2="2" tag="856">
+      <subfield code="z">Finding aid online:</subfield>
+      <subfield code="u">http://arks.princeton.edu/ark:/88435/765371428</subfield>
+    </datafield>
+  </record>
+</collection>
+

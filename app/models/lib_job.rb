@@ -29,6 +29,16 @@ class LibJob
     data_set
   end
 
+  # the last successful run's DataSet
+  def last_successful_run
+    DataSet.where(category:, status: true).order(report_time: :desc).first
+  end
+
+  # start of the last successful run
+  def last_successful_run_time
+    last_successful_run&.report_time
+  end
+
   # Expect subclass to implement handle to do the actual data set creation
   # def handle(data_set:)
   # end

@@ -1,0 +1,293 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://www.loc.gov/MARC21/slim" xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/MARC21/slim https://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">
+  <record>
+    <leader>00000npcaa2200000 u 4500</leader>
+    <controlfield tag="008">260924i15661942xx                  eng d</controlfield>
+    <datafield ind1=" " ind2=" " tag="040">
+      <subfield code="b">eng</subfield>
+      <subfield code="e">Finding aid content adheres to that prescribed by Describing Archives: A Content Standard.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="041">
+      <subfield code="a">eng</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="099">
+      <subfield code="a">C0063</subfield>
+    </datafield>
+    <datafield ind1="2" ind2=" " tag="110">
+      <subfield code="a">Princeton University.</subfield>
+      <subfield code="b">Library.</subfield>
+      <subfield code="b">Special Collections,</subfield>
+      <subfield code="e">collector.</subfield>
+      <subfield code="0">PRINCETONUNIVERSITYLIBRARYSPECIALCOLLECTIONS6943157226626985410004</subfield>
+      <subfield code="4">col</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="0" tag="245">
+      <subfield code="a">Andre De Coppet Collection Concerning United States History,</subfield>
+      <subfield code="f">1566-1942</subfield>
+      <subfield code="g">1770-1865</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="300">
+      <subfield code="a">48</subfield>
+      <subfield code="f">boxes</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="300">
+      <subfield code="a">27</subfield>
+      <subfield code="f">items</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="351">
+      <subfield code="a">The collection is arranged alphabetically by name of originator and/or subject; in the Miscellaneous and Provenance Files boxes (Boxes 43-44) the material is arranged alphabetically under the subject (ex.: "Washington, George.").</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Physical Characteristics / Technical Requirements: For preservation reasons, original analog
+and digital media may not be read or played back in the
+reading room. Users may visually inspect physical media
+but may not remove it from its enclosure. All analog
+audiovisual media must be digitized to preservation-quality
+standards prior to use. Audiovisual digitization requests
+are processed by an approved third-party vendor. Please note,
+the transfer time required can be as little as several weeks
+to as long as several months and there may be financial costs
+associated with the process.
+Requests should be directed through the
+ Ask Us Form .</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Location of resource: scahsvm.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Processing Information: This collection was processed by Rebecca Garcia during the period of November 2007 - October 2008. Finding aid written by Rebecca Garcia in 2008.
+
+During 2022, restrictions on original materials, including items related to George Washington, Thomas Jefferson, and Abraham Lincoln, were lifted as part of a restrictions review project.
+
+Collection title revised to provide more information about the collection by Faith Charlton in 2022.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="506">
+      <subfield code="a">The collection is open for research.</subfield>
+    </datafield>
+    <datafield ind1="3" ind2=" " tag="520">
+      <subfield code="a">The Andre De Coppet Collection represents the American history-related collecting activities of American broker and collector Andre De Coppet (Princeton Class of 1915). There are numerous manuscripts, personal letters, documents, and printed material from three main periods: the Revolutionary War, the Federal Period, and the Civil War.</subfield>
+    </datafield>
+    <datafield ind1="2" ind2=" " tag="520">
+      <subfield code="a">This collection represents the American history-related collecting activities of Andre De Coppet (Princeton Class of 1915), one of the foremost American collectors of his generation. Ranging in period from the Spanish colonization of Florida (1566) to President Franklin Delano Roosevelt's first term, the collection is comprised of letters, documents, manuscripts, and printed materials from hundreds of important American historical figures. Though it spans centuries, the collection has three major foci in American history: the Revolutionary War, the Federal Period, and the Civil War. Most prominently represented are the presidents of the United States, including all from Washington through Truman. The amount of material affiliated with each individual or subject varies widely, though there are a number significant larger groups:
+
+ A group of letters and documents written by George Washington (1732-1799) spans his entire adult life and includes over 150 items. The earliest items are Virginia land surveys conducted in the 1750s. The bulk of the material dates from the years of the Revolutionary War (1775-1783). Many of the letters detail the countless important decisions Washington was forced to make as commander of America's revolutionary forces, from issues of staffing and rank to how to adequately provision soldiers with clothing and food. Also included are letters and documents from Washington's time as president, including two and a half pages of an undelivered inaugural address, and letters debating the extent of constitutional and congressional powers.
+
+ The collection includes an equally rich group of personal and professional correspondence from Washington’s trusted general Nathanael Greene (1742-1786). The Greene correspondence, dating from 1775-1785, is primarily focused on his service in the Revolutionary War, from the difficulties he experienced as quartermaster general to his appointment as commander of the Southern Army. His letters to Washington and other army officers communicate troop locations and various successes and failures of the war. In addition, they highlight the difficult conditions experienced by many Continental soldiers who lacked appropriate shoes, clothing, and food. Personal correspondence between Nathanael and his wife, brothers, and cousin reveal the family's investment in multiple privateering ventures, as well as the family ironworks, which was occasionally commissioned to make weapons for the war.
+
+ Additional materials related to the Revolutionary War abound. Correspondence and documents from dozens of American officers are filed under their respective names. A United States Continental Army file includes official muster rolls, payrolls, warrants, and ration receipts from various New England companies. A general American Revolutionary War file includes correspondence from unknown or lesser known individuals who were involved in the war or lived during the time period, as well as two lengthy manuscripts written by unidentified Englishmen, one in favor of the revolution and the other opposed.
+
+ The Asa Waterman correspondence chronicles the failures of the early commissariat system, which was established during (and in response to) the Revolutionary War. Waterman (1743-1789), originally a ship merchant, served as assistant commissary in Rhode Island from 1777 to 1780. Comprised of approximately 100 items, his correspondence highlights the difficulty of provisioning the troops with adequate, nutritious food due to a scarcity of staples (most often flour) and the problem of shipping goods at the risk of enemy seizure. His letters also address the frequent reorganization of the commissariat system and its negative effect on both the commissary officers and the troops they served.
+
+ In addition to papers of various official military officers, the collection includes the business papers of Samuel White and John Cushing, merchants and privateers during the American Revolutionary War. Privateers were sanctioned by the government to aid in the war effort by capturing enemy ships, known as "prizes." Privateers played a significant role in the war, outnumbering government-owned vessels by more than ten to one and capturing nearly 600 British ships over the course of the war. Cushing &amp;amp; White invested in multiple vessels that sailed along the North American coast and to the West Indies throughout the course of the war.
+
+ The collection also contains significant holdings from the post-war Federal period. Correspondence from John Adams (1735-1826) is largely focused on his role as diplomat for the newly formed American nation in the years before he became second president of the United States. His letters include strong viewpoints on the American government and his role within it. He laments the "insignificance" of his position as vice president (under George Washington), discusses the growth of democracy in various states, and complains that the American people have little tolerance for hardship.
+
+ Third U.S. President Thomas Jefferson has over 100 items in the collection. His correspondents are a veritable who's who of early American leaders. Topics range from subjects of personal interest (e.g., what materials should be used to decorate Monticello, his Virginia estate) to American agriculture, foreign diplomacy, and relations with Native Americans. Not one to mince words, Jefferson strongly states his opinions on political rivalries, government policies, and international relations, often touching on multiple issues within single letters. The letters also provide a glimpse of his scientific and inventive pursuits including a diagram for an improved water wheel and his establishment of a nail manufactory.
+
+ The collection also contains significant holdings from the American Civil War. Correspondence from Union general (and eighteenth U.S. President) Ulysses S. Grant Grant dates from 1858-1884. Many of the letters were sent directly from the battlefields of the Civil War. His correspondence with other generals and army officers captures the fevered pace and constant strategizing of the war. The progression of certain battles can be traced through the many notes he sent throughout the same day, week, or month. Telegraph notes marked "cipher" highlight the threat of enemy interception. Many of his letters in this collection were written from City Point, Virginia, the Union headquarters and base of supplies during 1864 and 1865.
+
+ Additional Civil War materials include select letters and documents from other prominent Civil War officers including Union general William T. Sherman and Confederate general Robert E. Lee, as well as a large group of official papers from the United States Army of the Potomac consisting of orders, regulations, appointments, and official correspondence. A general American Civil War file contains items relating to relatively unknown men who served in the war and wrote about their experiences; collectively, they provide a glimpse of the impact of the war on average soldiers and their families. The Frederic A. Waterhouse correspondence, between a young Union soldier and his family in Pennsylvania, vividly traces one family’s experience of the war and follows Frederic through battles, injury, and eventually death in the field.
+
+ The papers of sixteenth President Abraham Lincoln (1809-1865) form one of the largest groups in the collection. The earliest items date from Lincoln’s time as a lawyer. Included are legal briefs from all three of his formal law partnerships as well as cases from his time on the Illinois judicial circuit. Correspondence includes letters both to and from Lincoln; a handful of letters deal specifically with the Civil War. Documents from his time as president mainly consist of memoranda, discharges, pardons, commissions, and orders.
+
+ Other well-represented American presidents include Theodore Roosevelt (1858-1919), whose letters reflect many of the positions he held before being elected president, and Woodrow Wilson (1856-1924), whose correspondence demonstrates his lifelong passion for the study of government and history.
+
+ Hundreds of other American individuals and subjects are covered by the collection. There are significant letters from Americans of the stature of Samuel Adams, John C. Calhoun, Henry Clay, Benjamin Franklin, and Patrick Henry, and informative and characteristic ones of such diverse personages as John Wilkes Booth, Robert Fulton, and Thomas Paine. A large group of papers from eighteenth and nineteenth-century Massachusetts is filed by town and contains many legal documents in the form of land deeds, writs, and tax forms.
+
+ Researchers should note that Andre De Coppet saved many clippings from the auctions and dealers where he purchased the items in this collection. These clippings and provenance files are available in Boxes 43 and 44.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="524">
+      <subfield code="a">Identification of specific item; Date (if known); Andre De Coppet Collection, Box and Folder Number; Special Collections, Princeton University Library.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="540">
+      <subfield code="a"> Single copies may be made for research purposes. To cite or publish quotations that fall within Fair Use, as defined under  U. S. Copyright Law , no permission is required. For instances beyond Fair Use, it is the responsibility of the researcher to determine whether any permissions related to copyright, privacy, publicity, or any other rights are necessary for their intended use of the Library's materials, and to obtain all required permissions from any existing rights holders, if they have not already done so. Princeton University Library’s Special Collections does not charge any permission or use fees for the publication of images of materials from our collections, nor does it require researchers to obtain its permission for said use. The department does request that its collections be properly cited and images credited. More detailed information can be found on the  Copyright, Credit and Citations Guidelines  page on our website. If you have any questions, please feel free to contact us through the  Ask Us! form . .</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="541">
+      <subfield code="a">Gift of Andre Coppet, Howard Froelick, Col. Richard Gimbel.</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="583">
+      <subfield code="a">No appraisal information is available.</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Grant, Ulysses S.</subfield>
+      <subfield code="0">GRANTULYSSESS23833207.</subfield>
+      <subfield code="0">https://viaf.org/viaf/23833207</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Greene, Nathanael</subfield>
+      <subfield code="0">GREENENATHANAEL29549321.</subfield>
+      <subfield code="0">https://viaf.org/viaf/29549321</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Jefferson, Thomas</subfield>
+      <subfield code="0">JEFFERSONTHOMAS41866059.</subfield>
+      <subfield code="0">https://viaf.org/viaf/41866059</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Lincoln, Abraham</subfield>
+      <subfield code="0">LINCOLNABRAHAM76349832.</subfield>
+      <subfield code="0">https://viaf.org/viaf/76349832</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Roosevelt, Théodore</subfield>
+      <subfield code="0">ROOSEVELTTHÉODORE44346731.</subfield>
+      <subfield code="0">https://viaf.org/viaf/44346731</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Washington, George</subfield>
+      <subfield code="0">WASHINGTONGEORGE31432428.</subfield>
+      <subfield code="0">https://viaf.org/viaf/31432428</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">United States. Army of the Potomac.</subfield>
+      <subfield code="0">UNITEDSTATESARMYOFTHEPOTOMAC158306413</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">United States. Continental Army.</subfield>
+      <subfield code="0">UNITEDSTATESCONTINENTALARMY154702713</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="2" ind2="7" tag="610">
+      <subfield code="a">United States. Continental Army. Commissary General's Dept.</subfield>
+      <subfield code="0">UNITEDSTATESCONTINENTALARMYCOMMISSARYGENERALSDEPT</subfield>
+      <subfield code="2">local</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">American loyalists</subfield>
+      <subfield code="x">Claims</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Presidents</subfield>
+      <subfield code="z">United States</subfield>
+      <subfield code="v">Correspondence</subfield>
+      <subfield code="0">http://id.loc.gov/authorities/subjects/sh2008109959</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="650">
+      <subfield code="a">Privateering</subfield>
+      <subfield code="z">United States</subfield>
+      <subfield code="y">18th century</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="650">
+      <subfield code="a">Ship's papers</subfield>
+      <subfield code="2">aat</subfield>
+      <subfield code="0">http://id.loc.gov/authorities/subjects/sh85121663</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">Great Britain</subfield>
+      <subfield code="x">Foreign relations</subfield>
+      <subfield code="z">United States</subfield>
+      <subfield code="y">19th century</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">Massachusetts -- History -- Colonial period, ca. 1600-1775.</subfield>
+      <subfield code="v">Sources</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">United States</subfield>
+      <subfield code="x">Foreign relations</subfield>
+      <subfield code="z">Great Britain</subfield>
+      <subfield code="y">18th century</subfield>
+      <subfield code="v">Sources</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">United States</subfield>
+      <subfield code="x">Foreign relations</subfield>
+      <subfield code="z">Great Britain</subfield>
+      <subfield code="y">19th century</subfield>
+      <subfield code="v">Sources</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">United States -- History -- Civil War, 1861-1865 -- Campaigns and battles.</subfield>
+      <subfield code="v">Sources</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">United States -- History -- Civil War, 1861-1865 -- Naval operations.</subfield>
+      <subfield code="v">Sources</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">United States -- History -- Colonial period, ca. 1600-1775.</subfield>
+      <subfield code="v">Sources</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">United States -- History -- Confederation, 1783-1789.</subfield>
+      <subfield code="v">Sources</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">United States--History--Constitutional period, 1789-1809</subfield>
+      <subfield code="v">Sources</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">United States</subfield>
+      <subfield code="x">History</subfield>
+      <subfield code="y">Revolution, 1775-1783</subfield>
+      <subfield code="v">Sources</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">United States</subfield>
+      <subfield code="x">History, Military</subfield>
+      <subfield code="v">Sources</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">United States</subfield>
+      <subfield code="x">History, Naval</subfield>
+      <subfield code="v">Sources</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="655">
+      <subfield code="a">Correspondence</subfield>
+      <subfield code="y">18th century</subfield>
+      <subfield code="2">aat</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="655">
+      <subfield code="a">Correspondence</subfield>
+      <subfield code="y">19th century</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="655">
+      <subfield code="a">Deeds</subfield>
+      <subfield code="z">Massachusetts</subfield>
+      <subfield code="2">aat</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="655">
+      <subfield code="a">Diplomatic documents</subfield>
+      <subfield code="z">United States</subfield>
+      <subfield code="2">aat</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="655">
+      <subfield code="a">Legal documents</subfield>
+      <subfield code="2">aat</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="655">
+      <subfield code="a">Surveys (land)</subfield>
+      <subfield code="z">Virginia</subfield>
+      <subfield code="y">18th century</subfield>
+      <subfield code="2">aat</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="655">
+      <subfield code="a">Treaties</subfield>
+      <subfield code="0">http://id.loc.gov/authorities/subjects/sh85137207</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="700">
+      <subfield code="a">De Coppet, Andre,</subfield>
+      <subfield code="e">collector</subfield>
+      <subfield code="0">DECOPPETANDRE40764209.</subfield>
+      <subfield code="4">col</subfield>
+      <subfield code="0">https://viaf.org/viaf/40764209</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="852">
+      <subfield code="a">Princeton University Library. Department of Rare Books and Special Collections.</subfield>
+      <subfield code="b">Manuscripts Division </subfield>
+    </datafield>
+    <datafield ind1="4" ind2="2" tag="856">
+      <subfield code="z">Finding aid online:</subfield>
+      <subfield code="u">http://arks.princeton.edu/ark:/88435/rf55z771t</subfield>
+    </datafield>
+  </record>
+</collection>
+

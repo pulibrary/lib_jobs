@@ -101,6 +101,63 @@ RSpec.describe Aspace2alma::SendMarcxmlToAlmaJob do
     end
   end
 
+  context 'when a record has agent and subject identifiers' do
+    let(:resource_uris) { ["/repositories/3/resources/1656"] }
+    let(:doc) { Nokogiri::XML(File.open('MARC_out.xml')) }
+
+    def datafield(tag, heading)
+      doc.at_xpath("//marc:datafield[@tag='#{tag}'][marc:subfield[@code='a'][starts-with(., \"#{heading}\")]]")
+    end
+
+    def subfields(field)
+      field.xpath('marc:subfield').map { |subfield| [subfield['code'], subfield.content] }
+    end
+
+    before do
+      stub_request(:get, "https://example.com/staff/api/repositories/3/resources/marc21/1656.xml")
+        .and_return(status: 200, body: File.read(file_fixture('aspace2alma/marc_mc153.xml')))
+      allow(client).to receive(:get).with("repositories/3/top_containers/search",
+        query: { q: "collection_uri_u_sstr:\"/repositories/3/resources/1656\"" }).and_return(response)
+      described_class.new.run
+    end
+
+    it 'puts VIAF URIs in a canonical $1 and drops the record identifiers in $0' do
+      expect(subfields(datafield('100', 'Moore, Hugh'))).to eq(
+        [['a', 'Moore, Hugh,'], ['e', 'creator'], ['4', 'cre'], ['1', 'http://viaf.org/viaf/70595093']]
+      )
+    end
+
+    it 'codes VIAF subject headings like LC headings' do
+      field = datafield('600', 'Canfield, Cass')
+      expect(field['ind2']).to eq('0')
+      expect(subfields(field)).to eq([['a', 'Canfield, Cass'], ['1', 'http://viaf.org/viaf/20931128']])
+    end
+
+    it 'keeps the source of local headings' do
+      field = datafield('600', 'Marts, Arnauld C.')
+      expect(field['ind2']).to eq('7')
+      expect(subfields(field)).to eq([['a', 'Marts, Arnauld C.'], ['2', 'local'], ['5', 'NjP']])
+    end
+
+    it 'keeps other URIs in $0' do
+      expect(subfields(datafield('650', 'World War, 1939-1945'))).to include(['0', 'http://id.loc.gov/authorities/subjects/sh85148462'])
+    end
+
+    it 'keeps the source of 656s' do
+      field = datafield('656', 'Public officers')
+      expect(field['ind2']).to eq('7')
+      expect(subfields(field)).to include(%w[2 lcsh])
+    end
+
+    it 'splits headings at -- into subfields that follow the $a' do
+      expect(subfields(datafield('650', 'Peace'))).to eq([%w[a Peace], ['x', 'Societies, etc..'], ['y', '20th century']])
+    end
+
+    it 'adds a 046 with the dates from the 008' do
+      expect(subfields(doc.at_xpath("//marc:datafield[@tag='046']"))).to eq([%w[a i], %w[c 1922], %w[e 1972]])
+    end
+  end
+
   context 'when aspace is down' do
     before do
       allow_any_instance_of(described_class).to receive(:aspace_login).and_raise(RuntimeError)

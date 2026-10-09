@@ -3,6 +3,8 @@ module Aspace2alma
   # rubocop:disable Metrics/ClassLength
   # rubocop:disable Metrics/MethodLength
   class SendMarcxmlToAlmaJob < LibJob
+    include Aspace2alma::Retries
+
     def initialize
       super(category: 'Aspace2Alma')
     end
@@ -14,8 +16,7 @@ module Aspace2alma
       # rename MARC file:
       # in case the export fails, this ensures that
       # Alma will not find a stale file to import
-      Aspace2almaHelper.remove_file("/alma/aspace/MARC_out_old.xml")
-      Aspace2almaHelper.rename_file("/alma/aspace/#{filename}", "/alma/aspace/MARC_out_old.xml")
+      Aspace2almaHelper.rotate_file(filename)
 
       # open a quasi log to receive progress output
       log_out = File.open("log_out.txt", "w")
@@ -27,15 +28,13 @@ module Aspace2alma
       resources = get_resource_uris_for_all_repos
 
       file =  File.open(filename, "w")
-      # rubocop:disable Layout/LineLength
-      file << '<collection xmlns="http://www.loc.gov/MARC21/slim" xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/MARC21/slim http://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">'
-      # rubocop:enable Layout/LineLength
+      file << Marcxml::COLLECTION_START
 
       resources.each do |resource_uri|
         process_resource(resource_uri, file, log_out, barcode_duplicate_check)
       end
 
-      file << '</collection>'
+      file << Marcxml::COLLECTION_END
       file.close
 
       # send to alma
@@ -47,13 +46,22 @@ module Aspace2alma
       data_set
     end
 
+    # retry a resource, then skip it
+    def process_resource(resource, file, log_out, barcode_duplicate_check)
+      with_retries(NETWORK_ERRORS, "retrieving resource #{resource}") do
+        append_record(resource, file, log_out, barcode_duplicate_check)
+      end
+    rescue *NETWORK_ERRORS => error
+      log_out.puts "Encountered #{error.class}: '#{error.message}' at #{Time.zone.now}, " \
+                   "unsuccessful in retrieving resource #{resource} after #{RETRY_ATTEMPTS} retries"
+    end
+
+    # build and write a resource's record
     # rubocop:disable Metrics/AbcSize
     # rubocop:disable Metrics/CyclomaticComplexity
     # rubocop:disable Metrics/PerceivedComplexity
-    def process_resource(resource, file, log_out, barcode_duplicate_check)
-      retries ||= 0
-
-      my_resource = Resource.new(resource, @client, file, log_out)
+    def append_record(resource, file, log_out, barcode_duplicate_check)
+      my_resource = Resource.new(resource, @client)
 
       doc = my_resource.marc_xml
 
@@ -79,8 +87,6 @@ module Aspace2alma
       tags852 = my_resource.tags852
       tag856 = my_resource.tag856
       tags6_7xx = my_resource.tags6_7xx
-      my_resource.subfields
-      my_resource.datafields
 
       # do stuff
       ##################
@@ -90,7 +96,7 @@ module Aspace2alma
       my_resource.remove_empty_elements(doc)
 
       # addresses github #159
-      my_resource.remove_linebreaks(doc)
+      my_resource.squish_subfields(doc)
 
       # addresses github #129
       tag008.previous = ("<controlfield tag='001'>#{tag099_a.content}</controlfield>")
@@ -115,11 +121,16 @@ module Aspace2alma
       end
 
       # addresses github #134
-      tag041.next = ("<datafield ind1=' ' ind2=' ' tag='046'>
-              <subfield code='a'>i</subfield>
-              <subfield code='c'>#{my_resource.tag008.content[7..10]}</subfield>
-              <subfield code='e'>#{my_resource.tag008.content[11..14]}</subfield>
+      date1 = tag008.content[7..10]
+      date2 = tag008.content[11..14]
+      if date1.match?(/\d{4}/)
+        subfield_e = "<subfield code='e'>#{date2}</subfield>" if date2.match?(/\d{4}/)
+        tag041.next = ("<datafield ind1=' ' ind2=' ' tag='046'>
+              <subfield code='a'>#{tag008.content[6]}</subfield>
+              <subfield code='c'>#{date1}</subfield>
+              #{subfield_e}
             </datafield>")
+      end
 
       # addresses github #991
       my_resource.datafields.each do |datafield|
@@ -138,7 +149,7 @@ module Aspace2alma
 
       # addresses github #380 - limit scopenotes to 8000 characters
       # (9999b field size limit in Alma v. 40,000+ character notes in ASpace)
-      tags520 = tags520.each do |tag520|
+      tags520.each do |tag520|
         # ASpace exports everything to $a, so only one subfield to check
         tag520.at_xpath('marc:subfield[@code="a"]').content = tag520.at_xpath('marc:subfield[@code="a"]').content.truncate(7999)
       end
@@ -156,25 +167,17 @@ module Aspace2alma
         subfield_a = tag6xx.at_xpath('marc:subfield[@code="a"]')
         segments = subfield_a.content.split('--')
         segments.each(&:strip!)
-        subfield_a_text = segments[0]
-        subfield_a.replace("<subfield code='a'>#{subfield_a_text}</subfield")
-        segments[1..-1].each do |segment|
-          code = /^[0-9]{2}/.match?(segment) ? 'y' : 'x'
-          tag6xx.children.last.next = ("<subfield code='#{code}'>#{segment}</subfield>")
-        end
-        # addresses github issue #334
-        if tag6xx.at_xpath('marc:subfield[@code="0"]')
-          subfield0 = tag6xx.at_xpath('marc:subfield[@code="0"]')
-          subfield0.replace("<subfield code='1'>#{subfield0.content}</subfield>") if /viaf/.match?(subfield0.content)
-        end
-        next unless tag6xx.at_xpath('marc:subfield[@code="2"]')
-        subfield2 = tag6xx.at_xpath('marc:subfield[@code="2"]')
-        ind2 = tag6xx.at_xpath('@ind2')
-        if /^viaf$/.match?(subfield2.content)
-          subfield2.remove
-          ind2.content = '0' if ind2.content == '7'
+        subfield_a.content = segments[0]
+        segments[1..].inject(subfield_a) do |previous, segment|
+          subfield = subfield_a.dup
+          subfield['code'] = /^[0-9]{2}/.match?(segment) ? 'y' : 'x'
+          subfield.content = segment
+          previous.add_next_sibling(subfield)
         end
       end
+
+      # addresses github issue #334
+      normalize_authority_subfields(doc)
 
       # addresses github #132
       tags852.each(&:remove)
@@ -233,21 +236,23 @@ module Aspace2alma
       file << doc.at_xpath('//marc:record') unless tag099_a.content =~ /^(C0140|C1771|AC214|AC364|C0744.06|C0776|C0935|C1296|WC059|RBD1|RBD1.1|C0723.1-47|LAE\d+|SPA\d+|POR\d+)$/ || tag856.nil?
       file.flush
       log_out.flush
-    rescue Errno::ECONNRESET, Errno::ECONNABORTED, Errno::ETIMEDOUT, Errno::ECONNREFUSED => error
-      while (retries += 1) <= 3
-        log_out.puts "Encountered #{error.class}: '#{error.message}' when retrieving resource #{resource} at #{Time.zone.now}, retrying in #{retries} second(s)..."
-        sleep(retries)
-        retry
-      end
-      log_out.puts "Encountered #{error.class}: '#{error.message}' at #{Time.zone.now}, unsuccessful in retrieving resource #{resource} after #{retries} retries"
     end
     # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/PerceivedComplexity
 
+    # authority subfields and LC-coded sources, as in the component export
+    def normalize_authority_subfields(doc)
+      doc.xpath('//marc:datafield[starts-with(@tag, "1") or starts-with(@tag, "6") or starts-with(@tag, "7")]').each do |datafield|
+        datafield.swap(normalize_authorized_field.call(datafield))
+      end
+    end
+
     def barcode_duplicate_check
       @barcode_duplicate_check ||= AlmaDuplicateBarcodeCheck.new
     end
+
+    def normalize_authorized_field = @normalize_authorized_field ||= NormalizeAuthorizedField.new
   end
   # rubocop:enable Metrics/ClassLength
   # rubocop:enable Metrics/MethodLength

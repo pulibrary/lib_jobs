@@ -106,7 +106,7 @@ namespace :lib_jobs do
     end
   end
 
-  desc "send ead files from aspace to svn"
+  desc "send ead files from aspace to gitlab"
   task send_eads: [:environment] do
     job = AspaceVersionControl::GetEadsJob.new
     job.run
@@ -172,16 +172,23 @@ namespace :lib_jobs do
     TMASGateCounts::Job.new.run
   end
 
-  desc "aspace2alma: send collection-level MarcXML records from aspace to alma"
+  desc "aspace2alma: send collection-level marcXML records from aspace to alma"
   task aspace2alma: [:environment] do
     job = Aspace2alma::SendMarcxmlToAlmaJob.new
     job.run
   end
 
   namespace :aspace2alma do
-    desc "remove a stale aspace2alma file from SFTP, so that Alma does not process it a second time"
+    desc "remove a stale aspace2alma file from sftp so it doesn't get sent twice"
     task remove_stale_file: [:environment] do
       job = Aspace2alma::RemoveFileJob.new
+      job.run
+    end
+
+    desc "aspace2alma: send component-level marcXML records from aspace to alma"
+    task components: [:environment] do
+      since = ENV['SINCE'].presence&.then { |value| Time.zone.parse(value) || raise(ArgumentError, "SINCE is not a time: #{value}") }
+      job = Aspace2alma::SendComponentMarcxmlToAlmaJob.new(since:)
       job.run
     end
   end

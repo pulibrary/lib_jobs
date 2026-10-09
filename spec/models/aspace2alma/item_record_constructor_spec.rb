@@ -155,7 +155,7 @@ RSpec.describe Aspace2alma::ItemRecordConstructor do
         described_class.new(real_client, validator)
       end
       let(:resource_uri) { "/repositories/3/resources/1511" }
-      let(:real_doc) { Aspace2alma::Resource.new(resource_uri, real_client, '', '').marc_xml }
+      let(:real_doc) { Aspace2alma::Resource.new(resource_uri, real_client).marc_xml }
       let(:real_tag099_a) { real_doc.at_xpath('//marc:datafield[@tag="099"]/marc:subfield[@code="a"]') }
       let(:real_log_out) { StringIO.new }
       let(:real_params) { Aspace2alma::ItemParams.new(real_doc, real_tag099_a, real_log_out) }

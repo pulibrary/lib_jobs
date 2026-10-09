@@ -1,0 +1,273 @@
+{
+  "lock_version": 9,
+  "position": 9,
+  "publish": true,
+  "ref_id": "C1771_c09656-99833",
+  "title": "American Friends of Greece. Typescript of a Program for Assisting the Reconstruction and Rehabilitation of Greece",
+  "display_string": "American Friends of Greece. Typescript of a Program for Assisting the Reconstruction and Rehabilitation of Greece, 1941 June 11",
+  "restrictions_apply": false,
+  "create_time": "2025-02-28T18:51:58Z",
+  "system_mtime": "2026-09-03T20:18:51Z",
+  "user_mtime": "2025-03-03T21:25:23Z",
+  "suppressed": false,
+  "is_slug_auto": false,
+  "level": "file",
+  "jsonmodel_type": "archival_object",
+  "external_ids": [],
+  "subjects": [],
+  "linked_events": [],
+  "extents": [
+    {
+      "lock_version": 0,
+      "number": "1",
+      "create_time": "2025-03-03T21:25:23Z",
+      "system_mtime": "2025-03-03T21:25:23Z",
+      "user_mtime": "2025-03-03T21:25:23Z",
+      "portion": "whole",
+      "extent_type": "folder",
+      "jsonmodel_type": "extent"
+    }
+  ],
+  "lang_materials": [],
+  "dates": [
+    {
+      "lock_version": 0,
+      "expression": "1941 June 11",
+      "begin": "1941",
+      "create_time": "2025-03-03T21:25:23Z",
+      "system_mtime": "2025-03-03T21:25:23Z",
+      "user_mtime": "2025-03-03T21:25:23Z",
+      "date_type": "single",
+      "label": "creation",
+      "era": "ce",
+      "calendar": "gregorian",
+      "jsonmodel_type": "date"
+    }
+  ],
+  "external_documents": [],
+  "rights_statements": [],
+  "linked_agents": [
+    {
+      "is_primary": false,
+      "role": "subject",
+      "terms": [],
+      "ref": "/agents/corporate_entities/5589",
+      "_resolved": {
+        "lock_version": 4,
+        "publish": false,
+        "create_time": "2025-02-28T18:51:40Z",
+        "system_mtime": "2025-03-03T21:25:23Z",
+        "user_mtime": "2025-02-28T18:51:40Z",
+        "is_slug_auto": false,
+        "jsonmodel_type": "agent_corporate_entity",
+        "agent_contacts": [],
+        "agent_record_controls": [],
+        "agent_alternate_sets": [],
+        "agent_conventions_declarations": [],
+        "agent_other_agency_codes": [],
+        "agent_maintenance_histories": [],
+        "agent_record_identifiers": [],
+        "agent_identifiers": [],
+        "agent_sources": [],
+        "agent_places": [],
+        "agent_occupations": [],
+        "agent_functions": [],
+        "agent_topics": [],
+        "agent_resources": [],
+        "linked_agent_roles": [
+          "subject"
+        ],
+        "external_documents": [],
+        "notes": [],
+        "used_within_repositories": [],
+        "used_within_published_repositories": [],
+        "dates_of_existence": [],
+        "used_languages": [],
+        "metadata_rights_declarations": [],
+        "names": [
+          {
+            "lock_version": 0,
+            "primary_name": "American Friends of Greece",
+            "sort_name": "American Friends of Greece",
+            "sort_name_auto_generate": true,
+            "create_time": "2025-02-28T18:51:40Z",
+            "system_mtime": "2025-02-28T18:51:40Z",
+            "user_mtime": "2025-02-28T18:51:40Z",
+            "authorized": true,
+            "is_display_name": true,
+            "jurisdiction": false,
+            "conference_meeting": false,
+            "source": "viaf",
+            "jsonmodel_type": "name_corporate_entity",
+            "use_dates": [],
+            "parallel_names": [],
+            "authority_id": "https://viaf.org/en/viaf/146604278"
+          }
+        ],
+        "related_agents": [],
+        "uri": "/agents/corporate_entities/5589",
+        "agent_type": "agent_corporate_entity",
+        "is_linked_to_published_record": true,
+        "display_name": {
+          "lock_version": 0,
+          "primary_name": "American Friends of Greece",
+          "sort_name": "American Friends of Greece",
+          "sort_name_auto_generate": true,
+          "create_time": "2025-02-28T18:51:40Z",
+          "system_mtime": "2025-02-28T18:51:40Z",
+          "user_mtime": "2025-02-28T18:51:40Z",
+          "authorized": true,
+          "is_display_name": true,
+          "jurisdiction": false,
+          "conference_meeting": false,
+          "source": "viaf",
+          "jsonmodel_type": "name_corporate_entity",
+          "use_dates": [],
+          "parallel_names": [],
+          "authority_id": "https://viaf.org/en/viaf/146604278"
+        },
+        "title": "American Friends of Greece"
+      }
+    }
+  ],
+  "import_previous_arks": [],
+  "ancestors": [
+    {
+      "ref": "/repositories/5/resources/4374",
+      "level": "collection"
+    }
+  ],
+  "instances": [
+    {
+      "lock_version": 0,
+      "create_time": "2025-03-03T21:25:23Z",
+      "system_mtime": "2025-03-03T21:25:23Z",
+      "user_mtime": "2025-03-03T21:25:23Z",
+      "instance_type": "mixed_materials",
+      "jsonmodel_type": "instance",
+      "is_representative": false,
+      "sub_container": {
+        "lock_version": 0,
+        "indicator_2": "9",
+        "create_time": "2025-03-03T21:25:23Z",
+        "system_mtime": "2025-03-03T21:25:23Z",
+        "user_mtime": "2025-03-03T21:25:23Z",
+        "type_2": "folder",
+        "jsonmodel_type": "sub_container",
+        "top_container": {
+          "ref": "/repositories/5/top_containers/123039",
+          "_resolved": {
+            "lock_version": 67,
+            "barcode": "32101092736683",
+            "indicator": "B-002140",
+            "create_time": "2025-02-25T21:37:05Z",
+            "system_mtime": "2026-09-24T18:15:33Z",
+            "user_mtime": "2025-03-03T21:25:13Z",
+            "created_for_collection": "/repositories/5/resources/4374",
+            "type": "box",
+            "jsonmodel_type": "top_container",
+            "active_restrictions": [],
+            "container_locations": [
+              {
+                "jsonmodel_type": "container_location",
+                "status": "current",
+                "start_date": "2025-03-03",
+                "system_mtime": "2025-03-03 21:25:13 UTC",
+                "user_mtime": "2025-03-03 21:25:13 UTC",
+                "ref": "/locations/23648",
+                "_resolved": {
+                  "lock_version": 9,
+                  "building": "Firestone Library",
+                  "title": "Firestone Library, Vault, Manuscripts Archival [scamss]",
+                  "room": "Vault",
+                  "area": "Manuscripts Archival",
+                  "classification": "scamss",
+                  "create_time": "2021-01-22T22:29:47Z",
+                  "system_mtime": "2022-11-16T16:53:06Z",
+                  "user_mtime": "2022-11-16T16:53:06Z",
+                  "jsonmodel_type": "location",
+                  "external_ids": [],
+                  "functions": [],
+                  "uri": "/locations/23648"
+                }
+              }
+            ],
+            "series": [],
+            "collection": [
+              {
+                "ref": "/repositories/5/resources/4374",
+                "identifier": "C1771",
+                "display_string": "Princeton University Library Single Item Acquisitions"
+              }
+            ],
+            "uri": "/repositories/5/top_containers/123039",
+            "repository": {
+              "ref": "/repositories/5"
+            },
+            "container_profile": {
+              "ref": "/container_profiles/17"
+            },
+            "restricted": false,
+            "is_linked_to_published_record": true,
+            "display_string": "Box B-002140: [Barcode: 32101092736683]",
+            "long_display_string": "Box B-002140 [Barcode: 32101092736683], Standard manuscript, Firestone Library, Vault, Manuscripts Archival [scamss], C1771, Princeton University Library Single Item Acquisitions"
+          }
+        }
+      }
+    }
+  ],
+  "notes": [
+    {
+      "jsonmodel_type": "note_multipart",
+      "persistent_id": "fee61eed9746585f9447988ab1e957c6",
+      "type": "acqinfo",
+      "subnotes": [
+        {
+          "jsonmodel_type": "note_text",
+          "content": "Gift of the Program in Hellenic Studies with the support of the Stanley J. Seeger Hellenic Fund (AM 2025-061).",
+          "publish": true
+        }
+      ],
+      "publish": true
+    },
+    {
+      "jsonmodel_type": "note_multipart",
+      "persistent_id": "350497f4e680cc0cbc78af50c21915a4",
+      "type": "processinfo",
+      "subnotes": [
+        {
+          "jsonmodel_type": "note_text",
+          "content": "This item was processed and described by Kalliopi Balatsouka in 2025.",
+          "publish": true
+        }
+      ],
+      "publish": true
+    },
+    {
+      "jsonmodel_type": "note_multipart",
+      "persistent_id": "3ec2a348640204de4996a2bec167cd31",
+      "type": "scopecontent",
+      "subnotes": [
+        {
+          "jsonmodel_type": "note_text",
+          "content": "Consists of a copy of a typescript from the American Friends of Greece regarding a program for assisting the reconstruction and rehabilitation of Greece and for a greater expansion of the cultural relations between the people of the United States and the Greek people.",
+          "publish": true
+        }
+      ],
+      "publish": true
+    }
+  ],
+  "accession_links": [
+    {
+      "ref": "/repositories/5/accessions/20192"
+    }
+  ],
+  "uri": "/repositories/5/archival_objects/1561628",
+  "repository": {
+    "ref": "/repositories/5"
+  },
+  "resource": {
+    "ref": "/repositories/5/resources/4374"
+  },
+  "has_unpublished_ancestor": false
+}

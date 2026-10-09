@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://www.loc.gov/MARC21/slim" xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/MARC21/slim https://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">
+  <record>
+    <leader>00000npcaa2200000 u 4500</leader>
+    <controlfield tag="008">250818i18231976xx                  eng d</controlfield>
+    <datafield ind1=" " ind2=" " tag="040">
+      <subfield code="b">eng</subfield>
+      <subfield code="e">Finding aid content adheres to that prescribed by Describing Archives: A Content Standard.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="041">
+      <subfield code="a">eng</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="099">
+      <subfield code="a">TC132</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="100">
+      <subfield code="a">Jefferson, Joseph,</subfield>
+      <subfield code="e">creator</subfield>
+      <subfield code="0">JEFFERSONJOSEPH18419935.</subfield>
+      <subfield code="4">cre</subfield>
+      <subfield code="0">https://viaf.org/viaf/18419935</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="0" tag="245">
+      <subfield code="a">Joseph Jefferson Collection,</subfield>
+      <subfield code="f">1823-1976</subfield>
+      <subfield code="g">1829-1905</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="300">
+      <subfield code="a">1</subfield>
+      <subfield code="f">box</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="300">
+      <subfield code="a">0.4</subfield>
+      <subfield code="f">linear feet</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="351">
+      <subfield code="a">Organized by topics.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Location of resource: scarcpxr.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Materials Separated from the Resource: Jefferson's landscape oil painting, dating from 1895, was transferred to Graphic Arts (GC059).</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="506">
+      <subfield code="a">Collection is open for research use.</subfield>
+    </datafield>
+    <datafield ind1="3" ind2=" " tag="520">
+      <subfield code="a">Joseph Jefferson (1829-1905) was an American actor and author. His collection consists of biographical newspaper clippings, 2 copies of his Autobiography, theatrical criticism and approbation, and clippings on family matters.</subfield>
+    </datafield>
+    <datafield ind1="2" ind2=" " tag="520">
+      <subfield code="a">The collection consists of biographical newspaper clippings, two copies of his Autobiography, theatrical criticism and approbation, and clippings on family matters.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="524">
+      <subfield code="a">Identification of specific item; Date (if known); Joseph Jefferson Collection, Box and Folder Number; Special Collections, Princeton University Library.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="540">
+      <subfield code="a"> Single copies may be made for research purposes. To cite or publish quotations that fall within Fair Use, as defined under  U. S. Copyright Law , no permission is required. For instances beyond Fair Use, it is the responsibility of the researcher to determine whether any permissions related to copyright, privacy, publicity, or any other rights are necessary for their intended use of the Library's materials, and to obtain all required permissions from any existing rights holders, if they have not already done so. Princeton University Library’s Special Collections does not charge any permission or use fees for the publication of images of materials from our collections, nor does it require researchers to obtain its permission for said use. The department does request that its collections be properly cited and images credited. More detailed information can be found on the  Copyright, Credit and Citations Guidelines  page on our website. If you have any questions, please feel free to contact us through the  Ask Us! form . .</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Jefferson, Joseph</subfield>
+      <subfield code="0">JEFFERSONJOSEPH18419935.</subfield>
+      <subfield code="0">https://viaf.org/viaf/18419935</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="7" tag="600">
+      <subfield code="a">Jefferson, Joseph</subfield>
+      <subfield code="0">JEFFERSONJOSEPH18419935.</subfield>
+      <subfield code="0">https://viaf.org/viaf/18419935</subfield>
+      <subfield code="2">viaf</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="656">
+      <subfield code="a">Actors</subfield>
+      <subfield code="z">United States</subfield>
+      <subfield code="v">Biography</subfield>
+      <subfield code="2">lcsh</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="852">
+      <subfield code="a">Rare Book Collection</subfield>
+    </datafield>
+    <datafield ind1="4" ind2="2" tag="856">
+      <subfield code="z">Finding aid online:</subfield>
+      <subfield code="u">http://arks.princeton.edu/ark:/88435/xk81jk41x</subfield>
+    </datafield>
+  </record>
+</collection>
+

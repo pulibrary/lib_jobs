@@ -8,7 +8,12 @@ default: &default
   local_git_lab_dir: git_lab_eads
   local_git_lab_eacs_dir: git_lab_eacs
   git_lab_local_repo_path: git_lab_eads
-  repos: 
+  # user-defined boolean that the component export relies on
+  component_export_flag_field: boolean_1
+  # when Alma imports the component export each day
+  component_export_pickup_time: '11:00'
+  component_export_pickup_time_zone: 'America/New_York'
+  repos:
     3: "eads/mudd/publicpolicy"
     4: "eads/mudd/univarchives"
     5: "eads/mss"

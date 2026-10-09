@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<collection xmlns="http://www.loc.gov/MARC21/slim" xmlns:marc="http://www.loc.gov/MARC21/slim" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/MARC21/slim https://www.loc.gov/standards/marcxml/schema/MARC21slim.xsd">
+  <record>
+    <leader>00000npcaa2200000 u 4500</leader>
+    <controlfield tag="008">260924i19182008xx                  eng d</controlfield>
+    <datafield ind1=" " ind2=" " tag="040">
+      <subfield code="b">eng</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="041">
+      <subfield code="a">eng</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="099">
+      <subfield code="a">MC284</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="100">
+      <subfield code="a">Keeley, Robert V.,</subfield>
+      <subfield code="e">creator</subfield>
+      <subfield code="0">KEELEYROBERTVhttp://id.loc.gov/authorities/names/n.</subfield>
+      <subfield code="0">http://id.loc.gov/authorities/names/n96068198</subfield>
+    </datafield>
+    <datafield ind1="1" ind2="0" tag="245">
+      <subfield code="a">Robert V. Keeley Papers,</subfield>
+      <subfield code="f">1918-2008</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="300">
+      <subfield code="a">23</subfield>
+      <subfield code="f">boxes</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Physical Characteristics / Technical Requirements: For preservation reasons, original analog
+and digital media may not be read or played back in the
+reading room. Users may visually inspect physical media
+but may not remove it from its enclosure. All analog
+audiovisual media must be digitized to preservation-quality
+standards prior to use. Audiovisual digitization requests
+are processed by an approved third-party vendor. Please note,
+the transfer time required can be as little as several weeks
+to as long as several months and there may be financial costs
+associated with the process.
+Requests should be directed through the
+ Ask Us Form .</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Location of resource: scamudd.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Processing Information: The collection was processed and the finding aid written by Will Clements in 2022.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="500">
+      <subfield code="a">Processing Information: </subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="506">
+      <subfield code="a">The collection is open for research.</subfield>
+    </datafield>
+    <datafield ind1="3" ind2=" " tag="520">
+      <subfield code="a">Robert Vossler Keeley (‘51) was a U.S. Foreign Service member and writer who served in a number of posts. The Robert V. Keeley Papers consist of reports, correspondence, writings, journals, and photographs from the breadth of Keeley's career, including his Foreign Service postings in Uganda, Cambodia, Mauritius, Zimbabwe, and Greece, as well as correspondence and other materials created and kept by Robert Keeley's wife, Louise Keeley.</subfield>
+    </datafield>
+    <datafield ind1="2" ind2=" " tag="520">
+      <subfield code="a">The Robert V. Keeley Papers consist of reports, correspondence, writings, journals, and photographs from the breadth of Keeley's Foreign Service Career, including his postings in Uganda, Cambodia, Mauritius, Zimbabwe, and Greece. Additionally, there is a significant amount of correspodence, journals, and other materials from Keeley's education and early career, as well as some files from his career immediately following retiring from the Foreign Service. There are also three boxes of correspondence and other materials created and kept by Robert Keeley's wife, Louise Keeley.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="540">
+      <subfield code="a"> Single copies may be made for research purposes. To cite or publish quotations that fall within Fair Use, as defined under  U. S. Copyright Law , no permission is required. For instances beyond Fair Use, it is the responsibility of the researcher to determine whether any permissions related to copyright, privacy, publicity, or any other rights are necessary for their intended use of the Library's materials, and to obtain all required permissions from any existing rights holders, if they have not already done so. Princeton University Library’s Special Collections does not charge any permission or use fees for the publication of images of materials from our collections, nor does it require researchers to obtain its permission for said use. The department does request that its collections be properly cited and images credited. More detailed information can be found on the  Copyright, Credit and Citations Guidelines  page on our website. If you have any questions, please feel free to contact us through the  Ask Us! form . .</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="541">
+      <subfield code="a">The collection was donated by Christopher Keeley in 2015 and 2018. The accession numbers associated with these donations are ML-2015-031, ML-2015-042, and ML-2018-015.</subfield>
+    </datafield>
+    <datafield ind1="1" ind2=" " tag="583">
+      <subfield code="a">Approximately 30 boxes of materials deemed non-archival were separated from the original accessions prior to processing.</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="7" tag="650">
+      <subfield code="a">Foreign Service</subfield>
+      <subfield code="2">local</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">Cambodia</subfield>
+      <subfield code="x">Foreign relations</subfield>
+      <subfield code="z">United States</subfield>
+      <subfield code="y">20th century</subfield>
+    </datafield>
+    <datafield ind1=" " ind2="0" tag="651">
+      <subfield code="a">Uganda</subfield>
+      <subfield code="x">Foreign relations</subfield>
+      <subfield code="z">United States</subfield>
+    </datafield>
+    <datafield ind1=" " ind2=" " tag="852">
+      <subfield code="a">Princeton University Library.  Department of Rare Books and Special Collections</subfield>
+      <subfield code="b">Public Policy Papers</subfield>
+    </datafield>
+    <datafield ind1="4" ind2="2" tag="856">
+      <subfield code="z">Finding aid online:</subfield>
+      <subfield code="u">http://arks.princeton.edu/ark:/88435/dc1r66jb78z</subfield>
+    </datafield>
+  </record>
+</collection>
+

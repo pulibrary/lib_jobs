@@ -1,0 +1,164 @@
+# frozen_string_literal: true
+module Aspace2alma
+  # Exports marcXML for archival_objects
+  # rubocop:disable Metrics/ClassLength
+  class SendComponentMarcxmlToAlmaJob < LibJob
+    include Aspace2alma::Retries
+
+    # DataSet category
+    CATEGORY = 'Aspace2Alma_component'
+
+    # file name on sftp
+    FILENAME = 'marcao_export.xml'
+
+    # ArchivesSpace stores Solr dates in UTC ("2026-06-01T00:00:00Z")
+    SOLR_TIME_FORMAT = '%Y-%m-%dT%H:%M:%SZ'
+
+    # from MarcAOExporter::WINDOW_SECONDS: makes sure we catch ao's saved after the run started
+    WINDOW_SECONDS = 5.seconds
+
+    # how far back to look on the very first run
+    DEFAULT_LOOKBACK = 1.day
+
+    # since can only reach further back than the last run
+    def initialize(since: nil)
+      super(category: CATEGORY)
+      @since = since
+    end
+
+    private
+
+    # run the export
+    def handle(data_set:)
+      started_at = Time.zone.now
+
+      with_retries(ASPACE_ERRORS, 'logging into ArchivesSpace') { aspace_login }
+      since = [@since, window_start].compact.min
+
+      ao_jsons = get_all_repo_uris.flat_map { |repo_uri| modified_archival_objects_for_repo(repo_uri:, since:) }
+      if ao_jsons.any?
+        deliver(ao_jsons)
+      elsif !unimported?(last_successful_run)
+        rename_previous_file
+      end
+
+      report = "exported #{ao_jsons.size} archival object record(s) modified since #{since.utc.iso8601}"
+      Rails.logger.info("#{self.class}: #{report}")
+      data_set.data = report
+      data_set.report_time = started_at
+      data_set
+    end
+
+    # changed aos of a repo's flagged resources
+    def modified_archival_objects_for_repo(repo_uri:, since:)
+      repo_id = get_repo_id_from_uri(repo_uri)
+
+      flagged_resources(repo_uri:, repo_id:).flat_map do |resource|
+        collection_languages[resource['uri']] = Aspace2alma::ArchivalObjectRecord.language_codes(resource['lang_materials'])
+        ao_since = modified_since?(resource, since) ? nil : since
+        resolved_modified_archival_objects(repo_id:, resource_uri: resource['uri'], since: ao_since)
+      end
+    end
+
+    # fetch all resource records and filter on the flag
+    def flagged_resources(repo_uri:, repo_id:)
+      resource_ids = with_retries(ASPACE_ERRORS, "listing resources in #{repo_uri}") do
+        @client.get("#{repo_uri}/resources", query: { all_ids: true }).parsed
+      end
+
+      resolved_objects(repo_id, resource_ids, 'resources', [])
+        .select { |resource| resource.dig('user_defined', flag_field) }
+    end
+
+    # changed since then?
+    def modified_since?(record, since)
+      record['system_mtime'].present? && Time.zone.parse(record['system_mtime']) >= since
+    end
+
+    # the export checkbox
+    def flag_field
+      Rails.application.config.aspace.component_export_flag_field
+    end
+
+    # fetch changed aos with resolves
+    def resolved_modified_archival_objects(repo_id:, resource_uri:, since:)
+      ao_ids = modified_archival_object_ids(repo_id:, resource_uri:, since:)
+      return [] if ao_ids.empty?
+
+      resolved_objects(repo_id, ao_ids, 'archival_objects', Aspace2alma::ArchivalObjectRecord.resolves)
+    end
+
+    # fetch records, dropping duplicates
+    def resolved_objects(repo_id, ids, record_type, resolves)
+      batches = with_retries(ASPACE_ERRORS, "fetching #{record_type} from repository #{repo_id}") do
+        get_resolved_objects_from_ids(repo_id, ids, record_type, resolves)
+      end
+      batches.flatten.uniq { |record| record['uri'] }
+    end
+
+    # search for changed ao ids
+    def modified_archival_object_ids(repo_id:, resource_uri:, since:)
+      query = %(resource:"#{resource_uri}")
+      query += %( AND system_mtime:[#{since.utc.strftime(SOLR_TIME_FORMAT)} TO *]) if since
+      ids = []
+      page = 1
+
+      loop do
+        response = with_retries(ASPACE_ERRORS, "searching #{resource_uri} for modified archival objects") do
+          @client.get("/repositories/#{repo_id}/search",
+                      query: { q: query, type: ['archival_object'], page:, page_size: 250 }).parsed
+        end
+        ids.concat(response['results'].map { |result| result['uri'].split('/').last.to_i })
+        break if page >= response['last_page']
+
+        page += 1
+      end
+
+      ids
+    end
+
+    # don't send the same file twice
+    def rename_previous_file
+      with_retries(SFTP_ERRORS, 'rename old file') { Aspace2almaHelper.rotate_file(FILENAME) }
+    end
+
+    # languages by collection uri
+    def collection_languages
+      @collection_languages ||= {}
+    end
+
+    # write the file, then replace the old one
+    def deliver(ao_jsons)
+      File.write(FILENAME, Aspace2alma::ArchivalObjectRecord.collection_to_marc(ao_jsons, collection_languages:))
+      rename_previous_file
+      with_retries(SFTP_ERRORS, "uploading #{FILENAME}") { Aspace2almaHelper.alma_sftp(FILENAME) }
+    end
+
+    # where this run starts looking
+    def window_start
+      last_run = last_successful_run
+      return DEFAULT_LOOKBACK.ago - WINDOW_SECONDS unless last_run
+      return window_start_of(last_run) if unimported?(last_run) && window_start_of(last_run)
+
+      last_run.report_time - WINDOW_SECONDS
+    end
+
+    # finished after Alma's last pickup?
+    def unimported?(run)
+      run.present? && run.created_at > last_pickup_time
+    end
+
+    # where a run started looking
+    def window_start_of(run)
+      Time.zone.parse(run.data.to_s[/since (\S+)\z/, 1].to_s)
+    end
+
+    # Alma's most recent daily import
+    def last_pickup_time
+      zone = ActiveSupport::TimeZone[Rails.application.config.aspace.component_export_pickup_time_zone]
+      pickup = zone.parse(Rails.application.config.aspace.component_export_pickup_time)
+      pickup > Time.current ? pickup - 1.day : pickup
+    end
+  end
+  # rubocop:enable Metrics/ClassLength
+end

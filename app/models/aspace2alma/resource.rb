@@ -4,7 +4,7 @@ module Aspace2alma
   class Resource
     attr_reader :resource_uri, :aspace_client
 
-    def initialize(resource_uri, aspace_client, _file, _log_out)
+    def initialize(resource_uri, aspace_client)
       @resource_uri = resource_uri
       @aspace_client = aspace_client
     end
@@ -95,10 +95,6 @@ module Aspace2alma
          @tag = "655" or @tag = "656" or @tag = "657"]')
     end
 
-    def subfields
-      @subfields ||= marc_xml.xpath('//marc:subfield')
-    end
-
     def datafields
       @datafields ||= marc_xml.xpath('//marc:datafield')
     end
@@ -111,10 +107,10 @@ module Aspace2alma
       node.attribute('@code').blank?)
     end
 
-    # node is a Nokogiri::XML::Element
-    def remove_linebreaks(node)
+    # trim subfields and collapse their whitespace
+    def squish_subfields(node)
       node.xpath("//marc:subfield/text()").map do |text|
-        text.content = text.content.gsub(/[\n\r]+/, " ")
+        text.content = text.content.squish
       end
     end
   end
