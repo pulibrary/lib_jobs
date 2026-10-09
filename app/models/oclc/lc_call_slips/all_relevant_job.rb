@@ -1,14 +1,11 @@
 # frozen_string_literal: true
+
 require 'csv'
 module Oclc
   module LcCallSlips
     class AllRelevantJob < LcCallSlipJob
-      def initialize(report_downloader: ReportDownloader.new(ReportDownloader::Context[file_pattern: Rails.application.config.oclc_sftp.lc_call_slips_file_pattern,
-                                                                                       process_class: Oclc::LcCallSlips::AllRelevantFile,
-                                                                                       input_sftp_base_dir: Rails.application.config.oclc_sftp.lc_call_slips_path,
-                                                                                       recent: false]))
-        super(category: "Oclc:LcCallSlipsAll")
-        @report_downloader = report_downloader
+      def initialize
+        super(category: 'Oclc:LcCallSlipsAll')
       end
 
       def self.all_records_file_path
@@ -25,7 +22,10 @@ module Oclc
 
       def handle(data_set:)
         csv_created = create_csv_with_all_generally_relevant_records
-        report_downloader.run
+        Shared::Slice['report_downloader'].run(Shared::ReportDownloader::Context[file_pattern: Rails.application.config.oclc_sftp.lc_call_slips_file_pattern,
+                                                                                 process_class: Oclc::LcCallSlips::AllRelevantFile,
+                                                                                 input_sftp_base_dir: Rails.application.config.oclc_sftp.lc_call_slips_path,
+                                                                                 recent: false])
         data_set.data = "File created: #{csv_created}"
         data_set
       end

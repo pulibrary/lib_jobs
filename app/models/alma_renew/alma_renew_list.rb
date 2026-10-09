@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # access alma xml invoice list and make it accessible for processing
 
 module AlmaRenew
@@ -25,9 +26,10 @@ module AlmaRenew
     private
 
     def download_renew_items
-      report_downloader = ReportDownloader.new(ReportDownloader::Context[sftp: AlmaSftp.new, file_pattern:, process_class: AlmaRenew::RenewFile, input_sftp_base_dir:])
-      @renew_item_list = report_downloader.run.flatten
-      @remote_filenames = report_downloader.remote_filenames
+      report_downloader = Shared::Slice['report_downloader']
+      result = report_downloader.run(Shared::ReportDownloader::Context[sftp: AlmaSftp.new, file_pattern:, process_class: AlmaRenew::RenewFile, input_sftp_base_dir:])
+      @renew_item_list = result.local_filenames
+      @remote_filenames = result.remote_filenames
     end
   end
 end

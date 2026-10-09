@@ -2,14 +2,10 @@
 
 module Oclc
   class DataSyncProcessingJob < LibJob
-    attr_reader :report_downloader, :working_file_directory, :output_sftp_base_dir
+    attr_reader :working_file_directory, :output_sftp_base_dir
 
-    def initialize(report_downloader: ReportDownloader.new(ReportDownloader::Context[file_pattern: 'BibProcessingReport.txt$',
-                                                                                     process_class: Oclc::DataSyncProcessingFile,
-                                                                                     input_sftp_base_dir: Rails.application.config.oclc_sftp.data_sync_report_path,
-                                                                                     recent: true]))
-      super(category: "Oclc:DataSyncProcessing")
-      @report_downloader = report_downloader
+    def initialize
+      super(category: 'Oclc:DataSyncProcessing')
       @working_file_directory = Rails.application.config.oclc_sftp.processing_working_directory
       @output_sftp_base_dir = Rails.application.config.oclc_sftp.datasync_output_path
     end
@@ -19,7 +15,10 @@ module Oclc
     def handle(data_set:)
       data_set.report_time = Time.zone.now.midnight
 
-      working_file_names = report_downloader.run
+      working_file_names = Shared::Slice['report_downloader'].run(Shared::ReportDownloader::Context[file_pattern: 'BibProcessingReport.txt$',
+                                                                                                    process_class: Oclc::DataSyncProcessingFile,
+                                                                                                    input_sftp_base_dir: Rails.application.config.oclc_sftp.data_sync_report_path,
+                                                                                                    recent: true]).local_filenames
       report_uploader = ReportUploader.new(working_file_names:,
                                            working_file_directory:,
                                            output_sftp_base_dir:)

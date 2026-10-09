@@ -7,10 +7,6 @@ RSpec.describe Gobi::IsbnReportJob, type: :model, file_download: true do
 
   it_behaves_like 'a lib job'
 
-  it 'has a report downloader' do
-    expect(isbn_job.report_downloader).to be_an_instance_of(ReportDownloader)
-  end
-
   it 'downloads the relevant files' do
     expect(isbn_job.run).to be_truthy
     expect(sftp_session).to have_received(:download!).with(file_full_path_one, temp_file_one)

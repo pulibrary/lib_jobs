@@ -2,17 +2,12 @@
 
 module Oclc
   class DataSyncExceptionJob < LibJob
-    attr_reader :report_downloader, :alma_sftp, :working_file_directory, :output_sftp_base_dir
+    attr_reader :alma_sftp, :working_file_directory, :output_sftp_base_dir
 
-    def initialize(report_downloader: ReportDownloader.new(ReportDownloader::Context[file_pattern: 'BibExceptionReport.txt$',
-                                                                                     process_class: Oclc::DataSyncExceptionFile,
-                                                                                     input_sftp_base_dir: Rails.application.config.oclc_sftp.data_sync_report_path,
-                                                                                     recent: true]),
-                   alma_sftp: AlmaSftp.new,
+    def initialize(alma_sftp: AlmaSftp.new,
                    working_file_directory: Rails.application.config.oclc_sftp.exceptions_working_directory,
                    output_sftp_base_dir: Rails.application.config.oclc_sftp.datasync_output_path)
-      super(category: "Oclc:DataSyncException")
-      @report_downloader = report_downloader
+      super(category: 'Oclc:DataSyncException')
       @alma_sftp = alma_sftp
       @working_file_directory = working_file_directory
       @output_sftp_base_dir = output_sftp_base_dir
@@ -21,7 +16,12 @@ module Oclc
     private
 
     def handle(data_set:)
-      working_file_names = report_downloader.run
+      working_file_names = Shared::Slice['report_downloader'].run(
+        Shared::ReportDownloader::Context[file_pattern: 'BibExceptionReport.txt$',
+                                          process_class: Oclc::DataSyncExceptionFile,
+                                          input_sftp_base_dir: Rails.application.config.oclc_sftp.data_sync_report_path,
+                                          recent: true]
+      ).local_filenames
       report_uploader = ReportUploader.new(working_file_names:,
                                            working_file_directory:,
                                            output_sftp_base_dir:)
@@ -34,12 +34,12 @@ module Oclc
       uploaded_files_phrase = if uploaded_file_paths.present?
                                 "Files created and uploaded to lib-sftp: #{uploaded_file_paths.join(', ')}."
                               else
-                                "Files created and uploaded to lib-sftp: None."
+                                'Files created and uploaded to lib-sftp: None.'
                               end
       files_with_errors_phrase = if report_uploader.errors.present?
                                    " Files with upload errors: #{report_uploader.errors.join(', ')}."
                                  else
-                                   ""
+                                   ''
                                  end
       uploaded_files_phrase + files_with_errors_phrase
     end
