@@ -29,6 +29,7 @@ RSpec.describe Aspace2alma::SendMarcxmlToAlmaJob do
     FileUtils.rm_f(%w[MARC_out.xml log_out.txt])
   end
 
+  # rubocop:disable-next RSpec/SubjectStub
   before do
     allow(job).to receive(:aspace_login) { job.instance_variable_set(:@client, client) }
     allow(job).to receive(:get_resource_uris_for_all_repos).and_return([resource_uri])

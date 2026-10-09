@@ -18,11 +18,11 @@ module Aspace2alma
       attempt = 0
       begin
         yield
-      rescue *errors => error
+      rescue *errors => e
         attempt += 1
         raise if attempt > RETRY_ATTEMPTS
 
-        Rails.logger.warn("#{self.class}: #{error.class} ('#{error.message}') while #{description}, " \
+        Rails.logger.warn("#{self.class}: #{e.class} ('#{e.message}') while #{description}, " \
                           "retry #{attempt} of #{RETRY_ATTEMPTS} in #{attempt} second(s)")
         sleep(attempt)
         retry

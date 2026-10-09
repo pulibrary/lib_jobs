@@ -10,15 +10,15 @@ module Aspace2alma
     Field = Data.define(:tag, :ind1, :ind2, :subfield2, :identifiers, :subfields, :document) do
       def self.from_datafield(datafield)
         subfield2 = datafield.at_xpath('marc:subfield[@code="2"]')
-        identifiers = datafield.xpath('marc:subfield[@code="0"]').map do |subfield0|
+        identifiers = datafield.xpath('marc:subfield[@code="0"]').filter_map do |subfield0|
           MarcRules.authority_subfield(subfield0.content, subfield2&.content)
-        end.compact
+        end
         new(tag: datafield['tag'], ind1: datafield['ind1'], ind2: datafield['ind2'], subfield2:, identifiers:,
             subfields: datafield.xpath('marc:subfield[not(@code="0")]'), document: datafield.document)
       end
 
       # Create a new Nokogiri field from scratch based on the data we have collected about the original (unnormalized) field
-      # rubocop:disable-next Metrics/MethodLength
+      # rubocop:disable-next Metrics/MethodLength, Metrics/AbcSize
       def to_normalized_datafield
         datafield = Nokogiri::XML::Node.new('datafield', document)
         datafield['ind1'] = ind1
