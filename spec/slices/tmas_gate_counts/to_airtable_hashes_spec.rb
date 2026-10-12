@@ -34,6 +34,7 @@ TMAS_XML = <<~END_XML
 END_XML
 
 RSpec.describe TMASGateCounts::ToAirtableHashes do
+  before { TMASGateCounts::Slice.boot }
   it 'converts xml to an array of hashes' do
     expected = [
       { fields: { fld5OFSWCZzeQb1Dq: 'Architecture', fldemkioYkKtAfesm: '2026-04-15T09:00:00-04:00', fldwUTBK3mvfpN3Y8: 9, fldat8beQUOCWvdjm: 7 } },

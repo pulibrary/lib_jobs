@@ -9,7 +9,7 @@ module WebEvents
     # This operation is responsible for creating a CSV of events using data in
     # the ICAL format from LibCal
     class CreateCSV < Dry::Operation
-      include Deps['csv_row_from_ical']
+      include Deps['csv_row_from_ical', 'libcal_url']
 
       def call(filename: report_filename)
         events = step fetch_events
@@ -21,7 +21,7 @@ module WebEvents
       private
 
       def fetch_events
-        events = WebEvents::Slice['libcal_url'].open do |file|
+        events = libcal_url.open do |file|
           Icalendar::Calendar.parse(file).first.events
         end
         Success(events)

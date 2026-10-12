@@ -5,6 +5,8 @@ require 'rails_helper'
 RSpec.describe TMASGateCounts::FetchTMASCounts do
   include Dry::Monads[:result]
 
+  before { TMASGateCounts::Slice.boot }
+
   it 'retrieves the TMAS Gate Counts' do
     client = TMASGateCounts::TMASClient.new(wait_for_rate_limit: -> {})
     april_first_mock = stub_request(

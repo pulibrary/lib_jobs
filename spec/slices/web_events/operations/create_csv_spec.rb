@@ -4,6 +4,7 @@ require 'rails_helper'
 
 RSpec.describe WebEvents::Operations::CreateCSV do
   before do
+    WebEvents::Slice.boot
     stub_request(:get, "https://libcal.princeton.edu/ical_subscribe.php?cid=12260&k=79a5e62a54")
       .to_return(status: 200, headers: {},
                  body: File.new(Rails.root.join('spec', 'fixtures', 'files', 'libcal_events.ics')))

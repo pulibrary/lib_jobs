@@ -48,3 +48,6 @@ RSpec/ExampleLength:
 RSpec/DescribeClass:
   Exclude:
     - 'spec/system/**/*'
+
+Style/ModuleFunction:
+  Enabled: false
