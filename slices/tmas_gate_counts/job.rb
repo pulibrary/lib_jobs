@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module TMASGateCounts
   class Job < LibJob
     include Dry::Monads[:result]

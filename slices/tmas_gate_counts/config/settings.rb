@@ -1,8 +1,10 @@
 # frozen_string_literal: true
+
 require 'dry-types'
 
 module TMASGateCounts
   class Settings < Hanami::Settings
+    setting :people_counter_airtable_token, constructor: Types::String
     setting :tmas_airtable_error_emails, constructor: Types::String
     setting :tmas_api_key, constructor: Types::String
   end
