@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module TMASGateCounts
   # This class is responsible for combining data from two sensors into
   # a single hash.
@@ -12,8 +13,8 @@ module TMASGateCounts
       { fields: {
         COLUMNS[:location] => summaries.first.location,
         COLUMNS[:time] => summaries.first.time.iso8601,
-        COLUMNS[:in_count] => summaries.first.count,
-        COLUMNS[:out_count] => summaries.second.count
+        COLUMNS[:in_count] => summaries.first.gate_count,
+        COLUMNS[:out_count] => summaries.second.gate_count
       } }
     end
   end

@@ -1,15 +1,13 @@
 # frozen_string_literal: true
+
 module TMASGateCounts
   class AirtableClient
     include Dry::Monads[:result]
-
-    def initialize(env: ENV)
-      @env = env
-    end
+    include Deps['settings']
 
     def call(request_class: Net::HTTP::Post, json: nil, uri_builder: AirtableClient.default_uri_builder)
       uri = uri_builder.call(BASE_ID, TABLE_ID)
-      request = request_class.new(uri, { 'Authorization' => "Bearer #{env['PEOPLE_COUNTER_AIRTABLE_TOKEN']}", 'Content-Type' => 'application/json' })
+      request = request_class.new(uri, { 'Authorization' => "Bearer #{settings.people_counter_airtable_token}", 'Content-Type' => 'application/json' })
       request.body = json if json
       send request, uri
     end

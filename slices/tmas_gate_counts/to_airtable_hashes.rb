@@ -1,16 +1,19 @@
 # frozen_string_literal: true
+
 # This class is responsible for converting an XML string of TMAS data to
 # an array of hashes for use in Airtable
 module TMASGateCounts
   class ToAirtableHashes
     include Dry::Monads[:result]
+    include Deps['combine_sensor_data', 'summarize_entry']
+
     def call(tmas_xml)
       Rails.logger.debug { "Converting #{tmas_xml} into airtable json" }
-      in_summaries = entries(tmas_xml).select { |entry| sensor(entry) == :in }.map { |entry| HourlySummary.from_entry(entry) }
-      out_summaries = entries(tmas_xml).select { |entry| sensor(entry) == :out }.map { |entry| HourlySummary.from_entry(entry) }
+      in_summaries = entries(tmas_xml).select { |entry| sensor(entry) == :in }.map { |entry| summarize_entry.call(entry) }
+      out_summaries = entries(tmas_xml).select { |entry| sensor(entry) == :out }.map { |entry| summarize_entry.call(entry) }
       Success(
         in_summaries.zip(out_summaries)
-          .map { |summaries| Slice['combine_sensor_data'].call(summaries) }
+          .map { |summaries| combine_sensor_data.call(summaries) }
       )
     end
 
