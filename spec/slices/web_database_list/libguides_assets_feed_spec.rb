@@ -2,12 +2,11 @@
 
 require 'rails_helper'
 
-RSpec.describe WebDatabaseList::LibguidesAssetsFeed, type: :model do
+RSpec.describe WebDatabaseList::LibguidesAssetsFeed do
   describe '#fetch' do
     it 'returns json of the database list' do
       stub_libguides_az_list
-      access_token = instance_double(Shared::AccessToken)
-      expect(access_token).to receive(:fetch).and_return('MY_GREAT_ACCESS_TOKEN')
+      access_token = instance_double(Shared::AccessToken, fetch: 'MY_GREAT_ACCESS_TOKEN')
       feed = described_class.new(access_token:)
 
       expected = [{ 'id' => '56948275',
@@ -41,6 +40,7 @@ RSpec.describe WebDatabaseList::LibguidesAssetsFeed, type: :model do
                     'library_review' => '',
                     'alt_names' => '' }]
       expect(feed.fetch).to eq(expected)
+      expect(access_token).to have_received(:fetch)
     end
   end
 end
