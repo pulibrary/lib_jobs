@@ -26,7 +26,8 @@ RSpec.describe AirTableStaff::StaffDirectoryPerson do
         'fldCCTbVNKKBFXxrp': ['Chemistry', 'African American Studies'],
         'fldULoOUDSpoEpdAP': 'https://example.com',
         'fldXw9janMHvhBWvO': ['Industrial Relations', 'James Madison Program'],
-        'fldavR3Hqxd7igWxB': 'he/him'
+        'fldavR3Hqxd7igWxB': 'he/him',
+        'fldVSWFK1JeJcN0pZ': true
       }
       expected = [
         '987654321', # puid
@@ -53,7 +54,8 @@ RSpec.describe AirTableStaff::StaffDirectoryPerson do
         'Discovery//Library Systems', # expertise
         'https://example.com', # mySchedulerLink
         'Industrial Relations//James Madison Program', # otherEntities
-        'he/him'
+        'he/him', # pronouns
+        true # optInContactInfo
       ]
 
       expect(described_class.new.call(json)).to eq(expected)
