@@ -6,7 +6,6 @@ RSpec.describe TMASGateCounts::Job do
   include Dry::Monads[:maybe, :result]
 
   before do
-    Shared::Slice.boot
     TMASGateCounts::Slice.boot
   end
 
