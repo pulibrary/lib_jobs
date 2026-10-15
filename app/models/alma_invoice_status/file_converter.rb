@@ -14,10 +14,11 @@ module AlmaInvoiceStatus
                    output_base_dir: Rails.application.config.alma_sftp.invoice_status_local_path)
       super(peoplesoft_input_base_dir:, peoplesoft_input_file_pattern:,
             alma_sftp:)
-      @category = "InvoiceStatus"
       @alma_invoice_status_path = invoice_status_path
       @output_base_dir = output_base_dir
     end
+
+    def category = 'InvoiceStatus'
 
     private
 

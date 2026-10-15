@@ -5,8 +5,9 @@ class WebEvents::EventsFeedGenerator < LibJob
   include Dry::Monads[:result]
   def initialize(create_csv: WebEvents::Slice['operations.create_csv'])
     @create_csv = create_csv
-    super(category: 'EventsFeed')
   end
+
+  def category = 'EventsFeed'
 
   private
 

@@ -5,12 +5,13 @@ module AirTableStaff
   # CSV file generation
   class StaffListJob < LibJob
     def initialize(filename: nil, csv_builder: AirTableStaff::Slice[:csv_builder])
-      super(category: 'AirTableStaffDirectory')
       @report_filename = filename if filename
       @csv_builder = csv_builder
     end
 
     private
+
+    def category = 'AirTableStaffDirectory'
 
     attr_reader :csv_builder
 

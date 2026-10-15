@@ -4,9 +4,7 @@ require 'csv'
 module Oclc
   module LcCallSlips
     class AllRelevantJob < LcCallSlipJob
-      def initialize
-        super(category: 'Oclc:LcCallSlipsAll')
-      end
+      def category = 'Oclc:LcCallSlipsAll'
 
       def self.all_records_file_path
         date = Time.now.utc.strftime('%Y-%m-%d')

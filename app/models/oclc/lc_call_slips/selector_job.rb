@@ -6,9 +6,10 @@ module Oclc
       attr_reader :selectors_config
 
       def initialize(selectors_config: Rails.application.config.lc_call_slips.selectors)
-        super(category: 'Oclc:LcCallSlips')
         @selectors_config = selectors_config
       end
+
+      def category = 'Oclc:LcCallSlips'
 
       private
 

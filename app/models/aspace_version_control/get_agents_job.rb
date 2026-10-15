@@ -9,10 +9,11 @@ module AspaceVersionControl
     attr_reader :repo_eacs
 
     def initialize(local_git_lab_eacs_dir: Rails.application.config.aspace.local_git_lab_eacs_dir)
-      super(category: "Agents_export")
       @errors = []
       @local_git_lab_eacs_dir = local_git_lab_eacs_dir
     end
+
+    def category = 'Agents_export'
 
     def aspace_login
       aspace_client(aspace_config)

@@ -4,11 +4,12 @@ module AlmaPodRecords
     attr_reader :documents
 
     def initialize(incoming_file_list: nil, file_pattern: '\.tar\.gz$', since: nil, directory: nil)
-      super(category: 'AlmaPodRecords')
       since ||= Rails.application.config.pod.days_to_fetch.days.ago
       @file_list = incoming_file_list || AlmaPodFileList.new(file_pattern:, since:)
       @download_dir = Pathname.new(directory || Rails.application.config.pod.pod_record_path)
     end
+
+    def category = 'AlmaPodRecords'
 
     def handle(data_set:)
       send_files

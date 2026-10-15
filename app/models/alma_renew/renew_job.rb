@@ -9,13 +9,13 @@ module AlmaRenew
     # the inputs is a file(s) on the alma ftp site read in via AlmaRenew::RenewList
     def initialize(renew_list: AlmaRenew::AlmaRenewList.new,
                    alma_ncip_url: LibJobs.config[:ncip_renew_alma_url])
-      super(category: "AlmaRenew")
-
       @alma_ncip_uri = URI(alma_ncip_url)
       @renew_list = renew_list
       @errors = []
       @valid_item_count = 0
     end
+
+    def category = 'AlmaRenew'
 
     private
 
