@@ -7,8 +7,8 @@ RSpec.describe LibJob, type: :model do
   describe "#run" do
     let(:my_subclass) do
       Class.new(LibJob) do
-         def category = 'MyCategory'
-        end
+        def category = 'MyCategory'
+      end
     end
     it "throws an exception" do
       expect { my_subclass.run }.to raise_error(NoMethodError)
@@ -17,6 +17,7 @@ RSpec.describe LibJob, type: :model do
     it "creates a dataset for a subclass" do
       class MyClass < LibJob
         def category = 'cat'
+
         def handle(data_set:)
           data_set
         end
@@ -28,8 +29,8 @@ RSpec.describe LibJob, type: :model do
   describe "#last_successful_run_time" do
     let(:my_subclass) do
       Class.new(LibJob) do
-         def category = 'MyCategory'
-        end
+        def category = 'MyCategory'
+      end
     end
     it "is nil when the job has never run" do
       expect(my_subclass.new.last_successful_run_time).to be_nil
