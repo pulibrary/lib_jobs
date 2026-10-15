@@ -5,11 +5,12 @@ module AlmaSubmitCollection
   class AlmaSubmitCollectionJob < LibJob
     attr_reader :s3_partner
     def initialize
-      super(category: 'AlmaSubmitCollection')
       # We use the same S3 connection for the whole job,
       # since each instance takes quite a bit of memory
       @s3_partner = AlmaSubmitCollection::PartnerS3.new
     end
+
+    def category = 'AlmaSubmitCollection'
 
     def handle(data_set:)
       file_list = AlmaRecapFileList.new

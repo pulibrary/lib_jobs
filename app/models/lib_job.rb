@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 class LibJob
-  def initialize(category: nil)
-    @category = category
-  end
-
   def run
     data_set = handle(data_set: DataSet.new(category:))
     data_set.report_time ||= Time.zone.now
@@ -20,7 +16,7 @@ class LibJob
   end
 
   def most_recent_dataset
-    data_set = DataSet.where(category: @category)
+    data_set = DataSet.where(category:)
                       .order(created_at: :desc)
                       .limit(1)
                       .first
@@ -44,6 +40,6 @@ class LibJob
   # end
 
   def category
-    @category || raise('You must supply a category, either as an argument to the initializer, or by overriding the #category method')
+    raise NotImplementedError, 'You must implement the #category method on your subclass'
   end
 end

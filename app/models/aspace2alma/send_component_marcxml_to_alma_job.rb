@@ -22,9 +22,10 @@ module Aspace2alma
 
     # since can only reach further back than the last run
     def initialize(since: nil)
-      super(category: CATEGORY)
       @since = since
     end
+
+    def category = CATEGORY
 
     private
 

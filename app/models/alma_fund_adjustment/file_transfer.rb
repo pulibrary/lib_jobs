@@ -11,12 +11,13 @@ module AlmaFundAdjustment
     def initialize(peoplesoft_input_base_dir: Rails.application.config.peoplesoft.fund_adjustment_input_path,
                    peoplesoft_input_file_pattern: Rails.application.config.peoplesoft.fund_adjustment_input_file_pattern,
                    alma_sftp: AlmaSftp.new, fund_adjustment_path: Rails.application.config.alma_sftp.fund_adjustment_path)
-      super(category: "FundAdjustment")
       @alma_sftp = alma_sftp
       @alma_fund_adjustment_path = fund_adjustment_path
       @peoplesoft_input_base_dir = peoplesoft_input_base_dir
       @peoplesoft_input_file_pattern = peoplesoft_input_file_pattern.gsub("\\*", "*")
     end
+
+    def category = 'FundAdjustment'
 
     private
 

@@ -7,11 +7,12 @@ module Oclc
     def initialize(alma_sftp: AlmaSftp.new,
                    working_file_directory: Rails.application.config.oclc_sftp.exceptions_working_directory,
                    output_sftp_base_dir: Rails.application.config.oclc_sftp.datasync_output_path)
-      super(category: 'Oclc:DataSyncException')
       @alma_sftp = alma_sftp
       @working_file_directory = working_file_directory
       @output_sftp_base_dir = output_sftp_base_dir
     end
+
+    def category = 'Oclc:DataSyncException'
 
     private
 

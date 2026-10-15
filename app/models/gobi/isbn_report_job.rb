@@ -7,7 +7,6 @@ module Gobi
     attr_reader :report_uploader
 
     def initialize
-      super(category: 'Gobi:IsbnReports')
       @report_uploader = ReportUploader.new(
         sftp: GobiSftp.new,
         working_file_names: [IsbnReportJob.working_file_name],
@@ -15,6 +14,8 @@ module Gobi
         output_sftp_base_dir: Rails.application.config.gobi_sftp.output_sftp_base_dir
       )
     end
+
+    def category = 'Gobi:IsbnReports'
 
     def self.working_file_path
       working_file_directory = Rails.application.config.gobi_sftp.working_directory

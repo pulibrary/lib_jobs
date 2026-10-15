@@ -6,7 +6,6 @@ module AlmaPeople
     def initialize(oit_person_feed: AlmaPeople::OitPersonFeed.new, begin_date: 1.day.ago.strftime("%Y-%m-%d"),
                    end_date: Time.zone.now.strftime("%Y-%m-%d"), output_base_dir: ENV["ALMA_PERSON_FEED_OUTPUT_DIR"] || '/tmp',
                    enabled_flag: 'E')
-      super(category: "AlmaPersonFeed")
       @oit_person_feed = oit_person_feed
       @begin_date = begin_date
       @end_date = end_date
@@ -16,6 +15,8 @@ module AlmaPeople
       @invalid_records = []
       @ineligible_count = 0
     end
+
+    def category = 'AlmaPersonFeed'
 
     private
 

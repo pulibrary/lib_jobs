@@ -4,10 +4,11 @@ require 'csv'
 module WebDatabaseList
   class DatabasesFeed < LibJob
     def initialize(database_list: nil, filename: nil)
-      super(category: "DatabasesFeed")
       @database_list = database_list || LibguidesAssetsFeed.new.fetch
       @report_filename = filename || report_filename
     end
+
+    def category = 'DatabasesFeed'
 
     private
 

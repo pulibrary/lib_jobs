@@ -9,11 +9,9 @@ module Aspace2alma
   # cases, we will want to run this job instead, to remove the file before Alma processes it
   # a second time.
   class RemoveFileJob < LibJob
-    def initialize
-      super(category: 'Aspace2alma::RemoveFileJob')
-    end
+    def category = 'Aspace2alma::RemoveFileJob'
 
-      private
+    private
 
     def handle(data_set:)
       Aspace2almaHelper.remove_file(File.join(Aspace2almaHelper::SFTP_DIR, 'MARC_out.xml'))

@@ -8,11 +8,12 @@ module AspaceVersionControl
   class GetEadsJob < LibJob
     attr_reader :repos
     def initialize(local_git_lab_dir: Rails.application.config.aspace.local_git_lab_dir)
-      super(category: "EAD_export")
       @errors = []
       assign_local_git_lab_dir(local_git_lab_dir)
       @repos = Rails.application.config.aspace.repos
     end
+
+    def category = 'EAD_export'
 
     def aspace_login
       aspace_client(aspace_config)

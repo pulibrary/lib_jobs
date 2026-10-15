@@ -5,9 +5,7 @@ module Aspace2alma
   class SendMarcxmlToAlmaJob < LibJob
     include Aspace2alma::Retries
 
-    def initialize
-      super(category: 'Aspace2Alma')
-    end
+    def category = 'Aspace2Alma'
 
     private
 

@@ -5,10 +5,11 @@ module Oclc
     attr_reader :working_file_directory, :output_sftp_base_dir
 
     def initialize
-      super(category: 'Oclc:DataSyncProcessing')
       @working_file_directory = Rails.application.config.oclc_sftp.processing_working_directory
       @output_sftp_base_dir = Rails.application.config.oclc_sftp.datasync_output_path
     end
+
+    def category = 'Oclc:DataSyncProcessing'
 
     private
 
