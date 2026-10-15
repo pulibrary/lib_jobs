@@ -28,6 +28,7 @@ gem 'flipflop', git: 'https://github.com/voormedia/flipflop.git', ref: '0d70d8e3
 gem 'git'
 gem 'hanami', require: false
 gem 'hanami-action', require: false
+gem 'hanami-db', require: false
 gem 'hanami-mailer', require: false
 gem 'hanami-router', require: false
 gem 'hanami-view', require: false
@@ -51,6 +52,7 @@ gem 'pg'
 # Use Puma as the app server
 gem 'puma'
 gem 'rubyzip'
+gem 'sequel-activerecord_connection'
 gem 'sprockets-rails'
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]

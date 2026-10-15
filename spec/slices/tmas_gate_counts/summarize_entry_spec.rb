@@ -7,6 +7,7 @@ def entry_from_xml_string(string)
 end
 
 RSpec.describe TMASGateCounts::SummarizeEntry do
+  before { TMASGateCounts::Slice.boot }
   it 'recognizes ARCH0000 as Architecture' do
     entry = entry_from_xml_string('<data storeId="ARCH0000" trafficDate="2026-04-01 16:00" trafficValue="25.0"/>')
     summary = described_class.new.call(entry)

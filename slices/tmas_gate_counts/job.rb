@@ -6,12 +6,12 @@ module TMASGateCounts
 
     def initialize(
       fetch_tmas_counts: Slice['fetch_tmas_counts'],
-      next_date_class: NextDateToProcess,
-      send_batches_to_airtable_class: SendBatchesToAirtable
+      next_date_to_process_repo: Shared::Slice['repos.next_date_to_process_repo'],
+      send_batches_to_airtable: Slice['send_batches_to_airtable']
     )
       @fetch_tmas_counts = fetch_tmas_counts
-      @next_date_class = next_date_class
-      @send_batches_to_airtable_class = send_batches_to_airtable_class
+      @next_date_to_process_repo = next_date_to_process_repo
+      @send_batches_to_airtable = send_batches_to_airtable
       super(category: 'TMASGateCounts')
     end
 
@@ -24,7 +24,7 @@ module TMASGateCounts
           # The Airtable API only can handle 10 records at a time
           .fmap { |all_data| all_data.flatten.each_slice(10).map { { records: it }.to_json } }
           .bind { |batches| send_batches_to_airtable.call(batches) }
-          .bind { |_airtable_ids| next_date_class.set(job: category, next: (date + 1.day)) }
+          .bind { |_airtable_ids| next_date_to_process_repo.set(job: category, next: (date + 1.day)) }
           .or do |failure|
             handle_failure(failure)
             return data_set
@@ -41,10 +41,6 @@ module TMASGateCounts
       RecentJobStatus.register(job: category, status: Failure(failure))
     end
 
-    def send_batches_to_airtable
-      send_batches_to_airtable_class.new
-    end
-
     def post_to_airtable
       @post_to_airtable ||= post_to_airtable_class.new
     end
@@ -54,14 +50,14 @@ module TMASGateCounts
     end
 
     def start_date
-      next_date_class
-        .next(category)
+      next_date_to_process_repo
+        .next(job: category)
         # The first day we started using TMAS
         .value_or(Date.parse('2025-09-01'))
     end
 
     def traverse = Shared::Slice['traverse']
 
-    attr_reader :fetch_tmas_counts, :next_date_class, :send_batches_to_airtable_class
+    attr_reader :fetch_tmas_counts, :next_date_to_process_repo, :send_batches_to_airtable
   end
 end

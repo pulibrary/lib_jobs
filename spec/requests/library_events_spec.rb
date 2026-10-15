@@ -2,6 +2,7 @@
 require "rails_helper"
 
 RSpec.describe "Library Events csv", type: :request do
+  before { WebEvents::Slice.boot }
   describe "GET /library-events" do
     it "returns a csv" do
       stub_request(:get, "https://libcal.princeton.edu/ical_subscribe.php?cid=12260&k=79a5e62a54")
