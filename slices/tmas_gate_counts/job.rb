@@ -2,18 +2,10 @@
 
 module TMASGateCounts
   class Job < LibJob
+    include Deps['fetch_tmas_counts', 'mailers.error_notification', 'shared.repos.next_date_to_process_repo', 'send_batches_to_airtable', 'shared.traverse']
     include Dry::Monads[:result]
 
-    def initialize(
-      fetch_tmas_counts: Slice['fetch_tmas_counts'],
-      next_date_to_process_repo: Shared::Slice['repos.next_date_to_process_repo'],
-      send_batches_to_airtable: Slice['send_batches_to_airtable']
-    )
-      @fetch_tmas_counts = fetch_tmas_counts
-      @next_date_to_process_repo = next_date_to_process_repo
-      @send_batches_to_airtable = send_batches_to_airtable
-      super(category: 'TMASGateCounts')
-    end
+    def category = 'TMASGateCounts'
 
     private
 
@@ -36,7 +28,7 @@ module TMASGateCounts
     end
 
     def handle_failure(failure)
-      Slice['mailers.error_notification'].deliver(failure:)
+      error_notification.deliver(failure:)
       Honeybadger.notify("#{category}: #{failure}")
       RecentJobStatus.register(job: category, status: Failure(failure))
     end
@@ -55,9 +47,5 @@ module TMASGateCounts
         # The first day we started using TMAS
         .value_or(Date.parse('2025-09-01'))
     end
-
-    def traverse = Shared::Slice['traverse']
-
-    attr_reader :fetch_tmas_counts, :next_date_to_process_repo, :send_batches_to_airtable
   end
 end
