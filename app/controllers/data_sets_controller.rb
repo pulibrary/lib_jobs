@@ -4,13 +4,11 @@ class DataSetsController < ApplicationController
   before_action :redirect_clear_filters, only: [:index]
 
   # GET /data_sets
-  # GET /data_sets.json
   def index
     @data_sets = DataSetList.new(filter_data_sets)
   end
 
   # GET /data_sets/1
-  # GET /data_sets/1.json
   def show; end
 
   # Use callbacks to share common setup or constraints between actions.
