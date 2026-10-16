@@ -655,7 +655,6 @@ DEPENDENCIES
   health-monitor-rails
   honeybadger
   icalendar
-  jbuilder (~> 2.15)
   library_stdnums
   marc
   marc_cleanup!
