@@ -10,7 +10,7 @@ GIT
 
 GIT
   remote: https://github.com/pulibrary/aspace_helpers.git
-  revision: 03117fb9fdcc4dc7fed06f829525e2a1e7c8a12f
+  revision: f8d116c56d7781aa61cbf0572e7c15e00d1c6119
   glob: packages/aspace_helper_methods/*.gemspec
   specs:
     aspace_helper_methods (0.1.0)
@@ -319,7 +319,7 @@ GEM
     honeybadger (6.9.3)
       logger
       ostruct
-    httparty (0.24.2)
+    httparty (0.24.3)
       csv
       mini_mime (>= 1.0.0)
       multi_xml (>= 0.5.2)
