@@ -2,7 +2,7 @@
 
 class ReportUploader
   attr_reader :working_file_names, :working_file_directory, :output_sftp_base_dir, :sftp, :mark_as_processed, :errors
-  def initialize(sftp: AlmaSftp.new, working_file_names:, working_file_directory:, output_sftp_base_dir:, mark_as_processed: false)
+  def initialize(sftp: Shared::Slice['alma_sftp'], working_file_names:, working_file_directory:, output_sftp_base_dir:, mark_as_processed: false)
     @working_file_names = working_file_names
     @working_file_directory = working_file_directory
     @output_sftp_base_dir = output_sftp_base_dir

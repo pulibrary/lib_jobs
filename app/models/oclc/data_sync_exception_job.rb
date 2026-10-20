@@ -4,7 +4,7 @@ module Oclc
   class DataSyncExceptionJob < LibJob
     attr_reader :alma_sftp, :working_file_directory, :output_sftp_base_dir
 
-    def initialize(alma_sftp: AlmaSftp.new,
+    def initialize(alma_sftp: Shared::Slice['alma_sftp'],
                    working_file_directory: Rails.application.config.oclc_sftp.exceptions_working_directory,
                    output_sftp_base_dir: Rails.application.config.oclc_sftp.datasync_output_path)
       @alma_sftp = alma_sftp

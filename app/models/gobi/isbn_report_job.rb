@@ -31,7 +31,7 @@ module Gobi
     def handle(data_set:)
       create_csv
       remote_filenames = Shared::Slice['report_downloader'].run(Shared::ReportDownloader::Context[
-        sftp: AlmaSftp.new,
+        sftp: Shared::Slice['alma_sftp'],
         file_pattern: 'received_items_published_last_5_years_\d{12}.csv',
         input_sftp_base_dir: '/alma/isbns',
         process_class: Gobi::IsbnFile]).remote_filenames
@@ -42,7 +42,7 @@ module Gobi
     end
 
     def rename_files_on_sftp(remote_filenames)
-      AlmaSftp.new.start do |sftp|
+      Shared::Slice['alma_sftp'].start do |sftp|
         remote_filenames.each do |file_name|
           sftp.rename(file_name, "#{file_name}.processed")
         end

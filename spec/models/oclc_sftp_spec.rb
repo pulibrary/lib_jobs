@@ -2,8 +2,9 @@
 require "rails_helper"
 
 RSpec.describe OclcSftp, type: :model do
+  subject { described_class.new }
+
   it_behaves_like 'an sftp'
-  let(:subject) { described_class.new }
 
   it 'has configuration' do
     allow(Rails.application.config).to receive(:oclc_sftp).and_call_original

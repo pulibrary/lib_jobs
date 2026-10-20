@@ -22,7 +22,6 @@ Layout/AccessModifierIndentation:
 # SupportedStyles: with_first_argument, with_fixed_indentation
 Layout/ArgumentAlignment:
   Exclude:
-    - 'app/models/sftp.rb'
     - 'config/features.rb'
     - 'spec/models/aspace2alma/item_record_constructor_spec.rb'
     - 'spec/models/aspace2alma/send_marcxml_to_alma_job_spec.rb'
@@ -100,7 +99,6 @@ Layout/EmptyLinesAroundAttributeAccessor:
     - 'app/models/oclc/data_sync_processing_file.rb'
     - 'app/models/oclc/lc_call_slips/record.rb'
     - 'app/models/report_uploader.rb'
-    - 'app/models/sftp.rb'
 
 # Offense count: 3
 # This cop supports safe autocorrection (--autocorrect).
@@ -349,7 +347,6 @@ Naming/RescuedExceptionsVariableName:
     - 'app/models/aspace2alma/send_marcxml_to_alma_job.rb'
     - 'app/models/aspace_version_control/get_agents_job.rb'
     - 'app/models/aspace_version_control/get_eads_job.rb'
-    - 'app/models/sftp.rb'
 
 # Offense count: 38
 # Configuration parameters: EnforcedStyle, CheckMethodNames, CheckSymbols, AllowedIdentifiers, AllowedPatterns.
@@ -650,7 +647,6 @@ RSpec/NamedSubject:
     - 'spec/models/oclc/lc_call_slips/selector_csv_spec.rb'
     - 'spec/models/oclc_sftp_spec.rb'
     - 'spec/models/report_uploader_spec.rb'
-    - 'spec/models/sftp_spec.rb'
     - 'spec/models/user_spec.rb'
 
 # Offense count: 62
@@ -734,9 +730,7 @@ RSpec/StubbedMock:
 RSpec/SubjectDeclaration:
   Exclude:
     - 'spec/models/oclc/lc_call_slips/selector_csv_spec.rb'
-    - 'spec/models/oclc_sftp_spec.rb'
     - 'spec/models/report_uploader_spec.rb'
-    - 'spec/models/sftp_spec.rb'
 
 # Offense count: 2
 RSpec/UnspecifiedException:
@@ -843,12 +837,6 @@ Style/EmptyLambdaParameter:
 Style/EndlessMethod:
   Exclude:
     - 'slices/shared/library_header_menu_items.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/ExplicitBlockArgument:
-  Exclude:
-    - 'app/models/sftp.rb'
 
 # Offense count: 19
 # This cop supports safe autocorrection (--autocorrect).

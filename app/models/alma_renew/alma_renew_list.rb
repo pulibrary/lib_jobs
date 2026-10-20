@@ -8,7 +8,7 @@ module AlmaRenew
 
     delegate :empty?, to: :valid_invoices
 
-    def initialize(input_sftp_base_dir: Rails.application.config.alma_sftp.renew_report_path, file_pattern: '\.csv$', alma_sftp: AlmaSftp.new)
+    def initialize(input_sftp_base_dir: Rails.application.config.alma_sftp.renew_report_path, file_pattern: '\.csv$', alma_sftp: Shared::Slice['alma_sftp'])
       @input_sftp_base_dir = input_sftp_base_dir
       @file_pattern = file_pattern
       @sftp = alma_sftp
@@ -27,7 +27,7 @@ module AlmaRenew
 
     def download_renew_items
       report_downloader = Shared::Slice['report_downloader']
-      result = report_downloader.run(Shared::ReportDownloader::Context[sftp: AlmaSftp.new, file_pattern:, process_class: AlmaRenew::RenewFile, input_sftp_base_dir:])
+      result = report_downloader.run(Shared::ReportDownloader::Context[sftp: Shared::Slice['alma_sftp'], file_pattern:, process_class: AlmaRenew::RenewFile, input_sftp_base_dir:])
       @renew_item_list = result.local_filenames
       @remote_filenames = result.remote_filenames
     end

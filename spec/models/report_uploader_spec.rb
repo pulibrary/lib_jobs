@@ -33,9 +33,6 @@ RSpec.describe ReportUploader, type: :model, file_upload: true do
       expect(sftp_session).to have_received(:upload!).with(new_file_for_alma_path_2, alma_upload_path_2)
     end
 
-    it 'defaults to AlmaSftp' do
-      expect(subject.sftp).to be_an_instance_of(AlmaSftp)
-    end
     context 'with a different sftp connection' do
       let(:subject) do
         described_class.new(

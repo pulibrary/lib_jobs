@@ -6,7 +6,7 @@ module AlmaSubmitCollection
   class AlmaRecapFileList
     attr_reader :files
 
-    def initialize(input_sftp_base_dir: Rails.application.config.alma_sftp.alma_recap_output_path, file_pattern: '\.tar\.gz$', alma_sftp: AlmaSftp.new, files: nil)
+    def initialize(input_sftp_base_dir: Rails.application.config.alma_sftp.alma_recap_output_path, file_pattern: '\.tar\.gz$', alma_sftp: Shared::Slice['alma_sftp'], files: nil)
       @input_sftp_base_dir = input_sftp_base_dir
       @file_pattern = file_pattern
       @alma_sftp = alma_sftp

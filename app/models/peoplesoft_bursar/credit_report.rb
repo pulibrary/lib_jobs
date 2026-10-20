@@ -6,7 +6,7 @@ module PeoplesoftBursar
 
     AMERICAN_DATE = "%m/%d/%Y %H:%M:%S %Z"
 
-    def initialize(input_sftp_base_dir: Rails.application.config.alma_sftp.bursar_report_path, file_pattern: '\.xml$', alma_sftp: AlmaSftp.new, list: nil)
+    def initialize(input_sftp_base_dir: Rails.application.config.alma_sftp.bursar_report_path, file_pattern: '\.xml$', alma_sftp: Shared::Slice['alma_sftp'], list: nil)
       super(input_sftp_base_dir:, file_pattern:, alma_sftp:, list:, report_type: "Credit")
     end
 
