@@ -36,14 +36,14 @@ RSpec.describe ReportUploader, type: :model, file_upload: true do
     context 'with a different sftp connection' do
       let(:subject) do
         described_class.new(
-          sftp: OclcSftp.new,
+          sftp: Shared::Slice['oclc_sftp'],
           working_file_names: [working_file_name_1, working_file_name_2],
           working_file_directory: Rails.application.config.oclc_sftp.exceptions_working_directory,
           output_sftp_base_dir: Rails.application.config.oclc_sftp.datasync_output_path
         )
       end
       it 'can be passed a different sftp connection' do
-        expect(subject.sftp).to be_an_instance_of(OclcSftp)
+        expect(subject.sftp).to be_an_instance_of(Shared::Sftp)
       end
     end
 
