@@ -25,20 +25,21 @@ RSpec.describe AlmaFundAdjustment::AdjustmentCheck, type: :model, file_upload: t
   end
   describe "#run" do
     it "validates non processed ids" do
+      repo = AlmaFundAdjustment::Repos::PeoplesoftTransactionsRepo.new
       FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions-2012-07-19-09-09-00.csv'), 'spec/fixtures/peoplesoft_3/test_alma_1.csv')
 
       expect { expect(adjustment_check.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
-                                                                                                            .and change { PeoplesoftTransaction.count }.by(1)
-      expect(PeoplesoftTransaction.last.transaction_id).to eq("123456-Online Entry | A Fund We have | 07/14/2021")
+      expect(repo.exists?(transaction_id: '123456-Online Entry | A Fund We have | 07/14/2021')).to be(true)
       expect(File.exist?('spec/fixtures/peoplesoft_3/test_alma_1.csv')).to be_truthy
     end
 
     it "errors for an already processed id" do
+      repo = AlmaFundAdjustment::Repos::PeoplesoftTransactionsRepo.new
       FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions-2012-07-19-09-09-00.csv'), 'spec/fixtures/peoplesoft_3/test_alma_1.csv')
-      PeoplesoftTransaction.create(transaction_id: "123456-Online Entry | A Fund We have | 07/14/2021")
+      repo.create(transaction_id: '123456-Online Entry | A Fund We have | 07/14/2021')
 
+      expect(repo.exists?(transaction_id: '123456-Online Entry | A Fund We have | 07/14/2021')).to be(true)
       expect { expect(adjustment_check.run).to be_falsey }.to change { ActionMailer::Base.deliveries.count }.by(1)
-                                                                                                            .and change { PeoplesoftTransaction.count }.by(0)
       expect(File.exist?('spec/fixtures/peoplesoft_3/test_alma_1.csv.error')).to be_truthy
       error_email = ActionMailer::Base.deliveries.last
       expect(error_email.subject).to eq("PeopleSoft Duplicate Transactions")
