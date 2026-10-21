@@ -5,7 +5,7 @@ module Shared
   # It returns an array of temp file paths
   class ReportDownloader
     Context = Data.define(:sftp, :file_pattern, :process_class, :input_sftp_base_dir, :recent, :date_file_pattern) do
-      def initialize(sftp: OclcSftp.new, recent: false, date_file_pattern: '.IN.BIB.D(\d{8})', **) = super
+      def initialize(sftp: Slice['oclc_sftp'], recent: false, date_file_pattern: '.IN.BIB.D(\d{8})', **) = super
     end
 
     Report = Data.define(:local_filenames, :remote_filenames)

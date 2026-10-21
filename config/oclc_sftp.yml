@@ -1,7 +1,4 @@
 default: &default
-  host: 'filex-m1.oclc.org'
-  username: <%= ENV['OCLC_SFTP_USER'] || 'fx_pul' %>
-  password: <%= ENV['OCLC_SFTP_PASSWORD'] || 'test_oclc_pass' %>
   lc_call_slips_path: '/xfer/metacoll/out/ongoing/new/'
   lc_call_slips_file_pattern: 'MZallDLC.1.mrc$'
   data_sync_report_path: '/xfer/metacoll/reports/'
@@ -17,7 +14,6 @@ development:
 
 test:
   <<: *default
-  host: 'localhost2'
   max_records_per_file: 7
   exceptions_working_directory: 'spec/fixtures/oclc/exceptions'
   processing_working_directory: 'spec/fixtures/oclc/processing'
