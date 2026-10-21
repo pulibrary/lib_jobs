@@ -3,7 +3,7 @@ module AlmaPodRecords
   class AlmaPodFileList
     attr_reader :files
 
-    def initialize(input_sftp_base_dir: Rails.application.config.alma_sftp.pod_output_path, file_pattern: '\.tar\.gz$', alma_sftp: AlmaSftp.new, files: nil, since: 7.days.ago)
+    def initialize(input_sftp_base_dir: Rails.application.config.alma_sftp.pod_output_path, file_pattern: '\.tar\.gz$', alma_sftp: Shared::Slice['alma_sftp'], files: nil, since: 7.days.ago)
       @input_sftp_base_dir = input_sftp_base_dir
       @file_pattern = file_pattern
       @alma_sftp = alma_sftp

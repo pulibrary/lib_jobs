@@ -1,0 +1,8 @@
+require 'dry-types'
+module Shared
+  class Settings < Hanami::Settings
+    setting :sftp_host, constructor: Types::String, default: 'localhost2'
+    setting :sftp_username, constructor: Types::String, default: 'alma'
+    setting :sftp_password, constructor: Types::String, default: 'change_me'
+  end
+end
