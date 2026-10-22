@@ -25,7 +25,7 @@ RSpec.describe AlmaRenew::RenewJob, type: :model, file_download: true do
     "<ns1:ProblemValue>23915763110006421</ns1:ProblemValue></ns1:Problem></ns1:RenewItemResponse></ns1:NCIPMessage>"
   end
 
-  let(:renew_csv) { Rails.root.join('spec', 'fixtures', 'renew.csv').read }
+  let(:renew_csv) { Hanami.app.root.join('spec', 'fixtures', 'renew.csv').read }
   let(:due_date_56day) { 56.days.from_now.strftime('%Y-%m-%d') }
   let(:temp_file_one) { Tempfile.new(encoding: 'ascii-8bit') }
   describe "#run" do
@@ -77,7 +77,7 @@ RSpec.describe AlmaRenew::RenewJob, type: :model, file_download: true do
     end
 
     context 'with an item without a primary identifier / user_id' do
-      let(:renew_csv) { Rails.root.join('spec', 'fixtures', 'renew_no_user_id.csv').read }
+      let(:renew_csv) { Hanami.app.root.join('spec', 'fixtures', 'renew_no_user_id.csv').read }
       let(:expected_data_message) do
         "We received 5 renewal requests. We tried to send renewals for 4 items. 2 errors were encountered.\n" \
         " User cannot be 'None' (Barcode: 32044061963013)\nUnknown Item (23915763110006421)"
@@ -94,7 +94,7 @@ RSpec.describe AlmaRenew::RenewJob, type: :model, file_download: true do
     end
 
     context 'with items without user ids or expiration dates' do
-      let(:renew_csv) { Rails.root.join('spec', 'fixtures', 'renew_no_id_no_expiration.csv').read }
+      let(:renew_csv) { Hanami.app.root.join('spec', 'fixtures', 'renew_no_id_no_expiration.csv').read }
       let(:expected_data_message) do
         "We received 6 renewal requests. We tried to send renewals for 3 items. 3 errors were encountered.\n" \
         " User cannot be 'None' (Barcode: 32044061963013)\nExpiration date cannot be blank (Barcode: CU53967402)\n" \

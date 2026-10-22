@@ -6,8 +6,8 @@ RSpec.describe Oclc::LcCallSlips::SelectorJob, type: :model, lc_call_slips: true
 
   subject(:newly_cataloged_job) { described_class.new }
 
-  let(:new_csv_path_1) { Rails.root.join('spec', 'fixtures', 'oclc', '2023-07-12-newly-cataloged-by-lc-bordelon.csv') }
-  let(:new_csv_path_2) { Rails.root.join('spec', 'fixtures', 'oclc', '2023-07-12-newly-cataloged-by-lc-darrington.csv') }
+  let(:new_csv_path_1) { Hanami.app.root.join('spec', 'fixtures', 'oclc', '2023-07-12-newly-cataloged-by-lc-bordelon.csv') }
+  let(:new_csv_path_2) { Hanami.app.root.join('spec', 'fixtures', 'oclc', '2023-07-12-newly-cataloged-by-lc-darrington.csv') }
 
   around do |example|
     File.delete(new_csv_path_1) if File.exist?(new_csv_path_1)

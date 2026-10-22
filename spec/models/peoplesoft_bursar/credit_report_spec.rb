@@ -11,7 +11,7 @@ RSpec.describe PeoplesoftBursar::CreditReport, type: :model do
   before do
     allow(sftp_dir).to receive(:foreach).and_yield(sftp_entry1).and_yield(sftp_entry2)
     # only 1 & 3 should get downloaded
-    allow(sftp_session).to receive(:download!).with("/alma/bursar/abc.xml").and_return(Rails.root.join('spec', 'fixtures', 'bursar_credit.xml').read)
+    allow(sftp_session).to receive(:download!).with("/alma/bursar/abc.xml").and_return(Hanami.app.root.join('spec', 'fixtures', 'bursar_credit.xml').read)
     allow(sftp_session).to receive(:rename).with("/alma/bursar/abc.xml", "/alma/bursar/abc.xml.processed")
   end
 

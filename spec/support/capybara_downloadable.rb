@@ -18,7 +18,7 @@ module CapybaraDownloadable
   end
 
   def default_path
-    Rails.root.join('tmp', 'downloads')
+    Hanami.app.root.join('tmp', 'downloads')
   end
 
   def downloads

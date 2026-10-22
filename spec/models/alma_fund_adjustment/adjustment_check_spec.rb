@@ -26,7 +26,7 @@ RSpec.describe AlmaFundAdjustment::AdjustmentCheck, type: :model, file_upload: t
   describe "#run" do
     it "validates non processed ids" do
       repo = AlmaFundAdjustment::Repos::PeoplesoftTransactionsRepo.new
-      FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions-2012-07-19-09-09-00.csv'), 'spec/fixtures/peoplesoft_3/test_alma_1.csv')
+      FileUtils.cp(Hanami.app.root.join('spec', 'fixtures', 'fund_transactions-2012-07-19-09-09-00.csv'), 'spec/fixtures/peoplesoft_3/test_alma_1.csv')
 
       expect { expect(adjustment_check.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
       expect(repo.exists?(transaction_id: '123456-Online Entry | A Fund We have | 07/14/2021')).to be(true)
@@ -35,7 +35,7 @@ RSpec.describe AlmaFundAdjustment::AdjustmentCheck, type: :model, file_upload: t
 
     it "errors for an already processed id" do
       repo = AlmaFundAdjustment::Repos::PeoplesoftTransactionsRepo.new
-      FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions-2012-07-19-09-09-00.csv'), 'spec/fixtures/peoplesoft_3/test_alma_1.csv')
+      FileUtils.cp(Hanami.app.root.join('spec', 'fixtures', 'fund_transactions-2012-07-19-09-09-00.csv'), 'spec/fixtures/peoplesoft_3/test_alma_1.csv')
       repo.create(transaction_id: '123456-Online Entry | A Fund We have | 07/14/2021')
 
       expect(repo.exists?(transaction_id: '123456-Online Entry | A Fund We have | 07/14/2021')).to be(true)
@@ -49,14 +49,14 @@ RSpec.describe AlmaFundAdjustment::AdjustmentCheck, type: :model, file_upload: t
 
     context "with a file with only headers" do
       it "passes the file to the next step" do
-        FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions_empty.csv'), 'spec/fixtures/peoplesoft_3/test_alma_1.csv')
+        FileUtils.cp(Hanami.app.root.join('spec', 'fixtures', 'fund_transactions_empty.csv'), 'spec/fixtures/peoplesoft_3/test_alma_1.csv')
 
         expect { expect(adjustment_check.run).to be_truthy }
       end
     end
     context "with a file with invalid headers" do
       it "throws an error" do
-        FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions_invalid_headers.csv'), 'spec/fixtures/peoplesoft_3/test_alma_1.csv')
+        FileUtils.cp(Hanami.app.root.join('spec', 'fixtures', 'fund_transactions_invalid_headers.csv'), 'spec/fixtures/peoplesoft_3/test_alma_1.csv')
 
         expect { adjustment_check.run }.to raise_error(Shared::CSVValidator::InvalidHeadersError)
       end
@@ -66,11 +66,11 @@ RSpec.describe AlmaFundAdjustment::AdjustmentCheck, type: :model, file_upload: t
         allow(Flipflop).to receive(:alma_fund_adjustment?).and_return(false)
       end
       it "does not run" do
-        FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions_empty.csv'), 'spec/fixtures/peoplesoft_3/test_alma_1.csv')
+        FileUtils.cp(Hanami.app.root.join('spec', 'fixtures', 'fund_transactions_empty.csv'), 'spec/fixtures/peoplesoft_3/test_alma_1.csv')
         expect(adjustment_check.run).to be false
       end
       it "logs that it is turned off" do
-        FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions_empty.csv'), 'spec/fixtures/peoplesoft_3/test_alma_1.csv')
+        FileUtils.cp(Hanami.app.root.join('spec', 'fixtures', 'fund_transactions_empty.csv'), 'spec/fixtures/peoplesoft_3/test_alma_1.csv')
         adjustment_check.run
         data_set = DataSet.last
         expect(data_set.data).to eq("Alma Fund Adjustment job is typically scheduled for this time, but it is turned off.  Go to /features to turn it back on.")

@@ -179,7 +179,7 @@ RSpec.describe Oclc::LcCallSlips::Record, type: :model, lc_call_slips: true do
   end
 
   context 'fixture one' do
-    let(:oclc_fixture_file_path) { Rails.root.join('spec', 'fixtures', 'oclc', 'metacoll.PUL.new.D20230718.T213016.MZallDLC.1.mrc') }
+    let(:oclc_fixture_file_path) { Hanami.app.root.join('spec', 'fixtures', 'oclc', 'metacoll.PUL.new.D20230718.T213016.MZallDLC.1.mrc') }
 
     context 'with relevant record 1' do
       let(:marc_record) do
@@ -217,7 +217,7 @@ RSpec.describe Oclc::LcCallSlips::Record, type: :model, lc_call_slips: true do
   end
 
   context 'fixture two' do
-    let(:oclc_fixture_file_path) { Rails.root.join('spec', 'fixtures', 'oclc', 'metacoll.PUL.new.D20230706.T213019.MZallDLC.1.mrc') }
+    let(:oclc_fixture_file_path) { Hanami.app.root.join('spec', 'fixtures', 'oclc', 'metacoll.PUL.new.D20230706.T213019.MZallDLC.1.mrc') }
 
     it 'can be instantiated' do
       expect(described_class.new(marc_record:)).to be

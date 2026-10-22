@@ -188,7 +188,7 @@ RSpec.describe AlmaPeople::AlmaPersonFeed, type: :model, file_upload: true do
   end
 
   def validate_xml(data)
-    xsd = Nokogiri::XML::Schema(File.open(Rails.root.join("spec", "fixtures", 'rest_users.xsd')))
+    xsd = Nokogiri::XML::Schema(File.open(Hanami.app.root.join("spec", "fixtures", 'rest_users.xsd')))
     doc = Nokogiri::XML(data)
     xsd.validate(doc).each do |error|
       puts error.message

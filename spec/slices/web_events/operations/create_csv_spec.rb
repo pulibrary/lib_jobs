@@ -7,11 +7,11 @@ RSpec.describe WebEvents::Operations::CreateCSV do
     WebEvents::Slice.boot
     stub_request(:get, "https://libcal.princeton.edu/ical_subscribe.php?cid=12260&k=79a5e62a54")
       .to_return(status: 200, headers: {},
-                 body: File.new(Rails.root.join('spec', 'fixtures', 'files', 'libcal_events.ics')))
+                 body: File.new(Hanami.app.root.join('spec', 'fixtures', 'files', 'libcal_events.ics')))
   end
 
   describe('CSV file generation') do
-    let(:file_path) { Pathname.new(Rails.root.join('tmp', "events.csv")) }
+    let(:file_path) { Pathname.new(Hanami.app.root.join('tmp', "events.csv")) }
     let(:first_row) do
       [
         'LibCal-12260-9613672',

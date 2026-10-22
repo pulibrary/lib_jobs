@@ -5,7 +5,7 @@ RSpec.describe AlmaInvoiceStatus::StatusQuery, type: :model do
   subject(:invoice_details) do
     described_class.new(xml_io: xml_file)
   end
-  let(:xml_file) { File.new(Rails.root.join('spec', 'fixtures', 'PU_AP_ALMA_INVOICE_DEATILS_example.xml')) }
+  let(:xml_file) { File.new(Hanami.app.root.join('spec', 'fixtures', 'PU_AP_ALMA_INVOICE_DEATILS_example.xml')) }
 
   describe "#invoices" do
     it "parses invoices" do
@@ -23,7 +23,7 @@ RSpec.describe AlmaInvoiceStatus::StatusQuery, type: :model do
     end
   end
   context 'with an invalid xml file' do
-    let(:xml_file) { File.new(Rails.root.join('spec', 'fixtures', 'invalid_PU_AP_ALMA_INVOICE_DEATILS_example.xml')) }
+    let(:xml_file) { File.new(Hanami.app.root.join('spec', 'fixtures', 'invalid_PU_AP_ALMA_INVOICE_DEATILS_example.xml')) }
 
     it 'raises an error' do
       expect { invoice_details.invoices }.to raise_error('Empty invoice id')

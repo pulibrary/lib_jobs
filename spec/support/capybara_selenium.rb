@@ -2,7 +2,7 @@
 require "capybara/rspec"
 require "selenium-webdriver"
 
-default_directory = Rails.root.join('tmp', 'downloads')
+default_directory = Hanami.app.root.join('tmp', 'downloads')
 
 # there's a bug in capybara-screenshot that requires us to name
 #   the driver ":selenium" so we changed it from :headless_chrome"

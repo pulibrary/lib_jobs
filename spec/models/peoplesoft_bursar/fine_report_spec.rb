@@ -11,7 +11,7 @@ RSpec.describe PeoplesoftBursar::FineReport, type: :model do
   before do
     allow(sftp_dir).to receive(:foreach).and_yield(sftp_entry1).and_yield(sftp_entry2)
     # only 1 & 3 should get downloaded
-    allow(sftp_session).to receive(:download!).with("/alma/bursar/abc.csv").and_return(Rails.root.join('spec', 'fixtures', 'bursar_fine.csv').read)
+    allow(sftp_session).to receive(:download!).with("/alma/bursar/abc.csv").and_return(Hanami.app.root.join('spec', 'fixtures', 'bursar_fine.csv').read)
     allow(sftp_session).to receive(:rename).with("/alma/bursar/abc.csv", "/alma/bursar/abc.csv.processed")
   end
 
@@ -51,7 +51,7 @@ RSpec.describe PeoplesoftBursar::FineReport, type: :model do
   describe "#list" do
     context "when CSV is missing required headers" do
       it "throws an error" do
-        allow(sftp_session).to receive(:download!).with("/alma/bursar/abc.csv").and_return(Rails.root.join('spec', 'fixtures', 'bursar_fine_invalid_headers.csv').read)
+        allow(sftp_session).to receive(:download!).with("/alma/bursar/abc.csv").and_return(Hanami.app.root.join('spec', 'fixtures', 'bursar_fine_invalid_headers.csv').read)
         expect { described_class.new }.to raise_error(Shared::CSVValidator::InvalidHeadersError)
       end
     end

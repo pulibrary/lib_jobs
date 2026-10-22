@@ -25,8 +25,8 @@ require 'axe-rspec'
 # directory. Alternatively, in the individual `*_spec.rb` files, manually
 # require only the support files necessary.
 #
-Rails.root.glob('lib/**/*.rb').sort.each { |f| require f }
-Rails.root.glob('spec/support/**/*.rb').sort.each { |f| require f }
+Hanami.app.root.glob('lib/**/*.rb').sort.each { |f| require f }
+Hanami.app.root.glob('spec/support/**/*.rb').sort.each { |f| require f }
 
 # Checks for pending migrations and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove these lines.
@@ -38,7 +38,7 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 RSpec.configure do |config|
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  config.fixture_paths = Rails.root.join('spec', 'fixtures', 'fixtures').to_s
+  config.fixture_paths = Hanami.app.root.join('spec', 'fixtures', 'fixtures').to_s
 
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false

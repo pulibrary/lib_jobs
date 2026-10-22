@@ -8,7 +8,7 @@ RSpec.describe AirTableStaff::StaffListJob, type: :model do
   end
 
   describe('CSV file generation') do
-    let(:file_path) { Pathname.new(Rails.root.join('tmp', "airtable_staff.csv")) }
+    let(:file_path) { Pathname.new(Hanami.app.root.join('tmp', "airtable_staff.csv")) }
     let(:first_row) do
       [
         '123', 'ab123', '(123) 123-1234', 'Phillip Librarian', 'Librarian', 'Phillip', 'ab123@princeton.edu',

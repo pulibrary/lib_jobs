@@ -6,7 +6,7 @@ RSpec.describe AlmaPodRecords::AlmaPodJob, type: :model do
   let(:tarball_contents) { [StringIO.new('<collection/>')] }
   let(:list) { instance_double("AlmaPodRecords::AlmaPodFileList") }
   let(:pod_url) { 'https://pod.stanford.edu/organizations/princeton/uploads' }
-  let(:directory) { Rails.root.join('tmp') }
+  let(:directory) { Hanami.app.root.join('tmp') }
 
   before do
     allow(list).to receive(:files).and_return filenames
@@ -25,12 +25,12 @@ RSpec.describe AlmaPodRecords::AlmaPodJob, type: :model do
   end
 
   describe 'writing files' do
-    let(:file_path) { Pathname.new(Rails.root.join('tmp', "test_file.xml")) }
-    let(:alma_pod_job) { described_class.new(incoming_file_list: list, directory: Rails.root.join('tmp')) }
+    let(:file_path) { Pathname.new(Hanami.app.root.join('tmp', "test_file.xml")) }
+    let(:alma_pod_job) { described_class.new(incoming_file_list: list, directory: Hanami.app.root.join('tmp')) }
 
     context 'writing compressed files' do
-      let(:zipped_file_path) { Pathname.new(Rails.root.join('tmp', "test_file.xml.gz")) }
-      let(:alma_pod_job) { described_class.new(incoming_file_list: list, directory: Rails.root.join('tmp')) }
+      let(:zipped_file_path) { Pathname.new(Hanami.app.root.join('tmp', "test_file.xml.gz")) }
+      let(:alma_pod_job) { described_class.new(incoming_file_list: list, directory: Hanami.app.root.join('tmp')) }
 
       around do |example|
         File.delete(file_path) if File.exist?(file_path)
