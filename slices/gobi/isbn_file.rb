@@ -1,10 +1,14 @@
 # frozen_string_literal: false
+# memoize: false
+
 require 'csv'
 module Gobi
   class IsbnFile
     attr_reader :received_items_file, :bib_hash
-    def initialize(temp_file:)
+
+    def initialize(temp_file:, settings: Gobi::Slice['settings'])
       @received_items_file = temp_file
+      @settings = settings
       @bib_hash = {}
     end
 
@@ -17,7 +21,7 @@ module Gobi
         build_bib_hash(row:)
       end
       write_bib_hash_to_csv
-      Gobi::IsbnReportJob.working_file_name
+      working_file_name
     end
 
     def build_bib_hash(row:)
@@ -33,19 +37,19 @@ module Gobi
     end
 
     def write_bib_hash_to_csv
-      CSV.open(Gobi::IsbnReportJob.working_file_path, 'a', headers: true, encoding: 'bom|utf-8', col_sep: "|") do |csv|
-        @bib_hash.each do |_bib, data|
+      CSV.open(working_file_path, 'a', headers: true, encoding: 'bom|utf-8', col_sep: "|") do |csv|
+        @bib_hash.each_value do |data|
           code_string = code_string(loc_combos: data[:loc_combos])
           data[:isbns].each do |isbn|
-            csv << [isbn, code_string, Rails.application.config.gobi_sftp.gobi_account_code]
+            csv << [isbn, code_string, @settings.gobi_account_code]
           end
         end
       end
     end
 
     def code_string(loc_combos:)
-      limited_locations = Rails.application.config.gobi_locations.limited_locations
-      shared_locations = Rails.application.config.gobi_locations.shared_locations
+      limited_locations = @settings.gobi_limited_locations
+      shared_locations = @settings.gobi_shared_locations
       has_limited_locations = (loc_combos & limited_locations)
       has_shared_locations = (loc_combos & shared_locations)
       has_circ_locations = (loc_combos - has_limited_locations - has_shared_locations).present?
@@ -84,8 +88,8 @@ module Gobi
     # Need to have a row for each valid ISBN
     # Could convert to 13 digit ISBN and de-dup
     def isbns_for_report(row:)
-      isbns = row["ISBN Valid"].split("\; ").map { |isbn| isbn.delete(':') }
-      isbns.select! { |isbn| isbn.size == 13 || isbn.size == 10 }
+      isbns = row["ISBN Valid"].split("; ").map { |isbn| isbn.delete(':') }
+      isbns.select! { |isbn| [13, 10].include?(isbn.size) }
       isbns.map { |isbn| convert_to_isbn_thirteen(isbn:) }.uniq
     end
 
@@ -94,13 +98,26 @@ module Gobi
 
       isbn.chop!
       isbn.prepend('978')
-      check_digit_arr = isbn.split("").map(&:to_i)
-      modulo = check_digit_arr.each_with_index.map do |num, index|
-        index.odd? ? num * 3 : num * 1
-      end.sum % 10
+      check_digit_arr = isbn.chars.map(&:to_i)
+      modulo = check_digit_arr.each_with_index.sum do |num, index|
+        index.odd? ? num * 3 : num
+      end % 10
       check_digit = modulo.zero? ? 0 : 10 - modulo
       isbn << check_digit.to_s
       isbn
+    end
+
+    private
+
+    def working_file_name
+      date = Time.now.utc.strftime('%Y-%m-%d')
+      "#{date}-gobi-isbn-updates.txt"
+    end
+
+    def working_file_path
+      working_directory = @settings.gobi_sftp_working_directory
+      FileUtils.mkdir_p(working_directory) unless File.exist?(working_directory)
+      File.join(working_directory, working_file_name)
     end
   end
 end
