@@ -3,7 +3,7 @@ require 'csv'
 
 module AlmaFundAdjustment
   class AdjustmentCheck
-    include Deps['settings', 'fund_adjustment', 'shared.csv_validator']
+    include Deps['settings', 'fund_adjustment', 'shared.csv_validator', 'repos.peoplesoft_transactions_repo']
 
     def run
       files = Dir.glob(File.join(settings.fund_adjustment_peoplesoft_input_dir, settings.fund_adjustment_peoplesoft_input_file_pattern.gsub("\\*", "*")))
@@ -22,13 +22,13 @@ module AlmaFundAdjustment
       data = read_file(file)
       adjustments = data.map { |row| fund_adjustment.call(row) }
       ids = adjustments.map(&:unique_id)
-      already_processed = ids.select { |id| PeoplesoftTransaction.where(transaction_id: id).count.positive? }
+      already_processed = ids.select { |id| peoplesoft_transactions_repo.exists?(transaction_id: id) }
       if already_processed.count.positive?
         TransactionErrorMailer.report(duplicate_ids: already_processed).deliver
         File.rename(file, "#{file}.error")
         status = false
       else
-        ids.each { |id| PeoplesoftTransaction.create(transaction_id: id) }
+        ids.each { |id| peoplesoft_transactions_repo.create(transaction_id: id) }
       end
 
       status
