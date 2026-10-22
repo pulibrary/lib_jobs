@@ -23,22 +23,22 @@ module Oclc
                                           input_sftp_base_dir: Rails.application.config.oclc_sftp.data_sync_report_path,
                                           recent: true]
       ).local_filenames
-      report_uploader = ReportUploader.new(working_file_names:,
-                                           working_file_directory:,
-                                           output_sftp_base_dir:)
-      uploaded_file_paths = report_uploader.run
-      data_set.data = data_phrase(uploaded_file_paths, report_uploader)
+      report = Shared::Slice['report_uploader'].run(Shared::ReportUploader::Context[working_file_names:,
+                                                                                    working_file_directory:,
+                                                                                    output_sftp_base_dir:])
+      data_set.data = data_phrase(report)
       data_set
     end
 
-    def data_phrase(uploaded_file_paths, report_uploader)
+    def data_phrase(report)
+      uploaded_file_paths = report.uploaded_file_paths
       uploaded_files_phrase = if uploaded_file_paths.present?
                                 "Files created and uploaded to lib-sftp: #{uploaded_file_paths.join(', ')}."
                               else
                                 'Files created and uploaded to lib-sftp: None.'
                               end
-      files_with_errors_phrase = if report_uploader.errors.present?
-                                   " Files with upload errors: #{report_uploader.errors.join(', ')}."
+      files_with_errors_phrase = if report.errors.present?
+                                   " Files with upload errors: #{report.errors.join(', ')}."
                                  else
                                    ''
                                  end

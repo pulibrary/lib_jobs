@@ -20,11 +20,10 @@ module Oclc
                                                                                                     process_class: Oclc::DataSyncProcessingFile,
                                                                                                     input_sftp_base_dir: Rails.application.config.oclc_sftp.data_sync_report_path,
                                                                                                     recent: true]).local_filenames
-      report_uploader = ReportUploader.new(working_file_names:,
-                                           working_file_directory:,
-                                           output_sftp_base_dir:)
-      uploaded_file_paths = report_uploader.run
-      data_set.data = "Files created and uploaded to lib-sftp: #{uploaded_file_paths.join(', ')}"
+      report = Shared::Slice['report_uploader'].run(Shared::ReportUploader::Context[working_file_names:,
+                                                                                    working_file_directory:,
+                                                                                    output_sftp_base_dir:])
+      data_set.data = "Files created and uploaded to lib-sftp: #{report.uploaded_file_paths.join(', ')}"
 
       data_set
     end

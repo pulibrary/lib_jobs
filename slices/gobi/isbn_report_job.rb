@@ -4,7 +4,7 @@ require 'csv'
 
 module Gobi
   class IsbnReportJob < LibJob
-    include Deps['settings', 'gobi_sftp', 'shared.alma_sftp', 'shared.report_downloader']
+    include Deps['settings', 'gobi_sftp', 'shared.alma_sftp', 'shared.report_downloader', 'shared.report_uploader']
 
     def category = 'Gobi:IsbnReports'
 
@@ -20,19 +20,10 @@ module Gobi
           process_class: IsbnFile
         ]
       ).remote_filenames
-      report_uploader.run
+      report_uploader.run(report_uploader_context)
       rename_files_on_sftp(remote_filenames)
       data_set.data = "Number of ISBNs sent: #{CSV.read(working_file_path).length}"
       data_set
-    end
-
-    def report_uploader
-      ReportUploader.new(
-        sftp: gobi_sftp,
-        working_file_names: [working_file_name],
-        working_file_directory: settings.gobi_sftp_working_directory,
-        output_sftp_base_dir: settings.gobi_sftp_output_sftp_base_dir
-      )
     end
 
     def rename_files_on_sftp(remote_filenames)
@@ -41,6 +32,15 @@ module Gobi
           sftp.rename(file_name, "#{file_name}.processed")
         end
       end
+    end
+
+    def report_uploader_context
+      Shared::ReportUploader::Context[
+        sftp: gobi_sftp,
+        working_file_names: [working_file_name],
+        working_file_directory: settings.gobi_sftp_working_directory,
+        output_sftp_base_dir: settings.gobi_sftp_output_sftp_base_dir
+      ]
     end
 
     def create_csv
