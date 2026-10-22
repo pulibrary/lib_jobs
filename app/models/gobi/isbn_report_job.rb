@@ -8,7 +8,7 @@ module Gobi
 
     def initialize
       @report_uploader = ReportUploader.new(
-        sftp: GobiSftp.new,
+        sftp: Gobi::Slice['gobi_sftp'],
         working_file_names: [IsbnReportJob.working_file_name],
         working_file_directory: Rails.application.config.gobi_sftp.working_directory,
         output_sftp_base_dir: Rails.application.config.gobi_sftp.output_sftp_base_dir
