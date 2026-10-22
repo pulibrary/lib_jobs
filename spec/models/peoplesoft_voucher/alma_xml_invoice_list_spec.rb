@@ -22,8 +22,8 @@ RSpec.describe PeoplesoftVoucher::AlmaXmlInvoiceList, type: :model do
     allow(sftp_dir).to receive(:foreach).and_yield(sftp_entry1).and_yield(sftp_entry2)
     # only 1 & 3 should get downloaded
     pin_time_to_valid_invoice_list
-    allow(sftp_session).to receive(:download!).with("/alma/invoices/abc.xml").and_return(Rails.root.join('spec', 'fixtures', 'invoice_export_202118300518.xml').read)
-    allow(sftp_session).to receive(:download!).with("/alma/invoices/123.xml").and_return(Rails.root.join('spec', 'fixtures', 'invalid_invoice.xml').read)
+    allow(sftp_session).to receive(:download!).with("/alma/invoices/abc.xml").and_return(Hanami.app.root.join('spec', 'fixtures', 'invoice_export_202118300518.xml').read)
+    allow(sftp_session).to receive(:download!).with("/alma/invoices/123.xml").and_return(Hanami.app.root.join('spec', 'fixtures', 'invalid_invoice.xml').read)
     allow(sftp_session).to receive(:rename).with("/alma/invoices/123.xml", "/alma/invoices/123.xml.processed")
     allow(sftp_session).to receive(:rename).with("/alma/invoices/abc.xml", "/alma/invoices/abc.xml.processed")
   end

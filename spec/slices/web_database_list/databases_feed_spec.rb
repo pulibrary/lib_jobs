@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe WebDatabaseList::DatabasesFeed do
   describe('CSV file generation') do
-    let(:report_filename) { Pathname.new(Rails.root.join('tmp/databases.csv')) }
+    let(:report_filename) { Pathname.new(Hanami.app.root.join('tmp/databases.csv')) }
     let(:first_row) do
       ['2938715',
        'Africa Knowledge Project',

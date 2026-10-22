@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe AlmaPeople::AlmaQueryPersonCSV do
-  subject(:feed) { described_class.new(csv_file: Rails.root.join('spec/fixtures/alma_users_future_exp_no_netid_test.csv')) }
+  subject(:feed) { described_class.new(csv_file: Hanami.app.root.join('spec/fixtures/alma_users_future_exp_no_netid_test.csv')) }
 
   let(:token) { instance_double(Shared::AccessToken) }
 

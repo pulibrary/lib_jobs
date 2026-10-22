@@ -88,14 +88,14 @@ RSpec.describe AlmaInvoiceStatus::FileConverter, type: :model, file_upload: true
     end
 
     context "with real data locally" do
-      let(:alma_invoice_xml) { Rails.root.join('PU_AP_ALMA_INVOICE_DETAILS_06142021.xml') }
+      let(:alma_invoice_xml) { Hanami.app.root.join('PU_AP_ALMA_INVOICE_DETAILS_06142021.xml') }
       it "generates xml" do
         pending "Should only be run locally"
         allow(sftp_session).to receive(:upload!)
         FileUtils.copy_file(alma_invoice_xml, 'spec/fixtures/ephemeral/test_alma_1.csv')
         expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
         expect(sftp_session).to have_received(:upload!).with("spec/fixtures/ephemeral/test_alma_1.csv.converted", '/alma/invoice_status/test_alma_1.csv')
-        expect(File.open('spec/fixtures/ephemeral/test_alma_1.csv.converted').read).to eq(File.open(Rails.root.join('alma_status_query_output.xml')).read)
+        expect(File.open('spec/fixtures/ephemeral/test_alma_1.csv.converted').read).to eq(File.open(Hanami.app.root.join('alma_status_query_output.xml')).read)
       end
     end
 

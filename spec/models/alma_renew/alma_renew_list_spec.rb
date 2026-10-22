@@ -65,7 +65,7 @@ RSpec.describe AlmaRenew::AlmaRenewList, type: :model, file_download: true do
       end
 
       around do |example|
-        temp_file_one.write(File.open(Rails.root.join('spec', 'fixtures', 'empty_renew.csv')).read)
+        temp_file_one.write(File.open(Hanami.app.root.join('spec', 'fixtures', 'empty_renew.csv')).read)
         temp_file_one.rewind
         example.run
       end
@@ -77,7 +77,7 @@ RSpec.describe AlmaRenew::AlmaRenewList, type: :model, file_download: true do
 
     context "a list with an incorrect header name" do
       before do
-        allow(sftp_session).to receive(:download!).with("/alma/scsb_renewals/abc.csv").and_return(Rails.root.join('spec', 'fixtures', 'renew_invalid_headers.csv').read)
+        allow(sftp_session).to receive(:download!).with("/alma/scsb_renewals/abc.csv").and_return(Hanami.app.root.join('spec', 'fixtures', 'renew_invalid_headers.csv').read)
       end
       it "throws an error" do
         expect { described_class.new }.to raise_error(Shared::CSVValidator::InvalidHeadersError)

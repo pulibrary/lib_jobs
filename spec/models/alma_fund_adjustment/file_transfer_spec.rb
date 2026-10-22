@@ -85,7 +85,7 @@ RSpec.describe AlmaFundAdjustment::FileTransfer, type: :model, file_upload: true
     context "file with only headers" do
       it "renames the file" do
         allow(sftp_session).to receive(:upload!)
-        FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions_empty.csv'), 'spec/fixtures/peoplesoft_1/test_alma_1.csv')
+        FileUtils.cp(Hanami.app.root.join('spec', 'fixtures', 'fund_transactions_empty.csv'), 'spec/fixtures/peoplesoft_1/test_alma_1.csv')
 
         expect { expect(file_transfer.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
         expect(sftp_session).to have_received(:upload!).with("spec/fixtures/peoplesoft_1/test_alma_1.csv", '/alma/fund_adjustment/test_alma_1.csv')

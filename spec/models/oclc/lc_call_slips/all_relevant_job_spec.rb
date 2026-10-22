@@ -5,7 +5,7 @@ RSpec.describe Oclc::LcCallSlips::AllRelevantJob, type: :model, lc_call_slips: t
   include_context 'sftp_newly_cataloged'
 
   subject(:newly_cataloged_job_all) { described_class.new }
-  let(:new_csv_path) { Rails.root.join('spec', 'fixtures', 'oclc', '2023-07-12-newly-cataloged-by-lc-all.csv') }
+  let(:new_csv_path) { Hanami.app.root.join('spec', 'fixtures', 'oclc', '2023-07-12-newly-cataloged-by-lc-all.csv') }
 
   around do |example|
     File.delete(new_csv_path) if File.exist?(new_csv_path)

@@ -22,7 +22,7 @@ RSpec.describe Shared::CSVValidator, type: :model do
 
     it 'can validate a file that contains a CSV' do
       validator = described_class.new
-      expect(validator.require_headers(['Barcode', 'Patron Group', 'Expiry Date', 'Primary Identifier'], csv_filename: Rails.root.join('spec', 'fixtures', 'renew.csv'))).to eq(true)
+      expect(validator.require_headers(['Barcode', 'Patron Group', 'Expiry Date', 'Primary Identifier'], csv_filename: Hanami.app.root.join('spec', 'fixtures', 'renew.csv'))).to eq(true)
     end
 
     it 'raises InvalidHeadersError on incorrect columns' do

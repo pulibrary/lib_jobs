@@ -32,7 +32,7 @@ RSpec.describe AlmaFundAdjustment::FileConverter, type: :model, file_upload: tru
   describe "#run" do
     it "transfers a file" do
       allow(sftp_session).to receive(:upload!)
-      FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions-2012-07-19-09-09-00.csv'), 'spec/fixtures/peoplesoft_2/test_alma_1.csv')
+      FileUtils.cp(Hanami.app.root.join('spec', 'fixtures', 'fund_transactions-2012-07-19-09-09-00.csv'), 'spec/fixtures/peoplesoft_2/test_alma_1.csv')
 
       expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
       expect(sftp_session).to have_received(:upload!).with("spec/fixtures/ephemeral_2/test_alma_1.csv.updated", '/alma/fund_adjustment/test_alma_1.csv')
@@ -46,8 +46,8 @@ RSpec.describe AlmaFundAdjustment::FileConverter, type: :model, file_upload: tru
 
     it "transfers multiple files" do
       allow(sftp_session).to receive(:upload!).twice
-      FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions-2012-07-19-09-09-00.csv'), 'spec/fixtures/peoplesoft_2/test_alma_1.csv')
-      FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions-2012-07-19-09-09-00.csv'), 'spec/fixtures/peoplesoft_2/test_alma_2.csv')
+      FileUtils.cp(Hanami.app.root.join('spec', 'fixtures', 'fund_transactions-2012-07-19-09-09-00.csv'), 'spec/fixtures/peoplesoft_2/test_alma_1.csv')
+      FileUtils.cp(Hanami.app.root.join('spec', 'fixtures', 'fund_transactions-2012-07-19-09-09-00.csv'), 'spec/fixtures/peoplesoft_2/test_alma_2.csv')
 
       expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
       expect(sftp_session).to have_received(:upload!).with("spec/fixtures/ephemeral_2/test_alma_1.csv.updated", '/alma/fund_adjustment/test_alma_1.csv')
@@ -65,7 +65,7 @@ RSpec.describe AlmaFundAdjustment::FileConverter, type: :model, file_upload: tru
     context "handles an ftp error" do
       it "notes the error" do
         allow(sftp_session).to receive(:upload!).and_raise(Net::SFTP::StatusException, Net::SFTP::Response.new({}, { code: 500 }))
-        FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions-2012-07-19-09-09-00.csv'), 'spec/fixtures/peoplesoft_2/test_alma_1.csv')
+        FileUtils.cp(Hanami.app.root.join('spec', 'fixtures', 'fund_transactions-2012-07-19-09-09-00.csv'), 'spec/fixtures/peoplesoft_2/test_alma_1.csv')
 
         expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
         expect(sftp_session).to have_received(:upload!).with("spec/fixtures/ephemeral_2/test_alma_1.csv.updated", '/alma/fund_adjustment/test_alma_1.csv')
@@ -94,7 +94,7 @@ RSpec.describe AlmaFundAdjustment::FileConverter, type: :model, file_upload: tru
 
     context "file with only headers" do
       it "notes that nothing was processed" do
-        FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions_empty.csv'), 'spec/fixtures/peoplesoft_2/test_alma_1.csv')
+        FileUtils.cp(Hanami.app.root.join('spec', 'fixtures', 'fund_transactions_empty.csv'), 'spec/fixtures/peoplesoft_2/test_alma_1.csv')
 
         expect { expect(fund_adjustment.run).to be_truthy }.to change { ActionMailer::Base.deliveries.count }.by(0)
         data_set = DataSet.last
@@ -107,7 +107,7 @@ RSpec.describe AlmaFundAdjustment::FileConverter, type: :model, file_upload: tru
 
     context "file with incorrect headers" do
       it "throws an error" do
-        FileUtils.cp(Rails.root.join('spec', 'fixtures', 'fund_transactions_invalid_headers.csv'), 'spec/fixtures/peoplesoft_2/test_alma_1.csv')
+        FileUtils.cp(Hanami.app.root.join('spec', 'fixtures', 'fund_transactions_invalid_headers.csv'), 'spec/fixtures/peoplesoft_2/test_alma_1.csv')
 
         expect { expect(fund_adjustment.run) }.to raise_error(Shared::CSVValidator::InvalidHeadersError)
       end

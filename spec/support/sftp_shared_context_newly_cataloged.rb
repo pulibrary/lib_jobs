@@ -15,8 +15,8 @@ RSpec.shared_context 'sftp_newly_cataloged' do
   let(:temp_file_one) { Tempfile.new(encoding: 'ascii-8bit') }
   let(:temp_file_two) { Tempfile.new(encoding: 'ascii-8bit') }
   let(:freeze_time) { Time.utc(2023, 7, 12) }
-  let(:oclc_fixture_file_path_one) { Rails.root.join('spec', 'fixtures', 'oclc', file_name_to_download_one) }
-  let(:oclc_fixture_file_path_two) { Rails.root.join('spec', 'fixtures', 'oclc', file_name_to_download_two) }
+  let(:oclc_fixture_file_path_one) { Hanami.app.root.join('spec', 'fixtures', 'oclc', file_name_to_download_one) }
+  let(:oclc_fixture_file_path_two) { Hanami.app.root.join('spec', 'fixtures', 'oclc', file_name_to_download_two) }
 
   before do
     allow(Tempfile).to receive(:new).and_return(temp_file_one, temp_file_two)

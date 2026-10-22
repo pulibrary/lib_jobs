@@ -9,7 +9,7 @@ RSpec.describe Shared::Sftp do
   let(:file_path) { "/alma/invoices/abc.xml" }
 
   before do
-    allow(sftp_session).to receive(:download!).with(file_path).and_return(Rails.root.join('spec', 'fixtures', 'invoice_export_202118300518.xml').read)
+    allow(sftp_session).to receive(:download!).with(file_path).and_return(Hanami.app.root.join('spec', 'fixtures', 'invoice_export_202118300518.xml').read)
   end
   it 'raises an error when instantiated without arguments' do
     expect { described_class.new }.to raise_error(ArgumentError)
@@ -37,7 +37,7 @@ RSpec.describe Shared::Sftp do
 
   context 'with a spotty sftp connection' do
     before do
-      allow(sftp_session).to receive(:download!).with(file_path).and_return(Rails.root.join('spec', 'fixtures', 'invoice_export_202118300518.xml').read)
+      allow(sftp_session).to receive(:download!).with(file_path).and_return(Hanami.app.root.join('spec', 'fixtures', 'invoice_export_202118300518.xml').read)
       allow(Net::SFTP).to receive(:start).and_raise(Net::SSH::Disconnect)
       allow(Rails.logger).to receive(:warn)
       allow(Rails.logger).to receive(:error)

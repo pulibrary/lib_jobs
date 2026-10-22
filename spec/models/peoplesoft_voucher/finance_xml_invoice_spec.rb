@@ -12,12 +12,12 @@ RSpec.describe PeoplesoftVoucher::FinanceXmlInvoice, type: :model do
     end
 
     let(:finance_xml) do
-      File.open(Rails.root.join('spec', 'fixtures', 'finance_invoice.xml')).read
+      File.open(Hanami.app.root.join('spec', 'fixtures', 'finance_invoice.xml')).read
     end
 
     before do
       allow(sftp_dir).to receive(:foreach).and_yield(sftp_entry)
-      allow(sftp_session).to receive(:download!).with("/alma/invoices/abc.xml").and_return(Rails.root.join('spec', 'fixtures', 'invoice_export_202118300518.xml').read)
+      allow(sftp_session).to receive(:download!).with("/alma/invoices/abc.xml").and_return(Hanami.app.root.join('spec', 'fixtures', 'invoice_export_202118300518.xml').read)
     end
 
     it "generates xml " do
@@ -29,7 +29,7 @@ RSpec.describe PeoplesoftVoucher::FinanceXmlInvoice, type: :model do
     end
 
     context "with real data locally" do
-      let(:alma_invoice_xml) { Rails.root.join('invoice_export_202125070925.xml') }
+      let(:alma_invoice_xml) { Hanami.app.root.join('invoice_export_202125070925.xml') }
       it "generates xml" do
         pending "Should only be run locally"
         allow(sftp_session).to receive(:download!).with("/alma/invoices/abc.xml").and_return(alma_invoice_xml.read)
@@ -37,7 +37,7 @@ RSpec.describe PeoplesoftVoucher::FinanceXmlInvoice, type: :model do
           alma_person = described_class.new(xml:, alma_invoice_list:)
           alma_person.convert
         end
-        expect(builder.to_xml).to eq(File.open(Rails.root.join('alma_voucher_test_20210507.xml')).read)
+        expect(builder.to_xml).to eq(File.open(Hanami.app.root.join('alma_voucher_test_20210507.xml')).read)
       end
     end
   end

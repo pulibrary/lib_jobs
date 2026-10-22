@@ -29,7 +29,7 @@ RSpec.describe "Users", type: :request do
         ).to_return(
           headers: {},
           status: 200,
-          body: Rails.root.join('spec', 'fixtures', 'omniauth-cas', 'cas_success.xml').read
+          body: Hanami.app.root.join('spec', 'fixtures', 'omniauth-cas', 'cas_success.xml').read
         )
         allow(User).to receive(:from_omniauth).and_return(user)
 

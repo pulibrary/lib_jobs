@@ -12,7 +12,7 @@ RSpec.describe PeoplesoftVoucher::AlmaXmlInvoice, type: :model do
     doc.xpath('//xmlns:invoice_list/xmlns:invoice')
   end
 
-  let(:xml_file) { File.new(Rails.root.join('spec', 'fixtures', 'invoice_export_202118300518.xml')) }
+  let(:xml_file) { File.new(Hanami.app.root.join('spec', 'fixtures', 'invoice_export_202118300518.xml')) }
 
   describe "#voucher_id" do
     it "returns the id" do
@@ -20,7 +20,7 @@ RSpec.describe PeoplesoftVoucher::AlmaXmlInvoice, type: :model do
     end
 
     context "invalid invoice" do
-      let(:xml_file) { File.new(Rails.root.join('spec', 'fixtures', 'invalid_invoice.xml')) }
+      let(:xml_file) { File.new(Hanami.app.root.join('spec', 'fixtures', 'invalid_invoice.xml')) }
 
       it "returns the id" do
         expect(alma_invoice.voucher_id).to eq('A020RVUO')
@@ -34,7 +34,7 @@ RSpec.describe PeoplesoftVoucher::AlmaXmlInvoice, type: :model do
     end
 
     context "invalid invoice" do
-      let(:xml_file) { File.new(Rails.root.join('spec', 'fixtures', 'invalid_invoice.xml')) }
+      let(:xml_file) { File.new(Hanami.app.root.join('spec', 'fixtures', 'invalid_invoice.xml')) }
 
       it "returns the payment message" do
         expect(alma_invoice.payment_message).to eq('Pay 1319.05 in GBP')
@@ -48,7 +48,7 @@ RSpec.describe PeoplesoftVoucher::AlmaXmlInvoice, type: :model do
     end
 
     context "invalid invoice" do
-      let(:xml_file) { File.new(Rails.root.join('spec', 'fixtures', 'invalid_invoice.xml')) }
+      let(:xml_file) { File.new(Hanami.app.root.join('spec', 'fixtures', 'invalid_invoice.xml')) }
 
       it "returns the local amount" do
         expect(alma_invoice.invoice_local_amount_total).to eq('176.66')
@@ -62,7 +62,7 @@ RSpec.describe PeoplesoftVoucher::AlmaXmlInvoice, type: :model do
     end
 
     context "invalid invoice" do
-      let(:xml_file) { File.new(Rails.root.join('spec', 'fixtures', 'invalid_invoice.xml')) }
+      let(:xml_file) { File.new(Hanami.app.root.join('spec', 'fixtures', 'invalid_invoice.xml')) }
 
       it "returns the currency codes" do
         expect(alma_invoice.currency_codes_for_invoice).to eq(["GBP"])
@@ -76,7 +76,7 @@ RSpec.describe PeoplesoftVoucher::AlmaXmlInvoice, type: :model do
     end
 
     context "invalid invoice" do
-      let(:xml_file) { File.new(Rails.root.join('spec', 'fixtures', 'invalid_invoice.xml')) }
+      let(:xml_file) { File.new(Hanami.app.root.join('spec', 'fixtures', 'invalid_invoice.xml')) }
 
       it "returns the invoice date" do
         expect(alma_invoice.invoice_date).to eq('1996-03-30')
@@ -90,7 +90,7 @@ RSpec.describe PeoplesoftVoucher::AlmaXmlInvoice, type: :model do
     end
 
     context "invalid invoice" do
-      let(:xml_file) { File.new(Rails.root.join('spec', 'fixtures', 'invalid_invoice.xml')) }
+      let(:xml_file) { File.new(Hanami.app.root.join('spec', 'fixtures', 'invalid_invoice.xml')) }
 
       it "is not valid" do
         expect(alma_invoice.valid?).to be_falsey
@@ -109,7 +109,7 @@ RSpec.describe PeoplesoftVoucher::AlmaXmlInvoice, type: :model do
     end
 
     context "invalid invoice" do
-      let(:xml_file) { File.new(Rails.root.join('spec', 'fixtures', 'invalid_invoice.xml')) }
+      let(:xml_file) { File.new(Hanami.app.root.join('spec', 'fixtures', 'invalid_invoice.xml')) }
 
       it "returns the invoice total" do
         expect(alma_invoice.total_invoice_amount).to eq('1319.05')
@@ -123,7 +123,7 @@ RSpec.describe PeoplesoftVoucher::AlmaXmlInvoice, type: :model do
     end
 
     context "invalid invoice" do
-      let(:xml_file) { File.new(Rails.root.join('spec', 'fixtures', 'invalid_invoice.xml')) }
+      let(:xml_file) { File.new(Hanami.app.root.join('spec', 'fixtures', 'invalid_invoice.xml')) }
 
       it "returns the invoice total" do
         expect(alma_invoice.invoice_currency).to eq('GBP')
