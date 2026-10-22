@@ -3,12 +3,13 @@ require 'rails_helper'
 
 RSpec.describe Gobi::IsbnFile, type: :model do
   include_context 'gobi_isbn'
+  before { Gobi::Slice.boot }
   let(:isbn_file) { described_class.new(temp_file: temp_file_one) }
   it 'can be processed' do
-    expect(isbn_file.process).to be
+    expect(isbn_file.process).to be_truthy
   end
 
-  it 'it writes the expected data to the file' do
+  it 'writes the expected data to the file' do
     isbn_file.process
     csv_file = CSV.read(new_csv_path, col_sep: "|")
     expect(csv_file.length).to eq(196)
@@ -32,8 +33,8 @@ RSpec.describe Gobi::IsbnFile, type: :model do
       end
       it 'creates a hash of all bib ids and accumulates associated data' do
         expect(isbn_file.bib_hash).to eq({ "99113270853506421" => {
-                                           "isbns": ["9781442214439"],
-                                           "loc_combos": ['recap$pa', 'firestone$stacks']
+                                           isbns: ["9781442214439"],
+                                           loc_combos: ['recap$pa', 'firestone$stacks']
                                          } })
       end
       it 'writes the bib_hash to a CSV file' do
@@ -55,8 +56,8 @@ RSpec.describe Gobi::IsbnFile, type: :model do
         isbn_file.build_bib_hash(row: row_one)
         isbn_file.build_bib_hash(row: row_two)
         expect(isbn_file.bib_hash).to eq({ "99113270853506421" => {
-                                           "isbns": ["9780195103489", "9780195103496"],
-                                           "loc_combos": ['recap$pa', 'firestone$stacks']
+                                           isbns: ["9780195103489", "9780195103496"],
+                                           loc_combos: ['recap$pa', 'firestone$stacks']
                                          } })
       end
       it 'writes the bib_hash to a CSV file' do
@@ -133,7 +134,7 @@ RSpec.describe Gobi::IsbnFile, type: :model do
   describe '#isbns_for_report' do
     it 'removes ten digit isbns that match a 13 digit isbn' do
       row = CSV::Row.new(['ISBN Valid'], ['0195103483; 9780195103489; 0195103491; 9780195103496'])
-      expect(isbn_file.isbns_for_report(row:)).to match_array(['9780195103489', '9780195103496'])
+      expect(isbn_file.isbns_for_report(row:)).to contain_exactly('9780195103489', '9780195103496')
     end
     it 'removes extra colons' do
       row = CSV::Row.new(['ISBN Valid'], ['9780195103489:'])

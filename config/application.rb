@@ -41,8 +41,6 @@ module IlsApps
     config.cache_store = :memory_store, { size: 64.megabytes }
 
     config.alma_sftp = config_for(:alma_sftp)
-    config.gobi_sftp = config_for(:gobi_sftp)
-    config.gobi_locations = config_for(:gobi_locations)
     config.oclc_sftp = config_for(:oclc_sftp)
     config.lc_call_slips = config_for(:lc_call_slips)
     config.peoplesoft = config_for(:peoplesoft)

@@ -94,7 +94,6 @@ Layout/EmptyLinesAroundAttributeAccessor:
     - 'app/models/alma_submit_collection/alma_submit_collection_job.rb'
     - 'app/models/aspace_version_control/get_eads_job.rb'
     - 'app/models/data_set_list.rb'
-    - 'app/models/gobi/isbn_file.rb'
     - 'app/models/marc_collection.rb'
     - 'app/models/oclc/data_sync_processing_file.rb'
     - 'app/models/oclc/lc_call_slips/record.rb'
@@ -285,14 +284,7 @@ Lint/SymbolConversion:
   Exclude:
     - 'app/models/alma_pod_records/alma_pod_sender.rb'
     - 'slices/air_table_staff/record_list.rb'
-    - 'spec/models/gobi/isbn_file_spec.rb'
     - 'spec/slices/air_table_staff/staff_directory_person_spec.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Lint/UselessNumericOperation:
-  Exclude:
-    - 'app/models/gobi/isbn_file.rb'
 
 # Offense count: 36
 # Configuration parameters: AllowedMethods, AllowedPatterns, CountRepeatedAttributes.
@@ -390,13 +382,6 @@ Performance/StringInclude:
   Exclude:
     - 'app/models/oclc/lc_call_slips/record.rb'
 
-# Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-# Configuration parameters: OnlySumOrWithInitialValue.
-Performance/Sum:
-  Exclude:
-    - 'app/models/gobi/isbn_file.rb'
-
 # Offense count: 4
 RSpec/AnyInstance:
   Exclude:
@@ -408,8 +393,6 @@ RSpec/Be:
   Exclude:
     - 'spec/models/alma_renew/renew_file_spec.rb'
     - 'spec/models/aspace2alma/resource_spec.rb'
-    - 'spec/models/gobi/isbn_file_spec.rb'
-    - 'spec/models/gobi/isbn_report_job_spec.rb'
     - 'spec/models/oclc/data_sync_exception_file_spec.rb'
     - 'spec/models/oclc/data_sync_exception_job_spec.rb'
     - 'spec/models/oclc/data_sync_processing_file_spec.rb'
@@ -521,7 +504,6 @@ RSpec/EmptyLineAfterSubject:
 # DisallowedExamples: works
 RSpec/ExampleWording:
   Exclude:
-    - 'spec/models/gobi/isbn_file_spec.rb'
     - 'spec/models/oclc/lc_call_slips/selector_file_spec.rb'
 
 # Offense count: 19
@@ -553,7 +535,6 @@ RSpec/ExpectChange:
 # This cop supports safe autocorrection (--autocorrect).
 RSpec/HooksBeforeExamples:
   Exclude:
-    - 'spec/models/gobi_sftp_spec.rb'
 
 # Offense count: 80
 # Configuration parameters: Max, AllowedIdentifiers, AllowedPatterns.
@@ -597,7 +578,6 @@ RSpec/LeakyConstantDeclaration:
 # This cop supports safe autocorrection (--autocorrect).
 RSpec/LetBeforeExamples:
   Exclude:
-    - 'spec/models/gobi_sftp_spec.rb'
     - 'spec/models/oclc_sftp_spec.rb'
 
 # Offense count: 15
@@ -608,7 +588,6 @@ RSpec/MatchArray:
     - 'spec/models/alma_renew/item_spec.rb'
     - 'spec/models/alma_submit_collection/alma_recap_file_list_spec.rb'
     - 'spec/models/aspace2alma/send_marcxml_to_alma_job_spec.rb'
-    - 'spec/models/gobi/isbn_file_spec.rb'
     - 'spec/models/oclc/lc_call_slips/record_spec.rb'
     - 'spec/models/oclc/lc_call_slips/selector_file_spec.rb'
     - 'spec/models/oclc/lc_call_slips/selector_spec.rb'
@@ -910,7 +889,6 @@ Style/GlobalStdStream:
 # AllowedReceivers: Thread.current
 Style/HashEachMethods:
   Exclude:
-    - 'app/models/gobi/isbn_file.rb'
     - 'app/models/oclc/data_sync_exception_file.rb'
 
 # Offense count: 1
@@ -971,13 +949,6 @@ Style/MixinUsage:
 
 # Offense count: 1
 # This cop supports safe autocorrection (--autocorrect).
-# Configuration parameters: AllowMethodComparison, ComparisonsThreshold.
-Style/MultipleComparison:
-  Exclude:
-    - 'app/models/gobi/isbn_file.rb'
-
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
 Style/NegatedIfElseCondition:
   Exclude:
     - 'app/mailers/finance_mailer.rb'
@@ -995,7 +966,6 @@ Style/OpenStructUse:
 Style/QuotedSymbols:
   Exclude:
     - 'slices/air_table_staff/record_list.rb'
-    - 'spec/models/gobi/isbn_file_spec.rb'
 
 # Offense count: 4
 # This cop supports unsafe autocorrection (--autocorrect-all).
@@ -1049,12 +1019,6 @@ Style/RedundantRegexpEscape:
   Exclude:
     - 'app/models/peoplesoft_voucher/alma_xml_fund_list.rb'
 
-# Offense count: 1
-# This cop supports safe autocorrection (--autocorrect).
-Style/RedundantStringEscape:
-  Exclude:
-    - 'app/models/gobi/isbn_file.rb'
-
 # Offense count: 3
 # This cop supports safe autocorrection (--autocorrect).
 # Configuration parameters: EnforcedStyle.
@@ -1062,12 +1026,6 @@ Style/RedundantStringEscape:
 Style/RescueStandardError:
   Exclude:
     - 'app/models/aspace_version_control/get_agents_job.rb'
-
-# Offense count: 1
-# This cop supports unsafe autocorrection (--autocorrect-all).
-Style/StringChars:
-  Exclude:
-    - 'app/models/gobi/isbn_file.rb'
 
 # Offense count: 8
 # This cop supports unsafe autocorrection (--autocorrect-all).

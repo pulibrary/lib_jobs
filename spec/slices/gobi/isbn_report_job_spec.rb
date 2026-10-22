@@ -3,6 +3,7 @@ require 'rails_helper'
 
 RSpec.describe Gobi::IsbnReportJob, type: :model, file_download: true do
   include_context 'sftp_gobi_isbn'
+  before { Gobi::Slice.boot }
   let(:isbn_job) { described_class.new }
 
   it_behaves_like 'a lib job'
@@ -36,6 +37,6 @@ RSpec.describe Gobi::IsbnReportJob, type: :model, file_download: true do
   it 'adds a count of ISBNs sent to the dataset' do
     isbn_job.run
     data_set = DataSet.last
-    expect(data_set.data).to be
+    expect(data_set.data).to be_truthy
   end
 end
