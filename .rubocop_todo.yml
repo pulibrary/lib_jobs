@@ -97,7 +97,6 @@ Layout/EmptyLinesAroundAttributeAccessor:
     - 'app/models/marc_collection.rb'
     - 'app/models/oclc/data_sync_processing_file.rb'
     - 'app/models/oclc/lc_call_slips/record.rb'
-    - 'app/models/report_uploader.rb'
 
 # Offense count: 3
 # This cop supports safe autocorrection (--autocorrect).
@@ -355,7 +354,7 @@ Naming/VariableNumber:
     - 'spec/models/oclc/lc_call_slips/selector_csv_spec.rb'
     - 'spec/models/oclc/lc_call_slips/selector_file_spec.rb'
     - 'spec/models/oclc/lc_call_slips/selector_job_spec.rb'
-    - 'spec/models/report_uploader_spec.rb'
+    - 'spec/slices/shared/report_uploader_spec.rb'
 
 # Offense count: 1
 # Configuration parameters: MinSize.
@@ -400,7 +399,6 @@ RSpec/Be:
     - 'spec/models/oclc/lc_call_slips/record_spec.rb'
     - 'spec/models/oclc/lc_call_slips/selector_csv_spec.rb'
     - 'spec/models/oclc/lc_call_slips/selector_spec.rb'
-    - 'spec/models/report_uploader_spec.rb'
     - 'spec/support/sftp_shared_examples.rb'
 
 # Offense count: 66
@@ -413,7 +411,6 @@ RSpec/BeEq:
     - 'spec/models/marc_collection_spec.rb'
     - 'spec/models/oclc/lc_call_slips/record_spec.rb'
     - 'spec/models/oclc/lc_call_slips/selector_spec.rb'
-    - 'spec/models/report_uploader_spec.rb'
     - 'spec/models/user_spec.rb'
     - 'spec/slices/alma_bib_norm/alma_bib_norm_spec.rb'
     - 'spec/slices/oclc/lc_call_slips/keyword_field_spec.rb'
@@ -591,7 +588,6 @@ RSpec/MatchArray:
     - 'spec/models/oclc/lc_call_slips/record_spec.rb'
     - 'spec/models/oclc/lc_call_slips/selector_file_spec.rb'
     - 'spec/models/oclc/lc_call_slips/selector_spec.rb'
-    - 'spec/models/report_uploader_spec.rb'
 
 # Offense count: 9
 # Configuration parameters: EnforcedStyle.
@@ -625,7 +621,6 @@ RSpec/NamedSubject:
     - 'spec/models/oclc/lc_call_slips/all_relevant_job_spec.rb'
     - 'spec/models/oclc/lc_call_slips/selector_csv_spec.rb'
     - 'spec/models/oclc_sftp_spec.rb'
-    - 'spec/models/report_uploader_spec.rb'
     - 'spec/models/user_spec.rb'
 
 # Offense count: 62
@@ -709,7 +704,6 @@ RSpec/StubbedMock:
 RSpec/SubjectDeclaration:
   Exclude:
     - 'spec/models/oclc/lc_call_slips/selector_csv_spec.rb'
-    - 'spec/models/report_uploader_spec.rb'
 
 # Offense count: 2
 RSpec/UnspecifiedException:
@@ -928,7 +922,6 @@ Style/ItBlockParameter:
 Style/KeywordParametersOrder:
   Exclude:
     - 'app/models/alma_submit_collection/marc_s3_writer.rb'
-    - 'app/models/report_uploader.rb'
 
 # Offense count: 1
 # This cop supports unsafe autocorrection (--autocorrect-all).
