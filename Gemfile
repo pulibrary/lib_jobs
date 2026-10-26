@@ -23,7 +23,7 @@ gem 'dry-operation'
 gem 'dry-types'
 gem 'dry-validation'
 gem 'ed25519', '~> 1.4'
-gem 'faraday', '~> 2.14'
+gem 'faraday', '~> 2.15'
 gem 'flipflop', git: 'https://github.com/voormedia/flipflop.git', ref: '0d70d8e33483a9c0282ed8d6bca9c5ccd61e61e8'
 gem 'git'
 gem 'hanami', require: false
