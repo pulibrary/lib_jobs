@@ -90,15 +90,15 @@ every :month, at: '10:00 pm', roles: [:cron_prod2] do
   rake "lib_jobs:pull_and_send_agents"
 end
 
-# Run every day except Saturday (the aspace maintenance window) at 10:30am UTC (6:30 EDT / 5:30 EST)
-every '30 10 * * 0-5', roles: [:cron_prod2] do
-  rake "lib_jobs:aspace2alma"
-end
+# # Run every day except Saturday (the aspace maintenance window) at 10:30am UTC (6:30 EDT / 5:30 EST)
+# every '30 10 * * 0-5', roles: [:cron_prod2] do
+#   rake "lib_jobs:aspace2alma"
+# end
 
-# Run on production only on Saturday (ASpace maintenance window)
-every :saturday, at: '10:30 am' do
-  rake "lib_jobs:aspace2alma:remove_stale_file"
-end
+# # Run on production only on Saturday (ASpace maintenance window)
+# every :saturday, at: '10:30 am' do
+#   rake "lib_jobs:aspace2alma:remove_stale_file"
+# end
 
 # Run every evening at 3:30am UTC (11:30pm EDT / 10:30pm EST), avoiding the
 # collection-level aspace2alma run in the mornings
