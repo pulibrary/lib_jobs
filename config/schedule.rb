@@ -102,10 +102,9 @@ end
 
 # Run every evening at 3:30am UTC (11:30pm EDT / 10:30pm EST), avoiding the
 # collection-level aspace2alma run in the mornings
-# remove comment when we're ready:
-# every 1.day, at: '3:30 am', roles: [:cron_prod2] do
-#   rake "lib_jobs:aspace2alma:components"
-# end
+every 1.day, at: '3:30 am', roles: [:cron_prod2] do
+  rake "lib_jobs:aspace2alma:components"
+end
 
 # Run on production every Thursday at 3am EST or 4am EDT
 # every :thursday, at: '8:00 am', roles: [:cron_prod2] do # The server is in UTC, so that is 8:00 UTC
