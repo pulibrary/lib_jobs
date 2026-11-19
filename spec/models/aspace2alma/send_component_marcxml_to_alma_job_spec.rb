@@ -218,6 +218,18 @@ RSpec.describe Aspace2alma::SendComponentMarcxmlToAlmaJob do
       end
     end
 
+    context 'when a flagged collection has been suppressed' do
+      let(:flagged_resource) do
+        { 'uri' => '/repositories/5/resources/3950', 'user_defined' => { 'boolean_1' => true }, 'suppressed' => true }
+      end
+
+      it 'does not look for its aos' do
+        job.run
+
+        expect(client).not_to have_received(:get).with('/repositories/5/search', query: search_query)
+      end
+    end
+
     context 'when no aos have changed' do
       let(:search_results) { { 'this_page' => 1, 'last_page' => 1, 'results' => [] } }
 

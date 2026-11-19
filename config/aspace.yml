@@ -13,6 +13,21 @@ default: &default
   # when Alma imports the component export each day
   component_export_pickup_time: '11:00'
   component_export_pickup_time_zone: 'America/New_York'
+  # call numbers (099 $a) the collection-level export never sends to Alma, though they stay
+  # published and unsuppressed in ASpace.
+  # Collections that have moved to Alma management don't belong here:
+  # archivists unpublish and then suppress them in ASpace, and the export skips suppressed resources.
+  # Each entry is a regular expression that has to match the whole call number.
+  alma_export_excluded_call_numbers:
+    # miscellaneous collections whose components go to Alma individually through the component export
+    - 'C0140'
+    - 'C1771'
+    - 'AC214'
+    - 'AC364'
+    # the data of record lives in Alma and must not flow back
+    - 'LAE\d+'
+    - 'SPA\d+'
+    - 'POR\d+'
   repos:
     3: "eads/mudd/publicpolicy"
     4: "eads/mudd/univarchives"

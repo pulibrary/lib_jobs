@@ -6,6 +6,7 @@ RSpec.describe Aspace2alma::SendMarcxmlToAlmaJob do
 
   let(:client) { instance_double(ArchivesSpace::Client) }
   let(:fixture_xml) { file_fixture("aspace2alma/#{fixture}.xml").read }
+  let(:suppressed) { false }
   let(:doc) do
     job.run
     Nokogiri::XML(File.read('MARC_out.xml'))
@@ -34,6 +35,8 @@ RSpec.describe Aspace2alma::SendMarcxmlToAlmaJob do
     allow(job).to receive(:aspace_login) { job.instance_variable_set(:@client, client) }
     allow(job).to receive(:get_resource_uris_for_all_repos).and_return([resource_uri])
     allow(job).to receive(:sleep)
+    allow(client).to receive(:get).with(resource_uri)
+                                  .and_return(instance_double(ArchivesSpace::Response, parsed: { 'suppressed' => suppressed }))
     allow(client).to receive(:get).with("#{resource_uri.sub('resources', 'resources/marc21')}.xml")
                                   .and_return(instance_double(ArchivesSpace::Response, body: fixture_xml))
     allow(client).to receive(:get).with(%r{top_containers/search}, anything)
@@ -103,6 +106,52 @@ RSpec.describe Aspace2alma::SendMarcxmlToAlmaJob do
 
       expect(tag655['ind2']).to eq('7')
       expect(subfields(tag655).last).to eq(%w[2 aat])
+    end
+  end
+
+  context 'with a collection that should stay out of Alma' do
+    let(:fixture) { 'marc_c1291' }
+    let(:resource_uri) { '/repositories/5/resources/3405' }
+    let(:log) { File.read('log_out.txt') }
+
+    before { doc }
+
+    context 'when it is suppressed in ArchivesSpace' do
+      let(:suppressed) { true }
+
+      it 'leaves it out without fetching its MARC or looking up its containers' do
+        expect(doc.xpath('//marc:record')).to be_empty
+        expect(client).not_to have_received(:get).with('/repositories/5/resources/marc21/3405.xml')
+        expect(client).not_to have_received(:get).with(%r{top_containers/search}, anything)
+        expect(log).to include('Skipped /repositories/5/resources/3405: suppressed in ArchivesSpace')
+      end
+    end
+
+    context 'when its call number is excluded in config/aspace.yml' do
+      let(:fixture_xml) { super().sub('<subfield code="a">C1291</subfield>', '<subfield code="a">LAE123</subfield>') }
+
+      it 'leaves it out without looking up its containers' do
+        expect(doc.xpath('//marc:record')).to be_empty
+        expect(client).not_to have_received(:get).with(%r{top_containers/search}, anything)
+        expect(log).to include('Skipped /repositories/5/resources/3405: LAE123 is excluded in config/aspace.yml')
+      end
+    end
+
+    context 'when its call number only resembles an excluded one' do
+      let(:fixture_xml) { super().sub('<subfield code="a">C1291</subfield>', '<subfield code="a">C01400</subfield>') }
+
+      it 'exports it' do
+        expect(doc.xpath('//marc:record').size).to eq(1)
+      end
+    end
+
+    context 'when it has no ark' do
+      let(:fixture_xml) { super().sub(%r{<datafield ind1="4" ind2="2" tag="856">.*?</datafield>}m, '') }
+
+      it 'leaves it out' do
+        expect(doc.xpath('//marc:record')).to be_empty
+        expect(log).to include('Skipped /repositories/5/resources/3405: C1291 has no 856 (ark)')
+      end
     end
   end
 
@@ -322,9 +371,10 @@ RSpec.describe Aspace2alma::SendMarcxmlToAlmaJob do
     end
   end
 
-  context 'with C0776, a collection excluded by its identifier' do
+  context 'with C0776, a collection suppressed after moving to Alma management' do
     let(:fixture) { 'marc_c0776' }
     let(:resource_uri) { '/repositories/5/resources/3991' }
+    let(:suppressed) { true }
 
     it 'leaves it out of the file' do
       expect(doc.xpath('//marc:record')).to be_empty

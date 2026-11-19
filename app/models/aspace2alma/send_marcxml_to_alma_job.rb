@@ -61,6 +61,14 @@ module Aspace2alma
     def append_record(resource, file, log_out, barcode_duplicate_check)
       my_resource = Resource.new(resource, @client)
 
+      # skip collections Alma shouldn't get before looking up their containers and barcodes
+      reason = exclusion_reason(my_resource)
+      if reason
+        log_out.puts "Skipped #{resource}: #{reason} at #{Time.zone.now}"
+        log_out.flush
+        return
+      end
+
       doc = my_resource.marc_xml
 
       # set up variables (these may return a sequence)
@@ -230,14 +238,32 @@ module Aspace2alma
       sleep(0.25)
 
       # append record to file
-      # the unless clause addresses #186, #268, #284, #548, #553
-      file << doc.at_xpath('//marc:record') unless tag099_a.content =~ /^(C0140|C1771|AC214|AC364|C0744.06|C0776|C0935|C1296|WC059|RBD1|RBD1.1|C0723.1-47|LAE\d+|SPA\d+|POR\d+)$/ || tag856.nil?
+      file << doc.at_xpath('//marc:record')
       file.flush
       log_out.flush
     end
     # rubocop:enable Metrics/AbcSize
     # rubocop:enable Metrics/CyclomaticComplexity
     # rubocop:enable Metrics/PerceivedComplexity
+
+    # why a collection stays out of Alma, if it does:
+    # - suppressed: it has moved to Alma management (archivists unpublish, then suppress)
+    # - excluded call number: e.g. the data of record lives in Alma (see config/aspace.yml)
+    # - no 856: it has no ark
+    def exclusion_reason(my_resource)
+      return 'suppressed in ArchivesSpace' if my_resource.suppressed?
+
+      call_number = my_resource.tag099_a&.content&.squish
+      return "#{call_number} is excluded in config/aspace.yml" if excluded_call_numbers.match?(call_number.to_s)
+      "#{call_number} has no 856 (ark)" if my_resource.tag856.nil?
+    end
+
+    # never matches if the list is empty
+    def excluded_call_numbers
+      @excluded_call_numbers ||= Regexp.union(
+        Array(Rails.application.config.aspace.alma_export_excluded_call_numbers).map { |pattern| /\A(?:#{pattern})\z/ }
+      )
+    end
 
     # authority subfields and LC-coded sources, as in the component export
     def normalize_authority_subfields(doc)
