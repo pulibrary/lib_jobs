@@ -61,14 +61,15 @@ module Aspace2alma
       end
     end
 
-    # fetch all resource records and filter on the flag
+    # fetch all resource records and filter on the flag;
+    # suppressed collections have moved to Alma management, even if still flagged
     def flagged_resources(repo_uri:, repo_id:)
       resource_ids = with_retries(ASPACE_ERRORS, "listing resources in #{repo_uri}") do
         @client.get("#{repo_uri}/resources", query: { all_ids: true }).parsed
       end
 
       resolved_objects(repo_id, resource_ids, 'resources', [])
-        .select { |resource| resource.dig('user_defined', flag_field) }
+        .select { |resource| resource.dig('user_defined', flag_field) && !resource['suppressed'] }
     end
 
     # changed since then?

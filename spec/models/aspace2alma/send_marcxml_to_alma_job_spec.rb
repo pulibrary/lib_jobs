@@ -36,6 +36,8 @@ RSpec.describe Aspace2alma::SendMarcxmlToAlmaJob do
   before do
     Timecop.freeze(frozen_time)
     stub_aspace_login
+    stub_request(:get, %r{\Ahttps://example.com/staff/api/repositories/\d+/resources/\d+\z})
+      .to_return(status: 200, body: { suppressed: false }.to_json, headers: { 'Content-Type' => 'application/json' })
     allow(Net::SFTP).to receive(:start).and_yield(sftp_session)
     allow(Aspace2alma::AlmaDuplicateBarcodeCheck).to receive(:new).and_return(instance_double(Aspace2alma::AlmaDuplicateBarcodeCheck, duplicate?: true))
     allow(sftp_session).to receive(:stat)

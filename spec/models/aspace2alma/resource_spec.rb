@@ -25,6 +25,23 @@ RSpec.describe Aspace2alma::Resource do
     end
   end
 
+  describe '#suppressed?' do
+    def stub_resource_json(json)
+      stub_request(:get, "https://example.com/staff/api/repositories/3/resources/1511")
+        .and_return(status: 200, body: json.to_json, headers: { 'Content-Type' => 'application/json' })
+    end
+
+    it 'is true for a suppressed resource' do
+      stub_resource_json(suppressed: true)
+      expect(our_resource.suppressed?).to be true
+    end
+
+    it 'is false for a resource that is not suppressed' do
+      stub_resource_json(suppressed: false)
+      expect(our_resource.suppressed?).to be false
+    end
+  end
+
   describe '#marc_record' do
     it 'gets a marc record from the marc_uri' do
       expect(our_resource.marc_xml).to be_an_instance_of(Nokogiri::XML::Document)

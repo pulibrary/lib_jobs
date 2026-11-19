@@ -17,6 +17,11 @@ module Aspace2alma
       @marc_xml ||= Nokogiri::XML(aspace_client.get(marc_uri).body)
     end
 
+    # read from the record itself: the search index lags behind (un)suppressing
+    def suppressed?
+      aspace_client.get(resource_uri).parsed['suppressed'] == true
+    end
+
     def tag008
       @tag008 ||= marc_xml.at_xpath('//marc:controlfield[@tag="008"]')
     end
