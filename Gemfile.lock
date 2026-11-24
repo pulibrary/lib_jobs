@@ -312,7 +312,7 @@ GEM
       tilt (~> 2.3)
       zeitwerk (~> 2.6)
     hashdiff (1.2.2)
-    hashie (5.2.0)
+    hashie (6.0.0)
       logger
     health-monitor-rails (12.9.0)
       railties (>= 6.1)
@@ -393,7 +393,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.19.7-x86_64-linux-gnu)
       racc (~> 1.4)
-    omniauth (2.3.1)
+    omniauth (2.4.1)
       hashie (>= 3.5.2)
       logger
       rack (>= 2.2.8)
@@ -427,8 +427,8 @@ GEM
     puma (8.0.2)
       nio4r (~> 2.0)
     racc (1.8.1)
-    rack (3.2.8)
-    rack-protection (4.2.1)
+    rack (3.2.9)
+    rack-protection (4.2.2)
       base64 (>= 0.1.0)
       logger (>= 1.6.0)
       rack (>= 3.0.0, < 4)
